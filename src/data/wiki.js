@@ -15,7 +15,7 @@ export const WIKI = [
     like: "像你出门前写给家里人的一张便条：「快递来了（什么时候），帮我签收，拆开看看有没有压坏，放到书桌上（做什么）。」写一次，他照着一件一件做，你不用每次再交代。宏就是这样一张便条，只是读它的是你的 Mac，而且它可以一天照做一百遍也不嫌烦。",
     here: [
       "官方的说法是，一个宏住在某个[宏组](/wiki/macro-group/)里，由一组[触发器](/wiki/trigger/)和一串[动作](/wiki/action/)组成：触发器决定它什么时候跑，动作决定它跑起来做什么。新建一个宏，点宏列表下面的 **+** 按钮；也可以点 **⊕**，它会带你起个名字、挑个宏组、选一个常用的触发器和动作，之后都还能改。建好的宏马上就能用，不用停下编辑，也不用退出编辑器。见官方的 [Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start) 和 [Macros](https://wiki.keyboardmaestro.com/manual/Macros)。",
-      "可是光建好还不够，一个宏要真的被触发，得三样都对：宏本身开着，它所在的宏组也开着，而且宏组此刻是生效的。比如这个宏组只在 Mail 里生效，你现在却在 Safari 里，那它就暂时不响应。宏和宏组下面的 **✓** 按钮就是开关。官方专门写了一页讲这件事，见 [Macro Activation](https://wiki.keyboardmaestro.com/Macro_Activation)。",
+      "可是光建好还不够，一个宏要真的被触发，得三样都对：宏本身开着，它所在的宏组也开着，而且宏组此刻是生效的。比如这个宏组只在 Mail 里生效，你现在却在 Safari 里，那它就暂时不响应。宏列表和宏组列表下面的 **✓** 按钮就是开关。官方专门写了一页讲这件事，见 [Macro Activation](https://wiki.keyboardmaestro.com/Macro_Activation)。",
     ],
     myths: [
       "「改完宏得记得点保存。」Keyboard Maestro 里根本没有保存这一步，你改了什么，几秒以后它自己就存好了（[Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)）。",
@@ -44,12 +44,12 @@ export const WIKI = [
     one: "宏组是装宏的文件夹，同时也管着里面的宏什么时候生效：在所有 App 里、只在某几个 App 里，或者要你先按一下才生效。",
     like: "像学校里各间教室的规矩。音乐教室里可以敲鼓，到了图书馆就不行；同一件事，换个地方就不算数。宏组就是给一批宏划好「在哪间教室里算数」，比如一组只在 Mail 里用的回信片段，出了 Mail 就当它们不存在，你在别处按同样的键也不会误触发。",
     here: [
-      "官方说宏组像宏的文件夹，每个宏组都控制着它里面的宏什么时候生效。最常用的是按 App 来划：宏组默认在所有 App 里都可用；改成 **Available in these applications:**（只在这些 App 里可用），宏就只在你列出的 App 里生效；改成 **Available except in these applications:**（除了这些 App 都可用），就能让它在游戏这类 App 里别捣乱。还可以按窗口标题再细分。新建宏组点宏组列表下面的 **+**。Keyboard Maestro 自带一个全局宏组（Global Macro Group），新宏默认放在这里，它不能删、不能改名，也不能关。见 [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)。",
-      "宏组还能「按一下才生效」。比如设成 **Activated for one action when:**（触发一次、只管一个动作），再给宏组配一个热键 ⌃⌘L（Control、Command 加 L）：按下它，组里的宏才生效，这时再按一个字母，M 打开 Mail、S 打开 Safari，按完任何一个键宏组就又失效了。这样组里的宏可以用很简单的单个字母，平时打字也不会撞上。宏组还可以显示成浮动的[面板](/wiki/palette/)，或者放进菜单栏。",
+      "官方说宏组像宏的文件夹，每个宏组都控制着它里面的宏什么时候生效。最常用的是按 App 来划：宏组默认在所有 App 里都可用；改成 **Available in these applications:**（只在这些 App 里可用），宏就只在你列出的 App 里生效；改成 **Available except in these applications:**（除了这些 App 都可用），就能让它在游戏这类 App 里别捣乱。还可以按窗口标题再细分。新建宏组点宏组列表下面的 **+**。Keyboard Maestro 自带一个全局宏组（Global Macro Group），它不能删、不能改名，也不能关。见 [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)。",
+      "宏组还能「按一下才生效」。比如设成 **Activated for one action when:**（按一下激活，只管一个动作），再给宏组配一个热键 ⌃⌘L（Control、Command 加 L）：按下它，组里的宏才生效，这时再按一个字母，M 打开 Mail、S 打开 Safari，按完任何一个键宏组就又失效了。这样组里的宏可以用很简单的单个字母，平时打字也不会撞上。宏组还可以显示成浮动的[面板](/wiki/palette/)，或者放进菜单栏。",
     ],
     myths: [
       "「宏组只是用来整理的文件夹。」它还是开关。一个宏组关了，或者此刻没生效，它里面的宏一个都触发不了，宏自己开着也没用（[Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。",
-      "「想让全局宏组里的几个宏只在某个 App 里生效，改一下全局宏组的设置就行。」全局宏组改不了这些。官方的办法是新建一个宏组，设好只在那个 App 里可用，再把这几个宏拖进去。",
+      "「想让全局宏组里的几个宏只在某个 App 里生效，就得去动全局宏组。」不用动它。官方的办法是新建一个宏组，设好只在那个 App 里可用，再把这几个宏拖进去（[Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。",
     ],
     see: ["macro", "palette", "smart-group"],
     step: 1,
@@ -92,7 +92,7 @@ export const WIKI = [
     like: "像墙上的电灯开关，哪个开关管哪盏灯，按一下就亮。好的开关装在你闭着眼也摸得到的地方；热键也一样，挑一套自己记得住的规律，比记一堆零零散散的组合省心得多。",
     here: [
       "热键可以是字母、数字、符号或功能键，通常配上一个或几个修饰键：⌃（Control）、⌥（Option）、⇧（Shift）、⌘（Command）。小键盘上的数字和主键盘上的数字算不同的键。除了按下就触发，还可以设成松开时、长按、按住期间反复触发，或者连按两下、三下才触发。单独一个修饰键不能当热键，Fn 也不算修饰键。见 [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key)。",
-      "不管设成哪种，那个键都会被吞掉，没法再做它原来的事。所以官方建议热键要有规律，比如 Control 加字母表示插入一段文字，Control 加 Option 加字母表示打开 App，还要避开常用的命令键和系统自带的快捷键。几个宏用了同一个热键也不要紧，按下去会弹出冲突面板（Conflict Palette），按数字或者打首字母选一个就行。见 [How do I](https://wiki.keyboardmaestro.com/manual/How_do_I)。",
+      "不管设成哪种，那个键都会被吞掉，没法再做它原来的事。所以官方建议热键要有规律，比如 Control 加字母表示插入一段文字，Control 加 Option 加字母表示打开 App，还要避开常用的命令键和系统自带的快捷键。几个宏用了同一个热键也不要紧，按下去会弹出冲突面板（Conflict Palette），按数字或者打首字母选一个就行。见 [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity) 和 [How do I](https://wiki.keyboardmaestro.com/manual/How_do_I)。",
     ],
     myths: [
       "「把 ⌘C 设成热键，复制照样能用。」不能。热键会盖过 App 菜单里的快捷键，被吞掉的 ⌘C 不会再去复制。另外，要是别的 App 也注册了同一个热键，按下去两边都会动，所以==挑一组少见的组合，比如 ⌃⌥⌘ 加一个字母==。",
@@ -122,7 +122,7 @@ export const WIKI = [
     like: "像冰箱门上贴的一排便签：「买菜」「交电费」「给妈妈打电话」，一抬眼就看到，不用记在脑子里。面板也是把宏摆在你眼前，点哪个跑哪个。",
     here: [
       "官方说有四种面板。一种是全局宏面板：给宏加上 **Global Macro Palette**（全局宏面板）触发器，它就出现在这块浮动面板上，只要有一个这样的宏正生效，面板就会出现。每个宏组也可以显示成自己的面板，比如只在某个 App 在最前面时才出来。另外两种是列出正在运行的 App 的 **Applications Palette**（应用程序面板），和热键撞车时弹出来让你挑的 **Conflict Palette**（冲突面板）。见 [Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)。",
-      "宏组面板怎么出现，在宏组设置里挑：一直显示，按一下热键才显示、再按一下收起，或者只显示到你点了一个宏为止。面板上的顺序，可以在宏的名字前面加两个字符和一个右括号来排，比如 `01)`，显示时这串前缀会被去掉。样式、透明度、列数、要不要显示图标，也都能调。",
+      "宏组面板怎么出现，在宏组设置里挑：按一下宏组的热键才显示，用完一个宏就收起；按一下显示、再按一下收起；或者一开始就显示着，等你按一下热键才收起。面板上的顺序，可以在宏的名字前面加两个字符和一个右括号来排，比如 `01)`，显示时这串前缀会被去掉。样式、透明度、列数、要不要显示图标，也都能调。",
     ],
     myths: [
       "「全局宏面板被我关掉了，再也找不回来了。」关掉以后，要等引擎重新启动，或者用 **Toggle Global Macro Palette**（显示或隐藏全局宏面板）这类动作，它才会再出来（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Global_Floating_Palette_has_disappeared)）。",
@@ -183,7 +183,7 @@ export const WIKI = [
     one: "大多数要填数字的格子里，可以直接写算式，还能用函数，比如「最前面那个窗口宽度的一半」。宏跑到那一步时才算出结果。",
     like: "像你跟店员说「两箱水，每箱 24 瓶」，不用自己先算成 48。你把算法告诉 Keyboard Maestro，它在要用的那一刻替你算：换了一块屏幕、窗口挪了位置，结果也跟着变。",
     here: [
-      "官方说几乎所有数字格都支持计算，比如暂停的秒数可以写成 `60*Minutes`，Minutes 是一个变量。数字格一开始很小，旁边带着上下小箭头，你一打数字以外的东西它就会变宽，编辑时角上有个小小的 C。算式支持括号、优先级和十六进制，还有一大堆内置[函数](https://wiki.keyboardmaestro.com/Functions)：`SCREEN()` 拿屏幕的位置和大小，`WINDOW()` 拿窗口的，`NOW()` 拿当前时间。用 **Edit ▸ Insert Function**（插入函数）菜单挑，按住 ⌥（Option）选会打开那个函数的帮助。见 [Calculations](https://wiki.keyboardmaestro.com/manual/Calculations) 和 [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)。",
+      "官方说几乎所有数字格都支持计算，比如暂停的秒数可以写成 `60*Minutes`，Minutes 是一个变量。数字格一开始很小，旁边带着上下小箭头，你一打数字以外的东西它就会变宽，编辑的时候格子里会出现一个小小的 C，看到它就知道这一格能写算式。算式支持括号、优先级和十六进制，还有一大堆内置[函数](https://wiki.keyboardmaestro.com/Functions)：`SCREEN()` 拿屏幕的位置和大小，`WINDOW()` 拿窗口的，`NOW()` 拿当前时间。用 **Edit ▸ Insert Function**（插入函数）菜单挑，按住 ⌥（Option）选会打开那个函数的帮助。见 [Calculations](https://wiki.keyboardmaestro.com/manual/Calculations) 和 [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)。",
       "逗号在算式里有专门的用处：一串用逗号隔开的数字可以当成数组，窗口的位置和大小（左、上、宽、高）就是这么存的，`Frame[3]` 取第三个数，也就是宽。比较的结果是 0 或 1，所以算式也能拿来当[条件](/wiki/condition/)。",
     ],
     myths: [
@@ -199,11 +199,11 @@ export const WIKI = [
     like: "像出门前看一眼窗外：下雨就带伞，不下就不带。条件就是看的那一眼，**If Then Else**（如果……就……否则……）就是「带不带伞」的那个决定。",
     here: [
       "条件自己不做事，它总是放在流程控制的动作里用，比如 **If Then Else**、**Pause Until**（暂停到……为止）、**Until**（直到）、**While**（当……时）。这些动作开头都要你选怎么组合这组条件：任意一个成立、全部成立、一个都不成立，或者不全成立。下面再一条一条加具体的条件。见 [Conditions](https://wiki.keyboardmaestro.com/manual/Conditions)。",
-      "能判断的东西很多：App、窗口、菜单项、按键和修饰键、剪贴板、变量、文字、算式、文件和路径、插着的磁盘、USB 设备、无线网络、屏幕上能不能[找到某张图](/wiki/found-image/)、OCR 认出来的字、某个像素的颜色，还有一段脚本的结果。完整的清单在官方的 [Conditions](https://wiki.keyboardmaestro.com/Conditions) 页；加条件时按住 ⌥（Option）选，会打开那个条件的帮助。",
+      "能判断的东西很多：App、窗口、菜单项、按键和修饰键、剪贴板、变量、文字、算式、文件和路径、插着的磁盘、USB 设备、无线网络、屏幕上能不能[找到某张图](/wiki/found-image/)、OCR 认出来的字、某个像素的颜色，还有一段脚本的结果。完整的清单在官方的 [Conditions](https://wiki.keyboardmaestro.com/Conditions) 页。",
     ],
     myths: [
       "「一条条件都没加，就当它成立吧。」恰恰相反。官方特别强调，++一组条件一条都没有时，动作什么都不执行++，**If Then Else** 两边都不走；只有 **Until** 例外，会先执行一遍。",
-      "「等某个窗口出来，加个固定几秒的 **Pause** 就好。」官方给了两种办法：固定的 **Pause**，或者 **Pause Until** 等一个条件满足再往下。要等的东西能用条件说清楚时，后者不用你去猜该等几秒（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。",
+      "「等某个窗口出来，加个固定几秒的 **Pause**（暂停）就好。」官方给的办法里，有固定时长的 **Pause**，也有 **Pause Until**，等一个条件满足了再往下走。要等的东西能用条件说清楚时，后者不用你去猜该等几秒（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。",
     ],
     see: ["variable", "calculation", "found-image"],
     step: 4,
@@ -230,11 +230,11 @@ export const WIKI = [
     one: "系统的剪贴板只记得最后一次复制的东西。Keyboard Maestro 替你把复制过的都记下来，默认最多 200 条，过后还能挑一条再贴出来。",
     like: "像收银台下面那一叠小票存根。顾客说「刚才那笔再帮我看一下」，你不用重新算，翻出存根就行。复制了新东西，旧的不会消失，只是被压到了下面一层。",
     here: [
-      "每次你在任何 App 里复制，Keyboard Maestro Engine 都会存一份。要把以前的贴出来，打开剪贴板历史切换器（Clipboard History Switcher），默认热键是 ⌃⇧⌘V（Control、Shift、Command 加 V）。这个宏放在 Keyboard Maestro 自带的 **Switcher Group** 宏组里，热键可以改。在切换器里双击一条，或者选中按回车，就贴到当前位置；按住 ⇧（Shift）是贴成纯文本，按住 ⌥（Option）只放进剪贴板、不贴。⌘ 加数字直接贴第几条。见 [Clipboard History Switcher](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)。",
-      "切换器里还能搜索、只看图片或者收藏过的条目、把几条合成一条一起贴。要记多少条，可以在偏好设置里改；某些 App 的复制你不想记，在偏好设置的 **Excluded**（排除）那一栏里把它排除掉。官方的 [Clipboards](https://wiki.keyboardmaestro.com/Clipboards) 页把 Keyboard Maestro 的几种剪贴板放在一起讲了。",
+      "每次你在任何 App 里复制，Keyboard Maestro Engine 都会存一份。要把以前的贴出来，打开剪贴板历史切换器（Clipboard History Switcher），默认热键是 ⌃⇧⌘V（Control、Shift、Command 加 V）。这个宏放在 Keyboard Maestro 自带的 **Switcher Group**（切换器组）这个宏组里，热键可以改。在切换器里双击一条，或者选中按回车，就贴到当前位置；按住 ⇧（Shift）是贴成纯文本，按住 ⌥（Option）只放进剪贴板、不贴。⌘ 加数字直接贴第几条。见 [Clipboard History Switcher](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)。",
+      "切换器里还能搜索、只看图片或者收藏过的条目、把几条合成一条一起贴。要记多少条也能改，不过这是个隐藏设置，偏好设置窗口里找不到，得在终端里敲一行命令，官方的 [Preferences](https://wiki.keyboardmaestro.com/manual/Preferences#Clipboard) 页写了怎么改。某些 App 的复制你不想记，在偏好设置的 **Excluded**（排除）那一栏里把它排除掉。官方的 [Clipboards](https://wiki.keyboardmaestro.com/Clipboards) 页把 Keyboard Maestro 的几种剪贴板放在一起讲了。",
     ],
     myths: [
-      "「重启以后，剪贴板历史都还在。」要看设置。官方说，只有在偏好设置的 **General**（通用）里打开了保存剪贴板历史的那一项，引擎退出再启动以后历史才会还原，不然每次退出引擎都会清空。",
+      "「重启以后，剪贴板历史都还在。」要看设置。官方说，只有在偏好设置的 **General**（通用）里打开了 **Save Clipboard History Between Launches**（重新启动后保留剪贴板历史），引擎退出再启动以后历史才会还原，不然每次退出引擎都会清空。",
       "「复制过的密码，也会一直留在历史里。」Keyboard Maestro 认为像密码的条目，会被遮住，排到第十条以后就删掉，也不会存到硬盘上；按住 ⌥（Option）点一下才显示。这个识别在偏好设置的 **General** 里也能关。",
     ],
     see: ["named-clipboard", "status-menu", "variable"],
@@ -245,7 +245,7 @@ export const WIKI = [
     one: "命名剪贴板是起了名字、长期存着的一份内容，文字、带格式的字和图片都行。下一次复制冲不掉它，重启以后也还在。",
     like: "像抽屉里分好格的文件袋：「公司 Logo」「签名档」「常用回复」。桌面上（系统剪贴板）的东西随手就被换掉，抽屉里的不会；要用的时候，抽出来摆到桌面上就行。",
     here: [
-      "官方特别说明，命名剪贴板不是真的剪贴板，更像一个存东西的地方：存一份系统剪贴板（或者别的命名剪贴板）的副本，一直留着，直到你改掉或删掉。它能存变量存不了的东西，比如带格式的签名档、图片。在偏好设置的 **Clipboards**（剪贴板）那一栏里点 **+** 新建，右上角填名字，下面那一大块粘贴内容。见 [Clipboards](https://wiki.keyboardmaestro.com/Clipboards)。",
+      "官方特别说明，命名剪贴板不是真的剪贴板，更像一个存东西的地方：存一份系统剪贴板（或者别的命名剪贴板）的副本，一直留着，直到你改掉或删掉。它能存变量存不了的东西，比如带格式的签名档、图片。在偏好设置的 **Clipboards**（剪贴板）那一栏里点 **+** 新建，右上角那一行填名字，右下那一大块粘贴内容。见 [Clipboards](https://wiki.keyboardmaestro.com/Clipboards)。",
       "在宏里用它，有 **Copy to Named Clipboard**（复制到命名剪贴板）和 **Paste from Named Clipboard**（从命名剪贴板粘贴）这类动作。平时手动用，打开命名剪贴板切换器（Named Clipboard Switcher），选中一格，把当前选中的内容剪切或复制进去，或者把它贴出来，按住 ⇧（Shift）贴成纯文本。见 [Named Clipboard Switcher](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)。",
     ],
     myths: [
@@ -263,10 +263,10 @@ export const WIKI = [
     like: "像请邻居帮你照看房子：给他大门钥匙，他能进屋浇花；想让他顺便取信，还得把信箱钥匙也给他。macOS 把每一样事都分成单独的一把钥匙，Keyboard Maestro 要做哪件事，就得拿到哪一把。",
     here: [
       "官方说，他们收到的支持邮件里大约八成和苹果的安全权限有关。Keyboard Maestro 的偏好设置里有一个 **Security**（安全）栏，把要紧的几项权限列在一起，告诉你开了没有，还能替你去向系统申请；把那里的都开好，很多问题自己就没了。辅助功能在 **系统设置 ▸ 隐私与安全性 ▸ 辅助功能**（macOS 12 和更早的版本叫「系统偏好设置」）。官方 FAQ 里讲的修法，对着的都是列表里 Keyboard Maestro Engine 那一项。见 [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) 和 [Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)。",
-      "官方也直说，苹果的权限系统从 Mojave 起一直有毛病：勾选框不出现、勾不上，或者显示勾上了其实没生效。他们给的办法是重启 Mac，退出再打开 Keyboard Maestro 或引擎，并确认 Keyboard Maestro 是用 Finder 拖进「应用程序」文件夹的。最后这一条很要紧：下载以后不用 Finder 挪一下，macOS 的 App Translocation 会让它从一个随机的位置启动，登录时启动引擎和自动更新都会出问题（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)）。",
+      "官方也直说，苹果的权限系统从 Mojave 起一直有毛病：勾选框不出现、勾不上，或者显示勾上了其实没生效。他们给的办法是重启 Mac，退出再打开 Keyboard Maestro 或引擎，并确认 Keyboard Maestro 是用 Finder 拖进「应用程序」文件夹的。最后这一条很要紧：下载以后不用 Finder 挪一下，macOS 的 App Translocation 会让它从一个随机的位置启动，于是 **Launch Engine at Login**（登录时启动引擎）不灵了，升级新版本也会失败，因为它没法替换自己（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)）。",
     ],
     list: [
-      ["**辅助功能**", "看到你按的热键和打的缩写，替你打字、选菜单、摆窗口、按按钮。没开它，大部分宏都不灵（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility)）"],
+      ["**辅助功能**", "看到你按的热键和打的缩写，替你打字、选菜单、挪窗口。Keyboard Maestro 的很多动作都离不开它（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility)）"],
       ["**录屏与系统录音**（旧版叫「屏幕录制」）", "看屏幕上的内容，比如用到 **Pixel**（像素）条件时会来要这项权限。官方提到 Sequoia 和 Tahoe 隔一阵会再问一次（[What's New](https://wiki.keyboardmaestro.com/manual/Whats_New)、[FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)）"],
       ["**自动化**", "用 AppleScript 控制别的 App，比如读出 Safari、Chrome 当前网页的标题和网址；Keyboard Maestro 和 Keyboard Maestro Engine 都要有（[Web Browser Tokens](https://wiki.keyboardmaestro.com/token/WebBrowserTokens)）"],
       ["日历", "让 **Create Calendar Event**（新建日历事件）动作往日历里加事件；Sonoma 起还要给完整的日历权限，不然只看得到一个日历（[Create Calendar Event](https://wiki.keyboardmaestro.com/action/Create_Calendar_Event)）"],
@@ -275,7 +275,7 @@ export const WIKI = [
     ],
     listTitle: "哪一项权限管什么", listHead: ["系统设置里的那一项", "开了以后它能做什么"],
     myths: [
-      "「权限明明勾上了，宏还是不灵。」官方说这正是 macOS 的毛病之一：显示勾上了，其实没生效。把 Keyboard Maestro Engine 那一项关掉再打开，或者重启一次；还不行，打开编辑器的 **Help ▸ Interactive Help**（交互式帮助），它会替你一项一项查。",
+      "「权限明明勾上了，宏还是不灵。」官方说这正是 macOS 的毛病之一：显示勾上了，其实没生效。把 Keyboard Maestro Engine 那一项关掉再打开，或者重启一次；还不行，打开编辑器的 **Help ▸ Interactive Help**（交互式帮助），只要系统没骗它，它能替你查出一部分权限问题。",
       "「为了省事，干脆把系统的安全保护关掉。」++别这么做++。Keyboard Maestro 要的每一项权限，都能在系统设置里单独给；本站只教这种给法，不教关掉 SIP、Gatekeeper 这类保护。",
     ],
     see: ["editor-engine", "debugger", "typed-string"],
@@ -287,7 +287,7 @@ export const WIKI = [
     like: "像邮箱里的「未读邮件」。邮件还在原来的收件箱里，这个文件夹只是把符合条件的那些挑出来给你看；读完一封，它就自己从这里消失了。",
     here: [
       "新建智能组，点宏组那一栏下面的 **⊕** 按钮；双击一个智能组可以改它。一个智能组由几条搜索组成，宏对上其中任意一条就会列进来。搜索的写法见 [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings)：比如 `mod:1d` 是一天之内改过的宏，`use:1w` 是一周之内用过的，`h:` 是有热键的。见 [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups)。",
-      "Keyboard Maestro 自带一个 **All Macros**（全部宏）智能组，列出你所有的宏。想找刚刚改过的那一个，选中它，再用 **View ▸ Sort Macros by Date Modified**（按修改日期排序）把最近改过的排到最上面（[How do I](https://wiki.keyboardmaestro.com/manual/How_do_I)）。",
+      "Keyboard Maestro 自带一个 **All Macros**（全部宏）智能组，列出你所有的宏。想找刚刚改过的那一个，选中它，再用 **View ▸ Sort Macros by ▸ Date Modified**（按修改日期排序）把最近改过的排到最上面（[How do I](https://wiki.keyboardmaestro.com/manual/How_do_I)）。",
     ],
     myths: [
       "「把宏拖进智能组，它就换了地方。」智能组只是一次搜索，宏还在它原来的宏组里，生不生效也还是那个宏组说了算。",
@@ -301,7 +301,7 @@ export const WIKI = [
     one: "调试器让宏一步一步地走、随时停下，你能看清它卡在了哪一步。引擎日志是引擎记的流水账，宏出错时报了什么，都写在这里。",
     like: "像看比赛录像时一帧一帧地放：正常速度下看不出谁犯了规，慢放、暂停，问题就出来了。日志则像行车记录仪，事后回放，看那一刻到底发生了什么。",
     here: [
-      "打开调试器，用[状态菜单](/wiki/status-menu/)里的 **Start Debugging**（开始调试）。官方给的步骤是：勾上 **Pause New Macros**（新宏先暂停），触发你的宏，它会出现在调试窗口里，停在开头；点那个向下箭头的按钮走进第一步，再点一下走下一步。窗口里还能让它继续跑、暂停、跳过当前动作、取消这个宏；右上角的按钮能显示这个宏最近改过的十个变量。关掉调试窗口，暂停着的宏会接着正常跑。见 [Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)。",
+      "打开调试器，用[状态菜单](/wiki/status-menu/)里的 **Start Debugging**（开始调试）。官方给的步骤是：勾上 **Pause New Macros**（新宏先暂停），触发你的宏，它会出现在调试窗口里，停在开头；点那个向下箭头的按钮走进第一步，再点一下走下一步。窗口里还能让它继续跑、暂停、把当前这一步连同里面套着的动作一口气走完、取消这个宏；右上角的按钮能显示这个宏最近改过的十个变量。关掉调试窗口，暂停着的宏会接着正常跑。见 [Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)。",
       "引擎日志是一个叫 Engine.log 的文件，用编辑器的 **Help ▸ Open Logs Folder**（打开日志文件夹）就能找到。官方建议，宏不灵时先确认引擎能发通知，不然它报了错你也看不见；再去日志里看有没有报错，日志里有记录，也说明这个宏确实被触发了。想多记点东西，在宏里加一个 **Log**（日志）动作，往这个文件里写一行。见 [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting)。",
     ],
     myths: [
@@ -318,7 +318,7 @@ export const WIKI = [
     one: "子程序是一个可以被别的宏叫来用的宏：几个宏都要做的那几步，写一次放在这里，用到的地方调它，还能把参数传进去、把结果拿回来。",
     like: "像办公室里专门负责订会议室的那位同事。谁要开会都找他，告诉他时间和人数，他订好了回你一个房间号。订会议室的规矩变了，只用跟他一个人说。",
     here: [
-      "从 v10 起，Keyboard Maestro 有专门的 **Subroutine**（子程序）触发器：给一个宏加上它，按名字写好要接收哪些参数、各存进哪个变量、要不要返回结果。别的宏用 **Execute a Subroutine**（执行子程序）动作来调它，填上参数的值；子程序跑完，用 Return from Subroutine 动作把结果交回去，存进调用的那一方指定的变量。见 [Subroutines](https://wiki.keyboardmaestro.com/Subroutines) 和 [Execute a Subroutine](https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine)。",
+      "从 v10 起，Keyboard Maestro 有专门的 **Subroutine**（子程序）触发器：给一个宏加上它，按名字写好要接收哪些参数、各存进哪个变量、要不要返回结果。别的宏用 **Execute a Subroutine**（执行子程序）动作来调它，填上参数的值；子程序里用 **Return Result**（返回结果）动作把结果交回去，它会存进调用的那一方指定的变量。见 [Subroutines](https://wiki.keyboardmaestro.com/Subroutines)、[Execute a Subroutine](https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine) 和 [Return Result](https://wiki.keyboardmaestro.com/action/Return_Result)。",
       "不需要参数和结果的话，用 **Execute a Macro**（执行宏）直接调另一个宏也行，这也是 v10 以前的老办法：靠 `%TriggerValue%` 令牌传一个参数，用变量把结果带回来。官方举的例子，是一个把网页存成 PDF 的子程序，几个宏都能来调它。",
     ],
     myths: [
@@ -337,7 +337,7 @@ export const WIKI = [
       "你也可以把一批宏导出成宏库文件（`.kmlibrary`）给别人，或者把别人的导入你的宏库。不过官方说，要分享宏，一般直接导出宏，或者用编辑器窗口顶上的 **Share**（分享）按钮更好。官方 Wiki 还有一页[示例宏](https://wiki.keyboardmaestro.com/Macro_Library)。",
     ],
     myths: [
-      "「网上下载的宏，导进来直接跑就行。」++先看清它做什么再跑++。官方提醒，宏几乎能在你的 Mac 上做任何事，也可能造成很大的破坏，所以没核实来源、没看过它每一步之前，别执行。用 **File ▸ Import Macros Safely**（安全导入宏）导入时，宏默认是关着的，正好留出检查的时间（[Macros](https://wiki.keyboardmaestro.com/manual/Macros)）。",
+      "「网上下载的宏，导进来直接跑就行。」++先看清它做什么再跑++。官方提醒，宏几乎能在你的 Mac 上做任何事，也可能造成很大的破坏，所以没核实来源、没看过它每一步之前，别执行。用 **File ▸ Import ▸ Import Macros Safely**（安全导入宏）导入时，宏默认是关着的，正好留出检查的时间（[Macros](https://wiki.keyboardmaestro.com/manual/Macros)）。",
       "「导入错了的宏库条目，在宏库里删掉就好。」现在删不掉。官方说只能先退出 Keyboard Maestro 和引擎，再去 Keyboard Maestro Libraries 文件夹里把对应的文件移走。",
     ],
     see: ["macro", "plug-in-action"],
@@ -353,7 +353,7 @@ export const WIKI = [
     ],
     myths: [
       "「更新插件，再拖一次新的 zip 就好。」官方的步骤是先把旧的那个插件文件夹从 Keyboard Maestro Actions 文件夹里删掉或者挪走，再拖新的 zip。",
-      "「插件动作都是官方审核过的。」本站在官方 Wiki 里没找到这种说法。插件跑的是别人写的脚本，官方对第三方宏的提醒同样适用：先确认来源，看清它做什么（[Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details)）。",
+      "「插件动作都是官方审核过的。」官方没这么说过。他们的免责声明反倒写得很清楚：宏用错了会很危险，装第三方的宏尤其如此，不管它从哪里来，哪怕来自官方网站、Wiki 或论坛，跑了以后的后果都由你自己负责（[Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details)）。插件跑的也是别人写的脚本，所以照样先确认来源，看清它做什么。",
     ],
     see: ["action", "macro-library", "subroutine"],
     step: 7,

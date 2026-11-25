@@ -1,5 +1,5 @@
 // Keyboard Maestro 官方 Wiki 同步。官方 Wiki（wiki.keyboardmaestro.com）是 DokuWiki，每页都能导出原始 wiki 标记（/_export/raw/<页>）。
-// 按命名空间（manual 手册、action 动作、trigger 触发器、condition 条件、token 令牌、function 函数、collection 集合，加上根目录的页面）
+// 按命名空间（manual 手册、action 动作、trigger 触发器、condition 条件、token 令牌、function 函数、collection 集合、assistance 求助（权限、安全输入这类问题的说明，manual/Troubleshooting 链过去），加上根目录的页面）
 // 列出全部页面，每页存成 docs/sources/raw/official/<命名空间>/<页名>.txt，写一份目录 official/_index.md；
 // 再和 docs/sources/official.json 里上次的指纹比对，列出新增、删除、改动的页面，最后更新 official.json。
 //
@@ -17,7 +17,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const RAW = join(ROOT, "docs/sources/raw/official");
 const INDEX = join(ROOT, "docs/sources/official.json");
 const HOST = "https://wiki.keyboardmaestro.com";
-const NAMESPACES = ["", "manual", "action", "trigger", "condition", "token", "function", "collection"];
+const NAMESPACES = ["", "manual", "action", "trigger", "condition", "token", "function", "collection", "assistance"];
 const CHECK = process.argv.includes("--check");
 const UA = { "user-agent": "xxd-keyboard-maestro-docs-sync" };
 

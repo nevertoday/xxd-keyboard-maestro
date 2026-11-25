@@ -2087,6 +2087,106 @@
   "sha": "9b4337885f89",
   "bytes": 3427
  },
+ "assistance/Accessibility_Permission_Problem": {
+  "title": "Accessibility Permission Problem",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Accessibility_Permission_Problem",
+  "sha": "cdffe1ab9a6e",
+  "bytes": 3091
+ },
+ "assistance/Allow_JavaScript_From_Apple_Events": {
+  "redirect": "assistance:Web_Browser_Automation",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Allow_JavaScript_From_Apple_Events"
+ },
+ "assistance/Cannot_Communicate_With_Engine": {
+  "title": "Cannot Communicate With Engine",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Cannot_Communicate_With_Engine",
+  "sha": "82ae6e3ea5d0",
+  "bytes": 990
+ },
+ "assistance/Contacts_Permission": {
+  "title": "Contacts Permission",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Contacts_Permission",
+  "sha": "afbc617ce1a9",
+  "bytes": 598
+ },
+ "assistance/Engine_Not_Launched_At_Login": {
+  "title": "Engine Not Launched At Login",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Engine_Not_Launched_At_Login",
+  "sha": "b47eb8b8709a",
+  "bytes": 1158
+ },
+ "assistance/Engine_Not_Running": {
+  "title": "Engine Not Running",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Engine_Not_Running",
+  "sha": "e56f47b69049",
+  "bytes": 1338
+ },
+ "assistance/Macro_Disabled": {
+  "title": "Macro Disabled",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Disabled",
+  "sha": "821d4ae7d99e",
+  "bytes": 708
+ },
+ "assistance/Macro_Group_Disabled": {
+  "title": "Macro Group Disabled",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Group_Disabled",
+  "sha": "b2332110ac91",
+  "bytes": 814
+ },
+ "assistance/Macro_Group_Inactive": {
+  "title": "Macro Group Inactive",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Group_Inactive",
+  "sha": "d6a77471ec71",
+  "bytes": 1141
+ },
+ "assistance/Macro_Has_No_Actions": {
+  "title": "Macro Has No Actions",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Has_No_Actions",
+  "sha": "04636b300b8d",
+  "bytes": 536
+ },
+ "assistance/Macro_Has_No_Enabled_Actions": {
+  "title": "Macro Has No Enabled Actions",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Has_No_Enabled_Actions",
+  "sha": "93efbd65205f",
+  "bytes": 907
+ },
+ "assistance/Macro_Has_No_Triggers": {
+  "title": "Macro Has No Triggers",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Macro_Has_No_Triggers",
+  "sha": "6fcab785e5fc",
+  "bytes": 688
+ },
+ "assistance/Post_to_Forum": {
+  "title": "Post to Forum",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Post_to_Forum",
+  "sha": "8deb3c30684c",
+  "bytes": 1748
+ },
+ "assistance/Screen_Recording_Permission": {
+  "title": "Screen Recording Permission",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Screen_Recording_Permission",
+  "sha": "2b6761f3ae5e",
+  "bytes": 1573
+ },
+ "assistance/Secure_Input_Problem": {
+  "title": "Secure Input Problem",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Secure_Input_Problem",
+  "sha": "51c9f375538f",
+  "bytes": 2603
+ },
+ "assistance/Translocation_Problem": {
+  "title": "Translocation Problem",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Translocation_Problem",
+  "sha": "10277c349e1b",
+  "bytes": 2560
+ },
+ "assistance/Web_Browser_Automation": {
+  "title": "Web Browser Automation",
+  "url": "https://wiki.keyboardmaestro.com/assistance/Web_Browser_Automation",
+  "sha": "dff657eba09f",
+  "bytes": 1643
+ },
  "collection/Clipboard_History": {
   "title": "See Also",
   "url": "https://wiki.keyboardmaestro.com/collection/Clipboard_History",
