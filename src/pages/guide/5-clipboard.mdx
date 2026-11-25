@@ -1,6 +1,113 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 5
-tldr: "剪贴板历史让你贴回前几次复制的东西；命名剪贴板替你长期保管几段常用内容；粘贴前还能先改一改"
+tldr: "Keyboard Maestro 记着你最近复制过的东西（默认最多 200 条），按 ⌃⇧⌘V 打开剪贴板历史，挑一条就能再贴；常用的签名、图片放进命名剪贴板，重启也不会丢；Filter 动作能在粘贴前去掉格式、改大小写、排好顺序。"
+description: "剪贴板历史怎么打开、怎么贴回前几次复制的东西、怎么按纯文字贴；它不记什么（像密码的内容、排除的 App）；重启以后还留不留；命名剪贴板和变量有什么不同、怎么建、怎么用；Filter 动作和剪贴板历史里的过滤；Paste by Name；常见的卡住情况。"
 ---
-{/* 待写：第 5 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Checkpoint from "../../components/Checkpoint.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+你在网上填一份求职申请。电话从简历里复制过来，贴好；邮箱再去复制，贴好；然后去复制那段写了好几遍的自我介绍，回到表单才想起来，前面还漏了一个作品链接，可它早就被刚才那次复制冲掉了，只好再翻回去找。Mac 的剪贴板一次只装一样东西，每复制一次，上一样就没了。
+
+<mark><strong>装上 Keyboard Maestro 以后，你复制过的东西其实都还在：最近的几百次复制它都替你记着，常用的几段还能起个名字长期存起来。</strong></mark>
+
+这一步讲三样：往回翻的<Term k="剪贴板历史" />，长期保管的<Term k="命名剪贴板" />，和粘贴之前先把文字改一改的过滤器。它们都不用你写宏，装好就能用；想放进自己的宏里，也各有对应的动作。
+
+## 剪贴板历史：按一下，往回翻
+
+每次你在任何 App 里复制，<Term k="引擎" />都会把当时的剪贴板存一份，默认最多存 200 条，数量可以在偏好设置里改（[官方说明](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)）。要翻这些记录，打开 **Clipboard History Switcher**（剪贴板历史切换器）：它是 Keyboard Maestro 自带的一个宏，放在 **Switcher Group** 这个宏组里，默认的热键是 ⌃⇧⌘V（Control-Shift-Command-V）。
+
+<Callout type="ok">
+按 ⌃⇧⌘V，屏幕上出来一个列表，最上面那条就是你刚刚复制的东西，往下是更早的。
+</Callout>
+
+找到你要的那条，双击、按回车，或者直接拖进文档，它就贴进你正在打字的地方。几个顺手的变化：
+
+- 按住 ⇧ Shift 再回车或双击，贴成纯文字，不带原来的字体和颜色。
+- 按住 ⌥ Option 再回车或双击，只把它放回系统剪贴板，先不贴。
+- ⌘ 加数字键，直接贴对应的那一条。
+- 窗口上方有搜索框，记得几个字就能搜出来；还能只看图片，或者只看收藏的那几条。
+- 常用的一条点一下收藏，它就永远不会被挤掉。
+- 选中好几条再贴，会合成一段一起贴出去；中间用什么隔开，在齿轮菜单里选。
+
+所以开头那个求职的人，可以一口气把电话、邮箱、链接、自我介绍都复制一遍，再回到表单里按 ⌃⇧⌘V，一条一条往里贴。
+
+不想开窗口也行：点菜单栏上 Keyboard Maestro 的<Term k="状态菜单" />，里面的 **Paste** 列着最近 30 条文字，选一条就贴（[官方说明](https://wiki.keyboardmaestro.com/Status_Menu)）。
+
+## 它不记什么，能记多久
+
+剪贴板历史什么都记，所以有几件事要先知道（[官方说明](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)）：
+
+- **看起来像密码的内容**，在列表里会被遮住，退到第 10 条以后就自动删掉，也不会存到磁盘上。要看一眼，按住 ⌥ Option 点它。偏好设置 **General** 一栏的 **Detect (and Conceal) Possible Passwords** 管这件事。
+- **重启以后还在不在**，看 **General** 里的 **Save Clipboard History Between Launches**（重启后保留剪贴板历史）。没打开的话，每次引擎退出，历史就清空了；重启 Mac 也算引擎退出（[官方说明](https://wiki.keyboardmaestro.com/Clipboards#Options)）。
+- **某些 App 里复制的东西不想记**，比如存着别人资料的那个 App，在偏好设置的 **Excluded** 一栏把它加进剪贴板历史的排除名单。那个 App 在最前面的时候，Keyboard Maestro 就不自动记录剪贴板（[官方说明](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)）。
+
+偏好设置在菜单栏的 **Keyboard Maestro ▸ Settings**（旧版本的 macOS 上叫 Preferences）。
+
+还有一件事和你自己的宏有关。很多动作是借系统剪贴板干活的，比如 **Insert Text by Pasting**（粘贴插入文字）、**Copy to Named Clipboard**（复制到命名剪贴板），<u>它们都会改掉系统剪贴板里原来的东西</u>（[官方说明](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)）。宏跑完你按 ⌘V，贴出来的可能是宏刚刚贴过的那段字。好在剪贴板历史里还留着你自己复制的那条，往回翻就找得到。
+
+## 命名剪贴板：起个名字，长期保管
+
+剪贴板历史是一条一直往前滚的流水，新的进来，旧的就往下挤。有些东西你希望它一直待在原地：一个带店标和电话的邮件签名，一张常贴的二维码图片，一段排好格式的课程说明。这时候用命名剪贴板。
+
+命名剪贴板不是真正的剪贴板，更像一个专门存剪贴板内容的小文件：放进去的东西会一直留着，重启也在，直到你改掉或者删掉它。它和<Term k="变量" />最大的不同，是能存带格式的字和图片，变量只能存纯文字（[官方说明](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)）。
+
+建一个很简单：打开偏好设置的 **Clipboards** 一栏，点 + 号，右上角的一行填名字，右下角的大框里直接粘贴内容，字、带格式的字和图片都行。
+
+用的时候有两种办法：
+
+- **Named Clipboard Switcher**（命名剪贴板切换器）：一个列出所有命名剪贴板的窗口。Keyboard Maestro 在 **Switcher Group** 里放了三个宏打开它，默认热键是 ⇧⌘X、⇧⌘C、⇧⌘V，分别是剪切进去、复制进去和从里面贴出来（[官方说明](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)）。热键按下会被 Keyboard Maestro 接走，你常用的 App 里 ⇧⌘V 要是另有用处，就给这个宏换一个热键。
+- **在宏里**：**Copy to Named Clipboard** 把当前选中的东西复制进某个命名剪贴板，**Paste from Named Clipboard**（从命名剪贴板粘贴）把它贴出来。这几个动作都要经过系统剪贴板，做完以后系统剪贴板里也是这份内容（[官方说明](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)）。在文字框里用 `%NamedClipboard%名字%` 令牌，也能把其中的文字放进一段话里。
+
+<Callout type="warn">
+命名剪贴板列表里自带一个叫 **Default Clipboard** 的。官方特意提醒，它只是一个普通的命名剪贴板，名字里的 Default 意思是「默认就有」，<u>它不是 Mac 的系统剪贴板</u>。
+</Callout>
+
+## 粘贴之前先改一改
+
+从网页复制一段话，贴进邮件就带着网页的字体和颜色；从表格里复制一列名字，前后带着空格，顺序也乱。这些都可以在粘贴之前处理掉。
+
+最省事的是在剪贴板历史里做：选中一条，点它的齿轮按钮或者右键，菜单里有一串现成的处理，比如转成纯文字，处理完生成一条新的，再贴（[官方说明](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)）。
+
+要放进宏里自动做，用 **Filter**（过滤）动作。先选处理谁：系统剪贴板、某个命名剪贴板、一个变量、一段文字或者一个文件；再在 **with** 菜单里挑一种处理；最后选结果放回原处，还是放到别的剪贴板、变量或文件里（[官方说明](https://wiki.keyboardmaestro.com/action/Filter)）。常用的几种：
+
+- **Remove Styles**：去掉格式，变成纯文字（只对剪贴板有用）。
+- **Trim Whitespace**：去掉开头和结尾的空白。
+- **Uppercase**、**Lowercase**、**Title Case**、**Sentence Case**：改大小写。
+- **Sort Lines**：把每一行按顺序排好。
+- 数一数有多少个字、词或者行。
+
+完整的清单在官方的 [Filters](https://wiki.keyboardmaestro.com/manual/Filters) 页面。比如老师从一份表格里复制了一列学生名字，一个宏先用 **Filter** 去掉前后的空白，再用一个 **Filter** 排好顺序，最后贴进文档，三个动作就够了。只想「粘贴时去掉格式」的话，How-to 里有一篇专门讲：[粘贴时去掉格式](/howto/paste-plain/)。
+
+自己写的宏也能放进剪贴板历史的那个齿轮菜单：给宏加一个 **Clipboard Filter** 触发器，它就出现在菜单里，能处理你在列表里选中的那一条（[官方说明](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)）。
+
+## 记得内容、不记得是第几条：Paste by Name
+
+剪贴板历史翻到第几十条，一条条找很累。**Paste by Name**（按名字粘贴）动作打开一个搜索框，你打几个字，它从剪贴板历史里找出对得上的文字，选中就贴（[官方说明](https://wiki.keyboardmaestro.com/action/Paste_by_Name)）。给它做一个带热键的宏，就多了一种「搜着贴」的办法。
+
+到这里，复制过的东西你都找得回来了，常用的几段也有了固定的家。宏写多了，总有一个不听话的时候，下一步讲宏不灵的时候按什么顺序查。
+
+## 卡住了？
+
+<Q q="按 ⌃⇧⌘V，什么都没出来。">
+<p>先看菜单栏上有没有 Keyboard Maestro 的图标，没有的话引擎没开。再打开编辑器，看 Switcher Group 这个宏组和里面的 Clipboard History Switcher 宏是不是都启用着。还不行，照<a href="/guide/6-debug/">第 6 步</a>的顺序查。</p>
+</Q>
+<Q q="重启以后，剪贴板历史空了。">
+<p>偏好设置 General 里的 Save Clipboard History Between Launches 没打开。打开以后，引擎退出再启动，历史也会留着。</p>
+</Q>
+<Q q="在某个 App 里复制的东西，历史里没有。">
+<p>看偏好设置 Excluded 一栏，那个 App 可能在剪贴板历史的排除名单里。被排除的 App 在最前面时，Keyboard Maestro 不自动记录。</p>
+</Q>
+<Q q="刚复制的一串字被遮住了，过一会儿还不见了。">
+<p>它看起来像密码，Keyboard Maestro 就把它遮住，退到第 10 条以后删掉，也不存到磁盘上。按住 ⌥ Option 点它可以看一眼。</p>
+</Q>
+<Q q="宏连着贴两段字，结果第二段贴了两遍。">
+<p>官方的解释是，设置剪贴板是马上完成的，可按 ⌘V 要排队等 App 处理，App 慢了，两次设置都赶在第一次粘贴之前，就贴成了同一段。办法是把两段放进一个 Insert Text by Pasting 一次贴完，或者在两个动作中间加一个 Pause（<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">官方说明</a>）。</p>
+</Q>
+<Q q="我往 Default Clipboard 里放了东西，按 ⌘V 却贴不出来。">
+<p>Default Clipboard 只是一个普通的命名剪贴板，不是系统剪贴板。要贴它，用 Named Clipboard Switcher 或者 Paste from Named Clipboard 动作。</p>
+</Q>
+
+<Checkpoint id="s5" items={["按 ⌃⇧⌘V 能打开剪贴板历史，按住 ⇧ 回车能贴成纯文字", "我知道重启后保不保留历史，看的是 Save Clipboard History Between Launches", "我建了一个命名剪贴板，存了一段常用的内容", "我知道 Filter 动作能在粘贴前去掉格式、去掉空白"]} />

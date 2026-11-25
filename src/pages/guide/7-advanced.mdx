@@ -1,6 +1,139 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 7
-tldr: "接上 Shell、AppleScript 和 JavaScript，把常用的几步做成子程序，在两台 Mac 之间同步，把宏分享给别人"
+tldr: "这一步的几样都不是必修，是遇到了再推开的门：自带的动作做不到的事，交给 Shell、AppleScript 或 JavaScript 脚本；好几个宏里重复的几步，做成子程序；两台 Mac 用同一套宏，开同步；想找现成的宏，翻宏库；别人写好的动作，装成插件；要从手机或别的电脑上触发，用网页或远程触发器。"
+description: "Execute a Shell Script、Execute an AppleScript、Execute a JavaScript For Automation 怎么用、变量怎么传进传出；子程序和 Execute a Subroutine；两台 Mac 之间同步宏要注意什么；宏库和分享宏；插件动作怎么装；Web Server 和 Remote 触发器；每一样什么时候才真用得上。"
 ---
-{/* 待写：第 7 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Copy from "../../components/Copy.astro";
+import Checkpoint from "../../components/Checkpoint.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+用 Keyboard Maestro 一阵子以后，你可能会碰到几种新的麻烦。有一件事它自带的动作做不到，可你知道终端里一行命令就能做。或者宏越来越多，五个宏的结尾都是同样的三步，改一处要改五遍。又或者家里一台 Mac、单位一台 Mac，在这台做好的宏，到那台还得重做一遍。
+
+<mark><strong>这一步讲的几样都不是必修，它们是几扇往外开的门：遇到对应的麻烦时再推开，大多数人只会用上其中一两扇。</strong></mark>
+
+所以这一页不用从头读到尾。每一节开头先说它是什么，结尾说一句什么时候你才真用得上它，看那一句就知道这一节跟你有没有关系。
+
+## 脚本：自带的动作不够用的时候
+
+Keyboard Maestro 能直接跑几种脚本，最常用的三个动作是 **Execute a Shell Script**（执行 Shell 脚本）、**Execute an AppleScript**（执行 AppleScript）和 **Execute a JavaScript For Automation**（执行 JavaScript for Automation，简称 JXA）。脚本可以直接写在动作里，也可以指向一个脚本文件。跑出来的结果，你选它去哪：不要、弹一个窗口显示、发一条通知、打出来或者贴进当前的文字框、存进一个<Term k="变量" />、放进剪贴板，或者不等它跑完、宏先往下走（[官方说明](https://wiki.keyboardmaestro.com/manual/Scripting)）。
+
+要紧的是变量怎么进出脚本，三种脚本各有各的办法。
+
+### Shell 脚本
+
+Keyboard Maestro 把你的变量放进脚本的环境变量里，名字前面加 `KMVAR_`，名字里的空格换成下划线（[官方说明](https://wiki.keyboardmaestro.com/action/Execute_a_Shell_Script#Using_Keyboard_Maestro_Variables)）。所以第 4 步里的 `Local Name`，在脚本里是 `$KMVAR_Local_Name`。Local 和 Instance 变量在这个动作里也读得到。默认会把所有变量都放进去，脚本旁边的菜单里可以改成一个都不放，或者只放几个。
+
+一个什么都不会改的小例子，结果选「弹一个窗口显示」：
+
+<Copy id="s7-shell" title="Execute a Shell Script 里写" lang="sh" code={`echo "你好，$KMVAR_Local_Name"\ndate`} />
+
+有两点常让人卡住。第一，<u>这些环境变量只能读，在脚本里改了它，Keyboard Maestro 的变量并不会跟着变</u>；要把结果带回来，就让脚本把它打印出来，动作的结果选「存进变量」。第二，脚本不是在你平时那个终端里跑的，不读你的 `.zshrc` 一类的配置，能找命令的路径只有系统自带的那几个目录，所以你自己装的命令可能显示「找不到」。官方的办法是写命令的完整路径，或者先建一个叫 `ENV_PATH` 的变量，Keyboard Maestro 会拿它当脚本的 `PATH`（[官方说明](https://wiki.keyboardmaestro.com/action/Execute_a_Shell_Script#Path_in_Shell_Scripts)）。官方还建议在脚本第一行用 `#!` 写明用哪种语言。
+
+### AppleScript
+
+AppleScript 也能从环境变量读变量，还可以直接问 Keyboard Maestro Engine：用 `getvariable` 读、`setvariable` 写，这样就能把值写回去（[官方说明](https://wiki.keyboardmaestro.com/action/Execute_an_AppleScript#Using_Keyboard_Maestro_Variables)）：
+
+```applescript
+tell application "Keyboard Maestro Engine"
+	set lastFolder to getvariable "Last Folder"
+end tell
+```
+
+要读写 Local 或 Instance 变量，还得告诉它是哪一次运行：从 `KMINSTANCE` 环境变量拿到这一次的编号，在 `getvariable` 后面加上 `instance`。写法见官方页面的 [Local & Instance Variables](https://wiki.keyboardmaestro.com/action/Execute_an_AppleScript#Local_Instance_Variables) 一节。
+
+### JavaScript for Automation
+
+Keyboard Maestro 11 起，JXA 脚本默认用「Modern Syntax」，整段脚本被包进一个函数里，所以要用 `return` 把结果交回给动作；变量从 `kmvar` 里拿，名字里的空格同样换成下划线（[官方说明](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)）。Local 和 Instance 变量读得到，密码变量读不到。
+
+```javascript
+return "你好，" + kmvar.Local_Name;
+```
+
+**什么时候真用得上**：你要的事 Keyboard Maestro 没有现成的动作，而终端里的命令、或者某个 App 支持的 AppleScript 能做；或者你本来就会写一点脚本，想把它接到一个热键上。不会写脚本的人，完全可以一直不碰它。
+
+## 子程序：重复的几步只写一次
+
+<Term k="子程序" />就是一个可以被别的宏调用的宏。官方举的例子是「把网页存成 PDF」：好几个宏都要这么做，就只写一个子程序，别的宏到这一步调用它，把网址和要存到哪里交给它（[官方说明](https://wiki.keyboardmaestro.com/Subroutines)）。
+
+做法分两头：
+
+- **被调用的那个宏**：加一个 **Subroutine**（子程序）触发器，在里面写好它要哪几个参数、各自存进哪个变量，以及会不会交回一个结果。要交回结果，在宏里用 **Return Result**（返回结果）动作。
+- **调用它的宏**：用 **Execute a Subroutine**（执行子程序）动作，选那个宏，填好每个参数的值；有结果的话，再指定一个变量来接（[官方说明](https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine)）。
+
+有一个坑：<u>参数是按顺序传的，不是按名字</u>。以后在 Subroutine 触发器里加了、删了或者改了参数的意思，所有调用它的地方都要跟着改；触发器里的 **Callers** 菜单能直接跳到它们。
+
+不需要参数和结果，只想「跑一下那个宏」，用更简单的 **Execute a Macro**（执行宏）就行，它可以带一个值，被调用的宏用 `%TriggerValue%` 令牌读。被调用的宏也看得见这一次运行的 Instance 变量，这是第 4 步里 Instance 和 Local 的区别派上用场的地方。
+
+**什么时候真用得上**：同样的几步已经出现在三四个宏里，你改过一次就发现要改好几处的时候。宏还不多，就先别急着拆。
+
+## 两台 Mac 用同一套宏
+
+官方的许可是一个人最多用五台 Mac，所以在几台 Mac 上用同一套宏很常见。有两种办法（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)）：
+
+- **挪几个宏过去**：选中它们，用 **File ▸ Export Macros**（导出宏）导出来，到另一台上导入。
+- **整套一直同步**：要一个两台 Mac 都能看到、会自动同步的文件夹，官方提到 Dropbox 这类服务，或者一直开着的共享文件服务器，并提醒 iCloud 云盘有时同步得很慢，可能丢掉改动。在有宏的那台 Mac 上选 **File ▸ Start Syncing Macros**（开始同步宏），仔细读说明，点 **Create New** 把宏存进那个文件夹；等文件同步到第二台，在第二台上同样选 **File ▸ Start Syncing Macros**，点 **Open Existing** 选那个文件。
+
+<Callout type="warn">
+在第二台 Mac 上点 **Open Existing**，<u>这台 Mac 上原有的宏会全部被替换掉</u>。想留着的，先导出，开始同步以后再导入，它们就会同步到所有的 Mac 上。
+</Callout>
+
+同步以后还有几条要记住：两台 Mac 上的 Keyboard Maestro 版本必须一样；只同步宏，偏好设置、剪贴板和变量都不同步；别在两台上同时改宏，否则可能丢掉其中一边的改动。某个宏组不想在某台 Mac 上生效，在那台上打开宏组的 **Disabled on this Mac**。一步一步的做法，看 How-to 的[两台 Mac 用同一套宏](/howto/sync-macs/)。
+
+**什么时候真用得上**：你确实每天都在两台以上的 Mac 上用同一套宏。只是偶尔挪几个，导出导入就够了，不值得为它开同步。
+
+## 宏库和分享
+
+<Term k="宏库" />是 Keyboard Maestro 自带的一批现成的宏，从 **Window ▸ Macro Library**（宏库）打开。每个宏都有一句说明，看中了就插进你自己的宏里，照原样用，或者改改热键、改改动作（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Library)）。Keyboard Maestro 默认带的那些宏也都在里面，比如你删掉了 Switcher Group 里的某个宏，后来又想要，从这里装回来就行。
+
+反过来，你做了一个好用的宏，可以导出成文件发给别人，或者用编辑器窗口上方的 **Share** 按钮、**File ▸ Share** 菜单分享。怎么导出、导入和分享，见 How-to 的[导出、导入和分享宏](/howto/share-macros/)。
+
+<Callout type="no">
+官方提醒，宏在你的 Mac 上几乎什么都能做，也包括闯大祸。<u>别人给的宏，弄清楚它从哪来、看懂它每一步在做什么之前，别运行它。</u>
+</Callout>
+
+**什么时候真用得上**：刚开始想找点灵感，看看别人都拿 Keyboard Maestro 做什么；或者想把自带的某个宏装回来。
+
+## 插件动作
+
+<Term k="插件动作" />是别人写好、装进 Keyboard Maestro 的动作，装好以后和自带的动作一样用（[官方说明](https://wiki.keyboardmaestro.com/manual/Plug_In_Actions)）。官方列的来源是 Keyboard Maestro 官网和官方论坛。装法是把下载来的 `.zip` 文件<u>不解压</u>，直接拖到程序坞里的 Keyboard Maestro 图标上。装完找不到它，就退出引擎、再退出并重新打开编辑器。它会出现在动作列表的 **Third Party Plug Ins** 一类里。
+
+插件动作也是在你的 Mac 上跑的代码，和别人给的宏一个道理，只装你信得过的来源的。
+
+**什么时候真用得上**：有人已经为你要做的事写好了一个动作，比你自己拼一长串动作省事得多。多数人用不到它。
+
+## 从网页、从远处触发
+
+最后两样，是让宏不在这台 Mac 前面也能被触发：
+
+- **Web Server**（网页服务器）：在偏好设置的 **Web Server** 一栏打开它，就能用浏览器连到这台 Mac 上的 Keyboard Maestro，默认地址是 `http://localhost:4490`。设了用户名和密码，登录以后能运行所有生效的宏；加了 **Public Web** 触发器的宏，任何连得上这台 Mac 的人不用密码就能运行。官方说，对大多数家庭网络，只有同一个局域网里的电脑连得上，但也要看你的网络怎么设，有可能整个互联网都连得上（[官方说明](https://wiki.keyboardmaestro.com/trigger/Web_Server)）。
+- **Remote**（远程）触发器：给宏一个网址，经过 Stairways Software 的服务器，在互联网上任何地方打开这个网址就能触发它，不需要登录。官方自己把话说得很重：知道这个网址的人谁都能触发，所以只用在非常无害的宏上；它也不保证一直有、不保证每次都成功，要紧的事别靠它（[官方说明](https://wiki.keyboardmaestro.com/trigger/Remote)）。
+
+**什么时候真用得上**：你想从手机或者另一台电脑上点一下，就让这台 Mac 做一件不要紧的小事。开之前先想清楚，谁能连上来。
+
+到这里，完整教程就走完了。剩下的不用按顺序学：遇到具体的事，去 [How-to](/howto/) 里找；碰到不认识的词，查 [Wiki](/wiki/)。
+
+## 卡住了？
+
+<Q q="Shell 脚本在终端里能跑，放进 Keyboard Maestro 就说找不到命令。">
+<p>Keyboard Maestro 跑脚本时只在系统自带的几个目录里找命令，不读你终端的配置。写出命令的完整路径，或者建一个叫 <code>ENV_PATH</code> 的变量，把你要的路径写进去。</p>
+</Q>
+<Q q="脚本里读不到 Keyboard Maestro 的变量。">
+<p>Shell 里要写 <code>$KMVAR_</code> 加变量名，名字里的空格换成下划线；JXA 里写 <code>kmvar.</code> 加变量名，空格也换成下划线。再看脚本旁边那个菜单，是不是选了一个变量都不放。密码变量在 JXA 里本来就读不到。</p>
+</Q>
+<Q q="我在 Shell 脚本里改了变量，宏里的值却没变。">
+<p>环境变量只是一份只读的副本。让脚本把结果打印出来，动作的结果选「存进变量」。AppleScript 和 JXA 也可以用 <code>setvariable</code> 直接写回去。</p>
+</Q>
+<Q q="改了子程序的参数以后，调用它的宏出错了。">
+<p>参数是按顺序传的。打开子程序的 Subroutine 触发器，从 Callers 菜单跳到每一个调用它的地方，把参数对齐。</p>
+</Q>
+<Q q="在第二台 Mac 上开始同步以后，那台原来的宏不见了。">
+<p>点 Open Existing 时，第二台 Mac 上原有的宏会被换成同步文件里的。Keyboard Maestro 会留着之前的备份版本，看看 <strong>File ▸ Revert Macros</strong> 里有没有你要的那一份。以后先导出，再开始同步。</p>
+</Q>
+<Q q="装了插件动作，动作列表里找不到。">
+<p>插件动作装好后，可能要重启编辑器和引擎才认得出来。先退出引擎，再退出并重新打开编辑器，然后去 Third Party Plug Ins 那一类里找。</p>
+</Q>
+
+<Checkpoint id="s7" items={["我知道 Shell 脚本里用 <code>$KMVAR_变量名</code> 读变量，结果要存进变量带回来", "同样的几步出现在好几个宏里时，我知道可以做成子程序", "我知道在第二台 Mac 上开始同步会替换掉那台原有的宏", "别人给的宏，我会先看懂再运行"]} />
