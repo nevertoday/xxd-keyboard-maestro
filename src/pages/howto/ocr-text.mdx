@@ -1,5 +1,61 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: ocr-text
+step: 3
+time: 10 分钟
+for: 字在图片、视频或截图里，选不中也复制不了，只好一个字一个字照着打
+tldr: 截下有字的那一块，按一个热键，Keyboard Maestro 用 OCR 把字认出来放进剪贴板，你直接粘贴就行。
+description: 用 Keyboard Maestro 的 OCR Image 动作把截图、图片和屏幕上的字认出来：先试试剪贴板历史里自带的 OCR，再做一个热键宏，选语言、选识别引擎、把结果存进剪贴板，以及认错了、认不出时怎么办。
 ---
-{/* 待写：用 OCR 动作把屏幕上、图片里的字认出来，放进剪贴板或变量。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Callout from "../../components/Callout.astro";
+
+网课的老师把作业要求放在幻灯片上，录播视频停在那一页，字清清楚楚，可就是选不中。同学在群里发了一张截图，上面是小组分工和截止时间，你想把它贴进备忘录，也只能对着屏幕一个字一个字地打。照这一页做完，你框出有字的那一块，再按 ⌃⌥⌘O（Control、Option、Command 再加 O），那些字就进了剪贴板，在哪里都能直接粘贴。
+
+认字这件事叫 OCR（光学字符识别）。Keyboard Maestro 的 **OCR Image**（识别图片里的字）动作，能从一张图里把字抽出来（[官方说明](https://wiki.keyboardmaestro.com/action/OCR_Image)）。<mark>你只管给它一张有字的图，认出来的字它放进剪贴板，就像你自己复制的一样。</mark>
+
+## 不做宏也能先试一下
+
+Keyboard Maestro 装好以后，<Term k="剪贴板历史" />的窗口里本来就带着一个 OCR 的小工具。先按 ⌘⌃⇧4（Command、Control、Shift 加 4）框住有字的地方，截图会进剪贴板。然后打开剪贴板历史切换器（Clipboard History Switcher，它的热键在自带的 Switcher Group 宏组里那个宏上），选中刚才那张图，从窗口的齿轮 ⚙ 菜单里选 OCR 那一项（[官方说明](https://wiki.keyboardmaestro.com/action/OCR_Image)）。
+
+偶尔用一次，这样就够了。要是你每周都要从幻灯片里抄好几回，就值得把它做成一个键。
+
+## 做成一个键
+
+新建一个<Term k="宏" />，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘O，再加一个 **OCR Image** 动作。这个动作要你定三件事。
+
+第一，图从哪里来。它可以读贴进动作里的图、剪贴板里的图、一个文件，也可以直接读屏幕：所有屏幕、某一个屏幕、某个窗口，或者屏幕上的一块区域。这里选 **System Clipboard**（系统剪贴板），因为你会先用 ⌘⌃⇧4 把那一块截进剪贴板，框哪儿由你当场决定。
+
+第二，字是什么语言。在动作里选你要认的语言或文字。每种语言第一次用都要下载一份数据，大多在 1 到 10 MB 之间。识别引擎有两种，Apple 自带的文字识别（Keyboard Maestro 11 起、macOS 10.15 起）和一个叫 Tesseract 的开源库，新建的动作在 10.15 以上默认用 Apple 的。11.1 的[更新说明](https://wiki.keyboardmaestro.com/manual/Whats_New)写着，Apple 文字识别加了中文、粤语和几种欧洲语言，还有自动判断语言。
+
+第三，认出来的字放哪儿。动作下面有一个结果菜单，选 **save results to clipboard**（把结果存进剪贴板）。想留着给后面的动作用，也可以选存进一个<Term k="变量" />。
+
+用的时候就是两下：⌘⌃⇧4 框住幻灯片上那段字，再按 ⌃⌥⌘O，然后去备忘录里 ⌘V。
+
+<Callout type="ok">
+粘贴出来的是一段能编辑的文字，不是图片。
+</Callout>
+
+贴好以后，对着原图扫一眼。官方说得很直白：任何 OCR 都可能认错，别当它百分之百准。数字、日期和人名最值得核对，截止时间认错一位，比自己打一遍还麻烦。
+
+## 让宏等着屏幕上出现某几个字
+
+OCR 还有一个用处：不是把字拿走，而是看屏幕上有没有某几个字。**OCR** 条件能读屏幕上一块区域的字，判断它是不是包含、是不是等于你给的那段话（[条件的说明](https://wiki.keyboardmaestro.com/condition/OCR)）。比如一个导出要跑好几分钟、跑完窗口里会出现「完成」两个字，就可以用 **Pause Until**（暂停直到）配上这个条件，等它出现了再往下做。认字难免有错，所以条件别定得太死，用「包含」比用「完全等于」稳。
+
+## 卡住了？
+
+<Q q="认出来是一堆乱码，或者什么也没有。">
+先看动作里选的语言和图里的字对不对得上。再看用的是哪个引擎：官方提到 Tesseract 更喜欢白底黑字，黑底白字也常能认，但更容易失败；官方也说 Apple 的文字识别在大多数情况下效果更好，换过去再试。
+</Q>
+<Q q="我的中文认不出来。">
+看看 Keyboard Maestro 是不是 11.1 或更新的版本，按 11.1 的更新说明，Apple 文字识别从这一版起才加了中文。官方[常见问题](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)里还写着它只支持英文，和更新说明对不上；本站按更新说明写，先升级到最新版再试。
+</Q>
+<Q q="宏一跑到 OCR 这一步就失败。">
+官方常见问题说，Tesseract 在 macOS Sequoia 上经常因为内存错误失败，Tahoe 上大概也一样，而且他们多半修不了。打开动作，把引擎换成 Apple 的文字识别。
+</Q>
+<Q q="粘贴出来的还是那张图。">
+多半是先按了热键、后截的图，剪贴板里那时还没有新图。先截图，再按 ⌃⌥⌘O。也看一眼动作下面的结果菜单，确认选的是存进剪贴板。
+</Q>
+
+做一次你就会发现，抄字这件事本来就不该由人来做。屏幕上的按钮也想让它替你点，看[找到屏幕上的按钮，点它](/howto/click-image/)。

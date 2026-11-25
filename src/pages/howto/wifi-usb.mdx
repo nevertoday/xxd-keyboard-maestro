@@ -1,5 +1,63 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: wifi-usb
+step: 2
+time: 10 分钟
+for: 一到某个地方、一插上某个设备，你总要先动手做同样的几件事
+tldr: Wireless Network 触发器在连上或断开某个 Wi-Fi 时跑宏，USB Device 触发器在插上或拔掉某个 USB 设备时跑宏；名字都可以让 Keyboard Maestro 自己填。
+description: 用 Keyboard Maestro 的 Wireless Network 和 USB Device 触发器，在连上某个 Wi-Fi、插上某个设备时自动做事：老师一连上学校的网就静音、退出邮件，打开扫描仪就开扫描软件；macOS Sonoma 起要给的定位权限，为什么宏要经得起跑好几遍。
 ---
-{/* 待写：连上某个 Wi-Fi、插上某个 USB 设备时自动做事：对应的触发器。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Callout from "../../components/Callout.astro";
+
+当老师的人大概都遇到过一次：笔记本接上投影，一打开，昨晚没关的音乐响彻整个教室，邮件的提醒一条接一条弹在大屏幕上。其实你每天进教室要做的就那两件事，关声音、退出邮件，只是一忙就忘。照这一页做完，你的 MacBook 一连上学校的 Wi-Fi，就会自己静音、退出邮件，你什么都不用按。
+
+时间触发器管「几点」，这一篇的两个<Term k="触发器" />管「你在哪儿、手边接了什么」。<mark>你一到某个地方、一插上某个设备就要做的事，让那个网络、那个设备来按开始键。</mark>
+
+## 连上学校的 Wi-Fi，就静音、退出邮件
+
+新建一个<Term k="宏" />，叫「进教室」。触发器选 **Wireless Network**（无线网络），它在连上或断开一个 Wi-Fi 时跑（[官方说明](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)）。你可以让它对任何网络都响，也可以只认某个名字，官方更推荐认 BSSID：那是一串更独一无二的编号，毕竟叫「Home」「Work」的网络到处都是。
+
+名字不用自己打。把光标放进触发器里那个名字的输入框，然后去菜单栏断开、再连上学校的 Wi-Fi，Keyboard Maestro 会把网络的名字（或者 BSSID）替你填进去。选「连上」的时候跑。
+
+动作放两个。**Mute Audio Device**（静音音频设备）能把默认的声音输出设备静音、取消静音或者来回切换（Keyboard Maestro 11 起，[官方说明](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)），这里选静音。再加一个 **Quit a Specific Application**（退出某个 App），选邮件，选项用 **Quit**（退出）。下课想恢复，可以再做一个「出教室」的宏，触发器选同一个网络断开时，动作是取消静音。
+
+macOS Sonoma 起还有一步不能漏：读 Wi-Fi 的信息要定位权限。官方提醒要给 Keyboard Maestro Engine 打开定位权限，也就是 **系统设置 ▸ 隐私与安全性 ▸ 定位服务** 里它的那一项。没有这个权限，它就读不到 Wi-Fi 的信息。
+
+<Callout type="ok">
+在教室里关掉 Wi-Fi 再打开，连上学校的网络以后，声音图标变成静音，邮件退出了。
+</Callout>
+
+## 它会跑不止一次，所以要经得起
+
+官方专门提醒了一件事：Mac 每次睡眠、唤醒都会断开再连上 Wi-Fi，有时候 macOS 还会在背后悄悄重连一次，所以这类宏应该经得起跑好几遍。静音和退出邮件都没问题，已经静音的再静音一次、已经退出的再退出一次，什么也不会坏。可要是你在里面放了「新建一份今天的备课笔记」，合一次盖子就会多出一份。动作要挑那种做几遍结果都一样的。
+
+## 打开扫描仪，就开扫描软件
+
+再说另一位读者。家里有孩子上学的人，晚上常要扫几张学校的表格，每次都是先开扫描仪，再翻出扫描软件，扫完又忘了关。**USB Device**（USB 设备）触发器在插上或拔掉一个 USB 设备时跑宏，官方举的正是这个例子：打开扫描仪时开扫描软件，关掉时退出它（[官方说明](https://wiki.keyboardmaestro.com/trigger/USB_Device)）。
+
+USB 设备的名字常常和你想的不一样，所以照样让它自己填：光标放进触发器的名字输入框，然后接上（或者打开）扫描仪，名字就出来了。做两个宏最清楚。一个在设备接上时跑，动作是 **Activate a Specific Application**（激活某个 App），选你的扫描软件，它没开就会先启动；另一个在设备断开时跑，动作是 **Quit a Specific Application**，退出同一个软件。宏跑的时候，`%TriggerValue%` 这个<Term k="令牌" />里放着设备的名字，想在通知里写明是哪个设备，就用它。
+
+要是你等的不是一个设备、而是一块磁盘，比如移动硬盘、读卡器里的存储卡，那该用的是 **Mounted Volume**（宗卷装载）触发器：磁盘装载或推出时跑，可以指定某一块，也可以是任何一块（[官方说明](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)）。
+
+## 不想单独做宏，只想在宏里看一眼
+
+有时候你不需要一连上就跑，只想让别的宏看情况办事，比如每天早上的提醒，在家就提醒、在学校就不提醒。这时用条件就行：**Wireless Network** 条件能判断某个网络连着没有，**USB Device** 条件能判断某个设备在不在，配上 **If Then Else**（如果……否则）用（[Wi-Fi 条件](https://wiki.keyboardmaestro.com/condition/Wireless_Network)、[USB 条件](https://wiki.keyboardmaestro.com/condition/USB_Device)）。条件是什么、怎么用，见[完整教程第 4 步](/guide/4-variables/)。
+
+## 卡住了？
+
+<Q q="连上了那个 Wi-Fi，宏没跑。">
+macOS Sonoma 和更新的系统上，先看 Keyboard Maestro Engine 有没有定位权限。再看触发器里的名字是不是和网络一字不差，最稳的是清空它，光标放进去，断开再连一次让它自己填。也确认宏和它的<Term k="宏组" />都开着。
+</Q>
+<Q q="宏一天跑了好几遍。">
+这是正常的，睡眠、唤醒和系统的自动重连都会让它再跑一次。把动作换成做几遍都没关系的那种，别在这类宏里新建文件、发消息。
+</Q>
+<Q q="扫描仪的名字和我想的不一样，填进去也不灵。">
+别自己打名字，让 Keyboard Maestro 在你接上设备时填。官方说接上或者打开设备都能填，扫描仪这种要按电源的，就光标放好以后再开机。
+</Q>
+<Q q="插上移动硬盘，USB Device 触发器没反应。">
+等磁盘出现，用 **Mounted Volume** 触发器更合适，它认的是磁盘的名字。
+</Q>
+
+一个网络、一个设备，就能替你按下开始键。想让它到了钟点也自己开始，见[每天到点自动跑](/howto/daily-schedule/)。

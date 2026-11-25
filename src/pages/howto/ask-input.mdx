@@ -1,5 +1,76 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: ask-input
+step: 4
+time: 15 分钟
+for: 一段话每次都差不多，只有几个地方要换，比如公司名、职位、对方的名字
+tldr: 用 Prompt for User Input 先弹一个小表单问你几句，回答存进变量，后面的动作把它们填进那段话；只想从几项里挑一个，用 Prompt With List。
+description: 用 Keyboard Maestro 的 Prompt for User Input 先问你几句再动手：找工作的人一个热键写好求职信开头，公司名、职位和从哪儿看到的现填；变量怎么起名、怎么用进文字，下拉菜单怎么写，Cancel 会怎样；再用 Prompt With List 从一串现成回复里挑一句。
 ---
-{/* 待写：Prompt for User Input：先弹窗问你一句，拿你的回答接着做。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Callout from "../../components/Callout.astro";
+import Copy from "../../components/Copy.astro";
+
+找工作的时候，一天要投好几家，每封邮件开头那几句其实都一样，只是公司名、职位，还有你是从哪儿看到这个机会的，每次都不同。复制上一封再改，最怕的是改漏一处，把上一家公司的名字发给了下一家。照这一页做完，你在邮件里按 ⌃⌥⌘L（Control、Option、Command 再加 L），先弹出一个小表单问你这三样，你填好按回车，一段称呼得体、名字都对的开头就出现在光标处。
+
+前面那些宏都是一口气做完的。<mark>先问你一句、再拿你的回答接着做，宏才能对付「每次都差一点」的活。</mark>
+
+## 先弹一个小表单问你
+
+新建一个<Term k="宏" />，叫「求职信开头」，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘L。第一个动作是 **Prompt for User Input**（请你输入），它会弹出一个你自己设计的表单，把你填的东西存进<Term k="变量" />（[官方说明](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
+
+表单最上面是标题，写「求职信开头」；下面的提示语写一句给自己看的话，比如「这一封写给谁？」。再往下是变量，一行一个，左边是变量名，右边是默认值。加三行：
+
+- `Local Company`，默认值留空；
+- `Local Role`，默认值留空；
+- `Local Source`，默认值写 `招聘网站|朋友推荐|公司官网`。
+
+变量名前面的 `Local` 不是随便加的。以 Local 开头的是局部变量，只在这个宏里有、宏跑完就没了，不会在你的电脑里越攒越多；表单上显示的标签也会自动去掉「Local」，你看到的只是「Company」「Role」「Source」（[变量的说明](https://wiki.keyboardmaestro.com/manual/Variables)）。第三行的默认值里有竖线 `|`，Keyboard Maestro 会把它做成一个下拉菜单，竖线隔开的就是几个选项，排第一个的默认选中。
+
+按钮用它自带的两个就好：**OK** 对应回车键，关掉表单、接着往下做；**Cancel**（取消）对应 Esc 或者 ⌘.，关掉表单、不写变量，并且直接取消这个宏。
+
+## 把回答填进那段话
+
+第二个动作是 **Insert Text by Pasting**（粘贴插入文字），文字里用 `%Variable%变量名%` 把刚才的回答取出来。照下面这段改成你自己的话：
+
+<Copy id="ai-letter" title="Insert Text by Pasting 里的文字" code={`您好！
+
+我是通过%Variable%Local Source%了解到 %Variable%Local Company% 正在招聘%Variable%Local Role%的。读完职位介绍，我觉得这份工作和我过去几年做的事很合得来，所以写这封信，附上我的简历，希望能有机会和您聊一聊。`} />
+
+用的时候，先在邮件里把光标放到正文开头，再按 ⌃⌥⌘L。
+
+<Callout type="ok">
+弹出一个标题是「求职信开头」的小窗口，里面有两个输入框和一个下拉菜单。填好按回车，窗口关掉，那段开头出现在邮件里，三处都换成了你刚填的。
+</Callout>
+
+发出去之前还是读一遍：表单替你记住了要换哪几处，可写给哪家、写得合不合适，还得你自己看。
+
+## 只想从几句里挑一句：Prompt With List
+
+还有一种「先问你」，不用填字，只要挑。开网店的人回客户消息，翻来覆去就那么几句：已经发货了、什么时候能到、怎么退换。**Prompt With List**（列表选择）会弹出一个像 Spotlight 那样的窗口，把一串选项列出来，你打几个字筛一筛、选中按回车就行（[官方说明](https://wiki.keyboardmaestro.com/action/Prompt_With_List)）。
+
+选项一行一个，可以直接写在动作里。窗口里显示的和最后拿到的可以不一样：一行写成「要拿到的内容、两个下划线、要显示的字」，窗口里只显示后面那几个字，选中后拿到的是前面那一整句。比如：
+
+<Copy id="ai-list" title="Prompt With List 里的选项" code={`您的订单今天已经寄出，物流单号在订单详情里，一般三到五天能到。__已发货
+包裹在路上，物流信息隔天会更新一次，有任何变化我第一时间告诉您。__还在路上
+收到以后不合适也没关系，联系我就好，我把退换的步骤发给您。__退换`} />
+
+结果存进一个变量，比如 `Local Reply`，再接一个 **Insert Text by Pasting**，文字写 `%Variable%Local Reply%`。按 Esc 的话，这个动作算失败，什么也不存，默认还会取消整个宏，所以不想回了按 Esc 就好。
+
+## 卡住了？
+
+<Q q="点了 Cancel，什么都没粘上。">
+这是它本来的样子：Cancel 不写变量，还会取消整个宏。想要第三个按钮做别的事，比如「只存不贴」，可以在表单里再加按钮，按了哪个，`%PromptButton%` 这个<Term k="令牌" />里就是哪个的名字，后面用 **If Then Else**（如果……否则）分开走。
+</Q>
+<Q q="粘贴出来的还是 %Variable%Local Company% 这几个字。">
+对一对表单里的变量名和文字里的是不是一字不差，`Local` 后面那个空格也算。最稳的办法是用 **Edit ▸ Insert Variable**（插入变量）菜单把变量插进去，别手打（[变量的说明](https://wiki.keyboardmaestro.com/manual/Variables)）。
+</Q>
+<Q q="我想要下拉菜单，出来的却是一个输入框。">
+默认值的类型是 Automatic（自动）时，它看默认值猜：有竖线才做成菜单。没写竖线，或者你想说得明白一点，就在默认值右边那个菜单里直接选 Menu（菜单）。
+</Q>
+<Q q="表单弹出来了，可我打不了缩写。">
+官方提到，系统不让 Keyboard Maestro Engine 看到在它自己的窗口里打的字，所以输入字符串触发器在这些表单里不灵。表单里的字老老实实打，或者先在别处复制好再粘贴进去。
+</Q>
+
+一个表单、几个变量，就把「每次差一点」的那几处留给了你，其余的交给宏。变量、条件还能做更多事，见[完整教程第 4 步](/guide/4-variables/)。

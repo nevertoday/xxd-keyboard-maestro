@@ -1,5 +1,69 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: share-macros
+step: 7
+time: 10 minutes
+for: You made a handy macro and a colleague wants it, or you found someone else's macro online and want to use it
+tldr: Select the macros and use File ▸ Export ▸ Export Macros to save a .kmmacros file you can send. Import files you receive with Import Macros Safely, which brings them in disabled, and turn them on once you've read every step.
+description: "Export, import and share Keyboard Maestro macros: a teacher exports a grading-comments macro for a colleague and checks it before sending; macros you receive come in disabled with Import Macros Safely, and you enable them after reading them; Export Actions for just a few steps; ready-made macros in the built-in Macro Library; and why you shouldn't run a stranger's macro as is."
 ---
-{/* TBD: export and import macros, and what to remove before you share one. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+If you teach, end-of-term grading means writing a hundred comments, and lines like "Clear structure, the ending could be tighter" come up again and again. You made a macro that types one out from a few letters, the teacher next door saw it, and she asked whether she could have a copy. When you finish this page, you'll save the macro as a file and send it to her, and she'll import it, look it over and turn it on. The other way round, when someone sends you a macro, you'll know how to bring it in safely.
+
+<mark>A macro can do almost anything on your Mac, so bring other people's macros in disabled and turn them on only once you understand every step.</mark> You'll see that point again further down.
+
+## Save the macro as a file
+
+In the <Term k="编辑器" />, select the macros you want to give away (hold ⌘ Command to select several), then choose **File ▸ Export ▸ Export Macros** and save the file. It ends in `.kmmacros` ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). To hand over a whole <Term k="宏组" /> with everything in it, select just that group with no macros selected and export, and the entire group is saved as one `.kmmacros` file.
+
+The file is small, so an email attachment does the job.
+
+Before you send it, open each macro you're giving away and read it through. Macros you made for yourself often contain things only you should know: the phone number and address in your signature, an account name for some website, even a password. If a student's name turns up in a comment, reword it. The same goes for screenshots you post online when asking for help. Look at what's in the picture first.
+
+One more thing to tell her: imported macros keep their triggers. Your hot key may already mean something on her Mac, so she should check after importing and change it if it clashes.
+
+## Just a few actions, or share it directly
+
+Sometimes she doesn't want the whole macro, just a few of its steps, like the run of actions that arranges windows. Select those <Term k="动作" text="actions" /> in the macro and save them with **File ▸ Export ▸ Export Actions**. On her side, she opens a macro and adds them with **File ▸ Import ▸ Import Actions**.
+
+The **Share** button at the top of the editor window, or **File ▸ Share**, hands the selected group, macro or actions straight to a sharing service on your Mac, including posting to the official forum ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Hold Shift before you choose and it shares an image instead, for places that only take pictures.
+
+## Receiving a macro: import it disabled
+
+Now it's your turn to receive a file. The wiki lists a few ways to import: double-click the `.kmmacros` file in the Finder, or choose **File ▸ Import ▸ Import Macros Safely** in the editor and pick the file ([Macros](https://wiki.keyboardmaestro.com/manual/Macros)). Imported macros keep the state they were saved in: the same triggers, in a group of the same name, which is created if you don't have one.
+
+"Safely" is the important word. Macros imported this way come in disabled. The wiki says that otherwise an imported macro could be triggered the moment it's imported. So next, open the macro, read it from the first action to the last, make sure it does exactly what you were told, and only then turn it on.
+
+<Callout type="no" title="Don't run a macro from a stranger as is">
+The wiki puts it strongly: macros can do practically anything on your Mac, including cause a huge amount of damage, so never run one without verifying the source, and better yet, check exactly what it does ([Macro Library](https://wiki.keyboardmaestro.com/manual/Macro_Library)). If it has actions that run scripts or move files and you can't tell what they're doing, leave it off. **File ▸ Import ▸ Import Macros** only appears when you hold Option, and macros imported that way could run straight away, so use it only when you completely trust the person who sent them.
+</Callout>
+
+<Callout type="ok">
+The macro appears in the editor, disabled, so typing its letters does nothing yet. Once you've read it and turned it on, type them again and the comment appears.
+</Callout>
+
+## Ready-made macros: the Macro Library
+
+If you don't know where to start, browse the <Term k="宏库" /> that comes with Keyboard Maestro. Choose **Window ▸ Macro Library** for a collection of ready-made macros, each with a short description. Insert any you like into your macros and use them as they are, or change the hot keys and adjust them to suit you ([official page](https://wiki.keyboardmaestro.com/manual/Macro_Library)). All the macros Keyboard Maestro installs are in there too, so if you deleted one and regret it, you can reinstall it from here.
+
+The menu also has **Export as Macro Library**, which is meant for macros you'll import many times. The wiki warns that entries imported into your library currently can't be deleted from it, except by quitting Keyboard Maestro and the Engine and removing the files from a folder by hand. For everyday sharing, plain **Export Macros** is enough.
+
+## Stuck?
+
+<Q q="I double-clicked the file and it imported, but the macro does nothing.">
+It came in disabled, which is the point. After reading it, turn the macro on in the editor. If its group was newly created and is disabled too, turn the group on as well.
+</Q>
+<Q q="There's a new group I've never seen.">
+The exported file carries the name of the group it came from, and if you don't have a group by that name, one is created. To move the macro into one of your own groups, just drag it there.
+</Q>
+<Q q="Their hot key clashes with one I already use.">
+Pressing it brings up the Conflict Palette, asking which one to run. Give one of them a different hot key. The wiki points out you can also use that palette on purpose: give a few related macros the same hot key and pick with one more keystroke ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
+</Q>
+<Q q="I want a backup of all my macros.">
+**File ▸ Export ▸ Export All Macros as Folder** exports every macro, grouped into folders, as individual files, which is good for archiving. To keep two of your own Macs in step all the time, [macro syncing](/en/howto/sync-macs/) is the better tool.
+</Q>
+
+Read it before you give it away, read it again after you take one in, and macros can pass safely from person to person. To have several macros share a set of steps, or to bring in scripts, see [full guide step 7](/en/guide/7-advanced/).

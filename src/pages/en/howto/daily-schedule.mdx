@@ -1,5 +1,66 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: daily-schedule
+step: 2
+time: 10 minutes
+for: At a certain hour every day or every week, there's something you have to remember to do yourself
+tldr: A Time of Day trigger sets an hour and the days of the week, and the macro starts on its own when the time comes. Use Cron for trickier dates and Periodic for every so often. The Mac has to be awake at that moment.
+description: "Run a Keyboard Maestro macro at a fixed time every day or on certain weekdays: Time of Day for a daily hour, Cron for dates like the last Friday of the month, Periodic for every so often; what happens when the Mac is asleep or the screen is locked, and what to check when it didn't run."
 ---
-{/* TBD: a time trigger that runs a macro at the same time every day or on certain weekdays, and what happens if the Mac is asleep. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Most people who write know this morning. You promised yourself you'd start at 8:30, then you answered a few emails, read a few pages online, and it's ten before you remember the draft. When you finish this page, every weekday at 8:30 your Mac will open the draft you're working on and show a notification with today's goal. You don't press anything. When the time comes, it just starts.
+
+The thing that starts a macro is a <Term k="触发器" />. The beginner lessons used a hot key, and this page uses the clock instead. <mark>Hand anything that happens on the hour to a time trigger, but it only fires if the Mac is awake at that moment.</mark> The second half of that sentence matters more than the first.
+
+## Open the draft at 8:30 every weekday
+
+Make a new <Term k="宏" /> and name it something like "Start writing: open draft". For the trigger, choose **Time of Day**, which runs a macro at a certain time of day on the days of the week you pick ([official page](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)). Set the time to 8:30. The row of small squares underneath is the days of the week: blue ones are active, and pale ones with a diagonal line are not. Click a square to switch it, and make Monday to Friday blue. Whether the time shows a 24-hour clock or AM and PM follows your macOS settings.
+
+Add two actions. The first is **Open a File, Folder or Application**. Click the button on its right to choose your draft, and in the "with" menu pick TextEdit or whichever app you write in. The second is **Notification**. Make the title "Time to write" and the message a line for yourself, like "500 words first, email after ten" ([Notification action](https://wiki.keyboardmaestro.com/action/Notification)).
+
+<Callout type="tip">
+Don't wait until tomorrow morning to find out whether it works. Set the time two minutes from now, watch it run once, then change it back to 8:30.
+</Callout>
+
+## If the Mac is asleep, it won't catch up
+
+This is the part people get wrong. The wiki is clear: the Mac must be awake for the trigger to happen, and if it's sleeping, the macro won't fire later. So if your laptop's lid is closed at 8:30, the draft doesn't open that morning, and when you open the lid at 9:00, it doesn't remember to.
+
+The screen is a different story. If the display is asleep, the screen is locked or the screen saver is running, the macro still runs, but many actions that work with the interface (typing, menus, clicks) won't work. Some actions can wake the display or stop the screen saver, which solves part of it, but they can't unlock the screen ([official page](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)).
+
+So pick a time when you're usually already at the computer. And if what you really want is "do this the first time I use the Mac each day," skip the clock. The **Wake** trigger runs when the Mac wakes from sleep ([Wake trigger](https://wiki.keyboardmaestro.com/trigger/Wake)), and the **Login** trigger runs when you log in and the <Term k="引擎" /> launches with it.
+
+## The last Friday of the month: use Cron
+
+Some dates can't be clicked out of a row of weekdays. Plenty of freelancers send the month's invoices on the last Friday afternoon, and forgetting once means getting paid a month late. That kind of date belongs to the **Cron** trigger, which describes the time in one line of five fields: minute, hour, day of month, month and day of week ([official page](https://wiki.keyboardmaestro.com/trigger/Cron)). The official page shows how to match the last Friday of the month: `-1-7` for the day of the month and `+Fri` for the day of the week. At four in the afternoon, that's:
+
+<Copy id="ds-cron" title="Last Friday of every month at 16:00" code="0 16 -1-7 * +Fri" />
+
+The action is a **Notification** again, "Send this month's invoices," and you could add an **Open a File, Folder or Application** that opens the folder where your invoices live. Cron needs the Mac awake at that moment too.
+
+## Every so often: use Periodic
+
+Then there's "every little while." A student revising at home can sit for a whole afternoon, and their neck gives out first. The **Periodic** trigger runs every so many seconds, minutes or hours, and can be limited to part of the day or certain days of the week ([official page](https://wiki.keyboardmaestro.com/trigger/Periodic)). Set it to every 50 minutes between 9:00 and 18:00, with one **Notification**: "Stand up, drink some water, look out the window."
+
+Don't make the interval too short. The wiki specifically recommends against intervals in seconds unless there's no other way, partly because it can use a lot of CPU, and partly because any macro triggering cancels choices that are waiting on you, like the Conflict Palette, so frequent timed macros make those vanish unexpectedly. One more thing: a period that crosses midnight stops at midnight, so use two triggers if you want both sides covered.
+
+## Stuck?
+
+<Q q="The time came and nothing happened.">
+First, was the Mac asleep at that moment? Anything missed while it sleeps doesn't run later. Then check that the macro's <Term k="宏组" /> and the macro itself are enabled. Keyboard Maestro's **Help ▸ Interactive Help** can go through these one by one for you ([Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Finally, make sure the Engine is running. If it has quit, no trigger fires at all.
+</Q>
+<Q q="The macro ran, but the draft didn't come to the front, or the typing action typed nothing.">
+Most likely the screen was locked or the display was asleep. The macro runs, but actions that work with the interface don't, and they can't unlock the screen. Move the time to when you're usually using the computer.
+</Q>
+<Q q="No notification showed up.">
+**Notification** goes through macOS Notification Center. Check whether notifications for Keyboard Maestro Engine are turned off in System Settings.
+</Q>
+<Q q="I'm not sure my Cron line is right.">
+The official page has a table of ready-made lines, from "one minute past midnight each day" to "8:30 am on the first Saturday of each month." Adapting one of those is the safest. Or set the minute and hour a few minutes ahead with `*` for the day fields, watch it fire once, then change it back.
+</Q>
+
+A time trigger remembers the hour for you. All you have to remember is that the Mac needs to be awake. Besides the clock, a macro can also start when you join a Wi-Fi network or plug in a device. See [Do something when you join a Wi-Fi network or plug in a device](/en/howto/wifi-usb/).
