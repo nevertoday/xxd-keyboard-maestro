@@ -1,5 +1,69 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: share-macros
+step: 7
+time: 10 分钟
+for: 你做了一个好用的宏想给同事，或者在网上看到别人的宏想拿来用
+tldr: 选中宏，File ▸ Export ▸ Export Macros 存成一个 .kmmacros 文件发出去；收到的文件用 Import Macros Safely 导入，它进来时是停用的，看清每一步再打开。
+description: 用 Keyboard Maestro 导出、导入和分享宏：老师把批改评语的宏导出给同事，发出去之前检查什么；收到别人的宏用 Import Macros Safely 停用着导入、读完再启用；只给几个动作用 Export Actions；自带的宏库里有现成的宏；以及为什么来路不明的宏别直接跑。
 ---
-{/* 待写：导出宏、导入宏，分享给别人之前要去掉什么。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Callout from "../../components/Callout.astro";
+
+当老师的人，期末批作文要写上百条评语，「结构清楚，结尾可以再收一收」这类话翻来覆去。你做了一个宏，打几个字就出来一条，隔壁班的老师看见了，问能不能也给她一份。照这一页做完，你会把这个宏存成一个文件发给她，她导入以后检查一遍、打开就能用；反过来，你收到别人发来的宏，也知道怎么安全地装上。
+
+<mark>宏能在你的 Mac 上替你做几乎任何事，所以别人的宏先停用着导入，看懂了每一步再打开。</mark>这一条，后面会再说一遍。
+
+## 把宏存成一个文件
+
+在<Term k="编辑器" />里选中要给出去的宏，可以按住 ⌘（Command）多选几个，然后选 **File ▸ Export ▸ Export Macros**（导出宏），存成一个文件，扩展名是 `.kmmacros`（[菜单说明](https://wiki.keyboardmaestro.com/manual/Menus)）。想把一整个<Term k="宏组" />连同里面的宏一起给出去，就只选中那个宏组、一个宏都不选，再导出，整个宏组会存成一个 `.kmmacros` 文件。
+
+文件很小，用邮件附件发出去就行。
+
+发之前，把要给出去的每个宏打开读一遍。你自己用的宏里，常常写着只该你自己知道的东西：签名里的电话、住址，某个网站的账号，甚至密码。评语里出现了学生的名字，也换成别的说法。截图发到网上求助时也一样，先看一眼画面里有没有这些。
+
+还有一件事告诉对方：宏导进去以后，触发器和原来一样。你的热键在她的 Mac 上可能已经有别的用处，让她导入后看一眼，撞了就改。
+
+## 只给几个动作，或者直接分享
+
+有时候对方要的不是整个宏，只是其中几步，比如那一串摆窗口的动作。在宏里选中这几个<Term k="动作" />，用 **File ▸ Export ▸ Export Actions**（导出动作）存成文件；她那边打开一个宏，用 **File ▸ Import ▸ Import Actions**（导入动作）把它们加进去。
+
+编辑器窗口上方的 **Share**（分享）按钮，或者 **File ▸ Share**，能把选中的宏组、宏或动作直接交给 Mac 上的分享服务，包括发到官方论坛（[菜单说明](https://wiki.keyboardmaestro.com/manual/Menus)）。按住 Shift 再选，分享的是一张图，适合只收图片的地方。
+
+## 收到别人的宏：停用着导入
+
+轮到你收文件了。官方给了几种导入的办法：在 Finder 里双击 `.kmmacros` 文件，或者在编辑器里选 **File ▸ Import ▸ Import Macros Safely**（安全导入宏）再选文件（[宏的说明](https://wiki.keyboardmaestro.com/manual/Macros)）。导进来的宏保持它保存时的样子：同样的触发器，进同名的宏组，你这里没有这个宏组就新建一个。
+
+「安全」两个字是关键：这样导进来的宏是停用的。官方说，不停用导入的话，宏可能一导进来就被触发、马上开始跑。所以接下来，打开这个宏，从第一个动作读到最后一个，确认它做的正是对方说的那件事，再把它打开。
+
+<Callout type="no" title="来路不明的宏，别直接跑">
+官方的原话很重：宏几乎能在你的 Mac 上做任何事，包括造成很大的破坏，所以别运行一个没核实过来源的宏，最好先弄清它到底做了什么（[宏库的说明](https://wiki.keyboardmaestro.com/manual/Macro_Library)）。里面有执行脚本、动文件的动作，又看不懂它在做什么，就别打开。**File ▸ Import ▸ Import Macros**（直接导入宏）要按住 Option 才选得到，导进来的宏可能马上就跑，只在你完全信得过对方时才用它。
+</Callout>
+
+<Callout type="ok">
+宏出现在编辑器里，是停用着的，打那几个字什么也不会发生。读完、把它打开以后再打，评语出来了。
+</Callout>
+
+## 现成的宏：宏库
+
+不知道从哪儿开始的话，先翻翻 Keyboard Maestro 自带的<Term k="宏库" />。选 **Window ▸ Macro Library**（宏库），里面是一批现成的宏，每个都有一小段说明，挑中意的插进你的宏里，照原样用，或者改改热键、改成你要的样子（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Library)）。Keyboard Maestro 预装的那些宏也都在这儿，哪天删了一个又后悔，从这里装回来就行。
+
+菜单里还有一个 **Export as Macro Library**（导出为宏库），它是给要导入很多次的宏准备的。官方提醒，导进宏库的条目目前没法在宏库里删掉，只能退出 Keyboard Maestro 和引擎、去文件夹里手动移走文件，所以平常分享，用上面的 **Export Macros** 就够了。
+
+## 卡住了？
+
+<Q q="双击文件导入了，可宏不灵。">
+它是停用着进来的，这正是为了安全。读一遍以后，在编辑器里把这个宏打开；它所在的宏组要是也是新建的、而且停着，宏组也要打开。
+</Q>
+<Q q="导进来多了一个我没见过的宏组。">
+导出的文件带着原来的宏组名字，你这里没有同名的宏组，它就新建一个。想挪到自己的宏组里，直接拖过去。
+</Q>
+<Q q="对方的热键和我已有的撞了。">
+按下去会弹出一块冲突面板，问你要跑哪一个。给其中一个换个热键就好，官方说这块面板也可以反过来用：几个同类的宏故意用同一个热键，再按一个字母挑（[面板的说明](https://wiki.keyboardmaestro.com/manual/Palettes)）。
+</Q>
+<Q q="我想把所有宏留一份备份。">
+**File ▸ Export ▸ Export All Macros as Folder**（把所有宏导出成文件夹）会把全部宏按宏组导成一个个文件，适合存档。要在两台自己的 Mac 之间一直保持一致，用[宏同步](/howto/sync-macs/)更合适。
+</Q>
+
+给出去之前读一遍，收进来之后再读一遍，宏就能放心地在人和人之间传。想让好几个宏共用一段步骤，或者接上脚本，见[完整教程第 7 步](/guide/7-advanced/)。

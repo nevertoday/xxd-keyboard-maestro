@@ -1,5 +1,81 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: sync-macs
+step: 7
+time: 20 分钟，两台 Mac 都要在手边
+for: 你有两台 Mac，在这台做好的宏，到那台还得再做一遍
+tldr: 在第一台 Mac 上把宏存成一个同步文件，放进两台都能看到的文件夹；第二台打开这个文件，从此改哪台，另一台都跟着变。第二台原来的宏会被换掉，先导出。
+description: 用 Keyboard Maestro 的宏同步让两台 Mac 用同一套宏：开始之前要备好什么，第一台 Create New、第二台 Open Existing，第二台原来的宏怎么保住，只想在一台上生效的宏组怎么设；哪几件事千万别做，丢了改动怎么找回来。
 ---
-{/* 待写：两台 Mac 同步同一份宏：打开宏同步，宏文件放在哪，同步出问题怎么办。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Callout from "../../components/Callout.astro";
+
+平时在家用 iMac 干活，周末带着 MacBook 去父母家住两天，一边陪他们，一边把手头的事做完。上周在 iMac 上做了一个缩写，一打就出来一段给客户的回复，到了父母家想用，MacBook 上根本没有，只好凭记忆再做一遍，做出来还和家里那个不太一样。照这一页做完，两台 Mac 用的是同一套宏：在哪台上改，另一台过一会儿就跟着变。
+
+Keyboard Maestro 自带宏同步（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)）。它好用，但规矩很硬，官方的警告一条比一条醒目。<mark>同步是全有或全无的：第二台 Mac 上原来的宏会被整个换掉，所以先导出、再同步。</mark>
+
+## 开始之前
+
+先把三样东西备好。
+
+第一，两台 Mac 上的 Keyboard Maestro 是一模一样的版本。官方说只能在相同的版本之间同步；同步文件比你这台的版本新时，它会提醒你升级、关掉同步，或者「冒险继续」。别选冒险继续，那会暂时停掉同步、让你改下去，改的东西多半会在以后惹麻烦。
+
+第二，一个两台 Mac 上都会自动同步的文件夹。官方说 Dropbox 这一类服务就很合适，或者一台始终开着、两台都连得上的文件服务器。官方也特别提了 iCloud 云盘：它在两台 Mac 之间同步常常要很久，会导致改动丢失。
+
+第三，你的宏里用到的 App，在两台 Mac 上的路径一样。一台上有、另一台上没有的文件和 App，很可能出问题。
+
+## 第一台：Create New
+
+在宏现在所在的那台 Mac 上（这里是 iMac），选 **File ▸ Start Syncing Macros**（开始同步宏）。弹出来的说明官方特别叮嘱要仔细读，读完点 **Create New**（新建），把同步文件存进刚才那个两台都能看到的文件夹。从这一刻起，这台 Mac 上的改动都会写进这个文件，别处的改动也从这个文件读回来。
+
+然后等一会儿，等这个文件真的出现在第二台 Mac 的那个文件夹里。
+
+## 第二台：先导出，再 Open Existing
+
+到 MacBook 上，先想一想：这台上有没有你想留下的宏？有的话，现在就把它们选中，用 **File ▸ Export ▸ Export Macros**（导出宏）存成一个文件，怎么导出见[导出、导入和分享宏](/howto/share-macros/)。这一步跳不得，因为官方写得明明白白：点下一步的那个按钮，这台 Mac 上已有的宏全都会被销毁。
+
+<Callout type="no" title="在第二台上点 Open Existing 之前">
+这台 Mac 上的宏会被第一台的宏整个替换，没有合并这回事。要留的，先导出。
+</Callout>
+
+导出好了，选 **File ▸ Start Syncing Macros**，照样把说明读完，这次点 **Open Existing**（打开已有的），选中那个同步过来的文件。MacBook 上的宏随即换成了 iMac 上的那一套。最后把刚才导出的文件导回来，它们从此也会同步到 iMac 上。还有第三台、第四台，照第二台的做法重复就行。
+
+<Callout type="ok">
+在 iMac 上随便改一个宏的名字，等一会儿，MacBook 的编辑器里那个宏也换了名字。
+</Callout>
+
+## 只想在一台上生效的宏
+
+两台 Mac 毕竟不一样。有些宏只该在家里那台跑，比如打开外接硬盘上某个文件夹的那个。用不着拆成两套：在那个<Term k="宏组" />的设置里打开 **Disabled on this Mac**（在这台 Mac 上停用），它就只在这台上关着。反过来，也可以先点 **Disable On All Macs**（在所有 Mac 上停用），再到想用它的那几台上把 **Disabled on this Mac** 关掉；点过这个按钮以后，以后新加入同步的 Mac 上，这个宏组默认是关着的。
+
+还要知道，同步的只有宏。偏好设置、剪贴板、<Term k="变量" />都不会同步。
+
+## 千万别做的几件事
+
+官方的警告归拢起来，是这几条：
+
+- **别在两台上同时改宏。** 一台改了、还没同步过去，另一台又改了，其中一边的改动可能就没了。不联网的时候尤其要小心。官方还提到，退出 Keyboard Maestro 编辑器本身也算一次改动。习惯是：换到另一台之前，等一会儿，让这边的改动先传过去。
+- **别在没导出的情况下，在第二台上点 Open Existing。** 上面说过，它会销毁那台上原有的宏。
+- **别用「迁移助理」把一台 Mac 整个复制到新 Mac，然后两台都接着用。** 两台会带着同一个 Mac 编号（MacUUID），Keyboard Maestro 分不清它们，同步会出问题。真要这样做，照官方[宏同步页](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)末尾的说明，在其中一台上重置这个编号。
+- **别在版本不同的两台之间硬同步。** 先把两台升到同一个版本。
+
+## 卡住了？
+
+<Q q="我在一台上改的东西不见了。">
+选 **File ▸ Revert Macros**（恢复宏），Keyboard Maestro 留着备份，能退回到这次打开时、昨天，甚至几天前的样子。Dropbox 这类服务往往也留着旧版本。改动丢了，多半是两台改得太快、中间没来得及同步，以后换机器前多等一会儿。
+</Q>
+<Q q="它提醒我，同步文件比这台 Mac 上的版本新。">
+另一台 Mac 已经升级了。把这台的 Keyboard Maestro 也升到同一个版本，下载只从[官网](https://www.keyboardmaestro.com/)。
+</Q>
+<Q q="同步文件到底存在哪儿了？">
+**File ▸ Reveal Macro Sync File**（显示宏同步文件）会在 Finder 里把它指给你看。
+</Q>
+<Q q="同一个宏，在另一台上跑得不对。">
+多半是两台不一样：App 的位置、屏幕的大小。官方建议用令牌和函数让宏自己适应，比如 `%MacUUID%` 令牌每台 Mac 都不同，可以拿来判断现在在哪一台；SCREEN 函数能按当前的屏幕来算位置。
+</Q>
+<Q q="不想同步了。">
+选 **File ▸ Stop Syncing Macros**（停止同步宏）。另外，换新 Mac、旧的不再用了，也能借同步搬家：在旧 Mac 上打开同步、把文件存在随便哪儿，拷到新 Mac，装好 Keyboard Maestro 后打开同步、选这个文件，然后关掉同步。官方说这样只搬宏，不搬设置、变量和剪贴板（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
+</Q>
+
+同步设好以后，几乎可以忘了它，只要记住别两台同时改。想把宏给别人用，而不是给自己的另一台 Mac，看[导出、导入和分享宏](/howto/share-macros/)。

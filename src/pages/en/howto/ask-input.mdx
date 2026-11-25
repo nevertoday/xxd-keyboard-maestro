@@ -1,5 +1,76 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: ask-input
+step: 4
+time: 15 minutes
+for: The text is nearly the same every time, except for a few spots like a company, a role or someone's name
+tldr: Prompt for User Input shows a small form first, stores your answers in variables, and later actions fill them into the text. To pick one of a few options instead, use Prompt With List.
+description: "Ask a question before doing the work with Keyboard Maestro's Prompt for User Input: a job seeker's hot key writes a cover letter opening with the company, role and source filled in on the spot; how to name variables and use them in text, how to make a popup menu, what Cancel does; then Prompt With List to pick one of a set of ready replies."
 ---
-{/* TBD: ask a question first with Prompt for User Input and use the answer in the rest of the macro. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+When you're job hunting, you send several applications a day, and the first few lines of each email are really the same. Only the company, the role and where you heard about it change. Copying the last one and editing it works until you miss a spot and send one company's name to another. When you finish this page, you'll press ⌃⌥⌘L (Control, Option, Command and L) in a new email, a small form will ask you those three things, and after you fill them in and press Return, a polite opening with every name right appears at your cursor.
+
+The macros so far run straight through. <mark>Ask a question first, then work with the answer, and a macro can handle jobs that are almost the same every time.</mark>
+
+## Ask with a small form first
+
+Make a new <Term k="宏" /> called "Cover letter opening," add a **Hot Key** trigger, and press ⌃⌥⌘L. The first action is **Prompt for User Input**, which shows a form you design and stores what you type in <Term k="变量" text="variables" /> ([official page](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+At the top of the form is the title, "Cover letter opening." Under it, the prompt is a line for you to read, like "Who is this one for?" Below that come the variables, one per line, with the name on the left and a default value on the right. Add three lines:
+
+- `Local Company`, with the default left empty;
+- `Local Role`, with the default left empty;
+- `Local Source`, with the default `a job site|a friend|your website`.
+
+The `Local` at the front isn't decoration. Variables that start with Local are local variables. They exist only inside this macro and go away when it finishes, so they don't pile up on your Mac. The form also drops "Local" from the labels, so all you see is "Company," "Role" and "Source" ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)). The third default has bars `|` in it, so Keyboard Maestro makes it a popup menu. The bars separate the choices, and the first one is selected by default.
+
+The two buttons it comes with are all you need. **OK** answers to Return, closes the form and carries on. **Cancel** answers to Escape or ⌘., closes the form without writing the variables, and cancels the macro.
+
+## Fill the answers into the text
+
+The second action is **Insert Text by Pasting**, and in its text `%Variable%name%` pulls out each answer. Adjust this to your own words:
+
+<Copy id="ai-letter" title="Text for Insert Text by Pasting" code={`Hello,
+
+I found out through %Variable%Local Source% that %Variable%Local Company% is looking for a %Variable%Local Role%. Reading the job description, it sounds like a close fit with the work I've been doing for the past few years, so I'm writing with my résumé attached in the hope that we can talk.`} />
+
+To use it, put your cursor at the start of the email body, then press ⌃⌥⌘L.
+
+<Callout type="ok">
+A small window titled "Cover letter opening" appears with two text fields and a popup menu. Fill them in and press Return, the window closes, and the opening appears in your email with all three spots replaced by what you just typed.
+</Callout>
+
+Read it once before sending. The form remembers which spots to change, but whether it's the right company and the right tone is still up to you.
+
+## Picking one line from a few: Prompt With List
+
+There's another way to ask first, where you don't type anything, you just pick. If you run a small online shop, your replies to customers are the same few lines over and over: it's shipped, when it'll arrive, how returns work. **Prompt With List** shows a Spotlight-like window with a list of choices. Type a few letters to narrow it down, select one and press Return ([official page](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+
+Choices go one per line and can sit right in the action. What the window shows and what you get back can differ: write a line as "what you want back, two underscores, what to show," and the window shows only the short part, while choosing it gives you the whole sentence in front. For example:
+
+<Copy id="ai-list" title="Choices for Prompt With List" code={`Your order went out today. The tracking number is in your order details, and it usually takes three to five days.__Shipped
+Your package is on its way. Tracking updates about once a day, and I'll let you know right away if anything changes.__On the way
+If it isn't right when it arrives, no problem. Just get in touch and I'll send you the steps for a return or exchange.__Returns`} />
+
+Save the result to a variable, say `Local Reply`, then add an **Insert Text by Pasting** with the text `%Variable%Local Reply%`. If you press Escape, the action fails and nothing is saved, and by default the whole macro is canceled, so Escape is how you back out.
+
+## Stuck?
+
+<Q q="I clicked Cancel and nothing was pasted.">
+That's how it works: Cancel doesn't write the variables and cancels the whole macro. If you want a third button that does something else, like "save but don't paste," add more buttons to the form. The `%PromptButton%` <Term k="令牌" /> holds the name of whichever button was pressed, and an **If Then Else** can branch on it.
+</Q>
+<Q q="What gets pasted is literally %Variable%Local Company%.">
+Check that the variable name in the form and the one in the text match exactly, including the space after `Local`. The safest way is to insert the variable with the **Edit ▸ Insert Variable** menu instead of typing it ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)).
+</Q>
+<Q q="I wanted a popup menu and got a text field.">
+When a field's type is Automatic, it guesses from the default value, and only bars make a menu. If there are no bars, or you'd rather be explicit, choose Menu in the menu to the right of the default value.
+</Q>
+<Q q="The form is open, but my abbreviations don't expand in it.">
+The wiki notes that the system won't let Keyboard Maestro Engine see keys typed in its own windows, so typed string triggers don't work in these forms. Type into the form directly, or copy the text somewhere else first and paste it in.
+</Q>
+
+One form and a few variables leave the parts that change each time to you, and the macro does the rest. Variables and conditions can do a lot more. See [full guide step 4](/en/guide/4-variables/).

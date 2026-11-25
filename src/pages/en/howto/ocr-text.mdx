@@ -1,5 +1,61 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: ocr-text
+step: 3
+time: 10 minutes
+for: The text is in an image, a video or a screenshot, so you can't select it and end up retyping it
+tldr: Capture the part with the text, press one hot key, and Keyboard Maestro reads it with OCR and puts it on the clipboard, ready to paste.
+description: "Read text from screenshots, images and the screen with Keyboard Maestro's OCR Image action: try the OCR that comes with the clipboard history first, then build a hot key macro, pick the language and the recognition engine, save the result to the clipboard, and what to do when it reads the wrong thing or nothing at all."
 ---
-{/* TBD: read text off the screen or an image with the OCR action, into the clipboard or a variable. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Your teacher put the assignment details on a slide, and the recorded lecture is paused right on it. The text is perfectly clear, but you can't select it. A classmate drops a screenshot of who's doing what and when it's due into the group chat, and to get it into Notes you'd have to type it out letter by letter. When you finish this page, you'll drag around the part with the text, press ⌃⌥⌘O (Control, Option, Command and O), and the words will be on your clipboard, ready to paste anywhere.
+
+Reading text out of a picture is called OCR, optical character recognition. Keyboard Maestro's **OCR Image** action pulls the text out of an image ([official page](https://wiki.keyboardmaestro.com/action/OCR_Image)). <mark>All you do is give it a picture with words in it, and it puts the words on the clipboard as if you'd copied them yourself.</mark>
+
+## Try it once without building anything
+
+Once Keyboard Maestro is installed, the <Term k="剪贴板历史" /> window already comes with a small OCR tool. Press ⌘⌃⇧4 (Command, Control, Shift and 4) and drag around the text, which puts the screenshot on the clipboard. Then open the Clipboard History Switcher (its hot key is on the macro for it in the built-in Switcher Group), select that image, and choose the OCR entry from the window's gear ⚙ menu ([official page](https://wiki.keyboardmaestro.com/action/OCR_Image)).
+
+For the odd screenshot, that's plenty. If you're copying from slides several times a week, it's worth turning into one key.
+
+## Make it one key
+
+Make a new <Term k="宏" />, add a **Hot Key** trigger, press ⌃⌥⌘O, and add an **OCR Image** action. The action asks you three things.
+
+First, where the image comes from. It can read an image pasted into the action, an image on a clipboard, a file, or the screen itself: all screens, one screen, a window, or an area on the screen. Choose **System Clipboard** here, because you'll capture the part you want with ⌘⌃⇧4 first and decide on the spot what to include.
+
+Second, what language the text is in. Pick the language or script in the action. Each language needs a one-time download, usually between 1 and 10 MB. There are two recognition engines, Apple's own Text Recognition (Keyboard Maestro 11 and later, macOS 10.15 and later) and an open source library called Tesseract, and new actions default to Apple's on 10.15 and up. The [What's New](https://wiki.keyboardmaestro.com/manual/Whats_New) notes for 11.1 say Apple Text Recognition gained Chinese, Cantonese, several European languages and automatic detection.
+
+Third, where the text goes. The results menu at the bottom of the action has **save results to clipboard**. If you'd rather keep it for later actions, you can save it to a <Term k="变量" /> instead.
+
+Using it takes two moves: ⌘⌃⇧4 around the text on the slide, then ⌃⌥⌘O, then ⌘V in Notes.
+
+<Callout type="ok">
+What you paste is editable text, not a picture.
+</Callout>
+
+Once it's pasted, glance back at the original. The wiki is blunt about it: like any OCR, the text may contain errors, so don't assume it's 100% accurate. Numbers, dates and names are the ones to check, because one wrong digit in a deadline costs you more than retyping would have.
+
+## Let a macro wait for a few words on screen
+
+OCR has another use. Instead of taking the text away, it can check whether certain words are on screen. The **OCR** condition reads the text in an area of the screen and tests whether it contains, or exactly matches, the words you give it ([the condition](https://wiki.keyboardmaestro.com/condition/OCR)). Say an export takes several minutes and a window shows the word "Done" when it's finished. A **Pause Until** with this condition can wait for that word before moving on. Since OCR makes mistakes, keep the test loose: "contains" holds up better than "is".
+
+## Stuck?
+
+<Q q="It gives me gibberish, or nothing at all.">
+First check that the language chosen in the action matches the text in the image. Then check the engine. The wiki says Tesseract prefers black-on-white text, and while it often copes with white-on-black, it's more likely to fail there. It also says Apple's Text Recognition generally works better in most cases, so switch to it and try again.
+</Q>
+<Q q="My Chinese text isn't recognized.">
+Check that you're on Keyboard Maestro 11.1 or later, since the 11.1 notes are where Apple Text Recognition gained Chinese. The official [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) still says it supports English only, which doesn't match the release notes. This site goes by the release notes, so update to the latest version and try again.
+</Q>
+<Q q="The macro fails as soon as it reaches the OCR step.">
+The FAQ says the Tesseract library frequently fails with a memory corruption on macOS Sequoia, likely on Tahoe too, and that this is unlikely to be fixed. Open the action and switch the engine to Apple's Text Recognition.
+</Q>
+<Q q="What I paste is still the picture.">
+Most likely you pressed the hot key before taking the screenshot, so the new image wasn't on the clipboard yet. Capture first, then press ⌃⌥⌘O. Also check that the results menu at the bottom of the action is set to save to the clipboard.
+</Q>
+
+Do it once and you'll wonder why copying text off a screen was ever a job for a person. To have it click a button on screen for you as well, see [Find a button on screen and click it](/en/howto/click-image/).
