@@ -11,13 +11,13 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Callout from "../../components/Callout.astro";
 
-开网店的人，宏做着做着就多了：打开给供货商下单的表格、贴一段店铺的退货地址说明、打开这个月放收据的文件夹。都很好用，可每周才用一两回，到要用的时候，热键是 ⌃⌥⌘ 加几来着，一个也想不起来。照这一页做完，你按 ⌃⌥⌘P（Control、Option、Command 再加 P），屏幕上浮出一小块<Term k="面板" />，上面是这几个宏的名字，点哪个就跑哪个；再按一次 ⌃⌥⌘P，面板收起来。
+网店开久了，宏也做着做着就多了：打开给供货商下单的表格、贴一段店铺的退货地址说明、打开这个月放收据的文件夹。都很好用，可每周才用一两回，到要用的时候，热键是 ⌃⌥⌘ 加几来着，一个也想不起来。照这一页做完，你按 ⌃⌥⌘P（Control、Option、Command 再加 P），屏幕上浮出一小块<Term k="面板" />，上面是这几个宏的名字，点哪个就跑哪个；再按一次 ⌃⌥⌘P，面板收起来。
 
 热键适合天天用的事。<mark>不常用的宏，与其记热键，不如让它们排成一排按钮，用的时候看一眼、点一下。</mark>
 
 ## 一个宏组，就是一块面板
 
-Keyboard Maestro 里任何一个<Term k="宏组" />都能显示成面板（[官方说明](https://wiki.keyboardmaestro.com/manual/Palettes)）。所以先给这几个宏安一个家：在编辑器左边宏组列表的底下点 **+**，新建一个宏组，起名「小店工具」。
+Keyboard Maestro 里任何一个<Term k="宏组" />都能显示成面板（[Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)）。所以先给这几个宏安一个家：在编辑器左边宏组列表的底下点 **+**，新建一个宏组，起名「小店工具」。
 
 选中这个宏组，右边是它的设置。默认是 **Always activated**（一直生效），把它改成 **Shows/hides a palette when:**（按下时显示或收起面板），旁边会出来一个热键框，按下 ⌃⌥⌘P。宏组能用在哪些 App 里，先保持所有 App。
 
@@ -27,24 +27,22 @@ Keyboard Maestro 里任何一个<Term k="宏组" />都能显示成面板（[官�
 随便切到哪个 App，按 ⌃⌥⌘P，屏幕上出现一块标题是「小店工具」的面板，里面是那几个宏的名字。点一下「打开下单表格」，表格打开了；再按 ⌃⌥⌘P，面板收起。
 </Callout>
 
-这一种方式有个特点值得知道：用这几种「显示面板」的设置时，宏组里的宏只在面板显示着的时候才生效（[宏组的说明](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。好处是你可以给它们配很简单的热键，甚至单个字母，平时打字不会误触；坏处是面板一收，它们自己的热键也跟着不灵了。要是你希望面板收起来时这些热键照样能用，选带 Always activated 的那一种：**Always activated and shows/hides a palette when:**（一直生效，按下时显示或收起面板）。
+这一种方式有个特点值得知道：用这几种「显示面板」的设置时，宏组里的宏只在面板显示着的时候才生效（[Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。好处是你可以给它们配很简单的热键，甚至单个字母，平时打字不会误触；坏处是面板一收，它们自己的热键也跟着不灵了。要是你希望面板收起来时这些热键照样能用，选带 Always activated 的那一种：**Always activated and shows/hides a palette when:**（一直生效，按下时显示或收起面板）。
 
 ## 排好顺序，改个样子
 
-面板上的按钮按宏的名字排。想换顺序，在宏名前面加两个字符和一个右括号，比如「01)打开下单表格」「02)退货地址」，它按这两个字符排，显示时会把前缀去掉（[官方说明](https://wiki.keyboardmaestro.com/manual/Palettes)）。
+面板上的按钮按宏的名字排。想换顺序，在宏名前面加两个字符和一个右括号，比如「01)打开下单表格」「02)退货地址」，它按这两个字符排，显示时会把前缀去掉（[Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)）。
 
-样子在宏组自己的设置里改，也可以在偏好设置的 **Palettes**（面板）那一页改默认的样式。能调的有风格、透明度、按钮大小、分几列、显示图标还是文字还是热键、要不要标题栏，以及鼠标不在上面时要不要缩小。给每个宏配个图标、只显示图标，就是一排小巧的图标按钮。
-
-用的过程中想改哪个宏，按住 Option 点面板上那个按钮，就直接跳到编辑器里那个宏。
+样子在宏组自己的设置里改，也可以在偏好设置的 **Palettes**（面板）那一页改默认的样式。能调的有风格、透明度、按钮大小、分几列、显示图标、文字还是触发器、要不要标题栏，以及鼠标不在上面时要不要缩小。给每个宏配个图标、只显示图标，就是一排小巧的图标按钮。
 
 ## 别的几种显示方式
 
 上面那种是「按一下出来，再按一下收起」。宏组的设置里还有几种，按你的用法挑：
 
-- **Shows a palette for one action when:**（按下时显示面板，只用一次）：面板出来，你点一个按钮、或者 Mac 上有了别的变化（切了 App、按了别的键），它就收起。官方举的例子是一组打开 App 的宏，按 ⌘⌃L 出来，点一下要开的 App 就走。
+- **Shows a palette for one action when:**（按下时显示面板，只用一次）：面板出来以后，你点了其中一个宏、或者按了别的键，它就收起。官方举的例子是一组打开 App 的宏，按 ⌃⌘L 出来，点一下要开的 App 就走。
 - **Shows a palette until:**（一直显示面板，直到按下）：面板一开始就在，按热键才收起。把宏组设成只在某个 App 里可用，面板就只在那个 App 在前面时出现，像给那个 App 加了一条自己的工具栏。
 
-另外有两条不用新建宏组的路。给某个宏加一个 **Global Macro Palette**（全局宏面板）触发器，它就出现在一块所有这类宏共用的浮动面板里，只要有这样的宏在生效，这块面板就在（[触发器说明](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)）。想在某个宏跑到一半时让你挑下一步，用 **Show Palette of Macros**（显示宏面板）动作：它弹出一块面板，列出你选的宏、宏组或者<Term k="智能组" />，点哪个跑哪个，连当时没生效的宏也照跑（[动作说明](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)）。
+另外有两条不用新建宏组的路。给某个宏加一个 **Global Macro Palette**（全局宏面板）触发器，它就出现在一块所有这类宏共用的浮动面板里，只要有这样的宏在生效，这块面板就在；在这块面板上按住 ⌥ 点一个宏，就直接去编辑它（[Global Macro Palette 触发器](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)）。想在某个宏跑到一半时让你挑下一步，用 **Show Palette of Macros**（显示宏面板）动作：它弹出一块面板，列出你选的宏、宏组或者<Term k="智能组" />，点哪个跑哪个，连当时没生效的宏也照跑（[Show Palette of Macros 动作](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)）。
 
 ## 卡住了？
 
@@ -55,7 +53,7 @@ Keyboard Maestro 里任何一个<Term k="宏组" />都能显示成面板（[官�
 被停用的宏不会出现在面板上，到编辑器里看看它是不是关着。也确认它真的拖进了这个宏组，而不是还在原来的地方。
 </Q>
 <Q q="看视频的时候，面板挡在画面上。">
-**Conceal Macro Palettes**（隐藏宏面板）动作能把 Keyboard Maestro 的所有面板一起藏起来，其中「直到切换 App」那一项，官方说正适合在 Safari 里全屏看视频：一切出去面板就回来（[动作说明](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)）。平时嫌它占地方，也可以在样式里调低透明度，或者让它在鼠标离开时缩小。
+**Conceal Macro Palettes**（隐藏宏面板）动作能把 Keyboard Maestro 的所有面板一起藏起来，其中「直到切换 App」那一项，官方说正适合在 Safari 里全屏看视频：一切出去面板就回来（[Conceal Macro Palettes 动作](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)）。平时嫌它占地方，也可以在样式里调低透明度，或者让它在鼠标离开时缩小。
 </Q>
 
 一块面板，把「记得有这么个宏，却想不起热键」变成了「看一眼，点一下」。宏组还管着宏在哪里、什么时候生效，见[完整教程第 1 步](/guide/1-groups/)。

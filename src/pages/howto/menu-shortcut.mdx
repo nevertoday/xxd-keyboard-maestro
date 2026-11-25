@@ -10,7 +10,7 @@ description: 用 Select or Show a Menu Item 动作替你去点那个菜单，从
 import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 
-家里有孩子上学的，常要把学校网页上的通知存下来：春季活动的注意事项、下学期的课表、要带的东西清单。网页过几周就换了，存成 PDF 才放心。在 Safari 里存 PDF，要点「文件」菜单，往下找到「导出为 PDF」那一项，可它没有快捷键，每次都得拿鼠标去点。照这一页做完，你在 Safari 里按 ⌃⌥⌘E（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），保存窗口直接弹出来，你只管起名字；这个键只在 Safari 里有用，换到别的 App 里一点影响都没有。
+家里有孩子上学的，常要把学校网页上的通知存下来：春季活动的注意事项、下学期的课表、要带的东西清单。网页过几周就换了，存成 PDF 才放心。在 Safari 里存 PDF，要点「文件」菜单，往下找到「导出为 PDF」那一项，可它没有快捷键，每次都得拿鼠标去点。做完这一页，你在 Safari 里按 ⌃⌥⌘E（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），保存窗口直接弹出来，你只管起名字；这个键只在 Safari 里有用，换到别的 App 里一点影响都没有。
 
 <mark>菜单里点得到的命令，就配得上一个键：让宏替你去点那个菜单。</mark>
 
@@ -47,7 +47,7 @@ import Q from "../../components/Q.astro";
 确认 Safari 在最前面，宏组和宏都勾着，引擎在跑。再看看「Safari」宏组的 **Available in these applications:** 里加的确实是 Safari。还不行，看[完整教程第 6 步](/guide/6-debug/)。
 </Q>
 <Q q="有的 App 里，菜单明明在，动作却选不到。">
-官方的排查页提到，一些跨平台的 App 要等你用鼠标点过菜单栏，才把菜单真正建好。办法是先切出去再切回来，或者先在菜单栏上点一下，再选菜单，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application)。
+官方的排查页提到，一些跨平台的 App 要等你用鼠标点过菜单栏，才把菜单真正建好。办法是先切出去再切回来，或者在宏里先用 **Move or Click Mouse** 模拟点一下菜单栏（官方说点 Help 菜单右边那块空白往往就够了），再选菜单，见官方 [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application) 里讲这件事的那一节。
 </Q>
 <Q q="为什么不用 Type a Keystroke 按一个键？">
 因为这个菜单本来就没有键可按。就算有，官方也建议用选菜单代替模拟菜单快捷键，尤其当那个快捷键正好也是某个宏的热键时，模拟它的结果没法预料（见 [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)）。

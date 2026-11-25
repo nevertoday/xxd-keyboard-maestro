@@ -11,19 +11,19 @@ import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Callout from "../../../components/Callout.astro";
 
-There's a web system you use at work where, before every report export, you have to click a tiny refresh icon in the top right corner. It isn't in any menu, it has no shortcut, and every time you widen the window or collapse the sidebar, it moves. When you finish this page, you'll press ⌃⌥⌘J (Control, Option, Command and J) and Keyboard Maestro will find that icon on screen and click right in the middle of it.
+There's a web system you use at work where, before every report export, you have to click a tiny refresh icon in the top right corner. It isn't in any menu, it has no shortcut, and every time you widen the window or collapse the sidebar, it moves. Build the macro on this page and you'll press ⌃⌥⌘J (Control, Option, Command and J) and Keyboard Maestro will find that icon on screen and click right in the middle of it.
 
 A macro that remembers screen coordinates misses as soon as the window moves. <mark>Tell it what the button looks like, not where it is, and it finds it every time.</mark> Keyboard Maestro calls this a <Term k="找图" />: you hand it a small screenshot and it looks for a matching spot on screen.
 
 ## First, look for a sturdier way
 
-The official wiki isn't keen on mouse clicks. The [Found Image](https://wiki.keyboardmaestro.com/Found_Image) page opens by saying it's generally better to use higher level actions like **Press a Button** than to search the screen for an image, and the manual's [How do I](https://wiki.keyboardmaestro.com/manual/How_do_I) page warns that click actions are fragile and easily broken by small changes to the system or apps. So before you build anything, look through the app's menus. If there's a command that does the same thing, [giving a menu command a shortcut](/en/howto/menu-shortcut/) will hold up better. If clicking that icon really is the only way, read on.
+The official wiki isn't keen on mouse clicks. The [Found Image](https://wiki.keyboardmaestro.com/Found_Image) page opens by saying it's generally better to use higher level actions like **Press a Button** than to search the screen for an image, and the manual's [How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I) page warns that click actions are fragile and easily broken by small changes to the system or apps. So before you build anything, look through the app's menus. If there's a command that does the same thing, [giving a menu command a shortcut](/en/howto/menu-shortcut/) will hold up better. If clicking that icon really is the only way, read on.
 
 ## Take a small screenshot and build the macro
 
 Start by capturing the icon. Press ⌘⌃⇧4 (Command, Control, Shift and 4) and drag around just the icon, which puts the screenshot on the clipboard instead of saving a file. Keep it tight. Leave out any nearby text or numbers that change, or the match will break the next time they do.
 
-Then make a new <Term k="宏" /> with a **Hot Key** trigger and press ⌃⌥⌘J. It needs only one action, **Move or Click Mouse**, which can click relative to a found image ([official page](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)). Set the operation to **Click** with the default left button, choose **found image’s center** in the "relative to" menu, and put 0 in both X and Y. An image well appears in the action. Click it and press ⌘V to paste your screenshot in.
+Then make a new <Term k="宏" /> with a **Hot Key** trigger and press ⌃⌥⌘J. It needs only one action, **Move or Click Mouse**, which can click relative to a found image (see [Move or Click Mouse](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)). Set the operation to **Click** with the default left button, choose **found image’s center** in the "relative to" menu, and put 0 in both X and Y. An image well appears in the action. Click it and press ⌘V to paste your screenshot in.
 
 Two settings next to the well deserve a look. The first is fuzz. Because of transparency and anti-aliasing, almost every match on screen is a little fuzzy, and the wiki suggests starting at about 20%. The second is the **Unique** menu. By default the image has to appear only once on screen, otherwise Keyboard Maestro doesn't know where to click and the action fails. If your icon shows up in several identical copies, switch to **Best**, or to the topmost, leftmost, bottommost or rightmost one.
 
@@ -39,9 +39,9 @@ The pointer jumps to the icon and clicks it, and the page refreshes. Make the wi
 
 ## When the button takes a moment to appear
 
-Sometimes the button isn't there yet. You click export, and a download button shows up a few seconds later. The simplest fix is in the action's gear ⚙ menu, which has an option to wait until the image appears (11.0 and later). Or put a **Pause Until** before the click, with a **Found Image** condition holding the same screenshot, so the macro waits until it's really there ([the condition](https://wiki.keyboardmaestro.com/condition/Found_Image)).
+Sometimes the button isn't there yet. You click export, and a download button shows up a few seconds later. The simplest fix is in the action's gear ⚙ menu, which has an option to wait until the image appears (11.0 and later). Or put a **Pause Until** before the click, with a **Found Image** condition holding the same screenshot, so the macro waits until it's really there (see [Found Image Condition](https://wiki.keyboardmaestro.com/condition/Found_Image)).
 
-If you'd rather find the image first and use its position for something else, use **Find Image on Screen**. It stores the location in a <Term k="变量" /> you name, say `ImageLocation`, and later actions use `ImageLocation.MidX` and `ImageLocation.MidY` for its center. If it finds nothing, the variable is set to empty ([official page](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)).
+If you'd rather find the image first and use its position for something else, use **Find Image on Screen**. It stores the location in a <Term k="变量" /> you name, say `ImageLocation`, and later actions use `ImageLocation.MidX` and `ImageLocation.MidY` for its center. If it finds nothing, the variable is set to empty (see [Find Image on Screen](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)).
 
 ## Stuck?
 
@@ -52,7 +52,7 @@ Turn the fuzz up a little and tick **Display** to see what it's looking at. If t
 More than one spot on screen looks like it. Either change the **Unique** menu to **Best** or one of the directions, or take a more distinctive screenshot. Also check whether the editor is still in front, since it may have found the image inside the action.
 </Q>
 <Q q="No matter which image I use, it never finds anything.">
-Finding images means reading the screen, and that takes a macOS permission. In Keyboard Maestro's preferences, the **Security** pane summarizes the permissions it needs and lets you request each one ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). The official [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) page lists Screen Recording among the most common permission problems. The [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) adds that macOS Sequoia and Tahoe re-request screen permissions every so often, so if it worked before and suddenly stopped, look there first.
+Finding images means reading the screen, and that takes a macOS permission. In Keyboard Maestro's preferences, the **Security** pane summarizes the permissions it needs and lets you request each one ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). The official [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) page lists Screen Recording among the most common permission problems. On macOS 15 and later, it's called **Screen & System Audio Recording** under **System Settings ▸ Privacy & Security**. The [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) adds that macOS Sequoia and Tahoe re-request screen permissions every so often, so if it worked before and suddenly stopped, look there first.
 </Q>
 <Q q="It clicks the right spot, but the pointer stays on the button.">
 The gear ⚙ menu in the action lets you choose whether to put the mouse back where it was afterwards.

@@ -12,13 +12,13 @@ import Q from "../../../components/Q.astro";
 import Callout from "../../../components/Callout.astro";
 import Fig from "../../../components/Fig.astro";
 
-If you tidy spreadsheets at work, you may have built this kind of macro: move down a cell, type something, move down again, and **Repeat** it a hundred times. Then one day your finger slips and a hundred becomes a thousand, or the cursor wasn't in the spreadsheet at all, and it types line after line into the wrong window no matter what you press. This page gets it stopped in seconds, and by the last section you'll know how to build a way out into the macro ahead of time.
+Plenty of people who tidy spreadsheets at work build this kind of macro: move down a cell, type something, move down again, and **Repeat** it a hundred times. Then one day your finger slips and a hundred becomes a thousand, or the cursor wasn't in the spreadsheet at all, and it types line after line into the wrong window no matter what you press. This page gets it stopped in seconds, and by the last section you'll know how to build a way out into the macro ahead of time.
 
 Remember the one move that matters most, and leave the rest for later. <mark>Hold ⌃⌥⇧ and click Keyboard Maestro's icon in the menu bar, and every running macro stops.</mark>
 
 ## The fastest move: stop them all
 
-The Keyboard Maestro icon on the right of the menu bar is its <Term k="状态菜单" />. Hold ⌃⌥⇧ (Control, Option and Shift) and click that icon, and all running macros are canceled ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)). The official pages don't quite agree on the keys. The manual's Menus page says to hold all four modifiers, ⌘ Command included; the How do I page says ⌃⌥⇧ with Command optional; the Troubleshooting page says ⌃⌥⇧. So holding the three is enough, and adding ⌘ in a panic does no harm.
+The Keyboard Maestro icon on the right of the menu bar is its <Term k="状态菜单" />. Hold ⌃⌥⇧ (Control, Option and Shift) and click that icon, and all running macros are canceled ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). The official pages don't quite agree on the keys. The manual's Menus page says to hold all four modifiers, ⌘ Command included; the How do I page says ⌃⌥⇧ with Command optional; the Troubleshooting page says ⌃⌥⇧. So holding the three is enough, and adding ⌘ in a panic does no harm.
 
 <Callout type="ok">
 Text stops pouring onto the screen, and the mouse is yours again.
@@ -38,27 +38,27 @@ Choose **Start Debugging** from the status menu and the <Term k="调试器" /> w
 
 ## When nothing stops it
 
-When none of that works, the wiki has heavier options ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+When none of that works, the wiki has heavier options ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
 
-The first is choosing **Quit Keyboard Maestro Engine** from the status menu. With the <Term k="引擎" /> gone, no macro runs. Once you've fixed the macro, open Keyboard Maestro again and the Engine starts with it.
+The first is choosing **Quit Keyboard Maestro Engine** from the status menu. With the <Term k="引擎" /> gone, no macro runs. The Engine starts again the next time you open Keyboard Maestro, though, so if the macro takes off again as soon as it does, use the next trick and open the editor without the Engine to fix it.
 
 The hardest case is a macro that runs at login. It bursts out every time you start up, and starts again before you can change it. The wiki's Troubleshooting page covers this case ([Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)), and the steps are:
 
 1. Hold ⌃⌥⇧ and click the status menu icon to cancel everything that's running.
-2. Hold all four keys, ⌘⌃⌥⇧, and click Keyboard Maestro in the Dock or double-click it in the Applications folder. This quits the Engine and opens the editor without starting the Engine.
+2. Hold all four keys, ⌃⌥⇧⌘, and click Keyboard Maestro in the Dock or double-click it in the Applications folder. This quits the Engine and opens the editor without starting the Engine.
 3. In the editor, find the macro and remove its trigger, or disable it.
-4. If none of that works, restart the Mac in Safe Mode, so login items, the Engine included, don't launch. Then hold ⌘⌃⌥⇧ again as you open Keyboard Maestro, and fix the macro.
+4. If none of that works, restart the Mac in Safe Mode, so login items, the Engine included, don't launch. Then hold ⌃⌥⇧⌘ again as you open Keyboard Maestro, and fix the macro.
 
 ## Build a way out into the macro
 
-Once you can stop it, you can plan ahead next time. Keyboard Maestro has several <Term k="动作" text="actions" /> made for canceling macros: **Cancel All Macros**, **Cancel All Other Macros**, **Cancel This Macro** and **Cancel Just This Macro** ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)). The simplest use is an emergency-stop macro. Make a new macro with a **Hot Key** trigger, say ⌃⌥⌘. (Control, Option, Command and the period key), and a single **Cancel All Macros** action. It does the same as clicking the icon, without hunting for the menu bar.
+Once you can stop it, you can plan ahead next time. Keyboard Maestro has several <Term k="动作" text="actions" /> made for canceling macros: **Cancel All Macros**, **Cancel All Other Macros**, **Cancel This Macro** and **Cancel Just This Macro** ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). The simplest use is an emergency-stop macro. Make a new macro with a **Hot Key** trigger, say ⌃⌥⌘. (Control, Option, Command and the period key), and a single **Cancel All Macros** action. It does the same as clicking the icon, without hunting for the menu bar.
 
 A few habits save trouble too. Try a new loop with a tiny count first, like three, and raise it to a hundred once it behaves. For a macro you're unsure of, open the debugger, tick **Pause New Macros**, and step through it. If a macro fails halfway or seems to skip steps, it's usually acting faster than the app can respond, which is a different problem. The wiki's [Timing Between Actions](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions) section explains how to make it wait.
 
 ## Stuck?
 
 <Q q="I can't find the Keyboard Maestro icon in the menu bar.">
-The icon normally shows whenever the Engine is running, but the **General** pane of the preferences can turn it off, so check whether it was hidden ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). If the Engine isn't running at all, no macro is running either. The official [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) also mentions that macOS Tahoe has a bug in where it places status menus, so the icon may have moved or have a gap next to it. Look around.
+The **General** pane of the preferences controls whether and how the status menu shows, so check whether it was turned off ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). If the Engine isn't running at all, no macro is running either. The official [Frequently Asked Questions](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) page also mentions that macOS Tahoe has a bug in where it places status menus, so the icon may have moved or have a gap next to it. Look around.
 </Q>
 <Q q="I held the keys and clicked the icon, the menu opened as usual, and the macro kept going.">
 Hold the three keys down first, keep holding them, and then click. If the menu opened anyway, no harm done. Let go, close the menu, and try again. If that still fails, pick the macro from the **Cancel** menu, or quit the Engine.

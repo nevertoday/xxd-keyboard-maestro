@@ -11,7 +11,7 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 
-照顾年迈父母的人，常常要记一本流水账：几点吃的药，血压多少，哪里又说不舒服。下次陪着去看医生，医生问「这几天怎么样」，翻开这本账就答得上来。可每一条前面都得写上日期和时间，一天记好几回，写着写着就懒了，要么只写个「昨天」，过一周就对不上是哪天。照这一页做完，你在备忘录里按 ⌃⌥⌘D（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），光标处就出现 `2026-11-25 08:30 `，接着往下写就行。
+家里有年迈的父母要照顾，手边多半有一本流水账：几点吃的药，血压多少，哪里又说不舒服。下次陪着去看医生，医生问「这几天怎么样」，翻开这本账就答得上来。可每一条前面都得写上日期和时间，一天记好几回，写着写着就懒了，要么只写个「昨天」，过一周就对不上是哪天。做好这一页的宏，你在备忘录里按 ⌃⌥⌘D（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），光标处就出现 `2026-11-25 08:30 `，接着往下写就行。
 
 <mark>日期不用你打，你写一个令牌，宏跑起来的那一刻它自己换成今天。</mark>
 
@@ -41,15 +41,15 @@ Keyboard Maestro 里大多数能填字的框都认<Term k="令牌" />。令牌�
 - `%ICUDateTime%dd/MM/yyyy%`（25/11/2026）：日在前，很多地方的人这样写。
 - `%ICUDateTime%EEE, MMM d, yyyy%`（Wed, Nov 25, 2026）：带星期几和月份的英文缩写。
 
-带星期几、月份名字的格式，出来是哪种语言，和你的系统、macOS 的版本有关，官方页面的 Localization 一节专门讲了这件事。想要每台 Mac 上都一样，就只用数字。
+带星期几、月份名字的格式，出来是哪种语言，和你的系统、macOS 的版本有关，官方 [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime) 页的 Localization 一节讲的就是这件事。想要每台 Mac 上都一样，就只用数字。
 
 ## 再往前算一步：两周后的复诊
 
-医生常说「两周以后再来」。`%ICUDateTimePlus%` 在今天的基础上往后加，中间写加多少、加什么单位：
+医生常说「两周以后再来」。`%ICUDateTimePlus%` 从今天往后加，中间写加多少、加什么单位：
 
 <Copy id="id-plus" title="今天往后两周" code="下次复诊：%ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
 
-单位可以是 Days、Weeks、Months 这些，往前算就用 `%ICUDateTimeMinus%`，写法一样（见官方的 [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)）。你可以把这一行做成另一个宏，配上 ⌃⌥⌘J，或者干脆用输入字符串，做成 `=next=` 这样的缩写，做法见[把常打的话做成缩写](/howto/text-snippets/)。
+单位可以是 Days、Weeks、Months 这些，往前算就用 `%ICUDateTimeMinus%`，写法一样（见官方的 [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)）。你可以把这一行做成另一个宏，配上 ⌃⌥⇧⌘D，就是写日期那组键再多按一个 ⇧（Shift）。这一行带着中文，**Insert Text by Typing** 打不出汉字，所以这个宏的动作要换成 **Insert Text by Pasting**（粘贴插入文字）。也可以干脆用输入字符串，做成 `=next=` 这样的缩写，做法见[把常打的话做成缩写](/howto/text-snippets/)。
 
 ## 做完怎么确认
 
@@ -67,7 +67,7 @@ Keyboard Maestro 里大多数能填字的框都认<Term k="令牌" />。令牌�
 分钟写成了大写的 `MM`。月份是大写 `MM`，分钟是小写 `mm`。
 </Q>
 <Q q="按了 ⌃⌥⌘D，什么也没发生。">
-先看这个宏和它所在的宏组都勾着，引擎在跑；再看 ⌃⌥⌘D 是不是被别的 App 占了，换一个字母试试。还不行，照[完整教程第 6 步](/guide/6-debug/)一项一项查。
+宏和装它的宏组前面的勾都得打着，引擎也得开着。这几样都没问题，就可能是 ⌃⌥⌘D 被别的 App 占了，换一个字母试试。还不行，照[完整教程第 6 步](/guide/6-debug/)一项一项查。
 </Q>
 
 一个令牌、一个热键，往后每一条记录都带着准确的日期和时间。令牌还能放进别的动作里，比如给文件改名时加上今天的日期，见[批量给文件改名](/howto/rename-files/)。

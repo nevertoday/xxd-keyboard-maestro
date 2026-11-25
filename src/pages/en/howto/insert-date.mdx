@@ -11,7 +11,7 @@ import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 
-If you look after an aging parent, you probably keep a running log: what time the pills went down, the blood pressure reading, what hurt today. At the next doctor's visit, when the doctor asks how the week has been, the log has the answer. But every entry needs a date and time, several times a day, and after a while you get lazy and write "yesterday", and a week later nothing lines up. When you finish this page, pressing ⌃⌥⌘D in Notes (⌃ is Control, ⌥ is Option, ⌘ is Command) will put `2026-11-25 08:30 ` right where your cursor is, and you just keep writing.
+People who look after an aging parent often end up keeping a running log: what time the pills went down, the blood pressure reading, what hurt today. At the next doctor's visit, when the doctor asks how the week has been, the log has the answer. But every entry needs a date and time, several times a day, and after a while you get lazy and write "yesterday", and a week later nothing lines up. Once you've built this page's macro, pressing ⌃⌥⌘D in Notes (⌃ is Control, ⌥ is Option, ⌘ is Command) will put `2026-11-25 08:30 ` right where your cursor is, and you just keep writing.
 
 <mark>You don't type the date. You write a token, and the moment the macro runs, it turns into today.</mark>
 
@@ -41,7 +41,7 @@ Everyone writes dates their own way, so just swap the format part. These come fr
 - `%ICUDateTime%dd/MM/yyyy%` (25/11/2026): day first, the way many places write it.
 - `%ICUDateTime%EEE, MMM d, yyyy%` (Wed, Nov 25, 2026): with short weekday and month names.
 
-When a format includes weekday or month names, which language they come out in depends on your system and your version of macOS. The Localization section on the official page goes into this. If you want the same result on every Mac, stick to numbers.
+When a format includes weekday or month names, which language they come out in depends on your system and your version of macOS. The Localization section of the official [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime) page goes into this. If you want the same result on every Mac, stick to numbers.
 
 ## Look ahead: the follow-up in two weeks
 
@@ -49,7 +49,7 @@ Doctors often say "come back in two weeks". `%ICUDateTimePlus%` adds to today. I
 
 <Copy id="id-plus" title="Two weeks from today" code="Next appointment: %ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
 
-The unit can be Days, Weeks, Months and so on, and to count backwards you use `%ICUDateTimeMinus%` the same way (see [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). You could make this line its own macro on ⌃⌥⌘J, or turn it into an abbreviation like `=next=` with a typed string, as in [Turn the things you type often into abbreviations](/en/howto/text-snippets/).
+The unit can be Days, Weeks, Months and so on, and to count backwards you use `%ICUDateTimeMinus%` the same way (see [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). You could make this line its own macro on ⌃⌥⇧⌘D, the date key plus ⇧ (Shift). If you write the label in characters your keyboard can't type directly, Chinese for example, **Insert Text by Typing** can't type them, so give that macro an **Insert Text by Pasting** action instead. Or turn it into an abbreviation like `=next=` with a typed string, as in [Turn the things you type often into abbreviations](/en/howto/text-snippets/).
 
 ## Check that it works
 
@@ -67,7 +67,7 @@ You probably wrote a capital `YYYY`. The official page specifically warns that c
 You wrote the minutes as capital `MM`. The month is capital `MM` and minutes are lowercase `mm`.
 </Q>
 <Q q="I pressed ⌃⌥⌘D and nothing happened.">
-Check that the macro and its macro group are both ticked and the Engine is running. Then check whether another app already uses ⌃⌥⌘D, and try a different letter. If it still won't fire, work through [full guide step 6](/en/guide/6-debug/) one item at a time.
+The macro and the group it lives in both need their ticks, and the Engine has to be running. If all of that's fine, another app may already be using ⌃⌥⌘D, so try a different letter. If it still won't fire, work through [full guide step 6](/en/guide/6-debug/) one item at a time.
 </Q>
 
 One token and one hot key, and every entry from now on carries the exact date and time. Tokens work in other actions too, like adding today's date when you rename files. See [Rename a batch of files](/en/howto/rename-files/).

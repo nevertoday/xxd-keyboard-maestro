@@ -18,7 +18,7 @@ The macros so far run straight through. <mark>Ask a question first, then work wi
 
 ## Ask with a small form first
 
-Make a new <Term k="宏" /> called "Cover letter opening," add a **Hot Key** trigger, and press ⌃⌥⌘L. The first action is **Prompt for User Input**, which shows a form you design and stores what you type in <Term k="变量" text="variables" /> ([official page](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+Make a new <Term k="宏" /> called "Cover letter opening," add a **Hot Key** trigger, and press ⌃⌥⌘L. The first action is **Prompt for User Input**, which shows a form you design and stores what you type in <Term k="变量" text="variables" /> ([Prompt for User Input action](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
 
 At the top of the form is the title, "Cover letter opening." Under it, the prompt is a line for you to read, like "Who is this one for?" Below that come the variables, one per line, with the name on the left and a default value on the right. Add three lines:
 
@@ -26,7 +26,7 @@ At the top of the form is the title, "Cover letter opening." Under it, the promp
 - `Local Role`, with the default left empty;
 - `Local Source`, with the default `a job site|a friend|your website`.
 
-The `Local` at the front isn't decoration. Variables that start with Local are local variables. They exist only inside this macro and go away when it finishes, so they don't pile up on your Mac. The form also drops "Local" from the labels, so all you see is "Company," "Role" and "Source" ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)). The third default has bars `|` in it, so Keyboard Maestro makes it a popup menu. The bars separate the choices, and the first one is selected by default.
+The `Local` at the front isn't decoration. Variables that start with Local are local variables. They exist only inside this macro and go away when it finishes, so they don't pile up on your Mac. The form also drops "Local" from the labels, so all you see is "Company," "Role" and "Source" ([Variables](https://wiki.keyboardmaestro.com/manual/Variables), [Prompt for User Input action](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)). The third default has bars `|` in it, so Keyboard Maestro makes it a popup menu. The bars separate the choices, and the first one is selected by default.
 
 The two buttons it comes with are all you need. **OK** answers to Return, closes the form and carries on. **Cancel** answers to Escape or ⌘., closes the form without writing the variables, and cancels the macro.
 
@@ -48,7 +48,7 @@ Read it once before sending. The form remembers which spots to change, but wheth
 
 ## Picking one line from a few: Prompt With List
 
-There's another way to ask first, where you don't type anything, you just pick. If you run a small online shop, your replies to customers are the same few lines over and over: it's shipped, when it'll arrive, how returns work. **Prompt With List** shows a Spotlight-like window with a list of choices. Type a few letters to narrow it down, select one and press Return ([official page](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+There's another way to ask first, where you don't type anything, you just pick. If you run a small online shop, your replies to customers are the same few lines over and over: it's shipped, when it'll arrive, how returns work. **Prompt With List** shows a Spotlight-like window with a list of choices. Type a few letters to narrow it down, select one and press Return ([Prompt With List action](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
 
 Choices go one per line and can sit right in the action. What the window shows and what you get back can differ: write a line as "what you want back, two underscores, what to show," and the window shows only the short part, while choosing it gives you the whole sentence in front. For example:
 
@@ -56,7 +56,7 @@ Choices go one per line and can sit right in the action. What the window shows a
 Your package is on its way. Tracking updates about once a day, and I'll let you know right away if anything changes.__On the way
 If it isn't right when it arrives, no problem. Just get in touch and I'll send you the steps for a return or exchange.__Returns`} />
 
-Save the result to a variable, say `Local Reply`, then add an **Insert Text by Pasting** with the text `%Variable%Local Reply%`. If you press Escape, the action fails and nothing is saved, and by default the whole macro is canceled, so Escape is how you back out.
+Put this action in a new macro of its own with its own hot key, save the result to a variable, say `Local Reply`, then add an **Insert Text by Pasting** with the text `%Variable%Local Reply%`. If you press Escape, the action fails and nothing is saved, and by default the whole macro is canceled with a notice that it failed, so Escape is still how you back out.
 
 ## Stuck?
 

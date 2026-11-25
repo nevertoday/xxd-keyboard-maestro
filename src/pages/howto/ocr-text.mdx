@@ -11,19 +11,19 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Callout from "../../components/Callout.astro";
 
-网课的老师把作业要求放在幻灯片上，录播视频停在那一页，字清清楚楚，可就是选不中。同学在群里发了一张截图，上面是小组分工和截止时间，你想把它贴进备忘录，也只能对着屏幕一个字一个字地打。照这一页做完，你框出有字的那一块，再按 ⌃⌥⌘O（Control、Option、Command 再加 O），那些字就进了剪贴板，在哪里都能直接粘贴。
+网课的老师把作业要求放在幻灯片上，录播视频停在那一页，字清清楚楚，可就是选不中。同学在群里发了一张截图，上面是小组分工和截止时间，你想把它贴进备忘录，也只能对着屏幕一个字一个字地打。照这一页做完，你框出有字的那一块，再按 ⌃⌥⌘O（同时按住 Control、Option 和 Command，再按 O），那些字就进了剪贴板，在哪里都能直接粘贴。
 
-认字这件事叫 OCR（光学字符识别）。Keyboard Maestro 的 **OCR Image**（识别图片里的字）动作，能从一张图里把字抽出来（[官方说明](https://wiki.keyboardmaestro.com/action/OCR_Image)）。<mark>你只管给它一张有字的图，认出来的字它放进剪贴板，就像你自己复制的一样。</mark>
+认字这件事叫 OCR（光学字符识别）。Keyboard Maestro 的 **OCR Image**（识别图片里的字）动作，能从一张图里把字抽出来（见 [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)）。<mark>你只管给它一张有字的图，认出来的字它放进剪贴板，就像你自己复制的一样。</mark>
 
 ## 不做宏也能先试一下
 
-Keyboard Maestro 装好以后，<Term k="剪贴板历史" />的窗口里本来就带着一个 OCR 的小工具。先按 ⌘⌃⇧4（Command、Control、Shift 加 4）框住有字的地方，截图会进剪贴板。然后打开剪贴板历史切换器（Clipboard History Switcher，它的热键在自带的 Switcher Group 宏组里那个宏上），选中刚才那张图，从窗口的齿轮 ⚙ 菜单里选 OCR 那一项（[官方说明](https://wiki.keyboardmaestro.com/action/OCR_Image)）。
+Keyboard Maestro 装好以后，<Term k="剪贴板历史" />的窗口里本来就带着一个 OCR 的小工具。先按 ⌘⌃⇧4（Command、Control、Shift 和 4 一起按）框住有字的地方，截图会进剪贴板。然后打开剪贴板历史切换器（Clipboard History Switcher，它的热键在自带的 Switcher Group 宏组里那个宏上），选中刚才那张图，从窗口的齿轮 ⚙ 菜单里选 OCR 那一项（见 [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)）。
 
 偶尔用一次，这样就够了。要是你每周都要从幻灯片里抄好几回，就值得把它做成一个键。
 
 ## 做成一个键
 
-新建一个<Term k="宏" />，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘O，再加一个 **OCR Image** 动作。这个动作要你定三件事。
+新建一个<Term k="宏" />，用 **Hot Key**（热键）触发器配上 ⌃⌥⌘O，再加一个 **OCR Image** 动作。这个动作要你定三件事。
 
 第一，图从哪里来。它可以读贴进动作里的图、剪贴板里的图、一个文件，也可以直接读屏幕：所有屏幕、某一个屏幕、某个窗口，或者屏幕上的一块区域。这里选 **System Clipboard**（系统剪贴板），因为你会先用 ⌘⌃⇧4 把那一块截进剪贴板，框哪儿由你当场决定。
 
@@ -41,7 +41,7 @@ Keyboard Maestro 装好以后，<Term k="剪贴板历史" />的窗口里本来�
 
 ## 让宏等着屏幕上出现某几个字
 
-OCR 还有一个用处：不是把字拿走，而是看屏幕上有没有某几个字。**OCR** 条件能读屏幕上一块区域的字，判断它是不是包含、是不是等于你给的那段话（[条件的说明](https://wiki.keyboardmaestro.com/condition/OCR)）。比如一个导出要跑好几分钟、跑完窗口里会出现「完成」两个字，就可以用 **Pause Until**（暂停直到）配上这个条件，等它出现了再往下做。认字难免有错，所以条件别定得太死，用「包含」比用「完全等于」稳。
+OCR 还有一个用处：不是把字拿走，而是看屏幕上有没有某几个字。**OCR** 条件能读屏幕上一块区域的字，判断它是不是包含、是不是等于你给的那段话（见 [OCR Condition](https://wiki.keyboardmaestro.com/condition/OCR)）。比如一个导出要跑好几分钟、跑完窗口里会出现「完成」两个字，就可以用 **Pause Until**（暂停直到）配上这个条件，等它出现了再往下做。认字难免有错，所以条件别定得太死，用「包含」比用「完全等于」稳。
 
 ## 卡住了？
 

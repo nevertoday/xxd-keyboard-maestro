@@ -4,18 +4,18 @@ slug: rename-files
 step: 4
 time: 二十分钟，先在副本上试
 for: 一批文件名字乱七八糟，要一个个右键重命名
-tldr: 在 Finder 里选中一批文件，按 ⌃⌥⌘R，填一个前缀，每个文件名前面都加上它，比如「三班 读书笔记 Scan 1.pdf」。
+tldr: 在 Finder 里选中一批文件，按 ⌃⌥⌘R，填一个前缀，每个文件名前面都加上它，比如「爸爸 十一月复查 Scan 1.pdf」。
 description: 用 For Each 动作逐个处理 Finder 里选中的文件：Prompt for User Input 先问你前缀，Split Path 取出原来的文件名，File Actions 的 Rename 改成新名字。先在副本上试；同名文件、选进了文件夹这些情况怎么处理。
 ---
 import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 
-老师收作业，扫描仪吐出来的文件叫 Scan 1.pdf、Scan 2.pdf、Scan 3.pdf……一个班三十份，存进电脑以后，过两周就分不清是哪个班、哪一次的。一个个右键重命名，点到第十个手就酸了。照这一页做完，你在 Finder 里选中这一批文件，按 ⌃⌥⌘R（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），它问你一句前面加什么，你填「三班 读书笔记」，这三十个文件就都变成「三班 读书笔记 Scan 1.pdf」这样。
+替爸妈管看病的单子，检查报告、化验单、出院小结一张张扫进电脑，扫描仪给的名字却只有 Scan 1.pdf、Scan 2.pdf、Scan 3.pdf……跑上几趟医院就攒了几十份，半年以后想找上回的血检报告，只能挨个点开看。一个个右键重命名，点到第十个手就酸了。换成宏来做，你在 Finder 里选中这一批文件，按 ⌃⌥⌘R（按住 Control、Option、Command，再按 R），它问你一句前面加什么，你填「爸爸 十一月复查」，这一批文件就都变成「爸爸 十一月复查 Scan 1.pdf」这样。
 
 <mark>一批文件改名，其实就是对选中的每一个文件，做同一件事。</mark>
 
-<u>先在副本上试。</u> 改名是真的改到硬盘上的文件，宏写错了，三十个文件会一起改错。在 Finder 里把这个文件夹复制一份，在副本里试到满意，再对真的那一批用。
+<u>先在副本上试。</u> 改名是真的改到硬盘上的文件，宏写错了，这一批文件会一起改错。在 Finder 里把这个文件夹复制一份，在副本里试到满意，再对真的那一批用。
 
 ## For Each：对每一个都做一遍
 
@@ -27,9 +27,9 @@ import Copy from "../../components/Copy.astro";
 
 ## 做这个宏
 
-新建一个宏，叫「给文件名加前缀」。想让它只在 Finder 里管用，可以放进一个设成 **Available in these applications:** Finder 的宏组。触发器选 **Hot Key**（热键），按下 ⌃⌥⌘R。然后加动作：
+新建一个宏，叫「给文件名加前缀」。想让它只在 Finder 里管用，可以放进一个设成 **Available in these applications:** Finder 的宏组。触发器用 **Hot Key**（热键），设成 ⌃⌥⌘R。然后加动作：
 
-**第一步，问你前缀。** 加一个 **Prompt for User Input**（请你输入），标题写「给文件名加前缀」，下面加一个变量，名字叫 `Prefix`，默认值填一个你常用的，比如「三班 读书笔记」。宏跑到这里会弹出一个小窗口，你改好前缀点 **OK**；点 **Cancel**，整个宏就停了，一个文件都不会动（见 [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
+**第一步，问你前缀。** 加一个 **Prompt for User Input**（请你输入），标题写「给文件名加前缀」，下面加一个变量，名字叫 `Prefix`，默认值填一个你常用的，比如「爸爸 十一月复查」。宏跑到这里会弹出一个小窗口，你改好前缀点 **OK**；点 **Cancel**，整个宏就停了，一个文件都不会动（见 [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
 
 **第二步，逐个处理。** 加一个 **For Each**，变量填 `FilePath`，在集合那里点「+」选 **The Finder’s selection**。下面两个动作都放进 For Each 里面。
 

@@ -11,13 +11,13 @@ import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Callout from "../../../components/Callout.astro";
 
-Your teacher put the assignment details on a slide, and the recorded lecture is paused right on it. The text is perfectly clear, but you can't select it. A classmate drops a screenshot of who's doing what and when it's due into the group chat, and to get it into Notes you'd have to type it out letter by letter. When you finish this page, you'll drag around the part with the text, press ⌃⌥⌘O (Control, Option, Command and O), and the words will be on your clipboard, ready to paste anywhere.
+Your teacher put the assignment details on a slide, and the recorded lecture is paused right on it. The text is perfectly clear, but you can't select it. A classmate drops a screenshot of who's doing what and when it's due into the group chat, and to get it into Notes you'd have to type it out letter by letter. When you finish this page, you'll drag around the part with the text, press ⌃⌥⌘O (Control, Option and Command held down, then O), and the words will be on your clipboard, ready to paste anywhere.
 
-Reading text out of a picture is called OCR, optical character recognition. Keyboard Maestro's **OCR Image** action pulls the text out of an image ([official page](https://wiki.keyboardmaestro.com/action/OCR_Image)). <mark>All you do is give it a picture with words in it, and it puts the words on the clipboard as if you'd copied them yourself.</mark>
+Reading text out of a picture is called OCR, optical character recognition. Keyboard Maestro's **OCR Image** action pulls the text out of an image (see [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)). <mark>All you do is give it a picture with words in it, and it puts the words on the clipboard as if you'd copied them yourself.</mark>
 
 ## Try it once without building anything
 
-Once Keyboard Maestro is installed, the <Term k="剪贴板历史" /> window already comes with a small OCR tool. Press ⌘⌃⇧4 (Command, Control, Shift and 4) and drag around the text, which puts the screenshot on the clipboard. Then open the Clipboard History Switcher (its hot key is on the macro for it in the built-in Switcher Group), select that image, and choose the OCR entry from the window's gear ⚙ menu ([official page](https://wiki.keyboardmaestro.com/action/OCR_Image)).
+Once Keyboard Maestro is installed, the <Term k="剪贴板历史" /> window already comes with a small OCR tool. Press ⌘⌃⇧4 (Command, Control, Shift and 4 together) and drag around the text. The screenshot goes to the clipboard. Then open the Clipboard History Switcher (its hot key is on the macro for it in the built-in Switcher Group), select that image, and choose the OCR entry from the window's gear ⚙ menu (see [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)).
 
 For the odd screenshot, that's plenty. If you're copying from slides several times a week, it's worth turning into one key.
 
@@ -41,7 +41,7 @@ Once it's pasted, glance back at the original. The wiki is blunt about it: like 
 
 ## Let a macro wait for a few words on screen
 
-OCR has another use. Instead of taking the text away, it can check whether certain words are on screen. The **OCR** condition reads the text in an area of the screen and tests whether it contains, or exactly matches, the words you give it ([the condition](https://wiki.keyboardmaestro.com/condition/OCR)). Say an export takes several minutes and a window shows the word "Done" when it's finished. A **Pause Until** with this condition can wait for that word before moving on. Since OCR makes mistakes, keep the test loose: "contains" holds up better than "is".
+OCR has another use. Instead of taking the text away, it can check whether certain words are on screen. The **OCR** condition reads the text in an area of the screen and tests whether it contains, or exactly matches, the words you give it (see [OCR Condition](https://wiki.keyboardmaestro.com/condition/OCR)). Say an export takes several minutes and a window shows the word "Done" when it's finished. A **Pause Until** with this condition can wait for that word before moving on. Since OCR makes mistakes, keep the test loose: "contains" holds up better than "is".
 
 ## Stuck?
 
