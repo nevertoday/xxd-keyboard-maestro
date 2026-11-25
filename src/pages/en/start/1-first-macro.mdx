@@ -37,7 +37,7 @@ The first time you open it you'll see a welcome window with a **Start Tutorial**
 
 ## Give it permission
 
-Keyboard Maestro presses keys, chooses menus and moves windows for you. That's operating your Mac on your behalf, so macOS wants your explicit say-so. That's the <Term k="辅助功能权限" />. Without it, Keyboard Maestro can't even see the keyboard, so hot keys can't work ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+Keyboard Maestro presses keys, chooses menus and moves windows for you. That's operating your Mac on your behalf, so macOS wants your explicit say-so. That's the <Term k="辅助功能权限" />. Without it, Keyboard Maestro can't watch the keyboard, so you can't even set a hot key ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
 
 Keyboard Maestro reminds you about this the first time you open it, and while something is missing there's a small yellow triangle in the bottom right corner of the editor window. Click it and follow the steps. Or do it yourself:
 
@@ -91,7 +91,7 @@ In lesson 2 you build a macro that turns a few typed letters into a whole paragr
 
 <Q q="I pressed ⌃⌥⌘N and nothing happened.">
 
-The quickest fix is to let Keyboard Maestro check for you. Open the editor, choose **Help ▸ Interactive Help**, and click "Something expected is not happening". It checks whether the Engine is running and the permissions are on, then has you pick this macro and checks that its group and the macro itself are enabled and that it has a trigger and actions ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)). Whatever it flags, fix that.
+The quickest fix is to let Keyboard Maestro check for you. Open the editor, choose **Help ▸ Interactive Help**, and click "Something expected is not happening". It checks whether the Engine is running and the permissions are on, then has you pick this macro and checks that its group and the macro itself are enabled and that it has a trigger and actions ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)). Whatever it flags, fix that.
 
 </Q>
 <Q q="I click in the hot key box and press keys, but nothing shows up.">
@@ -116,9 +116,9 @@ Most likely the app is still in your Downloads folder, or it wasn't moved to App
 The Engine didn't start at login. Open Keyboard Maestro once and the Engine starts with it. Then go to the **General** pane of **Keyboard Maestro ▸ Settings…** and tick **Launch Engine at Login** so you don't have to think about it again ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
 
 </Q>
-<Q q="I pressed the hot key, Notes came up, and the app I was in did something else too.">
+<Q q="I pressed the hot key, Notes came up, and some other app did something too.">
 
-Another app uses ⌃⌥⌘N as well. When two programs register the same hot key, the developers say your macro and the other app's command both happen ([official page](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Click in the trigger's box and pick a different combination, such as ⌃⌥⌘ with another letter.
+Another app has registered ⌃⌥⌘N as a system-wide hot key too. When two programs register the same hot key, the developers say your macro and the other app's command both happen ([official page](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Click in the trigger's box and pick a different combination, such as ⌃⌥⌘ with another letter.
 
 </Q>
 <Q q="I pressed the hot key and a small list of macros popped up for me to pick from.">

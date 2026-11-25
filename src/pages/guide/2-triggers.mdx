@@ -92,7 +92,7 @@ Keyboard Maestro 的触发器一共有三十多种，这一页没有一一列出
 <p>那会儿 Mac 多半在睡觉。到点时 Mac 睡着，那一次就过去了，醒来以后不会补跑。屏幕锁着的时候宏会跑，可打字、选菜单这类动作做不成。</p>
 </Q>
 <Q q="连上 Wi-Fi，宏没反应。">
-<p>从 macOS 14 起，Keyboard Maestro Engine 要有定位的权限，才读得到 Wi-Fi 的信息。到<strong>系统设置 ▸ 隐私与安全性</strong>的定位服务里，看它有没有打开。</p>
+<p>从 macOS 14 起，Keyboard Maestro Engine 要有定位的权限，才读得到 Wi-Fi 的信息。到<strong>系统设置 ▸ 隐私与安全性</strong>的定位服务里，看它有没有打开。列表里根本找不到它的话，官方的办法是在一个宏里跑一次 <strong>Get Location</strong>（获取位置）动作，让系统弹出来问你（<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions">官方说明</a>）。</p>
 </Q>
 <Q q="一个宏跑了两遍。">
 <p>看看它是不是有两个触发器碰巧都发生了，比如登录时一个，连上 Wi-Fi 时一个。Wi-Fi 触发器在每次睡眠唤醒后也会再触发一次，所以这样的宏要做成跑几遍都没关系。</p>

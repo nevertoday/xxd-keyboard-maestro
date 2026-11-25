@@ -26,9 +26,9 @@ Once a macro is triggered, it works down its list of actions from the first to t
 
 There are well over a hundred <Term k="动作" text="actions" />, and nobody remembers them all, so learn to find them first. While editing a macro, click the **New Action** button, or **+** at the bottom of the detail column, to open the action list. Categories are on the left; choose **All Actions** to see everything, then type a word and the list narrows to the actions that match. To open an app, search Activate; to choose a menu, search Menu; to work with files, search File. When you've found it, double-click it or drag it into the macro. See the official [Macro Actions](https://wiki.keyboardmaestro.com/manual/Macro_Actions).
 
-Faster still is **Edit ▸ Insert Action by Name**, shortcut ⌃⌘A (⌃ is Control, ⌘ is Command). A small box appears; type a few letters and press Return to insert the action. Hold Shift as you press Return to insert it above the selected action.
+Faster still is **Edit ▸ Insert Action by Name**. A small box appears; type a few letters and press Return to insert the action. Hold Shift as you press Return to insert it above the selected action.
 
-Three more helpers. Hold the Option key (⌥) while choosing an action and the wiki page for it opens; the gear **⚙** menu at the top right of an action has its help too. Right-click an action you use a lot and add it to **Favorites**, settings and all, so you can take it from that category next time. To check that a few actions do the right thing, select them and click **Try** at the bottom, without running the whole macro. The wiki points out that a tried action runs without the steps before it, so if it needs a particular app at the front, temporarily add an action above it that switches to that app and select both before trying.
+Three more helpers. Hold the Option key (⌥) as you press Return in that box, or as you choose from the **Edit ▸ Insert Action** menu, and the wiki page for the action opens instead; for an action already in your macro, choose **Help** from the gear **⚙** menu at its top right. Right-click an action you use a lot and add it to **Favorites**, settings and all, so you can take it from that category next time. To check that a few actions do the right thing, select them and click **Try** at the bottom, without running the whole macro. The wiki points out that a tried action runs without the steps before it, so if it needs a particular app at the front, temporarily add an action above it that switches to that app and select both before trying.
 
 And if you'd rather not pick at all, click **Record**, do the task yourself, and let it take notes. Then delete the steps you don't need.
 
@@ -36,7 +36,7 @@ Below are the dozen or so you'll use most, grouped by the kind of thing you do b
 
 ## Typing
 
-**Insert Text by Pasting** puts the text on the clipboard, then presses ⌘V for you. It's fast, even for a long passage, handles emoji and any other characters, and can carry styles like bold and italic. The catch is that it replaces whatever was on your clipboard. See the official [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting).
+**Insert Text by Pasting** puts the text on the clipboard, then presses ⌘V (⌘ is the Command key) for you. It's fast, even for a long passage, handles emoji and any other characters, and can carry styles like bold and italic. The catch is that it replaces whatever was on your clipboard. See the official [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting).
 
 **Insert Text by Typing** types the text one key at a time, as if you were at the keyboard. It uses whatever style is already where you're typing, and a Tab or Return in the text really does move to the next field or start a new line. The downside is speed: the wiki suggests it for up to thirty or forty characters, and it can only type characters the keyboard can produce, so no emoji. See the official [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing).
 
@@ -44,7 +44,7 @@ The short version: a long passage, or text with formatting, goes by pasting; a s
 
 ## Keys and menus
 
-**Type a Keystroke** presses one key for you, modifiers included, like ⌘S or ⌃Tab. Use it for a single keystroke, especially one with Command or Control. One rule to remember: don't use it to press a combination that's an active hot key trigger, because it may type the key or may fire that macro, and there's no telling which. See the official [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke).
+**Type a Keystroke** presses one key for you, modifiers included, like ⌘S or ⌃Tab (⌃ is the Control key). Use it for a single keystroke, especially one with Command or Control. One rule to remember: don't use it to press a combination that's an active hot key trigger, because it may type the key or may fire that macro, and there's no telling which. See the official [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke).
 
 **Select or Show a Menu Item** chooses a menu item from the menu bar, in the front app or in a specific app. Its pop-up menu lists the running apps and their menus, so you can pick instead of typing the name and getting it wrong. If the menu item can't be found or is greyed out, by default the whole macro stops. On its **Type a Keystroke** page the wiki also recommends choosing a menu with this action rather than simulating the menu's shortcut. To give a menu command a shortcut it doesn't have, see the how-to [Give a menu command a shortcut it doesn't have](/en/howto/menu-shortcut/).
 
@@ -89,7 +89,7 @@ You've now met macro groups, triggers and actions, which is enough to put a whol
 ## Stuck?
 
 <Q q="The action list is huge and I can't find what I need.">
-<p>Choose <strong>All Actions</strong>, then type a word for what you want to do, like Window, Menu or Clipboard. Still nothing? Search by name with <strong>Edit ▸ Insert Action by Name</strong> (⌃⌘A), or browse the official <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> list.</p>
+<p>Choose <strong>All Actions</strong>, then type a word for what you want to do, like Window, Menu or Clipboard. Still nothing? Search by name with <strong>Edit ▸ Insert Action by Name</strong>, or browse the official <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> list.</p>
 </Q>
 <Q q="Each action works with Try, but the whole macro goes wrong.">
 <p>It's probably too fast: the next step starts before the last one has finished, like typing before the app has come to the front. Put a <strong>Pause</strong> between them, or better, a <strong>Pause Until</strong> that waits until that app really is at the front.</p>

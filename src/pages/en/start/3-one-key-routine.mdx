@@ -9,7 +9,7 @@ import Q from "../../../components/Q.astro";
 
 When you sit down at your Mac in the morning, your hands probably go something like this. Open Calendar to see what's on today. Open Notes to see your to-do list. Open Safari and go to the page you check every day, maybe a course page, a work system, or the back end of your shop. Then drag Safari to the left and Notes to the right, and only then start working. Seven or eight moves, exactly the same every day.
 
-In this lesson you put those moves into one macro. Press ⌃⌥⌘M (⌃ is Control, ⌥ is Option, ⌘ is Command, and M is for morning) and it does the lot.
+In this lesson you put those moves into one macro. Press ⌃⌥⌘T (⌃ is Control, ⌥ is Option, ⌘ is Command, and T is for today) and it does the lot.
 
 ## A list of actions, top to bottom
 
@@ -21,7 +21,7 @@ There's just one place that needs a little more thought. After some actions, Key
 
 ## Build the macro
 
-In **Global Macro Group**, make a new macro called "Start the day". Click **New Trigger**, choose **Hot Key Trigger** and press ⌃⌥⌘M. Then add these six actions in this order. For each one, click **New Action**, find it in **All Actions** and double-click it:
+In **Global Macro Group**, make a new macro called "Start the day". Click **New Trigger**, choose **Hot Key Trigger** and press ⌃⌥⌘T. Then add these six actions in this order. For each one, click **New Action**, find it in **All Actions** and double-click it:
 
 1. **Activate a Specific Application**, with Calendar chosen in **Activate:**.
 2. Another **Activate a Specific Application**, this time with Notes.
@@ -34,7 +34,7 @@ If an action ends up in the wrong place, drag it to where it belongs. If you can
 
 ## Try it
 
-Quit Calendar, Notes and Safari first, then press ⌃⌥⌘M.
+Quit Calendar, Notes and Safari first, then press ⌃⌥⌘T.
 
 <Callout type="ok">
 Calendar and Notes open one after the other, Safari opens your page, and after a second or so Safari fills the left half of the screen and Notes the right half.
@@ -53,7 +53,7 @@ The first one is all you need to remember. If a macro ever won't stop, hold thos
 
 ## Where to look when it doesn't fire
 
-When a macro does nothing, don't guess your way through it. Let Keyboard Maestro check first. Open the editor, choose **Help ▸ Interactive Help** and click "Something expected is not happening" ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)).
+When a macro does nothing, don't guess your way through it. Let Keyboard Maestro check first. Open the editor, choose **Help ▸ Interactive Help** and click "Something expected is not happening" ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)).
 
 It starts with the big picture: whether the Engine is running, whether it starts at login, whether the Accessibility permission is on, and whether the system is stuck thinking you're typing a password. If all of that is fine, it has you pick your macro from a menu and checks that its group is enabled, the macro itself is enabled, and it has a trigger and some enabled actions. Finally it asks you to press the hot key and shows whether the macro actually triggered.
 
@@ -67,7 +67,7 @@ Everything else is for looking up when you need it. For a specific job, see the 
 
 ## If something's off
 
-<Q q="I pressed ⌃⌥⌘M and the apps opened, but the windows didn't move.">
+<Q q="I pressed ⌃⌥⌘T and the apps opened, but the windows didn't move.">
 
 It didn't wait long enough. Change the **Pause** from 1 second to 2, and more if that still isn't enough. Check the order too. The **Pause** belongs after **Open a URL** and before the two **Manipulate a Window** actions.
 

@@ -91,7 +91,7 @@ export default {
     ],
     NO: [
       "You're not on a Mac. It's Mac only and needs macOS 10.13 or later",
-      "You don't want to give any app system permissions. Without them, most macros can't run",
+      "You don't want to give any app system permissions. Without them, many macros can't run",
       "It's a one-off job. Doing it once by hand is quicker",
     ],
   },

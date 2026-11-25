@@ -26,9 +26,9 @@ import Fig from "../../components/Fig.astro";
 
 <Term k="动作" />有上百个，没人一个个记得住，所以先学会找。编辑一个宏的时候，点 **New Action** 按钮，或者细节那一栏底下的 **+**，就会打开动作列表。左边是分类，选 **All Actions** 看全部，再打一个词，列表就只剩和这个词对得上的动作。想开 App，搜 Activate；想选菜单，搜 Menu；想动文件，搜 File。找到了，双击它，或者把它拖进宏里。见官方的 [Macro Actions](https://wiki.keyboardmaestro.com/manual/Macro_Actions)。
 
-更快的办法是 **Edit ▸ Insert Action by Name**（按名字插入动作），快捷键 ⌃⌘A（⌃ 是 Control，⌘ 是 Command）：弹出一个小框，打几个字母，回车就插进去了。按住 Shift 再回车，会插在选中的动作上面。
+更快的办法是 **Edit ▸ Insert Action by Name**（按名字插入动作）：弹出一个小框，打几个字母，回车就插进去了。按住 Shift 再回车，会插在选中的动作上面。
 
-还有三个好帮手。挑动作的时候按住 Option 键（⌥），会打开官方 Wiki 里讲这个动作的那一页；动作右上角的齿轮 **⚙** 菜单里也有它的说明。常用的动作，右键加进 **Favorites**（收藏），连同你设好的选项一起存着，下次从这个分类里拿。想试一下某几个动作对不对，选中它们，点底下的 **Try** 按钮，不用跑整个宏。不过官方提醒，试的时候没有前面那几步铺垫，要是这个动作要对着某个 App 做，最好先在上面临时加一个切到那个 App 的动作，一起选中再试。
+还有三个好帮手。在这个小框里按住 Option 键（⌥）再回车，或者从 **Edit ▸ Insert Action** 菜单里按住 Option 挑一个，打开的是官方 Wiki 里讲这个动作的那一页；已经加进宏的动作，右上角的齿轮 **⚙** 菜单里选 **Help** 也行。常用的动作，右键加进 **Favorites**（收藏），连同你设好的选项一起存着，下次从这个分类里拿。想试一下某几个动作对不对，选中它们，点底下的 **Try** 按钮，不用跑整个宏。不过官方提醒，试的时候没有前面那几步铺垫，要是这个动作要对着某个 App 做，最好先在上面临时加一个切到那个 App 的动作，一起选中再试。
 
 不想挑，也可以点 **Record**，自己动手做一遍，让它记下来，再把多余的几步删掉。
 
@@ -36,7 +36,7 @@ import Fig from "../../components/Fig.astro";
 
 ## 打字
 
-**Insert Text by Pasting**（粘贴插入文字）先把文字放进剪贴板，再替你按一下 ⌘V。它快，长长一段也是一下就出来，表情符号、特殊字符都行，还能带粗体、斜体这些格式。代价是你剪贴板里原来的东西会被换掉。见官方的 [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)。
+**Insert Text by Pasting**（粘贴插入文字）先把文字放进剪贴板，再替你按一下 ⌘V（⌘ 是 Command 键）。它快，长长一段也是一下就出来，表情符号、特殊字符都行，还能带粗体、斜体这些格式。代价是你剪贴板里原来的东西会被换掉。见官方的 [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)。
 
 **Insert Text by Typing**（逐字键入文字）像你自己在键盘上一个字一个字地打，用的是你正在打字那个地方本来的格式，打到 Tab 和回车也会真的跳到下一格、换一行。它的短处是慢，官方的建议是三四十个字以内用它，而且只能打键盘上打得出来的字，打不了表情符号。见官方的 [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)。
 
@@ -44,7 +44,7 @@ import Fig from "../../components/Fig.astro";
 
 ## 按键和菜单
 
-**Type a Keystroke**（按一个键）替你按一下某个键，连同修饰键，比如 ⌘S 或者 ⌃Tab。只按一下、或者这一下带着 Command、Control 的，就用它。有一条要记住：别拿它去按一个正被某个热键触发器占着的组合，那样它可能打出这个键，也可能把那个宏触发了，说不准。见官方的 [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)。
+**Type a Keystroke**（按一个键）替你按一下某个键，连同修饰键，比如 ⌘S 或者 ⌃Tab（⌃ 是 Control 键）。只按一下、或者这一下带着 Command、Control 的，就用它。有一条要记住：别拿它去按一个正被某个热键触发器占着的组合，那样它可能打出这个键，也可能把那个宏触发了，说不准。见官方的 [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)。
 
 **Select or Show a Menu Item**（选择或显示菜单项）替你在菜单栏里选一个菜单项，可以是最前面那个 App 的，也可以是指定的某个 App 的。它的下拉菜单里列着正在运行的 App 和它们的菜单，照着点就不会写错名字。要选的菜单要是找不到、或者是灰的，它默认会让整个宏停下。官方在讲 **Type a Keystroke** 的那一页里也建议，要选菜单就用它，别去模拟那个菜单的快捷键。给一个没有快捷键的菜单命令配一个，见 How-to 的[给没有快捷键的菜单配一个](/howto/menu-shortcut/)。
 
@@ -89,7 +89,7 @@ import Fig from "../../components/Fig.astro";
 ## 卡住了？
 
 <Q q="动作列表里东西太多，找不到我要的那个。">
-<p>先选 <strong>All Actions</strong>，再打一个你想做的事的英文词，比如 Window、Menu、Clipboard。还是找不到，用 <strong>Edit ▸ Insert Action by Name</strong>（⌃⌘A）按名字搜，或者去官方的 <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> 清单里翻。</p>
+<p>先选 <strong>All Actions</strong>，再打一个你想做的事的英文词，比如 Window、Menu、Clipboard。还是找不到，用 <strong>Edit ▸ Insert Action by Name</strong> 按名字搜，或者去官方的 <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> 清单里翻。</p>
 </Q>
 <Q q="单独点 Try 好好的，整个宏跑起来却出错。">
 <p>多半是快了：前一步还没做完，后一步已经开始了，比如 App 还没切到最前面就开始打字。在两步中间加一个 <strong>Pause</strong>，或者更好的，用 <strong>Pause Until</strong> 等到那个 App 真的在最前面再往下走。</p>
