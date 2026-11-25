@@ -104,3 +104,5 @@
 - 取消所有正在跑的宏，几页给的键不一样：`_root/Troubleshooting` 是按住 ⌃⌥⇧ 点状态菜单图标，`manual/How_do_I` 是 ⌃⌥⇧、⌘ 可按可不按，`manual/Menus` 和 `_root/Frequently_Asked_Questions` 是四个键全按。本站照 `manual/How_do_I` 写：按住 ⌃⌥⇧（⌘ 可以一起按），点状态菜单图标。
 - `token/Tab` 说 `%Tab%` 是 0x08，Tab 字符其实是 0x09（0x08 是退格）。本站不写这个编码。
 - `trigger/Cron` 的例子表把 `0 9,12,18 * * *` 讲成「9am, noon, and 3pm」，18 点是下午 6 点。同页正文说「+」加在日期（day of month）那一栏，可紧接着的例子和表里的 `+Fri`、`+Mon`、`+Sat` 都加在星期（day of week）那一栏。How-to「每天到点自动跑」照官方的例子写（日期栏 `-1-7`、星期栏 `+Fri`），没用那一行时间表。
+- `manual/Quick_Start` 的 Actions 一节把能跑的脚本列成「AppleScript, Java, Swift, shell Script」，这里的 Java 应该是 JavaScript（见 `action/Execute_a_JavaScript_For_Automation`）。本站写 JavaScript。
+- `_root/Frequently_Asked_Questions`「When should I use Typed String triggers」说在访达里模拟的删除键会把选中的文件移到废纸篓。访达里单按 Delete 不会删文件，⌘Delete 才会，这句没法确认。第 2 课只说「可能」误删，没照搬。
