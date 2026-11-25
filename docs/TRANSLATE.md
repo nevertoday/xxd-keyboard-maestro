@@ -1,36 +1,40 @@
-# Translation brief: 8 more languages (2026-11-19)
+# Translation brief: 8 more languages
 
-v1 of this site is Chinese (root) and English (`/en/`). This brief is for the next step: adding Japanese, Korean, Spanish, Portuguese (Brazil), French, German, Russian and Arabic, the same way the sister site grokbot.xiaoxiaodong.ai did. Fill in the dates and paths when you hand it to translators.
+The site is Chinese (root) and English (`/en/`) in full. Eight more languages (Japanese, Korean, Spanish, Brazilian Portuguese, French, German, Russian, Arabic) get the home page, the three beginner lessons and their own README, the same way the sister sites grokbot.xiaoxiaodong.ai and saily.xiaoxiaodong.ai did. Deeper pages (full guide, how-to, wiki, FAQ) link to the English version.
 
-## The user's goal
-The unofficial Saily beginners site gets more languages. Each language has the home page, the three beginner lessons and its own README; deeper pages (guide, how-to, wiki, FAQ) link to the English version. The site reads like a friend explaining (Kevin Kelly style: one core idea, a picture first, connected sentences). The translations must read that way in each language, not like a word-for-word translation.
+Translation is done by Gemini (`agy -p … --model gemini-4-neon-xhigh`), one file per call, from the English originals. Claude reviews each language and Gemini applies the findings. This file is the brief Gemini receives with every file; `docs/l10n/glossary/<lang>.md` is the per-language term list it receives with it.
 
-## Read first
-- `docs/MAINTAINING.md`: 「资料来源」, 「写作规矩（硬规矩）」 and 「怎么写」 (the voice and the hard rules apply to every language: no prices or promo codes (the author's referral code lives only on the zh/en Quick number page), nothing on getting around network restrictions).
-- The English and Chinese originals: `src/pages/en/start/{1-check-phone,2-data-plan,3-land}.mdx`, `src/pages/start/…` (zh), `src/i18n/base.js` (English UI strings and home page), `src/views/Home.astro`, the English README.
-- How the Grok Bot site did the same languages, for tone and layout only (its content is about a different product): `../xxd-grokbot/src/i18n/<lang>.js`, `../xxd-grokbot/src/pages/<lang>/start/`.
+## Who reads it
+Mac users who have never automated anything, reading in their own language. The site reads like a friend who knows Keyboard Maestro explaining it: one core idea per page, a small everyday scene first, then the steps, in connected sentences. The translation must read that way in the target language, written as a native technical writer would write a friendly tutorial, never word for word.
 
-## Setup (maintainer, before translators start)
-1. Add the language to `LANGS` in `src/data/nav.js` (no `full: true`).
-2. Copy `src/i18n/base.js` to `src/i18n/<lang>.js` with a `figs.ui` block, import it in `src/i18n/index.js` and add it to `EXTRA`.
-3. Create `src/pages/<lang>/index.astro` (the same lines as `src/pages/en/index.astro`) and English copies of the three lessons in `src/pages/<lang>/start/`.
-4. Add the language's Help Center locale to `LOCALES` in `scripts/sync-docs.mjs` and run it, so translators have the official text in `docs/sources/raw/official/<locale>/`. The Help Center locales are `cs, de, en-us, es, es-419, fr, it, ja, ko, lt, nl, pl, pt, pt-br, sv, zh-cn, zh-tw` (from `/api/v2/help_center/locales.json`, 2026-11-19); Russian and Arabic have none.
+## Voice
+- Address the reader as the language's friendly tutorials do: ja です／ます調; ko 해요체; es tú; pt (Brazil) você; fr vous; de du; ru вы; ar Modern Standard Arabic, addressing the reader directly.
+- Short and long sentences mixed, connected with the language's natural "because / so / but / for example". Plain everyday words. No officialese, no marketing words.
+- Faithful: same facts, steps, numbers, warnings and emphasis. Add nothing, drop nothing.
 
-## Your files, per language `<lang>`
-1. `src/i18n/<lang>.js`: translate every string value. Keep every key, array length and `{placeholder}` exactly. Labels that name the full guide, how-to, wiki and FAQ should say they are in English where base.js does.
-2. `src/pages/<lang>/index.astro`: already correct, don't touch.
-3. `src/pages/<lang>/start/1-check-phone.mdx`, `2-data-plan.mdx`, `3-land.mdx`: translate from the English, checking the Chinese for intent. Keep frontmatter keys (`layout`, `lesson`, `tldr`, `description` if present), every component, every `Copy` id and other element ids, the single `<mark>`. Links: lessons link to `/<lang>/start/…`; every other site page links to `/en/…`; Help Center links point at the same article in your language's Help Center when it exists (swap `en-us` in the address for your locale), otherwise the English one.
-4. `README.<lang>.md`: new file. Translate `README.en.md` in the same voice. Use the English images (`assets/en/hero.svg`, `assets/en/readme/*.svg`) exactly as README.en.md does. The language bar is the 10-language line already in README.en.md with your language in bold instead of English. The tagline says 10 languages. Site links go to `https://saily.xiaoxiaodong.ai/<lang>/` for the home page and lessons, `/en/` for everything else. Help Center links point at your locale when the article exists there.
+## Never change (copy exactly)
+- **Keyboard Maestro's interface is English only.** Every action, trigger, menu, button and preference name stays in English exactly as written, in bold: `**Insert Text by Pasting**`, `**Hot Key Trigger**`, `**Launch Engine at Login**`, `**File ▸ New Macro**`. The first time a label appears on a page, add a short gloss in your language in parentheses after it, the way the Chinese pages do (`**Insert Text by Pasting**（粘贴插入文字）`). After that, the bold English alone.
+- macOS settings: use the name macOS shows in your language (System Settings ▸ Privacy & Security ▸ Accessibility as Apple localizes it, e.g. ja システム設定 ▸ プライバシーとセキュリティ ▸ アクセシビリティ). If unsure, keep the English in bold and explain.
+- Keys and symbols (⌃ ⌥ ⇧ ⌘, ⌃⌥⌘N), typed strings (`=reply=`, `=addr=`), tokens (`%LongDate%`), code, inline code, file names, URLs of other sites, product names (Keyboard Maestro, Keyboard Maestro Engine, macOS, Finder, Safari, Notes, Calendar…).
+  - Apple app names: use the name the Mac shows in your language when it differs (ja メモ for Notes, カレンダー for Calendar; de Notizen, Kalender), since that's what the reader sees.
+- MDX/JSX structure: every component tag, attribute name and the values of `id`, `k` (Term keys are Chinese words: keep them exactly), `type`, `layout`, `lesson`, `step`, `slug`, `c`, `cmds`. `import` lines untouched. Frontmatter keys stay; translate only the values of `title`, `tldr`, `description`, `minutes`.
+- In `src/i18n/<lang>.js`: every key, array length, `{placeholder}` and `[text](key)` link key stays exactly; translate only the string values.
 
-## Rules
-- **Button names as the app shows them in your language.** The Saily app follows the phone's system language. Its languages (2026-11-19) are Chinese, Czech, Dutch, English, French, German, Italian, Japanese, Lithuanian, Polish, Spanish (and Latin American Spanish), Portuguese (and Brazilian Portuguese) and Traditional Chinese; there is no Korean, Russian or Arabic app interface yet. Look each label up in your language's Help Center copy, write the app's text in bold, and the English label in parentheses on first use, like the Chinese pages do. If your language has no app interface or the label isn't found, keep the English in bold and explain it in your language.
-- **Terms** (eSIM, data roaming, APN, activation code, credits…) use the official Help Center's word in your language.
-- Facts stay exactly as in the English. Don't add or drop facts, prices or codes.
-- Arabic is right-to-left: the layout handles direction; keep code, commands and English labels as they are.
-- MDX: no bare `<`, `{`, `}` in prose.
+## Do translate
+- All prose, headings, list items, table cells, `title="…"`, `q="…"`, Checkpoint `items`, `text="…"` on Term, Callout titles, Reply bodies (titled in your language's word for "Illustration"), figure captions.
+- Text the reader copies into their own macro (the body of a snippet, a reply): translate it so a reader of your language would naturally write it, keeping tokens and typed strings as they are.
+- Internal links: lessons and home link to `/<lang>/…`; every other site page links to `/en/…`. External links stay identical.
 
-## Checks before you report
-`npm run build`, `node scripts/check-i18n.mjs <lang>` for each of your languages (must print no ✗), `npm run check`, `node scripts/check-doc-links.mjs`. For a language with a Saily Help Center, also `node scripts/check-lesson-parity.mjs . <lang> <locale>` (same Help Center articles and anchors as the English lessons, same components and numbers, every bold label found in that locale's Help Center copy). Don't start a dev server; if you must look, serve `dist/` with `python3 -m http.server <port> --bind 127.0.0.1` and kill it after. Commit on your branch: `git add -A && git commit -m "<lang>: …"`. Don't push.
+## MDX safety
+- No bare `<`, `{` or `}` in prose; placeholders go inside inline code as in the English.
+- Keep quotes in attribute values valid: if a translated value needs a double quote, use your language's typographic quotes.
+- Keep the single `<mark>` on the sentence that corresponds to the English one, `<u>` likewise; `**bold**` on the corresponding words. Never end a bold span with punctuation directly followed by text (`**…とき**。目的`, not `**…とき。**目的`).
 
-## Report
-Per language: files changed, any label you couldn't find in the Help Center, anything you were unsure how to say, the commit hash.
+## README.<lang>.md
+Translate `README.en.md` in the same voice. Use the English images (`assets/en/hero.svg`, `assets/en/readme/*.svg`) exactly as README.en.md does. The language bar lists all 10 languages with yours in bold. Site links go to `https://keyboardmaestro.xiaoxiaodong.ai/<lang>/` for the home page and lessons, `/en/` for everything else. Headings become your language's own words, so their anchors change: rewrite in-README `#anchor` links to match your headings.
+
+## Output
+Return only the translated file, complete, from the first line to the last. No preamble, no commentary, no code fence around the whole file.
+
+## Checks (maintainer)
+`npm run build`, `node scripts/check-i18n.mjs <lang>` (keys, placeholders, compile, copy ids, links, `<mark>`), `npm run check`. Arabic is right-to-left: the layout handles direction; keep code, keys and English labels as they are.
