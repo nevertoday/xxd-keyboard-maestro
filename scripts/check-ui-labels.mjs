@@ -34,6 +34,7 @@ const ALLOW = [
   ["Full Disk Access", "Privacy & Security 里的一项"],
   ["Screen & System Audio Recording", "Privacy & Security 里的一项（macOS 15 起的名字）"],
   ["Automation", "Privacy & Security 里的一项"],
+  ["Location Services", "Privacy & Security 里的一项（定位服务）；macOS 14 起，引擎要它才读得到连着哪个 Wi-Fi（trigger/Wireless_Network）"],
   ["Login Items & Extensions", "System Settings ▸ General 里的一项"],
   // Keyboard Maestro 菜单里由 macOS 生成的几项（App 的文件里没有这几个字）
   ["Settings", "macOS 13 起，App 菜单里的 Preferences… 显示成 Settings…（Wiki 和 App 文件里还叫 Preferences）"],

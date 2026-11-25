@@ -1,6 +1,6 @@
 import { EXTRA } from "../i18n/index.js";
 // 站点结构的唯一来源：左侧导航、首页路线图、上一步 / 下一步、How-to 目录、搜索都从这里读。
-// ready: true 的页面还没写，导航里显示「编写中」，不给链接。
+// ready: false 的页面还没写，导航里显示「编写中」，不给链接。
 // 中文在根路径，英文在 /en/ 下（同样的 slug）。英文文字放在各条目的 en: {} 里，用 t(x, key, lang) 取。
 
 const BASE = (import.meta.env?.BASE_URL || "/").replace(/\/$/, "");
@@ -113,7 +113,7 @@ export const GLOSSARY = {
   编辑器: { tip: "你打开来写宏、改宏的那个 Keyboard Maestro 窗口。改完可以关掉，宏照样能用。", wiki: "editor-engine", en: { label: "editor", tip: "The Keyboard Maestro window where you write and change macros. You can quit it when you're done and your macros keep working." } },
   引擎: { tip: "Keyboard Maestro Engine，在后台一直开着、真正替你执行宏的那一半。它没开，宏就都不灵。", wiki: "editor-engine", en: { label: "Engine", tip: "Keyboard Maestro Engine, the half that runs in the background and actually performs your macros. If it isn't running, nothing fires." } },
   热键: { tip: "按下一组键就触发宏，比如 ⌃⌥⌘T。挑一组别的 App 没用过的组合。", wiki: "hot-key", en: { label: "hot key", tip: "A key combination that fires a macro, like ⌃⌥⌘T. Pick one no other app already uses." } },
-  输入字符串触发器: { tip: "在能打字的地方打出一串字（比如 =addr=）就触发宏，通常先把这串字删掉，再换成别的内容。", wiki: "typed-string", en: { label: "typed string trigger", tip: "Fires when you type a string, like =addr=, where you're typing text, and usually deletes what you typed before the macro runs." } },
+  输入字符串触发器: { tip: "在能打字的地方打出一串字（比如 =addr=）就触发宏，宏开始跑之前通常先把这串字删掉。", wiki: "typed-string", en: { label: "typed string trigger", tip: "Fires when you type a string, like =addr=, where you're typing text, and usually deletes what you typed before the macro runs." } },
   面板: { tip: "屏幕上浮着的一排按钮，一个按钮对应一个宏，点一下就跑。", wiki: "palette", en: { label: "palette", tip: "A floating panel of buttons on screen, one per macro, that runs the macro when clicked." } },
   状态菜单: { tip: "菜单栏上 Keyboard Maestro 的图标。点开能运行宏，也能取消正在跑的宏。", wiki: "status-menu", en: { label: "status menu", tip: "Keyboard Maestro's icon in the menu bar. Open it to run macros or cancel the ones that are running." } },
   变量: { tip: "给一段文字起个名字存起来，后面的动作按名字拿来用。", wiki: "variable", en: { label: "variable", tip: "A named piece of text a macro stores so later actions can use it by name." } },
@@ -122,12 +122,12 @@ export const GLOSSARY = {
   条件: { tip: "宏用来判断的东西：某个 App 开着没有、屏幕上有没有某张图、变量是不是某个值。", wiki: "condition", en: { label: "condition", tip: "Something a macro checks: whether an app is running, whether an image is on screen, whether a variable has a value." } },
   剪贴板历史: { tip: "Keyboard Maestro 记下你复制过的东西，过后还能挑一条再贴出来。", wiki: "clipboard-history", en: { label: "clipboard history", tip: "Keyboard Maestro remembers what you've copied, so you can pick an earlier item and paste it again." } },
   命名剪贴板: { tip: "起了名字、单独存着的剪贴板，不会被下一次复制冲掉。", wiki: "named-clipboard", en: { label: "named clipboard", tip: "A separate clipboard with a name, which your next copy won't overwrite." } },
-  找图: { tip: "在屏幕上找一块和你给的图一样的地方，找到了就能点它、等它出现或者消失。", wiki: "found-image", en: { label: "found image", tip: "Finding a spot on screen that matches an image you give it, so a macro can click it or wait for it." } },
+  找图: { tip: "在屏幕上找一块和你给的图一样的地方，找到了就能点它，或者等它出现。", wiki: "found-image", en: { label: "found image", tip: "Finding a spot on screen that matches an image you give it, so a macro can click it or wait for it." } },
   辅助功能权限: { tip: "macOS「隐私与安全性」里的一项。Keyboard Maestro 要在这里打开，才看得到你按的热键，也才能替你打字、选菜单、摆窗口。", wiki: "permissions", en: { label: "Accessibility permission", tip: "A setting in macOS Privacy & Security. Keyboard Maestro needs it to see your hot keys, and to type, choose menus and move windows for you." } },
   智能组: { tip: "存起来的一次搜索，自动列出符合条件的宏，比如最近改过的。", wiki: "smart-group", en: { label: "smart group", tip: "A saved search that lists every macro matching it, such as the ones you changed recently." } },
   子程序: { tip: "可以被别的宏调用、能带参数的宏。常用的几步做成子程序，用到的地方调它就行。", wiki: "subroutine", en: { label: "subroutine", tip: "A macro other macros can call, with parameters. Put steps you repeat in one and call it wherever you need them." } },
   宏库: { tip: "Keyboard Maestro 自带的一批现成的宏，挑一个导入，照着改。", wiki: "macro-library", en: { label: "Macro Library", tip: "A set of ready-made macros that comes with Keyboard Maestro. Import one and adapt it." } },
-  插件动作: { tip: "别人写好、装进 Keyboard Maestro 的动作，装上以后和自带的动作一样用。", wiki: "plug-in-action", en: { label: "plug-in action", tip: "An action someone else wrote that you install into Keyboard Maestro and use like a built-in one." } },
+  插件动作: { tip: "你自己写、或者从别人那里下载来装进 Keyboard Maestro 的动作，装上以后和自带的动作一样用。", wiki: "plug-in-action", en: { label: "plug-in action", tip: "An action you write yourself or download from someone else, install into Keyboard Maestro, and use like a built-in one." } },
   调试器: { tip: "让宏一步一步走、随时暂停的工具，用来看宏卡在了哪一步。", wiki: "debugger", en: { label: "debugger", tip: "A tool that runs a macro one step at a time, so you can see where it goes wrong." } },
   引擎日志: { tip: "引擎记的流水账。宏出错时，去这里看它报了什么错。", wiki: "debugger", en: { label: "Engine log", tip: "The Engine's running record. When a macro fails, look here for the errors it reported." } },
 };
