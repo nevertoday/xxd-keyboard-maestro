@@ -1,0 +1,4344 @@
+{
+ "About_Keyboard_Maestro": {
+  "title": "About Keyboard Maestro",
+  "url": "https://wiki.keyboardmaestro.com/About_Keyboard_Maestro",
+  "sha": "70b06de08e99",
+  "bytes": 2867
+ },
+ "Actions": {
+  "title": "Macro Actions",
+  "url": "https://wiki.keyboardmaestro.com/Actions",
+  "sha": "debcc1411b40",
+  "bytes": 4595
+ },
+ "Activate_Address_Book": {
+  "title": "Activate Address Book",
+  "url": "https://wiki.keyboardmaestro.com/Activate_Address_Book",
+  "sha": "880ba2c719e8",
+  "bytes": 227
+ },
+ "AppleScript": {
+  "title": "Using AppleScript to Get and Set Keyboard Maestro Variables",
+  "url": "https://wiki.keyboardmaestro.com/AppleScript",
+  "sha": "90df8e1b64ff",
+  "bytes": 5061
+ },
+ "Applications": {
+  "title": "Applications",
+  "url": "https://wiki.keyboardmaestro.com/Applications",
+  "sha": "bc8a5d3c877d",
+  "bytes": 858
+ },
+ "BBEdit_Markdown": {
+  "title": "BBEdit Markdown",
+  "url": "https://wiki.keyboardmaestro.com/BBEdit_Markdown",
+  "sha": "35f66ed98fd1",
+  "bytes": 1218
+ },
+ "Clipboards": {
+  "title": "Clipboards",
+  "url": "https://wiki.keyboardmaestro.com/Clipboards",
+  "sha": "c879d31a4864",
+  "bytes": 9719
+ },
+ "Collections": {
+  "title": "Collections",
+  "url": "https://wiki.keyboardmaestro.com/Collections",
+  "sha": "67d850e631dd",
+  "bytes": 401
+ },
+ "Conditions": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/Conditions",
+  "sha": "bd553543bbda",
+  "bytes": 1845
+ },
+ "Conflict_Palette": {
+  "title": "Conflict Palette",
+  "url": "https://wiki.keyboardmaestro.com/Conflict_Palette",
+  "sha": "671934902eb9",
+  "bytes": 1832
+ },
+ "Dates_and_Times": {
+  "title": "===",
+  "url": "https://wiki.keyboardmaestro.com/Dates_and_Times",
+  "sha": "676cf0b1f2f8",
+  "bytes": 9045
+ },
+ "Duplicate_Line": {
+  "title": "Duplicate Line",
+  "url": "https://wiki.keyboardmaestro.com/Duplicate_Line",
+  "sha": "628cbc092441",
+  "bytes": 593
+ },
+ "External_Links": {
+  "title": "External Links",
+  "url": "https://wiki.keyboardmaestro.com/External_Links",
+  "sha": "191b5480fe2a",
+  "bytes": 804
+ },
+ "EyeTV": {
+  "title": "Playback controls",
+  "url": "https://wiki.keyboardmaestro.com/EyeTV",
+  "sha": "6f01e3219e14",
+  "bytes": 1128
+ },
+ "Forum": {
+  "title": "Using the Keyboard Maestro Forum",
+  "url": "https://wiki.keyboardmaestro.com/Forum",
+  "sha": "e908944d9f0a",
+  "bytes": 7133
+ },
+ "Found_Image": {
+  "title": "Found Image",
+  "url": "https://wiki.keyboardmaestro.com/Found_Image",
+  "sha": "b51b2bb7ebb7",
+  "bytes": 4449
+ },
+ "Frequently_Asked_Questions": {
+  "title": "How do I get started?",
+  "url": "https://wiki.keyboardmaestro.com/Frequently_Asked_Questions",
+  "sha": "8f74ddbed18e",
+  "bytes": 44418
+ },
+ "Functions": {
+  "title": "Functions",
+  "url": "https://wiki.keyboardmaestro.com/Functions",
+  "sha": "5e0886fabb08",
+  "bytes": 1147
+ },
+ "Fundamental_Concepts": {
+  "title": "Fundamental Concepts",
+  "url": "https://wiki.keyboardmaestro.com/Fundamental_Concepts",
+  "sha": "cdb48962fdb7",
+  "bytes": 5855
+ },
+ "Getting_Help_in_the_Keyboard_Maestro_app": {
+  "title": "Getting Help in Keyboard Maestro App",
+  "url": "https://wiki.keyboardmaestro.com/Getting_Help_in_the_Keyboard_Maestro_app",
+  "sha": "8a83053c34db",
+  "bytes": 2207
+ },
+ "Getting_Started": {
+  "title": "Getting Started",
+  "url": "https://wiki.keyboardmaestro.com/Getting_Started",
+  "sha": "b7584533013e",
+  "bytes": 9604
+ },
+ "Ideas": {
+  "title": "Ideas",
+  "url": "https://wiki.keyboardmaestro.com/Ideas",
+  "sha": "ef58f9e00188",
+  "bytes": 4745
+ },
+ "JavaScript_for_Automation": {
+  "title": "JavaScript for Automation (JXA) Discussion",
+  "url": "https://wiki.keyboardmaestro.com/JavaScript_for_Automation",
+  "sha": "66e61204a947",
+  "bytes": 16277
+ },
+ "JulianDate": {
+  "title": "JulianDate",
+  "url": "https://wiki.keyboardmaestro.com/JulianDate",
+  "sha": "24ad9ad9559a",
+  "bytes": 91
+ },
+ "Keyboard_Maestro_Control": {
+  "title": "Old Information",
+  "url": "https://wiki.keyboardmaestro.com/Keyboard_Maestro_Control",
+  "sha": "aa23d9d12a2c",
+  "bytes": 2751
+ },
+ "Keyboard_Maestro_Markdown_Library": {
+  "title": "Screencast",
+  "url": "https://wiki.keyboardmaestro.com/Keyboard_Maestro_Markdown_Library",
+  "sha": "228fde4675c8",
+  "bytes": 4050
+ },
+ "MJD": {
+  "title": "MJD",
+  "url": "https://wiki.keyboardmaestro.com/MJD",
+  "sha": "4084960d6c0c",
+  "bytes": 97
+ },
+ "Macro_Activation": {
+  "title": "Macro Activation",
+  "url": "https://wiki.keyboardmaestro.com/Macro_Activation",
+  "sha": "20ffd90b6b78",
+  "bytes": 2378
+ },
+ "Macro_Groups": {
+  "title": "Macro Groups",
+  "url": "https://wiki.keyboardmaestro.com/Macro_Groups",
+  "sha": "71e794706528",
+  "bytes": 14001
+ },
+ "Macro_Library": {
+  "title": "Macro Library",
+  "url": "https://wiki.keyboardmaestro.com/Macro_Library",
+  "sha": "88c50906a341",
+  "bytes": 8196
+ },
+ "Missing1PasswordBookmark": {
+  "title": "Missing1PasswordBookmark",
+  "url": "https://wiki.keyboardmaestro.com/Missing1PasswordBookmark",
+  "sha": "6cfd9fd26a23",
+  "bytes": 51
+ },
+ "Mouse_Positioners": {
+  "title": "Macro Features Demonstrated",
+  "url": "https://wiki.keyboardmaestro.com/Mouse_Positioners",
+  "sha": "abea35dd30d9",
+  "bytes": 4245
+ },
+ "Now_Playing_in_Spotify": {
+  "title": "Now Playing in Spotify",
+  "url": "https://wiki.keyboardmaestro.com/Now_Playing_in_Spotify",
+  "sha": "bde617b5b968",
+  "bytes": 575
+ },
+ "Quick_Start": {
+  "redirect": "manual:Quick_Start",
+  "url": "https://wiki.keyboardmaestro.com/Quick_Start"
+ },
+ "Regular_Expressions": {
+  "title": "Regular Expressions (RegEx)",
+  "url": "https://wiki.keyboardmaestro.com/Regular_Expressions",
+  "sha": "1e1675239476",
+  "bytes": 11509
+ },
+ "Scripting": {
+  "title": "Scripting on OS X Using Keyboard Maestro",
+  "url": "https://wiki.keyboardmaestro.com/Scripting",
+  "sha": "9a98354e6b72",
+  "bytes": 2377
+ },
+ "Scripting_the_Keyboard_Maestro_editor": {
+  "title": "Scripting the Keyboard Maestro editor",
+  "url": "https://wiki.keyboardmaestro.com/Scripting_the_Keyboard_Maestro_editor",
+  "sha": "27ee49190437",
+  "bytes": 5219
+ },
+ "Shell_Scripting": {
+  "redirect": "action:Execute_a_Shell_Script ",
+  "url": "https://wiki.keyboardmaestro.com/Shell_Scripting"
+ },
+ "Shortcut_Actions": {
+  "title": "Shortcut Actions Provided by Keyboard Maestro",
+  "url": "https://wiki.keyboardmaestro.com/Shortcut_Actions",
+  "sha": "e6f349d80e5d",
+  "bytes": 3289
+ },
+ "Status_Menu": {
+  "title": "Keyboard Maestro Status Menu",
+  "url": "https://wiki.keyboardmaestro.com/Status_Menu",
+  "sha": "af3a4d86671b",
+  "bytes": 1797
+ },
+ "Stream_Deck": {
+  "title": "Stream Deck",
+  "url": "https://wiki.keyboardmaestro.com/Stream_Deck",
+  "sha": "8eb71089fce9",
+  "bytes": 2709
+ },
+ "Style_Guide": {
+  "title": "Style Guide",
+  "url": "https://wiki.keyboardmaestro.com/Style_Guide",
+  "sha": "e5455bbe3098",
+  "bytes": 1959
+ },
+ "Subroutines": {
+  "title": "Subroutines",
+  "url": "https://wiki.keyboardmaestro.com/Subroutines",
+  "sha": "de0036b27ad0",
+  "bytes": 1805
+ },
+ "Syncing_Macros_Between_Macs": {
+  "redirect": "manual:Macro_Syncing",
+  "url": "https://wiki.keyboardmaestro.com/Syncing_Macros_Between_Macs"
+ },
+ "Text_Fields": {
+  "title": "Text and Numeric Fields",
+  "url": "https://wiki.keyboardmaestro.com/Text_Fields",
+  "sha": "c22baf518918",
+  "bytes": 4109
+ },
+ "Tokens": {
+  "title": "Tokens",
+  "url": "https://wiki.keyboardmaestro.com/Tokens",
+  "sha": "11aa10196f64",
+  "bytes": 2657
+ },
+ "Transition": {
+  "title": "Transition",
+  "url": "https://wiki.keyboardmaestro.com/Transition",
+  "sha": "d71befce1668",
+  "bytes": 289
+ },
+ "Transition_From_Previous_Versions": {
+  "title": "Transition From Previous Versions",
+  "url": "https://wiki.keyboardmaestro.com/Transition_From_Previous_Versions",
+  "sha": "dc7f88567f3e",
+  "bytes": 1279
+ },
+ "Transition_From_QuicKeys": {
+  "title": "Transition from QuicKeys",
+  "url": "https://wiki.keyboardmaestro.com/Transition_From_QuicKeys",
+  "sha": "dc88269a4714",
+  "bytes": 6894
+ },
+ "Transition_To_Previous_Versions": {
+  "title": "Transition To Previous Versions",
+  "url": "https://wiki.keyboardmaestro.com/Transition_To_Previous_Versions",
+  "sha": "1df827194cd2",
+  "bytes": 3002
+ },
+ "Triggers": {
+  "title": "Macro Triggers",
+  "url": "https://wiki.keyboardmaestro.com/Triggers",
+  "sha": "fd20eb2d139e",
+  "bytes": 1397
+ },
+ "Troubleshooting": {
+  "title": "Troubleshooting",
+  "url": "https://wiki.keyboardmaestro.com/Troubleshooting",
+  "sha": "49446c291d23",
+  "bytes": 37129
+ },
+ "User_Manual": {
+  "title": "User Manual",
+  "url": "https://wiki.keyboardmaestro.com/User_Manual",
+  "sha": "936f2bcdd202",
+  "bytes": 2823
+ },
+ "Using_Markdown_in_the_Keyboard_Maestro_Forum": {
+  "title": "Using Markdown in the Keyboard Maestro Forum",
+  "url": "https://wiki.keyboardmaestro.com/Using_Markdown_in_the_Keyboard_Maestro_Forum",
+  "sha": "3d9ff7da34e4",
+  "bytes": 1986
+ },
+ "Videos": {
+  "title": "Video Tutorials",
+  "url": "https://wiki.keyboardmaestro.com/Videos",
+  "sha": "e96e2df8e58e",
+  "bytes": 2180
+ },
+ "WhatsNew": {
+  "title": "What’s New",
+  "url": "https://wiki.keyboardmaestro.com/WhatsNew",
+  "sha": "83061ca285a3",
+  "bytes": 241
+ },
+ "Window_Movers": {
+  "title": "Setup Frames",
+  "url": "https://wiki.keyboardmaestro.com/Window_Movers",
+  "sha": "34dea2821e85",
+  "bytes": 5140
+ },
+ "Wishlist": {
+  "title": "Wishlist",
+  "url": "https://wiki.keyboardmaestro.com/Wishlist",
+  "sha": "6a9b21ea85e7",
+  "bytes": 947
+ },
+ "XPath": {
+  "title": "XPath",
+  "url": "https://wiki.keyboardmaestro.com/XPath",
+  "sha": "e7e50cf2ded2",
+  "bytes": 438
+ },
+ "action/Activate_Application_Launcher": {
+  "title": "Activate Application Launcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Application_Launcher",
+  "sha": "63aff5f17537",
+  "bytes": 952
+ },
+ "action/Activate_Application_Switcher": {
+  "title": "Activate Application Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Application_Switcher",
+  "sha": "e5d91c9121e3",
+  "bytes": 2308
+ },
+ "action/Activate_Clipboard_Copy_Switcher": {
+  "redirect": "action:Activate_Named_Clipboard_Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Clipboard_Copy_Switcher"
+ },
+ "action/Activate_Clipboard_Cut_Switcher": {
+  "redirect": "action:Activate_Named_Clipboard_Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Clipboard_Cut_Switcher"
+ },
+ "action/Activate_Clipboard_History_Switcher": {
+  "title": "Activate Clipboard History Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Clipboard_History_Switcher",
+  "sha": "d8f9f483f55d",
+  "bytes": 1661
+ },
+ "action/Activate_Clipboard_Paste_Switcher": {
+  "redirect": "action:Activate_Named_Clipboard_Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Clipboard_Paste_Switcher"
+ },
+ "action/Activate_Last_Application": {
+  "title": "Activate Last Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Last_Application",
+  "sha": "cd0b06dbaa13",
+  "bytes": 734
+ },
+ "action/Activate_Macro_Group": {
+  "title": "Macro Group Activation Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Macro_Group",
+  "sha": "8016683273bb",
+  "bytes": 2735
+ },
+ "action/Activate_Macro_Group_for_One_Action": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Macro_Group_for_One_Action"
+ },
+ "action/Activate_Named_Clipboard_Switcher": {
+  "title": "Activate Named Clipboard Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Named_Clipboard_Switcher",
+  "sha": "95f2462147c9",
+  "bytes": 1106
+ },
+ "action/Activate_Next_Application": {
+  "title": "Activate Next Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Next_Application",
+  "sha": "3ba71437074a",
+  "bytes": 87
+ },
+ "action/Activate_Window_Switcher": {
+  "title": "Activate Window Switcher",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_Window_Switcher",
+  "sha": "49e473e51990",
+  "bytes": 957
+ },
+ "action/Activate_a_Specific_Application": {
+  "title": "Activate a Specific Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application",
+  "sha": "da1563c2461a",
+  "bytes": 2396
+ },
+ "action/Activate_or_Deactivate_Macro_Group": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Activate_or_Deactivate_Macro_Group"
+ },
+ "action/Add_or_Remove_Margins": {
+  "redirect": "action:Resize_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Add_or_Remove_Margins"
+ },
+ "action/Alert": {
+  "title": "Alert Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Alert",
+  "sha": "8e28e16bcf2c",
+  "bytes": 1526
+ },
+ "action/Append_Text_to_a_File": {
+  "redirect": "action:Write_to_a_File",
+  "url": "https://wiki.keyboardmaestro.com/action/Append_Text_to_a_File"
+ },
+ "action/Append_Variable_with_Text": {
+  "redirect": "action:Set_Variable_to_Text",
+  "url": "https://wiki.keyboardmaestro.com/action/Append_Variable_with_Text"
+ },
+ "action/Application_Palette_Actions": {
+  "title": "Applications Palette Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Application_Palette_Actions",
+  "sha": "d54680d5eaf0",
+  "bytes": 375
+ },
+ "action/Apply_Modifiers_to_a_Specific_Application": {
+  "title": "Apply Modifiers to a Specific Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Apply_Modifiers_to_a_Specific_Application",
+  "sha": "13fb6014500b",
+  "bytes": 1442
+ },
+ "action/Apply_Style_to_Clipboard": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Apply_Style_to_Clipboard",
+  "sha": "9faaa0ede5ba",
+  "bytes": 1883
+ },
+ "action/Apply_a_BBEdit_Text_Factory": {
+  "title": "Apply a BBEdit Text Factory",
+  "url": "https://wiki.keyboardmaestro.com/action/Apply_a_BBEdit_Text_Factory",
+  "sha": "7be067bf7766",
+  "bytes": 474
+ },
+ "action/Assert": {
+  "title": "Assert Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Assert",
+  "sha": "54e382b1a249",
+  "bytes": 994
+ },
+ "action/Break_From_Loop": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Break_From_Loop"
+ },
+ "action/Brightness_Actions": {
+  "title": "Screen Brightness Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Brightness_Actions",
+  "sha": "81f03028aca5",
+  "bytes": 832
+ },
+ "action/Bring_Application_Windows_to_Front": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Bring_Application_Windows_to_Front",
+  "sha": "62b0c2c5c9c4",
+  "bytes": 1499
+ },
+ "action/Bring_a_Window_to_the_Front": {
+  "redirect": "action:Manipulate_a_Window",
+  "url": "https://wiki.keyboardmaestro.com/action/Bring_a_Window_to_the_Front"
+ },
+ "action/Cancel_All_Macros": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Cancel_All_Macros"
+ },
+ "action/Cancel_All_Other_Macros": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Cancel_All_Other_Macros"
+ },
+ "action/Cancel_Just_This_Macro": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Cancel_Just_This_Macro"
+ },
+ "action/Cancel_This_Macro": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Cancel_This_Macro"
+ },
+ "action/Cancel_a_Specific_Macro": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Cancel_a_Specific_Macro"
+ },
+ "action/Clear_Typed_String_Buffer": {
+  "title": "Clear Typed String Buffer",
+  "url": "https://wiki.keyboardmaestro.com/action/Clear_Typed_String_Buffer",
+  "sha": "7acdafdb8647",
+  "bytes": 290
+ },
+ "action/Click_Front_Browser_Link": {
+  "redirect": "actions:Click_Browser_Link",
+  "url": "https://wiki.keyboardmaestro.com/action/Click_Front_Browser_Link"
+ },
+ "action/Click_Google_Chrome_Link": {
+  "redirect": "actions:Click_Browser_Link",
+  "url": "https://wiki.keyboardmaestro.com/action/Click_Google_Chrome_Link"
+ },
+ "action/Click_Safari_Link": {
+  "redirect": "actions:Click_Browser_Link",
+  "url": "https://wiki.keyboardmaestro.com/action/Click_Safari_Link"
+ },
+ "action/Comment": {
+  "title": "Comment Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Comment",
+  "sha": "e50081e83dc5",
+  "bytes": 503
+ },
+ "action/Composite_onto_Image": {
+  "title": "Composite onto Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Composite_onto_Image",
+  "sha": "7452282774a6",
+  "bytes": 1178
+ },
+ "action/Conceal_Macro_Palettes": {
+  "title": "Conceal Macro Palettes",
+  "url": "https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes",
+  "sha": "28433c7abb91",
+  "bytes": 709
+ },
+ "action/Conceal_Macro_Palettes_Until_Switch": {
+  "redirect": "action:Conceal_Macro_Palettes",
+  "url": "https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes_Until_Switch"
+ },
+ "action/Continue_Loop": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Continue_Loop"
+ },
+ "action/Copy": {
+  "title": "Cut, Copy and Paste Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Copy",
+  "sha": "c5ecd837a644",
+  "bytes": 2043
+ },
+ "action/Copy_Clipboard_to_Clipboard": {
+  "title": "Copy Clipboard to Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Copy_Clipboard_to_Clipboard",
+  "sha": "0f1972c85cf9",
+  "bytes": 483
+ },
+ "action/Copy_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Copy_a_File"
+ },
+ "action/Copy_to_Named_Clipboard": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard",
+  "sha": "379054a63fbc",
+  "bytes": 2471
+ },
+ "action/Create_Calendar_Event": {
+  "title": "Create Calendar Event",
+  "url": "https://wiki.keyboardmaestro.com/action/Create_Calendar_Event",
+  "sha": "1156bd04f723",
+  "bytes": 1425
+ },
+ "action/Create_New_Image": {
+  "title": "Create New Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Create_New_Image",
+  "sha": "9eb676d7709b",
+  "bytes": 507
+ },
+ "action/Create_Unique_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Create_Unique_File"
+ },
+ "action/Crop_Image": {
+  "redirect": "action:Resize_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Crop_Image"
+ },
+ "action/Custom_HTML_Prompt": {
+  "title": "Custom HTML Prompt Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Custom_HTML_Prompt",
+  "sha": "4889e515c66c",
+  "bytes": 13426
+ },
+ "action/Cut": {
+  "redirect": "action:Copy",
+  "url": "https://wiki.keyboardmaestro.com/action/Cut"
+ },
+ "action/Cut_to_Named_Clipboard": {
+  "redirect": "action:Copy to Named Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Cut_to_Named_Clipboard"
+ },
+ "action/Deactivate_Macro_Group": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Deactivate_Macro_Group"
+ },
+ "action/Debugger_Breakpoint_All_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Breakpoint_All_Macros"
+ },
+ "action/Debugger_Breakpoint_All_Other_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Breakpoint_All_Other_Macros"
+ },
+ "action/Debugger_Breakpoint_This_Macro": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Breakpoint_This_Macro"
+ },
+ "action/Debugger_Continue_All_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Continue_All_Macros"
+ },
+ "action/Debugger_Continue_This_Macro": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Continue_This_Macro"
+ },
+ "action/Debugger_Finish": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Finish"
+ },
+ "action/Debugger_New_Macros_Paused": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_New_Macros_Paused"
+ },
+ "action/Debugger_New_Macros_Run": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_New_Macros_Run"
+ },
+ "action/Debugger_Start": {
+  "title": "Macro Debugger",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Start",
+  "sha": "59767b4ae073",
+  "bytes": 1837
+ },
+ "action/Debugger_Step_Into_Other_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Step_Into_Other_Macros"
+ },
+ "action/Debugger_Step_Out_Other_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Step_Out_Other_Macros"
+ },
+ "action/Debugger_Step_Over_Other_Macros": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Step_Over_Other_Macros"
+ },
+ "action/Debugger_Toggle": {
+  "redirect": "action:Debugger_Start",
+  "url": "https://wiki.keyboardmaestro.com/action/Debugger_Toggle"
+ },
+ "action/Decrease_Current_Movie_Volume": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Decrease_Current_Movie_Volume"
+ },
+ "action/Decrease_Rating_by_Half_a_Star": {
+  "redirect": "action:Set_Rating",
+  "url": "https://wiki.keyboardmaestro.com/action/Decrease_Rating_by_Half_a_Star"
+ },
+ "action/Decrease_Screen_Brightness": {
+  "redirect": "action:Brightness_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Decrease_Screen_Brightness"
+ },
+ "action/Decrease_System_Sound_Volume": {
+  "redirect": "action:Set_System_Output_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Decrease_System_Sound_Volume"
+ },
+ "action/Decrease_iTunes_Volume": {
+  "redirect": "action:Set_iTunes_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Decrease_iTunes_Volume"
+ },
+ "action/Delete_Past_Clipboard": {
+  "title": "Delete Past Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Delete_Past_Clipboard",
+  "sha": "b115e2b505dc",
+  "bytes": 635
+ },
+ "action/Delete_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Delete_a_File"
+ },
+ "action/Display_Clipboard": {
+  "title": "Display Clipboard Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Display_Clipboard",
+  "sha": "eedb29d3e85c",
+  "bytes": 499
+ },
+ "action/Display_Progress": {
+  "title": "Display Progress Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Display_Progress",
+  "sha": "c1ed095bb05d",
+  "bytes": 821
+ },
+ "action/Display_Text": {
+  "title": "Display Text Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Display_Text",
+  "sha": "dd216bb2a6dc",
+  "bytes": 3380
+ },
+ "action/Draw_Shape_onto_Image": {
+  "title": "Draw Shape onto Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Draw_Shape_onto_Image",
+  "sha": "9904ee3f4646",
+  "bytes": 1074
+ },
+ "action/Duplicate_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Duplicate_a_File"
+ },
+ "action/Edit_Shortcut": {
+  "title": "Edit Shortcut",
+  "url": "https://wiki.keyboardmaestro.com/action/Edit_Shortcut",
+  "sha": "63c41a5e9729",
+  "bytes": 650
+ },
+ "action/Execute_Shortcut": {
+  "title": "Execute Shortcut",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_Shortcut",
+  "sha": "834acd81cfb6",
+  "bytes": 884
+ },
+ "action/Execute_a_JavaScript_For_Automation": {
+  "title": "Execute JavaScript for Automation Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation",
+  "sha": "4fe3b8aa2599",
+  "bytes": 5272
+ },
+ "action/Execute_a_JavaScript_in_Custom_Prompt": {
+  "title": "Execute JavaScript in Custom HTML Prompt",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_in_Custom_Prompt",
+  "sha": "0d987b0a7f89",
+  "bytes": 2107
+ },
+ "action/Execute_a_JavaScript_in_Front_Browser": {
+  "redirect": "actions: Execute_a_JavaScript_in_Browser",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_in_Front_Browser"
+ },
+ "action/Execute_a_JavaScript_in_Google_Chrome": {
+  "redirect": "actions: Execute_a_JavaScript_in_Browser",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_in_Google_Chrome"
+ },
+ "action/Execute_a_JavaScript_in_Safari": {
+  "redirect": "actions: Execute_a_JavaScript_in_Browser",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_in_Safari"
+ },
+ "action/Execute_a_Macro": {
+  "title": "Execute a Macro Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_Macro",
+  "sha": "cd40cdf4385a",
+  "bytes": 1405
+ },
+ "action/Execute_a_Shell_Script": {
+  "title": "Execute a Shell Script",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_Shell_Script",
+  "sha": "86241a3356c2",
+  "bytes": 20569
+ },
+ "action/Execute_a_Subroutine": {
+  "title": "Execute a Subroutine Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine",
+  "sha": "c0030c907eb7",
+  "bytes": 1313
+ },
+ "action/Execute_a_Swift_Script": {
+  "title": "Execute Swift Script",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_a_Swift_Script",
+  "sha": "4c57058151de",
+  "bytes": 2904
+ },
+ "action/Execute_an_AppleScript": {
+  "title": "Execute AppleScript Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_an_AppleScript",
+  "sha": "0874da40fba0",
+  "bytes": 5773
+ },
+ "action/Execute_an_Automator_Workflow": {
+  "title": "Execute Automator Workflow",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_an_Automator_Workflow",
+  "sha": "631f9b6a3bd3",
+  "bytes": 867
+ },
+ "action/Execute_or_Edit_Shortcut": {
+  "title": "Execute or Edit Shortcut",
+  "url": "https://wiki.keyboardmaestro.com/action/Execute_or_Edit_Shortcut",
+  "sha": "0e84a8ebf45d",
+  "bytes": 735
+ },
+ "action/Fast-Forward_Current_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Fast-Forward_Current_Track"
+ },
+ "action/Fast_User_Switch": {
+  "title": "Fast User Switch",
+  "url": "https://wiki.keyboardmaestro.com/action/Fast_User_Switch",
+  "sha": "7f973bd04bf1",
+  "bytes": 81
+ },
+ "action/File_Actions": {
+  "title": "File Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/File_Actions",
+  "sha": "31f8ee1ec6e9",
+  "bytes": 4481
+ },
+ "action/Filter": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Filter",
+  "sha": "fbc7161e9911",
+  "bytes": 2986
+ },
+ "action/Find_Image_on_Screen": {
+  "title": "Find Image on Screen Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen",
+  "sha": "5e1fb03aa030",
+  "bytes": 3771
+ },
+ "action/Flip_Image": {
+  "redirect": "action:Rotate_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Flip_Image"
+ },
+ "action/Focus_Front_Browser_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Focus_Front_Browser_Field"
+ },
+ "action/Focus_Google_Chrome_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Focus_Google_Chrome_Field"
+ },
+ "action/Focus_Safari_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Focus_Safari_Field"
+ },
+ "action/For_Each": {
+  "title": "For Each Action",
+  "url": "https://wiki.keyboardmaestro.com/action/For_Each",
+  "sha": "05cf01272bce",
+  "bytes": 3105
+ },
+ "action/Get_File_Attribute": {
+  "title": "Get File Attribute Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Get_File_Attribute",
+  "sha": "e5da9480937f",
+  "bytes": 2308
+ },
+ "action/Get_Image_Size": {
+  "title": "Get Image Size",
+  "url": "https://wiki.keyboardmaestro.com/action/Get_Image_Size",
+  "sha": "3a05f033a7b1",
+  "bytes": 540
+ },
+ "action/Get_Location": {
+  "title": "Get Location",
+  "url": "https://wiki.keyboardmaestro.com/action/Get_Location",
+  "sha": "bddaf37f763c",
+  "bytes": 295
+ },
+ "action/Get_Touch_Bar_Selection": {
+  "title": "Get Touch Bar Selection Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Get_Touch_Bar_Selection",
+  "sha": "e81b5fbef4b1",
+  "bytes": 1366
+ },
+ "action/Get_a_URL": {
+  "title": "Get a URL",
+  "url": "https://wiki.keyboardmaestro.com/action/Get_a_URL",
+  "sha": "2a4e5e8339b0",
+  "bytes": 1028
+ },
+ "action/Group": {
+  "title": "Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Group",
+  "sha": "2c56ac80c33e",
+  "bytes": 465
+ },
+ "action/Growl": {
+  "title": "Growl",
+  "url": "https://wiki.keyboardmaestro.com/action/Growl",
+  "sha": "e37a3ee92dd4",
+  "bytes": 152
+ },
+ "action/Hide_All_Applications": {
+  "title": "Hide All Applications Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_All_Applications",
+  "sha": "a6439fabf174",
+  "bytes": 630
+ },
+ "action/Hide_Applications_Palette": {
+  "redirect": "action:Application_Palette_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_Applications_Palette"
+ },
+ "action/Hide_Front_Application": {
+  "title": "Hide Front Application Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_Front_Application",
+  "sha": "4e04be5ec6d2",
+  "bytes": 530
+ },
+ "action/Hide_Global_Macro_Palette": {
+  "redirect": "action:Toggle_Global_Macro_Palette",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_Global_Macro_Palette"
+ },
+ "action/Hide_Macro_Group": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_Macro_Group"
+ },
+ "action/Hide_Other_Applications": {
+  "title": "Hide Other Applications Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_Other_Applications",
+  "sha": "eecb1240789a",
+  "bytes": 653
+ },
+ "action/Hide_a_Specific_Application": {
+  "title": "Hide a Specific Application Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Hide_a_Specific_Application",
+  "sha": "ac70373c75ab",
+  "bytes": 532
+ },
+ "action/Highlight_Location": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Highlight_Location",
+  "sha": "508b353ea7db",
+  "bytes": 1818
+ },
+ "action/If_Then_Else": {
+  "title": "If Then Else Action",
+  "url": "https://wiki.keyboardmaestro.com/action/If_Then_Else",
+  "sha": "2acfb535dd36",
+  "bytes": 1736
+ },
+ "action/Increase_Current_Movie_Volume": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Increase_Current_Movie_Volume"
+ },
+ "action/Increase_Rating_by_Half_a_Star": {
+  "redirect": "action:Set_Rating",
+  "url": "https://wiki.keyboardmaestro.com/action/Increase_Rating_by_Half_a_Star"
+ },
+ "action/Increase_Screen_Brightness": {
+  "redirect": "action:Brightness_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Increase_Screen_Brightness"
+ },
+ "action/Increase_System_Sound_Volume": {
+  "redirect": "action:Set_System_Output_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Increase_System_Sound_Volume"
+ },
+ "action/Increase_iTunes_Volume": {
+  "redirect": "action:Set_iTunes_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Increase_iTunes_Volume"
+ },
+ "action/Insert_Styled_Text_by_Pasting": {
+  "redirect": "action:Insert_Text_by_Pasting",
+  "url": "https://wiki.keyboardmaestro.com/action/Insert_Styled_Text_by_Pasting"
+ },
+ "action/Insert_Text": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Insert_Text",
+  "sha": "912f8dc4d71f",
+  "bytes": 3338
+ },
+ "action/Insert_Text_by_Pasting": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting",
+  "sha": "c1d1981fdccc",
+  "bytes": 1285
+ },
+ "action/Insert_Text_by_Typing": {
+  "title": "Insert Text by Typing Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing",
+  "sha": "78e7077e01d9",
+  "bytes": 1633
+ },
+ "action/Log": {
+  "title": "Log Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Log",
+  "sha": "ec2087bb351e",
+  "bytes": 602
+ },
+ "action/Log_Out": {
+  "title": "Log Out",
+  "url": "https://wiki.keyboardmaestro.com/action/Log_Out",
+  "sha": "4f07177650b8",
+  "bytes": 46
+ },
+ "action/Login_Window": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Login_Window",
+  "sha": "f8e5dcc16f7b",
+  "bytes": 1281
+ },
+ "action/Manipulate_a_Window": {
+  "title": "Manipulate a Window Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Manipulate_a_Window",
+  "sha": "325c95e9d00b",
+  "bytes": 4183
+ },
+ "action/Mark_Macro": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Mark_Macro",
+  "sha": "f33667de3014",
+  "bytes": 788
+ },
+ "action/Move_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Move_a_File"
+ },
+ "action/Move_a_Window": {
+  "redirect": "action:Manipulate_a_Window",
+  "url": "https://wiki.keyboardmaestro.com/action/Move_a_Window"
+ },
+ "action/Move_and_Resize_a_Window": {
+  "redirect": "action:Manipulate_a_Window",
+  "url": "https://wiki.keyboardmaestro.com/action/Move_and_Resize_a_Window"
+ },
+ "action/Move_or_Click_Mouse": {
+  "title": "Move or Click Mouse Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse",
+  "sha": "56f082bd09e1",
+  "bytes": 5324
+ },
+ "action/Move_or_Rename_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Move_or_Rename_a_File"
+ },
+ "action/Mute_Audio_Device": {
+  "title": "Mute Audio Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Mute_Audio_Device",
+  "sha": "cc5c79ea4658",
+  "bytes": 465
+ },
+ "action/New_Folder": {
+  "title": "New Folder Action",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Folder",
+  "sha": "6bd41ee463d5",
+  "bytes": 562
+ },
+ "action/New_Front_Browser_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Front_Browser_Tab"
+ },
+ "action/New_Front_Browser_Window": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Front_Browser_Window"
+ },
+ "action/New_Google_Chrome_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Google_Chrome_Tab"
+ },
+ "action/New_Google_Chrome_Window": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Google_Chrome_Window"
+ },
+ "action/New_Safari_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Safari_Tab"
+ },
+ "action/New_Safari_Window": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/New_Safari_Window"
+ },
+ "action/Next_Front_Browser_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Next_Front_Browser_Tab"
+ },
+ "action/Next_Google_Chrome_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Next_Google_Chrome_Tab"
+ },
+ "action/Next_Safari_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Next_Safari_Tab"
+ },
+ "action/Next_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Next_Track"
+ },
+ "action/Notification": {
+  "title": "Notification Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Notification",
+  "sha": "8b84bdd09b03",
+  "bytes": 919
+ },
+ "action/OCR_Image": {
+  "title": "OCR Screen or Image",
+  "url": "https://wiki.keyboardmaestro.com/action/OCR_Image",
+  "sha": "88f1472ba0da",
+  "bytes": 1686
+ },
+ "action/OCR_Screen": {
+  "redirect": "action:OCR_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/OCR_Screen"
+ },
+ "action/Open_1Password_Bookmark": {
+  "title": "Open 1Password Bookmark",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_1Password_Bookmark",
+  "sha": "7f9f4dce4a42",
+  "bytes": 475
+ },
+ "action/Open_a_File_Folder_or_Application": {
+  "title": "Open a File Folder or Application Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_a_File_Folder_or_Application",
+  "sha": "73ca6ff2cbcd",
+  "bytes": 1462
+ },
+ "action/Open_a_System_Preference_Pane": {
+  "title": "Open a System Preference Pane",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_a_System_Preference_Pane",
+  "sha": "f7f32fd6afda",
+  "bytes": 126
+ },
+ "action/Open_a_URL": {
+  "title": "Open a URL",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_a_URL",
+  "sha": "48b6744642bc",
+  "bytes": 1395
+ },
+ "action/Open_or_Close_the_CD_Tray": {
+  "title": "Open or Close the CD Tray",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_or_Close_the_CD_Tray",
+  "sha": "5cb0eccf92bd",
+  "bytes": 162
+ },
+ "action/Open_the_Finder_Selection": {
+  "title": "Open the Finder Selection Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Open_the_Finder_Selection",
+  "sha": "339484a753d3",
+  "bytes": 971
+ },
+ "action/Paste": {
+  "redirect": "action:Copy",
+  "url": "https://wiki.keyboardmaestro.com/action/Paste"
+ },
+ "action/Paste_by_Name": {
+  "title": "Paste by Name Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Paste_by_Name",
+  "sha": "87d2a1087dbb",
+  "bytes": 413
+ },
+ "action/Paste_from_Named_Clipboard": {
+  "redirect": "action:Copy to Named Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Paste_from_Named_Clipboard"
+ },
+ "action/Pause": {
+  "title": "Pause",
+  "url": "https://wiki.keyboardmaestro.com/action/Pause",
+  "sha": "ce91ab917c75",
+  "bytes": 839
+ },
+ "action/Pause_Current_Movie": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Pause_Current_Movie"
+ },
+ "action/Pause_Current_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Pause_Current_Track"
+ },
+ "action/Pause_Until": {
+  "title": "Pause Until Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Pause_Until",
+  "sha": "2a36fa60e85d",
+  "bytes": 2393
+ },
+ "action/Pause_Until_Change": {
+  "title": "Pause Until Change",
+  "url": "https://wiki.keyboardmaestro.com/action/Pause_Until_Change",
+  "sha": "ee4d7b34c736",
+  "bytes": 574
+ },
+ "action/Play_Current_Movie": {
+  "title": "Play Current Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_Current_Movie",
+  "sha": "359850210ebf",
+  "bytes": 1468
+ },
+ "action/Play_Sound": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_Sound",
+  "sha": "b5eb4cd74cb1",
+  "bytes": 1001
+ },
+ "action/Play_a_Random_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_a_Random_Track"
+ },
+ "action/Play_a_Random_Track_from_Playlist": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_a_Random_Track_from_Playlist"
+ },
+ "action/Play_a_Specific_Playlist": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_a_Specific_Playlist"
+ },
+ "action/Play_a_Specific_Track": {
+  "title": "Play a Specific Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_a_Specific_Track",
+  "sha": "63c8d7905d73",
+  "bytes": 1259
+ },
+ "action/Play_or_Pause_Current_Movie": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_or_Pause_Current_Movie"
+ },
+ "action/Play_or_Pause_Current_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Play_or_Pause_Current_Track"
+ },
+ "action/Plug_In": {
+  "title": "Third Party Plug In",
+  "url": "https://wiki.keyboardmaestro.com/action/Plug_In",
+  "sha": "efe6a4b681db",
+  "bytes": 795
+ },
+ "action/Prepend_Text_to_Variable": {
+  "redirect": "action:Set_Variable_to_Text",
+  "url": "https://wiki.keyboardmaestro.com/action/Prepend_Text_to_Variable"
+ },
+ "action/Press_a_Button": {
+  "title": "Press a Button Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Press_a_Button",
+  "sha": "688476adc6a0",
+  "bytes": 1836
+ },
+ "action/Press_a_Button_When_Enabled": {
+  "redirect": "Press_a_Button",
+  "url": "https://wiki.keyboardmaestro.com/action/Press_a_Button_When_Enabled"
+ },
+ "action/Previous_Front_Browser_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Previous_Front_Browser_Tab"
+ },
+ "action/Previous_Google_Chrome_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Previous_Google_Chrome_Tab"
+ },
+ "action/Previous_Safari_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Previous_Safari_Tab"
+ },
+ "action/Previous_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Previous_Track"
+ },
+ "action/Prompt_With_List": {
+  "title": "Prompt With List Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Prompt_With_List",
+  "sha": "e28ceca6cdf7",
+  "bytes": 2787
+ },
+ "action/Prompt_for_File": {
+  "title": "Prompt for File Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Prompt_for_File",
+  "sha": "0723ebbcd128",
+  "bytes": 1390
+ },
+ "action/Prompt_for_Screen_Rectangle": {
+  "title": "Prompt for Screen Rectangle Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Prompt_for_Screen_Rectangle",
+  "sha": "9830f2b15631",
+  "bytes": 808
+ },
+ "action/Prompt_for_Snippet": {
+  "title": "Prompt For Snippet Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Prompt_for_Snippet",
+  "sha": "1033c8e11700",
+  "bytes": 2074
+ },
+ "action/Prompt_for_User_Input": {
+  "title": "Prompt For User Input Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input",
+  "sha": "2d20a50fd918",
+  "bytes": 12606
+ },
+ "action/Put_Computer_to_Sleep": {
+  "redirect": "action:Shut_Down_Computer",
+  "url": "https://wiki.keyboardmaestro.com/action/Put_Computer_to_Sleep"
+ },
+ "action/Quit_All_Applications": {
+  "redirect": "action:Quit_a_Specific_Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Quit_All_Applications"
+ },
+ "action/Quit_Other_Applications": {
+  "redirect": "action:Quit_a_Specific_Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Quit_Other_Applications"
+ },
+ "action/Quit_a_Specific_Application": {
+  "title": "Quit a Specific Application",
+  "url": "https://wiki.keyboardmaestro.com/action/Quit_a_Specific_Application",
+  "sha": "9cef805d1b33",
+  "bytes": 541
+ },
+ "action/Read_a_File": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Read_a_File",
+  "sha": "79876a98a8ac",
+  "bytes": 1102
+ },
+ "action/Record_Quick_Macro": {
+  "title": "Record Quick Macro",
+  "url": "https://wiki.keyboardmaestro.com/action/Record_Quick_Macro",
+  "sha": "215ef274b3a8",
+  "bytes": 3179
+ },
+ "action/Recursively_Delete_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Recursively_Delete_a_File"
+ },
+ "action/Remote_Trigger": {
+  "title": "Remote Trigger",
+  "url": "https://wiki.keyboardmaestro.com/action/Remote_Trigger",
+  "sha": "e81f67470fe9",
+  "bytes": 961
+ },
+ "action/Remove_Clipboard_Flavors": {
+  "title": "Remove Clipboard Flavors",
+  "url": "https://wiki.keyboardmaestro.com/action/Remove_Clipboard_Flavors",
+  "sha": "6cc6d6b1ff26",
+  "bytes": 683
+ },
+ "action/Rename_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Rename_a_File"
+ },
+ "action/Repeat": {
+  "title": "Repeat Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Repeat",
+  "sha": "b76fa623f1bc",
+  "bytes": 1261
+ },
+ "action/Reset_Front_Browser_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Reset_Front_Browser_Form"
+ },
+ "action/Reset_Google_Chrome_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Reset_Google_Chrome_Form"
+ },
+ "action/Reset_Safari_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Reset_Safari_Form"
+ },
+ "action/Resize_Canvas": {
+  "redirect": "action:Resize_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Resize_Canvas"
+ },
+ "action/Resize_Image": {
+  "title": "Modify an Image Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Resize_Image",
+  "sha": "dddc96a139eb",
+  "bytes": 1210
+ },
+ "action/Resize_Image_to_Fit": {
+  "redirect": "action:Resize_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Resize_Image_to_Fit"
+ },
+ "action/Resize_a_Window": {
+  "redirect": "action:Manipulate_a_Window",
+  "url": "https://wiki.keyboardmaestro.com/action/Resize_a_Window"
+ },
+ "action/Restart_Computer": {
+  "redirect": "action:Shut_Down_Computer",
+  "url": "https://wiki.keyboardmaestro.com/action/Restart_Computer"
+ },
+ "action/Retry_This_Loop": {
+  "redirect": "actions:Redirect_Control_Flow",
+  "url": "https://wiki.keyboardmaestro.com/action/Retry_This_Loop"
+ },
+ "action/Return_Result": {
+  "title": "Return Result Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Return_Result",
+  "sha": "c93be904410b",
+  "bytes": 1121
+ },
+ "action/Return_from_Subroutine": {
+  "redirect": "Return_Result",
+  "url": "https://wiki.keyboardmaestro.com/action/Return_from_Subroutine"
+ },
+ "action/Reveal_Macro_Palettes": {
+  "redirect": "action:Conceal_Macro_Palettes",
+  "url": "https://wiki.keyboardmaestro.com/action/Reveal_Macro_Palettes"
+ },
+ "action/Reveal_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Reveal_a_File"
+ },
+ "action/Rewind_Current_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Rewind_Current_Track"
+ },
+ "action/Rotate_Image": {
+  "title": "Rotate Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Rotate_Image",
+  "sha": "265563601782",
+  "bytes": 536
+ },
+ "action/Screen_Capture": {
+  "title": "Screen Capture",
+  "url": "https://wiki.keyboardmaestro.com/action/Screen_Capture",
+  "sha": "b3ee39ec7d3f",
+  "bytes": 1248
+ },
+ "action/Search_Clipboard": {
+  "redirect": "action:Search_using_Regular_Expression",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_Clipboard"
+ },
+ "action/Search_Variable": {
+  "redirect": "action:Search_using_Regular_Expression",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_Variable"
+ },
+ "action/Search_and_Replace": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_and_Replace",
+  "sha": "163c0b300be1",
+  "bytes": 3169
+ },
+ "action/Search_and_Replace_Clipboard": {
+  "redirect": "action:Search_and_Replace",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_and_Replace_Clipboard"
+ },
+ "action/Search_and_Replace_Variable": {
+  "redirect": "action:Search_and_Replace",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_and_Replace_Variable"
+ },
+ "action/Search_the_Web": {
+  "title": "Search the Web Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_the_Web",
+  "sha": "ca391f2f79e7",
+  "bytes": 8610
+ },
+ "action/Search_using_Regular_Expression": {
+  "title": "Search using Regular Expression Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Search_using_Regular_Expression",
+  "sha": "e6e83b9eb8b5",
+  "bytes": 3062
+ },
+ "action/Select_Front_Browser_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Front_Browser_Field"
+ },
+ "action/Select_Front_Browser_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Front_Browser_Tab"
+ },
+ "action/Select_Google_Chrome_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Google_Chrome_Field"
+ },
+ "action/Select_Google_Chrome_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Google_Chrome_Tab"
+ },
+ "action/Select_Menu_by_Name": {
+  "title": "Select Menu by Name",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Menu_by_Name",
+  "sha": "834cac29ba79",
+  "bytes": 984
+ },
+ "action/Select_Safari_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Safari_Field"
+ },
+ "action/Select_Safari_Tab": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_Safari_Tab"
+ },
+ "action/Select_a_Window": {
+  "redirect": "action:Manipulate_a_Window",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_a_Window"
+ },
+ "action/Select_or_Show_a_Menu_Item": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item",
+  "sha": "13e2dde57462",
+  "bytes": 2799
+ },
+ "action/Semaphore_Lock": {
+  "title": "Semaphore Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Semaphore_Lock",
+  "sha": "6016a0b86d49",
+  "bytes": 4293
+ },
+ "action/Semaphore_Reset": {
+  "redirect": "action:Semaphore_Lock",
+  "url": "https://wiki.keyboardmaestro.com/action/Semaphore_Reset"
+ },
+ "action/Semaphore_Unlock": {
+  "redirect": "action:Semaphore_Lock",
+  "url": "https://wiki.keyboardmaestro.com/action/Semaphore_Unlock"
+ },
+ "action/Send_MIDI_Control_Change": {
+  "redirect": "actions:Send_MIDI",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_MIDI_Control_Change"
+ },
+ "action/Send_MIDI_Note_Off": {
+  "redirect": "actions:Send_MIDI",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_MIDI_Note_Off"
+ },
+ "action/Send_MIDI_Note_On": {
+  "redirect": "actions:Send_MIDI",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_MIDI_Note_On"
+ },
+ "action/Send_MIDI_Packet": {
+  "redirect": "actions:Send_MIDI",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_MIDI_Packet"
+ },
+ "action/Send_Mail_Message": {
+  "title": "Send Apple Mail Message",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_Mail_Message",
+  "sha": "a6929bf3fe02",
+  "bytes": 2576
+ },
+ "action/Send_Pushover_Notification": {
+  "title": "Send Pushover Notification",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_Pushover_Notification",
+  "sha": "f9c54eb8f572",
+  "bytes": 1604
+ },
+ "action/Send_SMS": {
+  "redirect": "actions:Send_Message",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_SMS"
+ },
+ "action/Send_iMessage": {
+  "redirect": "actions:Send_Message",
+  "url": "https://wiki.keyboardmaestro.com/action/Send_iMessage"
+ },
+ "action/Set_Action_Delay": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Action_Delay",
+  "sha": "aa5a7607257c",
+  "bytes": 2893
+ },
+ "action/Set_Audio_Device": {
+  "title": "Set Audio Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Audio_Device",
+  "sha": "175e50e77162",
+  "bytes": 419
+ },
+ "action/Set_Audio_Input_Device": {
+  "redirect": "Set_Audio_Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Audio_Input_Device"
+ },
+ "action/Set_Audio_Output_Device": {
+  "redirect": "Set_Audio_Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Audio_Output_Device"
+ },
+ "action/Set_Audio_Sound_Effects_Device": {
+  "redirect": "Set_Audio_Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Audio_Sound_Effects_Device"
+ },
+ "action/Set_Clipboard_to_File_Reference": {
+  "title": "Set Clipboard to File Reference",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Clipboard_to_File_Reference",
+  "sha": "8221e9fcd483",
+  "bytes": 426
+ },
+ "action/Set_Clipboard_to_Image": {
+  "title": "Set Clipboard to Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Clipboard_to_Image",
+  "sha": "73f5a18adb0a",
+  "bytes": 912
+ },
+ "action/Set_Clipboard_to_Past_Clipboard": {
+  "title": "Set Clipboard to Past Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Clipboard_to_Past_Clipboard",
+  "sha": "61f22b91dcae",
+  "bytes": 384
+ },
+ "action/Set_Clipboard_to_Text": {
+  "title": "Set Clipboard to Text",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Clipboard_to_Text",
+  "sha": "59d60f46266a",
+  "bytes": 1029
+ },
+ "action/Set_Current_Movie_Volume": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Current_Movie_Volume"
+ },
+ "action/Set_Desktop_Image": {
+  "title": "Set Desktop Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Desktop_Image",
+  "sha": "004512930d25",
+  "bytes": 1232
+ },
+ "action/Set_Dictionary_Value": {
+  "title": "Set Dictionary Value",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Dictionary_Value",
+  "sha": "aaa926051d45",
+  "bytes": 1092
+ },
+ "action/Set_Dictionary_to_JSON": {
+  "title": "Set Dictionary to JSON",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Dictionary_to_JSON",
+  "sha": "e5daefd6b963",
+  "bytes": 2022
+ },
+ "action/Set_File_Attribute": {
+  "title": "Set File Attribute Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_File_Attribute",
+  "sha": "a9d6df98b1c8",
+  "bytes": 1497
+ },
+ "action/Set_File_Icon": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_File_Icon",
+  "sha": "ca0db806cb39",
+  "bytes": 862
+ },
+ "action/Set_Find_Pasteboard": {
+  "title": "Set Find Pasteboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Find_Pasteboard",
+  "sha": "7621aff423c1",
+  "bytes": 728
+ },
+ "action/Set_Front_Browser_Checkbox": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Front_Browser_Checkbox"
+ },
+ "action/Set_Front_Browser_Field_to_Text": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Front_Browser_Field_to_Text"
+ },
+ "action/Set_Front_Browser_Radio_Button": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Front_Browser_Radio_Button"
+ },
+ "action/Set_Front_Browser_Title": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Front_Browser_Title"
+ },
+ "action/Set_Front_Browser_URL": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Front_Browser_URL"
+ },
+ "action/Set_Google_Chrome_Checkbox": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Google_Chrome_Checkbox"
+ },
+ "action/Set_Google_Chrome_Field_to_Text": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Google_Chrome_Field_to_Text"
+ },
+ "action/Set_Google_Chrome_Radio_Button": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Google_Chrome_Radio_Button"
+ },
+ "action/Set_Google_Chrome_Title": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Google_Chrome_Title"
+ },
+ "action/Set_Google_Chrome_URL": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Google_Chrome_URL"
+ },
+ "action/Set_Image_DPI": {
+  "redirect": "action:Resize_Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Image_DPI"
+ },
+ "action/Set_JSON_Value": {
+  "title": "Set JSON Value",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_JSON_Value",
+  "sha": "7e9f54b0b887",
+  "bytes": 2488
+ },
+ "action/Set_Keyboard_Layout": {
+  "title": "Set Keyboard Layout",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Keyboard_Layout",
+  "sha": "8baa39672d23",
+  "bytes": 170
+ },
+ "action/Set_Keyboard_Maestro_to_Dark_Mode": {
+  "title": "Set Keyboard Maestro Dark Mode",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Keyboard_Maestro_to_Dark_Mode",
+  "sha": "db5fa440417f",
+  "bytes": 853
+ },
+ "action/Set_Keychain_Password_to_Text": {
+  "title": "Set Keychain Password to Text",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Keychain_Password_to_Text",
+  "sha": "ca894f02d217",
+  "bytes": 809
+ },
+ "action/Set_Macro_or_Group_Enable": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Macro_or_Group_Enable",
+  "sha": "ad8791e925fc",
+  "bytes": 1519
+ },
+ "action/Set_Mail_Status": {
+  "title": "Set Mail Status",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Mail_Status",
+  "sha": "dbcd6d830e4f",
+  "bytes": 816
+ },
+ "action/Set_Network_Location": {
+  "title": "Set Network Location",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Network_Location",
+  "sha": "ef646dc14c18",
+  "bytes": 362
+ },
+ "action/Set_Next_Engine_Window_Position": {
+  "title": "Set Next Engine Window Position Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Next_Engine_Window_Position",
+  "sha": "3feaeb2a3fa1",
+  "bytes": 2217
+ },
+ "action/Set_Rating": {
+  "title": "Set Rating",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Rating",
+  "sha": "90e200beab57",
+  "bytes": 274
+ },
+ "action/Set_Safari_Checkbox": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Safari_Checkbox"
+ },
+ "action/Set_Safari_Field_to_Text": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Safari_Field_to_Text"
+ },
+ "action/Set_Safari_Radio_Button": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Safari_Radio_Button"
+ },
+ "action/Set_Safari_Title": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Safari_Title"
+ },
+ "action/Set_Safari_URL": {
+  "redirect": "actions:Browser_Window_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Safari_URL"
+ },
+ "action/Set_Screen_Resolution": {
+  "title": "Set Screen Resolution",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Screen_Resolution",
+  "sha": "424314f456b3",
+  "bytes": 1512
+ },
+ "action/Set_System_Output_Volume": {
+  "title": "System Sound Volume Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_System_Output_Volume",
+  "sha": "ab19c65ad78c",
+  "bytes": 1310
+ },
+ "action/Set_System_to_Dark_Mode": {
+  "title": "Set System Dark Mode",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_System_to_Dark_Mode",
+  "sha": "cfbe859e3977",
+  "bytes": 728
+ },
+ "action/Set_Variable_to_Calculation": {
+  "title": "Set Variable to Calculation Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Calculation",
+  "sha": "2396fe6d7695",
+  "bytes": 4193
+ },
+ "action/Set_Variable_to_Front_Browser_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Front_Browser_Field"
+ },
+ "action/Set_Variable_to_Google_Chrome_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Google_Chrome_Field"
+ },
+ "action/Set_Variable_to_Keychain_Password": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Keychain_Password",
+  "sha": "6def1f666e91",
+  "bytes": 1512
+ },
+ "action/Set_Variable_to_Safari_Field": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Safari_Field"
+ },
+ "action/Set_Variable_to_Text": {
+  "title": "Set Variable to Text Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variable_to_Text",
+  "sha": "92f4e5369dcc",
+  "bytes": 6532
+ },
+ "action/Set_Variables_to_JSON": {
+  "title": "Set Variables to JSON",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_Variables_to_JSON",
+  "sha": "7f7f1cfea2d1",
+  "bytes": 2181
+ },
+ "action/Set_iTunes_Volume": {
+  "title": "Set iTunes Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Set_iTunes_Volume",
+  "sha": "b06ffeb9656a",
+  "bytes": 489
+ },
+ "action/Show_All_Applications": {
+  "title": "Show All Applications Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_All_Applications",
+  "sha": "c90f3157ba49",
+  "bytes": 533
+ },
+ "action/Show_Applications_Palette": {
+  "redirect": "action:Application_Palette_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Applications_Palette"
+ },
+ "action/Show_Global_Macro_Palette": {
+  "redirect": "action:Toggle_Global_Macro_Palette",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Global_Macro_Palette"
+ },
+ "action/Show_Macro_Group": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Macro_Group"
+ },
+ "action/Show_Macro_Group_for_One_Action": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Macro_Group_for_One_Action"
+ },
+ "action/Show_Palette_of_Macros": {
+  "title": "Show Palette of Macros",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros",
+  "sha": "62cc63226570",
+  "bytes": 918
+ },
+ "action/Show_Palette_of_Macros_with_Touch_Bar": {
+  "redirect": "action:Show_Palette_of_Macros",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros_with_Touch_Bar"
+ },
+ "action/Show_Status_Menu": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_Status_Menu",
+  "sha": "c52504368706",
+  "bytes": 749
+ },
+ "action/Show_a_Specific_Application": {
+  "title": "Show a Specific Application Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_a_Specific_Application",
+  "sha": "84b930196a03",
+  "bytes": 811
+ },
+ "action/Show_or_Hide_Macro_Group": {
+  "redirect": "action:Activate_Macro_Group",
+  "url": "https://wiki.keyboardmaestro.com/action/Show_or_Hide_Macro_Group"
+ },
+ "action/Shut_Down_Computer": {
+  "title": "Shut Down Computer",
+  "url": "https://wiki.keyboardmaestro.com/action/Shut_Down_Computer",
+  "sha": "5182da309a31",
+  "bytes": 139
+ },
+ "action/Simulate_Hardware_Key": {
+  "title": "Simulate Hardware Key",
+  "url": "https://wiki.keyboardmaestro.com/action/Simulate_Hardware_Key",
+  "sha": "4858a7f74646",
+  "bytes": 906
+ },
+ "action/Simulate_Scroll_Wheel": {
+  "title": "Simulate Scroll Wheel",
+  "url": "https://wiki.keyboardmaestro.com/action/Simulate_Scroll_Wheel",
+  "sha": "2361aeaba877",
+  "bytes": 347
+ },
+ "action/Sleep_Screen": {
+  "title": "Sleep and Wake Screen Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Sleep_Screen",
+  "sha": "a70726f91f1f",
+  "bytes": 191
+ },
+ "action/Small_Decrease_Screen_Brightness": {
+  "redirect": "action:Brightness_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Small_Decrease_Screen_Brightness"
+ },
+ "action/Small_Decrease_System_Sound_Volume": {
+  "redirect": "action:Set_System_Output_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Small_Decrease_System_Sound_Volume"
+ },
+ "action/Small_Increase_Screen_Brightness": {
+  "redirect": "action:Brightness_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Small_Increase_Screen_Brightness"
+ },
+ "action/Small_Increase_System_Sound_Volume": {
+  "redirect": "action:Set_System_Output_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Small_Increase_System_Sound_Volume"
+ },
+ "action/Speak_Text": {
+  "title": "Speak Text Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Speak_Text",
+  "sha": "2791ff9d5192",
+  "bytes": 686
+ },
+ "action/Split_Path": {
+  "title": "Split Path",
+  "url": "https://wiki.keyboardmaestro.com/action/Split_Path",
+  "sha": "42f8cc3db80a",
+  "bytes": 708
+ },
+ "action/Start_Screen_Saver": {
+  "title": "Start and Stop Screen Saver",
+  "url": "https://wiki.keyboardmaestro.com/action/Start_Screen_Saver",
+  "sha": "95683eda1dc6",
+  "bytes": 1192
+ },
+ "action/Step_Backward_Current_Movie": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Step_Backward_Current_Movie"
+ },
+ "action/Step_Forward_Current_Movie": {
+  "redirect": "action:Play_Current_Movie",
+  "url": "https://wiki.keyboardmaestro.com/action/Step_Forward_Current_Movie"
+ },
+ "action/Stop_Current_Track": {
+  "redirect": "action:Play_a_Specific_Track",
+  "url": "https://wiki.keyboardmaestro.com/action/Stop_Current_Track"
+ },
+ "action/Stop_Screen_Saver": {
+  "redirect": "action:Start_Screen_Saver",
+  "url": "https://wiki.keyboardmaestro.com/action/Stop_Screen_Saver"
+ },
+ "action/Stream_Deck_Set_Image": {
+  "title": "Stream Deck Set Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Stream_Deck_Set_Image",
+  "sha": "1c5d8ed01fb3",
+  "bytes": 924
+ },
+ "action/Stream_Deck_Set_Title": {
+  "title": "Stream Deck Set Title",
+  "url": "https://wiki.keyboardmaestro.com/action/Stream_Deck_Set_Title",
+  "sha": "2654d3538a60",
+  "bytes": 769
+ },
+ "action/Stream_Deck_Show_Alert": {
+  "title": "Stream Deck Show Alert",
+  "url": "https://wiki.keyboardmaestro.com/action/Stream_Deck_Show_Alert",
+  "sha": "18cf206c9604",
+  "bytes": 620
+ },
+ "action/Stream_Deck_Show_OK": {
+  "title": "Stream Deck Show OK",
+  "url": "https://wiki.keyboardmaestro.com/action/Stream_Deck_Show_OK",
+  "sha": "0e1a011badef",
+  "bytes": 605
+ },
+ "action/Submit_Front_Browser_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Submit_Front_Browser_Form"
+ },
+ "action/Submit_Google_Chrome_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Submit_Google_Chrome_Form"
+ },
+ "action/Submit_Safari_Form": {
+  "redirect": "actions:Browser_Form_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Submit_Safari_Form"
+ },
+ "action/Substring_of_Variable_or_Clipboard": {
+  "title": "Substring of Variable or Clipboard",
+  "url": "https://wiki.keyboardmaestro.com/action/Substring_of_Variable_or_Clipboard",
+  "sha": "cfa8496c4f2f",
+  "bytes": 1303
+ },
+ "action/Switch_or_Case": {
+  "title": "Switch/Case Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Switch_or_Case",
+  "sha": "9a69a39b511d",
+  "bytes": 4237
+ },
+ "action/System_Beep": {
+  "title": "System Beep Action",
+  "url": "https://wiki.keyboardmaestro.com/action/System_Beep",
+  "sha": "5f4a075156fc",
+  "bytes": 388
+ },
+ "action/Throw": {
+  "title": "Throw Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Throw",
+  "sha": "59c5e908fe3f",
+  "bytes": 586
+ },
+ "action/Toggle_Applications_Palette": {
+  "redirect": "action:Application_Palette_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Toggle_Applications_Palette"
+ },
+ "action/Toggle_Global_Macro_Palette": {
+  "title": "Hide/Show Global Macro Palette Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Toggle_Global_Macro_Palette",
+  "sha": "f66fd3a53176",
+  "bytes": 1270
+ },
+ "action/Toggle_Mute_Audio_Device": {
+  "redirect": "Mute_Audio_Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Toggle_Mute_Audio_Device"
+ },
+ "action/Toggle_System_Sound_Mute": {
+  "redirect": "action:Set_System_Output_Volume",
+  "url": "https://wiki.keyboardmaestro.com/action/Toggle_System_Sound_Mute"
+ },
+ "action/Trash_a_File": {
+  "redirect": "action:File_Actions",
+  "url": "https://wiki.keyboardmaestro.com/action/Trash_a_File"
+ },
+ "action/Trigger_Macro_by_Name": {
+  "title": "Trigger Macro by Name Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Trigger_Macro_by_Name",
+  "sha": "ad45d1eb108b",
+  "bytes": 2972
+ },
+ "action/Trigger_Macros_by_Hot_Key": {
+  "title": "Remote Trigger",
+  "url": "https://wiki.keyboardmaestro.com/action/Trigger_Macros_by_Hot_Key",
+  "sha": "2a837aa311a5",
+  "bytes": 244
+ },
+ "action/Trim_Image": {
+  "title": "Trim Image",
+  "url": "https://wiki.keyboardmaestro.com/action/Trim_Image",
+  "sha": "0925536a8f6e",
+  "bytes": 117
+ },
+ "action/Try_or_Catch": {
+  "title": "Try/Catch Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Try_or_Catch",
+  "sha": "bb4d3346518f",
+  "bytes": 1155
+ },
+ "action/Type_Modifiers": {
+  "title": "Type Modifiers",
+  "url": "https://wiki.keyboardmaestro.com/action/Type_Modifiers",
+  "sha": "bbc82450254e",
+  "bytes": 779
+ },
+ "action/Type_a_Keystroke": {
+  "title": "Type Keystroke Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Type_a_Keystroke",
+  "sha": "f105d1b20c8a",
+  "bytes": 2624
+ },
+ "action/Unmute_Audio_Device": {
+  "redirect": "Mute_Audio_Device",
+  "url": "https://wiki.keyboardmaestro.com/action/Unmute_Audio_Device"
+ },
+ "action/Until": {
+  "title": "Until Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Until",
+  "sha": "056d4839e5d1",
+  "bytes": 2445
+ },
+ "action/Use_Variable": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/action/Use_Variable",
+  "sha": "40aa7fce8c5b",
+  "bytes": 872
+ },
+ "action/Wait_For_Front_Browser_to_Finish_Loading": {
+  "redirect": "actions:Wait_For_Browser_to_Finish_Loading",
+  "url": "https://wiki.keyboardmaestro.com/action/Wait_For_Front_Browser_to_Finish_Loading"
+ },
+ "action/Wait_For_Google_Chrome_to_Finish_Loading": {
+  "redirect": "actions:Wait_For_Browser_to_Finish_Loading ",
+  "url": "https://wiki.keyboardmaestro.com/action/Wait_For_Google_Chrome_to_Finish_Loading"
+ },
+ "action/Wait_For_Safari_to_Finish_Loading": {
+  "redirect": "actions:Wait_For_Browser_to_Finish_Loading",
+  "url": "https://wiki.keyboardmaestro.com/action/Wait_For_Safari_to_Finish_Loading"
+ },
+ "action/Wake_Screen": {
+  "redirect": "action:Sleep_Screen",
+  "url": "https://wiki.keyboardmaestro.com/action/Wake_Screen"
+ },
+ "action/While": {
+  "title": "While Conditions Are Met Action",
+  "url": "https://wiki.keyboardmaestro.com/action/While",
+  "sha": "61458bae8894",
+  "bytes": 3458
+ },
+ "action/Write_to_a_File": {
+  "title": "Write To File Action",
+  "url": "https://wiki.keyboardmaestro.com/action/Write_to_a_File",
+  "sha": "9b4337885f89",
+  "bytes": 3427
+ },
+ "collection/Clipboard_History": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/collection/Clipboard_History",
+  "sha": "3866ede957f8",
+  "bytes": 194
+ },
+ "collection/Dictionaries": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/collection/Dictionaries",
+  "sha": "8c95722cab27",
+  "bytes": 537
+ },
+ "collection/Dictionary_Keys": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/collection/Dictionary_Keys",
+  "sha": "a1defdfa5b7b",
+  "bytes": 512
+ },
+ "collection/Finders_Selection": {
+  "title": "Working with the Finder Selection",
+  "url": "https://wiki.keyboardmaestro.com/collection/Finders_Selection",
+  "sha": "8bf62a752dea",
+  "bytes": 4167
+ },
+ "collection/Folder_Contents": {
+  "title": "Folder Contents",
+  "url": "https://wiki.keyboardmaestro.com/collection/Folder_Contents",
+  "sha": "3d9ae5f5fef0",
+  "bytes": 852
+ },
+ "collection/Found_Images": {
+  "title": "Found Images Collection",
+  "url": "https://wiki.keyboardmaestro.com/collection/Found_Images",
+  "sha": "f7993b7aded4",
+  "bytes": 855
+ },
+ "collection/JSON_Keys": {
+  "title": "JSON Keys",
+  "url": "https://wiki.keyboardmaestro.com/collection/JSON_Keys",
+  "sha": "4a8d962d675d",
+  "bytes": 955
+ },
+ "collection/Lines_In": {
+  "title": "Lines In collection",
+  "url": "https://wiki.keyboardmaestro.com/collection/Lines_In",
+  "sha": "1e631458a8df",
+  "bytes": 834
+ },
+ "collection/Mounted_Volumes": {
+  "title": "Mounted Volumes",
+  "url": "https://wiki.keyboardmaestro.com/collection/Mounted_Volumes",
+  "sha": "2644024780fb",
+  "bytes": 111
+ },
+ "collection/Number_Range": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/collection/Number_Range",
+  "sha": "3b90780ba0f4",
+  "bytes": 514
+ },
+ "collection/Running_Applications": {
+  "title": "Running Applications",
+  "url": "https://wiki.keyboardmaestro.com/collection/Running_Applications",
+  "sha": "23b994f5d1ef",
+  "bytes": 131
+ },
+ "collection/Substrings_In": {
+  "title": "For Each Substrings In RegEx Match",
+  "url": "https://wiki.keyboardmaestro.com/collection/Substrings_In",
+  "sha": "9ad1c37acf4c",
+  "bytes": 1441
+ },
+ "collection/Variables": {
+  "title": "Variables",
+  "url": "https://wiki.keyboardmaestro.com/collection/Variables",
+  "sha": "5add90c15f34",
+  "bytes": 596
+ },
+ "condition/Action_Result": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Action_Result",
+  "sha": "84c6e1ba19b0",
+  "bytes": 1555
+ },
+ "condition/Any_Window": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Any_Window",
+  "sha": "7b38f3cb61af",
+  "bytes": 1909
+ },
+ "condition/Application": {
+  "title": "Application Condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Application",
+  "sha": "8c85fa1304cc",
+  "bytes": 791
+ },
+ "condition/Button": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Button",
+  "sha": "69a3260e7fe3",
+  "bytes": 1101
+ },
+ "condition/Calculation": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Calculation",
+  "sha": "6368a4333287",
+  "bytes": 555
+ },
+ "condition/Clipboard": {
+  "title": "Clipboard Condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Clipboard",
+  "sha": "8f4104747653",
+  "bytes": 2647
+ },
+ "condition/Environment_Variable": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Environment_Variable",
+  "sha": "a027bcd27019",
+  "bytes": 1509
+ },
+ "condition/File_Attribute": {
+  "title": "File Attribute condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/File_Attribute",
+  "sha": "f565303dc19c",
+  "bytes": 1428
+ },
+ "condition/Found_Image": {
+  "title": "Found Image Condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Found_Image",
+  "sha": "3e03bd397cd7",
+  "bytes": 1160
+ },
+ "condition/Front_Window": {
+  "title": "Using the Front Window Title with the Pause Until Action",
+  "url": "https://wiki.keyboardmaestro.com/condition/Front_Window",
+  "sha": "6c83689ba402",
+  "bytes": 3075
+ },
+ "condition/Key": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Key",
+  "sha": "9cb6f98083bb",
+  "bytes": 363
+ },
+ "condition/Location": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Location",
+  "sha": "4de63f6d35b1",
+  "bytes": 725
+ },
+ "condition/Macro": {
+  "title": "Macro or Macro Group Condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Macro",
+  "sha": "3b2460b3d66e",
+  "bytes": 1781
+ },
+ "condition/Menu": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Menu",
+  "sha": "71333e62b7f0",
+  "bytes": 1136
+ },
+ "condition/Modifiers": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Modifiers",
+  "sha": "e13e61dc1bd5",
+  "bytes": 908
+ },
+ "condition/Mounted_Volume": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Mounted_Volume",
+  "sha": "e7b0413b7581",
+  "bytes": 1190
+ },
+ "condition/Mouse_Button": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Mouse_Button",
+  "sha": "93182cde3d7a",
+  "bytes": 391
+ },
+ "condition/OCR": {
+  "title": "OCR Condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/OCR",
+  "sha": "8421717b0b2b",
+  "bytes": 2396
+ },
+ "condition/Path": {
+  "title": "Path condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Path",
+  "sha": "da6883fb321f",
+  "bytes": 1048
+ },
+ "condition/Pixel": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Pixel",
+  "sha": "1c5a10f96e78",
+  "bytes": 959
+ },
+ "condition/Script": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Script",
+  "sha": "d144ebf17e0a",
+  "bytes": 2377
+ },
+ "condition/Text": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Text",
+  "sha": "444939d6ffe2",
+  "bytes": 1354
+ },
+ "condition/Typed_String": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Typed_String",
+  "sha": "68635324c70c",
+  "bytes": 931
+ },
+ "condition/USB_Device": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/USB_Device",
+  "sha": "386d87b6083f",
+  "bytes": 846
+ },
+ "condition/Variable": {
+  "title": "Variable condition",
+  "url": "https://wiki.keyboardmaestro.com/condition/Variable",
+  "sha": "f89c1e025a98",
+  "bytes": 1495
+ },
+ "condition/Wireless_Network": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/condition/Wireless_Network",
+  "sha": "f25a5fe8a92d",
+  "bytes": 978
+ },
+ "function/ABS": {
+  "title": "ABS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ABS",
+  "sha": "ca787077378a",
+  "bytes": 213
+ },
+ "function/ACOS": {
+  "title": "ACOS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ACOS",
+  "sha": "c530a5567fe6",
+  "bytes": 248
+ },
+ "function/APPLICATIONS": {
+  "title": "APPLICATIONS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/APPLICATIONS",
+  "sha": "561cd471acf1",
+  "bytes": 186
+ },
+ "function/ASIN": {
+  "title": "ASIN  Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ASIN",
+  "sha": "8e76d8d0a241",
+  "bytes": 247
+ },
+ "function/ATAN": {
+  "title": "ATAN Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ATAN",
+  "sha": "31b9ad2dfbfd",
+  "bytes": 204
+ },
+ "function/ATAN2": {
+  "title": "ATAN2Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ATAN2",
+  "sha": "9408653e3467",
+  "bytes": 676
+ },
+ "function/BATTERY": {
+  "title": "BATTERY Function",
+  "url": "https://wiki.keyboardmaestro.com/function/BATTERY",
+  "sha": "505328ecd6c6",
+  "bytes": 290
+ },
+ "function/BIN": {
+  "title": "BIN Function",
+  "url": "https://wiki.keyboardmaestro.com/function/BIN",
+  "sha": "35ff094ed47b",
+  "bytes": 609
+ },
+ "function/CALCULATE": {
+  "title": "CALCULATE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CALCULATE",
+  "sha": "94c1c0a97dae",
+  "bytes": 871
+ },
+ "function/CEIL": {
+  "title": "CEIL Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CEIL",
+  "sha": "e54d0c846c64",
+  "bytes": 531
+ },
+ "function/CHARACTERS": {
+  "title": "CHARACTERS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CHARACTERS",
+  "sha": "7dd9d08f5d87",
+  "bytes": 760
+ },
+ "function/CHROMEISCOMPLETE": {
+  "title": "CHROMEISCOMPLETE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CHROMEISCOMPLETE",
+  "sha": "006965557db7",
+  "bytes": 563
+ },
+ "function/CHROMETABCOUNT": {
+  "title": "CHROMETABCOUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CHROMETABCOUNT",
+  "sha": "35f2cb5a4bef",
+  "bytes": 547
+ },
+ "function/CHROMETABINDEX": {
+  "title": "CHROMETABINDEX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CHROMETABINDEX",
+  "sha": "6b1634651118",
+  "bytes": 558
+ },
+ "function/CLIPBOARDSEED": {
+  "title": "CLIPBOARDSEED Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CLIPBOARDSEED",
+  "sha": "935328ad0f91",
+  "bytes": 287
+ },
+ "function/CONCEALEDPALETTES": {
+  "title": "CONCEALEDPALETTES Function",
+  "url": "https://wiki.keyboardmaestro.com/function/CONCEALEDPALETTES",
+  "sha": "7f8dad1d6064",
+  "bytes": 318
+ },
+ "function/COS": {
+  "title": "COS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/COS",
+  "sha": "4cab69b9af20",
+  "bytes": 206
+ },
+ "function/COSH": {
+  "title": "COSH Function",
+  "url": "https://wiki.keyboardmaestro.com/function/COSH",
+  "sha": "3e39aa8e0798",
+  "bytes": 202
+ },
+ "function/COUNT": {
+  "title": "COUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/COUNT",
+  "sha": "ea88f3ea2fd2",
+  "bytes": 920
+ },
+ "function/DARKMODE": {
+  "title": "DARKMODE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/DARKMODE",
+  "sha": "3587ec8e1b82",
+  "bytes": 495
+ },
+ "function/DAY": {
+  "title": "DAY Function",
+  "url": "https://wiki.keyboardmaestro.com/function/DAY",
+  "sha": "ccfe62dc375f",
+  "bytes": 1446
+ },
+ "function/DOUBLECLICKINTERVAL": {
+  "title": "DOUBLECLICKINTERVAL Function",
+  "url": "https://wiki.keyboardmaestro.com/function/DOUBLECLICKINTERVAL",
+  "sha": "0c78c2343bb1",
+  "bytes": 431
+ },
+ "function/DOW": {
+  "title": "DOW Function",
+  "url": "https://wiki.keyboardmaestro.com/function/DOW",
+  "sha": "364dea23908f",
+  "bytes": 1007
+ },
+ "function/DPI": {
+  "title": "DPI Functions",
+  "url": "https://wiki.keyboardmaestro.com/function/DPI",
+  "sha": "b813a7707d24",
+  "bytes": 499
+ },
+ "function/EXP": {
+  "title": "EXP Function",
+  "url": "https://wiki.keyboardmaestro.com/function/EXP",
+  "sha": "427ea8cf022f",
+  "bytes": 179
+ },
+ "function/FLOOR": {
+  "title": "FLOOR Function",
+  "url": "https://wiki.keyboardmaestro.com/function/FLOOR",
+  "sha": "a13e5ff7d345",
+  "bytes": 538
+ },
+ "function/FONTSIZE": {
+  "title": "FONTSIZE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/FONTSIZE",
+  "sha": "a606e3d33bc2",
+  "bytes": 288
+ },
+ "function/FRONTBROWSERISCOMPLETE": {
+  "title": "FRONTBROWSERISCOMPLETE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/FRONTBROWSERISCOMPLETE",
+  "sha": "0a146bf512cc",
+  "bytes": 719
+ },
+ "function/FRONTBROWSERTABCOUNT": {
+  "title": "FRONTBROWSERTABCOUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/FRONTBROWSERTABCOUNT",
+  "sha": "da5b04b71586",
+  "bytes": 949
+ },
+ "function/FRONTBROWSERTABINDEX": {
+  "title": "FRONTBROWSERTABINDEX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/FRONTBROWSERTABINDEX",
+  "sha": "455d9085c996",
+  "bytes": 651
+ },
+ "function/GMTOFFSET": {
+  "title": "GMTOFFSET function",
+  "url": "https://wiki.keyboardmaestro.com/function/GMTOFFSET",
+  "sha": "2c8b81679882",
+  "bytes": 1229
+ },
+ "function/HEX": {
+  "title": "HEX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/HEX",
+  "sha": "92f5120af43c",
+  "bytes": 644
+ },
+ "function/HOUR": {
+  "title": "HOUR Function",
+  "url": "https://wiki.keyboardmaestro.com/function/HOUR",
+  "sha": "b1858c559cd0",
+  "bytes": 1306
+ },
+ "function/IDLE": {
+  "title": "IDLE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/IDLE",
+  "sha": "3115d86691e7",
+  "bytes": 529
+ },
+ "function/IMAGE": {
+  "title": "IMAGE Functions",
+  "url": "https://wiki.keyboardmaestro.com/function/IMAGE",
+  "sha": "29bb6fcfe06e",
+  "bytes": 512
+ },
+ "function/JD": {
+  "title": "JD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/JD",
+  "sha": "ace845e740f4",
+  "bytes": 777
+ },
+ "function/JD2MJD": {
+  "title": "JD2MJD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/JD2MJD",
+  "sha": "c255706dcdd2",
+  "bytes": 533
+ },
+ "function/JD2TIME": {
+  "title": "JD2TIME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/JD2TIME",
+  "sha": "62ef6d01180e",
+  "bytes": 1206
+ },
+ "function/JSONVALUE": {
+  "title": "JSONVALUE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/JSONVALUE",
+  "sha": "5f6e06c3a7ac",
+  "bytes": 1381
+ },
+ "function/KEYREPEATDELAY": {
+  "title": "KEYREPEATDELAY Function",
+  "url": "https://wiki.keyboardmaestro.com/function/KEYREPEATDELAY",
+  "sha": "be7b94527c83",
+  "bytes": 516
+ },
+ "function/KEYREPEATINTERVAL": {
+  "title": "KEYREPEATINTERVAL Function",
+  "url": "https://wiki.keyboardmaestro.com/function/KEYREPEATINTERVAL",
+  "sha": "73a23042b333",
+  "bytes": 540
+ },
+ "function/KMDARKMODE": {
+  "title": "KMDARKMODE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/KMDARKMODE",
+  "sha": "2a7b113767d8",
+  "bytes": 553
+ },
+ "function/LENGTH": {
+  "title": "LENGTH Function",
+  "url": "https://wiki.keyboardmaestro.com/function/LENGTH",
+  "sha": "0daef072d28d",
+  "bytes": 897
+ },
+ "function/LINES": {
+  "title": "LINES Function",
+  "url": "https://wiki.keyboardmaestro.com/function/LINES",
+  "sha": "46352edadac2",
+  "bytes": 736
+ },
+ "function/LOG": {
+  "title": "LOG Function",
+  "url": "https://wiki.keyboardmaestro.com/function/LOG",
+  "sha": "26e02dc081a4",
+  "bytes": 232
+ },
+ "function/LOG10": {
+  "title": "LOG10 Function",
+  "url": "https://wiki.keyboardmaestro.com/function/LOG10",
+  "sha": "857c51412f7c",
+  "bytes": 233
+ },
+ "function/LOG2": {
+  "title": "LOG2 Function",
+  "url": "https://wiki.keyboardmaestro.com/function/LOG2",
+  "sha": "66520888e7ed",
+  "bytes": 231
+ },
+ "function/MAILDATERECEIVED": {
+  "title": "MAILDATERECEIVED Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILDATERECEIVED",
+  "sha": "cc3a3d2e4fae",
+  "bytes": 381
+ },
+ "function/MAILDATESENT": {
+  "title": "MAILDATESENT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILDATESENT",
+  "sha": "450ad5209bbb",
+  "bytes": 377
+ },
+ "function/MAILFLAG": {
+  "title": "MAILFLAG Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILFLAG",
+  "sha": "0156a36b5fbe",
+  "bytes": 363
+ },
+ "function/MAILFLAGGED": {
+  "title": "MAILFLAGGED Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILFLAGGED",
+  "sha": "755b01494d0e",
+  "bytes": 376
+ },
+ "function/MAILJUNKSTATUS": {
+  "title": "MAILJUNKSTATUS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILJUNKSTATUS",
+  "sha": "d42f4dab2f4b",
+  "bytes": 376
+ },
+ "function/MAILREADSTATUS": {
+  "title": "MAILREADSTATUS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILREADSTATUS",
+  "sha": "a4162c3e46cd",
+  "bytes": 376
+ },
+ "function/MAILWASFORWARDED": {
+  "title": "MAILWASFORWARDED Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILWASFORWARDED",
+  "sha": "6c6807ce0999",
+  "bytes": 387
+ },
+ "function/MAILWASREDIRECTED": {
+  "title": "MAILWASREDIRECTED Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILWASREDIRECTED",
+  "sha": "288946e2bc9f",
+  "bytes": 389
+ },
+ "function/MAILWASREPLIEDTO": {
+  "title": "MAILWASREPLIEDTO Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAILWASREPLIEDTO",
+  "sha": "efacfee4b8e1",
+  "bytes": 388
+ },
+ "function/MAX": {
+  "title": "MAX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MAX",
+  "sha": "943ff48964ce",
+  "bytes": 199
+ },
+ "function/MEMORY": {
+  "title": "MEMORY Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MEMORY",
+  "sha": "f11b5024afb3",
+  "bytes": 185
+ },
+ "function/MENUBARHEIGHT": {
+  "title": "MENUBARHEIGHT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MENUBARHEIGHT",
+  "sha": "9147a645b47d",
+  "bytes": 728
+ },
+ "function/MICROSECONDS": {
+  "title": "MICROSECONDS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MICROSECONDS",
+  "sha": "806f2972b9c2",
+  "bytes": 231
+ },
+ "function/MILLISECONDS": {
+  "title": "MILLISECONDS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MILLISECONDS",
+  "sha": "cdfac873fdb1",
+  "bytes": 240
+ },
+ "function/MIN": {
+  "title": "MIN Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MIN",
+  "sha": "44c418d7fd33",
+  "bytes": 199
+ },
+ "function/MINUTE": {
+  "title": "MINUTE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MINUTE",
+  "sha": "61c04f86708e",
+  "bytes": 1333
+ },
+ "function/MJD": {
+  "title": "MJD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MJD",
+  "sha": "d9c3dd729803",
+  "bytes": 770
+ },
+ "function/MJD2JD": {
+  "title": "MJD2JD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MJD2JD",
+  "sha": "b7c7ee9ae8fb",
+  "bytes": 533
+ },
+ "function/MJD2TIME": {
+  "title": "MJD2TIME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MJD2TIME",
+  "sha": "9c10a0c1aa8b",
+  "bytes": 531
+ },
+ "function/MONTH": {
+  "title": "MONTH Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MONTH",
+  "sha": "dec7c8daf512",
+  "bytes": 1083
+ },
+ "function/MOUSEBUTTON": {
+  "title": "MOUSEBUTTON Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MOUSEBUTTON",
+  "sha": "ebbbcb9e8066",
+  "bytes": 1383
+ },
+ "function/MOUSEX": {
+  "title": "MOUSEX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MOUSEX",
+  "sha": "e49d25585671",
+  "bytes": 926
+ },
+ "function/MOUSEY": {
+  "title": "MOUSEY Function",
+  "url": "https://wiki.keyboardmaestro.com/function/MOUSEY",
+  "sha": "5932c6648760",
+  "bytes": 925
+ },
+ "function/NOW": {
+  "title": "NOW Function",
+  "url": "https://wiki.keyboardmaestro.com/function/NOW",
+  "sha": "99d9942d0ae3",
+  "bytes": 1187
+ },
+ "function/OCT": {
+  "title": "OCT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/OCT",
+  "sha": "22e06cd72654",
+  "bytes": 602
+ },
+ "function/ONLINE": {
+  "title": "ONLINE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ONLINE",
+  "sha": "32742a04585b",
+  "bytes": 264
+ },
+ "function/PIXEL": {
+  "title": "PIXEL Function",
+  "url": "https://wiki.keyboardmaestro.com/function/PIXEL",
+  "sha": "c488150eac8a",
+  "bytes": 579
+ },
+ "function/PROCESSORS": {
+  "title": "PROCESSORS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/PROCESSORS",
+  "sha": "569a2cbfaa23",
+  "bytes": 196
+ },
+ "function/RAND": {
+  "title": "RAND Function",
+  "url": "https://wiki.keyboardmaestro.com/function/RAND",
+  "sha": "bbbab33ffd15",
+  "bytes": 798
+ },
+ "function/RANDOM": {
+  "title": "RANDOM Function",
+  "url": "https://wiki.keyboardmaestro.com/function/RANDOM",
+  "sha": "c5af6db33cb8",
+  "bytes": 510
+ },
+ "function/ROUND": {
+  "title": "ROUND Function",
+  "url": "https://wiki.keyboardmaestro.com/function/ROUND",
+  "sha": "878584a75fc9",
+  "bytes": 589
+ },
+ "function/SAFARIISCOMPLETE": {
+  "title": "SAFARIISCOMPLETE Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SAFARIISCOMPLETE",
+  "sha": "e48f66b7a6e9",
+  "bytes": 867
+ },
+ "function/SAFARITABCOUNT": {
+  "title": "SAFARITABCOUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SAFARITABCOUNT",
+  "sha": "c00300e78b0c",
+  "bytes": 848
+ },
+ "function/SAFARITABINDEX": {
+  "title": "SAFARITABINDEX Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SAFARITABINDEX",
+  "sha": "e6dc50b6400e",
+  "bytes": 859
+ },
+ "function/SCREEN": {
+  "title": "SCREEN Functions",
+  "url": "https://wiki.keyboardmaestro.com/function/SCREEN",
+  "sha": "67d9fbf21f45",
+  "bytes": 3607
+ },
+ "function/SCREENCOUNT": {
+  "title": "SCREENCOUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SCREENCOUNT",
+  "sha": "5ff76922334b",
+  "bytes": 919
+ },
+ "function/SCREENINDEX": {
+  "redirect": "function:SCREEN",
+  "url": "https://wiki.keyboardmaestro.com/function/SCREENINDEX"
+ },
+ "function/SCREENSAVER": {
+  "title": "SCREENSAVER Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SCREENSAVER",
+  "sha": "1f8e7718dc0b",
+  "bytes": 381
+ },
+ "function/SCREENVISIBLE": {
+  "redirect": "function:SCREEN",
+  "url": "https://wiki.keyboardmaestro.com/function/SCREENVISIBLE"
+ },
+ "function/SECOND": {
+  "title": "SECOND Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SECOND",
+  "sha": "9113c0ae90cb",
+  "bytes": 1124
+ },
+ "function/SECONDS": {
+  "title": "SECONDS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SECONDS",
+  "sha": "5a0790d835f7",
+  "bytes": 351
+ },
+ "function/SECUREINPUT": {
+  "title": "SECUREINPUT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SECUREINPUT",
+  "sha": "5aac28494a6c",
+  "bytes": 304
+ },
+ "function/SIN": {
+  "title": "SIN Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SIN",
+  "sha": "7136daec6dbc",
+  "bytes": 204
+ },
+ "function/SINH": {
+  "title": "SINH Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SINH",
+  "sha": "840dfc59326e",
+  "bytes": 200
+ },
+ "function/SOURCEDPI": {
+  "redirect": "function:DPI",
+  "url": "https://wiki.keyboardmaestro.com/function/SOURCEDPI"
+ },
+ "function/SOURCEIMAGE": {
+  "redirect": "function:IMAGE",
+  "url": "https://wiki.keyboardmaestro.com/function/SOURCEIMAGE"
+ },
+ "function/SYSTEMVOLUME": {
+  "title": "SYSTEMVOLUME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/SYSTEMVOLUME",
+  "sha": "840dbe6ddb2c",
+  "bytes": 239
+ },
+ "function/TAN": {
+  "title": "TAN Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TAN",
+  "sha": "3e77dd83e8ce",
+  "bytes": 249
+ },
+ "function/TANH": {
+  "title": "TANH Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TANH",
+  "sha": "5025b8255e79",
+  "bytes": 203
+ },
+ "function/TIME": {
+  "title": "TIME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TIME",
+  "sha": "412651179046",
+  "bytes": 1762
+ },
+ "function/TIME2JD": {
+  "title": "TIME2JD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TIME2JD",
+  "sha": "7b1271562c97",
+  "bytes": 538
+ },
+ "function/TIME2MJD": {
+  "title": "TIME2MJD Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TIME2MJD",
+  "sha": "1b663dd2bc33",
+  "bytes": 531
+ },
+ "function/TRIGGERTIME": {
+  "title": "TRIGGERTIME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TRIGGERTIME",
+  "sha": "5b2a6ce6f38c",
+  "bytes": 206
+ },
+ "function/TRUNC": {
+  "title": "TRUNC Function",
+  "url": "https://wiki.keyboardmaestro.com/function/TRUNC",
+  "sha": "35bb4ec68eaa",
+  "bytes": 540
+ },
+ "function/UPTIME": {
+  "title": "UPTIME Function",
+  "url": "https://wiki.keyboardmaestro.com/function/UPTIME",
+  "sha": "62bc737bf5d3",
+  "bytes": 205
+ },
+ "function/WINDOW": {
+  "title": "WINDOW Function",
+  "url": "https://wiki.keyboardmaestro.com/function/WINDOW",
+  "sha": "2a2d14e4e516",
+  "bytes": 2130
+ },
+ "function/WINDOWCOUNT": {
+  "title": "WINDOWCOUNT Function",
+  "url": "https://wiki.keyboardmaestro.com/function/WINDOWCOUNT",
+  "sha": "8480b3ebb16f",
+  "bytes": 1526
+ },
+ "function/WORDS": {
+  "title": "WORDS Function",
+  "url": "https://wiki.keyboardmaestro.com/function/WORDS",
+  "sha": "3967b9785287",
+  "bytes": 734
+ },
+ "function/YEAR": {
+  "title": "YEAR Function",
+  "url": "https://wiki.keyboardmaestro.com/function/YEAR",
+  "sha": "43b88f7d515a",
+  "bytes": 1067
+ },
+ "manual/Administrative_Details": {
+  "title": "Administrative Details",
+  "url": "https://wiki.keyboardmaestro.com/manual/Administrative_Details",
+  "sha": "1b1a4d6d5dae",
+  "bytes": 11925
+ },
+ "manual/Application_Launcher": {
+  "title": "Application Launcher",
+  "url": "https://wiki.keyboardmaestro.com/manual/Application_Launcher",
+  "sha": "98df63dc3203",
+  "bytes": 1020
+ },
+ "manual/Application_Switcher": {
+  "title": "Application Switcher",
+  "url": "https://wiki.keyboardmaestro.com/manual/Application_Switcher",
+  "sha": "f32f4c4e44b7",
+  "bytes": 2758
+ },
+ "manual/Applications_Palette": {
+  "title": "Applications Palette",
+  "url": "https://wiki.keyboardmaestro.com/manual/Applications_Palette",
+  "sha": "85aa111a0684",
+  "bytes": 2078
+ },
+ "manual/Assistance": {
+  "title": "Assistance",
+  "url": "https://wiki.keyboardmaestro.com/manual/Assistance",
+  "sha": "4cc6f74c61ba",
+  "bytes": 1801
+ },
+ "manual/Calculations": {
+  "title": "Calculations",
+  "url": "https://wiki.keyboardmaestro.com/manual/Calculations",
+  "sha": "dcaf4d54fc44",
+  "bytes": 7367
+ },
+ "manual/Clipboard_History_Switcher": {
+  "title": "Clipboard History Switcher",
+  "url": "https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher",
+  "sha": "9a4693e94095",
+  "bytes": 5648
+ },
+ "manual/Collections": {
+  "title": "Collections",
+  "url": "https://wiki.keyboardmaestro.com/manual/Collections",
+  "sha": "adbb408644b6",
+  "bytes": 429
+ },
+ "manual/Command_Line_Tool": {
+  "title": "Command Line Tool",
+  "url": "https://wiki.keyboardmaestro.com/manual/Command_Line_Tool",
+  "sha": "5d1348356e80",
+  "bytes": 1160
+ },
+ "manual/Conditions": {
+  "title": "Conditions",
+  "url": "https://wiki.keyboardmaestro.com/manual/Conditions",
+  "sha": "e780361c2924",
+  "bytes": 852
+ },
+ "manual/Dictionaries": {
+  "title": "Dictionaries",
+  "url": "https://wiki.keyboardmaestro.com/manual/Dictionaries",
+  "sha": "c9faa1484c83",
+  "bytes": 2912
+ },
+ "manual/Editor_Window": {
+  "title": "Editor Window",
+  "url": "https://wiki.keyboardmaestro.com/manual/Editor_Window",
+  "sha": "2c18f8ef2daa",
+  "bytes": 9290
+ },
+ "manual/Features": {
+  "title": "Features",
+  "url": "https://wiki.keyboardmaestro.com/manual/Features",
+  "sha": "642af7136c17",
+  "bytes": 10477
+ },
+ "manual/Filters": {
+  "title": "Filters",
+  "url": "https://wiki.keyboardmaestro.com/manual/Filters",
+  "sha": "5f52090fd98d",
+  "bytes": 2692
+ },
+ "manual/Glossary": {
+  "title": "Glossary",
+  "url": "https://wiki.keyboardmaestro.com/manual/Glossary",
+  "sha": "430e303b2158",
+  "bytes": 6745
+ },
+ "manual/How_do_I": {
+  "title": "How do I ...?",
+  "url": "https://wiki.keyboardmaestro.com/manual/How_do_I",
+  "sha": "df55caf390ec",
+  "bytes": 25136
+ },
+ "manual/Icon_Chooser": {
+  "title": "Icon Chooser",
+  "url": "https://wiki.keyboardmaestro.com/manual/Icon_Chooser",
+  "sha": "6b93fb8d484e",
+  "bytes": 1792
+ },
+ "manual/JSON": {
+  "title": "JSON",
+  "url": "https://wiki.keyboardmaestro.com/manual/JSON",
+  "sha": "152610b0976e",
+  "bytes": 6232
+ },
+ "manual/Links": {
+  "title": "Links",
+  "url": "https://wiki.keyboardmaestro.com/manual/Links",
+  "sha": "ae9a963ef4ed",
+  "bytes": 1041
+ },
+ "manual/Macro_Actions": {
+  "title": "Macro Actions",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Actions",
+  "sha": "1e2456d6c36a",
+  "bytes": 4787
+ },
+ "manual/Macro_Debugger": {
+  "title": "Macro Debugger",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Debugger",
+  "sha": "83f6501ad225",
+  "bytes": 2565
+ },
+ "manual/Macro_Examples": {
+  "title": "Macro Examples",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Examples",
+  "sha": "08e600019b62",
+  "bytes": 8006
+ },
+ "manual/Macro_Groups": {
+  "title": "Macro Groups",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Groups",
+  "sha": "5b47b8e70b9f",
+  "bytes": 10559
+ },
+ "manual/Macro_Library": {
+  "title": "Macro Library",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Library",
+  "sha": "38c75a671250",
+  "bytes": 2079
+ },
+ "manual/Macro_Syncing": {
+  "title": "Macro Syncing",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Syncing",
+  "sha": "d114379588aa",
+  "bytes": 5061
+ },
+ "manual/Macro_Triggers": {
+  "title": "Macro Triggers",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macro_Triggers",
+  "sha": "7630b7929179",
+  "bytes": 1672
+ },
+ "manual/Macros": {
+  "title": "Macros",
+  "url": "https://wiki.keyboardmaestro.com/manual/Macros",
+  "sha": "de99bf00e0c3",
+  "bytes": 10089
+ },
+ "manual/Menus": {
+  "title": "Menus",
+  "url": "https://wiki.keyboardmaestro.com/manual/Menus",
+  "sha": "a0e32765ab08",
+  "bytes": 39306
+ },
+ "manual/Named_Clipboard_Switcher": {
+  "title": "Named Clipboard Switcher",
+  "url": "https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher",
+  "sha": "f32c3185696f",
+  "bytes": 2515
+ },
+ "manual/Overview": {
+  "title": "Overview",
+  "url": "https://wiki.keyboardmaestro.com/manual/Overview",
+  "sha": "953e70737f9b",
+  "bytes": 1624
+ },
+ "manual/Palettes": {
+  "title": "Palettes",
+  "url": "https://wiki.keyboardmaestro.com/manual/Palettes",
+  "sha": "de18000b9dca",
+  "bytes": 5844
+ },
+ "manual/Plug_In_Actions": {
+  "title": "Plug In Actions",
+  "url": "https://wiki.keyboardmaestro.com/manual/Plug_In_Actions",
+  "sha": "2e2cff3a71f7",
+  "bytes": 10277
+ },
+ "manual/Preferences": {
+  "title": "Preferences",
+  "url": "https://wiki.keyboardmaestro.com/manual/Preferences",
+  "sha": "d97f3ee85663",
+  "bytes": 23418
+ },
+ "manual/Purchase": {
+  "title": "Purchase",
+  "url": "https://wiki.keyboardmaestro.com/manual/Purchase",
+  "sha": "5ee4361a9aaf",
+  "bytes": 2656
+ },
+ "manual/Quick_Start": {
+  "title": "Quick Start",
+  "url": "https://wiki.keyboardmaestro.com/manual/Quick_Start",
+  "sha": "93b9fe46003e",
+  "bytes": 6882
+ },
+ "manual/Recording": {
+  "title": "Recording",
+  "url": "https://wiki.keyboardmaestro.com/manual/Recording",
+  "sha": "ecae7ee74004",
+  "bytes": 4606
+ },
+ "manual/Screenshots": {
+  "title": "Screenshots",
+  "url": "https://wiki.keyboardmaestro.com/manual/Screenshots",
+  "sha": "1fd6abd604d4",
+  "bytes": 1153
+ },
+ "manual/Scripting": {
+  "title": "Scripting",
+  "url": "https://wiki.keyboardmaestro.com/manual/Scripting",
+  "sha": "fee805af6ee9",
+  "bytes": 10864
+ },
+ "manual/Search_Strings": {
+  "title": "Search Strings",
+  "url": "https://wiki.keyboardmaestro.com/manual/Search_Strings",
+  "sha": "a5e20b5850e6",
+  "bytes": 3143
+ },
+ "manual/Single_Page_Version": {
+  "title": "Keyboard Maestro 11 User Manual",
+  "url": "https://wiki.keyboardmaestro.com/manual/Single_Page_Version",
+  "sha": "b125814fd113",
+  "bytes": 3312
+ },
+ "manual/Smart_Groups": {
+  "title": "Smart Groups",
+  "url": "https://wiki.keyboardmaestro.com/manual/Smart_Groups",
+  "sha": "cab63c418ff3",
+  "bytes": 604
+ },
+ "manual/Status_Menu_Icons": {
+  "title": "Status Menu Icons",
+  "url": "https://wiki.keyboardmaestro.com/manual/Status_Menu_Icons",
+  "sha": "41f6c404212f",
+  "bytes": 2204
+ },
+ "manual/Support": {
+  "title": "Support",
+  "url": "https://wiki.keyboardmaestro.com/manual/Support",
+  "sha": "6b1bdf7f3434",
+  "bytes": 1302
+ },
+ "manual/Tips": {
+  "title": "Tips",
+  "url": "https://wiki.keyboardmaestro.com/manual/Tips",
+  "sha": "6a660c8fa9e9",
+  "bytes": 3686
+ },
+ "manual/Tokens": {
+  "title": "Tokens",
+  "url": "https://wiki.keyboardmaestro.com/manual/Tokens",
+  "sha": "f4998d222f50",
+  "bytes": 5971
+ },
+ "manual/Tour": {
+  "title": "Tour",
+  "url": "https://wiki.keyboardmaestro.com/manual/Tour",
+  "sha": "b18489f2c755",
+  "bytes": 6163
+ },
+ "manual/Troubleshooting": {
+  "title": "Troubleshooting",
+  "url": "https://wiki.keyboardmaestro.com/manual/Troubleshooting",
+  "sha": "869b8af11123",
+  "bytes": 3578
+ },
+ "manual/URL_Schemes": {
+  "title": "URL Schemes",
+  "url": "https://wiki.keyboardmaestro.com/manual/URL_Schemes",
+  "sha": "3cfbc2f5e66a",
+  "bytes": 2299
+ },
+ "manual/Variables": {
+  "title": "Variables",
+  "url": "https://wiki.keyboardmaestro.com/manual/Variables",
+  "sha": "e721e5867ce7",
+  "bytes": 12572
+ },
+ "manual/Whats_New": {
+  "title": "What’s New?",
+  "url": "https://wiki.keyboardmaestro.com/manual/Whats_New",
+  "sha": "e7e3bf4ee672",
+  "bytes": 29315
+ },
+ "manual/Window_Switcher": {
+  "title": "Window Switcher",
+  "url": "https://wiki.keyboardmaestro.com/manual/Window_Switcher",
+  "sha": "ce45976f9b30",
+  "bytes": 1007
+ },
+ "manual/Windows": {
+  "title": "Windows",
+  "url": "https://wiki.keyboardmaestro.com/manual/Windows",
+  "sha": "3e04b90bf203",
+  "bytes": 17272
+ },
+ "token/AccessedVariables": {
+  "title": "AccessedVariablesToken",
+  "url": "https://wiki.keyboardmaestro.com/token/AccessedVariables",
+  "sha": "1b448bad034a",
+  "bytes": 540
+ },
+ "token/ActionResult": {
+  "title": "ActionResult Token",
+  "url": "https://wiki.keyboardmaestro.com/token/ActionResult",
+  "sha": "22f0f0456c3a",
+  "bytes": 1961
+ },
+ "token/AddressBook": {
+  "title": "AddressBook",
+  "url": "https://wiki.keyboardmaestro.com/token/AddressBook",
+  "sha": "7842c8e4a28a",
+  "bytes": 455
+ },
+ "token/AlertButton": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/AlertButton",
+  "sha": "1f9e0b46cfb9",
+  "bytes": 484
+ },
+ "token/Application": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/Application"
+ },
+ "token/ApplicationBundleID": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ApplicationBundleID"
+ },
+ "token/ApplicationLongVersion": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ApplicationLongVersion"
+ },
+ "token/ApplicationName": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ApplicationName"
+ },
+ "token/ApplicationPath": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ApplicationPath"
+ },
+ "token/ApplicationVersion": {
+  "redirect": "token:Application_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ApplicationVersion"
+ },
+ "token/Application_Tokens": {
+  "title": "Application Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/Application_Tokens",
+  "sha": "235a95f4236d",
+  "bytes": 1299
+ },
+ "token/Ask": {
+  "title": "Ask Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Ask",
+  "sha": "6e51832bb5d9",
+  "bytes": 1394
+ },
+ "token/AudioDevice": {
+  "title": "Audio Device Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioDevice",
+  "sha": "d5e9707f5088",
+  "bytes": 574
+ },
+ "token/AudioInputDevice": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioInputDevice"
+ },
+ "token/AudioInputDeviceUID": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioInputDeviceUID"
+ },
+ "token/AudioInputDevices": {
+  "title": "AudioInputDevices Token",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioInputDevices",
+  "sha": "161316c30168",
+  "bytes": 637
+ },
+ "token/AudioOutputDevice": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioOutputDevice"
+ },
+ "token/AudioOutputDeviceUID": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioOutputDeviceUID"
+ },
+ "token/AudioOutputDevices": {
+  "title": "AudioOutputDevices Token",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioOutputDevices",
+  "sha": "ccea18843dba",
+  "bytes": 638
+ },
+ "token/AudioSoundEffectsDevice": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioSoundEffectsDevice"
+ },
+ "token/AudioSoundEffectsDeviceUID": {
+  "redirect": "AudioDevice",
+  "url": "https://wiki.keyboardmaestro.com/token/AudioSoundEffectsDeviceUID"
+ },
+ "token/Bin": {
+  "redirect": "Calculate",
+  "url": "https://wiki.keyboardmaestro.com/token/Bin"
+ },
+ "token/Calculate": {
+  "title": "Calculate Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Calculate",
+  "sha": "f6ddf3281359",
+  "bytes": 1957
+ },
+ "token/CalculateFormat": {
+  "title": "CalculateFormat Token",
+  "url": "https://wiki.keyboardmaestro.com/token/CalculateFormat",
+  "sha": "6ba39c4189b3",
+  "bytes": 1517
+ },
+ "token/ChromeBundleID": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeBundleID"
+ },
+ "token/ChromeField": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeField"
+ },
+ "token/ChromeJavaScript": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeJavaScript"
+ },
+ "token/ChromeLongVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeLongVersion"
+ },
+ "token/ChromeName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeName"
+ },
+ "token/ChromePath": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromePath"
+ },
+ "token/ChromeReadyState": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeReadyState"
+ },
+ "token/ChromeTitle": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeTitle"
+ },
+ "token/ChromeURL": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeURL"
+ },
+ "token/ChromeVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeVersion"
+ },
+ "token/ChromeWindowName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ChromeWindowName"
+ },
+ "token/CurrentApplication": {
+  "title": "CurrentApplication",
+  "url": "https://wiki.keyboardmaestro.com/token/CurrentApplication",
+  "sha": "9ce1cb928ee8",
+  "bytes": 134
+ },
+ "token/CurrentClipboard": {
+  "redirect": "SystemClipboard",
+  "url": "https://wiki.keyboardmaestro.com/token/CurrentClipboard"
+ },
+ "token/CurrentMouse": {
+  "title": "CurrentMouse",
+  "url": "https://wiki.keyboardmaestro.com/token/CurrentMouse",
+  "sha": "f7e0a550af0f",
+  "bytes": 64
+ },
+ "token/CurrentTrack": {
+  "title": "CurrentTrack Token",
+  "url": "https://wiki.keyboardmaestro.com/token/CurrentTrack",
+  "sha": "40bf31e305a1",
+  "bytes": 557
+ },
+ "token/Dec": {
+  "redirect": "Calculate",
+  "url": "https://wiki.keyboardmaestro.com/token/Dec"
+ },
+ "token/Delete": {
+  "title": "Delete Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Delete",
+  "sha": "8276b036e767",
+  "bytes": 559
+ },
+ "token/Dictionary": {
+  "title": "Dictionary Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Dictionary",
+  "sha": "c41d987529c2",
+  "bytes": 440
+ },
+ "token/ExecutingInstance": {
+  "title": "ExecutingInstance Action",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingInstance",
+  "sha": "0b28d8c643db",
+  "bytes": 1179
+ },
+ "token/ExecutingInstanceName": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingInstanceName",
+  "sha": "ff9ca77667a7",
+  "bytes": 1034
+ },
+ "token/ExecutingInstances": {
+  "title": "ExecutingInstances Action",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingInstances",
+  "sha": "8a3784a656a1",
+  "bytes": 1135
+ },
+ "token/ExecutingMacro": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingMacro",
+  "sha": "5333c5041a33",
+  "bytes": 841
+ },
+ "token/ExecutingMacroGroup": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingMacroGroup",
+  "sha": "91aaa725d5a2",
+  "bytes": 967
+ },
+ "token/ExecutingMacroGroupUUID": {
+  "redirect": "token:ExecutingMacroGroup ",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingMacroGroupUUID"
+ },
+ "token/ExecutingMacroUUID": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingMacroUUID",
+  "sha": "1090ccc0e50c",
+  "bytes": 854
+ },
+ "token/ExecutingThisMacro": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingThisMacro",
+  "sha": "65da755ff3a2",
+  "bytes": 850
+ },
+ "token/ExecutingThisMacroGroup": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingThisMacroGroup",
+  "sha": "574358f2658e",
+  "bytes": 935
+ },
+ "token/ExecutingThisMacroGroupUUID": {
+  "redirect": "token:ExecutingThisMacroGroup ",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingThisMacroGroupUUID"
+ },
+ "token/ExecutingThisMacroUUID": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/ExecutingThisMacroUUID",
+  "sha": "235c790b2d56",
+  "bytes": 1050
+ },
+ "token/FindPasteboard": {
+  "title": "FindPasteboard",
+  "url": "https://wiki.keyboardmaestro.com/token/FindPasteboard",
+  "sha": "a24a54123a81",
+  "bytes": 80
+ },
+ "token/FinderInsertionLocation": {
+  "title": "FinderInsertionLocation Token",
+  "url": "https://wiki.keyboardmaestro.com/token/FinderInsertionLocation",
+  "sha": "0f2c21151cd5",
+  "bytes": 400
+ },
+ "token/FinderSelection": {
+  "title": "FinderSelection(s) Token",
+  "url": "https://wiki.keyboardmaestro.com/token/FinderSelection",
+  "sha": "37b79226d894",
+  "bytes": 683
+ },
+ "token/FinderSelections": {
+  "redirect": "token:FinderSelection",
+  "url": "https://wiki.keyboardmaestro.com/token/FinderSelections"
+ },
+ "token/FoundImage": {
+  "title": "FoundImage Token",
+  "url": "https://wiki.keyboardmaestro.com/token/FoundImage",
+  "sha": "416a0b95fed8",
+  "bytes": 1720
+ },
+ "token/FrontBrowser": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowser",
+  "sha": "71587ad95df0",
+  "bytes": 1031
+ },
+ "token/FrontBrowserBundleID": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserBundleID"
+ },
+ "token/FrontBrowserField": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserField"
+ },
+ "token/FrontBrowserJavaScript": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserJavaScript"
+ },
+ "token/FrontBrowserLongVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserLongVersion"
+ },
+ "token/FrontBrowserName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserName"
+ },
+ "token/FrontBrowserPath": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserPath"
+ },
+ "token/FrontBrowserReadyState": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserReadyState"
+ },
+ "token/FrontBrowserTitle": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserTitle"
+ },
+ "token/FrontBrowserURL": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserURL"
+ },
+ "token/FrontBrowserVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserVersion"
+ },
+ "token/FrontBrowserWindowName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontBrowserWindowName"
+ },
+ "token/FrontDocumentPath": {
+  "title": "FrontDocumentPath Token",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontDocumentPath",
+  "sha": "3111882e86fe",
+  "bytes": 484
+ },
+ "token/FrontWindowFrame": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontWindowFrame"
+ },
+ "token/FrontWindowName": {
+  "redirect": "token:WindowName",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontWindowName"
+ },
+ "token/FrontWindowPosition": {
+  "redirect": "token:WindowFrame",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontWindowPosition"
+ },
+ "token/FrontWindowSize": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/FrontWindowSize"
+ },
+ "token/HTMLResult": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/HTMLResult",
+  "sha": "af4426bec2fb",
+  "bytes": 511
+ },
+ "token/Hex": {
+  "redirect": "Calculate",
+  "url": "https://wiki.keyboardmaestro.com/token/Hex"
+ },
+ "token/ICUDateTime": {
+  "title": "ICU Date/Time Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/ICUDateTime",
+  "sha": "770f77b8f495",
+  "bytes": 7536
+ },
+ "token/ICUDateTimeFor": {
+  "redirect": "token:ICUDateTime",
+  "url": "https://wiki.keyboardmaestro.com/token/ICUDateTimeFor"
+ },
+ "token/ICUDateTimeMinus": {
+  "redirect": "token:ICUDateTime",
+  "url": "https://wiki.keyboardmaestro.com/token/ICUDateTimeMinus"
+ },
+ "token/ICUDateTimePlus": {
+  "redirect": "token:ICUDateTime",
+  "url": "https://wiki.keyboardmaestro.com/token/ICUDateTimePlus"
+ },
+ "token/JSONFromDictionary": {
+  "title": "JSONFromDictionary",
+  "url": "https://wiki.keyboardmaestro.com/token/JSONFromDictionary",
+  "sha": "4c3699fa5bbc",
+  "bytes": 1855
+ },
+ "token/JSONFromVariables": {
+  "title": "JSONFromVariables",
+  "url": "https://wiki.keyboardmaestro.com/token/JSONFromVariables",
+  "sha": "8bc3c82759d0",
+  "bytes": 2321
+ },
+ "token/JSONValue": {
+  "title": "JSONValue",
+  "url": "https://wiki.keyboardmaestro.com/token/JSONValue",
+  "sha": "cc6299250eff",
+  "bytes": 2820
+ },
+ "token/KeyboardLayout": {
+  "title": "KeyboardLayout",
+  "url": "https://wiki.keyboardmaestro.com/token/KeyboardLayout",
+  "sha": "faae6ff2db23",
+  "bytes": 79
+ },
+ "token/KeyboardMaestroLongVersion": {
+  "redirect": "KeyboardMaestroVersion ",
+  "url": "https://wiki.keyboardmaestro.com/token/KeyboardMaestroLongVersion"
+ },
+ "token/KeyboardMaestroVersion": {
+  "title": "KeyboardMaestroVersion Token",
+  "url": "https://wiki.keyboardmaestro.com/token/KeyboardMaestroVersion",
+  "sha": "c9cfb7759df3",
+  "bytes": 314
+ },
+ "token/LastAbortedActionID": {
+  "title": "LastAbortedActionIDToken",
+  "url": "https://wiki.keyboardmaestro.com/token/LastAbortedActionID",
+  "sha": "d3b5df5d90f9",
+  "bytes": 255
+ },
+ "token/LastApplication": {
+  "title": "LastApplication Token",
+  "url": "https://wiki.keyboardmaestro.com/token/LastApplication",
+  "sha": "48d50935b9ba",
+  "bytes": 349
+ },
+ "token/LastWindowID": {
+  "title": "LastWindowID Token",
+  "url": "https://wiki.keyboardmaestro.com/token/LastWindowID",
+  "sha": "6d3ca0f0a028",
+  "bytes": 337
+ },
+ "token/LineFeed": {
+  "title": "LineFeed Token",
+  "url": "https://wiki.keyboardmaestro.com/token/LineFeed",
+  "sha": "c42ce1fea699",
+  "bytes": 364
+ },
+ "token/LongDate": {
+  "title": "LongDate",
+  "url": "https://wiki.keyboardmaestro.com/token/LongDate",
+  "sha": "92b41244dfeb",
+  "bytes": 1659
+ },
+ "token/LongSystemVersion": {
+  "redirect": "SystemVersion",
+  "url": "https://wiki.keyboardmaestro.com/token/LongSystemVersion"
+ },
+ "token/LongTime": {
+  "title": "LongTime",
+  "url": "https://wiki.keyboardmaestro.com/token/LongTime",
+  "sha": "f81a62f14140",
+  "bytes": 1667
+ },
+ "token/MacIPAddress": {
+  "title": "MacIPAddress",
+  "url": "https://wiki.keyboardmaestro.com/token/MacIPAddress",
+  "sha": "78e8003af918",
+  "bytes": 64
+ },
+ "token/MacName": {
+  "title": "MacName",
+  "url": "https://wiki.keyboardmaestro.com/token/MacName",
+  "sha": "9c72a170d87c",
+  "bytes": 53
+ },
+ "token/MacUUID": {
+  "title": "MacUUID",
+  "url": "https://wiki.keyboardmaestro.com/token/MacUUID",
+  "sha": "6973f0b4a6a2",
+  "bytes": 1022
+ },
+ "token/MacroNameForUUID": {
+  "title": "MacroNameForUUID Token",
+  "url": "https://wiki.keyboardmaestro.com/token/MacroNameForUUID",
+  "sha": "487d40130ef2",
+  "bytes": 2371
+ },
+ "token/MailBCCRecipients": {
+  "title": "MailBCCRecipients",
+  "url": "https://wiki.keyboardmaestro.com/token/MailBCCRecipients",
+  "sha": "b6e22da92f42",
+  "bytes": 124
+ },
+ "token/MailCCRecipients": {
+  "title": "MailCCRecipients",
+  "url": "https://wiki.keyboardmaestro.com/token/MailCCRecipients",
+  "sha": "be58c28b7f63",
+  "bytes": 122
+ },
+ "token/MailContents": {
+  "title": "MailContents",
+  "url": "https://wiki.keyboardmaestro.com/token/MailContents",
+  "sha": "13f55fc32681",
+  "bytes": 89
+ },
+ "token/MailRawSource": {
+  "title": "MailRawSource",
+  "url": "https://wiki.keyboardmaestro.com/token/MailRawSource",
+  "sha": "8080af5f1b5b",
+  "bytes": 92
+ },
+ "token/MailRecipients": {
+  "title": "MailRecipients",
+  "url": "https://wiki.keyboardmaestro.com/token/MailRecipients",
+  "sha": "d2805b6adfd2",
+  "bytes": 117
+ },
+ "token/MailReplyTo": {
+  "title": "MailReplyTo",
+  "url": "https://wiki.keyboardmaestro.com/token/MailReplyTo",
+  "sha": "64e255448c13",
+  "bytes": 88
+ },
+ "token/MailSender": {
+  "title": "MailSender",
+  "url": "https://wiki.keyboardmaestro.com/token/MailSender",
+  "sha": "4dc30391b3e0",
+  "bytes": 85
+ },
+ "token/MailSubject": {
+  "title": "MailSubject",
+  "url": "https://wiki.keyboardmaestro.com/token/MailSubject",
+  "sha": "d8eef10b737c",
+  "bytes": 87
+ },
+ "token/MailToRecipients": {
+  "title": "MailToRecipients",
+  "url": "https://wiki.keyboardmaestro.com/token/MailToRecipients",
+  "sha": "12b3f2e201b3",
+  "bytes": 122
+ },
+ "token/MusicPlayerState": {
+  "title": "MusicPlayerState Token",
+  "url": "https://wiki.keyboardmaestro.com/token/MusicPlayerState",
+  "sha": "1fffa6df50ef",
+  "bytes": 411
+ },
+ "token/NamedClipboard": {
+  "title": "NamedClipboard Token",
+  "url": "https://wiki.keyboardmaestro.com/token/NamedClipboard",
+  "sha": "a89161ae0b1f",
+  "bytes": 672
+ },
+ "token/NamedClipboardFlavors": {
+  "title": "NamedClipboardFlavorsToken",
+  "url": "https://wiki.keyboardmaestro.com/token/NamedClipboardFlavors",
+  "sha": "85ea79671078",
+  "bytes": 690
+ },
+ "token/NetworkLocation": {
+  "title": "NetworkLocation",
+  "url": "https://wiki.keyboardmaestro.com/token/NetworkLocation",
+  "sha": "2a9ad7bf233b",
+  "bytes": 74
+ },
+ "token/NumberDate": {
+  "title": "NumberDate",
+  "url": "https://wiki.keyboardmaestro.com/token/NumberDate",
+  "sha": "744f59fc5dfc",
+  "bytes": 1666
+ },
+ "token/Oct": {
+  "redirect": "Calculate",
+  "url": "https://wiki.keyboardmaestro.com/token/Oct"
+ },
+ "token/OptionReturn": {
+  "title": "OptionReturn Token",
+  "url": "https://wiki.keyboardmaestro.com/token/OptionReturn",
+  "sha": "713d5380e0f7",
+  "bytes": 663
+ },
+ "token/PastClipboard": {
+  "title": "PastClipboard Token",
+  "url": "https://wiki.keyboardmaestro.com/token/PastClipboard",
+  "sha": "6a4651a0e89e",
+  "bytes": 1194
+ },
+ "token/PastClipboardFlavors": {
+  "title": "PastClipboardFlavors Token",
+  "url": "https://wiki.keyboardmaestro.com/token/PastClipboardFlavors",
+  "sha": "e3d358d41248",
+  "bytes": 919
+ },
+ "token/PasteByNameText": {
+  "title": "PasteByNameText Token",
+  "url": "https://wiki.keyboardmaestro.com/token/PasteByNameText",
+  "sha": "0ce8e9b15a0b",
+  "bytes": 329
+ },
+ "token/PromptButton": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/PromptButton",
+  "sha": "8c4276d24095",
+  "bytes": 517
+ },
+ "token/PromptWithListModifiers": {
+  "title": "PromptWithListModifiers Token",
+  "url": "https://wiki.keyboardmaestro.com/token/PromptWithListModifiers",
+  "sha": "e12c168561e1",
+  "bytes": 424
+ },
+ "token/PromptWithListText": {
+  "title": "PromptWithListText Token",
+  "url": "https://wiki.keyboardmaestro.com/token/PromptWithListText",
+  "sha": "875c42393ee4",
+  "bytes": 413
+ },
+ "token/RandomUUID": {
+  "title": "RandomUUID",
+  "url": "https://wiki.keyboardmaestro.com/token/RandomUUID",
+  "sha": "2fd1f19f884e",
+  "bytes": 76
+ },
+ "token/Return": {
+  "title": "Return Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Return",
+  "sha": "2f492f55ea90",
+  "bytes": 827
+ },
+ "token/SafariBundleID": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariBundleID"
+ },
+ "token/SafariField": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariField"
+ },
+ "token/SafariJavaScript": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariJavaScript"
+ },
+ "token/SafariLongVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariLongVersion"
+ },
+ "token/SafariName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariName"
+ },
+ "token/SafariPath": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariPath"
+ },
+ "token/SafariReadyState": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariReadyState"
+ },
+ "token/SafariTitle": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariTitle"
+ },
+ "token/SafariURL": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariURL"
+ },
+ "token/SafariVersion": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariVersion"
+ },
+ "token/SafariWindowName": {
+  "redirect": "WebBrowserTokens",
+  "url": "https://wiki.keyboardmaestro.com/token/SafariWindowName"
+ },
+ "token/Screen": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/Screen",
+  "sha": "20eb303a6271",
+  "bytes": 872
+ },
+ "token/ScreenResolution": {
+  "title": "ScreenResolution(s) Token",
+  "url": "https://wiki.keyboardmaestro.com/token/ScreenResolution",
+  "sha": "9f5562fb6772",
+  "bytes": 1023
+ },
+ "token/ScreenResolutions": {
+  "redirect": "ScreenResolution",
+  "url": "https://wiki.keyboardmaestro.com/token/ScreenResolutions"
+ },
+ "token/ScreenVisible": {
+  "redirect": "token:Screen",
+  "url": "https://wiki.keyboardmaestro.com/token/ScreenVisible"
+ },
+ "token/SelectMenuByNameText": {
+  "title": "SelectMenuByNameText Token",
+  "url": "https://wiki.keyboardmaestro.com/token/SelectMenuByNameText",
+  "sha": "45f7290544ae",
+  "bytes": 365
+ },
+ "token/ShortDate": {
+  "title": "ShortDate",
+  "url": "https://wiki.keyboardmaestro.com/token/ShortDate",
+  "sha": "4dd9a9daffe6",
+  "bytes": 1662
+ },
+ "token/ShortTime": {
+  "title": "ShortTime",
+  "url": "https://wiki.keyboardmaestro.com/token/ShortTime",
+  "sha": "530bfa801514",
+  "bytes": 1672
+ },
+ "token/Space": {
+  "title": "Space Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Space",
+  "sha": "f5103b131b8f",
+  "bytes": 354
+ },
+ "token/SystemClipboard": {
+  "title": "SystemClipboard Token",
+  "url": "https://wiki.keyboardmaestro.com/token/SystemClipboard",
+  "sha": "1e977a284f79",
+  "bytes": 638
+ },
+ "token/SystemClipboardFlavors": {
+  "title": "SystemClipboardFlavors Token",
+  "url": "https://wiki.keyboardmaestro.com/token/SystemClipboardFlavors",
+  "sha": "8ec405bdec37",
+  "bytes": 595
+ },
+ "token/SystemLongVersion": {
+  "redirect": "SystemVersion",
+  "url": "https://wiki.keyboardmaestro.com/token/SystemLongVersion"
+ },
+ "token/SystemVersion": {
+  "title": "SystemVersion Token",
+  "url": "https://wiki.keyboardmaestro.com/token/SystemVersion",
+  "sha": "c0055ed4282b",
+  "bytes": 375
+ },
+ "token/SystemVolume": {
+  "title": "SystemVolume",
+  "url": "https://wiki.keyboardmaestro.com/token/SystemVolume",
+  "sha": "a67f3ce8daf3",
+  "bytes": 63
+ },
+ "token/Tab": {
+  "title": "Tab Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Tab",
+  "sha": "3b791fe730f4",
+  "bytes": 360
+ },
+ "token/Trigger": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/Trigger",
+  "sha": "73b063b1980e",
+  "bytes": 285
+ },
+ "token/TriggerBase": {
+  "title": "TriggerBase Token",
+  "url": "https://wiki.keyboardmaestro.com/token/TriggerBase",
+  "sha": "9ea6ead57ce5",
+  "bytes": 966
+ },
+ "token/TriggerClipboard": {
+  "title": "TriggerClipboard Token",
+  "url": "https://wiki.keyboardmaestro.com/token/TriggerClipboard",
+  "sha": "cc9ce780361d",
+  "bytes": 1081
+ },
+ "token/TriggerClipboardFlavors": {
+  "title": "TriggerClipboardFlavorsToken",
+  "url": "https://wiki.keyboardmaestro.com/token/TriggerClipboardFlavors",
+  "sha": "ec03d10c1857",
+  "bytes": 1086
+ },
+ "token/TriggerValue": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/token/TriggerValue",
+  "sha": "312707f56c4d",
+  "bytes": 3562
+ },
+ "token/UserHome": {
+  "title": "UserHome Token",
+  "url": "https://wiki.keyboardmaestro.com/token/UserHome",
+  "sha": "ab9e6e96f087",
+  "bytes": 282
+ },
+ "token/UserLoginID": {
+  "title": "UserLoginID",
+  "url": "https://wiki.keyboardmaestro.com/token/UserLoginID",
+  "sha": "eb9304c1843a",
+  "bytes": 62
+ },
+ "token/UserName": {
+  "title": "UserName",
+  "url": "https://wiki.keyboardmaestro.com/token/UserName",
+  "sha": "7b91dd53f02c",
+  "bytes": 55
+ },
+ "token/VBAR": {
+  "title": "VBAR",
+  "url": "https://wiki.keyboardmaestro.com/token/VBAR",
+  "sha": "fc5eb8bef88b",
+  "bytes": 912
+ },
+ "token/Variable": {
+  "title": "Variable Token",
+  "url": "https://wiki.keyboardmaestro.com/token/Variable",
+  "sha": "2ba6c5fb2822",
+  "bytes": 1276
+ },
+ "token/WebBrowserTokens": {
+  "title": "Web Browser Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/WebBrowserTokens",
+  "sha": "8c7d047465a2",
+  "bytes": 3810
+ },
+ "token/WindowFrame": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/WindowFrame"
+ },
+ "token/WindowName": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/WindowName"
+ },
+ "token/WindowPosition": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/WindowPosition"
+ },
+ "token/WindowSize": {
+  "redirect": "token:Window_Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/WindowSize"
+ },
+ "token/Window_Tokens": {
+  "title": "Window Related Tokens",
+  "url": "https://wiki.keyboardmaestro.com/token/Window_Tokens",
+  "sha": "1ff76863ad7d",
+  "bytes": 4547
+ },
+ "token/WirelessNetwork": {
+  "title": "WirelessNetwork",
+  "url": "https://wiki.keyboardmaestro.com/token/WirelessNetwork",
+  "sha": "e76904f67820",
+  "bytes": 442
+ },
+ "trigger/Appearance_Changed": {
+  "title": "Appearance Changed Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Appearance_Changed",
+  "sha": "c406d748cd49",
+  "bytes": 567
+ },
+ "trigger/Application": {
+  "title": "Application Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Application",
+  "sha": "7467835ba17b",
+  "bytes": 2274
+ },
+ "trigger/Audio_Output_Changed": {
+  "title": "Audio Output Changed",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Audio_Output_Changed",
+  "sha": "7e1093321733",
+  "bytes": 567
+ },
+ "trigger/Clipboard_Changed": {
+  "title": "Clipboard Changed Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Clipboard_Changed",
+  "sha": "cb5ccd18a4aa",
+  "bytes": 413
+ },
+ "trigger/Clipboard_Filter": {
+  "title": "Clipboard Filter Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter",
+  "sha": "1f72056793fa",
+  "bytes": 1114
+ },
+ "trigger/Cron": {
+  "title": "Cron Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Cron",
+  "sha": "3c4fa8be545e",
+  "bytes": 4020
+ },
+ "trigger/Display_Layout_Changed": {
+  "title": "Display Layout Changed Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Display_Layout_Changed",
+  "sha": "818f1a4d27fc",
+  "bytes": 1045
+ },
+ "trigger/Dragged_File": {
+  "title": "Dragged File Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Dragged_File",
+  "sha": "ab5d38410602",
+  "bytes": 1064
+ },
+ "trigger/Engine_Launch": {
+  "title": "Engine Launch Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Engine_Launch",
+  "sha": "b6c24a438a3a",
+  "bytes": 683
+ },
+ "trigger/Focused_Window": {
+  "title": "Focused Window Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Focused_Window",
+  "sha": "9043a50291c0",
+  "bytes": 1486
+ },
+ "trigger/Folder": {
+  "title": "Folder Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Folder",
+  "sha": "4c8e8ebd9531",
+  "bytes": 1445
+ },
+ "trigger/Gesture": {
+  "title": "Gesture Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Gesture",
+  "sha": "c79d6fecb3bc",
+  "bytes": 939
+ },
+ "trigger/Global_Macro_Palette": {
+  "title": "Global Macro Palette Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette",
+  "sha": "ea0109a3799e",
+  "bytes": 2099
+ },
+ "trigger/Group_Status_Menu": {
+  "title": "Group Status Menu Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Group_Status_Menu",
+  "sha": "aded838c6f25",
+  "bytes": 1560
+ },
+ "trigger/Hot_Key": {
+  "title": "Hot Key Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Hot_Key",
+  "sha": "32b0be361f07",
+  "bytes": 7604
+ },
+ "trigger/Idle": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Idle",
+  "sha": "fa3426d87393",
+  "bytes": 801
+ },
+ "trigger/Login": {
+  "title": "Login",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Login",
+  "sha": "2fc7d542760b",
+  "bytes": 561
+ },
+ "trigger/MIDI": {
+  "title": "MIDI Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/MIDI",
+  "sha": "5fb058397ae6",
+  "bytes": 4494
+ },
+ "trigger/Mounted_Volume": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Mounted_Volume",
+  "sha": "2a4a992680e6",
+  "bytes": 1388
+ },
+ "trigger/Periodic": {
+  "title": "Periodic Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Periodic",
+  "sha": "841fdcedae54",
+  "bytes": 1066
+ },
+ "trigger/Power_Status_Changed": {
+  "title": "Power Status Changed Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Power_Status_Changed",
+  "sha": "06fd6460975e",
+  "bytes": 336
+ },
+ "trigger/Public_Web": {
+  "title": "Public Web Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Public_Web",
+  "sha": "fe76ead1ca0a",
+  "bytes": 3015
+ },
+ "trigger/Remote": {
+  "title": "Remote Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Remote",
+  "sha": "8e6e314c73d1",
+  "bytes": 4626
+ },
+ "trigger/Script": {
+  "title": "See Also",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Script",
+  "sha": "4471a007e61f",
+  "bytes": 1390
+ },
+ "trigger/Sleep": {
+  "title": "Sleep  Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Sleep",
+  "sha": "f183b4378670",
+  "bytes": 346
+ },
+ "trigger/Space_Changed": {
+  "title": "Space Changed Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Space_Changed",
+  "sha": "a9594358c3cf",
+  "bytes": 240
+ },
+ "trigger/Status_Menu": {
+  "title": "Status Menu Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Status_Menu",
+  "sha": "3ffc9a51c3e2",
+  "bytes": 1495
+ },
+ "trigger/Subroutine": {
+  "title": "Subroutine Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Subroutine",
+  "sha": "4fbcc281e22e",
+  "bytes": 537
+ },
+ "trigger/Time_of_Day": {
+  "title": "Time of Day Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Time_of_Day",
+  "sha": "8b0f1e0e7c4c",
+  "bytes": 1204
+ },
+ "trigger/Trigger_File": {
+  "title": "Trigger File",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Trigger_File",
+  "sha": "1bdb248cbe33",
+  "bytes": 698
+ },
+ "trigger/Typed_String": {
+  "title": "Typed String Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Typed_String",
+  "sha": "1a03c6800959",
+  "bytes": 6246
+ },
+ "trigger/URL": {
+  "title": "URL Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/URL",
+  "sha": "4d544d3e8026",
+  "bytes": 2405
+ },
+ "trigger/USB_Device": {
+  "title": "USB Device",
+  "url": "https://wiki.keyboardmaestro.com/trigger/USB_Device",
+  "sha": "280f9fb8ccc4",
+  "bytes": 606
+ },
+ "trigger/USB_Device_Key": {
+  "title": "USB Device Key Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/USB_Device_Key",
+  "sha": "f66ce02e1ae9",
+  "bytes": 2510
+ },
+ "trigger/Unlock": {
+  "title": "Unlock Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Unlock",
+  "sha": "3ed4a88bf169",
+  "bytes": 254
+ },
+ "trigger/Wake": {
+  "title": "Wake Trigger",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Wake",
+  "sha": "056541f7666d",
+  "bytes": 342
+ },
+ "trigger/Web_Server": {
+  "title": "Web Server",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Web_Server",
+  "sha": "b1b0538b30f8",
+  "bytes": 4359
+ },
+ "trigger/Wireless_Network": {
+  "title": "Wireless Network",
+  "url": "https://wiki.keyboardmaestro.com/trigger/Wireless_Network",
+  "sha": "c9f4db3de5a8",
+  "bytes": 1422
+ },
+ "trigger/keyboardmaestro": {
+  "title": "keyboardmaestro CLI Tool",
+  "url": "https://wiki.keyboardmaestro.com/trigger/keyboardmaestro",
+  "sha": "5801aa299025",
+  "bytes": 1937
+ }
+}

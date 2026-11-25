@@ -1,0 +1,149 @@
+---
+// 首页：先对新手说话（你是不是也这样 → 新手三课），再给想用得更深的人几条路进完整教程（TRACKS），最后是适不适合、提问和讨论。
+// 中文、英文的文字在下面的 ZH、EN；以后加的语言在 src/i18n/<语言>.js 的 home（结构照 base.js），完整教程链到英文页。
+// 完整教程还没写好的步骤（nav.js 里 ready: false）不给链接，和左侧导航一样显示「编写中」。
+import Site from "../layouts/Site.astro";
+import Contact from "../components/Contact.astro";
+import { LESSONS, lessonHref, STEPS, stepHref, link, langOf, fullLang, t } from "../data/nav.js";
+import { X as dict, fmt } from "../i18n/index.js";
+
+const lang = langOf(Astro.url.pathname);
+const fl = fullLang(lang);
+const hl = fl === lang ? undefined : fl;
+
+// 待写：首页文案。下面以「占位：」开头的字段都要换成正文，写法见 docs/MAINTAINING.md 的「怎么写」；英文版 EN 和 src/i18n/base.js 的 home 一起改。
+const ZH = {
+  brand: "Keyboard Maestro 新手教程",
+  h1: "占位：一句话说清 Keyboard Maestro 替你做什么",
+  lead: ["占位：两三句，讲你在 Mac 上每天重复的那些小事，和一个宏怎么把它们接过去。", "这是非官方学习站", "，和 Stairways Software 没有关系；功能和用法以官方 Wiki 为准。"],
+  cta: ["新手从第 1 课开始", "已经在用了？看 How-to"],
+  ctaNote: "占位：一句话说三课各做出什么。",
+  painH: "你是不是也这样",
+  PAIN: [
+    "占位：每天把同一段地址、签名或回复，一个字一个字打一遍。",
+    "占位：每天开工，先点开同几个 App，再把窗口一个个拖到老地方。",
+    "占位：有个菜单命令天天要用，却没有快捷键，每次都得用鼠标去找。",
+  ],
+  lessonsH: "新手只要三课",
+  lessonsP: "占位：一句话说按顺序看就行，学完这三课能自己做宏。",
+  lessonsLabel: "新手入门：共 3 课",
+  tracksH: "用熟以后看这里",
+  tracksP: "占位：一句话引出完整教程，三条路各管什么。",
+  // TRACKS：[图标, 标题, 说明, 对应的完整教程步骤]
+  TRACKS: [
+    ["Zap", "宏是怎么转起来的", "占位：宏组、触发器、动作，一个宏从哪里生效、什么时候开始、做了什么。", [0, 1, 2, 3]],
+    ["GitBranch", "让宏看情况办事", "占位：变量、条件、循环和剪贴板，宏不再只是一串固定的按键。", [4, 5]],
+    ["Wrench", "不灵的时候，和再往深走", "占位：宏不灵时先查哪里；脚本、子程序、同步和分享。", [6, 7]],
+  ],
+  tracksLabel: "完整教程里对应的步骤",
+  stepLink: (n: number, title: string) => `第 ${n} 步：${title}`,
+  pending: "编写中",
+  fitH: "适不适合你", yesH: "适合", noH: "先不用",
+  YES: ["占位：在 Mac 上有一件反复做的事，想交出去", "占位：不会写代码也没关系", "占位：愿意花几分钟给它开权限"],
+  NO: ["占位：用的不是 Mac", "占位：只做一次的事，手动做更快"],
+};
+
+// TBD: home copy. Every field starting with "Placeholder:" needs real text (voice rules in docs/MAINTAINING.md); change ZH and src/i18n/base.js's home with it.
+const EN: typeof ZH = {
+  brand: "Keyboard Maestro for beginners",
+  h1: "Placeholder: one line on what Keyboard Maestro does for you",
+  lead: ["Placeholder: two or three sentences on the small things you repeat on your Mac every day, and how a macro takes them off your hands. ", "This is an unofficial guide", ", not affiliated with Stairways Software. For features and how they work, the official wiki is the source of truth."],
+  cta: ["New? Start with lesson 1", "Already using it? The how-tos"],
+  ctaNote: "Placeholder: one line on what each of the three lessons builds.",
+  painH: "Sound familiar?",
+  PAIN: [
+    "Placeholder: typing the same address, signature or reply, letter by letter, every day.",
+    "Placeholder: starting each morning by opening the same apps and dragging every window back into place.",
+    "Placeholder: a menu command you use all the time that has no shortcut, so you hunt for it with the mouse.",
+  ],
+  lessonsH: "Beginners need just three lessons",
+  lessonsP: "Placeholder: one line saying read them in order, and after these three you can build your own macros.",
+  lessonsLabel: "Beginner track: 3 lessons",
+  tracksH: "Once you're comfortable",
+  tracksP: "Placeholder: one line leading into the full guide and what each track covers.",
+  TRACKS: [
+    ["Zap", "How a macro runs", "Placeholder: macro groups, triggers and actions: where a macro is active, when it starts and what it does.", [0, 1, 2, 3]],
+    ["GitBranch", "Macros that adapt", "Placeholder: variables, conditions, loops and the clipboard, so a macro is more than a fixed string of keystrokes.", [4, 5]],
+    ["Wrench", "When it misfires, and going further", "Placeholder: what to check first when a macro doesn't work; scripts, subroutines, syncing and sharing.", [6, 7]],
+  ],
+  tracksLabel: "Matching steps in the full guide",
+  stepLink: (n, title) => `Step ${n}: ${title}`,
+  pending: "In progress",
+  fitH: "Is it for you?", yesH: "Yes, if", noH: "Not yet, if",
+  YES: ["Placeholder: you have something you repeat on your Mac and want to hand off", "Placeholder: you don't write code, and that's fine", "Placeholder: you can spend a few minutes granting it permissions"],
+  NO: ["Placeholder: you're not on a Mac", "Placeholder: it's a one-off job that's faster by hand"],
+};
+
+// 以后加的语言：文字来自 src/i18n/<语言>.js 的 home（缺的键是 base.js 的英文）；TRACKS 的图标和步骤沿用这里
+const x = dict(lang);
+const C: typeof ZH = x
+  ? { ...EN, ...x.home, brand: x.ui.brand,
+      TRACKS: EN.TRACKS.map(([icon, , , steps], i) => [icon, ...(x.home.TRACKS?.[i] ?? EN.TRACKS[i].slice(1, 3)), steps]),
+      stepLink: (n: number, title: string) => fmt(x.home.stepLink, { n, title }) }
+  : lang === "en" ? EN : ZH;
+const headings = [["h-pain", C.painH], ["h-lessons", C.lessonsH], ["h-tracks", C.tracksH], ["h-fit", C.fitH]].map(([slug, text]) => ({ slug, text, depth: 2 }));
+---
+<Site title={C.brand} headings={headings}>
+  <div class="home">
+    <h1>{C.h1}</h1>
+    <p class="home__lead">{C.lead[0]}<mark>{C.lead[1]}</mark>{C.lead[2]}</p>
+    <div class="home__cta">
+      <a class="xxd-btn" data-variant="primary" href={lessonHref(LESSONS[0], lang)}>{C.cta[0]}<i data-xxd-icon="ArrowRight" data-size="16"></i></a>
+      <a class="xxd-btn" data-variant="ghost" href={link("/howto/", fl)} hreflang={hl}>{C.cta[1]}</a>
+    </div>
+    <p class="home__note">{C.ctaNote}</p>
+
+    <section aria-labelledby="h-pain">
+      <h2 id="h-pain">{C.painH}</h2>
+      <ul class="pain">{C.PAIN.map((p) => <li>{p}</li>)}</ul>
+    </section>
+
+    <section aria-labelledby="h-lessons">
+      <h2 id="h-lessons">{C.lessonsH}</h2>
+      <p>{C.lessonsP}</p>
+      <ol class="xxd-steps roadmap" data-vertical aria-label={C.lessonsLabel}>
+        {LESSONS.map((s) => (
+          <li class="xxd-steps__item">
+            <span class="xxd-steps__mark" aria-hidden="true">{s.n}</span>
+            <span class="xxd-steps__text">
+              <a class="xxd-steps__title xxd-steps__link" href={lessonHref(s, lang)}>{t(s, "title", lang)}</a>
+              <span class="xxd-steps__desc">{t(s, "minutes", lang)} · {t(s, "sum", lang)}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="h-tracks">
+      <h2 id="h-tracks">{C.tracksH}</h2>
+      <p>{C.tracksP}</p>
+      {x && <p class="home__note">{x.home.devNote}</p>}
+      <div class="flow">
+        {C.TRACKS.map(([icon, h, p, steps]) => (
+          <div class="flow__box">
+            <i class="flow__icon" data-xxd-icon={icon} data-size="20"></i>
+            <p class="flow__title">{h}</p>
+            <p class="flow__desc">{p}</p>
+            <ul class="flow__how" aria-label={C.tracksLabel}>
+              {(steps as number[]).map((n) => STEPS.find((s) => s.n === n)!).map((s) => (
+                <li>{s.ready
+                  ? <a href={stepHref(s, fl)} hreflang={hl}>{C.stepLink(s.n, t(s, "title", fl))}</a>
+                  : <>{C.stepLink(s.n, t(s, "title", fl))}<span class="xxd-badge roadmap__pending">{C.pending}</span></>}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section aria-labelledby="h-fit">
+      <h2 id="h-fit">{C.fitH}</h2>
+      <div class="fit">
+        <div class="route"><h3><i data-xxd-icon="CircleCheck" data-size="18"></i>{C.yesH}</h3><ul>{C.YES.map((y) => <li>{y}</li>)}</ul></div>
+        <div class="route"><h3><i data-xxd-icon="CircleX" data-size="18"></i>{C.noH}</h3><ul>{C.NO.map((y) => <li>{y}</li>)}</ul></div>
+      </div>
+    </section>
+
+    <Contact />
+  </div>
+</Site>
