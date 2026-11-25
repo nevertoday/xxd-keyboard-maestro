@@ -44,9 +44,9 @@ You don't need to code, and you don't need to learn a hundred actions first. Eac
   <img src="assets/en/readme/lessons.svg" width="100%" alt="The three beginner lessons. Lesson 1, 15 minutes: install it and open your favorite app with one key, after which you have one hot key that opens the app you use every day. Lesson 2, 10 minutes: type a few letters, get a whole paragraph, after which a few letters turn into a whole paragraph. Lesson 3, 15 minutes: one key, a whole routine, after which one key runs your morning routine: apps, a web page, windows in place.">
 </p>
 
-1. **[Install it and open your favorite app with one key](https://keyboardmaestro.xiaoxiaodong.ai/en/start/1-first-macro/)** (15 minutes): download it, grant the permissions, keep the Engine running, then build your first macro: one hot key that opens the app you use every day.
-2. **[Type a few letters, get a whole paragraph](https://keyboardmaestro.xiaoxiaodong.ai/en/start/2-type-less/)** (10 minutes): the address, intro or reply you type every day goes into a typed string trigger. Type a few letters and the whole text appears.
-3. **[One key, a whole routine](https://keyboardmaestro.xiaoxiaodong.ai/en/start/3-one-key-routine/)** (15 minutes): turn the clicks you make every morning into one macro that opens a few apps and a web page and puts the windows in place, then learn to stop it and where to look when it misfires.
+1. **[Install it and open your favorite app with one key](https://keyboardmaestro.xiaoxiaodong.ai/en/start/1-first-macro/)** (15 minutes): Download it, grant the permissions, keep the Engine running, then build your first macro: one hot key that opens the app you use every day.
+2. **[Type a few letters, get a whole paragraph](https://keyboardmaestro.xiaoxiaodong.ai/en/start/2-type-less/)** (10 minutes): The address, intro or reply you type every day goes into a typed string trigger: type a few letters and the whole text appears.
+3. **[One key, a whole routine](https://keyboardmaestro.xiaoxiaodong.ai/en/start/3-one-key-routine/)** (15 minutes): Turn the clicks you make every morning into one macro: open a few apps and a web page, put the windows in place, then learn to stop it and where to look when it misfires.
 
 ## The full guide
 

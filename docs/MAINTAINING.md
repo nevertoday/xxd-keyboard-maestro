@@ -29,15 +29,10 @@ npm run check      # 构建以后跑：多语言、整站、界面名字
 
 ## 现在的状态
 
-骨架已经搭好，内容还没写。
+v1 的内容写完了：新手入门三课、完整教程 0–7 步（8 步）、18 篇 How-to、22 个 Wiki 条目和常见问题，中英文各一份。2026-11-25 对照官方 Wiki 逐条核对过一遍。
 
-- 新手入门、完整教程、How-to 的每一页，正文都只有一行不会显示出来的注释（中文页 `{/* 待写：… */}`，英文页 `{/* TBD: … */}`），写着这一页该讲什么。新手入门和完整教程的 `tldr` 先抄了 `nav.js` 的 `sum`，写正文时一起改。`grep -rlE '待写|TBD:' src/pages` 列出还没写的页。
-- 完整教程每一步在 `nav.js` 里是 `ready: false`，导航和首页显示「编写中」、不给链接；写完一步改成 `ready: true`。
-- 首页（`views/Home.astro` 的 `ZH`、`EN`）和 `src/i18n/base.js` 的 `home` 是占位文字，页面上以「占位：」/「Placeholder:」开头，源码里标着 `待写` / `TBD:`。
-- `wiki.js`、`wiki.en.js`、`faq.js`、`faq.en.js` 只有结构，没有条目。`GLOSSARY` 的每个术语已经用 `wiki:` 写好要指向的 slug，条目还不存在：哪一页先用了 `<Term>`，`check-site` 会报「链接不存在：/wiki/…」，所以写页面时把它用到的 Wiki 条目一起写上。
-- 分享大图：模板做好了，全站两张已经截好。Wiki 条目还没有，所以它们的卡也还没有，`check-site` 缺图先只提醒、不算失败（`scripts/check-site.mjs` 的 `OG_MISSING_FAILS = false`）。Wiki 条目写进来、跑过 `npm run og`、把 `public/og/` 和 `tools/og-manifest.json` 一起提交以后，改成 `true`。
-- `docs/TRANSLATE.md` 还是 Saily 站的版本，加语言之前要改写。
-- `check-site` 查的是构建出来的页面，看不见 MDX 注释，所以空白的页面它不拦。拦它的是 `npm run release`：`src/pages`、`src/views`、`src/i18n` 里还有 `待写` 或 `TBD:`，它在部署前停下，并列出是哪几个文件。
+- 下一步是另外 8 种语言（见上面「以后的 8 种语言」）。`docs/TRANSLATE.md` 还是 Saily 站的版本，加语言之前要改写。
+- `npm run release` 在部署前查 `src/pages`、`src/views`、`src/i18n` 里还有没有 `待写` 或 `TBD:`，有就停下并列出文件；`check-site` 查的是构建出来的页面，看不见 MDX 注释，所以这一道要留着。
 
 ## 怎么改
 
@@ -55,7 +50,7 @@ npm run check      # 构建以后跑：多语言、整站、界面名字
 
 本站写的每一条事实，都要能在官方找到出处：
 
-1. **Keyboard Maestro 官方 Wiki** [wiki.keyboardmaestro.com](https://wiki.keyboardmaestro.com/)（DokuWiki，只有英文）：用户手册（`manual/`）、每个动作（`action/`）、触发器（`trigger/`）、条件（`condition/`）、令牌（`token/`）、函数（`function/`）、集合（`collection/`），加上根目录的概念页。功能、选项、菜单路径、限制、权限、偏好设置都以这里为准。中英文页都链同一篇。
+1. **Keyboard Maestro 官方 Wiki** [wiki.keyboardmaestro.com](https://wiki.keyboardmaestro.com/)（DokuWiki，只有英文）：用户手册（`manual/`）、每个动作（`action/`）、触发器（`trigger/`）、条件（`condition/`）、令牌（`token/`）、函数（`function/`）、集合（`collection/`）、求助页（`assistance/`，权限、安全输入这类问题，`manual/Troubleshooting` 链过去），加上根目录的概念页。功能、选项、菜单路径、限制、权限、偏好设置都以这里为准。中英文页都链同一篇。
 2. **App 自带的英文字符串**：按钮、菜单、动作和偏好设置的名字照 App 屏幕上的字写。`tools/km-labels.json` 是从 App 里整理出来的清单（见下面「界面名字」）。
 3. **官方论坛** [forum.keyboardmaestro.com](https://forum.keyboardmaestro.com/) 上的帖子：只当作「有人这样用过」的经验来用，写明是论坛上用户的经验，附原帖链接。它们从来不是功能或步骤的出处；帖子和官方说法不一样时，以官方为准，帖子的说法不写。
 
@@ -80,8 +75,9 @@ node scripts/check-doc-links.mjs    # 联网查官方 Wiki 和官网的链接打
 ```
 
 - `sync-docs` 用 DokuWiki 的「网站地图」列出每个命名空间的页面，再按页导出原始标记（`/_export/raw/<页>`），不用登录。只是跳转的页面记下跳到哪，不存正文。列出的改动页面，对照 `docs/sources/README.md` 的「和本站的对应」表，改掉本站用到的地方，再提交 `official.json`。只想看有没有变：加 `--check`（有变化时退出码 1）。
-- `check-doc-links` 查 `src/` 和 README 里所有 wiki.keyboardmaestro.com、keyboardmaestro.com 的链接。Wiki 里不存在的页面回 404。锚点是小标题原样、空格换成下划线，**大小写不变**（`=== See Also ===` 是 `#See_Also`），只是大小写不对的它会给出线上的写法。链到跳转页的，它提醒改链到目标页。
-- 当前核对到：官方 Wiki 2026-11-24（555 页正文、253 个跳转页），Keyboard Maestro 11.1.1。
+- `check-doc-links` 查 `src/` 和 README 里所有 wiki.keyboardmaestro.com、keyboardmaestro.com 的链接。Wiki 里不存在的页面回 404。锚点是小标题原样、空格换成下划线，**大小写不变**（`=== See Also ===` 是 `#See_Also`），小标题里的逗号去掉，只是大小写不对的它会给出线上的写法。链到跳转页的，它提醒改链到目标页。
+- 当前核对到：官方 Wiki 2026-11-25（571 页正文、254 个跳转页），Keyboard Maestro 11.1.1。
+- 本站每页链了哪些官方页面：`node scripts/source-map.mjs --write` 重新数一遍，写进 `docs/sources/README.md` 的「和本站的对应」。
 
 ## 界面名字
 
