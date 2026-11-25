@@ -1,5 +1,73 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: insert-date
+step: 4
+time: Ten minutes
+for: You keep a log or a diary and every entry starts with the date
+tldr: Press ⌃⌥⌘D in Notes and the date and time, like 2026-11-25 08:30, appear where your cursor is, in whatever format you pick. No more checking the calendar.
+description: Use the %ICUDateTime% date token with Insert Text by Typing to insert today's date and time with one hot key. Change the format with the official format codes, and work out the date two weeks from now as well.
 ---
-{/* TBD: insert today's date with one key using a date token like %LongDate% and an Insert Text action, and how to change the format. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+If you look after an aging parent, you probably keep a running log: what time the pills went down, the blood pressure reading, what hurt today. At the next doctor's visit, when the doctor asks how the week has been, the log has the answer. But every entry needs a date and time, several times a day, and after a while you get lazy and write "yesterday", and a week later nothing lines up. When you finish this page, pressing ⌃⌥⌘D in Notes (⌃ is Control, ⌥ is Option, ⌘ is Command) will put `2026-11-25 08:30 ` right where your cursor is, and you just keep writing.
+
+<mark>You don't type the date. You write a token, and the moment the macro runs, it turns into today.</mark>
+
+## Tokens: placeholders that fill themselves in
+
+Most of the places in Keyboard Maestro where you can type text understand <Term k="令牌" text="tokens" />. A token is a name wrapped in percent signs, like `%LongDate%`. While you're editing, it's just those characters. When the macro runs, it's replaced with the real thing (see [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)). There are several date tokens. `%ShortDate%`, `%LongDate%` and `%NumberDate%` give today's date in the short, long and numeric formats from your Mac's region settings. Another one, `%ICUDateTime%`, lets you write the format yourself.
+
+A log works best when every entry looks the same and is easy to read, so this page uses `%ICUDateTime%`. You follow the token with your format and close it with one more percent sign:
+
+<Copy id="id-token" title="Date and time" code="%ICUDateTime%yyyy-MM-dd HH:mm% " />
+
+Each letter in the format means something. The common ones, from the official [Dates and Times](https://wiki.keyboardmaestro.com/Dates_and_Times) page: `yyyy` is the four-digit year, `MM` the two-digit month, `dd` the two-digit day, `HH` the hour on a 24-hour clock, `mm` the minutes, and `EEEE` the full weekday name. Capital `MM` is the month and lowercase `mm` is minutes, so one letter's case makes a big difference. The space at the end is there so you can carry straight on typing.
+
+## Build the macro
+
+Make a new macro called "Insert date and time" in a macro group that's available in every app. For the trigger, choose **Hot Key** and press ⌃⌥⌘D. Other apps rarely use three modifiers plus a letter. For the action, choose **Insert Text by Typing** and paste in the line above.
+
+Typing beats pasting here because the date is short and made of characters on your keyboard, and the official page says this action works just like you typing, keeping the style of the text where your cursor is. It doesn't replace your clipboard the way pasting does, either (see [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text)).
+
+You don't need to memorize the format letters. Put your cursor in the action's text box and choose **Edit ▸ Insert ICU Date Field** to pick one. **Edit ▸ Insert Token** lists every token, so there's nothing to learn by heart.
+
+## Pick the format you like
+
+Everyone writes dates their own way, so just swap the format part. These come from the official format table, with what you'd get on November 25, 2026 in brackets:
+
+- `%ICUDateTime%yyyy-MM-dd%` (2026-11-25): biggest to smallest, so files named this way sort by date.
+- `%ICUDateTime%dd/MM/yyyy%` (25/11/2026): day first, the way many places write it.
+- `%ICUDateTime%EEE, MMM d, yyyy%` (Wed, Nov 25, 2026): with short weekday and month names.
+
+When a format includes weekday or month names, which language they come out in depends on your system and your version of macOS. The Localization section on the official page goes into this. If you want the same result on every Mac, stick to numbers.
+
+## Look ahead: the follow-up in two weeks
+
+Doctors often say "come back in two weeks". `%ICUDateTimePlus%` adds to today. In the middle, you say how much and in what unit:
+
+<Copy id="id-plus" title="Two weeks from today" code="Next appointment: %ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
+
+The unit can be Days, Weeks, Months and so on, and to count backwards you use `%ICUDateTimeMinus%` the same way (see [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). You could make this line its own macro on ⌃⌥⌘J, or turn it into an abbreviation like `=next=` with a typed string, as in [Turn the things you type often into abbreviations](/en/howto/text-snippets/).
+
+## Check that it works
+
+Open Notes, start a new note, and press ⌃⌥⌘D. You should see today's date and the current time where your cursor is, followed by a space. Glance at the clock in your menu bar. If they match, you're done.
+
+## Stuck?
+
+<Q q="It typed %ICUDateTime%yyyy-MM-dd HH:mm% itself.">
+The token wasn't replaced, most likely because the action's text processing was changed. Click the gear at the top right of the action and see whether it's set to **Process Nothing**. Set it back to **Process Text Normally**. Then compare your line with the one above, checking the token name and all three percent signs.
+</Q>
+<Q q="Around New Year, the year is off by one.">
+You probably wrote a capital `YYYY`. The official page specifically warns that capital Y is the year of the "week of year" and gives odd results at the start and end of each year. Use lowercase `yyyy` for the year.
+</Q>
+<Q q="The time shows the month instead of the minutes.">
+You wrote the minutes as capital `MM`. The month is capital `MM` and minutes are lowercase `mm`.
+</Q>
+<Q q="I pressed ⌃⌥⌘D and nothing happened.">
+Check that the macro and its macro group are both ticked and the Engine is running. Then check whether another app already uses ⌃⌥⌘D, and try a different letter. If it still won't fire, work through [full guide step 6](/en/guide/6-debug/) one item at a time.
+</Q>
+
+One token and one hot key, and every entry from now on carries the exact date and time. Tokens work in other actions too, like adding today's date when you rename files. See [Rename a batch of files](/en/howto/rename-files/).

@@ -1,5 +1,59 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: app-hotkeys
+step: 2
+time: 一个 App 两分钟
+for: 一天在几个 App 之间来回切几十次，每次都要找
+tldr: ⌃⌥⌘M 永远是 Mail，⌃⌥⌘C 永远是日历：开着就切过去，没开就先打开；已经在最前面时再按一下，回到刚才那个 App。
+description: 用 Hot Key 触发器加 Activate a Specific Application，给常用的 App 各配一个固定的键；在 If already at the front 里选切回上一个 App，同一个键就能来回切。键不够用时，用一个只生效一次的宏组，先按一个组合，再按一个字母。
 ---
-{/* 待写：给常用的 App 各配一个热键：开着就切过去，没开就打开。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+上班的人，一天里要在 Mail、日历、备忘录之间来回切几十次。按 ⌘Tab 切，常常一下跳过了头，再按又绕一圈；去 Dock 里找图标，眼睛还得离开手上的活。照这一页做完，⌃⌥⌘M 永远是 Mail，⌃⌥⌘C 永远是日历，⌃⌥⌘N 永远是备忘录（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command）。App 开着就切过去，没开就先打开它；已经在最前面时再按一下，就回到你刚才用的那个 App。
+
+<mark>一个 App 配一个固定的键，手指记住了，眼睛就不用去找了。</mark>
+
+## 一个键对应一个 App
+
+要的是这样一个宏：<Term k="热键" />一按，指定的 App 就到最前面。管这件事的动作叫 **Activate a Specific Application**（激活指定的 App），官方说它的作用就是切到那个 App，需要的话先把它打开，和你用 ⌘Tab 切过去或者双击图标打开是一回事（见 [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)）。
+
+这个动作里有一栏 **If already at the front:**，管的是 App 已经在最前面时再按一下怎么办：可以留着不动，可以切回上一个 App，可以把它藏起来，等等。选「切回上一个 App」那一项，同一个键就成了一个来回开关：按一下过去，再按一下回来。
+
+[新手入门第 1 课](/start/1-first-macro/)做过一个这样的宏。这一页把它变成一整套。
+
+## 做一整套
+
+先建一个宏组，叫「切 App」，宏组默认在所有 App 里都生效，不用改。然后在里面每个 App 建一个宏，三样东西都一样，只有键和 App 不同：
+
+- 「Mail」：触发器 **Hot Key**（热键）按 ⌃⌥⌘M，动作 **Activate a Specific Application** 选 Mail。
+- 「日历」：⌃⌥⌘C，选日历。
+- 「备忘录」：⌃⌥⌘N，选备忘录。
+
+三个宏的 **If already at the front:** 都选切回上一个 App。
+
+键怎么挑，官方的建议是保持一致，比如用同一组修饰键表示「打开一个 App」，这样不用一个个死记（见 [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)）。这里统一用 ⌃⌥⌘ 加 App 英文名字的头一个字母：Mail 是 M，日历（Calendar）是 C，备忘录（Notes）是 N。你自己的那套，挑你一想就对得上的字母就好。
+
+## 键不够用了：先按一个组合，再按一个字母
+
+App 一多，⌃⌥⌘ 加字母也会撞车。官方手册里有一个办法：把这些宏放进一个只「生效一次」的宏组。宏组设成 **Activated for one action when:**，配一个热键，比如 ⌃⌥⌘A；组里的宏只用单个字母当热键，M 是 Mail、S 是 Safari、F 是 Finder。平时这些字母照常打字，只有你先按了 ⌃⌥⌘A，宏组才醒过来，等你按下一个字母，跑完那一个宏，它就又睡回去了（见 [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。
+
+这样一组键就能管十几个 App，而且全键盘只多占了一个组合。
+
+## 做完怎么确认
+
+先退出 Mail，随便在哪个 App 里按 ⌃⌥⌘M，Mail 应该打开并来到最前面。在 Mail 里再按一次 ⌃⌥⌘M，你应该回到刚才那个 App。日历和备忘录照样各试一遍。
+
+## 卡住了？
+
+<Q q="按了热键，什么也没发生。">
+先确认宏和「切 App」这个宏组都勾着，引擎在跑。然后想想这个组合是不是别的 App 也在用：官方说，别的 App 注册了同一个热键时，你的宏和那个 App 的功能会一起发生。换一个字母试试。再不行，选 **Help ▸ Interactive Help** 让它替你查权限和引擎。
+</Q>
+<Q q="设了热键以后，某个 App 里原来的快捷键不灵了。">
+这是热键的脾气：官方说，按下热键时系统把这个键吞掉交给宏，App 菜单里同样的快捷键就收不到了。如果那个 App 里正好有 ⌃⌥⌘ 加同一个字母的快捷键，你的宏会盖过它。换一个那边没用过的字母。
+</Q>
+<Q q="我在这个宏后面又加了几个动作，App 打开慢，后面的没等它。">
+官方提到，开着的 App 很多、内存又紧时，**Activate a Specific Application** 之后可能要等上好几秒，后面的动作才能顺利做。在中间加一个 **Pause**（暂停），或者用 **Pause Until**（等到……再继续）等那个 App 的窗口出现，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)。
+</Q>
+
+几天以后，你的手指会比眼睛先找到那个 App。想让一个键把几个 App 一起打开、把窗口也摆好，接着看[把窗口摆到固定的位置](/howto/window-layout/)。

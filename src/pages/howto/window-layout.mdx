@@ -1,5 +1,74 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: window-layout
+step: 3
+time: 十分钟
+for: 每次开工都要拖窗口、拉边角，把两个 App 并排摆好
+tldr: 按 ⌃⌥⌘W，Safari 占屏幕左半边，文本编辑占右半边，一下子摆好，每次都分毫不差。
+description: 用 Manipulate a Window 动作的 Move and Resize，配上 Left Column、Right Column 这些现成的位置，把两个 App 的窗口并排摆好；App 刚打开还没有窗口时，用 Pause Until 等它出来；想要别的比例，用 SCREENVISIBLE 函数自己算。
 ---
-{/* 待写：用移动和缩放窗口的动作，把窗口摆到固定的位置和大小。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Copy from "../../components/Copy.astro";
+
+写东西的人，常常一边开着资料，一边写稿：左边是 Safari，开着查到的那几篇文章，右边是文本编辑里的草稿。每天开工，先把两个窗口拖过来、拉边角，对得差不多了，一个弹窗出来又把它们挤乱。照这一页做完，你按 ⌃⌥⌘W（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），Safari 占屏幕左半边，文本编辑占右半边，摆好了你就开始写。
+
+<mark>窗口放哪里、多大，交给一个动作去摆，每次都分毫不差。</mark>
+
+## 一个动作，三样选择
+
+摆窗口用的是 **Manipulate a Window**（操作窗口）。官方把它拆成三样要你选的东西（见 [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)）：
+
+- 做什么：移动、缩放、居中、最小化……这一页用 **Move and Resize**（移动并缩放），它带着一串现成的位置：**Left Column**（左半边）、**Right Column**（右半边）、**Top Half**（上半边）、**Full Screen**（占满）等等，也可以选 Custom 自己填数。
+- 对哪个窗口：一般选 **the front window**（最前面的窗口），也可以按标题挑。
+- 哪个 App 的窗口：从列表里挑一个具体的 App，或者 **Front Application**（最前面的 App）。
+
+第三样是这一页的关键。挑了具体的 App，宏就知道要动的是 Safari 的窗口，而不是你按热键时碰巧在最前面的那个。
+
+## 做这个宏
+
+新建一个宏，叫「写稿布局」，触发器选 **Hot Key**（热键），按下 ⌃⌥⌘W。然后依次加四个动作：
+
+1. **Activate a Specific Application**（激活指定的 App）：Safari。没开的话它会先打开。
+2. **Manipulate a Window**：**Move and Resize** 选 **Left Column**，窗口选 **the front window**，App 选 Safari。
+3. **Activate a Specific Application**：文本编辑。
+4. **Manipulate a Window**：**Move and Resize** 选 **Right Column**，窗口选 **the front window**，App 选文本编辑。
+
+先把 App 叫到前面再摆，是为了让它确实在运行、窗口也露出来。摆完以后文本编辑在最前面，光标就在草稿里，你可以直接开始写。
+
+[新手入门第 3 课](/start/3-one-key-routine/)把开 App、摆窗口排成了每天开工的一套；这一页单讲摆窗口这一步，讲细一点。
+
+## App 刚打开，窗口还没出来
+
+如果按热键时文本编辑还没开，第 3 步会先打开它，可它的窗口要过一会儿才出现，第 4 步这时就找不到窗口可摆。官方的办法是让宏等一等（见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。在第 3、4 步之间加一个 **Pause Until**（等到……再继续），条件选 **Front Window**（最前面的窗口），设成文本编辑的窗口存在：窗口一出来，宏就接着往下走。Safari 那边也可以照样加一个。
+
+比起固定停一秒，等条件更稳：机器快时不白等，机器慢时也不会等不够。
+
+## 想要别的比例
+
+两栏一半一半不是唯一的摆法。比如你想让草稿宽一些，占屏幕的三分之二，就不用现成的位置，自己算。Keyboard Maestro 填数字的地方都能写<Term k="计算" />，屏幕的大小用 `SCREENVISIBLE` 函数取，它量的是去掉菜单栏和 Dock 以后的那一块（见 [SCREEN function](https://wiki.keyboardmaestro.com/function/SCREEN)）。比如选 **Resize to**（缩放到），宽度写：
+
+<Copy id="wl-width" title="宽度：可见区域的三分之二" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+`Main` 是带菜单栏的那块屏幕。接了外接显示器的话，还可以写 `Second`、`External` 这些名字，指另一块屏幕。这里的数都是「点」，不是屏幕的实际像素，Retina 屏上点数大约是像素的一半。
+
+## 做完怎么确认
+
+把 Safari 和文本编辑的窗口随便拖乱，按 ⌃⌥⌘W。你应该看到 Safari 跳到左半边，文本编辑跳到右半边，两个窗口并排挨着。再退出文本编辑，按一次，看它被打开后也摆到了右边。
+
+## 卡住了？
+
+<Q q="按了热键，窗口一动不动。">
+移动窗口要<Term k="辅助功能权限" />。官方的排查页专门提到，权限出问题时，设热键、替你打字、移动窗口这几样都会不灵。照[新手入门第 1 课](/start/1-first-macro/)给权限的那一步，在 **系统设置 ▸ 隐私与安全性 ▸ 辅助功能**（旧版 macOS 叫「系统偏好设置」）里再看一遍；再选 **Help ▸ Interactive Help** 让它替你查，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility)。
+</Q>
+<Q q="动的是另一个 App 的窗口。">
+看看第 2、4 步的 App 是不是选成了 **Front Application**。那样它动的是按热键那一刻在最前面的 App，不一定是你要的。改成具体的 App。
+</Q>
+<Q q="第一次能摆好，App 没开的时候就只摆了一个。">
+没开的 App 来不及出窗口。照上面「App 刚打开，窗口还没出来」加一个 **Pause Until**。
+</Q>
+<Q q="自己算的位置差了一大截。">
+多半是把屏幕的实际像素当成了点。官方说这个动作里的数都是点，Retina 屏上点数大约是像素的一半；用 `SCREENVISIBLE` 函数取，就不用自己换算。
+</Q>
+
+一个热键，两个窗口各就各位。想再多一步，按同一个键时顺手打开今天要用的那篇草稿，可以在动作里加 **Open a File, Folder or Application**（打开文件、文件夹或 App）。

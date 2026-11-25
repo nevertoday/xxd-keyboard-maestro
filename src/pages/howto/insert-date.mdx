@@ -1,5 +1,73 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: insert-date
+step: 4
+time: 十分钟
+for: 记流水账、写日志，每一条前面都要打日期
+tldr: 在备忘录里按 ⌃⌥⌘D，光标处出现 2026-11-25 08:30 这样的日期和时间，格式由你定，不用再翻日历。
+description: 用日期令牌 %ICUDateTime% 加 Insert Text by Typing，按一个热键插入今天的日期和时间；照官方的格式代码改成你习惯的样子，还能算出两周以后是哪一天。
 ---
-{/* 待写：用日期令牌（比如 %LongDate%）和 Insert Text 动作，一键插入今天的日期；格式怎么改。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Copy from "../../components/Copy.astro";
+
+照顾年迈父母的人，常常要记一本流水账：几点吃的药，血压多少，哪里又说不舒服。下次陪着去看医生，医生问「这几天怎么样」，翻开这本账就答得上来。可每一条前面都得写上日期和时间，一天记好几回，写着写着就懒了，要么只写个「昨天」，过一周就对不上是哪天。照这一页做完，你在备忘录里按 ⌃⌥⌘D（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），光标处就出现 `2026-11-25 08:30 `，接着往下写就行。
+
+<mark>日期不用你打，你写一个令牌，宏跑起来的那一刻它自己换成今天。</mark>
+
+## 令牌：一个会自己变的占位符
+
+Keyboard Maestro 里大多数能填字的框都认<Term k="令牌" />。令牌是用百分号括起来的一个名字，比如 `%LongDate%`，写的时候它就是这么几个字，宏一跑，它就换成真正的内容（见官方的 [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)）。跟日期有关的令牌有好几个：`%ShortDate%`、`%LongDate%`、`%NumberDate%` 按系统的地区设置给出短的、长的、纯数字的日期；另一个 `%ICUDateTime%` 让你自己写格式，想要什么样就写什么样。
+
+记流水账要的是每一条长得一样、看得清楚，所以这里用 `%ICUDateTime%`。它的写法是在令牌后面跟上格式，再用一个百分号收尾：
+
+<Copy id="id-token" title="日期加时间" code="%ICUDateTime%yyyy-MM-dd HH:mm% " />
+
+格式里的字母各有意思，常用的几个出自官方的 [Dates and Times](https://wiki.keyboardmaestro.com/Dates_and_Times)：`yyyy` 是四位的年，`MM` 是两位的月，`dd` 是两位的日，`HH` 是 24 小时制的钟点，`mm` 是分钟，`EEEE` 是星期几的全称。大写的 `MM` 是月、小写的 `mm` 是分，差一个大小写就差得很远。末尾那个空格是给你接着写字留的。
+
+## 做这个宏
+
+新建一个宏，叫「插入日期和时间」，放进一个在所有 App 里都生效的宏组。触发器选 **Hot Key**（热键），按下 ⌃⌥⌘D；这三个修饰键加一个字母的组合，别的 App 很少会用。动作选 **Insert Text by Typing**（模拟打字插入），把上面那一行贴进去。
+
+这里用打字而不用粘贴，是因为日期很短，全是键盘上打得出的字，而官方说这个动作就像你自己在打字，会沿用你光标那里的字体，也不会像粘贴那样顶掉剪贴板（见 [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text)）。
+
+记不住格式字母也没关系。光标放在动作的文字框里，选 **Edit ▸ Insert ICU Date Field**，挑一个就插进去了；**Edit ▸ Insert Token** 里列着所有令牌，不用背。
+
+## 换一个你习惯的格式
+
+不同的人习惯不同的写法，换掉格式那一段就行。下面几种出自官方的格式表，括号里是 2026 年 11 月 25 日会出来的样子：
+
+- `%ICUDateTime%yyyy-MM-dd%`（2026-11-25）：年月日从大到小，用作文件名时按名字一排就是时间顺序。
+- `%ICUDateTime%dd/MM/yyyy%`（25/11/2026）：日在前，很多地方的人这样写。
+- `%ICUDateTime%EEE, MMM d, yyyy%`（Wed, Nov 25, 2026）：带星期几和月份的英文缩写。
+
+带星期几、月份名字的格式，出来是哪种语言，和你的系统、macOS 的版本有关，官方页面的 Localization 一节专门讲了这件事。想要每台 Mac 上都一样，就只用数字。
+
+## 再往前算一步：两周后的复诊
+
+医生常说「两周以后再来」。`%ICUDateTimePlus%` 在今天的基础上往后加，中间写加多少、加什么单位：
+
+<Copy id="id-plus" title="今天往后两周" code="下次复诊：%ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
+
+单位可以是 Days、Weeks、Months 这些，往前算就用 `%ICUDateTimeMinus%`，写法一样（见官方的 [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)）。你可以把这一行做成另一个宏，配上 ⌃⌥⌘J，或者干脆用输入字符串，做成 `=next=` 这样的缩写，做法见[把常打的话做成缩写](/howto/text-snippets/)。
+
+## 做完怎么确认
+
+打开备忘录，新建一条，按 ⌃⌥⌘D。你应该看到今天的日期和现在的时间出现在光标处，后面带着一个空格。看一眼电脑右上角的时间，两者对得上，就成了。
+
+## 卡住了？
+
+<Q q="出来的是 %ICUDateTime%yyyy-MM-dd HH:mm% 这串字本身。">
+令牌没有被换掉，多半是动作的处理方式被改了。点动作右上角的齿轮，看是不是选成了 **Process Nothing**，改回 **Process Text Normally**（照常处理令牌）。再对照上面的写法，看令牌名字和三个百分号都在。
+</Q>
+<Q q="年底年初那几天，年份差了一年。">
+你多半写成了大写的 `YYYY`。官方特意提醒，大写的 Y 是「按周算的年」，到了一年的头尾会出怪结果；年份要用小写的 `yyyy`。
+</Q>
+<Q q="时间那一段变成了月份。">
+分钟写成了大写的 `MM`。月份是大写 `MM`，分钟是小写 `mm`。
+</Q>
+<Q q="按了 ⌃⌥⌘D，什么也没发生。">
+先看这个宏和它所在的宏组都勾着，引擎在跑；再看 ⌃⌥⌘D 是不是被别的 App 占了，换一个字母试试。还不行，照[完整教程第 6 步](/guide/6-debug/)一项一项查。
+</Q>
+
+一个令牌、一个热键，往后每一条记录都带着准确的日期和时间。令牌还能放进别的动作里，比如给文件改名时加上今天的日期，见[批量给文件改名](/howto/rename-files/)。

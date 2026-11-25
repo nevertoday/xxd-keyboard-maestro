@@ -1,5 +1,52 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: paste-plain
+step: 5
+time: 五分钟
+for: 从网页复制一段字，贴进文稿就带着别人的字体、颜色和链接
+tldr: 按 ⌃⌥⌘V 粘贴，进来的只有字，不带原来网页的字体、颜色和链接。
+description: 用 Filter 动作的 Remove Styles 先把剪贴板变成纯文字，再用 Type a Keystroke 按一下 ⌘V。讲清剪贴板里其实存着好几份、为什么去掉格式偶尔会让字变样，以及热键为什么不能直接设成 ⌘V。
 ---
-{/* 待写：粘贴时去掉字体、颜色和链接，只留纯文字：用过滤或纯文本粘贴的做法。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+写课程报告的学生，常要从网页上复制一段引文贴进自己的文稿。贴进来的却是人家网页的字体和字号，有时是灰色的字，有时还带着一个链接，一篇报告贴上五六段，就花得像拼起来的布，只好一段一段选中、改回来。照这一页做完，你按 ⌃⌥⌘V（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command）来粘贴，贴进来的只有字。
+
+<mark>先把剪贴板里的格式去掉，再粘贴，进来的就只剩字。</mark>
+
+## 剪贴板里其实存着好几份
+
+你复制一段字的时候，剪贴板里放的不止一样东西。官方的[排查页](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text)说得很清楚：同一次复制，可能同时存着一份纯文字、一份带格式的文字，甚至一张图，这些叫作不同的「flavor」。粘贴的时候，App 会挑它最能用的那一份，文字处理软件当然挑带格式的，于是网页的字体就跟着进来了。
+
+Keyboard Maestro 的 **Filter**（过滤）动作里有一个过滤器叫 **Remove Styles**，作用就是把剪贴板变成纯文字（见官方的 [Filters](https://wiki.keyboardmaestro.com/manual/Filters)）。带格式的那几份没了，App 想挑也只能挑纯文字。
+
+## 做这个宏
+
+新建一个宏，叫「粘贴纯文字」，放进在所有 App 里都生效的宏组。触发器选 **Hot Key**（热键），按下 ⌃⌥⌘V。然后加两个动作：
+
+1. **Filter**：要处理的选 **System Clipboard**（系统剪贴板），过滤器选 **Remove Styles**，结果放回系统剪贴板。
+2. **Type a Keystroke**（按一个键）：在框里按下 ⌘V。
+
+第二步替你按的正是平常的粘贴键。官方建议，带 Command 的按键用 **Type a Keystroke** 来按（见 [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)）。
+
+## 做完怎么确认
+
+在 Safari 里找一段带粗体或者带链接的文字，复制。打开文本编辑，新建一个文稿，先打一行自己的字，换行，按 ⌃⌥⌘V。你应该看到那段字进来了，粗体没了，链接也没了，字体和你自己打的那一行一样。
+
+有一件事要知道：宏是把剪贴板本身改成了纯文字，所以这之后再按 ⌘V，贴出来的也是纯文字，直到你下一次复制。想找回带格式的原样，到<Term k="剪贴板历史" />里翻，见[完整教程第 5 步](/guide/5-clipboard/)。
+
+**Filter** 里还有别的过滤器，比如 **Trim Whitespace** 去掉开头结尾多余的空格，你可以在第一个 **Filter** 后面再加一个，引文前后常带着的空格也一起清掉。
+
+## 卡住了？
+
+<Q q="去掉格式以后，字和原来不太一样了，比如列表前面的圆点不见了或者多出来。">
+这是因为有的 App 放进剪贴板的纯文字和带格式的文字本来就不一致，**Remove Styles** 读的是纯文字那一份。官方给的办法是先在 **Filter** 前面加一个 **Set Clipboard to Text**（把剪贴板设成文字），选带格式的 styled text，内容填 `%SystemClipboard%`，让 Keyboard Maestro 重新做一份前后一致的剪贴板，再去掉格式。详见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text)。
+</Q>
+<Q q="我想让 ⌘V 本身就粘纯文字，能不能把热键直接设成 ⌘V？">
+别这样做。宏的第二步自己要按 ⌘V，官方明确说过，模拟一个正好是某个宏热键的按键，结果没法预料，有时打出那个键，有时又触发了宏本身。所以热键换一个别的组合，⌃⌥⌘V 就挺好记。
+</Q>
+<Q q="贴出来的还是带格式的，或者是更早复制的东西。">
+有的 App，尤其是跨平台的那种，会自己缓存剪贴板，看不见 Keyboard Maestro 刚改过的内容。官方建议在粘贴之前让那个 App 「醒一下」，比如切出去再切回来，见 [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted)。
+</Q>
+
+一个热键、两个动作，引文贴进报告就不再花了。剪贴板还有不少本事，比如替你长期保管几段常用的字，都在[完整教程第 5 步](/guide/5-clipboard/)。

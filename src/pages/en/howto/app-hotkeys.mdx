@@ -1,5 +1,59 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: app-hotkeys
+step: 2
+time: Two minutes per app
+for: You switch between the same few apps dozens of times a day and have to hunt for them every time
+tldr: ⌃⌥⌘M is always Mail and ⌃⌥⌘C is always Calendar. If the app is open, you switch to it; if not, it opens. Press again while it's in front and you're back where you were.
+description: "Use a Hot Key trigger and Activate a Specific Application to give each app you use its own fixed key. Set If already at the front to switch back to the previous app, and one key takes you there and back. When you run out of keys, use a macro group that's active for one action: press one combination, then a letter."
 ---
-{/* TBD: give each app you use a hot key that switches to it, or launches it if it isn't running. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+In an office job you might hop between Mail, Calendar and Notes dozens of times a day. With ⌘Tab you often overshoot and go round again, and hunting for the icon in the Dock pulls your eyes off your work. When you finish this page, ⌃⌥⌘M will always be Mail, ⌃⌥⌘C always Calendar, and ⌃⌥⌘N always Notes (⌃ is Control, ⌥ is Option, ⌘ is Command). If the app is open, you switch straight to it. If it isn't, it opens first. And if it's already in front, pressing the key again takes you back to whatever you were using.
+
+<mark>Give each app one fixed key, and once your fingers know it, your eyes can stop looking.</mark>
+
+## One key, one app
+
+What you want is a macro where a <Term k="热键" /> brings one particular app to the front. The action for that is **Activate a Specific Application**. The official page says it switches to the app, launching it if needed, the same as switching with ⌘Tab or opening it any other way (see [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+The action has an **If already at the front:** setting that decides what happens when you press the key while the app is already in front. You can leave it there, switch back to the previous app, hide it, and a few other things. Choose the option that switches to the previous application, and the key becomes a toggle: press once to go there, again to come back.
+
+[Beginner lesson 1](/en/start/1-first-macro/) built one macro like this. This page turns it into a full set.
+
+## Build the set
+
+Make a macro group called "Switch apps". Macro groups are available in every app unless you change that, so leave it as it is. Then make one macro per app inside it. All three are built the same way, with only the key and the app changing:
+
+- "Mail": a **Hot Key** trigger on ⌃⌥⌘M, and an **Activate a Specific Application** action set to Mail.
+- "Calendar": ⌃⌥⌘C, set to Calendar.
+- "Notes": ⌃⌥⌘N, set to Notes.
+
+In all three, set **If already at the front:** to switch to the previous application.
+
+For picking keys, the official advice is to stay consistent, for example using one set of modifiers to mean "open an app", so you don't have to memorize each one separately (see [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)). Here it's always ⌃⌥⌘ plus the first letter of the app's name: M for Mail, C for Calendar, N for Notes. For your own set, choose letters you can match to the app without thinking.
+
+## Out of keys? Press one combination, then a letter
+
+With enough apps, even ⌃⌥⌘ plus a letter starts to run out. The official manual describes a way around that: put these macros in a macro group that's active for just one action. Set the group to **Activated for one action when:** and give it a hot key, say ⌃⌥⌘A. The macros inside use single letters as their hot keys: M for Mail, S for Safari, F for Finder. The rest of the time those letters type normally. Only after you press ⌃⌥⌘A does the group wake up, and as soon as you press a letter and that macro runs, it goes back to sleep (see [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+One group like this can handle a dozen apps while taking up a single combination on your whole keyboard.
+
+## Check that it works
+
+Quit Mail, then press ⌃⌥⌘M from any app. Mail should open and come to the front. Press ⌃⌥⌘M again while you're in Mail, and you should land back in the app you were using. Try Calendar and Notes the same way.
+
+## Stuck?
+
+<Q q="I pressed the hot key and nothing happened.">
+First check that the macro and the "Switch apps" group are both ticked and the Engine is running. Then think about whether another app also uses that combination. The official page says that when another app registers the same hot key, your macro and that app's action both happen. Try a different letter. If it still won't fire, choose **Help ▸ Interactive Help** and let it check your permissions and the Engine.
+</Q>
+<Q q="Since I set up the hot key, a shortcut in one of my apps stopped working.">
+That's how hot keys behave. The official page says the system swallows the key and hands it to your macro, so a menu shortcut in an app that uses the same keys never receives it. If one of your apps happens to use ⌃⌥⌘ plus the same letter, your macro wins. Pick a letter that app doesn't use.
+</Q>
+<Q q="I added more actions after this one, and the app opens too slowly for them.">
+The official page mentions that with lots of apps open and memory running low, you may need to wait several seconds after **Activate a Specific Application** before the next actions work. Add a **Pause** in between, or use **Pause Until** to wait for the app's window to appear. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions).
+</Q>
+
+In a few days your fingers will find the app before your eyes do. To open several apps with one key and put their windows in place too, carry on with [Put your windows where you want them](/en/howto/window-layout/).

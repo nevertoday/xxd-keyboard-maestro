@@ -1,5 +1,69 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: rename-files
+step: 4
+time: Twenty minutes, tried on copies first
+for: A batch of files with useless names, and you're renaming them one at a time
+tldr: Select a batch of files in Finder, press ⌃⌥⌘R, type a prefix, and it goes on the front of every file name, like "Class 3 reading notes Scan 1.pdf".
+description: Use the For Each action to work through the files selected in Finder. Prompt for User Input asks for the prefix, Split Path pulls out the original file name, and the Rename option of File Actions gives the new name. Try it on copies first, and what to do about matching names and folders in the selection.
 ---
-{/* TBD: rename a batch of files selected in Finder one by one, and try it on copies first. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+If you teach, you know the scanner's naming: Scan 1.pdf, Scan 2.pdf, Scan 3.pdf… Thirty from one class, and two weeks after they're on your Mac, you can't tell which class or which assignment they were. Renaming them one by one, your hand is sore by the tenth. When you finish this page, you'll select the batch in Finder and press ⌃⌥⌘R (⌃ is Control, ⌥ is Option, ⌘ is Command). It'll ask what to put in front, you'll type "Class 3 reading notes", and all thirty become names like "Class 3 reading notes Scan 1.pdf".
+
+<mark>Renaming a batch of files is really doing the same thing to each file you selected.</mark>
+
+<u>Try it on copies first.</u> Renaming changes the real files on your disk, and if the macro has a mistake in it, all thirty get the same mistake. Duplicate the folder in Finder, try it on the copy until you're happy, and only then use it on the real batch.
+
+## For Each: do it once for every item
+
+"Do it once for every item" is called **For Each** in Keyboard Maestro. You give it a list of things, and it takes them out one at a time, puts each into a <Term k="变量" />, and runs the actions inside it (see [For Each](https://wiki.keyboardmaestro.com/action/For_Each)).
+
+Where does the list come from? In For Each, choose **The Finder’s selection**, meaning whatever you've selected in Finder. The official page says the variable gets the full path of each file, the long string that runs from the top of the disk all the way to the file name (see [Working with the Finder Selection](https://wiki.keyboardmaestro.com/collection/Finders_Selection)). Renaming selected files consistently is one of the uses the official page lists.
+
+Once you have the path, there are two more steps: get the original file name out of it, then rename the file with the new name.
+
+## Build the macro
+
+Make a new macro called "Add a prefix to file names". If you want it to work only in Finder, put it in a macro group set to **Available in these applications:** Finder. For the trigger, choose **Hot Key** and press ⌃⌥⌘R. Then add the actions:
+
+**First, ask for the prefix.** Add **Prompt for User Input** with the title "Add a prefix to file names", and add one variable to it called `Prefix`, with a default value you use often, like "Class 3 reading notes". When the macro reaches this step, a small window opens. Change the prefix if you need to and click **OK**. Click **Cancel** and the whole macro stops without touching a single file (see [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+**Second, go through them one by one.** Add **For Each**, type `FilePath` for the variable, and click + next to the collection to choose **The Finder’s selection**. The next two actions both go inside the For Each.
+
+**Third, get the original name.** Inside the For Each, add **Split Path**, and for the path to split, use:
+
+<Copy id="rf-path" title="The path to split" code="%Variable%FilePath%" />
+
+It splits a path into its parts: the folder it's in, the file name, the name without its extension, and the extension, and each part can go into its own variable (see [Split Path](https://wiki.keyboardmaestro.com/action/Split_Path)). You only need the **File Name** here. Put it in a variable called `FileName`. It'll be something like `Scan 1.pdf`, extension included.
+
+**Fourth, rename.** Next add **File Actions** and choose **Rename**. For the file, use `%Variable%FilePath%`, and for the new name:
+
+<Copy id="rf-new" title="The new name" code="%Variable%Prefix% %Variable%FileName%" />
+
+`%Variable%Prefix%` is a <Term k="令牌" />: when the macro runs, it becomes whatever is in that variable. The official page says the new name for **Rename** must be just a file name, with no slash, so the file stays in its folder and only its name changes (see [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions)).
+
+## Check that it works
+
+In the copied folder, select three files and press ⌃⌥⌘R. You should see the little window asking for a prefix. Fill it in and click **OK**, and in Finder those three files now start with what you typed, with their original names and extensions still there. Files you didn't select keep their names.
+
+The new-name box takes other tokens too. To put today's date at the very front, write `%ICUDateTime%yyyy-MM-dd% %Variable%Prefix% %Variable%FileName%`. To change the date format, see [Insert today's date with one key](/en/howto/insert-date/).
+
+## Stuck?
+
+<Q q="I pressed ⌃⌥⌘R and the window came up, but no names changed.">
+For Each gets whatever Finder has selected at that moment. First make sure you actually selected files in Finder. If your macro group is set to work only in Finder, Finder also has to be in front when you press the hot key. Then check that steps three and four are inside the For Each, not lined up after it.
+</Q>
+<Q q="It stopped halfway. Some files were renamed and some weren't.">
+Most likely two names collided. The official page says that if a file with the new name already exists in that folder, the step fails, and the macro stops there. See which file it stopped on, deal with the duplicate name, then select the remaining files and run it again.
+</Q>
+<Q q="A folder in my selection got renamed too.">
+**The Finder’s selection** hands over whatever is selected, and **Rename** works on folders as well as files. Select only the files you want renamed.
+</Q>
+<Q q="The files ended up in another folder.">
+You probably chose **Move or Rename** and the new name had a slash in it, so it moved the files there. Use **Rename** and write only a file name.
+</Q>
+
+Once you know For Each, any "do this to every one" job works the same way: tagging a batch of files, moving them all to one place, with only the actions inside changed. To have files handled the moment they land in a folder, carry on with [File things away as soon as they land in a folder](/en/howto/watch-folder/).
