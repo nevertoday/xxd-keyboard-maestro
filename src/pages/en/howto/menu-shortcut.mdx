@@ -1,5 +1,56 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: menu-shortcut
+step: 1
+time: Ten minutes
+for: You use a menu command every day, it has no shortcut, and you reach for the mouse every time
+tldr: Press ⌃⌥⌘E in Safari and the Export as PDF save window comes straight up. The key only works in Safari, so no other app is affected.
+description: Use the Select or Show a Menu Item action to choose the menu for you, picking it from the action's Menu pop-up so the name is never misspelled. Set the macro group to work only in that app, and the hot key stays out of everyone else's way.
 ---
-{/* TBD: give a menu command a shortcut with the Select or Show a Menu Item action, active only in that app. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+If you have kids in school, you often need to keep notices from the school's website: what to bring for the spring outing, next term's timetable, the supply list. The page changes in a few weeks, so saving it as a PDF is the safe bet. In Safari, that means opening the File menu and going down to Export as PDF, but that item has no shortcut, so it's the mouse every time. When you finish this page, you'll press ⌃⌥⌘E in Safari (⌃ is Control, ⌥ is Option, ⌘ is Command), the save window will come straight up, and all you do is name the file. The key only does anything in Safari. In every other app, nothing changes.
+
+<mark>Any menu command you can click can have a key: the macro clicks the menu for you.</mark>
+
+## First, a macro group just for Safari
+
+This key only makes sense in Safari, so start with a <Term k="宏组" /> that's only active in Safari. Click the + at the bottom of the macro group list on the left of the editor, make a new group called "Safari", and in its settings choose **Available in these applications:** and add Safari. The official manual says the macros in a group set up like this are only active in those apps (see [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+There's a bonus: ⌃⌥⌘E stays free in every other app, so later you can give Preview or TextEdit the same key without any clash.
+
+## Build the macro
+
+In the "Safari" group, make a new macro called "Export as PDF". For the trigger, choose **Hot Key** and press ⌃⌥⌘E. For the action, choose **Select or Show a Menu Item**, which picks an item from the menu bar for you (see [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)).
+
+Don't type the menu names yourself. Pick them from the action's **Menu** pop-up instead. The official page explains that this pop-up exists to make sure you get the menu right: it lists every running app and its menus, so what you pick matches the menu exactly. Open Safari first, then find Safari in the pop-up, choose File, and choose Export as PDF. If your Mac is set to another language, the menu names are in that language, and picking from the pop-up takes care of it.
+
+The action also asks which app the menu is in. **the Front Application** is fine, because the macro group already makes sure this key only works while Safari is in front.
+
+## What else this action can do
+
+- Some menu items change their names, like Show Sidebar becoming Hide Sidebar once you've clicked it. The official page says you can join the two names with a vertical bar, `Show Sidebar|Hide Sidebar`, and it picks whichever is there, so one key becomes a toggle.
+- It treats three dots and an ellipsis (…) in menu names as the same, so either works.
+- The Apple menu, at the top left of the screen, is written as Apple in the action.
+
+## Check that it works
+
+Open any page in Safari and press ⌃⌥⌘E. You should see the Export as PDF save window come up, just as if you'd clicked the menu. Then switch to Notes and press ⌃⌥⌘E. Nothing should happen, which shows the group is only active in Safari.
+
+## Stuck?
+
+<Q q="I pressed the hot key and no save window appeared.">
+There are two usual causes. One is a menu name that doesn't match. Even one space off and it can't find it, so go back to the **Menu** pop-up and pick it again. The other is that the menu item is grayed out right now, for example because no page is open in Safari. The official page says that when this action can't find the menu, or the menu is disabled, it stops the whole macro by default. For menus that don't matter much, you can set the action to let the macro carry on.
+</Q>
+<Q q="I press it in Safari and nothing happens, as if the macro never fired.">
+Make sure Safari is in front, the group and the macro are both ticked, and the Engine is running. Then check that the app added under **Available in these applications:** in the "Safari" group really is Safari. If it still won't fire, see [full guide step 6](/en/guide/6-debug/).
+</Q>
+<Q q="In some apps the menu is clearly there, but the action can't select it.">
+The official troubleshooting page explains that some cross-platform apps don't properly build their menus until you've clicked the menu bar with the mouse. The fix is to switch out of the app and back, or click in the menu bar first, before selecting the menu. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+</Q>
+<Q q="Why not just press a key with Type a Keystroke?">
+Because this menu item has no key to press. And even when one has a key, the official advice is to select the menu rather than simulate its shortcut, especially when that shortcut is also some macro's hot key, since simulating it gives unpredictable results (see [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+</Q>
+
+Now the menu command you use every day has a key of its own. You can do the same for any menu item you can click, in any app, with one macro group per app so they never get in each other's way.

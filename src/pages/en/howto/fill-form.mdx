@@ -1,5 +1,62 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: fill-form
+step: 3
+time: Fifteen minutes, starting with a walk through the form yourself
+for: The same site's application form asks for your name, email and phone every single time
+tldr: Click into the first field, press ⌃⌥⌘F, and your name, email, phone and portfolio link are filled in at once. You look it over before you submit.
+description: Use Insert Text by Typing with the %Tab% token to fill a form from top to bottom. Walk through the form with Tab first to learn its order, paste any field a keyboard can't type, slow things down if a web form drops characters, and leave the submit button to yourself.
 ---
-{/* TBD: fill in the same fields of a form every time: type, press Tab, pause, all in one macro. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Callout from "../../../components/Callout.astro";
+
+If you're looking for work, you may send several applications a day through the same job site. Every one asks the same fields from scratch: name, email, phone, portfolio link. Four fields typed twenty times, and it's easy to get one digit of your phone number wrong, which means they can't reach you. When you finish this page, you'll click into the first field and press ⌃⌥⌘F (⌃ is Control, ⌥ is Option, ⌘ is Command), and all four fields fill in at once. The cursor stops in the last field, you check it over, and you click submit yourself.
+
+<mark>In a form, Tab is what moves you from one field to the next, and a macro does the same: type a field, press Tab, type the next one.</mark>
+
+## Walk through it yourself first
+
+Before you build anything, open the form, click into the first field, and just press Tab, one press at a time, watching where the cursor goes. Most forms go top to bottom, but some sites slip a pop-up menu or an "I agree" checkbox in between, and those take a Tab too. Note the order down. The macro's whole job is to replay it.
+
+That also tells you something: one macro fits one form. A different site will probably order its fields differently, so make another macro for it.
+
+## Build the macro
+
+First make a macro group called "Forms", and in its settings choose **Available in these applications:** and add Safari, or whichever browser you use. That way ⌃⌥⌘F only works in your browser and stays free everywhere else.
+
+In that group, make a new macro. For the trigger, choose **Hot Key** and press ⌃⌥⌘F. For the action, choose **Insert Text by Typing** and write all the fields together, with `%Tab%` between them. `%Tab%` is a <Term k="令牌" />: when the macro runs, it becomes a real Tab press, which moves to the next field. That's exactly what the official page recommends: when you want Tab or Return to move between fields, use typing (see [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+<Copy id="ff-rest" title="The action: every field" code="Sam Lee%Tab%sam.lee@example.com%Tab%000 1234 5678%Tab%https://example.com/sam" />
+
+Swap the examples for your own name, email, phone and link.
+
+There's one limit to know about. **Insert Text by Typing** presses keys for you one at a time, and the official page says it can only type characters you can type on the keyboard with one or two keystrokes. If your name has characters outside that, Chinese characters for example, or emoji, give that field its own **Insert Text by Pasting** action first, with just the name in it:
+
+<Copy id="ff-name" title="Only if your name can't be typed: a first action" code="林小雨" />
+
+Then have the typing action start with a `%Tab%` to move out of the name field, and leave the name off it. Typing doesn't touch the clipboard, so following a paste with it doesn't cause the wrong-paste problem.
+
+<Callout type="warn">Don't put Return at the end, and don't have the macro click submit. Let the filled form sit there so you can read it over, while there's still time to fix anything. Keep passwords out of the macro too. The official page calls typing into password fields this way a serious security concern.</Callout>
+
+## Check that it works
+
+Open the job site's application page, click into the name field, and press ⌃⌥⌘F. You should see your name appear, then the cursor jump down field by field as the email, phone and link go in, stopping in the link field. Read each one. If a field landed in the wrong place, go back to the walk-through and see where the Tab order differs from what you expected.
+
+## Stuck?
+
+<Q q="The text went in, but some letters are missing or out of order.">
+Web form fields often check what you type as you type it, and when Keyboard Maestro types too fast, characters get dropped or jumbled. The official fix is to add a **Set Action Delay** action at the start of this macro to slow its typing down. Use it for this macro only, not as a global setting. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order).
+</Q>
+<Q q="The name field got whatever I copied last.">
+This only happens with the extra paste action. Some web pages are slow to handle a paste, and the next step starts before the ⌘V has landed. Add a **Pause** between the two actions. 0.3 seconds is usually enough, which is also what the [troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions) suggests.
+</Q>
+<Q q="Everything shifts by one field partway through.">
+There's probably a pop-up menu, checkbox or button you didn't notice before that field, and it took a Tab. Add or remove one `%Tab%` there.
+</Q>
+<Q q="I pressed ⌃⌥⌘F and nothing happened.">
+Make sure your browser is in front. The macro group is set to work only there, so pressing it in any other app does nothing. Then check that the group and the macro are both ticked and the Engine is running. If it still won't fire, see [full guide step 6](/en/guide/6-debug/).
+</Q>
+
+Build one, and every application after that is twenty-odd fewer things to type and one less chance of a typo. For the field you fill in fresh each time, like the job you're applying for, the macro can ask you first and then fill it in. See [Ask a question before doing the work](/en/howto/ask-input/).

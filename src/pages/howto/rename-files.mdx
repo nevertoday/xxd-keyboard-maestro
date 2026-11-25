@@ -1,5 +1,69 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: rename-files
+step: 4
+time: 二十分钟，先在副本上试
+for: 一批文件名字乱七八糟，要一个个右键重命名
+tldr: 在 Finder 里选中一批文件，按 ⌃⌥⌘R，填一个前缀，每个文件名前面都加上它，比如「三班 读书笔记 Scan 1.pdf」。
+description: 用 For Each 动作逐个处理 Finder 里选中的文件：Prompt for User Input 先问你前缀，Split Path 取出原来的文件名，File Actions 的 Rename 改成新名字。先在副本上试；同名文件、选进了文件夹这些情况怎么处理。
 ---
-{/* 待写：批量改文件名：对 Finder 里选中的文件逐个改名，改之前先在副本上试。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Copy from "../../components/Copy.astro";
+
+老师收作业，扫描仪吐出来的文件叫 Scan 1.pdf、Scan 2.pdf、Scan 3.pdf……一个班三十份，存进电脑以后，过两周就分不清是哪个班、哪一次的。一个个右键重命名，点到第十个手就酸了。照这一页做完，你在 Finder 里选中这一批文件，按 ⌃⌥⌘R（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），它问你一句前面加什么，你填「三班 读书笔记」，这三十个文件就都变成「三班 读书笔记 Scan 1.pdf」这样。
+
+<mark>一批文件改名，其实就是对选中的每一个文件，做同一件事。</mark>
+
+<u>先在副本上试。</u> 改名是真的改到硬盘上的文件，宏写错了，三十个文件会一起改错。在 Finder 里把这个文件夹复制一份，在副本里试到满意，再对真的那一批用。
+
+## For Each：对每一个都做一遍
+
+「对每一个都做一遍」在 Keyboard Maestro 里叫 **For Each**（逐个执行）。你给它一串东西，它一个一个地拿出来，每拿一个，就把它放进一个<Term k="变量" />里，然后把里面的动作跑一遍（见 [For Each](https://wiki.keyboardmaestro.com/action/For_Each)）。
+
+这一串东西从哪来？For Each 里选 **The Finder’s selection**，就是你在 Finder 里选中的那些。官方说，它每次放进变量里的是那个文件的完整路径，也就是从硬盘开头一直写到文件名的那一长串（见 [Working with the Finder Selection](https://wiki.keyboardmaestro.com/collection/Finders_Selection)）。官方举的例子里，就有给选中的文件统一改名这一条。
+
+拿到路径以后，还要两步：从路径里取出原来的文件名，再用新名字改掉它。
+
+## 做这个宏
+
+新建一个宏，叫「给文件名加前缀」。想让它只在 Finder 里管用，可以放进一个设成 **Available in these applications:** Finder 的宏组。触发器选 **Hot Key**（热键），按下 ⌃⌥⌘R。然后加动作：
+
+**第一步，问你前缀。** 加一个 **Prompt for User Input**（请你输入），标题写「给文件名加前缀」，下面加一个变量，名字叫 `Prefix`，默认值填一个你常用的，比如「三班 读书笔记」。宏跑到这里会弹出一个小窗口，你改好前缀点 **OK**；点 **Cancel**，整个宏就停了，一个文件都不会动（见 [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
+
+**第二步，逐个处理。** 加一个 **For Each**，变量填 `FilePath`，在集合那里点「+」选 **The Finder’s selection**。下面两个动作都放进 For Each 里面。
+
+**第三步，取出原来的名字。** 在 For Each 里面加 **Split Path**（拆分路径），要拆的路径填：
+
+<Copy id="rf-path" title="要拆的路径" code="%Variable%FilePath%" />
+
+它会把路径拆成几段：所在的文件夹、文件名、不带扩展名的名字、扩展名，每一段都能存进一个变量（见 [Split Path](https://wiki.keyboardmaestro.com/action/Split_Path)）。这里只要 **File Name**，存进变量 `FileName`，像 `Scan 1.pdf` 这样，扩展名也在里面。
+
+**第四步，改名。** 接着加 **File Actions**（文件操作），选 **Rename**，要改的文件填 `%Variable%FilePath%`，新名字填：
+
+<Copy id="rf-new" title="新名字" code="%Variable%Prefix% %Variable%FileName%" />
+
+`%Variable%Prefix%` 这样的写法是一个<Term k="令牌" />，宏跑起来时换成那个变量里的字。官方说，**Rename** 的新名字只能是一个文件名，不能带斜杠，所以文件留在原来的文件夹里，只是名字变了（见 [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions)）。
+
+## 做完怎么确认
+
+在副本文件夹里选中三个文件，按 ⌃⌥⌘R，你应该看到那个问前缀的小窗口。填好点 **OK**，Finder 里这三个文件的名字前面都多了你填的那几个字，原来的名字和扩展名都还在。没选中的文件名字没变。
+
+新名字那一格还能放别的令牌。想在最前面加上今天的日期，就写成 `%ICUDateTime%yyyy-MM-dd% %Variable%Prefix% %Variable%FileName%`，日期格式怎么改见[一键插入今天的日期](/howto/insert-date/)。
+
+## 卡住了？
+
+<Q q="按了 ⌃⌥⌘R，弹窗也出来了，可文件名一个都没变。">
+For Each 拿到的是 Finder 此刻选中的东西。先确认 Finder 里确实选中了文件；宏组设成只在 Finder 里生效的话，按热键时 Finder 还得在最前面。再看第三、四步是不是放进了 For Each 里面，而不是排在它后面。
+</Q>
+<Q q="改到一半停了，有的改了，有的没改。">
+多半是撞名了。官方说，要改成的名字在那个文件夹里已经有一个同名文件时，这一步会出错，宏就停在那里。看一下停在了哪个文件，处理掉重名的那个，再把剩下没改的选中，跑一遍。
+</Q>
+<Q q="选中的文件夹也被改了名。">
+**The Finder’s selection** 里有什么就处理什么，**Rename** 对文件和文件夹都管用。只选你要改的文件。
+</Q>
+<Q q="文件跑到别的文件夹里去了。">
+你选的多半是 **Move or Rename**，新名字里又带了斜杠，它就把文件挪过去了。改用 **Rename**，新名字里只写文件名。
+</Q>
+
+学会了 For Each，「对每一个都做一遍」的活都能这么做：给一批文件加标签、挪到同一个地方，只是把里面的动作换掉。想让文件一进文件夹就自动处理，接着看[文件一进文件夹就自动归档](/howto/watch-folder/)。

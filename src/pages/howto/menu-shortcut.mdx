@@ -1,5 +1,56 @@
 ---
 layout: ../../layouts/HowTo.astro
 slug: menu-shortcut
+step: 1
+time: 十分钟
+for: 一个菜单命令天天用，却没有快捷键，每次都要拿鼠标去点
+tldr: 在 Safari 里按 ⌃⌥⌘E，直接弹出「导出为 PDF」的保存窗口；这个键只在 Safari 里管用，别的 App 不受影响。
+description: 用 Select or Show a Menu Item 动作替你去点那个菜单，从它的 Menu 弹出菜单里点选，不怕名字打错；宏组设成只在这个 App 里生效，热键就不会跑到别处去。
 ---
-{/* 待写：给没有快捷键的菜单命令配一个：Select or Show a Menu Item 动作，只在那个 App 里生效。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+家里有孩子上学的，常要把学校网页上的通知存下来：春季活动的注意事项、下学期的课表、要带的东西清单。网页过几周就换了，存成 PDF 才放心。在 Safari 里存 PDF，要点「文件」菜单，往下找到「导出为 PDF」那一项，可它没有快捷键，每次都得拿鼠标去点。照这一页做完，你在 Safari 里按 ⌃⌥⌘E（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），保存窗口直接弹出来，你只管起名字；这个键只在 Safari 里有用，换到别的 App 里一点影响都没有。
+
+<mark>菜单里点得到的命令，就配得上一个键：让宏替你去点那个菜单。</mark>
+
+## 先让宏组只管 Safari
+
+这个键只对 Safari 有意义，所以先给它建一个只在 Safari 里生效的<Term k="宏组" />。在编辑器左边宏组列表底下点「+」，新建一个宏组，叫「Safari」，在它的设置里选 **Available in these applications:**，把 Safari 加进去。官方手册说，这样设了以后，组里的宏只在这些 App 里生效（见 [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)）。
+
+这样做还有一个好处：⌃⌥⌘E 在别的 App 里照样空着，以后给预览或者文本编辑配同一个键，也不会打架。
+
+## 做这个宏
+
+在「Safari」宏组里新建一个宏，叫「导出为 PDF」。触发器选 **Hot Key**（热键），按下 ⌃⌥⌘E。动作选 **Select or Show a Menu Item**（选择或打开菜单项），它的作用就是替你在菜单栏上选一项（见 [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)）。
+
+菜单名字最好别自己打，从动作里的 **Menu** 弹出菜单里点选。官方特意做了这个弹出菜单，列着正在运行的每个 App 和它们的菜单，点出来的名字和菜单上的一字不差。所以先把 Safari 打开，再在弹出菜单里找到 Safari，点「文件」，再点「导出为 PDF」那一项。你的系统是中文，菜单名就是中文；是英文，就是 File 和 Export as PDF，照点就对。
+
+动作里还要选菜单在哪个 App 里：选 **the Front Application**（最前面的 App）就行，因为宏组已经保证了这个键只在 Safari 在最前面时才管用。
+
+## 这个动作还能做什么
+
+- 有些菜单项会变名字，比如「显示边栏」点了以后变成「隐藏边栏」。官方说可以用竖线把两个名字连起来写，`显示边栏|隐藏边栏`，哪个在就点哪个，一个键就成了开关。
+- 菜单名里的三个点和省略号「…」它不分，写哪种都行。
+- 苹果菜单（屏幕左上角那个）在动作里写作 Apple。
+
+## 做完怎么确认
+
+在 Safari 里随便打开一个网页，按 ⌃⌥⌘E。你应该看到导出 PDF 的保存窗口弹出来，和你用鼠标点菜单时一样。再切到备忘录按 ⌃⌥⌘E，什么也不应该发生，说明宏组只在 Safari 里生效。
+
+## 卡住了？
+
+<Q q="按了热键，没弹出保存窗口。">
+最常见的原因有两个。一是菜单名对不上，哪怕差一个空格它也找不到；回到 **Menu** 弹出菜单重新点选一次。二是那个菜单项此刻是灰的，比如 Safari 里一个网页都没开。官方说，这个动作找不到菜单、或者菜单是灰的时，默认会让整个宏停下来；不要紧的菜单可以在动作里设成失败了也继续往下。
+</Q>
+<Q q="在 Safari 里按了没反应，宏好像没被触发。">
+确认 Safari 在最前面，宏组和宏都勾着，引擎在跑。再看看「Safari」宏组的 **Available in these applications:** 里加的确实是 Safari。还不行，看[完整教程第 6 步](/guide/6-debug/)。
+</Q>
+<Q q="有的 App 里，菜单明明在，动作却选不到。">
+官方的排查页提到，一些跨平台的 App 要等你用鼠标点过菜单栏，才把菜单真正建好。办法是先切出去再切回来，或者先在菜单栏上点一下，再选菜单，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application)。
+</Q>
+<Q q="为什么不用 Type a Keystroke 按一个键？">
+因为这个菜单本来就没有键可按。就算有，官方也建议用选菜单代替模拟菜单快捷键，尤其当那个快捷键正好也是某个宏的热键时，模拟它的结果没法预料（见 [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)）。
+</Q>
+
+现在那个天天用的菜单命令也有了自己的键。同样的做法，可以给任何 App 里任何一个点得到的菜单配一个，每个 App 一个宏组，互不打扰。

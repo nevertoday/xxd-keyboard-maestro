@@ -1,5 +1,68 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: watch-folder
+step: 2
+time: Fifteen minutes
+for: Everything piles up in your Downloads folder and you dig through it whenever you need something
+tldr: Every PDF moves itself into a "PDF inbox" folder in Documents as soon as it finishes downloading. Everything else stays put, and you don't lift a finger.
+description: Use a Folder trigger to watch your Downloads folder. When a new file arrives, wait for it to finish, check with If Then Else whether its name ends in .pdf, and if so move it with the Move option of File Actions. It only sees files directly in the folder, it takes a few seconds on purpose, and here's what happens when names collide.
 ---
-{/* TBD: a folder trigger that moves new files out of Downloads into the right folder by type. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Fig from "../../../components/Fig.astro";
+
+If you freelance, your Downloads folder is probably like a doorway nobody tidies: contracts and invoice PDFs from clients, images saved from the web, installers, all in one heap. At the end of the month, when you do your books, you're digging this month's PDFs out one at a time. When you finish this page, each PDF will move itself into a folder called "PDF inbox" in Documents as soon as it finishes downloading. Everything else stays where it is until you have time to sort it.
+
+<mark>A Folder trigger keeps watch at the door: each time a file arrives, the macro runs once, holding that file's path.</mark>
+
+## What a Folder trigger does
+
+The macros on the other pages run when you press a key. This one runs without you. Its <Term k="触发器" /> is **Folder**: you pick a folder, and the macro runs each time something is added to it, removed from it, or either (see [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). When the macro runs, the `%TriggerValue%` <Term k="令牌" /> holds the full path of the file that just arrived, and the actions after it use that to decide what to do and where to move it.
+
+One option matters a lot: **ignore partial or changing files**. Downloads take time, and when a file first appears it isn't finished. With this ticked, the trigger waits until the file stops changing before running the macro, and it ignores the temporary files whose extensions mark them as still in progress.
+
+<Fig id="watch-folder-flow" />
+
+## Build the macro
+
+First, set up the destination in Finder: in your Documents folder, make a new folder called "PDF inbox". The official page says **Move** needs a destination folder that already exists, so don't skip this.
+
+Then make a new macro called "File PDFs automatically" in a macro group that's always active.
+
+**The trigger.** Add a **Folder** trigger, choose your Downloads folder, set it to **adds an item**, and tick **ignore partial or changing files**.
+
+**Is it a PDF?** Add an **If Then Else** action with a **Text** condition. For the text to check, use `%TriggerValue%`. For the comparison, choose **ends with** and type `.pdf`. The official page says this comparison ignores case, so names ending in `.PDF` count too (see [Text condition](https://wiki.keyboardmaestro.com/condition/Text)).
+
+**Move it.** In the "then" part of the If Then Else, add **File Actions**, choose **Move**, use `%TriggerValue%` for the file, and for the destination:
+
+<Copy id="wf-dest" title="Destination" code="~/Documents/PDF inbox" />
+
+`~` is your home folder. Leave the "else" part empty, so files that aren't PDFs are left alone.
+
+To sort images out as well, add another **If Then Else** set to **any of the following are true:** with three **Text** conditions in it, for names ending in `.png`, `.jpg` and `.jpeg`, and move those to a folder you've made in Pictures.
+
+## Check that it works
+
+Save a PDF from Safari into Downloads, or save an email attachment there. Once it finishes downloading, give it a few seconds. You should see it disappear from Downloads and show up in "PDF inbox". Save an image there too, to compare. The image should stay in Downloads.
+
+Keep in mind that it only handles files that arrive from now on. PDFs that were already sitting in Downloads before you made the macro won't be touched by the trigger. Move those by hand once, or use the For Each approach from [Rename a batch of files](/en/howto/rename-files/) to deal with them together.
+
+## Stuck?
+
+<Q q="The download finished, but the file didn't move.">
+First check that the macro and its group are ticked, the Engine is running, and the trigger really points at Downloads. Then see whether the file landed inside a subfolder of Downloads, like something that was unzipped. The official page says the trigger only notices items directly in the folder, not changes inside subfolders.
+</Q>
+<Q q="It takes several seconds to move the file.">
+That's normal. The official page says waiting for a file to stop changing adds a necessary delay, because Keyboard Maestro can't know in advance that the file has stopped. Those few seconds are what keeps half-downloaded files from being moved.
+</Q>
+<Q q="The macro showed an error and the file is still in Downloads.">
+Most likely "PDF inbox" already has a file with the same name. The official page says moving a file fails when the destination already has one with that name. Rename or move the old one, then move this one in by hand.
+</Q>
+<Q q="After the file moved, the macro seemed to run again.">
+Check whether the trigger is set to fire on items added or removed. Moving a file out counts as an item removed from Downloads, so it fires again. Choose **adds an item** only.
+</Q>
+
+<u>Don't put deleting in a macro like this.</u> It runs for every new file while you're not looking. A file moved to the wrong place can be moved back; a deleted one is gone. The official page also warns specifically that the delete options in **File Actions** give no warning and skip the Trash, so be very careful with them.
+
+With someone keeping watch at the door, Downloads stops piling up. For macros that run themselves at other moments, like a set time each day or joining a certain Wi-Fi network, see [Run something at the same time every day](/en/howto/daily-schedule/) and [full guide step 2](/en/guide/2-triggers/).

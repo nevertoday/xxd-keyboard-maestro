@@ -1,5 +1,74 @@
 ---
 layout: ../../../layouts/HowTo.astro
 slug: window-layout
+step: 3
+time: Ten minutes
+for: Every time you start work, you drag windows around and pull at corners to get two apps side by side
+tldr: Press ⌃⌥⌘W, and Safari takes the left half of the screen and TextEdit the right half, in place at once and exactly the same every time.
+description: Use the Manipulate a Window action's Move and Resize with ready-made positions like Left Column and Right Column to put two apps side by side. Wait for a just-opened app's window with Pause Until, and work out other proportions with the SCREENVISIBLE function.
 ---
-{/* TBD: use the window actions to put windows at a fixed position and size. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+If you write, you often have your research open on one side and your draft on the other: Safari on the left with the articles you found, TextEdit on the right with what you're writing. Every day you start by dragging the two windows over and pulling at corners, and just when they're about right, a pop-up shoves them out of place. When you finish this page, you'll press ⌃⌥⌘W (⌃ is Control, ⌥ is Option, ⌘ is Command), Safari will take the left half of the screen, TextEdit the right half, and you can start writing.
+
+<mark>Let an action decide where a window goes and how big it is, and it lands in exactly the same place every time.</mark>
+
+## One action, three choices
+
+Windows are moved with **Manipulate a Window**. The official page breaks it into three things you choose (see [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)):
+
+- What to do: move, resize, center, minimize and more. This page uses **Move and Resize**, which comes with a set of ready-made positions: **Left Column**, **Right Column**, **Top Half**, **Full Screen** and so on. There's also Custom, where you fill in the numbers yourself.
+- Which window: usually **the front window**, though you can also pick one by its title.
+- Which app's window: a particular app from the list, or **Front Application**.
+
+The third one is the key to this page. When you pick a particular app, the macro knows it's moving Safari's window and not whatever app happened to be in front when you pressed the hot key.
+
+## Build the macro
+
+Make a new macro called "Writing layout". For the trigger, choose **Hot Key** and press ⌃⌥⌘W. Then add four actions in this order:
+
+1. **Activate a Specific Application**: Safari. If it isn't running, this opens it.
+2. **Manipulate a Window**: **Move and Resize** set to **Left Column**, window set to **the front window**, app set to Safari.
+3. **Activate a Specific Application**: TextEdit.
+4. **Manipulate a Window**: **Move and Resize** set to **Right Column**, window set to **the front window**, app set to TextEdit.
+
+Bringing each app forward before you move it makes sure it's running and its window is showing. When the macro finishes, TextEdit is in front with your cursor in the draft, so you can start typing right away.
+
+[Beginner lesson 3](/en/start/3-one-key-routine/) puts opening apps and arranging windows into a whole start-of-day routine. This page covers just the window step, in more detail.
+
+## When an app has only just opened
+
+If TextEdit isn't running when you press the hot key, step 3 opens it, but its window takes a moment to appear, and step 4 finds no window to move. The official answer is to make the macro wait (see [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Between steps 3 and 4, add a **Pause Until** action with a **Front Window** condition set to TextEdit's front window existing. The moment the window appears, the macro carries on. You can add the same thing for Safari.
+
+Waiting for a condition is sturdier than pausing for a fixed second. On a fast Mac it doesn't wait for nothing, and on a slow one it doesn't give up too soon.
+
+## Other proportions
+
+Half and half isn't the only layout. Say you want your draft wider, at two thirds of the screen. Instead of a ready-made position, work it out. Anywhere Keyboard Maestro wants a number, you can write a <Term k="计算" />, and the `SCREENVISIBLE` function gives you the size of the screen minus the menu bar and the Dock (see [SCREEN function](https://wiki.keyboardmaestro.com/function/SCREEN)). For example, choose **Resize to** and write this for the width:
+
+<Copy id="wl-width" title="Width: two thirds of the visible area" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+`Main` is the screen with the menu bar. With an external display, you can also write names like `Second` or `External` to mean another screen. All of these numbers are in points, not the screen's actual pixels. On a Retina screen, there are about half as many points as pixels.
+
+## Check that it works
+
+Drag the Safari and TextEdit windows somewhere messy, then press ⌃⌥⌘W. You should see Safari jump to the left half and TextEdit to the right half, side by side. Then quit TextEdit and press it again to check that it opens and lands on the right as well.
+
+## Stuck?
+
+<Q q="I pressed the hot key and the windows didn't move.">
+Moving windows needs <Term k="辅助功能权限" />. The official troubleshooting page mentions that when this permission has problems, setting hot keys, typing keys and moving windows all stop working. Go back over the permissions step from [beginner lesson 1](/en/start/1-first-macro/) in **System Settings ▸ Privacy & Security ▸ Accessibility** (older macOS calls it System Preferences), then choose **Help ▸ Interactive Help** and let it check. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
+</Q>
+<Q q="It moved a window from a different app.">
+Check whether the app in step 2 or 4 is set to **Front Application**. That moves whichever app was in front the moment you pressed the hot key, which may not be the one you meant. Pick the particular app instead.
+</Q>
+<Q q="It works the first time, but when an app isn't open yet, only one window gets placed.">
+The app that wasn't open didn't get its window up in time. Add a **Pause Until** as described in "When an app has only just opened" above.
+</Q>
+<Q q="The position I worked out is way off.">
+You probably used the screen's actual pixels instead of points. The official page says this action works in points, and a Retina screen has about half as many points as pixels. Use the `SCREENVISIBLE` function and you won't have to convert anything.
+</Q>
+
+One hot key, and both windows are where they belong. To go one step further and open today's draft with the same key, add an **Open a File, Folder or Application** action.
