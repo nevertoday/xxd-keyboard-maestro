@@ -60,7 +60,7 @@ import Q from "../../components/Q.astro";
 
 ## 令牌和计算：在文字里放变量，在数字里写算式
 
-把变量的值放进一段文字，用的是<Term k="令牌" />。令牌是一对百分号夹着的名字，宏运行到那一步时换成真正的内容，比如 `%LongDate%` 换成今天的日期（[官方说明](https://wiki.keyboardmaestro.com/manual/Tokens)）。变量对应的令牌是 `%Variable%变量名%`，所以例子里写的是 `%Variable%Local Name%`。不想记名字，把光标放进文字框，用 **Edit ▸ Insert Token**（插入令牌）菜单挑，或者按 ⌃⌘T（Control-Command-T）按名字搜。
+把变量的值放进一段文字，用的是<Term k="令牌" />。令牌是一对百分号夹着的名字，宏运行到那一步时换成真正的内容，比如 `%LongDate%` 换成今天的日期（[官方说明](https://wiki.keyboardmaestro.com/manual/Tokens)）。变量对应的令牌是 `%Variable%变量名%`，所以例子里写的是 `%Variable%Local Name%`。不想记名字，把光标放进文字框，用 **Edit ▸ Insert Token**（插入令牌）菜单挑，文字框右上角的 Insert Token 小菜单也是同一份。
 
 要填数字的地方就不一样了。这些框里可以直接写算式，叫作<Term k="计算" />，比如 **Pause**（暂停）的秒数写 `60*Local Minutes`，就是停「分钟数乘 60」秒（[官方说明](https://wiki.keyboardmaestro.com/manual/Calculations)）。<u>计算框里的变量直接写名字，不加百分号</u>，写成 `%Variable%Local Minutes%` 反而算不出来。变量里存的文字要是一个数或者一个算式才行：官方举的例子是，变量里存着文字 `2*3`，算 `4*这个变量` 得到 24。算出结果存进变量，用 **Set Variable to Calculation**（把变量设为计算结果）。
 
@@ -126,6 +126,9 @@ import Q from "../../components/Q.astro";
 </Q>
 <Q q="在 Prompt for User Input 里按了 Cancel，整个宏就停了。">
 <p>本来就是这样：Cancel 不存变量，并且取消整个宏。想让某个按钮只是走另一条路，就加一个新按钮，宏后面用 <code>%PromptButton%</code> 看按的是哪个。</p>
+</Q>
+<Q q="点了 OK，回复却没打进原来那个窗口。">
+<p>小窗口一关，键盘焦点要回到原来那个 App，宏要是抢在前面贴，字就落空了。官方说，打开或关掉一个窗口、换了焦点的动作后面，常常要等一下：在 <strong>Prompt for User Input</strong> 和 <strong>If Then Else</strong> 中间加一个 <strong>Pause</strong>，0.3 秒左右一般就够（<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_do_I_need_a_Pause">官方说明</a>）。</p>
 </Q>
 <Q q="Pause Until 一直在等，宏不往下走了。">
 <p>它等的条件一直没成立。先从状态菜单的 Cancel 里把这个宏停下，再检查条件：App 的名字选对了没有，要的是「在最前面」还是「开着」。</p>

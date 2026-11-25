@@ -46,7 +46,7 @@ import Fig from "../../components/Fig.astro";
 
 <Fig id="1-groups-toggle" />
 
-还有一种更短的，**Activated for one action when**（只为一个动作生效）。按下宏组的热键以后，里面的宏醒着，可只醒一下：你触发了其中一个宏，或者按了别的键、切了 App，它就又睡了。官方的例子是一组开 App 的宏，按一下宏组的热键，再按一个字母：M 开 Mail，S 开 Safari，F 开 Finder。这样你只要记一个热键，后面跟的字母随便取个好记的。
+还有一种更短的，**Activated for one action when**（只为一个动作生效）。按下宏组的热键以后，里面的宏醒着，可只醒一下：你触发了其中一个宏，或者按了别的键，它就又睡了。官方的例子是一组开 App 的宏，按一下宏组的热键，再按一个字母：M 开 Mail，S 开 Safari，F 开 Finder。这样你只要记一个热键，后面跟的字母随便取个好记的。
 
 因为这些宏只在你叫醒宏组以后才生效，它们的热键可以简单到只是一个字母，平时打字完全不受影响。宏组的热键也不是唯一的叫法，官方说还可以从<Term k="状态菜单" />里选，或者在全局面板上点它。要从别的宏里叫醒或者关掉一个宏组，用 **Activate Macro Group**（激活宏组）这个动作。它改的只是此刻生不生效，编辑器里那个勾不会跟着变。
 
@@ -70,7 +70,7 @@ import Fig from "../../components/Fig.astro";
 
 宏多了以后，找起来就费劲了。<Term k="智能组" />帮的是这个忙：它是一次存起来的搜索，自动列出所有符合条件的宏。点最左边那一栏底下的 **⊕** 就能新建一个，里面写一条或几条搜索条件，哪个宏对得上其中任何一条，就列在里面。见官方的 [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups)。
 
-搜索条件可以是一个词，也可以带上官方定的几种前缀。比如 `mod:1w` 是一周内改过的宏，`app:Finder` 是专给 Finder 用（或者排除了 Finder）的宏，`h:` 是所有配了热键的宏，`t:=sig=` 是触发字是 `=sig=` 的宏。完整的写法见官方的 [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings)。最上面那个 **All Macros** 也是一个智能组，列出你所有的宏。
+搜索条件可以是一个词，也可以带上官方定的几种前缀。比如 `mod:1w` 是一周内改过的宏，`app:Finder` 是专给 Finder 用（或者排除了 Finder）的宏，`h:` 是所有配了热键的宏，`t:=sig=` 是触发字是 `=sig=` 的宏。完整的写法见官方的 [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings)。最上面那个 **All Macros** 也是这样一个组，列出你所有的宏。
 
 要记住的是，智能组只是换一种方式把宏列给你看，宏还住在原来的宏组里，它在哪里、什么时候生效，还是由那个宏组说了算。
 
@@ -86,7 +86,7 @@ import Fig from "../../components/Fig.astro";
 <p>先选中这个宏组，看右上角那个勾是不是还勾着，关掉的宏组里所有的宏都不算数。再看它在哪些 App 里可用：要是设成了只在某几个 App 里可用，你在别的 App 里按，它当然不会动。还是想不通，选 <strong>Help ▸ Interactive Help</strong>，它会帮你查这个宏为什么没被触发。宏不灵的完整查法在<a href="/guide/6-debug/">第 6 步</a>。</p>
 </Q>
 <Q q="按了宏组的热键，再按字母，没反应。">
-<p>设成 <strong>Activated for one action when</strong> 的宏组只醒一下：中间按了别的键、切了 App，它就又睡了。按完宏组的热键，接着就按那个字母。要是想连着用好几个，改成 <strong>Activated/deactivated when</strong>，用完再按一次宏组的热键关掉。</p>
+<p>设成 <strong>Activated for one action when</strong> 的宏组只醒一下：中间按了别的键，它就又睡了。按完宏组的热键，接着就按那个字母。要是想连着用好几个，改成 <strong>Activated/deactivated when</strong>，用完再按一次宏组的热键关掉。</p>
 </Q>
 <Q q="一按热键，弹出一个列表让我选。">
 <p>这是冲突面板：有两个以上同时生效的宏用了同一个热键。给其中一个换个热键，或者把它们分到只对各自 App 生效的宏组里。你也可以故意这样用：给几件相近的事配同一个热键，按下以后再按数字或者首字母挑一个。见官方的 <a href="https://wiki.keyboardmaestro.com/Conflict_Palette">Conflict Palette</a>。</p>

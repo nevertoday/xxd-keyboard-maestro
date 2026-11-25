@@ -46,7 +46,7 @@ Choose **Activated/deactivated when** and give the group a hot key, say ⌃⌥�
 
 <Fig id="1-groups-toggle" />
 
-There's a shorter version too, **Activated for one action when**. After you press the group's hot key its macros are awake, but only briefly: trigger one of them, press any other key, or switch apps, and the group goes back to sleep. The wiki's example is a group of app-launching macros. Press the group's hot key, then one letter: M for Mail, S for Safari, F for Finder. You remember one hot key, and the letters after it can be whatever's easy to recall.
+There's a shorter version too, **Activated for one action when**. After you press the group's hot key its macros are awake, but only briefly: trigger one of them or press any other key, and the group goes back to sleep. The wiki's example is a group of app-launching macros. Press the group's hot key, then one letter: M for Mail, S for Safari, F for Finder. You remember one hot key, and the letters after it can be whatever's easy to recall.
 
 Because these macros are only live after you wake the group, their hot keys can be as simple as a single letter without getting in the way of normal typing. The group's hot key isn't the only way to wake it either; the wiki says you can also choose it from the <Term k="状态菜单" /> or click it on the global palette. To wake or put away a group from another macro, use the **Activate Macro Group** action. It only changes whether the group is active right now; the tick in the editor doesn't change.
 
@@ -70,7 +70,7 @@ A group can also appear in the menu bar, with an icon and a title that can keep 
 
 Once you have a lot of macros, finding them takes effort. That's what a <Term k="智能组" /> helps with. It's a saved search that lists every macro matching it. Click **⊕** at the bottom of the leftmost column to make one, then write one or more search strings; any macro that matches any of them is listed. See the official [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups).
 
-A search string can be a plain word, or use one of the prefixes the wiki defines. `mod:1w` finds macros changed in the last week, `app:Finder` finds macros specific to (or excluded from) the Finder, `h:` finds every macro with a hot key, and `t:=sig=` finds the macro whose trigger is `=sig=`. The full list is in the official [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings). The **All Macros** entry at the top is a smart group too, listing all your macros.
+A search string can be a plain word, or use one of the prefixes the wiki defines. `mod:1w` finds macros changed in the last week, `app:Finder` finds macros specific to (or excluded from) the Finder, `h:` finds every macro with a hot key, and `t:=sig=` finds the macro whose trigger is `=sig=`. The full list is in the official [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings). The **All Macros** entry at the top works the same way, listing all your macros.
 
 The thing to remember is that a smart group only shows macros in a different way. Each macro still lives in its own macro group, and that group still decides where and when it's live.
 
@@ -86,7 +86,7 @@ That's the whole idea of this step: where and when a macro counts is up to its m
 <p>Select the group and check that the tick in its top-right corner is still on; a disabled group takes all its macros with it. Then check which apps it's available in: if it's set to certain apps only, pressing the key anywhere else does nothing. If you still can't see it, choose <strong>Help ▸ Interactive Help</strong>, which checks why a macro isn't firing. The full checklist is <a href="/en/guide/6-debug/">step 6</a>.</p>
 </Q>
 <Q q="I press the group's hot key, then the letter, and nothing happens.">
-<p>A group set to <strong>Activated for one action when</strong> is awake only briefly: press another key or switch apps in between and it goes back to sleep. Press the group's hot key, then the letter right away. If you want to use several in a row, switch it to <strong>Activated/deactivated when</strong> and press the group's hot key again when you're done.</p>
+<p>A group set to <strong>Activated for one action when</strong> is awake only briefly: press another key in between and it goes back to sleep. Press the group's hot key, then the letter right away. If you want to use several in a row, switch it to <strong>Activated/deactivated when</strong> and press the group's hot key again when you're done.</p>
 </Q>
 <Q q="When I press a hot key, a list pops up asking me to choose.">
 <p>That's the Conflict Palette: two or more macros that are active at the same time share that hot key. Give one of them a different key, or move them into groups that are each live in their own app. You can also use it on purpose: give a few related macros the same hot key, then pick one with a number or its first letter. See the official <a href="https://wiki.keyboardmaestro.com/Conflict_Palette">Conflict Palette</a>.</p>

@@ -92,7 +92,7 @@ That's the whole idea of this step: think about the moment the job naturally sta
 <p>The Mac was most likely asleep. If it's asleep at the scheduled time, that run is missed, and it won't catch up after waking. With the screen locked the macro does run, but actions like typing or choosing menus won't work.</p>
 </Q>
 <Q q="I joined a Wi-Fi network and the macro didn't run.">
-<p>From macOS 14 on, Keyboard Maestro Engine needs Location permission to read Wi-Fi information. In <strong>System Settings ▸ Privacy & Security</strong>, look under Location Services and check that it's turned on.</p>
+<p>From macOS 14 on, Keyboard Maestro Engine needs Location permission to read Wi-Fi information. In <strong>System Settings ▸ Privacy & Security</strong>, look under Location Services and check that it's turned on. If it isn't in the list at all, the developers' workaround is to run a <strong>Get Location</strong> action once in a macro, which makes the system ask you (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions">official FAQ</a>).</p>
 </Q>
 <Q q="A macro ran twice.">
 <p>Check whether it has two triggers that both happened, such as one at login and one when Wi-Fi joins. The Wi-Fi trigger also fires again after every sleep and wake, so make these macros safe to run more than once.</p>

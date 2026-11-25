@@ -9,7 +9,7 @@ import Q from "../../components/Q.astro";
 
 每天早上坐到 Mac 前面，你的手大概是这么走的：点开日历，看看今天有什么安排；点开备忘录，看看待办；打开 Safari，进那个每天都要看的网页，可能是课程页、公司的系统，也可能是店铺的后台；然后把 Safari 拖到左边，备忘录拖到右边，这才开始干活。七八下，天天一模一样。
 
-这一课把这七八下排进一个宏，按一下 ⌃⌥⌘M（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command，M 取 morning 的意思），它从头做到尾。
+这一课把这七八下排进一个宏，按一下 ⌃⌥⌘T（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command，T 取 today 的意思），它从头做到尾。
 
 ## 一串动作，从上到下
 
@@ -21,7 +21,7 @@ import Q from "../../components/Q.astro";
 
 ## 做这个宏
 
-在 **Global Macro Group** 里新建一个宏，起名「开工」。点 **New Trigger**，选 **Hot Key Trigger**，按 ⌃⌥⌘M。然后照下面的顺序加六个动作，每个都是点 **New Action**、在 **All Actions** 里找到它、双击：
+在 **Global Macro Group** 里新建一个宏，起名「开工」。点 **New Trigger**，选 **Hot Key Trigger**，按 ⌃⌥⌘T。然后照下面的顺序加六个动作，每个都是点 **New Action**、在 **All Actions** 里找到它、双击：
 
 1. **Activate a Specific Application**（打开并切到某个 App），在 **Activate:** 里选日历（Calendar）。
 2. 再加一个 **Activate a Specific Application**，这次选备忘录（Notes）。
@@ -34,7 +34,7 @@ import Q from "../../components/Q.astro";
 
 ## 试一下
 
-先把日历、备忘录、Safari 都退出，按 ⌃⌥⌘M。
+先把日历、备忘录、Safari 都退出，按 ⌃⌥⌘T。
 
 <Callout type="ok">
 日历、备忘录依次打开，Safari 打开了你填的网页，一秒左右以后，Safari 占住屏幕左半边，备忘录占住右半边。
@@ -53,7 +53,7 @@ import Q from "../../components/Q.astro";
 
 ## 不灵的时候去哪看
 
-宏没有动静的时候，别一个个去猜，先让 Keyboard Maestro 自己查。打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)）。
+宏没有动静的时候，别一个个去猜，先让 Keyboard Maestro 自己查。打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)）。
 
 它先查大环境：引擎在不在跑，开机会不会自动启动，辅助功能权限开没开，系统是不是卡在了输入密码的状态。这些都没问题，它让你从菜单里挑出这个宏，再查它所在的组有没有开、这个宏自己有没有开、有没有触发器、有没有开着的动作。最后它让你按一下热键，看这个宏到底有没有被触发。
 
@@ -67,7 +67,7 @@ import Q from "../../components/Q.astro";
 
 ## 不对怎么办
 
-<Q q="按了 ⌃⌥⌘M，几个 App 都开了，窗口却没摆好。">
+<Q q="按了 ⌃⌥⌘T，几个 App 都开了，窗口却没摆好。">
 
 等得不够。把 **Pause** 从 1 秒改成 2 秒，还不行就再加。动作的顺序也看一眼：**Pause** 要放在 **Open a URL** 后面、两个 **Manipulate a Window** 前面。
 

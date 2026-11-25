@@ -37,7 +37,7 @@ Keyboard Maestro 只能从官网 [keyboardmaestro.com](https://www.keyboardmaest
 
 ## 给它开权限
 
-Keyboard Maestro 要替你按键、选菜单、挪窗口，等于是在替你操作这台 Mac，所以 macOS 要你亲口同意，这就是<Term k="辅助功能权限" />。没有它，Keyboard Maestro 连键盘都看不见，热键自然也就不灵（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
+Keyboard Maestro 要替你按键、选菜单、挪窗口，等于是在替你操作这台 Mac，所以 macOS 要你亲口同意，这就是<Term k="辅助功能权限" />。没有它，Keyboard Maestro 看不到你按的键，连热键都设不上（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
 
 第一次打开时，Keyboard Maestro 会提醒你这件事；还没开好的时候，编辑器窗口右下角会有一个黄色的小三角，点它就能照着提示一步步做。自己去开也可以：
 
@@ -91,7 +91,7 @@ Keyboard Maestro 没有「保存」按钮，你改了什么，几秒以后它自
 
 <Q q="按了 ⌃⌥⌘N，什么也没发生。">
 
-最快的办法是让 Keyboard Maestro 自己查：打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”。它会挨个检查引擎在不在跑、权限有没有开，再让你挑出这个宏，看它所在的组和它自己是不是开着、有没有触发器和动作（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)）。它指出哪一条不对，就改哪一条。
+最快的办法是让 Keyboard Maestro 自己查：打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”。它会挨个检查引擎在不在跑、权限有没有开，再让你挑出这个宏，看它所在的组和它自己是不是开着、有没有触发器和动作（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)）。它指出哪一条不对，就改哪一条。
 
 </Q>
 <Q q="点了热键那个方框，按键它不认，框里什么也不显示。">
@@ -116,9 +116,9 @@ Keyboard Maestro 没有「保存」按钮，你改了什么，几秒以后它自
 引擎没跟着开机启动。打开一次 Keyboard Maestro，引擎就会跟着启动；再去 **Keyboard Maestro ▸ Settings…** 的 **General** 里勾上 **Launch Engine at Login**，以后就不用管了（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)）。
 
 </Q>
-<Q q="按了热键，备忘录出来了，可原来那个 App 也做了一件别的事。">
+<Q q="按了热键，备忘录出来了，可另一个程序也跟着做了一件事。">
 
-另一个 App 也用了 ⌃⌥⌘N。官方说，两边注册了同一个热键时，你的宏和那个 App 的功能会一起发生（[官方说明](https://wiki.keyboardmaestro.com/trigger/Hot_Key)）。点开触发器的方框，换一组键就行，比如 ⌃⌥⌘ 加另一个字母。
+另一个程序也在整个系统里注册了 ⌃⌥⌘N 当热键。官方说，两边注册了同一个热键时，你的宏和那个程序的功能会一起发生（[官方说明](https://wiki.keyboardmaestro.com/trigger/Hot_Key)）。点开触发器的方框，换一组键就行，比如 ⌃⌥⌘ 加另一个字母。
 
 </Q>
 <Q q="按了热键，弹出一小排宏让我选。">

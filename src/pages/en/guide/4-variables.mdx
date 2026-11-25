@@ -60,7 +60,7 @@ So which do you use day to day? The wiki's advice is to <u>prefer Local or Insta
 
 ## Tokens and calculations: variables in text, formulas in numbers
 
-To put a variable's value into some text you use a <Term k="令牌" text="token" />. A token is a name between percent signs that gets replaced with real content when the action runs. `%LongDate%`, for example, becomes today's date ([wiki](https://wiki.keyboardmaestro.com/manual/Tokens)). The token for a variable is `%Variable%name%`, which is why the example says `%Variable%Local Name%`. You don't have to remember them: put the cursor in a text field and use the **Edit ▸ Insert Token** menu, or press ⌃⌘T (Control-Command-T) to search tokens by name.
+To put a variable's value into some text you use a <Term k="令牌" text="token" />. A token is a name between percent signs that gets replaced with real content when the action runs. `%LongDate%`, for example, becomes today's date ([wiki](https://wiki.keyboardmaestro.com/manual/Tokens)). The token for a variable is `%Variable%name%`, which is why the example says `%Variable%Local Name%`. You don't have to remember them: put the cursor in a text field and use the **Edit ▸ Insert Token** menu, or the Insert Token pop-up at the top right of the field, which has the same list.
 
 Fields that want a number work differently. You can type a formula straight into them, called a <Term k="计算" text="calculation" />. Setting a **Pause** to `60*Local Minutes`, for instance, pauses for the number of minutes times 60 seconds ([wiki](https://wiki.keyboardmaestro.com/manual/Calculations)). <u>In a calculation field you write the variable's bare name, without percent signs</u>; `%Variable%Local Minutes%` won't calculate. The text in the variable has to be a number or a formula. The wiki's example: if a variable holds the text `2*3`, then `4*` that variable gives 24. To store a result in a variable, use **Set Variable to Calculation**.
 
@@ -126,6 +126,9 @@ Your macros can now remember, ask, decide, wait and repeat. Next comes the clipb
 </Q>
 <Q q="I pressed Cancel in Prompt for User Input and the whole macro stopped.">
 <p>That's how it works: Cancel stores nothing and cancels the macro. If you want a button that just takes another path, add a new button and check <code>%PromptButton%</code> afterwards.</p>
+</Q>
+<Q q="I clicked OK, but the reply didn't land in the window I was in.">
+<p>When the small window closes, keyboard focus has to go back to the app you were in, and if the macro pastes before that happens the text goes nowhere. The wiki says an action that opens or closes a window or moves the focus often needs a short wait after it: put a <strong>Pause</strong> between <strong>Prompt for User Input</strong> and <strong>If Then Else</strong>. Around 0.3 seconds is usually enough (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_do_I_need_a_Pause">wiki</a>).</p>
 </Q>
 <Q q="Pause Until keeps waiting and the macro never continues.">
 <p>The condition it's waiting for never became true. Stop the macro from Cancel in the status menu, then check the condition: is it the right app, and do you mean "at the front" or just "running"?</p>
