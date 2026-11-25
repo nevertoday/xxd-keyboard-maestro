@@ -57,7 +57,7 @@ for (const file of pages) {
   if (visible.includes("**")) fail(file, "有没渲染出来的 **（加粗的结尾紧挨着中文标点或文字时会这样，在 ** 后加空格或改用 <strong>）");
 }
 
-const OG_MISSING_FAILS = false;
+const OG_MISSING_FAILS = true;
 const manifest = existsSync(join(ROOT, MANIFEST)) ? JSON.parse(readFileSync(join(ROOT, MANIFEST), "utf8")) : {};
 const ogMissing = [];
 for (const c of ogCards()) {
