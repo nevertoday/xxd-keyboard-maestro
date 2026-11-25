@@ -4,39 +4,37 @@
 <meta charset="utf-8">
 <title>og</title>
 <style>
+  /* 配色和 README 插画一样：接近白的画布、墨色字、荧光笔一样的淡黄带。右边是本站键帽标志（public/favicon.svg）的线描版：外框是键帽，偏上的内框是键面，键面上一个播放三角；左下品牌行用实心的标志本身 */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1280px; height: 640px; overflow: hidden; }
-  body { background: #171612; color: #f3f0ea; font-family: "PingFang SC", "Avenir Next", sans-serif; position: relative; }
+  body { background: #fafaf8; color: #111; font-family: "PingFang SC", "Avenir Next", sans-serif; position: relative; }
   .copy { position: absolute; left: 88px; top: 50%; transform: translateY(-54%); }
   h1 { font-weight: 600; line-height: 1.12; letter-spacing: -.01em; white-space: nowrap; display: inline-block; }
-  h1 em { font-style: normal; color: #ff7a4d; }
-  .sub { margin-top: 30px; font-size: 38px; font-weight: 500; color: #a7a194; }
-  /* 右边的图形：TODO 换成本站的键帽（Site.astro 的 site-mark）；现在还是从 Saily 站带来的 SIM 卡，等设计那一步重画 */
-  .sim { position: absolute; right: 110px; top: 150px; width: 260px; height: 340px; }
-  .sim svg { width: 100%; height: 100%; overflow: visible; }
-  .brand { position: absolute; left: 88px; bottom: 56px; font-size: 26px; font-weight: 600; display: flex; align-items: center; gap: 12px; }
-  .brand b { width: 26px; height: 32px; background: #f3f0ea; clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); position: relative; }
-  .brand b::after { content: ""; position: absolute; left: 6px; top: 13px; width: 14px; height: 11px; background: #ff7a4d; }
-  /* Wiki 条目的卡（?kind=wiki）：分组、条目名、一句话，在品牌行上方的区域里竖着居中；SIM 卡缩小，给文字让出宽度 */
+  h1 em { font-style: normal; background: linear-gradient(transparent 60%, #fce6c4 60%, #fce6c4 94%, transparent 94%); padding: 0 .04em; }
+  .sub { margin-top: 30px; font-size: 38px; font-weight: 500; color: #6d6b67; }
+  .key { position: absolute; right: 104px; top: 166px; width: 280px; height: 280px; filter: drop-shadow(0 18px 24px rgba(17, 17, 17, .08)); }
+  .key svg { display: block; width: 100%; height: 100%; }
+  .brand { position: absolute; left: 88px; bottom: 56px; font-size: 26px; font-weight: 600; display: flex; align-items: center; gap: 14px; }
+  .brand svg { width: 30px; height: 30px; }
+  /* Wiki 条目的卡（?kind=wiki）：分组、条目名、一句话，在品牌行上方的区域里竖着居中；键帽缩小，给文字让出宽度 */
   .group { display: none; }
   .wiki .copy { top: 72px; bottom: 128px; width: 800px; transform: none; display: flex; flex-direction: column; justify-content: center; }
-  .wiki .group { display: block; margin-bottom: 26px; font-size: 30px; font-weight: 600; color: #ff7a4d; }
+  .wiki .group { display: block; margin-bottom: 26px; font-size: 30px; font-weight: 600; color: #6d6b67; }
   .wiki h1 { display: block; white-space: normal; word-break: keep-all; overflow-wrap: anywhere; text-wrap: balance; }
-  .wiki .sub { margin-top: 30px; font-size: 36px; line-height: 1.45; text-wrap: pretty; }
+  .wiki .sub { margin-top: 30px; font-size: 36px; line-height: 1.45; text-wrap: pretty; color: #3d3c39; }
   .wiki .sub.clamp { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
-  .wiki .sim { right: 96px; top: 162px; width: 200px; height: 262px; }
+  .wiki .key { right: 100px; top: 196px; width: 196px; height: 196px; }
 </style>
 </head>
 <body>
 <div class="copy"><p class="group" id="group"></p><h1 id="h1"></h1><p class="sub" id="sub"></p></div>
-<div class="sim"><svg viewBox="0 0 260 340" aria-hidden="true">
-  <path d="M14 14 H186 L246 74 V326 H14 Z" fill="none" stroke="#f3f0ea" stroke-width="14" stroke-linejoin="miter"/>
-  <rect x="62" y="150" width="136" height="104" fill="#ff7a4d"/>
-  <path d="M62 184 H198 M62 220 H198 M130 150 V254" stroke="#171612" stroke-width="8"/>
-  <path d="M96 96 a46 46 0 0 1 68 0" fill="none" stroke="#f3f0ea" stroke-width="10" stroke-linecap="square"/>
-  <path d="M76 76 a74 74 0 0 1 108 0" fill="none" stroke="#f3f0ea" stroke-width="10" stroke-linecap="square" opacity=".55"/>
+<svg width="0" height="0" style="position:absolute"><symbol id="mark" viewBox="0 0 20 20"><rect width="20" height="20" fill="#111"/><path fill="#fff" fill-rule="evenodd" d="M3 3H17V15H3ZM4.5 4.5V13.5H15.5V4.5Z"/><path fill="#fff" d="M8.5 6.5V11.5L12.5 9Z"/></symbol></svg>
+<div class="key"><svg viewBox="0 0 280 280" aria-hidden="true">
+  <rect x="5" y="5" width="270" height="270" rx="30" fill="#fff" stroke="#111" stroke-width="10"/>
+  <rect x="40" y="38" width="200" height="168" rx="16" fill="#fafaf8" stroke="#111" stroke-width="6"/>
+  <path d="M118 88V156L174 122Z" fill="#111"/>
 </svg></div>
-<div class="brand"><b></b><span id="brand"></span></div>
+<div class="brand"><svg aria-hidden="true"><use href="#mark"/></svg><span id="brand"></span></div>
 <script>
   // 两种卡：全站的卡（?lang=zh|en）；Wiki 条目的卡（?kind=wiki&lang=…&title=…&one=…&group=…，文字由 src/data/og.js 传进来，已去掉行内标记）
   const q = new URLSearchParams(location.search);
@@ -47,12 +45,12 @@
   if (q.get("kind") === "wiki") wikiCard(); else siteCard();
 
   function siteCard() {
-    // TODO：大标题和副标题等设计那一步定，现在是占位
-    const SUB = { zh: "TODO 副标题 · 非官方学习站", en: "TODO subtitle · an unofficial guide" };
+    // 2026-11-25 定稿：和 README 头图同一句标题；副标题是新手三课各自学会的那件事
+    const SUB = { zh: "一个键开 App · 几个字母出一段话 · 一个键做完一串事", en: "Hot keys · text snippets · one key, a whole routine" };
     const BRAND = { zh: "Keyboard Maestro 新手教程 · 非官方", en: "Keyboard Maestro for beginners · unofficial" };
     const COPY = {
-      zh: "TODO 大标题<br><em>Keyboard Maestro</em>",
-      en: "TODO headline<br><em>Keyboard Maestro</em>",
+      zh: "如何爽用<br><em>Keyboard Maestro</em>",
+      en: "Get the most out of<br><em>Keyboard Maestro</em>",
     };
     h1.innerHTML = COPY[lang];
     if (lang === "en") { h1.style.fontFamily = EN_FONT; h1.style.fontWeight = "800"; }

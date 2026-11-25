@@ -3,8 +3,8 @@
 
     npm run og        （就是 python3 tools/build_og.py）
 
-截哪些卡、填什么字都在 src/data/og.js：全站两张（public/og.png 中文页、public/og-en.png 其他语言，
-顺带复制成 README 头图 assets/social.png、assets/en/social.png），加上每个 Wiki 条目中英文各一张
+截哪些卡、填什么字都在 src/data/og.js：全站两张（public/og.png 中文页、public/og-en.png 其他语言；
+英文那张另外缩成 1280×640 存成 assets/social.png，给 GitHub 的 Social preview），加上每个 Wiki 条目中英文各一张
 （public/og/wiki/<slug>.png、public/og/en/wiki/<slug>.png，条目名和一句话从 wiki.js、wiki.en.js 读）。
 每张卡截完把指纹记进 tools/og-manifest.json，指纹没变的卡不重截；public/og/ 下不在表里的图会删掉。
 改了 tools/og.html，所有卡都会重截，挑几张看一眼：字有没有互相压住、顶到边。
@@ -47,7 +47,7 @@ def main():
     manifest = {p: h for p, h in old.items() if p in cards}
 
     def outputs(card):
-        return [ROOT / "public" / card["path"].lstrip("/"), *(ROOT / c for c in card["copies"])]
+        return [ROOT / "public" / card["path"].lstrip("/"), *(ROOT / c["path"] for c in card["copies"])]
 
     todo = [c for c in cards.values() if manifest.get(c["path"]) != c["hash"] or not all(p.exists() for p in outputs(c))]
     with tempfile.TemporaryDirectory() as tmp:
@@ -57,6 +57,9 @@ def main():
             for out in outputs(card):
                 out.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(png, out)
+            for c in card["copies"]:
+                if c.get("width"):
+                    subprocess.run(["sips", "--resampleWidth", str(c["width"]), str(ROOT / c["path"])], check=True, capture_output=True)
             manifest[card["path"]] = card["hash"]
             write_json(manifest_path, manifest)
             print(f"[{i}/{len(todo)}] public{card['path']}")

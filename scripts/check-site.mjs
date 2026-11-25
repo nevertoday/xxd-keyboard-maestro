@@ -1,7 +1,7 @@
 // 构建以后查整站：每页最多一处 <mark>；站内链接和锚点都在；示意的回复都标了「示意 / Illustration」；没留下占位字；没有漏渲染的 **。
 // 还查分享大图：src/data/og.js 里的每张卡（每个 Wiki 条目中英文各一张）都在 public/ 里，而且是照现在的文字和 tools/og.html 截的（指纹对得上 tools/og-manifest.json）。
-// 骨架阶段还没做分享大图（tools/og.html 是占位）：缺图先只提醒、不算失败；截过的图过期了照样算失败。
-// 分享大图做好、npm run og 跑过以后，把 OG_MISSING_FAILS 改成 true，缺图就又算失败。
+// 全站两张已经截好，Wiki 条目还没写，它们的卡也还没有：缺图先只提醒、不算失败；截过的图过期了照样算失败。
+// Wiki 条目写进来、npm run og 跑过以后，把 OG_MISSING_FAILS 改成 true，缺图就又算失败。
 //
 //   npm run build && node scripts/check-site.mjs
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";

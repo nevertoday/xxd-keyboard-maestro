@@ -18,7 +18,7 @@
   - Keyboard Maestro 只有英文界面，所以每种语言的页面里，按钮名都照英文写、加粗，第一次出现时括号里给那种语言的意思，和中文页一样。
   - 改了中文 / 英文的新手入门或首页，同一次提交里把这些语言也改了；改完跑 `node scripts/check-i18n.mjs`（查键、占位、编译、复制块 id、链接）。
   - 阿拉伯语从右往左：样式里的左右用逻辑属性，代码、命令和英文按钮名保持从左往右。
-- README 现在只有中文的 `README.md`（占位）。以后照 Grok Bot 站的做法，每种语言一份 `README.<语言>.md`，配图在 `assets/` 和 `assets/en/`。
+- README 有中文 `README.md` 和英文 `README.en.md`，配图在 `assets/` 和 `assets/en/`（见下面「README 插画和分享大图」）。改了 `nav.js` 的课名、步骤或 How-to，两份 README 里的清单一起改。以后加语言，照 Grok Bot 站的做法每种语言一份 `README.<语言>.md`，语言栏里加上它，`tools/build_hero.py` 和 `tools/build_readme_svgs.py` 的 `TEXT` 各加一份。
 
 ```bash
 npm install
@@ -35,8 +35,7 @@ npm run check      # 构建以后跑：多语言、整站、界面名字
 - 完整教程每一步在 `nav.js` 里是 `ready: false`，导航和首页显示「编写中」、不给链接；写完一步改成 `ready: true`。
 - 首页（`views/Home.astro` 的 `ZH`、`EN`）和 `src/i18n/base.js` 的 `home` 是占位文字，页面上以「占位：」/「Placeholder:」开头，源码里标着 `待写` / `TBD:`。
 - `wiki.js`、`wiki.en.js`、`faq.js`、`faq.en.js` 只有结构，没有条目。`GLOSSARY` 的每个术语已经用 `wiki:` 写好要指向的 slug，条目还不存在：哪一页先用了 `<Term>`，`check-site` 会报「链接不存在：/wiki/…」，所以写页面时把它用到的 Wiki 条目一起写上。
-- 分享大图还没做：`tools/og.html` 的字是 TODO 占位，右边的图形还是 Saily 站的 SIM 卡。`check-site` 现在缺图只提醒、不算失败（`scripts/check-site.mjs` 的 `OG_MISSING_FAILS = false`）；做好图、跑过 `npm run og` 以后改回 `true`。
-- `tools/build_hero.py`、`tools/build_readme_svgs.py` 还是 Saily 站的画面和文字，重画 README 插画时整个改写。
+- 分享大图：模板做好了，全站两张已经截好。Wiki 条目还没有，所以它们的卡也还没有，`check-site` 缺图先只提醒、不算失败（`scripts/check-site.mjs` 的 `OG_MISSING_FAILS = false`）。Wiki 条目写进来、跑过 `npm run og`、把 `public/og/` 和 `tools/og-manifest.json` 一起提交以后，改成 `true`。
 - `docs/TRANSLATE.md` 还是 Saily 站的版本，加语言之前要改写。
 - `check-site` 查的是构建出来的页面，看不见 MDX 注释，所以空白的页面它不拦。拦它的是 `npm run release`：`src/pages`、`src/views`、`src/i18n` 里还有 `待写` 或 `TBD:`，它在部署前停下，并列出是哪几个文件。
 
@@ -157,11 +156,12 @@ Cloudflare Workers 静态资源，Worker 叫 `xxd-keyboard-maestro-site`，配�
 
 ## README 插画和分享大图
 
-生成器都在 `tools/`（现在都还是占位，见「现在的状态」）：
+生成器都在 `tools/`，图里的界面字照 Keyboard Maestro 的英文（中文版只翻译说明文字和宏名），课名从 `nav.js` 读：
 
 - README 头图：`python3 tools/build_hero.py` 写出 `assets/hero.svg` 和 `assets/en/hero.svg`（一段循环的 SVG 动画）。看效果：把 SVG 内嵌进一个 HTML，用 `document.getAnimations()` 暂停在某一秒再截图（放在 `<img>` 里的动画，无头 Chrome 不会往前走）。
-- README 配图：`python3 tools/build_readme_svgs.py` 写出 `assets/readme/*.svg` 和 `assets/en/readme/*.svg`。
-- 分享大图：样子都在 `tools/og.html`（一张 HTML 海报：`?lang=zh` / `?lang=en` 是全站那张，`?kind=wiki&title=…&one=…&group=…` 是 Wiki 条目那张）。截哪些卡、填什么字在 `src/data/og.js`：全站两张 `public/og.png`（中文页）、`public/og-en.png`（其他语言），每个 Wiki 条目中英文各一张 `public/og/wiki/<slug>.png`、`public/og/en/wiki/<slug>.png`。`npm run og` 用 Chrome 截图，2 倍清晰度（2560×1280），每张的指纹（模板 + 文字）记在 `tools/og-manifest.json`，没变的不重截；`npm run check` 照指纹查过期。页面用哪张：`Site.astro` 的 `og` 属性（Wiki 条目页传自己的），不传就是全站那张；图不在 `public/` 里就不输出 `og:image`。改了模板，挑最长的条目名和一句话中英文各看一眼：字有没有互相压住、顶到边。GitHub 仓库的 Social preview 用英文全站那张，要在仓库 Settings → General 手动上传。
+  画的是：按下 ⌃⌥⌘T → 宏卡片上 Hot Key 那一行亮 → Activate a Specific Application、Open a URL、Manipulate a Window 一行行亮，旁边小屏幕上日历窗口出现、浏览器窗口打开再挪到右半边；左边新手三课跟着亮。
+- README 配图：`python3 tools/build_readme_svgs.py` 写出 `assets/readme/*.svg` 和 `assets/en/readme/*.svg`：`macro`（编辑器三栏：宏组 → 宏 → 触发器和动作）、`editor-engine`（编辑器写、引擎跑，编辑器关掉宏照样跑）、`lessons`（三课各学会什么）。依据都是官方 `manual/Quick_Start`。
+- 分享大图：样子都在 `tools/og.html`（一张 HTML 海报：`?lang=zh` / `?lang=en` 是全站那张，`?kind=wiki&title=…&one=…&group=…` 是 Wiki 条目那张）。截哪些卡、填什么字在 `src/data/og.js`：全站两张 `public/og.png`（中文页）、`public/og-en.png`（其他语言），每个 Wiki 条目中英文各一张 `public/og/wiki/<slug>.png`、`public/og/en/wiki/<slug>.png`。`npm run og` 用 Chrome 截图，2 倍清晰度（2560×1280），每张的指纹（模板 + 文字）记在 `tools/og-manifest.json`，没变的不重截；`npm run check` 照指纹查过期。页面用哪张：`Site.astro` 的 `og` 属性（Wiki 条目页传自己的），不传就是全站那张；图不在 `public/` 里就不输出 `og:image`。改了模板，挑最长的条目名和一句话中英文各看一眼：字有没有互相压住、顶到边。GitHub 仓库的 Social preview 用英文全站那张：`npm run og` 顺带把它缩成 1280×640 存成 `assets/social.png`，要在仓库 Settings → General 手动上传。
 
 本站标志（`Site.astro` 里的 `site-mark` 和 `public/favicon.svg`）是一个极简的键帽：墨色方块，里面一圈细框是键面，键面上一个播放三角，和小小东其他站同一套笔法。故意不像 Keyboard Maestro 官方的图标，本站是非官方的。
 
