@@ -44,7 +44,7 @@ import Q from "../../../components/Q.astro";
 
 ## 途中で止める
 
-マクロは一度動き出すと、最後のアクションまでそのまま実行し続けます。意図しない動きを始めたときや、今すぐ止めたいときは、メニューバーにある Keyboard Maestro のアイコンから2通りの方法で止められます。このアイコンをクリックすると<Term k="状态菜单" />が開きます（[公式ページ](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)）：
+マクロは一度動き出すと、最後のアクションまでそのまま実行し続けます。意図しない動きを始めたときや、今すぐ止めたいときは、メニューバーにある Keyboard Maestro のアイコンから2通りの方法で止められます。このアイコンをクリックすると<Term k="状态菜单" text="ステータスメニュー" />が開きます（[公式ページ](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)）：
 
 - ⌃⌥⇧（Control、Option、Shift）を押し続けながらアイコンをクリックします。実行中のマクロがすべて止まります。
 - もしくはアイコンをクリックして **Cancel**（キャンセル）を選び、実行中の一覧から止めたいマクロを選びます。今どのマクロが動いているかを確認したいときにも便利です。
@@ -53,7 +53,7 @@ import Q from "../../../components/Q.astro";
 
 ## 動かないときの確認先
 
-マクロがまったく反応しないときは、当てずっぽうで探す前に Keyboard Maestro 自身にチェックさせましょう。エディタを開いて **Help ▸ Interactive Help**（ヘルプ ▸ 対話式ヘルプ）を選び、「Something expected is not happening」（期待どおりに動かない）をクリックします（[公式ページ](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)）。
+マクロがまったく反応しないときは、当てずっぽうで探す前に Keyboard Maestro 自身にチェックさせましょう。エディタを開いて **Help ▸ Interactive Help**（対話型ヘルプ）を選び、「Something expected is not happening」（起きるはずのことが起きない）をクリックします（[公式ページ](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)）。
 
 最初に確認してくれるのは全体の設定です。エンジンが動いているか、ログイン時に起動する設定になっているか、アクセシビリティ権限がオンになっているか、そしてシステムがパスワード入力中だと思ったまま引っかかっていないかを調べます。そこに問題がなければ、メニューから対象のマクロを選ばせ、所属するマクログループが有効か、マクロ自体が有効か、トリガーと有効なアクションが入っているかを順にチェックしてくれます。最後にホットキーを押すよう求められるので、押してみると実際にマクロがトリガーされたかどうかがわかります。
 

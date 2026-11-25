@@ -14,7 +14,7 @@ import Q from "../../../components/Q.astro";
 
 ## 입력하는 글자를 지켜봐요
 
-지난 레슨의 매크로는 키를 눌러서 실행했어요. 이번에는 다른 트리거인 <Term k="输入字符串触发器" />를 써 볼게요. 미리 정해 둔 문자열을 입력하면 매크로가 시작돼요. 이때 입력한 글자도 평소처럼 현재 앱에 그대로 들어가기 때문에, 트리거는 보통 그 글자들을 먼저 대신 지운 다음 이어지는 동작을 실행해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+지난 레슨의 매크로는 키를 눌러서 실행했어요. 이번에는 다른 트리거인 <Term k="输入字符串触发器" text="문자열 입력 트리거" />를 써 볼게요. 미리 정해 둔 문자열을 입력하면 매크로가 시작돼요. 이때 입력한 글자도 평소처럼 현재 앱에 그대로 들어가기 때문에, 트리거는 보통 그 글자들을 먼저 대신 지운 다음 이어지는 동작을 실행해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
 
 <mark><strong>평소에 실수로 칠 일이 없는 문자열을 입력하면, 그 글자들을 지우고 저장해 둔 문장으로 바꿔 줘요.</strong></mark>
 
@@ -42,7 +42,7 @@ Keyboard Maestro 편집기 안에서는 시험하지 마세요. 개발사 설명
 
 ## 하는 김에 오늘 날짜도 넣어 보세요
 
-텍스트 칸에는 고정된 글자뿐만 아니라 <Term k="令牌" />도 넣을 수 있어요. 퍼센트 기호로 감싼 이름인데, 매크로가 실행될 때 실제 값으로 바뀌어요. 가장 유용한 것 중 하나가 `%LongDate%`예요. 오늘 날짜를 생략 없이 전체 형식으로 바꿔 주죠([공식 문서](https://wiki.keyboardmaestro.com/token/LongDate)).
+텍스트 칸에는 고정된 글자뿐만 아니라 <Term k="令牌" text="토큰" />도 넣을 수 있어요. 퍼센트 기호로 감싼 이름인데, 매크로가 실행될 때 실제 값으로 바뀌어요. 가장 유용한 것 중 하나가 `%LongDate%`예요. 오늘 날짜를 생략 없이 전체 형식으로 바꿔 주죠([공식 문서](https://wiki.keyboardmaestro.com/token/LongDate)).
 
 텍스트 칸의 문구를 아래처럼 바꿔 두면, 트리거를 입력할 때마다 그날의 날짜가 들어가요.
 
@@ -85,7 +85,7 @@ Keyboard Maestro 편집기 안에서는 시험하지 마세요. 개발사 설명
 </Q>
 <Q q="붙여넣고 나니 그전에 복사해 둔 내용이 사라졌어요.">
 
-**Insert Text by Pasting**은 원래 그렇게 작동해요. 클립보드를 잠시 빌려 쓰고, 끝난 뒤에 원래 내용을 되돌려 놓지 않거든요([공식 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). 문구가 짧고 일반 텍스트라면 **Insert Text by Typing**으로 바꿀 수 있어요. 그게 아니라면 다른 걸 복사하기 전에 답장부터 먼저 붙여넣는 습관을 들여 보세요. 그래도 Keyboard Maestro는 복사했던 내용을 기억해 두고 있어서, 전체 가이드의 [5단계](/en/guide/5-clipboard/)에서 다시 되찾는 방법을 알려 줘요.
+**Insert Text by Pasting**은 원래 그렇게 작동해요. 클립보드를 잠시 빌려 쓰고, 끝난 뒤에 원래 내용을 되돌려 놓지 않거든요([공식 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). 문구가 짧고 일반 텍스트라면 **Insert Text by Typing**으로 바꿀 수 있어요. 그게 아니라면 다른 걸 복사하기 전에 답장부터 먼저 붙여넣는 습관을 들여 보세요. 그래도 Keyboard Maestro는 복사했던 내용을 기억해 두고 있어요. 되찾는 방법은 전체 가이드(영어)의 [5단계](/en/guide/5-clipboard/)에서 알려 줘요.
 
 </Q>
 <Q q="정말로 =reply=라는 글자 자체를 입력하고 싶어요.">

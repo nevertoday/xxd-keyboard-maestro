@@ -13,7 +13,7 @@ Al terminar esta lección, pulsar ⌃⌥⌘N traerá Notas al frente y, si no es
 
 ## Una macro es una sola frase: cuando pase esto, haz aquello
 
-Cada tarea que Keyboard Maestro hace por ti se llama una <Term k="宏" />. Por muy compleja que llegue a ser, una macro siempre tiene dos partes: cuándo empieza es su <Term k="触发器" />, y qué hace una vez que empieza es su <Term k="动作" />, o una lista de acciones que va recorriendo de arriba abajo ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
+Cada tarea que Keyboard Maestro hace por ti se llama <Term k="宏" text="macro" />. Por muy compleja que llegue a ser, una macro siempre tiene dos partes: cuándo empieza es su <Term k="触发器" text="activador" />, y qué hace una vez que empieza es su <Term k="动作" text="acción" />, o una lista de acciones que va recorriendo de arriba abajo ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
 
 Así que la macro que vas a crear cabe en una sola frase:
 
@@ -29,7 +29,7 @@ La descarga es un archivo zip. Haz doble clic en él y obtendrás la app Keyboar
 
 ## Al abrirlo, en realidad se inician dos programas
 
-Cuando abres Keyboard Maestro, la ventana que ves es el <Term k="编辑器" />. Ahí es donde escribes y modificas tus macros. Al mismo tiempo inicia en silencio un segundo programa, **Keyboard Maestro Engine**, que es el <Term k="引擎" /> (el motor). El Engine no tiene ventana y se queda en segundo plano: es quien escucha tus atajos de teclado y ejecuta tus macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+Cuando abres Keyboard Maestro, la ventana que ves es el <Term k="编辑器" text="editor" />. Ahí es donde escribes y modificas tus macros. Al mismo tiempo inicia en silencio un segundo programa, **Keyboard Maestro Engine**, que es el <Term k="引擎" text="Engine" /> (el motor). El Engine no tiene ventana y se queda en segundo plano: es quien escucha tus atajos de teclado y ejecuta tus macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)).
 
 Ten presente esta separación y muchas cosas cobrarán sentido más adelante. Puedes cerrar el editor cuando termines y tus macros seguirán funcionando, porque el trabajo lo hace el Engine. Y al revés: si el Engine no está funcionando, ninguna macro hará nada.
 
@@ -37,12 +37,12 @@ La primera vez que lo abras verás una ventana de bienvenida con el botón **Sta
 
 ## Dale permiso
 
-Keyboard Maestro pulsa teclas, elige opciones de menú y mueve ventanas por ti. Eso equivale a manejar tu Mac en tu nombre, así que macOS necesita tu permiso expreso. Ese es el <Term k="辅助功能权限" />. Sin él, Keyboard Maestro no puede ver el teclado, así que ni siquiera podrás configurar un atajo de teclado ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+Keyboard Maestro pulsa teclas, elige opciones de menú y mueve ventanas por ti. Eso equivale a manejar tu Mac en tu nombre, así que macOS necesita tu permiso expreso. Ese es el <Term k="辅助功能权限" text="permiso de Accesibilidad" />. Sin él, Keyboard Maestro no puede ver el teclado, así que ni siquiera podrás configurar un atajo de teclado ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
 
 Keyboard Maestro te lo recuerda la primera vez que lo abres y, mientras falte algo, verás un pequeño triángulo amarillo en la esquina inferior derecha de la ventana del editor. Haz clic en él y sigue los pasos. O hazlo por tu cuenta:
 
 1. Abre **Ajustes del Sistema ▸ Privacidad y seguridad ▸ Accesibilidad**. En versiones anteriores de macOS está en **Preferencias del Sistema**, dentro de Seguridad y privacidad ▸ Privacidad.
-2. Busca **Keyboard Maestro Engine** en la lista y actívalo. Si también aparece **Keyboard Maestro**, actívalo igual. Puede que macOS te pida tu contraseña de inicio de sesión.
+2. Busca **Keyboard Maestro Engine** en la lista y actívalo. Si también aparece **Keyboard Maestro**, actívalo también. Puede que macOS te pida tu contraseña de inicio de sesión.
 
 <Callout type="ok">
 Al volver a Keyboard Maestro, el triángulo amarillo de la esquina inferior derecha habrá desaparecido. Si sigue ahí, haz clic en él para ver qué falta.

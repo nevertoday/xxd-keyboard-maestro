@@ -6,11 +6,11 @@
 
 ### Hol das Beste aus Keyboard Maestro heraus: Überlass die immer gleichen Handgriffe einer einzigen Taste
 
-Keyboard Maestro ist Automatisierung für den Mac: Du schreibst Makros im Editor, und die Engine führt sie im Hintergrund aus.<br>Diese Anleitung orientiert sich am offiziellen Keyboard Maestro Wiki und macht daraus drei kurze Lektionen, damit du auch dann problemlos mitkommst, wenn du noch nie etwas automatisiert hast.
+Keyboard Maestro ist ein Automatisierungstool für den Mac: Du schreibst Makros im Editor, und die Engine führt sie im Hintergrund aus.<br>Diese Anleitung orientiert sich am offiziellen Keyboard Maestro Wiki und macht daraus drei kurze Lektionen, damit du auch dann problemlos mitkommst, wenn du noch nie etwas automatisiert hast.
 
 **[Mit Lektion 1 starten →](https://keyboardmaestro.xiaoxiaodong.ai/de/start/1-first-macro/)**　·　**[Du nutzt es schon? Zur ausführlichen Anleitung (auf Englisch) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>Inoffiziell · kostenlos · Open Source · 10 Sprachen (vollständig auf Chinesisch und Englisch)</sub>
+<sub>Inoffiziell · kostenlos · Open Source · 10 Sprachen (komplett auf Chinesisch und Englisch, Startseite und die drei Lektionen in 8 weiteren)</sub>
 
 </div>
 
@@ -22,7 +22,7 @@ Keyboard Maestro ist Automatisierung für den Mac: Du schreibst Makros im Editor
 
 Morgens klappst du deinen Mac auf, klickst auf Kalender, öffnest die Webseite, auf die du jeden Tag schaust, und ziehst anschließend jedes Fenster an seinen gewohnten Platz. Über den Tag verteilt tippst du mehrmals dieselbe Adresse und dieselbe Antwort ein. Jedes Mal sind es nur ein paar Sekunden, aber eben jeden einzelnen Tag.
 
-Keyboard Maestro übergibt all das an Makros. Ein Makro legt zwei Dinge fest: wann es startet (seine Auslöser) und was es dann tun soll (seine Aktionen). Von da an drückst du nur noch eine Taste oder tippst ein paar Buchstaben ein, und es erledigt die Schritte für dich. Makros liegen in Makrogruppen – das sind eine Art Ordner, die gleichzeitig bestimmen, in welchen Apps und wann die darin enthaltenen Makros aktiv sind.
+Mit Keyboard Maestro übernehmen Makros all das. Ein Makro legt zwei Dinge fest: wann es startet (seine Auslöser) und was es dann tun soll (seine Aktionen). Von da an drückst du nur noch eine Taste oder tippst ein paar Buchstaben ein, und es erledigt die Schritte für dich. Makros liegen in Makrogruppen – das sind eine Art Ordner, die gleichzeitig bestimmen, in welchen Apps und wann die darin enthaltenen Makros aktiv sind.
 
 <p align="center">
   <img src="assets/en/readme/macro.svg" width="100%" alt="Die drei Spalten im Editor von Keyboard Maestro. „Macro Groups“, wo Makros liegen und wirken: „Global Macro Group“ ist ausgewählt, darunter stehen Mail und Safari. „Macros“, jeweils eine kleine Aufgabe: „Start my day“ ist ausgewählt. Rechts daneben das Makro selbst: Unter „Triggered by any of the following“ stehen „Hot Key ⌃⌥⌘T“ und „Time of Day 9:00“ – jeder davon startet das Makro; unter „Will execute the following actions“ stehen „Activate a Specific Application“, „Open a URL“ und „Manipulate a Window“, die von oben nach unten nacheinander ausgeführt werden. Darunter der Hinweis: Ein Makro wird nur ausgelöst, wenn es aktiviert ist und auch seine Makrogruppe aktiviert und aktiv ist.">
@@ -60,7 +60,7 @@ Du bist mit den Lektionen durch und möchtest Makros, die sich anpassen, eine Zw
 | 3 | [Aktionen: Was ein Makro tut](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | Tippen, Tastenanschläge, Menüs, Apps, Fenster, Klicks und Dateien: Lerne das Dutzend Aktionen kennen, das du am häufigsten brauchst, und such dir den Rest heraus, wenn du ihn brauchst |
 | 4 | [Variablen, Bedingungen und Schleifen: Makros, die sich anpassen](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | Sich Text merken, dir eine Frage stellen, je nach Bildschirminhalt einen anderen Weg einschlagen, auf ein Ereignis warten: So ist ein Makro keine starre Abfolge von Tastendrücken mehr |
 | 5 | [Die Zwischenablage: Alles, was du kopiert hast, ist noch da](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | Über den Zwischenablage-Verlauf fügst du früher Kopiertes wieder ein, benannte Zwischenablagen heben wichtige Dinge dauerhaft auf und Filter passen Text noch vor dem Einfügen an |
-| 6 | [Wenn ein Makro nicht funktioniert](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | Prüfe zuerst Berechtigungen und die Engine und dann, ob die Makrogruppe aktiv ist. Immer noch ratlos? Geh Schritt für Schritt mit dem Debugger (Schritt-für-Schritt-Fehlersuche) durch oder lies das Engine-Protokoll |
+| 6 | [Wenn ein Makro nicht funktioniert](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | Prüfe zuerst Berechtigungen und die Engine und dann, ob die Makrogruppe aktiv ist. Immer noch ratlos? Geh das Makro mit dem Debugger Schritt für Schritt durch oder lies das Engine-Protokoll |
 | 7 | [Weiterführendes: Skripte, Unterprogramme, Synchronisieren und Teilen](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/7-advanced/) | Shell-Skripte, AppleScript und JavaScript einbinden, wiederkehrende Schritte in Unterprogramme auslagern, zwischen zwei Macs synchronisieren und Makros mit anderen teilen |
 
 ## How-to: Konkrete Aufgaben
@@ -77,11 +77,11 @@ Hängst du an einem Begriff oder bist dir bei etwas unsicher? Dann schlag es im 
 
 ## Woher diese Inhalte stammen
 
-Jede Funktion, jede Option und jeder Menüpfad ist mit dem [offiziellen Keyboard Maestro Wiki](https://wiki.keyboardmaestro.com/) abgeglichen, das direkt auf der jeweiligen Seite verlinkt ist. Button-Namen stehen genau so da, wie die App sie anzeigt. Geprüft wurde die Anleitung mit Keyboard Maestro 11.1.1 (2026-11-24), wofür macOS 10.13 oder neuer nötig ist. Erfahrungsberichte aus dem Forum werden nur als das zitiert, was jemand ausprobiert hat – jeweils mit Link.
+Jede Funktion, jede Option und jeder Menüpfad ist mit dem [offiziellen Keyboard Maestro Wiki](https://wiki.keyboardmaestro.com/) abgeglichen, das direkt auf der jeweiligen Seite verlinkt ist. Button-Namen stehen genau so da, wie die App sie anzeigt. Geprüft wurde die Anleitung mit Keyboard Maestro 11.1.1 (24.11.2026), wofür macOS 10.13 oder neuer nötig ist. Erfahrungsberichte aus dem Forum werden nur als das zitiert, was jemand ausprobiert hat – jeweils mit Link.
 
 Diese Anleitung enthält keine Lizenzschlüssel, Cracks oder Download-Mirrors; lade Keyboard Maestro direkt von [der offiziellen Website](https://www.keyboardmaestro.com/) herunter. Sie fordert dich niemals auf, macOS-Sicherheitseinstellungen abzuschalten, und Berechtigungen werden genau so vergeben, wie es das offizielle Wiki beschreibt.
 
-Dies ist eine inoffizielle Anleitung ohne Verbindung zu Stairways Software und spricht nicht in deren Namen. Keyboard Maestro ist eine Marke von Stairways Software Pty Ltd. Funktionen ändern sich mit der Zeit – deshalb bleiben das offizielle Wiki und die App selbst die Referenz.
+Diese inoffizielle Anleitung steht in keiner Verbindung zu Stairways Software und spricht nicht in deren Namen. Keyboard Maestro ist eine Marke von Stairways Software Pty Ltd. Funktionen ändern sich mit der Zeit – deshalb bleiben das offizielle Wiki und die App selbst die Referenz.
 
 ## Lokal ausführen
 

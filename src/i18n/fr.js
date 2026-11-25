@@ -1,10 +1,10 @@
 // Chaînes d’interface et de page d’accueil pour la version française (src/i18n/fr.js).
 // Les espaces réservés {nom} sont remplacés par fmt() et doivent rester inchangés.
-// Cette version comprend la page d’accueil et les trois leçons pour débutants ; le guide complet, les fiches pratiques, le Wiki et la FAQ renvoient vers la version anglaise.
+// Cette version comprend la page d’accueil et les trois leçons pour débutants ; le guide complet, les fiches pratiques, le Wiki et la FAQ renvoient vers la version anglaise.
 export default {
   ui: {
     brand: "Keyboard Maestro pour débutants",
-    desc: "Un guide non officiel de Keyboard Maestro : confiez à des macros les textes à taper, les clics et les ouvertures d’apps que vous répétez chaque jour sur votre Mac. De l’installation et la création de votre première macro jusqu’aux variables, au presse-papiers et au débogage, expliqué simplement.",
+    desc: "Un guide non officiel de Keyboard Maestro : confiez à des macros les textes à taper, les clics et les ouvertures d’apps que vous répétez chaque jour sur votre Mac. De l’installation et la création de votre première macro jusqu’aux variables, au presse-papiers et au débogage, expliqué simplement.",
     skip: "Aller au contenu",
     menu: "Ouvrir le menu",
     search: "Rechercher dans le guide",
@@ -13,21 +13,21 @@ export default {
     look: "Apparence",
     lang: "Langue",
     repo: "Ce guide sur GitHub",
-    repoMore: "En plus : le wiki et le site officiels de Keyboard Maestro",
+    repoMore: "En plus : le wiki et le site officiels de Keyboard Maestro",
     repoDefault: "Par défaut",
     repos: [
-      ["Ce guide", "Code source de ce guide ; signalez les problèmes ici"],
-      ["Wiki de Keyboard Maestro", "La référence sur les fonctionnalités et la façon dont elles fonctionnent"],
+      ["Ce guide", "Code source de ce guide ; signalez les problèmes ici"],
+      ["Wiki de Keyboard Maestro", "La source qui fait foi : ce que fait chaque fonction, et comment"],
       ["Site de Keyboard Maestro", "Téléchargement et achat"],
     ],
     navLabel: "Navigation du site",
     start: "Commencer",
     home: "Accueil",
-    lessons: "Parcours débutant : trois leçons",
+    lessons: "Parcours débutant : trois leçons",
     more: "Aller plus loin (en anglais)",
-    main: "Guide complet : 8 étapes",
-    howto: "Fiches pratiques : comment faire",
-    wiki: "Wiki : ce que c’est",
+    main: "Guide complet : 8 étapes",
+    howto: "Fiches pratiques : comment faire",
+    wiki: "Wiki : ce que c’est",
     faq: "FAQ",
     toc: "Sur cette page",
     tocLabel: "Sur cette page",
@@ -37,7 +37,7 @@ export default {
     hintOther: "Anglais",
     section: "Section",
     docsLink: "wiki officiel",
-    foot: "Guide non officiel de Keyboard Maestro, sans lien avec Stairways Software. Keyboard Maestro est une marque de Stairways Software Pty Ltd. Pour les fonctionnalités et la façon dont elles fonctionnent, le {docs} fait référence. Le code source et les retours sur ce guide sont sur {github}.",
+    foot: "Guide non officiel de Keyboard Maestro, sans lien avec Stairways Software. Keyboard Maestro est une marque de Stairways Software Pty Ltd. Pour savoir ce que fait chaque fonction et comment, c’est le {docs} qui fait foi. Le code source et les retours sur ce guide sont sur {github}.",
     appearance: {
       group: "Apparence", theme: "Thème", light: "Clair", dark: "Sombre", system: "Système",
       corners: "Coins arrondis", cornersDesc: "Désactivé, tous les coins restent droits",
@@ -47,12 +47,12 @@ export default {
 
   home: {
     h1: "Confiez à Keyboard Maestro ce que vous répétez chaque jour sur votre Mac",
-    lead: ["Keyboard Maestro est une app d’automatisation pour Mac créée par Stairways Software. Vous lui dites quand agir et quoi faire : appuyer sur cette touche pour ouvrir telle app, taper ces quelques lettres pour les remplacer par tout un paragraphe. Une fois que vous le lui avez dit, elle fait le travail en arrière-plan, toujours de la même façon. Ce site s’adresse aux personnes qui n’ont jamais rien automatisé, comme à celles qui l’utilisent déjà et veulent aller plus loin. ", "C’est un guide non officiel", ", sans lien avec Stairways Software. Pour les fonctionnalités et la façon dont elles fonctionnent, le wiki officiel fait référence."],
-    cta: ["Vous débutez ? Commencez par la leçon 1", "Vous l’utilisez déjà ? Les fiches pratiques (anglais)"],
+    lead: ["Keyboard Maestro est une app d’automatisation pour Mac créée par Stairways Software. Vous lui dites quand agir et quoi faire : appuyer sur cette touche pour ouvrir telle app, taper ces quelques lettres pour les remplacer par tout un paragraphe. Une fois que c’est réglé, Keyboard Maestro s’en charge en arrière-plan, toujours de la même façon. Ce site s’adresse aux personnes qui n’ont jamais rien automatisé, comme à celles qui l’utilisent déjà et veulent aller plus loin. ", "C’est un guide non officiel", ", sans lien avec Stairways Software. Pour savoir ce que fait chaque fonction et comment, c’est le wiki officiel qui fait foi."],
+    cta: ["Vous débutez ? Commencez par la leçon 1", "Vous l’utilisez déjà ? Les fiches pratiques (en anglais)"],
     ctaNote: "La leçon 1 configure une touche qui ouvre une app, la leçon 2 transforme quelques lettres en tout un paragraphe, et la leçon 3 lance toute votre routine du matin d’une seule touche. Pas besoin de coder.",
-    painH: "Ça vous parle ?",
+    painH: "Ça vous parle ?",
     PAIN: [
-      "En répondant à vos parents, à des clients ou à des collègues, vous tapez « Bien reçu, merci, je reviens vers vous d’ici vendredi » lettre par lettre plusieurs fois par jour.",
+      "En répondant à vos parents, à des clients ou à des collègues, vous tapez « Bien reçu, merci, je reviens vers vous d’ici vendredi » lettre par lettre plusieurs fois par jour.",
       "Chaque matin, vous ouvrez Mail, Calendrier et la même page web, puis vous faites glisser chaque fenêtre à sa place avant de pouvoir commencer.",
       "Vous utilisez tous les jours une commande de menu sans raccourci, donc vous devez aller la chercher à la souris à chaque fois.",
       "À chaque candidature ou devis, vous devez retourner copier la même présentation et les mêmes coordonnées dans le document précédent.",
@@ -61,7 +61,7 @@ export default {
     ],
     lessonsH: "Trois leçons suffisent pour débuter",
     lessonsP: "Lisez-les dans l’ordre. Chacune prend dix à quinze minutes et vous mettez en pratique au fur et à mesure. Après ces trois leçons, vous saurez créer vos propres macros, et tout le reste du site est là, à consulter au besoin.",
-    lessonsLabel: "Parcours débutant : 3 leçons",
+    lessonsLabel: "Parcours débutant : 3 leçons",
     tracksH: "Une fois que vous êtes à l’aise",
     tracksP: "Après quelques macros, vous aurez envie de lui en demander plus. Le guide complet suit 8 étapes, réparties à peu près en trois axes. Commencez par celui dont vous avez besoin tout de suite.",
     devNote: "Le guide complet est en anglais (et en chinois) pour l’instant. Les trois leçons pour débutants sont en français.",
@@ -71,9 +71,9 @@ export default {
       ["Quand ça coince, et pour aller plus loin", "Quand une macro ne fonctionne pas, vérifiez d’abord les autorisations et le moteur, puis avancez étape par étape pour voir où elle bloque. Plus tard, faites appel à des scripts, utilisez les mêmes macros sur deux Mac et partagez-les avec d’autres."],
     ],
     tracksLabel: "Étapes correspondantes dans le guide complet",
-    stepLink: "Étape {n} : {title}",
+    stepLink: "Étape {n} : {title}",
     pending: "En cours",
-    fitH: "Est-ce fait pour vous ?", yesH: "Oui, si", noH: "Pas encore, si",
+    fitH: "Est-ce fait pour vous ?", yesH: "Oui, si", noH: "Pas encore, si",
     YES: [
       "Vous faites quelque chose sur votre Mac plusieurs fois par jour et vous aimeriez le déléguer",
       "Vous ne codez pas. Les trois leçons pour débutants n’exigent pas une seule ligne de code",
@@ -88,18 +88,18 @@ export default {
   },
 
   lessons: [
-    { title: "L’installer et ouvrir votre app préférée d’une seule touche", minutes: "15 minutes", sum: "Téléchargez-le, accordez les autorisations, laissez le moteur tourner, puis créez votre première macro : un raccourci clavier qui ouvre l’app que vous utilisez tous les jours" },
-    { title: "Taper quelques lettres pour obtenir tout un paragraphe", minutes: "10 minutes", sum: "L’adresse, la présentation ou la réponse que vous tapez tous les jours passe dans un déclencheur par texte saisi : tapez quelques lettres et tout le texte apparaît" },
-    { title: "Une seule touche, toute une routine", minutes: "15 minutes", sum: "Transformez les clics que vous faites chaque matin en une seule macro : elle ouvre quelques apps et une page web, puis met les fenêtres en place. Ensuite, apprenez à l’arrêter et à savoir où regarder quand ça coince" },
+    { title: "L’installer et ouvrir votre app préférée d’une seule touche", minutes: "15 minutes", sum: "Téléchargez-le, accordez les autorisations, laissez le moteur tourner, puis créez votre première macro : un raccourci clavier qui ouvre l’app que vous utilisez tous les jours" },
+    { title: "Taper quelques lettres pour obtenir tout un paragraphe", minutes: "10 minutes", sum: "L’adresse, la présentation ou la réponse que vous tapez tous les jours passe dans un déclencheur par texte saisi : tapez quelques lettres et tout le texte apparaît" },
+    { title: "Une seule touche, toute une routine", minutes: "15 minutes", sum: "Transformez les clics que vous faites chaque matin en une seule macro : elle ouvre quelques apps et une page web, puis met les fenêtres en place. Ensuite, vous apprendrez à l’arrêter et où regarder quand ça coince" },
   ],
 
   lesson: {
     eyebrow: "Parcours débutant · leçon {n} sur {total}",
-    prog: "Progression : leçon {n} sur {total}",
+    prog: "Progression : leçon {n} sur {total}",
     nav: "Leçon précédente et suivante",
     prev: "Précédente",
     next: "Suivante",
-    title: "Leçon {n} : {title}",
+    title: "Leçon {n} : {title}",
     tldr: "En une phrase",
   },
 
@@ -108,17 +108,17 @@ export default {
     copyTitle: "Copier ce texte",
     copy: "Copier",
     cmdDone: "Commande copiée",
-    cmdLabel: "Copier la commande : {c}",
-    reply: "Illustration : à peu près ce qu’affiche Keyboard Maestro",
+    cmdLabel: "Copier la commande : {c}",
+    reply: "Illustration : à peu près ce qu’affiche Keyboard Maestro",
     feedback: {
-      lead: "Un point n’est pas clair sur cette page, ou quelque chose n’a pas fonctionné comme indiqué ?",
+      lead: "Un point n’est pas clair sur cette page, ou quelque chose n’a pas fonctionné comme indiqué ?",
       gh: "Signalez-le sur GitHub",
       faq: [". Ou consultez d’abord la ", "FAQ", "."],
     },
     contact: {
       h: "Questions et discussions",
-      p: "Vous bloquez sur une étape, quelque chose n’est pas clair, ou vous avez créé une macro qui mérite d’être partagée ? Venez en parler sur GitHub. Les questions qui reviennent le plus souvent sont intégrées au guide. Vous pouvez sans problème écrire en français.",
-      faq: ["Avant de poser votre question, consultez la ", "FAQ", " : beaucoup de réponses y sont déjà."],
+      p: "Vous bloquez sur une étape, quelque chose n’est pas clair, ou vous avez créé une macro qui mérite d’être partagée ? Venez en parler sur GitHub. Les questions qui reviennent le plus souvent sont intégrées au guide. Vous pouvez sans problème écrire en français.",
+      faq: ["Avant de poser votre question, consultez la ", "FAQ", " : beaucoup de réponses y sont déjà."],
       btn: "Poser une question ou discuter sur GitHub",
       x: "L’auteur est sur X",
       privacy: "Avant d’envoyer des captures d’écran ou des macros exportées, retirez vos informations de licence, vos mots de passe et tout texte personnel enregistré dans des variables ou des presse-papiers.",

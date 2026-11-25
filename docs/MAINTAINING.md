@@ -31,7 +31,8 @@ npm run check      # 构建以后跑：多语言、整站、界面名字
 
 v1 的内容写完了：新手入门三课、完整教程 0–7 步（8 步）、18 篇 How-to、22 个 Wiki 条目和常见问题，中英文各一份。2026-11-25 对照官方 Wiki 逐条核对过一遍。
 
-- 下一步是另外 8 种语言（见上面「以后的 8 种语言」）。`docs/TRANSLATE.md` 还是 Saily 站的版本，加语言之前要改写。
+- 另外 8 种语言（日、韩、西、葡、法、德、俄、阿）2026-11-25 上线：首页、新手三课和各自的 README。Gemini 4 Neon XHigh 照 `docs/TRANSLATE.md` 和 `docs/l10n/glossary/<语言>.md` 从英文翻，Claude 每两种语言一位审读，审读意见再交给 Gemini 改，改完逐条核对过。改了中文 / 英文的三课、首页或 README，这 8 种语言要跟着改（同样的流程）。
+- 阿拉伯语里的快捷键（⌃⌥⌘N）和加粗的英文按钮名会被从右往左的排版排反，`node scripts/rtl-isolate.mjs` 给它们套上看不见的从左往右隔离符（代码和复制块不动）；`npm run check` 里有 `--check`，漏套了会报。
 - `npm run release` 在部署前查 `src/pages`、`src/views`、`src/i18n` 里还有没有 `待写` 或 `TBD:`，有就停下并列出文件；`check-site` 查的是构建出来的页面，看不见 MDX 注释，所以这一道要留着。
 
 ## 怎么改

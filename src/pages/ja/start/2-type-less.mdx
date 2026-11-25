@@ -12,9 +12,9 @@ import Q from "../../../components/Q.astro";
 
 このレッスンでは、文字を打てる場所ならどこでも `=reply=` の7文字を打つだけで、その文字が消えて、代わりに返信文がまるごと出てくるマクロを作ります。
 
-## 打っている文字を見ています
+## 打った文字を見張るトリガー
 
-前のレッスンのマクロはキーを押して動かしました。今回は<Term k="输入字符串触发器" />という別のトリガーを使います。あらかじめ決めておいた文字列を打つと、マクロが動き出します。打った文字はいったん使っているアプリにそのまま入るので、ふつうはトリガーが先にその文字を代わりに消してから、後ろのアクションを実行します（[公式ページ](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。
+前のレッスンのマクロはキーを押して動かしました。今回は<Term k="输入字符串触发器" text="入力文字列トリガー" />という別のトリガーを使います。あらかじめ決めておいた文字列を打つと、マクロが動き出します。打った文字はいったん使っているアプリにそのまま入るので、ふつうはトリガーがまずその文字を消してから、アクションを実行します（[公式ページ](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。
 
 <mark><strong>ふだん間違って打つことのない文字列を打つと、その文字列を消して、保存しておいた文章に置き換えてくれます。</strong></mark>
 
@@ -38,11 +38,11 @@ import Q from "../../../components/Q.astro";
 いま打った `=reply=` が消え、空行も含めて返信文がまるごと出てきます。
 </Callout>
 
-Keyboard Maestro のエディタの中では試さないでください。開発元によると、エディタでは少し変更するたびにすぐ保存が走るため、トリガーが途中で途切れてしまい、ほとんど動作しません（[公式ページ](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。もう1つ覚えておきたいことがあります。<u>このトリガーは文字を入力できる場所だけで使い、Finder では決して使わないでください。</u>Finder で文字を打つとファイルが選択されてしまうため、マクロが再現する削除キーの入力によって、選択されたファイルがゴミ箱に移ってしまうことがあります（[公式 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)）。
+Keyboard Maestro のエディタの中では試さないでください。開発元によると、エディタでは少し変更するたびにすぐ保存が走るため、トリガーが途中で途切れてしまい、ほとんど動作しません（[公式ページ](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。もう1つ覚えておきたいことがあります。<u>このトリガーは文字を入力できる場所だけで使い、Finder では決して使わないでください。</u>Finder で文字を打つとファイルが選択されてしまうため、マクロが代わりに押す削除キーによって、選択されたファイルがゴミ箱に移ってしまうことがあります（[公式 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)）。
 
 ## ついでに今日の日付も入れる
 
-テキスト欄に入れられるのは固定の文章だけではありません。<Term k="令牌" />も使えます。パーセント記号で囲んだ名前を書いておくと、マクロが動くときに実際の値へ置き換わります。よく使うものの1つが `%LongDate%` で、今日の日付を省略しない長い形式に置き換えてくれます（[公式ページ](https://wiki.keyboardmaestro.com/token/LongDate)）。
+テキスト欄に入れられるのは固定の文章だけではありません。<Term k="令牌" text="トークン" />も使えます。パーセント記号で囲んだ名前を書いておくと、マクロが動くときに実際の値へ置き換わります。よく使うものの1つが `%LongDate%` で、今日の日付を省略しない長い形式に置き換えてくれます（[公式ページ](https://wiki.keyboardmaestro.com/token/LongDate)）。
 
 たとえばテキスト欄の文章を次のように変えておくと、トリガーを打つたびにその日の日付が入ります。
 
@@ -70,7 +70,7 @@ Keyboard Maestro のエディタの中では試さないでください。開発
 
 次に、どこで打ったかも確認します。Keyboard Maestro のエディタの中や、Keyboard Maestro 自身が出しているウィンドウ、それにパスワード入力欄では動きません。代わりにテキストエディットやメモで試してみてください。
 
-どちらにも当てはまらないときは、レッスン1と同じように **Help ▸ Interactive Help**（対話形式のヘルプ）を選び、エンジンが動いているか、アクセシビリティ権限がオンになっているか、システムがパスワード入力中だと認識したままになっていないかをチェックしてもらいましょう（[公式ページ](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
+どちらにも当てはまらないときは、レッスン1と同じように **Help ▸ Interactive Help**（対話型ヘルプ）を選び、エンジンが動いているか、アクセシビリティ権限がオンになっているか、システムがパスワード入力中だと認識したままになっていないかをチェックしてもらいましょう（[公式ページ](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
 
 </Q>
 <Q q="別の入力ソースをオンにしたまま打つと、反応しないか、違う文字が消えてしまいます。">
@@ -85,7 +85,7 @@ Keyboard Maestro のエディタの中では試さないでください。開発
 </Q>
 <Q q="貼り付けたあと、前にコピーしていた内容が消えてしまいました。">
 
-それが **Insert Text by Pasting** の仕組みです。クリップボードを借りて貼り付けますが、終わったあとに元の内容は戻しません（[公式 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)）。文章が短くてシンプルな文字だけなら、**Insert Text by Typing** に変える手もあります。そうでなければ、返信を貼り付けてから別のものをコピーする習慣をつけておくと安心です。もっとも、Keyboard Maestro 自体はコピーした履歴を覚えているので、取り戻し方は完全ガイド（英語）の[ステップ5](/en/guide/5-clipboard/)で紹介しています。
+それが **Insert Text by Pasting** の仕組みです。クリップボードを借りて貼り付けますが、終わったあとに元の内容は戻しません（[公式 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)）。文章が短くてシンプルな文字だけなら、**Insert Text by Typing** に変える手もあります。そうでなければ、返信を貼り付けてから別のものをコピーする習慣をつけておくと安心です。なお、Keyboard Maestro はコピーした内容を覚えています。取り戻し方は完全ガイド（英語）の[ステップ5](/en/guide/5-clipboard/)で紹介しています。
 
 </Q>
 <Q q="=reply= という文字そのものを打ちたいのですが。">

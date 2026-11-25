@@ -13,7 +13,7 @@ No fim desta lição, apertar ⌃⌥⌘N traz o Notas para a frente e abre o app
 
 ## Uma macro é uma frase: quando isso acontecer, faça aquilo
 
-Cada tarefa que o Keyboard Maestro faz por você se chama <Term k="宏" />. Por mais complicada que fique, uma macro tem duas partes. O que diz quando ela começa é o seu <Term k="触发器" />. O que ela faz depois que começa é a sua <Term k="动作" />, ou uma lista de ações, que ela executa de cima para baixo ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
+Cada tarefa que o Keyboard Maestro faz por você se chama <Term k="宏" text="macro" />. Por mais complicada que fique, uma macro tem duas partes. O que diz quando ela começa é o seu <Term k="触发器" text="gatilho" />. O que ela faz depois que começa é a sua <Term k="动作" text="ação" />, ou uma lista de ações, que ela executa de cima para baixo ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
 
 Então a macro que você vai criar agora cabe em uma frase:
 
@@ -29,7 +29,7 @@ O download vem em um arquivo zip. Dê um clique duplo nele e você já tem o app
 
 ## Abrir o app, na verdade, inicia dois programas
 
-Quando você abre o Keyboard Maestro, a janela que aparece é o <Term k="编辑器" />. É ali que você cria e edita macros. Ao mesmo tempo, ele inicia discretamente um segundo programa, o **Keyboard Maestro Engine**, que é o <Term k="引擎" />. O Engine é a parte que roda em segundo plano, sem janela nenhuma: é ele quem fica escutando suas teclas de atalho e executando suas macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+Quando você abre o Keyboard Maestro, a janela que aparece é o <Term k="编辑器" text="editor" />. É ali que você cria e edita macros. Ao mesmo tempo, ele inicia discretamente um segundo programa, o **Keyboard Maestro Engine**, que é o <Term k="引擎" text="Engine" />. O Engine é a parte que roda em segundo plano, sem janela nenhuma: é ele quem fica escutando suas teclas de atalho e executando suas macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)).
 
 Guarde essa divisão na cabeça, porque muita coisa vai fazer sentido depois. Você pode fechar o editor assim que terminar e suas macros continuam funcionando, já que quem faz o trabalho é o Engine. Por outro lado, se o Engine não estiver rodando, nenhuma macro vai fazer nada.
 
@@ -37,7 +37,7 @@ Na primeira vez que você abrir o app, vai aparecer uma janela de boas-vindas co
 
 ## Dê permissão ao app
 
-O Keyboard Maestro aperta teclas, escolhe menus e move janelas por você. Isso significa operar o seu Mac no seu lugar, então o macOS pede a sua autorização explícita. Essa é a <Term k="辅助功能权限" />. Sem ela, o Keyboard Maestro não consegue enxergar o teclado, e você não vai conseguir nem definir uma tecla de atalho ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+O Keyboard Maestro aperta teclas, escolhe menus e move janelas por você. Isso significa operar o seu Mac no seu lugar, então o macOS pede a sua autorização explícita. Essa é a <Term k="辅助功能权限" text="permissão de Acessibilidade" />. Sem ela, o Keyboard Maestro não consegue enxergar o teclado, e você não vai conseguir nem definir uma tecla de atalho ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
 
 O Keyboard Maestro lembra você disso na primeira vez que você abre o app e, enquanto faltar alguma coisa, aparece um pequeno triângulo amarelo no canto inferior direito da janela do editor. Clique nele e siga os passos. Ou faça por conta própria:
 
@@ -76,7 +76,7 @@ Não existe botão Salvar no Keyboard Maestro. Tudo o que você muda é salvo au
 Clique na área de trabalho ou mude para qualquer outro app e aperte ⌃⌥⌘N.
 
 <Callout type="ok">
-O Notas salta para a frente. Encerre o Notas com ⌘Q, aperte o atalho de novo e o Notas abre.
+O Notas vem para a frente. Encerre o Notas com ⌘Q, aperte o atalho de novo e o Notas abre.
 </Callout>
 
 Mais um pequeno experimento. Escolha **Keyboard Maestro ▸ Quit Keyboard Maestro** (encerrar o Keyboard Maestro) para fechar o editor e aperte ⌃⌥⌘N novamente. O Notas continua aparecendo, porque quem está escutando e fazendo o trabalho em segundo plano é o Engine.

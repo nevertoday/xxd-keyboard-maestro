@@ -14,9 +14,9 @@ Nesta lição, você vai criar uma macro: em qualquer lugar onde dê para escrev
 
 ## Ele fica de olho no que você digita
 
-A macro da lição anterior começava com uma tecla. Esta usa outro gatilho: o <Term k="输入字符串触发器" />. Você digita uma sequência definida antes e a macro começa a rodar. Como o que você digita vai normalmente para o app que está aberto, o gatilho costuma apagar esses caracteres para você primeiro e só então executar as ações ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+A macro da lição anterior começava com uma tecla. Esta usa outro gatilho: o <Term k="输入字符串触发器" text="gatilho de texto digitado" />. Você digita uma sequência definida antes e a macro começa a rodar. Como o que você digita vai normalmente para o app que está aberto, o gatilho costuma apagar esses caracteres para você primeiro e só então executar as ações ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
 
-<mark><strong>Digite uma sequência que você nunca escreveria por acidente, e ele apaga essa sequência e coloca seu texto salvo no lugar.</strong></mark>
+<mark><strong>Digite uma sequência que você nunca escreveria por acidente, e o gatilho apaga essa sequência e coloca seu texto salvo no lugar.</strong></mark>
 
 Esse “nunca por acidente” faz toda a diferença. O gatilho acompanha cada tecla que você aperta, em qualquer lugar; então, se você usasse `reply` como sequência, a macro dispararia toda vez que você escrevesse essa palavra em uma frase. Os criadores recomendam colocar um prefixo ou sufixo fixo nas suas sequências. O exemplo deles é `=em=` em vez de `em`, que dispararia dentro de “them” ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Todos os exemplos deste site seguem esse padrão, com um sinal de igual em cada ponta: `=reply=`, `=addr=`, `=sig=`.
 
@@ -42,7 +42,7 @@ Não faça esse teste dentro do editor do Keyboard Maestro. Os criadores explica
 
 ## Aproveite e coloque a data de hoje
 
-Uma caixa de texto não serve só para palavras fixas. Ela também aceita um <Term k="令牌" />, um marcador dinâmico entre sinais de porcentagem que é substituído pelo conteúdo real na hora em que a macro roda. Um dos mais úteis é `%LongDate%`, que vira a data de hoje escrita por extenso ([página oficial](https://wiki.keyboardmaestro.com/token/LongDate)).
+Uma caixa de texto não serve só para palavras fixas. Ela também aceita um <Term k="令牌" text="token" />, um marcador dinâmico entre sinais de porcentagem que é substituído pelo conteúdo real na hora em que a macro roda. Um dos mais úteis é `%LongDate%`, que vira a data de hoje escrita por extenso ([página oficial](https://wiki.keyboardmaestro.com/token/LongDate)).
 
 Troque o texto da caixa por algo assim e, toda vez que você digitar o gatilho, vai sair a data daquele dia:
 
@@ -58,7 +58,7 @@ Existem duas ações para inserir texto. O nome muda só em uma palavra, mas o j
 
 **Insert Text by Typing** (inserir texto digitando) digita de verdade para você, uma tecla de cada vez, exatamente como se você estivesse no teclado. Por isso, o texto acompanha a formatação do lugar onde está o cursor, e qualquer Return ou Tab nele funciona como se você apertasse essa tecla, por exemplo pulando para o próximo campo de um formulário. Mas fica lento quando há muito texto, e só consegue digitar caracteres que você faz com um ou dois toques de tecla, então emojis ficam de fora ([página oficial](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
 
-Então a escolha é simples. Para um trecho curto de texto simples (os criadores sugerem até 30 ou 40 caracteres), ou quando você quiser que o Tab leve você para o próximo campo, use Typing. Para todo o resto — textos longos, caracteres incomuns ou sempre que você não se importar em substituir a área de transferência — use Pasting ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+Então a escolha é simples. Para um trecho curto de texto simples (os criadores sugerem até 30 ou 40 caracteres), ou quando você quiser que o Tab leve você para o próximo campo, use Typing. Para todo o resto (textos longos, caracteres incomuns ou sempre que você não se importar em substituir a área de transferência), use Pasting ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
 
 Agora você já tem duas macros: uma tecla que abre um app e algumas letras que entregam uma mensagem inteira. Na próxima lição, você vai colocar várias ações em sequência para que uma única tecla faça todos os cliques que você dá para começar o dia.
 
@@ -85,7 +85,7 @@ A opção **Simulate 7 deletes before executing** não está marcada no gatilho,
 </Q>
 <Q q="Depois de colar, o que eu tinha copiado antes sumiu.">
 
-É assim que **Insert Text by Pasting** funciona. Essa ação usa a área de transferência emprestada e não devolve o conteúdo depois ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Se o texto for curto e simples, você pode trocar para **Insert Text by Typing**. Nos outros casos, acostume-se a inserir a resposta antes de copiar outra coisa. Mas o Keyboard Maestro guarda o que você copiou, e o [passo 5](/en/guide/5-clipboard/) do guia completo mostra como recuperar esse conteúdo.
+É assim que **Insert Text by Pasting** funciona. Essa ação pega a área de transferência emprestada e não devolve o conteúdo depois ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Se o texto for curto e simples, você pode trocar para **Insert Text by Typing**. Nos outros casos, acostume-se a inserir a resposta antes de copiar outra coisa. Mas o Keyboard Maestro guarda o que você copiou, e o [passo 5](/en/guide/5-clipboard/) do guia completo mostra como recuperar esse conteúdo.
 
 </Q>
 <Q q="Na verdade, eu quero digitar os próprios caracteres =reply=.">

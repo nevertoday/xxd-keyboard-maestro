@@ -17,7 +17,7 @@ export default {
     // Drei Links: [Name, kurze Beschreibung] in fester Reihenfolge (Anleitung, Wiki, Website)
     repos: [
       ["Diese Anleitung", "Quellcode dieser Anleitung; hier kannst du Probleme melden"],
-      ["Keyboard Maestro Wiki", "Die maßgebliche Quelle für alle Funktionen und wie sie genau funktionieren"],
+      ["Keyboard Maestro Wiki", "Die maßgebliche Quelle dafür, was jede Funktion kann und wie sie arbeitet"],
       ["Website von Keyboard Maestro", "Download und Kauf"],
     ],
     navLabel: "Seitennavigation",
@@ -38,7 +38,7 @@ export default {
     section: "Abschnitt",
     // Linktext für {docs} in der Fußzeile; {docs} und {github} werden durch Links ersetzt
     docsLink: "offizielle Wiki",
-    foot: "Eine inoffizielle Anleitung zu Keyboard Maestro, nicht mit Stairways Software verbunden. Keyboard Maestro ist eine Marke von Stairways Software Pty Ltd. Für alle Funktionen und wie sie genau funktionieren, ist das {docs} maßgeblich. Quellcode und Feedback zu dieser Anleitung findest du auf {github}.",
+    foot: "Eine inoffizielle Anleitung zu Keyboard Maestro, nicht mit Stairways Software verbunden. Keyboard Maestro ist eine Marke von Stairways Software Pty Ltd. Maßgeblich dafür, was die Funktionen können und wie sie arbeiten, ist das {docs}. Quellcode und Feedback zu dieser Anleitung findest du auf {github}.",
     // Erscheinungsbild-Menü in der oberen Leiste
     appearance: {
       group: "Erscheinungsbild", theme: "Farbschema", light: "Hell", dark: "Dunkel", system: "System",
@@ -51,7 +51,7 @@ export default {
   home: {
     h1: "Überlass alles, was du jeden Tag auf deinem Mac wiederholst, Keyboard Maestro",
     // lead: erster Teil, hervorgehobener Satz, letzter Teil
-    lead: ["Keyboard Maestro ist eine Automatisierungs-App für den Mac von Stairways Software. Du legst fest, wann was passieren soll: eine Taste drücken und eine bestimmte App öffnen, ein paar Buchstaben tippen und sie durch einen ganzen Absatz ersetzen. Hast du es einmal eingerichtet, erledigt Keyboard Maestro die Aufgabe im Hintergrund – jedes Mal genau gleich. Diese Seite ist für alle, die noch nie etwas automatisiert haben, und auch für alle, die Keyboard Maestro schon nutzen und mehr damit machen möchten. ", "Dies ist eine inoffizielle Anleitung", ", nicht mit Stairways Software verbunden. Für alle Funktionen und wie sie genau funktionieren, ist das offizielle Wiki maßgeblich."],
+    lead: ["Keyboard Maestro ist eine Automatisierungs-App für den Mac von Stairways Software. Du legst fest, wann was passieren soll: eine Taste drücken und eine bestimmte App öffnen, ein paar Buchstaben tippen und sie durch einen ganzen Absatz ersetzen. Hast du es einmal eingerichtet, erledigt Keyboard Maestro die Aufgabe im Hintergrund – jedes Mal genau gleich. Diese Seite ist für alle, die noch nie etwas automatisiert haben, und auch für alle, die Keyboard Maestro schon nutzen und mehr damit machen möchten. ", "Dies ist eine inoffizielle Anleitung", ", nicht mit Stairways Software verbunden. Maßgeblich dafür, was die Funktionen können und wie sie arbeiten, ist das offizielle Wiki."],
     cta: ["Neu hier? Starte mit Lektion 1", "Nutzt du es schon? Zu den How-tos (Englisch)"],
     ctaNote: "In Lektion 1 richtest du eine Taste ein, die eine App öffnet, in Lektion 2 wird aus ein paar Buchstaben ein ganzer Absatz, und in Lektion 3 erledigt eine Taste deine komplette Routine zum Start in den Tag. Ganz ohne Code.",
     painH: "Kommt dir das bekannt vor?",
@@ -96,7 +96,7 @@ export default {
   // Titel, Dauer und Kurzbeschreibung der drei Einsteiger-Lektionen in fester Reihenfolge
   lessons: [
     { title: "Installieren und deine Lieblings-App mit einer Taste öffnen", minutes: "15 Minuten", sum: "Herunterladen, Berechtigungen erteilen, die Engine laufen lassen und dann dein erstes Makro bauen: ein Tastenkürzel, das die App öffnet, die du jeden Tag nutzt" },
-    { title: "Ein paar Buchstaben tippen, einen ganzen Absatz einfügen", minutes: "10 Minuten", sum: "Die Adresse, Einleitung oder Antwort, die du jeden Tag tippst, kommt in einen Texteingabe-Auslöser: Du tippst ein paar Buchstaben ein und schon erscheint der ganze Text" },
+    { title: "Ein paar Buchstaben tippen, einen ganzen Absatz bekommen", minutes: "10 Minuten", sum: "Die Adresse, Einleitung oder Antwort, die du jeden Tag tippst, kommt in einen Texteingabe-Auslöser: Du tippst ein paar Buchstaben ein und schon erscheint der ganze Text" },
     { title: "Eine Taste, eine ganze Routine", minutes: "15 Minuten", sum: "Mach aus deinen morgendlichen Klicks ein einziges Makro: ein paar Apps und eine Webseite öffnen, die Fenster an ihren Platz schieben – und dann lernst du, wie du es stoppst und wo du nachschaust, wenn etwas nicht klappt" },
   ],
 

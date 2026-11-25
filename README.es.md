@@ -10,7 +10,7 @@ Keyboard Maestro es automatización para Mac: escribes macros en el editor y el 
 
 **[Empezar por la lección 1 →](https://keyboardmaestro.xiaoxiaodong.ai/es/start/1-first-macro/)**　·　**[¿Ya lo usas? Guía completa (en inglés) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>No oficial · gratis · código abierto · 10 idiomas (completo en chino e inglés)</sub>
+<sub>No oficial · gratis · código abierto · 10 idiomas (el sitio completo en chino e inglés; la página de inicio y las tres lecciones en 8 más)</sub>
 
 </div>
 
@@ -22,7 +22,7 @@ Keyboard Maestro es automatización para Mac: escribes macros en el editor y el 
 
 Abres tu Mac por la mañana, haces clic en Calendario, abres la página web que revisas todos los días y luego arrastras cada ventana al lugar que te gusta. A lo largo del día escribes varias veces la misma dirección y la misma respuesta. Cada vez son solo unos segundos, pero pasa todos los días.
 
-Keyboard Maestro deja todo eso en manos de las macros. Una macro indica dos cosas: cuándo empezar (sus activadores) y qué hacer una vez que empieza (sus acciones). A partir de ahí solo pulsas una tecla o escribes unas pocas letras, y ella sigue los pasos por ti. Las macros viven dentro de grupos de macros, que funcionan como carpetas, pero además deciden en qué apps y en qué momento están activas esas macros.
+Keyboard Maestro deja todo eso en manos de las macros. Una macro indica dos cosas: cuándo empezar (sus activadores) y qué hacer una vez que empieza (sus acciones). A partir de ahí solo pulsas una tecla o escribes unas pocas letras, y Keyboard Maestro sigue los pasos por ti. Las macros viven dentro de grupos de macros, que funcionan como carpetas, pero además deciden en qué apps y en qué momento están activas esas macros.
 
 <p align="center">
   <img src="assets/en/readme/macro.svg" width="100%" alt="Las tres columnas del editor de Keyboard Maestro. Macro Groups, donde viven y actúan las macros: está seleccionado Global Macro Group, con Mail y Safari debajo. Macros, cada una dedicada a una pequeña tarea: está seleccionada «Start my day». Después, la propia macro: bajo Triggered by any of the following aparecen Hot Key ⌃⌥⌘T y Time of Day 9:00, y cualquiera de los dos la pone en marcha; bajo Will execute the following actions aparecen Activate a Specific Application, Open a URL y Manipulate a Window, que se ejecutan de arriba abajo, una tras otra. Abajo: una macro solo se activa cuando está habilitada y su grupo de macros también está habilitado y activo.">
@@ -66,7 +66,7 @@ No hace falta saber programar ni aprenderte cien acciones de golpe. Cada lecció
 ## Guías prácticas: tareas concretas
 
 - **Escritura y texto**: [Convierte en abreviaturas lo que escribes a menudo](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [Inserta la fecha de hoy con una tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [Pega sin formato](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [Completa el mismo formulario con una tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **Apps y ventanas**: [Salta a una app con una tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Coloca tus ventanas donde quieras](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Ponle un atajo a un comando de menú que no tiene](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
+- **Apps y ventanas**: [Salta a una app con una tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Coloca tus ventanas donde quieras](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Ponle a un comando de menú el atajo que no tiene](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
 - **Archivos**: [Renombra varios archivos de una vez](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [Archiva cosas en cuanto llegan a una carpeta](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
 - **Pantalla y ratón**: [Encuentra un botón en pantalla y haz clic en él](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [Lee el texto de tu pantalla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
 - **A su hora**: [Ejecuta algo a la misma hora todos los días](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [Haz algo al conectarte a una red Wi-Fi o conectar un dispositivo](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
@@ -81,7 +81,7 @@ Cada función, opción y ruta de menú está verificada con la [wiki oficial de 
 
 Esta guía no incluye claves de licencia, cracks ni espejos de descarga; descarga Keyboard Maestro desde [su sitio web oficial](https://www.keyboardmaestro.com/). Nunca te pide que desactives los ajustes de seguridad de macOS, y los permisos se conceden tal como describe la wiki oficial.
 
-Esta es una guía no oficial, sin relación con Stairways Software, y no habla en su nombre. Keyboard Maestro es una marca registrada de Stairways Software Pty Ltd. Las funciones cambian, así que la referencia son siempre la wiki oficial y la propia app.
+Esta es una guía no oficial, sin relación con Stairways Software, y no habla en su nombre. Keyboard Maestro es una marca comercial de Stairways Software Pty Ltd. Las funciones cambian, así que la referencia son siempre la wiki oficial y la propia app.
 
 ## Ejecutarlo en local
 

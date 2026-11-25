@@ -53,7 +53,7 @@ export default {
   home: {
     h1: "Deja en manos de Keyboard Maestro lo que repites cada día en tu Mac",
     // lead: primera parte, frase resaltada y cierre
-    lead: ["Keyboard Maestro es una app de automatización para Mac creada por Stairways Software. Tú le dices cuándo y qué hacer: pulsa esta tecla y abre esa app, escribe estas pocas letras y cámbialas por un párrafo entero. En cuanto se lo dices, hace el trabajo en segundo plano, siempre igual. Este sitio es para quienes nunca han automatizado nada, y también para quienes ya lo usan y quieren ir más allá. ", "Esta es una guía no oficial", ", sin relación con Stairways Software. Para consultar sus características y cómo funciona, la wiki oficial es la fuente de referencia."],
+    lead: ["Keyboard Maestro es una app de automatización para Mac creada por Stairways Software. Tú le dices cuándo y qué hacer: al pulsar esta tecla, abre esa app; al escribir estas pocas letras, las cambia por un párrafo entero. En cuanto se lo dices, hace el trabajo en segundo plano, siempre igual. Este sitio es para quienes nunca han automatizado nada, y también para quienes ya lo usan y quieren ir más allá. ", "Esta es una guía no oficial", ", sin relación con Stairways Software. Para consultar sus características y cómo funciona, la wiki oficial es la fuente de referencia."],
     cta: ["¿Es tu primera vez? Empieza por la lección 1", "¿Ya lo usas? Guías prácticas (en inglés)"],
     ctaNote: "En la lección 1 configuras una tecla que abre una app, en la lección 2 conviertes unas pocas letras en un párrafo entero y en la lección 3 haces que una sola tecla ejecute tu rutina de inicio del día. No hace falta escribir código.",
     painH: "¿Te suena familiar?",
@@ -66,7 +66,7 @@ export default {
       "Todas las noches a la misma hora tienes que abrir la misma hoja de cálculo para anotar la presión arterial de tus padres, y en los días ocupados se te olvida.",
     ],
     lessonsH: "Para empezar solo necesitas tres lecciones",
-    lessonsP: "Léelas en orden. Cada una lleva diez o quince minutos y vas construyendo sobre la marcha. Después de estas tres ya podrás crear tus propias macros, y todo lo demás del sitio está ahí para consultarlo cuando lo necesites.",
+    lessonsP: "Léelas en orden. Cada una lleva diez o quince minutos y vas creando las macros sobre la marcha. Después de estas tres ya podrás crear tus propias macros, y todo lo demás del sitio está ahí para consultarlo cuando lo necesites.",
     lessonsLabel: "Ruta para principiantes: 3 lecciones",
     tracksH: "Cuando ya tengas soltura",
     tracksP: "Después de crear unas cuantas macros, querrás que haga más cosas. La guía completa se divide en 8 pasos, organizados más o menos en tres rutas. Empieza por la que necesites ahora mismo.",
@@ -99,7 +99,7 @@ export default {
   // Título, duración y resumen de las tres lecciones para principiantes (en orden fijo)
   lessons: [
     { title: "Instálalo y abre tu app favorita con una tecla", minutes: "15 minutos", sum: "Descárgalo, dale los permisos, mantén el Engine en marcha y crea tu primera macro: un atajo de teclado que abre la app que usas todos los días" },
-    { title: "Escribe unas pocas letras y obtén un párrafo entero", minutes: "10 minutos", sum: "La dirección, la presentación o la respuesta que escribes cada día pasa a un activador por texto escrito: escribes unas pocas letras y aparece el texto completo" },
+    { title: "Escribe unas pocas letras y obtén un párrafo entero", minutes: "10 minutos", sum: "La dirección, la presentación o la respuesta que escribes cada día se guarda en un activador por texto escrito: escribes unas pocas letras y aparece el texto completo" },
     { title: "Una tecla, toda una rutina", minutes: "15 minutos", sum: "Convierte los clics que haces cada mañana en una sola macro: abre varias apps y una página web, coloca las ventanas en su lugar y luego aprende a detenerla y dónde mirar cuando algo falla" },
   ],
 
@@ -131,7 +131,7 @@ export default {
     // Tarjeta de «Preguntas y comentarios» al final de la página de inicio y de preguntas frecuentes
     contact: {
       h: "Preguntas y comentarios",
-      p: "¿Te atascaste en algún paso, encontraste algo poco claro o creaste una macro que vale la pena compartir? Tráelo a GitHub. Las preguntas que más se repiten se incorporan a la guía. Puedes escribir en español sin problema.",
+      p: "¿Te atascaste en algún paso, encontraste algo poco claro o creaste una macro que vale la pena compartir? Cuéntalo en GitHub. Las preguntas que más se repiten se incorporan a la guía. Puedes escribir en español sin problema.",
       faq: ["Antes de preguntar, revisa las ", "preguntas frecuentes", ": muchas respuestas ya están ahí."],
       btn: "Preguntar o comentar en GitHub",
       x: "El autor está en X",

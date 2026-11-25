@@ -10,7 +10,7 @@ O Keyboard Maestro é uma ferramenta de automação para Mac: você cria macros 
 
 **[Comece pela lição 1 →](https://keyboardmaestro.xiaoxiaodong.ai/pt/start/1-first-macro/)**　·　**[Já usa o app? Veja o guia completo (em inglês) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>Não oficial · gratuito · código aberto · 10 idiomas (completo em chinês e inglês)</sub>
+<sub>Não oficial · gratuito · código aberto · 10 idiomas (o site completo em chinês e inglês; a página inicial e as três lições em mais 8)</sub>
 
 </div>
 
@@ -30,7 +30,7 @@ O Keyboard Maestro passa tudo isso para as macros. Uma macro define duas coisas:
 
 ## Dois programas: um para criar, outro para rodar
 
-Ao instalar, você ganha dois programas. O **Keyboard Maestro** é o editor: você abre essa janela quando quer criar ou editar macros, ele salva sozinho poucos segundos depois de cada alteração (não existe opção de salvar) e você pode fechá-lo quando terminar. Já o **Keyboard Maestro Engine** fica rodando em segundo plano o tempo todo: ele escuta suas teclas de atalho, acompanha o relógio, observa quais apps estão abertos, guarda o seu histórico da área de transferência e é quem realmente executa suas macros. Se o Engine não estiver rodando, nada dispara — por isso, a recomendação oficial é ativar **Launch Engine at Login** (iniciar o Engine ao iniciar a sessão) nas preferências.
+Ao instalar, você ganha dois programas. O **Keyboard Maestro** é o editor: você abre essa janela quando quer criar ou editar macros, ele salva sozinho poucos segundos depois de cada alteração (não existe opção de salvar) e você pode fechá-lo quando terminar. Já o **Keyboard Maestro Engine** fica rodando em segundo plano o tempo todo: ele escuta suas teclas de atalho, acompanha o relógio, observa quais apps estão abertos, guarda o seu histórico da área de transferência e é quem realmente executa suas macros. Se o Engine não estiver rodando, nada dispara, então a recomendação oficial é ativar **Launch Engine at Login** (iniciar o Engine ao iniciar a sessão) nas preferências.
 
 <p align="center">
   <img src="assets/en/readme/editor-engine.svg" width="100%" alt="À esquerda, o editor, Keyboard Maestro: onde você cria e altera macros; salva sozinho segundos depois de cada mudança, sem precisar salvar; você pode fechá-lo quando terminar. À direita, o Engine, Keyboard Maestro Engine: roda em segundo plano sem abrir janela; escuta teclas de atalho, acompanha o relógio e monitora apps; é a parte que realmente executa suas macros. Suas macros vão do editor para o Engine; mesmo depois de fechar o editor, apertar ⌃⌥⌘T continua rodando a macro. Embaixo: mantenha o Engine rodando ativando Launch Engine at Login nas preferências.">
@@ -66,7 +66,7 @@ Terminou as lições e quer criar macros que se adaptam, usar uma área de trans
 ## Guias práticos: tarefas específicas
 
 - **Digitação e texto**: [Transforme o que você digita com frequência em abreviações](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [Insira a data de hoje com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [Cole sem formatação](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [Preencha o mesmo formulário com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **Apps e janelas**: [Vá direto para um app com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Coloque suas janelas onde você quiser](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Crie um atalho para um comando de menu que não tem um](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
+- **Apps e janelas**: [Vá direto para um app com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Coloque suas janelas onde você quiser](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Crie um atalho para um comando de menu que não tem atalho](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
 - **Arquivos**: [Renomeie vários arquivos de uma vez](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [Organize arquivos assim que eles chegarem a uma pasta](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
 - **Tela e mouse**: [Encontre um botão na tela e clique nele](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [Leia o texto que aparece na tela](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
 - **Com hora marcada**: [Execute algo no mesmo horário todos os dias](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [Faça algo ao entrar em uma rede Wi-Fi ou conectar um dispositivo](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
@@ -81,7 +81,7 @@ Cada recurso, opção e caminho de menu foi conferido na [wiki oficial do Keyboa
 
 Este guia não oferece chaves de licença, cracks nem links alternativos de download; baixe o Keyboard Maestro pelo [site oficial](https://www.keyboardmaestro.com/). Ele nunca pede para você desativar os ajustes de segurança do macOS, e as permissões são concedidas exatamente como a wiki oficial descreve.
 
-Este é um guia não oficial, sem vínculo com a Stairways Software, e não fala em nome dela. Keyboard Maestro é uma marca registrada da Stairways Software Pty Ltd. Os recursos mudam com o tempo, então a wiki oficial e o próprio app continuam sendo a referência.
+Este é um guia não oficial, sem vínculo com a Stairways Software, e não fala em nome dela. Keyboard Maestro é uma marca comercial da Stairways Software Pty Ltd. Os recursos mudam com o tempo, então a wiki oficial e o próprio app continuam sendo a referência.
 
 ## Rode localmente
 

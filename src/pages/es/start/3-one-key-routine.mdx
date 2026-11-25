@@ -7,15 +7,15 @@ import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-Cuando te sientas frente a tu Mac por la mañana, probablemente tus manos hagan algo parecido a esto. Abres Calendario para ver qué tienes hoy. Abres Notas para revisar tu lista de tareas. Abres Safari y entras en la página que consultas cada día —quizá la de un curso, una herramienta del trabajo o el panel de tu tienda—. Luego arrastras Safari a la izquierda y Notas a la derecha, y solo entonces empiezas a trabajar. Siete u ocho movimientos, exactamente iguales cada día.
+Cuando te sientas frente a tu Mac por la mañana, probablemente tus manos hagan algo parecido a esto. Abres Calendario para ver qué tienes hoy. Abres Notas para revisar tu lista de tareas. Abres Safari y entras en la página que consultas cada día, quizá la de un curso, una herramienta del trabajo o el panel de tu tienda. Luego arrastras Safari a la izquierda y Notas a la derecha, y solo entonces empiezas a trabajar. Siete u ocho movimientos, exactamente iguales cada día.
 
-En esta lección vas a juntar todos esos movimientos en una sola macro. Pulsas ⌃⌥⌘T (⌃ es Control, ⌥ es Option, ⌘ es Command y T viene de *today*, «hoy») y la macro se encarga de todo.
+En esta lección vas a juntar todos esos movimientos en una sola macro. Pulsas ⌃⌥⌘T (⌃ es Control, ⌥ es Opción, ⌘ es Comando y T viene de *today*, «hoy») y la macro se encarga de todo.
 
 ## Una lista de acciones, de arriba abajo
 
 Las macros de las dos lecciones anteriores tenían una sola acción cada una. En realidad, una macro puede contener toda una lista y, en cuanto arranca, Keyboard Maestro las va ejecutando de arriba abajo ([guía rápida oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)). Lo único que tienes que hacer es poner en orden el recorrido que hacen tus manos cada día.
 
-Solo hay un detalle que requiere pensar un poco más. Después de ciertas acciones, Keyboard Maestro no tiene forma de saber si el otro lado ya está listo de verdad. Por ejemplo, si le pides a Safari que abra una página web, la ventana tarda un instante en aparecer, pero Keyboard Maestro no espera: pasa directamente a la siguiente acción ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Si esa siguiente acción intenta mover una ventana que todavía no existe, no la encuentra.
+Solo hay un detalle que requiere pensar un poco más. Después de ciertas acciones, Keyboard Maestro no tiene forma de saber si la otra app ya está lista de verdad. Por ejemplo, si le pides a Safari que abra una página web, la ventana tarda un instante en aparecer, pero Keyboard Maestro no espera: pasa directamente a la siguiente acción ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Si esa siguiente acción intenta mover una ventana que todavía no existe, no la encuentra.
 
 <mark><strong>Ordena uno tras otro los clics que haces cada día y, donde una ventana necesite tiempo para aparecer, añade una acción Pause.</strong></mark>
 
@@ -23,7 +23,7 @@ Solo hay un detalle que requiere pensar un poco más. Después de ciertas accion
 
 Dentro de **Global Macro Group** (grupo global de macros), crea una macro nueva llamada «Empezar el día». Haz clic en **New Trigger** (nuevo activador), elige **Hot Key Trigger** (activador por atajo de teclado) y pulsa ⌃⌥⌘T. Luego añade estas seis acciones en este orden. Para cada una, haz clic en **New Action** (nueva acción), búscala en **All Actions** (todas las acciones) y haz doble clic sobre ella:
 
-1. **Activate a Specific Application** (abrir y pasar a una app concreta), con Calendario elegido en **Activate:** (activar).
+1. **Activate a Specific Application** (abrir y traer al frente una app), con Calendario elegido en **Activate:** (activar).
 2. Otra acción **Activate a Specific Application**, esta vez con Notas.
 3. **Open a URL** (abrir una dirección web). En el cuadro **Open URL** escribe la dirección de la página que consultas cada día, completa y empezando por `https://`, y en **with** (con) elige Safari.
 4. **Pause** (pausar), ajustada a 1 segundo para que la ventana de Safari tenga tiempo de aparecer.
@@ -44,9 +44,9 @@ Si las ventanas no se movieron, o solo se movió una, lo más probable es que no
 
 ## Cómo detenerla
 
-Una vez que una macro se pone en marcha, sigue hasta su última acción. Si algo va mal o simplemente quieres detenerla al instante, hay dos formas, y ambas están en el icono de Keyboard Maestro en la barra de menús. Al hacer clic en ese icono se abre el <Term k="状态菜单" /> ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
+Una vez que una macro se pone en marcha, sigue hasta su última acción. Si algo va mal o simplemente quieres detenerla al instante, hay dos formas, y ambas están en el icono de Keyboard Maestro en la barra de menús. Al hacer clic en ese icono se abre el <Term k="状态菜单" text="menú de estado" /> ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
 
-- Mantén pulsadas ⌃⌥⇧ (Control, Option, Shift) y haz clic en el icono. Se detienen todas las macros en ejecución.
+- Mantén pulsadas ⌃⌥⇧ (Control, Opción, Mayúsculas) y haz clic en el icono. Se detienen todas las macros en ejecución.
 - O haz clic en el icono, elige **Cancel** (cancelar) y selecciona la macro que quieres detener de la lista de las que están en marcha. Además, es una forma práctica de ver qué macros se están ejecutando en ese momento.
 
 Con recordar la primera te basta. Si algún día una macro no para, mantén pulsadas esas tres teclas y haz clic en el icono.
@@ -61,7 +61,7 @@ Si se activó pero no hizo lo que debía, el problema está en las acciones: su 
 
 ## Ya terminaste las tres lecciones
 
-Las tres cosas que ya sabes son la estructura de casi cualquier macro en Keyboard Maestro: un activador decide cuándo empieza, una lista de acciones dice qué hace y espera allí donde hace falta. Un atajo que abre una app, unas cuantas letras que te escriben un párrafo, un atajo que hace toda una rutina. Con eso ya te quitas de encima unos cuantos gestos repetitivos cada día.
+Las tres cosas que ya sabes son la estructura de casi cualquier macro en Keyboard Maestro: un activador decide cuándo empieza, una lista de acciones dice qué hace y la macro espera allí donde hace falta. Un atajo que abre una app, unas cuantas letras que te escriben un párrafo, un atajo que hace toda una rutina. Con eso ya te quitas de encima unos cuantos gestos repetitivos cada día.
 
 Todo lo demás es para consultarlo cuando lo necesites. Para una tarea concreta, mira las [guías prácticas](/en/howto/). Para una palabra que no conozcas, consulta la [wiki](/en/wiki/). Y si quieres entender algo a fondo, como los grupos de macros, las variables o el portapapeles, recorre la guía completa empezando por el [paso 0](/en/guide/0-what/). La mejor forma de aprender, según sugieren sus creadores, es usar tu Mac como siempre, fijarte en cuándo repites lo mismo una y otra vez y crear una macro para eso ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_get_started)).
 

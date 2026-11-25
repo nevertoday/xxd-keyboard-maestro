@@ -12,7 +12,7 @@ Manche Sätze tippst du mehrmals am Tag. Ob Lehrkräfte, die Eltern antworten, L
 
 In dieser Lektion baust du ein Makro, das überall funktioniert, wo du tippen kannst: Du gibst die sieben Zeichen `=reply=` ein, sie verschwinden von selbst und an ihrer Stelle erscheint die ganze Nachricht.
 
-## Es achtet darauf, was du tippst
+## Der Auslöser achtet darauf, was du tippst
 
 Das Makro aus der letzten Lektion startete per Tastendruck. Diesmal nutzt du einen anderen Auslöser: den <Term k="输入字符串触发器" text="Texteingabe-Auslöser" />. Sobald du eine vorher festgelegte Zeichenfolge eintippst, startet das Makro. Weil deine Eingabe zunächst ganz normal in der aktuellen App landet, löscht der Auslöser diese Zeichen normalerweise zuerst für dich und führt dann die Aktionen aus ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
 
@@ -70,7 +70,7 @@ Jetzt hast du schon zwei Makros: eine Taste, die eine App öffnet, und ein paar 
 
 Schau dann, wo du es eingetippt hast. Im Editor von Keyboard Maestro, in Fenstern, die Keyboard Maestro selbst einblendet, und in Passwortfeldern funktioniert der Auslöser nicht. Probier es stattdessen in TextEdit oder Notizen aus.
 
-Wenn beides nicht der Grund ist, mach es wie in Lektion 1: Wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und lass Keyboard Maestro prüfen, ob die Engine läuft, die Berechtigung für Bedienungshilfen aktiviert ist und das System nicht feststeckt und glaubt, du würdest gerade ein Passwort eingeben ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+Wenn beides nicht der Grund ist, mach es wie in Lektion 1: Wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und lass Keyboard Maestro prüfen, ob die Engine läuft, die Berechtigung für Bedienungshilfen aktiviert ist und das System nicht fälschlich glaubt, du würdest gerade ein Passwort eingeben ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
 
 </Q>
 <Q q="Ich habe es mit einer anderen Eingabequelle getippt, und es ist nichts passiert oder es wurden die falschen Zeichen gelöscht.">
@@ -90,7 +90,7 @@ So arbeitet **Insert Text by Pasting**: Die Aktion nutzt die Zwischenablage und 
 </Q>
 <Q q="Ich möchte tatsächlich die Zeichen =reply= selbst eintippen.">
 
-Dafür haben die Entwickler einen Trick: Drücke mittendrin Shift-Leertaste (⇧ und die Leertaste), danach die Löschtaste, und tippe den Rest zu Ende. Durch Shift-Leertaste fängt der Auslöser wieder von vorn an zu zählen, sodass er diesmal nicht auslöst ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+Dafür haben die Entwickler einen Trick: Drücke mittendrin Umschalt-Leertaste (⇧ und die Leertaste), danach die Löschtaste, und tippe den Rest zu Ende. Durch Umschalt-Leertaste fängt der Auslöser wieder von vorn an zu zählen, sodass er diesmal nicht auslöst ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
 
 </Q>
 <Q q="Ich habe =REPLY= in Großbuchstaben getippt und es hat nicht ausgelöst.">

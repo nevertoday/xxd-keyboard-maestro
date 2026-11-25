@@ -5,7 +5,7 @@
 export default {
   ui: {
     brand: "Keyboard Maestro para iniciantes",
-    desc: "Um guia não oficial do Keyboard Maestro: passe para as macros o que você repete todo dia no Mac — digitar, clicar e abrir apps. Da instalação e da sua primeira macro até variáveis, área de transferência e depuração, em linguagem simples.",
+    desc: "Um guia não oficial do Keyboard Maestro: passe para as macros o que você repete todo dia no Mac ao digitar, clicar e abrir apps. Da instalação e da sua primeira macro até variáveis, área de transferência e depuração, em linguagem simples.",
     skip: "Pular para o conteúdo",
     menu: "Abrir menu",
     search: "Buscar no guia",
@@ -40,7 +40,7 @@ export default {
     section: "Seção",
     // Texto do link {docs} no rodapé (wiki oficial); {docs} e {github} viram links
     docsLink: "wiki oficial",
-    foot: "Um guia não oficial do Keyboard Maestro, sem vínculo com a Stairways Software. Keyboard Maestro é marca registrada da Stairways Software Pty Ltd. Sobre os recursos e como eles funcionam, a {docs} é a fonte definitiva. O código-fonte e o feedback deste guia ficam no {github}.",
+    foot: "Um guia não oficial do Keyboard Maestro, sem vínculo com a Stairways Software. Keyboard Maestro é uma marca comercial da Stairways Software Pty Ltd. Sobre os recursos e como eles funcionam, a {docs} é a fonte definitiva. O código-fonte e o feedback deste guia ficam no {github}.",
     // Painel de aparência na barra superior
     appearance: {
       group: "Aparência", theme: "Tema", light: "Claro", dark: "Escuro", system: "Sistema",
@@ -53,7 +53,7 @@ export default {
   home: {
     h1: "Passe para o Keyboard Maestro o que você repete todo dia no seu Mac",
     // lead: primeira parte, trecho destacado e parte final
-    lead: ["O Keyboard Maestro é um app de automação para Mac feito pela Stairways Software. Você diz quando agir e o que fazer: apertar esta tecla abre aquele app, digitar estas poucas letras troca tudo por um parágrafo inteiro. Depois que você explica uma vez, ele faz o trabalho em segundo plano, sempre do mesmo jeito. Este site é para quem nunca automatizou nada e também para quem já usa o programa e quer ir além. ", "Este é um guia não oficial", ", sem vínculo com a Stairways Software. Sobre os recursos e como eles funcionam, a wiki oficial é a fonte definitiva."],
+    lead: ["O Keyboard Maestro é um app de automação para Mac feito pela Stairways Software. Você diz quando agir e o que fazer: apertar esta tecla abre aquele app, digitar estas poucas letras coloca um parágrafo inteiro no lugar delas. Depois que você explica uma vez, ele faz o trabalho em segundo plano, sempre do mesmo jeito. Este site é para quem nunca automatizou nada e também para quem já usa o programa e quer ir além. ", "Este é um guia não oficial", ", sem vínculo com a Stairways Software. Sobre os recursos e como eles funcionam, a wiki oficial é a fonte definitiva."],
     cta: ["Primeira vez? Comece pela lição 1", "Já usa? Guias práticos (em inglês)"],
     ctaNote: "Na lição 1 você cria uma tecla que abre um app, na lição 2 transforma poucas letras em um parágrafo inteiro, e na lição 3 faz uma única tecla rodar a sua rotina do começo do dia. Não precisa de código.",
     painH: "Parece familiar?",
@@ -99,7 +99,7 @@ export default {
   // Título, tempo e resumo das três lições para iniciantes na navegação e na página inicial
   lessons: [
     { title: "Instale e abra seu app favorito com uma tecla", minutes: "15 minutos", sum: "Baixe, libere as permissões, mantenha o Engine rodando e crie sua primeira macro: uma tecla de atalho que abre o app que você usa todo dia" },
-    { title: "Digite poucas letras e tenha um parágrafo inteiro", minutes: "10 minutos", sum: "O endereço, a apresentação ou a resposta que você digita todo dia vai para um gatilho de texto digitado: você digita poucas letras e o texto inteiro aparece" },
+    { title: "Digite poucas letras e receba um parágrafo inteiro", minutes: "10 minutos", sum: "O endereço, a apresentação ou a resposta que você digita todo dia vai para um gatilho de texto digitado: você digita poucas letras e o texto inteiro aparece" },
     { title: "Uma tecla, uma rotina inteira", minutes: "15 minutos", sum: "Transforme os cliques que você faz toda manhã em uma única macro: abra alguns apps e uma página na web, coloque as janelas no lugar e aprenda a interromper a execução e onde olhar quando algo não der certo" },
   ],
 

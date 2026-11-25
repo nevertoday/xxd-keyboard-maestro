@@ -53,7 +53,7 @@ const ALLOW = [
   ["Quit Keyboard Maestro", "App 菜单的退出项，macOS 按 App 名生成；官方 Wiki 的菜单路径写作 Keyboard Maestro ➤ Quit Keyboard Maestro"],
 ];
 
-const norm = (s) => s.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().replace(/(…|\.\.\.|[.:])+$/, "").trim();
+const norm = (s) => s.replace(/[\u2066\u2069]/g, "").replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().replace(/(…|\.\.\.|[.:])+$/, "").trim();
 const known = new Set([...KM.labels, ...ALLOW.map(([l]) => l)].map(norm));
 const byLower = new Map([...known].map((l) => [l.toLowerCase(), l]));
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -82,7 +82,7 @@ for (const file of files) {
   const en = isEnglish(file);
   const text = strip(readFileSync(file, "utf8"));
   for (const m of text.matchAll(/\*\*([^*\n]+?)\*\*/g)) {
-    const bold = m[1].trim();
+    const bold = m[1].replace(/[\u2066\u2069]/g, "").trim();
     const menu = MENU.test(bold);
     const parts = menu ? bold.split(MENU) : [bold];
     for (const part of parts) {

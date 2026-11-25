@@ -7,9 +7,9 @@ import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-Wenn du dich morgens an deinen Mac setzt, machen deine Hände wahrscheinlich ungefähr das hier: Erst öffnest du Kalender, um zu sehen, was heute ansteht. Dann öffnest du Notizen für deine To-do-Liste. Danach startest du Safari und rufst die Seite auf, in die du jeden Tag schaust – vielleicht eine Kursseite, ein System für die Arbeit oder das Backend deines Shops. Zum Schluss ziehst du Safari nach links und Notizen nach rechts, und erst dann fängst du wirklich an zu arbeiten. Sieben oder acht Handgriffe, jeden Tag genau die gleichen.
+Wenn du dich morgens an deinen Mac setzt, machen deine Hände wahrscheinlich ungefähr das hier: Erst öffnest du Kalender, um zu sehen, was heute ansteht. Dann öffnest du Notizen für deine To-do-Liste. Danach startest du Safari und rufst die Seite auf, in die du jeden Tag schaust – vielleicht eine Kursseite, ein Firmensystem oder das Backend deines Shops. Zum Schluss ziehst du Safari nach links und Notizen nach rechts, und erst dann fängst du wirklich an zu arbeiten. Sieben oder acht Handgriffe, jeden Tag genau die gleichen.
 
-In dieser Lektion packst du diese Handgriffe in ein einziges Makro. Drücke ⌃⌥⌘T (⌃ ist Control, ⌥ ist Option, ⌘ ist Command, und T steht für „today“), und es erledigt alles auf einmal.
+In dieser Lektion packst du diese Handgriffe in ein einziges Makro. Drücke ⌃⌥⌘T (⌃ ist Control, ⌥ die Wahltaste, ⌘ die Befehlstaste, und T steht für „today“, also heute), und es erledigt alles auf einmal.
 
 ## Eine Liste von Aktionen, von oben nach unten
 
@@ -30,7 +30,7 @@ Erstelle in der **Global Macro Group** (globale Makrogruppe) ein neues Makro nam
 5. **Manipulate a Window** (Fenster steuern). Wähle im ersten Menü **Move and Resize** (Bewegen und Größe ändern) und als Position **Left Column** (Linke Spalte). Als Fenster stellst du **the front window** (das vorderste Fenster) ein und als App Safari.
 6. Noch einmal **Manipulate a Window**, wieder **Move and Resize**, diesmal aber **Right Column** (Rechte Spalte) und **the front window** von Notizen.
 
-Landet eine Aktion an der falschen Stelle, ziehst du sie einfach dorthin, wo sie hingehört. Und wenn dir die Optionen einer Aktion nichts sagen, klicke oben rechts auf das Zahnrad **⚙** und wähle **Help** (Hilfe) – dann öffnet sich die passende Seite zu dieser Aktion im offiziellen Wiki ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/Macro_Actions)).
+Landet eine Aktion an der falschen Stelle, ziehst du sie einfach dorthin, wo sie hingehört. Und wenn dir die Optionen einer Aktion nichts sagen, klicke oben rechts in der Aktion auf das Zahnrad **⚙** und wähle **Help** (Hilfe) – dann öffnet sich die passende Seite zu dieser Aktion im offiziellen Wiki ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/Macro_Actions)).
 
 ## Ausprobieren
 
@@ -40,13 +40,13 @@ Beende zuerst Kalender, Notizen und Safari, und drücke dann ⌃⌥⌘T.
 Kalender und Notizen öffnen sich nacheinander, Safari öffnet deine Seite, und ungefähr eine Sekunde später füllt Safari die linke Bildschirmhälfte und Notizen die rechte.
 </Callout>
 
-Wenn sich die Fenster nicht bewegt haben oder nur eines davon, hat das Makro höchstwahrscheinlich nicht lange genug gewartet. Laut den Entwicklern reichen oft 0,3 Sekunden, aber wenn viele Apps offen sind und der Arbeitsspeicher knapp wird, kann es auch mehrere Sekunden dauern ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Setze **Pause** auf 2 Sekunden und probiere es noch einmal.
+Wenn sich die Fenster nicht bewegt haben oder nur eines davon, hat das Makro höchstwahrscheinlich nicht lange genug gewartet. Laut den Entwicklern reichen oft 0,3 Sekunden, aber wenn viele Apps offen sind und der Arbeitsspeicher knapp wird, kann es auch mehrere Sekunden dauern ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Stell die **Pause** auf 2 Sekunden und probiere es noch einmal.
 
 ## Das Makro stoppen
 
-Sobald ein Makro läuft, arbeitet es sich bis zur letzten Aktion durch. Wenn etwas schiefgeht oder du es einfach sofort anhalten möchtest, gibt es dafür zwei Wege – beide über das Symbol von Keyboard Maestro in der Menüleiste. Ein Klick auf dieses Symbol öffnet das <Term k="状态菜单" /> ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
+Sobald ein Makro läuft, arbeitet es sich bis zur letzten Aktion durch. Wenn etwas schiefgeht oder du es einfach sofort anhalten möchtest, gibt es dafür zwei Wege – beide über das Symbol von Keyboard Maestro in der Menüleiste. Ein Klick auf dieses Symbol öffnet das <Term k="状态菜单" text="Statusmenü" /> ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
 
-- Halte ⌃⌥⇧ (Control, Option, Shift) gedrückt und klicke auf das Symbol. Dann stoppen alle laufenden Makros auf einmal.
+- Halte ⌃⌥⇧ (Control, Wahltaste, Umschalttaste) gedrückt und klicke auf das Symbol. Dann stoppen alle laufenden Makros auf einmal.
 - Oder klicke auf das Symbol, wähle **Cancel** (Abbrechen) und klicke in der Liste der laufenden Makros auf das Makro, das du stoppen willst. So siehst du nebenbei auch gleich, welche Makros gerade aktiv sind.
 
 Eigentlich musst du dir nur den ersten Weg merken. Wenn ein Makro irgendwann einmal nicht mehr aufhören will, hältst du einfach diese drei Tasten gedrückt und klickst auf das Symbol.
@@ -55,7 +55,7 @@ Eigentlich musst du dir nur den ersten Weg merken. Wenn ein Makro irgendwann ein
 
 Wenn ein Makro gar nichts tut, brauchst du nicht auf gut Glück herumzuraten – lass zuerst Keyboard Maestro selbst nachsehen. Öffne den Editor, wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und klicke auf „Something expected is not happening“ – also dass etwas Erwartetes nicht passiert ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)).
 
-Keyboard Maestro prüft zuerst die großen Grundlagen: ob die Engine läuft, ob sie beim Anmelden automatisch startet, ob die Berechtigung für Bedienungshilfen eingeschaltet ist und ob das System gerade feststeckt und glaubt, du würdest ein Passwort eingeben. Wenn das alles stimmt, lässt es dich dein Makro aus einem Menü auswählen und prüft, ob seine Gruppe aktiviert ist, ob das Makro selbst aktiviert ist und ob es einen Auslöser sowie aktivierte Aktionen hat. Zum Schluss bittet es dich, das Tastenkürzel zu drücken, und zeigt dir an, ob das Makro tatsächlich ausgelöst wurde.
+Zuerst prüft Keyboard Maestro das Grundsätzliche: ob die Engine läuft, ob sie beim Anmelden automatisch startet, ob die Berechtigung für Bedienungshilfen eingeschaltet ist und ob das System fälschlich glaubt, du würdest gerade ein Passwort eingeben. Wenn das alles stimmt, lässt es dich dein Makro aus einem Menü auswählen und prüft, ob seine Gruppe aktiviert ist, ob das Makro selbst aktiviert ist und ob es einen Auslöser sowie aktivierte Aktionen hat. Zum Schluss bittet es dich, das Tastenkürzel zu drücken, und zeigt dir an, ob das Makro tatsächlich ausgelöst wurde.
 
 Wurde es ausgelöst, hat aber das Falsche getan, liegt der Fehler in den Aktionen – zum Beispiel an ihrer Reihenfolge, an den Optionen oder an einer fehlenden Pause. Wurde es gar nicht erst ausgelöst, liegt das Problem am Auslöser, an den Berechtigungen oder an der Engine. Durch diese Zweiteilung weißt du sofort, in welcher Richtung du suchen musst. [Schritt 6](/en/guide/6-debug/) der ausführlichen Anleitung geht noch genauer darauf ein.
 

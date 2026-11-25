@@ -1,13 +1,13 @@
 ---
 layout: ../../../layouts/Lesson.astro
 lesson: 1
-tldr: "Von der offiziellen Website herunterladen, die Berechtigungen erteilen, die Engine ab der Anmeldung laufen lassen und dein erstes Makro bauen: Drücke ⌃⌥⌘N, und die App, die du jeden Tag öffnest, ist sofort vor dir"
+tldr: "Von der offiziellen Website herunterladen, die Berechtigungen erteilen, die Engine ab der Anmeldung laufen lassen und dein erstes Makro bauen: Drücke ⌃⌥⌘N, und die App, die du jeden Tag öffnest, ist sofort da"
 ---
 import Callout from "../../../components/Callout.astro";
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-Wie oft am Tag öffnest du Notizen? Dir fällt ein Gedanke ein, also bewegst du die Maus hinunter ins Dock, suchst das gelbe Symbol, klickst darauf und wartest auf das Fenster. Das dauert jedes Mal nur ein paar Sekunden, aber du machst es ein Dutzend Mal am Tag – und immer wieder mal ist der Gedanke schon wieder weg, bis das Fenster auftaucht.
+Wie oft am Tag öffnest du Notizen? Dir kommt ein Gedanke, also bewegst du die Maus hinunter ins Dock, suchst das gelbe Symbol, klickst darauf und wartest auf das Fenster. Das dauert jedes Mal nur ein paar Sekunden, aber du machst es ein Dutzend Mal am Tag – und immer wieder ist der Gedanke schon verflogen, wenn das Fenster endlich da ist.
 
 Am Ende dieser Lektion bringt ein Druck auf ⌃⌥⌘N Notizen nach vorn – und öffnet es zuerst, falls es noch nicht läuft. Bis dahin erledigst du drei Dinge: Du installierst Keyboard Maestro, gibst ihm die Berechtigung und lässt es im Hintergrund weiterlaufen. Jedes davon machst du nur einmal.
 
@@ -19,7 +19,7 @@ Das Makro, das du gleich baust, passt also in einen einzigen Satz:
 
 <mark><strong>Wenn ich ⌃⌥⌘N drücke, hole Notizen nach vorn.</strong></mark>
 
-⌃ ist die Control-Taste, ⌥ ist Option und ⌘ ist Command. Alle drei gedrückt zu halten und dazu einen Buchstaben zu drücken, ist eine Tastenkombination, die andere Apps fast nie verwenden – deshalb kommt sie kaum mit etwas anderem in Konflikt. Notizen ist nur ein Beispiel. Wenn die App, die du am häufigsten öffnest, Mail, Kalender oder TextEdit ist, nimm einfach die – alle Schritte bleiben genau gleich.
+⌃ ist die Control-Taste, ⌥ die Wahltaste (alt/option) und ⌘ die Befehlstaste (cmd). Alle drei gedrückt zu halten und dazu einen Buchstaben zu drücken, ist eine Tastenkombination, die andere Apps fast nie verwenden – deshalb kommt sie kaum mit etwas anderem in Konflikt. Notizen ist nur ein Beispiel. Wenn die App, die du am häufigsten öffnest, Mail, Kalender oder TextEdit ist, nimm einfach die – alle Schritte bleiben genau gleich.
 
 ## Herunterladen und mit dem Finder in „Programme“ ziehen
 
@@ -45,7 +45,7 @@ Beim ersten Öffnen erinnert dich Keyboard Maestro daran, und solange noch etwas
 2. Suche **Keyboard Maestro Engine** in der Liste und schalte den Eintrag ein. Falls **Keyboard Maestro** ebenfalls dort steht, schalte auch diesen Eintrag ein. macOS fragt dabei eventuell nach deinem Anmeldepasswort.
 
 <Callout type="ok">
-Zurück in Keyboard Maestro ist das gelbe Dreieck unten rechts verschwunden. Falls es noch da ist, klicke darauf, um zu sehen, was noch fehlt.
+Wenn du zu Keyboard Maestro zurückkehrst, ist das gelbe Dreieck unten rechts verschwunden. Falls es noch da ist, klicke darauf, um zu sehen, was noch fehlt.
 </Callout>
 
 Später, wenn es zum ersten Mal eine bestimmte App steuert oder eine bestimmte Systemfunktion nutzt, fragt macOS vielleicht noch einmal nach. Das ist normal ([offizielle FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)). Schau kurz nach, ob wirklich Keyboard Maestro fragt, und erlaube es dann.
@@ -103,7 +103,7 @@ Das liegt fast immer an der Berechtigung für Bedienungshilfen: Keyboard Maestro
 
 Die Entwickler sagen ganz offen, dass das Berechtigungssystem von macOS seit Mojave fehleranfällig ist: Ein Häkchen ist gesetzt, greift aber nicht, oder das System meldet Keyboard Maestro, es habe die Berechtigung, obwohl das nicht stimmt ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Probiere ihre Lösungsschritte der Reihe nach aus: Schalte unter **Bedienungshilfen** den Eintrag **Keyboard Maestro Engine** einmal aus und wieder ein. Beende Keyboard Maestro und die Engine und öffne sie erneut. Starte deinen Mac neu.
 
-Es gibt noch eine weitere Möglichkeit: Manche Apps hinterlassen das System in dem Zustand, als würdest du durchgehend ein Passwort eingeben – dann kann kein Programm mehr die Tastatur sehen. Das nennt sich Secure Input. Wenn du diese App beendest oder den Mac neu startest, ist das Problem behoben; und in **Help ▸ Interactive Help** verrät dir „Something unexpected is happening“ (Etwas Unerwartetes passiert), ob genau das die Ursache ist ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+Es gibt noch eine weitere Möglichkeit: Manchmal lässt eine App das System in dem Glauben, du würdest ständig ein Passwort eingeben – dann kann kein Programm mehr die Tastatur sehen. Das nennt sich Secure Input. Wenn du diese App beendest oder den Mac neu startest, ist das Problem behoben; und in **Help ▸ Interactive Help** verrät dir „Something unexpected is happening“ (Etwas Unerwartetes passiert), ob genau das die Ursache ist ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
 
 </Q>
 <Q q="Der Editor warnt vor App Translocation, oder nach einem Neustart funktionieren die Makros nicht mehr.">

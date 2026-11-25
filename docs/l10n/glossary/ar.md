@@ -48,10 +48,10 @@ Use Apple's official Arabic macOS labels below. For multi-step macOS paths in Ar
 | Login Items | عناصر تسجيل الدخول | On macOS 15+ the pane is titled `عناصر الدخول والملحقات` (Login Items & Extensions). |
 | the menu bar | شريط القوائم | Top bar of the Mac screen. |
 | the Dock | شريط الأيقونات | Official Apple Arabic UI name; you may add `(Dock)` on first mention if helpful for clarity. |
-| Finder | فايندر | Official display name on Arabic macOS. |
+| Finder | Finder | Official display name on Arabic macOS. |
 | Notes | الملاحظات | Official display name on Arabic macOS. |
 | Calendar | التقويم | Official display name on Arabic macOS. |
-| Safari | سفاري | Official display name on Arabic macOS. |
+| Safari | Safari | Official display name on Arabic macOS. |
 | TextEdit | TextEdit | Kept in English by Apple even on Arabic macOS; do not translate as `محرر النصوص` and do not bold it. |
 | Downloads folder | مجلد التنزيلات | Folder name itself is `التنزيلات`. |
 | Applications folder | مجلد التطبيقات | Folder name itself is `التطبيقات`. |

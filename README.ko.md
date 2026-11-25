@@ -10,7 +10,7 @@ Keyboard Maestro는 Mac용 자동화 도구예요. 편집기에서 매크로를 
 
 **[레슨 1부터 시작하기 →](https://keyboardmaestro.xiaoxiaodong.ai/ko/start/1-first-macro/)**　·　**[이미 쓰고 있다면? 전체 가이드(영어) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>비공식 · 무료 · 오픈 소스 · 10개 언어</sub>
+<sub>비공식 · 무료 · 오픈 소스 · 10개 언어(전체 사이트는 중국어와 영어, 홈과 입문 레슨 3개는 다른 8개 언어로도)</sub>
 
 </div>
 
@@ -56,7 +56,7 @@ Keyboard Maestro는 이런 일을 전부 매크로에 맡겨요. 매크로는 �
 | --- | --- | --- |
 | 0 | [Keyboard Maestro란 무엇인가요](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/) | Mac용 자동화 도구예요. 편집기에서 매크로를 만들면 엔진이 백그라운드에서 실행해 줘요. 모든 매크로는 ‘언제’와 ‘무엇을’로 이루어져 있어요 |
 | 1 | [매크로 그룹: 매크로가 작동하는 범위](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/1-groups/) | 매크로 그룹은 폴더이면서 매크로가 언제 켜질지도 정해요. 특정 앱에서만, 직접 켰을 때만, 또는 팔레트로 띄워 두고 쓸 수 있어요 |
-| 2 | [트리거: 매크로가 시작되는 시점](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | 단축키, 입력 문자열, 정해진 시각, 앱 실행, Wi-Fi 연결, 폴더에 새 파일이 들어올 때까지 가장 자연스러운 시점을 고르면 돼요 |
+| 2 | [트리거: 매크로가 시작되는 시점](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | 단축키, 입력 문자열, 정해진 시각, 앱 실행, Wi-Fi 연결, 폴더에 새 파일이 들어올 때 등, 가장 자연스러운 시점을 고르면 돼요 |
 | 3 | [동작: 매크로가 하는 일](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | 글자 입력, 키 입력, 메뉴, 앱, 창, 클릭, 파일 다루기까지 가장 자주 쓰는 동작 열두 가지 정도를 먼저 익히고, 나머지는 필요할 때 검색해서 쓰면 돼요 |
 | 4 | [변수, 조건, 반복: 상황에 맞게 움직이는 매크로](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | 글자를 기억해 두거나, 실행 전에 질문을 띄우거나, 화면 상태에 따라 다른 길로 가고, 어떤 일이 일어날 때까지 기다리게 할 수 있어요. 매크로가 더 이상 고정된 키 입력 묶음에 머물지 않아요 |
 | 5 | [클립보드: 복사한 내용이 모두 남아 있어요](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | 클립보드 기록으로 예전에 복사한 내용을 다시 붙여넣고, 이름 지정 클립보드에 자주 쓰는 항목을 오래 보관하고, 필터로 붙여넣기 전에 글자를 다듬을 수 있어요 |
@@ -73,7 +73,7 @@ Keyboard Maestro는 이런 일을 전부 매크로에 맡겨요. 매크로는 �
 - **먼저 물어보고 실행**: [작업 전에 먼저 질문 띄우기](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ask-input/) · [매크로를 실행하는 버튼 줄 만들기](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/palette/)
 - **보관과 공유**: [두 대의 Mac에서 같은 매크로 쓰기](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/sync-macs/) · [매크로 내보내기, 가져오기, 공유하기](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/share-macros/) · [매크로가 멈추지 않을 때](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/stop-macro/)
 
-모르는 용어나 헷갈리는 부분이 있으면 **[위키(영어)](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)**와 **[FAQ(영어)](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)**에서 찾아보세요.
+모르는 용어나 헷갈리는 부분이 있으면 [**위키(영어)**](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)와 [**FAQ(영어)**](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)에서 찾아보세요.
 
 ## 내용의 출처
 
@@ -81,7 +81,7 @@ Keyboard Maestro는 이런 일을 전부 매크로에 맡겨요. 매크로는 �
 
 이 가이드에는 라이선스 키, 크랙, 다운로드 미러가 없어요. Keyboard Maestro는 [공식 웹사이트](https://www.keyboardmaestro.com/)에서 내려받으세요. macOS 보안 설정을 끄라고 안내하지 않으며, 권한은 공식 Wiki에 안내된 방식 그대로 부여해요.
 
-이 가이드는 비공식 문서로 Stairways Software와 아무 관계가 없으며, 그들을 대변하지도 않아요. Keyboard Maestro는 Stairways Software Pty Ltd의 상표예요. 기능은 바뀔 수 있으니 공식 Wiki와 앱 자체를 기준으로 삼으세요.
+이 가이드는 비공식 문서로 Stairways Software와 아무 관계가 없으며, Stairways Software의 입장을 대변하지도 않아요. Keyboard Maestro는 Stairways Software Pty Ltd의 상표예요. 기능은 바뀔 수 있으니 공식 Wiki와 앱 자체를 기준으로 삼으세요.
 
 ## 로컬에서 실행하기
 
