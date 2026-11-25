@@ -1,0 +1,128 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 1
+tldr: "Von der offiziellen Website herunterladen, die Berechtigungen erteilen, die Engine ab der Anmeldung laufen lassen und dein erstes Makro bauen: Drücke ⌃⌥⌘N, und die App, die du jeden Tag öffnest, ist sofort vor dir"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Wie oft am Tag öffnest du Notizen? Dir fällt ein Gedanke ein, also bewegst du die Maus hinunter ins Dock, suchst das gelbe Symbol, klickst darauf und wartest auf das Fenster. Das dauert jedes Mal nur ein paar Sekunden, aber du machst es ein Dutzend Mal am Tag – und immer wieder mal ist der Gedanke schon wieder weg, bis das Fenster auftaucht.
+
+Am Ende dieser Lektion bringt ein Druck auf ⌃⌥⌘N Notizen nach vorn – und öffnet es zuerst, falls es noch nicht läuft. Bis dahin erledigst du drei Dinge: Du installierst Keyboard Maestro, gibst ihm die Berechtigung und lässt es im Hintergrund weiterlaufen. Jedes davon machst du nur einmal.
+
+## Ein Makro ist ein Satz: Wenn das passiert, tu das
+
+Jede Aufgabe, die Keyboard Maestro für dich übernimmt, heißt <Term k="宏" text="Makro" />. Egal wie komplex ein Makro wird, es besteht immer aus zwei Teilen: Wann es startet, ist sein <Term k="触发器" text="Auslöser" />. Was es danach tut, ist seine <Term k="动作" text="Aktion" /> – oder eine ganze Liste von Aktionen, die es von oben nach unten abarbeitet ([offizieller Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
+
+Das Makro, das du gleich baust, passt also in einen einzigen Satz:
+
+<mark><strong>Wenn ich ⌃⌥⌘N drücke, hole Notizen nach vorn.</strong></mark>
+
+⌃ ist die Control-Taste, ⌥ ist Option und ⌘ ist Command. Alle drei gedrückt zu halten und dazu einen Buchstaben zu drücken, ist eine Tastenkombination, die andere Apps fast nie verwenden – deshalb kommt sie kaum mit etwas anderem in Konflikt. Notizen ist nur ein Beispiel. Wenn die App, die du am häufigsten öffnest, Mail, Kalender oder TextEdit ist, nimm einfach die – alle Schritte bleiben genau gleich.
+
+## Herunterladen und mit dem Finder in „Programme“ ziehen
+
+Keyboard Maestro bekommst du auf der offiziellen Website, [keyboardmaestro.com](https://www.keyboardmaestro.com/). Im Mac App Store gibt es die App nicht, weil sie sich – wie die Entwickler erklären – nicht in der Sandbox betreiben lässt, wie der Store es verlangt ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/How_do_I)). Sie braucht macOS 10.13 oder neuer, und bis du sie kaufst, nutzt du eine voll funktionsfähige Testversion ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/Purchase)).
+
+Der Download ist eine ZIP-Datei. Mit einem Doppelklick darauf erhältst du die App Keyboard Maestro. Überspringe den nächsten Schritt nicht: <u>Ziehe sie mit dem Finder in deinen Ordner „Programme“ und öffne sie von dort.</u> macOS hat eine Sicherheitsfunktion namens App Translocation. Wenn du eine heruntergeladene App öffnest, ohne sie vorher zu verschieben, startet das System sie von einem zufälligen Ort – dann funktioniert der Start bei der Anmeldung nicht, und Updates schlagen fehl. Durch das Verschieben im Finder wird das abgeschaltet. Auf jedem anderen Weg nicht ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)).
+
+## Beim Öffnen starten eigentlich zwei Programme
+
+Wenn du Keyboard Maestro öffnest, ist das Fenster, das du siehst, der <Term k="编辑器" text="Editor" />. Dort schreibst und änderst du Makros. Gleichzeitig startet still im Hintergrund ein zweites Programm: **Keyboard Maestro Engine**, die <Term k="引擎" text="Engine" />. Die Engine hat kein Fenster und bleibt im Hintergrund. Sie achtet auf deine Tastenkürzel und führt deine Makros aus ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+Wenn du diese Aufteilung im Kopf behältst, ergibt später vieles sofort Sinn. Du kannst den Editor beenden, sobald du fertig bist, und deine Makros funktionieren einfach weiter, weil die Engine die Arbeit macht. Läuft die Engine dagegen nicht, tut kein einziges Makro etwas.
+
+Beim ersten Öffnen erscheint ein Willkommensfenster mit der Schaltfläche **Start Tutorial** (Tutorial starten), dem offiziellen eingebauten Tutorial. Es deckt ungefähr dasselbe ab wie diese Lektion – du kannst es dir also für später aufheben.
+
+## Gib Keyboard Maestro die Berechtigung
+
+Keyboard Maestro drückt Tasten, wählt Menüs aus und verschiebt Fenster für dich. Es bedient also deinen Mac in deinem Auftrag, und dafür verlangt macOS deine ausdrückliche Zustimmung. Das ist die <Term k="辅助功能权限" text="Berechtigung für Bedienungshilfen" />. Ohne sie kann Keyboard Maestro die Tastatur nicht beobachten – dann lässt sich nicht einmal ein Tastenkürzel festlegen ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+Beim ersten Öffnen erinnert dich Keyboard Maestro daran, und solange noch etwas fehlt, siehst du unten rechts im Editor-Fenster ein kleines gelbes Dreieck. Klicke darauf und folge den Schritten. Oder mache es selbst:
+
+1. Öffne **Systemeinstellungen ▸ Datenschutz & Sicherheit ▸ Bedienungshilfen**. Auf älteren macOS-Versionen findest du den Punkt ebenfalls in den **Systemeinstellungen**, dort unter Sicherheit ▸ Datenschutz.
+2. Suche **Keyboard Maestro Engine** in der Liste und schalte den Eintrag ein. Falls **Keyboard Maestro** ebenfalls dort steht, schalte auch diesen Eintrag ein. macOS fragt dabei eventuell nach deinem Anmeldepasswort.
+
+<Callout type="ok">
+Zurück in Keyboard Maestro ist das gelbe Dreieck unten rechts verschwunden. Falls es noch da ist, klicke darauf, um zu sehen, was noch fehlt.
+</Callout>
+
+Später, wenn es zum ersten Mal eine bestimmte App steuert oder eine bestimmte Systemfunktion nutzt, fragt macOS vielleicht noch einmal nach. Das ist normal ([offizielle FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)). Schau kurz nach, ob wirklich Keyboard Maestro fragt, und erlaube es dann.
+
+## Lass die Engine ab der Anmeldung laufen
+
+Die Engine läuft so lange weiter, bis du dich abmeldest oder den Mac ausschaltest. Wenn du den Mac das nächste Mal startest, kommt sie nicht von selbst zurück – es sei denn, du sagst es ihr. Die Entwickler empfehlen, das einzuschalten ([offizieller Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)):
+
+1. Wähle in Keyboard Maestro **Keyboard Maestro ▸ Settings…** (Einstellungen…). Auf älteren macOS-Versionen heißt dieser Eintrag Preferences….
+2. Setze im Bereich **General** (Allgemein) das Häkchen bei **Launch Engine at Login** (Engine bei Anmeldung starten).
+
+Jetzt wartet die Engine bei jedem Start im Hintergrund, und deine Makros funktionieren sofort nach der Anmeldung.
+
+## Baue dein erstes Makro
+
+Das Editor-Fenster hat drei Spalten. Links liegen deine <Term k="宏组" text="Makrogruppen" />, also Ordner für Makros. In der Mitte stehen die Makros der ausgewählten Gruppe. Rechts siehst du das Makro, das du gerade ausgewählt hast.
+
+1. Wähle in der linken Spalte **Global Macro Group** (Globale Makrogruppe). Makros in dieser Gruppe funktionieren in jeder App.
+2. Klicke auf das **+** unter der mittleren Spalte, um ein neues Makro anzulegen. Gib ihm einen Namen, zum Beispiel „Notizen öffnen“.
+3. Klicke rechts auf das grüne **+** für **New Trigger** (Neuer Auslöser) und wähle **Hot Key Trigger** (Tastenkürzel-Auslöser). Es erscheint ein leeres Feld. Klicke hinein und drücke ⌃⌥⌘N. Das Feld zeigt jetzt die Tasten an, die du gedrückt hast.
+4. Klicke auf **New Action** (Neue Aktion). Links im Fenster erscheint eine lange Liste von Aktionen. Wähle die Kategorie **All Actions** (Alle Aktionen). Die Einträge sind alphabetisch sortiert, deshalb steht **Activate a Specific Application** (Bestimmte App öffnen und nach vorn holen) gleich unter den ersten paar. Mache einen Doppelklick darauf.
+5. Wähle im Menü **Activate:** (Aktivieren:) dieser Aktion Notizen aus.
+
+In Keyboard Maestro gibt es keinen Speichern-Knopf. Alles, was du änderst, wird wenige Sekunden später automatisch gespeichert ([offizieller Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)). Das Makro funktioniert sofort, sobald es fertig ist – du musst nichts neu starten.
+
+## Probiere es aus
+
+Klicke auf den Schreibtisch oder wechsle in irgendeine andere App und drücke ⌃⌥⌘N.
+
+<Callout type="ok">
+Notizen springt nach vorn. Beende Notizen mit ⌘Q und drücke ⌃⌥⌘N noch einmal – dann öffnet sich Notizen.
+</Callout>
+
+Noch ein kleines Experiment: Wähle **Keyboard Maestro ▸ Quit Keyboard Maestro** (Keyboard Maestro beenden), um den Editor zu schließen, und drücke dann noch einmal ⌃⌥⌘N. Notizen erscheint trotzdem, weil die Engine im Hintergrund die ganze Zeit aufpasst und die Arbeit macht.
+
+Du hast Keyboard Maestro installiert, ihm die Berechtigung gegeben, die Engine für den Start bei der Anmeldung eingerichtet und dein erstes Makro gebaut: ein Tastenkürzel, eine Aktion. In der nächsten Lektion nutzt du eine andere Art von Auslöser, sodass aus ein paar getippten Buchstaben ein ganzer Absatz wird.
+
+<Callout type="tip" title="Drei Lektionen reichen">
+In Lektion 2 baust du ein Makro, das aus ein paar getippten Buchstaben einen ganzen Absatz macht. In Lektion 3 packst du deine Routine für den Start in den Tag in ein einziges Makro und lernst außerdem, wie du ein Makro stoppst und wo du nachschaust, wenn eins nicht auslöst. Nach diesen drei Lektionen kannst du deine eigenen Makros bauen. Alles andere auf dieser Website kannst du nachschlagen, wenn du es brauchst.
+</Callout>
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe ⌃⌥⌘N gedrückt und nichts ist passiert.">
+
+Am schnellsten geht es, wenn Keyboard Maestro selbst für dich nachsieht. Öffne den Editor, wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und klicke auf „Something expected is not happening“ (Etwas Erwartetes passiert nicht). Es prüft, ob die Engine läuft und die Berechtigungen aktiv sind, lässt dich dann dieses Makro auswählen und schaut nach, ob sowohl die Gruppe als auch das Makro selbst aktiviert sind und ob es einen Auslöser und Aktionen hat ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)). Was auch immer dabei gemeldet wird – behebe genau das.
+
+</Q>
+<Q q="Ich klicke in das Feld für das Tastenkürzel und drücke Tasten, aber es erscheint nichts.">
+
+Das liegt fast immer an der Berechtigung für Bedienungshilfen: Keyboard Maestro sieht die Tastatur nicht ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)). Geh den Abschnitt „Gib Keyboard Maestro die Berechtigung“ weiter oben noch einmal durch. Wenn die Berechtigungen eingeschaltet sind und es trotzdem passiert, hängt das System vielleicht in dem Glauben fest, du würdest gerade ein Passwort tippen. Schau dir dazu den nächsten Punkt an.
+
+</Q>
+<Q q="In den Systemeinstellungen ist es eingeschaltet, aber Keyboard Maestro sagt, es hat keine Berechtigung.">
+
+Die Entwickler sagen ganz offen, dass das Berechtigungssystem von macOS seit Mojave fehleranfällig ist: Ein Häkchen ist gesetzt, greift aber nicht, oder das System meldet Keyboard Maestro, es habe die Berechtigung, obwohl das nicht stimmt ([offizielle Seite](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Probiere ihre Lösungsschritte der Reihe nach aus: Schalte unter **Bedienungshilfen** den Eintrag **Keyboard Maestro Engine** einmal aus und wieder ein. Beende Keyboard Maestro und die Engine und öffne sie erneut. Starte deinen Mac neu.
+
+Es gibt noch eine weitere Möglichkeit: Manche Apps hinterlassen das System in dem Zustand, als würdest du durchgehend ein Passwort eingeben – dann kann kein Programm mehr die Tastatur sehen. Das nennt sich Secure Input. Wenn du diese App beendest oder den Mac neu startest, ist das Problem behoben; und in **Help ▸ Interactive Help** verrät dir „Something unexpected is happening“ (Etwas Unerwartetes passiert), ob genau das die Ursache ist ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+
+</Q>
+<Q q="Der Editor warnt vor App Translocation, oder nach einem Neustart funktionieren die Makros nicht mehr.">
+
+Höchstwahrscheinlich liegt die App noch in deinem Ordner „Downloads“ oder wurde nicht mit dem Finder in den Ordner „Programme“ verschoben. Beende Keyboard Maestro, ziehe es im Finder in den Ordner „Programme“ und öffne es von dort ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)). Prüfe danach noch, ob das Häkchen bei **Launch Engine at Login** gesetzt ist.
+
+</Q>
+<Q q="Nachdem ich meinen Mac heute gestartet habe, funktioniert keines meiner Tastenkürzel mehr.">
+
+Die Engine ist beim Anmelden nicht gestartet. Öffne Keyboard Maestro einmal, dann startet die Engine mit. Gehe danach unter **Keyboard Maestro ▸ Settings…** in den Bereich **General** und setze das Häkchen bei **Launch Engine at Login**, damit du dich nie wieder darum kümmern musst ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
+
+</Q>
+<Q q="Ich habe das Tastenkürzel gedrückt, Notizen ist aufgetaucht, aber eine andere App hat auch etwas getan.">
+
+Eine andere App hat ⌃⌥⌘N ebenfalls als systemweites Tastenkürzel registriert. Wenn zwei Programme dasselbe Tastenkürzel belegen, passiert laut den Entwicklern einfach beides gleichzeitig: dein Makro und der Befehl der anderen App ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Klicke in das Feld des Auslösers und wähle eine andere Tastenkombination, zum Beispiel ⌃⌥⌘ mit einem anderen Buchstaben.
+
+</Q>
+<Q q="Ich habe das Tastenkürzel gedrückt, und eine kleine Liste mit Makros ist zur Auswahl aufgetaucht.">
+
+Zwei deiner Makros nutzen dasselbe Tastenkürzel. Keyboard Maestro weiß deshalb nicht, welches du meinst, und zeigt dir beide zur Auswahl an ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Gib einem davon ein anderes Tastenkürzel, dann erscheint die Liste nicht mehr.
+
+</Q>

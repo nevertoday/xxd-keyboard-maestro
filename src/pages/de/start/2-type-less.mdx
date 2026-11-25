@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 2
+tldr: "Die Antwort, Grußformel oder Vorstellung, die du jeden Tag tippst, gehört in einen Texteingabe-Auslöser: Du gibst ein paar Zeichen wie =reply= ein und der ganze Text erscheint von selbst"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+Manche Sätze tippst du mehrmals am Tag. Ob Lehrkräfte, die Eltern antworten, Ladenbesitzer bei Kundenfragen oder Selbstständige bei einer neuen Anfrage – oft sind es genau dieselben paar Zeilen: „Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und melde mich bis Freitag bei Ihnen.“ Das jedes Mal Buchstabe für Buchstabe einzutippen oder die letzte Nachricht zum Kopieren herauszusuchen, ist Arbeit, die du längst erledigt hast.
+
+In dieser Lektion baust du ein Makro, das überall funktioniert, wo du tippen kannst: Du gibst die sieben Zeichen `=reply=` ein, sie verschwinden von selbst und an ihrer Stelle erscheint die ganze Nachricht.
+
+## Es achtet darauf, was du tippst
+
+Das Makro aus der letzten Lektion startete per Tastendruck. Diesmal nutzt du einen anderen Auslöser: den <Term k="输入字符串触发器" text="Texteingabe-Auslöser" />. Sobald du eine vorher festgelegte Zeichenfolge eintippst, startet das Makro. Weil deine Eingabe zunächst ganz normal in der aktuellen App landet, löscht der Auslöser diese Zeichen normalerweise zuerst für dich und führt dann die Aktionen aus ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>Tippe eine Zeichenfolge ein, die du aus Versehen nie schreiben würdest – der Auslöser löscht sie wieder und setzt deinen gespeicherten Text an ihre Stelle.</strong></mark>
+
+„Aus Versehen nie“ ist dabei wichtig. Der Auslöser achtet überall auf jede Taste, die du tippst. Würdest du einfach `reply` als Zeichenfolge nehmen, würde das Makro jedes Mal loslegen, sobald du dieses Wort in einem Satz schreibst. Die Entwickler empfehlen deshalb, vor oder hinter deine Zeichenfolgen immer feste Zeichen zu setzen. Ihr Beispiel ist `=em=` statt `em`, weil `em` sonst schon mitten im Wort „them“ auslösen würde ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Alle Beispiele auf dieser Website folgen genau diesem Muster mit einem Gleichheitszeichen an beiden Enden: `=reply=`, `=addr=`, `=sig=`.
+
+## Das Makro bauen
+
+Wähle wie in der letzten Lektion links im Editor **Global Macro Group** (Globale Makrogruppe) aus, klicke unter der mittleren Spalte auf **+**, um ein neues Makro anzulegen, und nenne es „Antwort“.
+
+1. Klicke auf das grüne **+** für **New Trigger** (Neuer Auslöser) und wähle diesmal **Typed String Trigger** (Texteingabe-Auslöser).
+2. In das Feld hinter **This string is typed:** (Wenn diese Zeichenfolge getippt wird) tippst du `=reply=` ein.
+3. Achte darauf, dass darunter **Simulate 7 deletes before executing** (Vor dem Ausführen 7-mal Löschen simulieren) angehakt ist. Genau diese Option löscht die 7 Zeichen, die du eingetippt hast, bevor das Makro irgendetwas anderes tut.
+4. Klicke auf **New Action** (Neue Aktion), scrolle in der Liste **All Actions** (Alle Aktionen) nach unten bis zu **Insert Text by Pasting** (Text durch Einfügen) und mache einen Doppelklick darauf.
+5. Kopiere den folgenden Text in das Textfeld der Aktion und passe Wortlaut und Namen an dich an.
+
+<Copy id="l2-reply" code={"Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und melde mich bis Freitag bei Ihnen.\n\nViele Grüße\nAlex"} />
+
+Jetzt probier es aus: Öffne TextEdit, erstelle ein neues Dokument und tippe `=reply=` ein.
+
+<Callout type="ok">
+Das eingetippte `=reply=` ist wieder verschwunden, und stattdessen steht die ganze Antwort da – inklusive Leerzeile.
+</Callout>
+
+Teste das Makro nicht direkt im Editor von Keyboard Maestro. Die Entwickler weisen darauf hin, dass dort jede Änderung sofort gespeichert wird – das unterbricht den Auslöser, weshalb er im Editor fast nie funktioniert ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Und noch eine wichtige Sache: <u>Nutze diesen Auslöser nur dort, wo du wirklich Text tippst – niemals im Finder.</u> Im Finder wählst du mit getippten Buchstaben Dateien aus, und die simulierten Löschtasten des Makros können dann die ausgewählte Datei in den Papierkorb verschieben ([offizielle FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## Gleich noch das heutige Datum einfügen
+
+In das Textfeld passt nicht nur fester Text. Du kannst darin auch ein <Term k="令牌" text="Token" /> verwenden – also einen Platzhalter in Prozentzeichen, der beim Ausführen des Makros durch den echten Wert ersetzt wird. Eines der nützlichsten Tokens ist `%LongDate%`, das durch das heutige Datum in ausgeschriebener Form ersetzt wird ([offizielle Seite](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+Ändere den Text im Feld zum Beispiel so – dann bekommst du jedes Mal das aktuelle Datum, wenn du das Textkürzel eintippst:
+
+<Copy id="l2-date" code={"Ich habe diese Notizen am %LongDate% zusammengestellt. Melde dich gern, wenn du Fragen hast."} />
+
+Wie das Datum genau aussieht, hängt von den Einstellungen deines Macs ab – tippe das Kürzel einfach einmal ein und schau es dir an. Es gibt noch viele weitere Tokens, die du nachschlagen kannst, wenn du sie brauchst. Für den Anfang reicht dieses eine völlig aus.
+
+## Pasting oder Typing?
+
+Für das Einfügen von Text gibt es zwei Aktionen. Ihre Namen unterscheiden sich nur in einem Wort, aber sie arbeiten ganz unterschiedlich.
+
+**Insert Text by Pasting** legt den gesamten Text in die Zwischenablage und drückt für dich ⌘V. Das geht schnell – selbst lange Texte erscheinen sofort, und es klappt mit wirklich jedem Zeichen, einschließlich Emojis. Der Haken: Was vorher in deiner Zwischenablage war, wird überschrieben, und das Makro stellt es danach nicht wieder her ([offizielle Seite](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing** (Text durch Tippen) tippt den Text tatsächlich Taste für Taste für dich ein, genau so, als würdest du selbst tippen. Dadurch übernimmt der Text die Formatierung an der Stelle deines Cursors, und jeder Zeilenumbruch oder Tabulator darin wirkt, als hättest du die Taste selbst gedrückt – zum Beispiel, um ins nächste Feld eines Formulars zu springen. Bei viel Text ist diese Methode allerdings langsam, und sie kann nur Zeichen tippen, die du mit ein oder zwei Tastenanschlägen erreichst – Emojis sind also raus ([offizielle Seite](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+Die Wahl ist also einfach: Für ein kurzes Stück normalen Text (die Entwickler nennen bis zu 30 oder 40 Zeichen) oder wenn dich ein Tabulator ins nächste Feld bringen soll, nimmst du Typing. Für alles andere – lange Texte, ungewöhnliche Zeichen oder immer dann, wenn es dir egal ist, dass die Zwischenablage überschrieben wird – nimmst du Pasting ([offizielle FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+Jetzt hast du schon zwei Makros: eine Taste, die eine App öffnet, und ein paar Buchstaben, die dir eine ganze Nachricht schreiben. In der nächsten Lektion reihst du mehrere Aktionen aneinander, sodass ein einziger Tastendruck all die Klicks übernimmt, mit denen du jeden Tag beginnst.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe =reply= getippt und nichts ist passiert.">
+
+Überleg zuerst, ob du vielleicht zu langsam getippt hast. Laut den Entwicklern fängt der Auslöser wieder von vorn an zu zählen, sobald du länger als ein paar Sekunden pausierst, mit der Maus klickst, die App wechselst oder eine Tastenkombination mit ⌘ oder ⌃ drückst ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Tippe es einmal in einem Zug ein und schau, ob es klappt.
+
+Schau dann, wo du es eingetippt hast. Im Editor von Keyboard Maestro, in Fenstern, die Keyboard Maestro selbst einblendet, und in Passwortfeldern funktioniert der Auslöser nicht. Probier es stattdessen in TextEdit oder Notizen aus.
+
+Wenn beides nicht der Grund ist, mach es wie in Lektion 1: Wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und lass Keyboard Maestro prüfen, ob die Engine läuft, die Berechtigung für Bedienungshilfen aktiviert ist und das System nicht feststeckt und glaubt, du würdest gerade ein Passwort eingeben ([offizielle Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="Ich habe es mit einer anderen Eingabequelle getippt, und es ist nichts passiert oder es wurden die falschen Zeichen gelöscht.">
+
+Wechsle beim Eintippen des Auslösers auf ein einfaches Tastaturlayout (wie ABC oder US), damit genau diese sieben Zeichen in der App ankommen. Die Entwickler warnen außerdem: Enthält ein Auslöser andere als einfache ASCII-Zeichen, solltest du prüfen, ob das Löschen richtig funktioniert ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Bleib beim Auslöser selbst also bei einfachen Buchstaben und Symbolen. Der Text, der eingefügt wird, kann in jeder beliebigen Sprache stehen.
+
+</Q>
+<Q q="Die ganze Nachricht ist erschienen, aber =reply= steht noch davor.">
+
+Im Auslöser ist **Simulate 7 deletes before executing** nicht angehakt, deshalb hat das Makro deine Eingabe nicht gelöscht. Setze das Häkchen und probier es noch einmal.
+
+</Q>
+<Q q="Nach dem Einfügen war das weg, was ich vorher kopiert hatte.">
+
+So arbeitet **Insert Text by Pasting**: Die Aktion nutzt die Zwischenablage und legt den alten Inhalt danach nicht wieder zurück ([offizielle FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Wenn es nur ein kurzer, einfacher Text ist, kannst du zu **Insert Text by Typing** wechseln. Ansonsten gewöhnst du dir am besten an, zuerst die Antwort einzufügen und erst danach etwas anderes zu kopieren. Keyboard Maestro merkt sich allerdings, was du kopiert hast – [Schritt 5](/en/guide/5-clipboard/) der ausführlichen Anleitung zeigt dir, wie du es dir zurückholst.
+
+</Q>
+<Q q="Ich möchte tatsächlich die Zeichen =reply= selbst eintippen.">
+
+Dafür haben die Entwickler einen Trick: Drücke mittendrin Shift-Leertaste (⇧ und die Leertaste), danach die Löschtaste, und tippe den Rest zu Ende. Durch Shift-Leertaste fängt der Auslöser wieder von vorn an zu zählen, sodass er diesmal nicht auslöst ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="Ich habe =REPLY= in Großbuchstaben getippt und es hat nicht ausgelöst.">
+
+Standardmäßig unterscheidet der Auslöser zwischen Groß- und Kleinschreibung. Du kannst ihn zwar so einstellen, dass er das ignoriert, aber einfacher ist es, das Kürzel einfach genau so einzutippen, wie du es angelegt hast ([offizielle Seite](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 2
+tldr: "La respuesta, firma o presentación que escribes cada día va en un activador por texto escrito: teclea unos pocos caracteres como =reply= y aparece el texto completo"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+Hay textos que escribes varias veces al día. Un profesor que responde a padres, quien atiende una tienda y contesta a clientes, alguien que trabaja por su cuenta y responde a una nueva consulta: a menudo son las mismas líneas. «Gracias por escribirme. Ya tengo tu mensaje y te respondo antes del viernes». Escribirlo letra por letra, o buscar el anterior para copiarlo, es volver a hacer un trabajo que ya hiciste.
+
+En esta lección vas a crear una macro para que, en cualquier lugar donde puedas escribir, al teclear los siete caracteres `=reply=` desaparezcan y aparezca el mensaje entero en su lugar.
+
+## Está pendiente de lo que escribes
+
+La macro de la lección anterior empezaba al pulsar una tecla. Esta usa un activador distinto, el <Term k="输入字符串触发器" />: escribes una secuencia de texto que hayas elegido de antemano y la macro se pone en marcha. Como lo que tecleas entra con normalidad en la app actual, el activador suele borrar primero esos caracteres por ti y luego ejecuta las acciones ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>Escribe una secuencia que nunca teclearías por accidente: el activador la borra y coloca en su lugar el texto que guardaste.</strong></mark>
+
+Lo de «nunca por accidente» es clave. El activador vigila cada tecla que pulsas, en todas partes, así que si usaras `reply` como secuencia, la macro se activaría cada vez que escribieras esa palabra en una frase. Los desarrolladores recomiendan poner siempre un prefijo o un sufijo fijo a tus secuencias. Su ejemplo es `=em=` en lugar de `em`, que se activaría dentro de «them» ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Todos los ejemplos de este sitio siguen ese patrón, con un signo igual a cada lado: `=reply=`, `=addr=`, `=sig=`.
+
+## Crea la macro
+
+Igual que en la lección anterior, selecciona **Global Macro Group** (grupo global de macros) en la columna izquierda del editor, haz clic en el **+** debajo de la columna central para añadir una macro y llámala «Respuesta».
+
+1. Haz clic en el **+** verde de **New Trigger** (nuevo activador) y esta vez elige **Typed String Trigger** (activador por texto escrito).
+2. En el cuadro junto a **This string is typed:** (al escribir este texto), escribe `=reply=`.
+3. Asegúrate de que la opción que está debajo, **Simulate 7 deletes before executing** (simular 7 borrados antes de ejecutar), esté marcada. Eso es lo que borra los 7 caracteres que escribiste antes de que la macro haga cualquier otra cosa.
+4. Haz clic en **New Action** (nueva acción), baja por la lista **All Actions** (todas las acciones) hasta **Insert Text by Pasting** (insertar texto pegando) y haz doble clic en ella.
+5. Copia el texto de abajo en el cuadro de texto de la acción y cámbialo por tus propias palabras y tu nombre.
+
+<Copy id="l2-reply" code={"Gracias por escribirme. Ya tengo tu mensaje y te respondo antes del viernes.\n\nUn saludo,\nÁlex"} />
+
+Ahora pruébala. Abre TextEdit, crea un documento nuevo y escribe `=reply=`.
+
+<Callout type="ok">
+El `=reply=` que acabas de escribir ya no está y en su lugar aparece la respuesta completa, con la línea en blanco incluida.
+</Callout>
+
+No la pruebes dentro del editor de Keyboard Maestro. Los desarrolladores señalan que allí cada cambio se guarda al instante, lo que interrumpe el activador, así que casi nunca funciona dentro del editor ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Y recuerda algo importante: <u>úsala solo donde estés escribiendo texto, nunca en el Finder.</u> En el Finder, las letras que escribes seleccionan archivos, y las pulsaciones de borrado que simula la macro pueden acabar enviando el archivo seleccionado a la Papelera ([preguntas frecuentes oficiales](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## Añade de paso la fecha de hoy
+
+Un cuadro de texto puede contener más que palabras fijas. También puede incluir un <Term k="令牌" />, un nombre entre signos de porcentaje que se sustituye por el valor real al ejecutar la macro. Uno de los más útiles es `%LongDate%`, que se convierte en la fecha de hoy escrita por completo ([página oficial](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+Cambia el texto del cuadro por algo como esto y, cada vez que escribas el activador, saldrá la fecha de ese día:
+
+<Copy id="l2-date" code={"Preparé estas notas el %LongDate%. Avísame si tienes alguna duda."} />
+
+El formato exacto con que aparece la fecha depende de los ajustes de tu Mac, así que escríbelo una vez y compruébalo. Hay muchos más tokens que puedes consultar cuando los necesites. Para empezar, con este te basta.
+
+## ¿Pasting o Typing?
+
+Hay dos acciones para insertar texto. Sus nombres solo se diferencian en una palabra, pero funcionan de forma muy distinta.
+
+**Insert Text by Pasting** coloca todo el texto en el portapapeles y pulsa ⌘V por ti. Es rápida, así que incluso un texto largo aparece al instante, y admite cualquier carácter, emojis incluidos. Lo malo es que sustituye lo que tenías en el portapapeles y la macro no lo vuelve a dejar como estaba ([página oficial](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing** (insertar texto escribiendo) realmente lo escribe por ti, tecla a tecla, igual que si lo estuvieras tecleando tú. Por eso el texto adopta el formato del lugar donde está el cursor, y cualquier salto de línea o tabulación que incluya actúa como si pulsaras esa tecla, por ejemplo para pasar al siguiente campo de un formulario. Pero es lenta cuando hay mucho texto y solo puede escribir caracteres que se puedan escribir con una o dos teclas, así que los emojis quedan fuera ([página oficial](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+Así que la elección es fácil. Para un fragmento corto de texto sencillo (los desarrolladores sugieren hasta 30 o 40 caracteres), o cuando quieres que la tecla Tab te lleve al siguiente campo, usa Typing. Para todo lo demás —textos largos, caracteres poco habituales o siempre que no te importe que se reemplace el portapapeles—, usa Pasting ([preguntas frecuentes oficiales](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+Ya tienes dos macros: una tecla que abre una app y unas pocas letras que te dan un mensaje entero. En la próxima lección vas a encadenar varias acciones para que una sola tecla haga todos los clics con los que empiezas el día.
+
+## Si algo no va bien
+
+<Q q="Escribí =reply= y no pasó nada.">
+
+Primero, ¿lo estabas escribiendo despacio? Los desarrolladores indican que detenerte más de unos segundos, hacer clic, cambiar de app o pulsar una combinación con ⌘ o ⌃ hace que vuelva a contar desde cero ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Escríbelo de corrido y comprueba si funciona.
+
+Luego fíjate en dónde lo escribiste. No funciona en el editor de Keyboard Maestro, ni en las ventanas que abre el propio Keyboard Maestro, ni en campos de contraseña. Pruébalo en TextEdit o en Notas.
+
+Si no es nada de eso, haz lo mismo que en la lección 1: elige **Help ▸ Interactive Help** (ayuda interactiva) y deja que compruebe si el Engine está en marcha, si el permiso de Accesibilidad está activado y si el sistema no está atascado pensando que estás escribiendo una contraseña ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="Lo escribí con otra fuente de entrada de teclado activa y no pasó nada o se borraron los caracteres equivocados.">
+
+Cambia a una distribución de teclado sencilla (como ABC o EE. UU.) mientras escribes el activador, para que lo que llegue a la app sean exactamente esos siete caracteres. Los desarrolladores también advierten que, si un activador contiene algo distinto de caracteres ASCII básicos, conviene comprobar que los borrados salgan bien ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Así que deja el activador solo con letras y símbolos sencillos; el texto que inserta sí puede estar en cualquier idioma.
+
+</Q>
+<Q q="Apareció todo el mensaje, pero =reply= sigue ahí delante.">
+
+La opción **Simulate 7 deletes before executing** no está marcada en el activador, así que la macro no borró lo que escribiste. Márcala y prueba otra vez.
+
+</Q>
+<Q q="Después de pegarlo, desapareció lo que había copiado antes.">
+
+Así es como funciona **Insert Text by Pasting**: toma prestado el portapapeles y después no devuelve lo que había ([preguntas frecuentes oficiales](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Si el texto es corto y sencillo, puedes cambiar a **Insert Text by Typing**. Si no, acostúmbrate a insertar la respuesta antes de copiar otra cosa. De todos modos, Keyboard Maestro sí recuerda lo que copiaste, y el [paso 5](/en/guide/5-clipboard/) de la guía completa te muestra cómo recuperarlo.
+
+</Q>
+<Q q="En realidad quiero escribir los caracteres =reply= tal cual.">
+
+Los desarrolladores tienen un truco para eso: a mitad de camino, pulsa Mayús + Espacio (⇧ y la barra espaciadora), luego la tecla de borrar y termina de escribir. Mayús + Espacio hace que vuelva a contar desde cero, así que esta vez no se activará ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="Escribí =REPLY= en mayúsculas y no se activó.">
+
+Por defecto, el activador distingue entre mayúsculas y minúsculas. Puedes configurarlo para que las ignore, pero es más sencillo escribirlo tal como lo definiste ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

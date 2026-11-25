@@ -1,0 +1,128 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 1
+tldr: "Descárgalo desde el sitio oficial, dale los permisos, haz que el Engine arranque al iniciar sesión y crea tu primera macro: pulsa ⌃⌥⌘N y tendrás delante la app que abres cada día"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+¿Cuántas veces al día abres Notas? Se te ocurre una idea, así que llevas el cursor hasta el Dock, buscas el icono amarillo, haces clic y esperas a que aparezca la ventana. Solo son unos segundos, pero lo haces una docena de veces al día y, de vez en cuando, para cuando sale la ventana la idea ya se te escapó.
+
+Al terminar esta lección, pulsar ⌃⌥⌘N traerá Notas al frente y, si no está abierta, la abrirá primero. Para lograrlo harás tres cosas: instalar Keyboard Maestro, darle permiso y dejarlo funcionando en segundo plano. Cada una se hace una sola vez.
+
+## Una macro es una sola frase: cuando pase esto, haz aquello
+
+Cada tarea que Keyboard Maestro hace por ti se llama una <Term k="宏" />. Por muy compleja que llegue a ser, una macro siempre tiene dos partes: cuándo empieza es su <Term k="触发器" />, y qué hace una vez que empieza es su <Term k="动作" />, o una lista de acciones que va recorriendo de arriba abajo ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
+
+Así que la macro que vas a crear cabe en una sola frase:
+
+<mark><strong>Cuando pulse ⌃⌥⌘N, trae Notas al frente.</strong></mark>
+
+⌃ es la tecla Control, ⌥ es Opción y ⌘ es Comando. Pulsar las tres a la vez junto con una letra es una combinación que las demás apps casi nunca usan, así que es muy poco probable que choque con nada. Notas es solo un ejemplo: si la app que más abres es Mail, Calendario o TextEdit, usa esa en su lugar y todos los pasos siguen siendo los mismos.
+
+## Descárgalo y muévelo a Aplicaciones con el Finder
+
+Keyboard Maestro se descarga desde el sitio oficial, [keyboardmaestro.com](https://www.keyboardmaestro.com/). No está en el Mac App Store porque, según explican sus desarrolladores, no puede funcionar aislado en un entorno restringido (*sandbox*) como exige la tienda ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)). Necesita macOS 10.13 o posterior y, hasta que lo compres, usarás una versión de prueba completamente funcional ([página oficial](https://wiki.keyboardmaestro.com/manual/Purchase)).
+
+La descarga es un archivo zip. Haz doble clic en él y obtendrás la app Keyboard Maestro. No te saltes el paso siguiente: <u>usa el Finder para arrastrarla a la carpeta Aplicaciones y ábrela desde ahí.</u> macOS tiene una función de seguridad llamada App Translocation: si abres una app descargada sin haberla movido antes, el sistema la ejecuta desde una ubicación aleatoria, y entonces ni el arranque al iniciar sesión funciona ni las actualizaciones se completan. Moverla con el Finder desactiva esa restricción; moverla de cualquier otra forma, no ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)).
+
+## Al abrirlo, en realidad se inician dos programas
+
+Cuando abres Keyboard Maestro, la ventana que ves es el <Term k="编辑器" />. Ahí es donde escribes y modificas tus macros. Al mismo tiempo inicia en silencio un segundo programa, **Keyboard Maestro Engine**, que es el <Term k="引擎" /> (el motor). El Engine no tiene ventana y se queda en segundo plano: es quien escucha tus atajos de teclado y ejecuta tus macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+Ten presente esta separación y muchas cosas cobrarán sentido más adelante. Puedes cerrar el editor cuando termines y tus macros seguirán funcionando, porque el trabajo lo hace el Engine. Y al revés: si el Engine no está funcionando, ninguna macro hará nada.
+
+La primera vez que lo abras verás una ventana de bienvenida con el botón **Start Tutorial** (iniciar tutorial), que abre el tutorial oficial integrado. Cubre prácticamente lo mismo que esta lección, así que puedes dejarlo para más adelante.
+
+## Dale permiso
+
+Keyboard Maestro pulsa teclas, elige opciones de menú y mueve ventanas por ti. Eso equivale a manejar tu Mac en tu nombre, así que macOS necesita tu permiso expreso. Ese es el <Term k="辅助功能权限" />. Sin él, Keyboard Maestro no puede ver el teclado, así que ni siquiera podrás configurar un atajo de teclado ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+Keyboard Maestro te lo recuerda la primera vez que lo abres y, mientras falte algo, verás un pequeño triángulo amarillo en la esquina inferior derecha de la ventana del editor. Haz clic en él y sigue los pasos. O hazlo por tu cuenta:
+
+1. Abre **Ajustes del Sistema ▸ Privacidad y seguridad ▸ Accesibilidad**. En versiones anteriores de macOS está en **Preferencias del Sistema**, dentro de Seguridad y privacidad ▸ Privacidad.
+2. Busca **Keyboard Maestro Engine** en la lista y actívalo. Si también aparece **Keyboard Maestro**, actívalo igual. Puede que macOS te pida tu contraseña de inicio de sesión.
+
+<Callout type="ok">
+Al volver a Keyboard Maestro, el triángulo amarillo de la esquina inferior derecha habrá desaparecido. Si sigue ahí, haz clic en él para ver qué falta.
+</Callout>
+
+Más adelante, la primera vez que controle una app concreta o use alguna función del sistema, puede que macOS te vuelva a preguntar. Es normal ([preguntas frecuentes oficiales](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)). Comprueba que quien pregunta es Keyboard Maestro y dale permiso.
+
+## Haz que el Engine arranque al iniciar sesión
+
+El Engine sigue funcionando hasta que cierras sesión o apagas tu Mac. La próxima vez que lo enciendas no volverá a arrancar solo a menos que se lo indiques. Los desarrolladores recomiendan activar esta opción ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)):
+
+1. En Keyboard Maestro, elige **Keyboard Maestro ▸ Settings…** (ajustes). En versiones anteriores de macOS se llama Preferences…
+2. En el panel **General**, marca **Launch Engine at Login** (iniciar el Engine al iniciar sesión).
+
+A partir de ahora, el Engine quedará listo en segundo plano cada vez que enciendas tu Mac, y tus macros funcionarán en cuanto inicies sesión.
+
+## Crea tu primera macro
+
+La ventana del editor tiene tres columnas. A la izquierda están tus <Term k="宏组" text="grupos de macros" />, que son carpetas para organizar macros. En el centro aparecen las macros del grupo seleccionado. Y a la derecha ves la macro que hayas elegido.
+
+1. En la columna izquierda, selecciona **Global Macro Group** (grupo global de macros). Las macros de este grupo funcionan en todas las apps.
+2. Haz clic en el **+** debajo de la columna central para añadir una macro nueva. Ponle un nombre, por ejemplo «Abrir Notas».
+3. En la columna derecha, haz clic en el **+** verde de **New Trigger** (nuevo activador) y elige **Hot Key Trigger** (activador por atajo de teclado). Aparecerá un recuadro vacío: haz clic dentro y pulsa ⌃⌥⌘N. El recuadro mostrará ahora las teclas que acabas de pulsar.
+4. Haz clic en **New Action** (nueva acción). A la izquierda de la ventana aparecerá una lista larga de acciones. Elige la categoría **All Actions** (todas las acciones). Como están en orden alfabético, **Activate a Specific Application** (abrir y traer al frente una app) estará entre las primeras. Haz doble clic sobre ella.
+5. En el menú **Activate:** (activar) de esa acción, elige Notas.
+
+Keyboard Maestro no tiene botón de guardar: cualquier cambio se guarda automáticamente a los pocos segundos ([Quick Start oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)). La macro funciona en cuanto la creas, sin tener que reiniciar nada.
+
+## Pruébala
+
+Haz clic en el escritorio, o cambia a cualquier otra app, y pulsa ⌃⌥⌘N.
+
+<Callout type="ok">
+Notas salta al frente. Cierra Notas con ⌘Q, vuelve a pulsar el atajo y Notas se abrirá.
+</Callout>
+
+Un pequeño experimento más: elige **Keyboard Maestro ▸ Quit Keyboard Maestro** (salir de Keyboard Maestro) para cerrar el editor y vuelve a pulsar ⌃⌥⌘N. Notas seguirá apareciendo, porque quien escucha y hace el trabajo es el Engine en segundo plano.
+
+Acabas de instalar Keyboard Maestro, darle permiso, configurar el Engine para que arranque al iniciar sesión y crear tu primera macro: un atajo de teclado y una acción. En la siguiente lección usarás otro tipo de activador, para que al escribir unas pocas letras aparezca un párrafo entero.
+
+<Callout type="tip" title="Con tres lecciones basta">
+En la lección 2 crearás una macro que convierte unas pocas letras escritas en un párrafo entero. En la lección 3 reunirás tu rutina de inicio del día en una sola macro, y además aprenderás a detener una macro y dónde mirar cuando alguna no se activa. Después de estas tres lecciones podrás crear tus propias macros. El resto del sitio está ahí: consúltalo cuando lo necesites.
+</Callout>
+
+## Si algo no va bien
+
+<Q q="Pulsé ⌃⌥⌘N y no pasó nada.">
+
+La forma más rápida de resolverlo es dejar que Keyboard Maestro lo compruebe por ti. Abre el editor, elige **Help ▸ Interactive Help** (ayuda interactiva) y haz clic en «Something expected is not happening» (no ocurre algo esperado). Comprobará si el Engine está funcionando y si los permisos están activos; después te pedirá que elijas esta macro y revisará que tanto su grupo como la propia macro estén activados y que tenga activador y acciones ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)). Corrige lo que te señale.
+
+</Q>
+<Q q="Hago clic en el recuadro del atajo de teclado y pulso teclas, pero no aparece nada.">
+
+Casi siempre es por el permiso de Accesibilidad: Keyboard Maestro no puede ver el teclado ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)). Repasa la sección «Dale permiso» de arriba. Si los permisos están activados y sigue ocurriendo, puede que el sistema se haya quedado pensando que estás escribiendo una contraseña. Mira el siguiente punto.
+
+</Q>
+<Q q="Está activado en Ajustes del Sistema, pero Keyboard Maestro dice que no tiene permiso.">
+
+Los desarrolladores admiten abiertamente que el sistema de permisos de macOS arrastra fallos desde Mojave: una casilla aparece marcada pero no surte efecto, o el sistema le dice a Keyboard Maestro que tiene permiso cuando en realidad no lo tiene ([página oficial](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Prueba sus soluciones en orden. En **Accesibilidad**, desactiva **Keyboard Maestro Engine** y vuelve a activarlo. Cierra Keyboard Maestro y el Engine y vuelve a abrirlos. Reinicia tu Mac.
+
+Hay otra posibilidad: alguna app puede dejar al sistema convencido de que sigues escribiendo una contraseña, y en ese caso ningún programa puede ver el teclado. Eso se llama Secure Input. Cerrar esa app o reiniciar tu Mac lo soluciona, y en **Help ▸ Interactive Help**, la opción «Something unexpected is happening» (está ocurriendo algo inesperado) te dice si esa es la causa ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+
+</Q>
+<Q q="El editor avisa sobre App Translocation, o las macros dejaron de funcionar tras reiniciar.">
+
+Lo más probable es que la app siga en la carpeta Descargas o que no se haya movido a Aplicaciones con el Finder. Cierra Keyboard Maestro, arrástralo a la carpeta Aplicaciones desde el Finder y ábrelo desde ahí ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)). Después asegúrate de que la opción **Launch Engine at Login** esté marcada.
+
+</Q>
+<Q q="Hoy encendí mi Mac y no funciona ningún atajo de teclado.">
+
+El Engine no arrancó al iniciar sesión. Abre Keyboard Maestro una vez y el Engine arrancará con él. Luego ve al panel **General** en **Keyboard Maestro ▸ Settings…** y marca **Launch Engine at Login** para no tener que volver a preocuparte por esto ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
+
+</Q>
+<Q q="Pulsé el atajo de teclado, apareció Notas y otra app también hizo algo.">
+
+Otra app también registró ⌃⌥⌘N como atajo de teclado en todo el sistema. Según explican los desarrolladores, cuando dos programas registran el mismo atajo, se ejecutan a la vez tu macro y la orden de la otra app ([página oficial](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Haz clic en el recuadro del activador y elige otra combinación de teclas, como ⌃⌥⌘ con otra letra.
+
+</Q>
+<Q q="Pulsé el atajo de teclado y apareció una pequeña lista de macros para elegir.">
+
+Dos de tus macros usan el mismo atajo de teclado, así que Keyboard Maestro no sabe cuál quieres ejecutar y te muestra las dos ([página oficial](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Cambia el atajo de una de ellas y la lista dejará de aparecer.
+
+</Q>

@@ -1,0 +1,99 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 3
+tldr: "Convierte los clics que haces cada mañana en una sola macro: abre unas cuantas apps y una página web, coloca las ventanas en su sitio y espera donde haga falta; después aprende a detenerla y dónde mirar cuando falle"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Cuando te sientas frente a tu Mac por la mañana, probablemente tus manos hagan algo parecido a esto. Abres Calendario para ver qué tienes hoy. Abres Notas para revisar tu lista de tareas. Abres Safari y entras en la página que consultas cada día —quizá la de un curso, una herramienta del trabajo o el panel de tu tienda—. Luego arrastras Safari a la izquierda y Notas a la derecha, y solo entonces empiezas a trabajar. Siete u ocho movimientos, exactamente iguales cada día.
+
+En esta lección vas a juntar todos esos movimientos en una sola macro. Pulsas ⌃⌥⌘T (⌃ es Control, ⌥ es Option, ⌘ es Command y T viene de *today*, «hoy») y la macro se encarga de todo.
+
+## Una lista de acciones, de arriba abajo
+
+Las macros de las dos lecciones anteriores tenían una sola acción cada una. En realidad, una macro puede contener toda una lista y, en cuanto arranca, Keyboard Maestro las va ejecutando de arriba abajo ([guía rápida oficial](https://wiki.keyboardmaestro.com/manual/Quick_Start)). Lo único que tienes que hacer es poner en orden el recorrido que hacen tus manos cada día.
+
+Solo hay un detalle que requiere pensar un poco más. Después de ciertas acciones, Keyboard Maestro no tiene forma de saber si el otro lado ya está listo de verdad. Por ejemplo, si le pides a Safari que abra una página web, la ventana tarda un instante en aparecer, pero Keyboard Maestro no espera: pasa directamente a la siguiente acción ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Si esa siguiente acción intenta mover una ventana que todavía no existe, no la encuentra.
+
+<mark><strong>Ordena uno tras otro los clics que haces cada día y, donde una ventana necesite tiempo para aparecer, añade una acción Pause.</strong></mark>
+
+## Crea la macro
+
+Dentro de **Global Macro Group** (grupo global de macros), crea una macro nueva llamada «Empezar el día». Haz clic en **New Trigger** (nuevo activador), elige **Hot Key Trigger** (activador por atajo de teclado) y pulsa ⌃⌥⌘T. Luego añade estas seis acciones en este orden. Para cada una, haz clic en **New Action** (nueva acción), búscala en **All Actions** (todas las acciones) y haz doble clic sobre ella:
+
+1. **Activate a Specific Application** (abrir y pasar a una app concreta), con Calendario elegido en **Activate:** (activar).
+2. Otra acción **Activate a Specific Application**, esta vez con Notas.
+3. **Open a URL** (abrir una dirección web). En el cuadro **Open URL** escribe la dirección de la página que consultas cada día, completa y empezando por `https://`, y en **with** (con) elige Safari.
+4. **Pause** (pausar), ajustada a 1 segundo para que la ventana de Safari tenga tiempo de aparecer.
+5. **Manipulate a Window** (manipular una ventana). En el primer menú elige **Move and Resize** (mover y redimensionar) y, en la posición, **Left Column** (columna izquierda). Selecciona **the front window** (la ventana en primer plano) como ventana y Safari como app.
+6. Otra acción **Manipulate a Window**, de nuevo con **Move and Resize**, pero esta vez con **Right Column** (columna derecha) y **the front window** de Notas.
+
+Si alguna acción queda en el lugar equivocado, arrástrala hasta su sitio. Y si no entiendes las opciones de una acción, haz clic en el engranaje **⚙** de su esquina superior derecha y elige **Help** (ayuda) para abrir la página de esa acción en la wiki oficial ([página oficial](https://wiki.keyboardmaestro.com/manual/Macro_Actions)).
+
+## Pruébala
+
+Primero sal de Calendario, Notas y Safari, y luego pulsa ⌃⌥⌘T.
+
+<Callout type="ok">
+Calendario y Notas se abren una tras otra, Safari carga tu página y, al cabo de un segundo más o menos, Safari ocupa la mitad izquierda de la pantalla y Notas la mitad derecha.
+</Callout>
+
+Si las ventanas no se movieron, o solo se movió una, lo más probable es que no haya esperado lo suficiente. Sus creadores dicen que a menudo bastan 0,3 segundos, pero si tienes muchas apps abiertas y poca memoria libre puede tardar varios segundos ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Cambia la acción **Pause** a 2 segundos y vuelve a probar.
+
+## Cómo detenerla
+
+Una vez que una macro se pone en marcha, sigue hasta su última acción. Si algo va mal o simplemente quieres detenerla al instante, hay dos formas, y ambas están en el icono de Keyboard Maestro en la barra de menús. Al hacer clic en ese icono se abre el <Term k="状态菜单" /> ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
+
+- Mantén pulsadas ⌃⌥⇧ (Control, Option, Shift) y haz clic en el icono. Se detienen todas las macros en ejecución.
+- O haz clic en el icono, elige **Cancel** (cancelar) y selecciona la macro que quieres detener de la lista de las que están en marcha. Además, es una forma práctica de ver qué macros se están ejecutando en ese momento.
+
+Con recordar la primera te basta. Si algún día una macro no para, mantén pulsadas esas tres teclas y haz clic en el icono.
+
+## Dónde mirar cuando no se activa
+
+Cuando una macro no hace nada, no vayas probando a ciegas: deja que Keyboard Maestro lo revise primero. Abre el editor, elige **Help ▸ Interactive Help** (ayuda interactiva) y haz clic en «Something expected is not happening» (algo que esperaba no ocurre) ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)).
+
+Empieza comprobando lo general: si el Engine está en marcha, si arranca al iniciar sesión, si el permiso de Accesibilidad está activado y si el sistema se ha quedado creyendo que estás escribiendo una contraseña. Si todo eso está bien, te pide que elijas tu macro en un menú y comprueba que su grupo esté habilitado, que la propia macro esté habilitada y que tenga un activador y acciones habilitadas. Por último, te pide que pulses el atajo de teclado y te muestra si la macro llegó a activarse de verdad.
+
+Si se activó pero no hizo lo que debía, el problema está en las acciones: su orden, sus opciones o alguna espera que falta. Si no se activó, el problema está en el activador, los permisos o el Engine. Dividirlo así en dos te dice enseguida por dónde buscar. [El paso 6](/en/guide/6-debug/) de la guía completa entra en más detalle.
+
+## Ya terminaste las tres lecciones
+
+Las tres cosas que ya sabes son la estructura de casi cualquier macro en Keyboard Maestro: un activador decide cuándo empieza, una lista de acciones dice qué hace y espera allí donde hace falta. Un atajo que abre una app, unas cuantas letras que te escriben un párrafo, un atajo que hace toda una rutina. Con eso ya te quitas de encima unos cuantos gestos repetitivos cada día.
+
+Todo lo demás es para consultarlo cuando lo necesites. Para una tarea concreta, mira las [guías prácticas](/en/howto/). Para una palabra que no conozcas, consulta la [wiki](/en/wiki/). Y si quieres entender algo a fondo, como los grupos de macros, las variables o el portapapeles, recorre la guía completa empezando por el [paso 0](/en/guide/0-what/). La mejor forma de aprender, según sugieren sus creadores, es usar tu Mac como siempre, fijarte en cuándo repites lo mismo una y otra vez y crear una macro para eso ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_get_started)).
+
+## Si algo no va bien
+
+<Q q="Pulsé ⌃⌥⌘T y las apps se abrieron, pero las ventanas no se movieron.">
+
+No esperó lo suficiente. Cambia **Pause** de 1 segundo a 2, y ponle más tiempo si sigue sin bastar. Revisa también el orden: **Pause** debe ir después de **Open a URL** y antes de las dos acciones **Manipulate a Window**.
+
+</Q>
+<Q q="Una ventana no se movió, pero todo lo demás funcionó.">
+
+Esa app estaba abierta, pero sin ninguna ventana. Imagina que la última vez cerraste la ventana de Notas sin salir de la app: en ese caso, **the front window** está vacía. En la acción **Activate a Specific Application** de esa app, marca la opción para volver a abrir las ventanas iniciales de la app («Reopen the app's initial windows») y también volverá a abrir una ventana ([página oficial](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+</Q>
+<Q q="La página web no se abrió y salió una notificación en la esquina diciendo que falló.">
+
+La dirección no está bien escrita. **Open a URL** necesita una dirección completa y válida que empiece por `https://` y no tenga espacios ([página oficial](https://wiki.keyboardmaestro.com/action/Open_a_URL)). Lo más seguro es abrir la página en Safari y copiar la dirección desde la barra de direcciones. Cuando esta acción falla, la macro te avisa pero sigue adelante con el resto.
+
+</Q>
+<Q q="Una macro sigue ejecutándose y no se detiene.">
+
+Mantén pulsadas ⌃⌥⇧ y haz clic en el icono de Keyboard Maestro en la barra de menús. Si eso no basta, haz clic en el icono y elige **Quit Keyboard Maestro Engine** (salir de Keyboard Maestro Engine) para cerrar el Engine por completo, lo que detiene todas las macros ([página oficial](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)). Después abre Keyboard Maestro y el Engine volverá a arrancar.
+
+</Q>
+<Q q="No encuentro el icono de Keyboard Maestro en la barra de menús.">
+
+Puede que el Engine no esté en marcha: abre Keyboard Maestro una vez y se pondrá en marcha. También puede que el icono esté oculto en los ajustes: el panel **General** de **Keyboard Maestro ▸ Settings…** (ajustes) controla si se muestra el menú de estado y qué aspecto tiene ([página oficial](https://wiki.keyboardmaestro.com/manual/Preferences)).
+
+</Q>
+<Q q="Pulsé el atajo de teclado y no pasó nada.">
+
+Sigue los pasos de **Help ▸ Interactive Help** como se explica más arriba en «Dónde mirar cuando no se activa». Si te dice que el problema está en el Engine o en los permisos, revisa la sección [«Si algo no va bien» de la lección 1](/es/start/1-first-macro/).
+
+</Q>

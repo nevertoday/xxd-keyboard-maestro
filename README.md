@@ -2,7 +2,7 @@
 
 # Keyboard Maestro 新手教程
 
-**中文** · [English](./README.en.md)
+**中文** · [English](./README.en.md) · [日本語](./README.ja.md) · [한국어](./README.ko.md) · [Español](./README.es.md) · [Português](./README.pt.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [Русский](./README.ru.md) · [العربية](./README.ar.md)
 
 ### 如何爽用 Keyboard Maestro：重复的事，交给一个键
 
@@ -10,7 +10,7 @@ Keyboard Maestro 是 Mac 上的自动化工具：你在编辑器里写宏，后�
 
 **[从第 1 课开始 →](https://keyboardmaestro.xiaoxiaodong.ai/start/1-first-macro/)**　·　**[已经在用了，看完整教程 →](https://keyboardmaestro.xiaoxiaodong.ai/guide/0-what/)**
 
-<sub>非官方 · 免费 · 开源 · 中文和英文</sub>
+<sub>非官方 · 免费 · 开源 · 10 种语言（全站是中文和英文，其他 8 种语言有首页和新手三课）</sub>
 
 </div>
 
