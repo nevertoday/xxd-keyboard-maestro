@@ -1,6 +1,128 @@
 ---
 layout: ../../layouts/Lesson.astro
 lesson: 1
-tldr: "下载、给权限、让引擎一直开着，然后做出你的第一个宏：一个热键，打开你每天都要开的那个 App"
+tldr: "从官网下载、给它开权限、让引擎开机就跑，然后做出你的第一个宏：按一下 ⌃⌥⌘N，每天都要开的那个 App 就到了眼前"
 ---
-{/* 待写：第 1 课正文，兑现标题和 tldr 说的事。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+你一天要打开备忘录多少次？想到一句话要记下来，先把鼠标挪到程序坞，找到那个黄色的图标，点一下，等窗口出来。每次只要几秒钟，可一天十几次，而且常常就在这几秒里，脑子里那句话跑掉了。
+
+这一课结束的时候，你按一下 ⌃⌥⌘N，备忘录就会跳到最前面；它要是没开，就替你打开。为了这一下，要先做三件事：把 Keyboard Maestro 装好，给它开权限，让它在后台一直开着。都只用做一次。
+
+## 一个宏，就是一句「什么时候，做什么」
+
+Keyboard Maestro 替你做的每一件差事，都叫一个<Term k="宏" />。再复杂的宏也只有两部分：什么时候开始，叫<Term k="触发器" />；开始以后做什么，叫<Term k="动作" />，可以只有一个，也可以是一串，它从上到下一个一个做（[官方 Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)）。
+
+所以今天要做的这个宏，说出来就是一句话：
+
+<mark><strong>按下 ⌃⌥⌘N 的时候，把备忘录叫到前面来。</strong></mark>
+
+⌃ 是 Control 键，⌥ 是 Option 键，⌘ 是 Command 键。三个一起按住再按 N，这种组合别的 App 几乎不会占用，所以不容易撞车。备忘录只是个例子，你每天开得最多的是邮件、日历还是文本编辑，就换成它，后面的步骤都一样。
+
+## 下载，再用 Finder 拖进「应用程序」
+
+Keyboard Maestro 只能从官网 [keyboardmaestro.com](https://www.keyboardmaestro.com/) 下载。Mac App Store 上没有它，官方的解释是它没法按商店的要求做沙盒化（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。它要 macOS 10.13 或更新的系统，没买之前用的是全功能的试用版（[官方说明](https://wiki.keyboardmaestro.com/manual/Purchase)）。
+
+下载下来是一个压缩包，双击解开，就得到 Keyboard Maestro 这个 App。接下来这一步别省：<u>用 Finder 把它拖进「应用程序」文件夹，再从那里打开它。</u>因为 macOS 有一个叫 App Translocation 的安全机制，从网上下载的 App 如果没被挪过地方就直接打开，系统会让它从一个随机的位置运行，结果是开机自动启动不灵、以后也升级不了。用 Finder 挪一下就能把它解除，用别的工具挪不行（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)）。
+
+## 打开它，其实开了两个程序
+
+双击打开 Keyboard Maestro，你看到的那个窗口是<Term k="编辑器" />，写宏、改宏都在这里。同时它还悄悄启动了另一个程序 **Keyboard Maestro Engine**，也就是<Term k="引擎" />。引擎没有窗口，待在后台，你按的热键是它在听，宏也是它在跑（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
+
+这个分工记住了，后面很多事就好懂了：编辑器改完可以关掉，宏照样能用，因为干活的是引擎；反过来，引擎没在跑，哪个宏都不会动。
+
+第一次打开时会先出来一个欢迎窗口，上面有 **Start Tutorial**，是官方自带的一段教程。它和这一课做的事差不多，想以后再看也行。
+
+## 给它开权限
+
+Keyboard Maestro 要替你按键、选菜单、挪窗口，等于是在替你操作这台 Mac，所以 macOS 要你亲口同意，这就是<Term k="辅助功能权限" />。没有它，Keyboard Maestro 连键盘都看不见，热键自然也就不灵（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
+
+第一次打开时，Keyboard Maestro 会提醒你这件事；还没开好的时候，编辑器窗口右下角会有一个黄色的小三角，点它就能照着提示一步步做。自己去开也可以：
+
+1. 打开 **系统设置 ▸ 隐私与安全性 ▸ 辅助功能**。旧版 macOS 上是「系统偏好设置」里的「安全性与隐私 ▸ 隐私」。
+2. 在列表里找到 **Keyboard Maestro Engine**，把它打开。列表里还有 **Keyboard Maestro** 的话，也一起打开。macOS 可能会让你输一次开机密码。
+
+<Callout type="ok">
+回到 Keyboard Maestro，右下角的黄色三角不见了。还在的话，点它看看还差哪一项。
+</Callout>
+
+以后它第一次去控制某个 App、或者用到某项系统功能时，macOS 可能还会再弹窗问你一次，这是正常的（[官方说明](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)）。看清楚是 Keyboard Maestro 在问，就点允许。
+
+## 让引擎开机就跑
+
+引擎会一直跑到你退出登录或者关机为止。下次开机，它不会自己回来，除非你让它回来。官方建议把这一项打开（[官方 Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)）：
+
+1. 在 Keyboard Maestro 里选 **Keyboard Maestro ▸ Settings…**。旧版 macOS 上这一项叫 Preferences…。
+2. 在 **General** 那一栏，勾上 **Launch Engine at Login**。
+
+这样每次开机，引擎都在后台待命，你的宏一登录就能用。
+
+## 做第一个宏
+
+编辑器的窗口分成三栏：最左边是<Term k="宏组" />，像装宏的文件夹；中间是这个组里的宏；右边是选中的那个宏的内容。
+
+1. 在左边一栏选 **Global Macro Group**。放在这个组里的宏，在哪个 App 里都能用。
+2. 点中间那一栏下面的 **+**，就多出一个新宏。给它起个名字，比如「打开备忘录」。
+3. 在右边点绿色的 **+**（**New Trigger**），选 **Hot Key Trigger**。出来一个空的方框，点一下它，然后按 ⌃⌥⌘N。方框里显示的就是你刚按的这组键。
+4. 再点 **New Action**，窗口左边会出来一长串动作。选 **All Actions** 这一类，它们按字母排，**Activate a Specific Application**（打开并切到某个 App）就在最上面那几个里，双击它。
+5. 在这个动作的 **Activate:** 那个菜单里，选备忘录（Notes）。
+
+Keyboard Maestro 没有「保存」按钮，你改了什么，几秒以后它自己就存好了（[官方 Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)）。宏一做好就能用，不用重启什么。
+
+## 试一下
+
+点一下桌面，或者切到随便哪个别的 App，按 ⌃⌥⌘N。
+
+<Callout type="ok">
+备忘录跳到了最前面。先用 ⌘Q 把备忘录退出，再按一次，它会被打开。
+</Callout>
+
+再做一个小实验：选 **Keyboard Maestro ▸ Quit Keyboard Maestro** 把编辑器关掉，然后再按 ⌃⌥⌘N。备忘录照样出来，因为听热键、干活的一直是后台的引擎。
+
+刚才你装好了 Keyboard Maestro，开了权限，让引擎开机就跑，还做出了第一个宏：一个热键，一个动作。下一课换一种触发器，让你打几个字，就出来一整段话。
+
+<Callout type="tip" title="三课就够了">
+第 2 课做一个「打几个字出一整段」的宏，第 3 课把开工要点的那一串事排进一个宏，再学会让它停下、不灵时去哪看。学完这三课，你就会自己做宏了。网站上别的内容，遇到了再查。
+</Callout>
+
+## 不对怎么办
+
+<Q q="按了 ⌃⌥⌘N，什么也没发生。">
+
+最快的办法是让 Keyboard Maestro 自己查：打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”。它会挨个检查引擎在不在跑、权限有没有开，再让你挑出这个宏，看它所在的组和它自己是不是开着、有没有触发器和动作（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)）。它指出哪一条不对，就改哪一条。
+
+</Q>
+<Q q="点了热键那个方框，按键它不认，框里什么也不显示。">
+
+几乎都是辅助功能权限没开好，Keyboard Maestro 看不见键盘（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。回到上面「给它开权限」那一节再看一遍。权限都开了还是这样，可能是系统卡在了输入密码的状态，见下一条。
+
+</Q>
+<Q q="系统设置里明明打开了，它还是说没有权限。">
+
+官方坦白说，从 Mojave 起 macOS 的权限系统一直有毛病：勾上了却不生效，或者告诉 Keyboard Maestro 有权限、其实没有（[官方说明](https://wiki.keyboardmaestro.com/manual/Troubleshooting)）。照官方的办法依次试：在 **辅助功能** 里把 **Keyboard Maestro Engine** 关掉再打开；退出 Keyboard Maestro 和引擎再重新打开；重启 Mac。
+
+还有一种情况是某个 App 让系统以为你一直在输密码，这时候任何程序都看不见键盘，叫 Secure Input。退出那个 App 或者重启就好；**Help ▸ Interactive Help** 里点 “Something unexpected is happening”，它会告诉你是不是这个原因（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)）。
+
+</Q>
+<Q q="编辑器提示 App Translocation，或者开机后宏都不灵了。">
+
+多半是 App 还在下载文件夹里，或者不是用 Finder 挪进「应用程序」的。先退出 Keyboard Maestro，用 Finder 把它拖进「应用程序」，再从那里打开（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)）。然后确认 **Launch Engine at Login** 是勾着的。
+
+</Q>
+<Q q="今天开机以后，热键都不灵了。">
+
+引擎没跟着开机启动。打开一次 Keyboard Maestro，引擎就会跟着启动；再去 **Keyboard Maestro ▸ Settings…** 的 **General** 里勾上 **Launch Engine at Login**，以后就不用管了（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)）。
+
+</Q>
+<Q q="按了热键，备忘录出来了，可原来那个 App 也做了一件别的事。">
+
+另一个 App 也用了 ⌃⌥⌘N。官方说，两边注册了同一个热键时，你的宏和那个 App 的功能会一起发生（[官方说明](https://wiki.keyboardmaestro.com/trigger/Hot_Key)）。点开触发器的方框，换一组键就行，比如 ⌃⌥⌘ 加另一个字母。
+
+</Q>
+<Q q="按了热键，弹出一小排宏让我选。">
+
+你有两个宏用了同一个热键，Keyboard Maestro 拿不准你要哪个，就把它们都列出来让你挑（[官方说明](https://wiki.keyboardmaestro.com/trigger/Hot_Key)）。给其中一个换个热键，就不会再弹了。
+
+</Q>

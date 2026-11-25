@@ -1,6 +1,100 @@
 ---
 layout: ../../layouts/Lesson.astro
 lesson: 2
-tldr: "每天重复打的地址、自我介绍、回复，交给一个输入字符串触发器：打出几个字母，整段文字自己出现"
+tldr: "每天重复打的回复、签名、自我介绍，交给一个输入字符串触发器：打出 =reply= 这样几个字符，整段话自己出现"
 ---
-{/* 待写：第 2 课正文，兑现标题和 tldr 说的事。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Term from "../../components/Term.astro";
+import Copy from "../../components/Copy.astro";
+import Q from "../../components/Q.astro";
+
+有些话你一天要打好几遍。老师回家长，小店老板回客人，自由职业者回新来的询价，说的常常是同一段：「谢谢你的来信，我已经收到了，这周五前给你答复。」每次都一个字一个字敲，或者翻出上一封去复制，都是在做一件早就做过的事。
+
+这一课做一个宏，让你在任何能打字的地方打出 `=reply=` 这七个字符，它们自己消失，换成那一整段话。
+
+## 它盯着你打的字
+
+上一课的宏是按一个键开始的。这一课换一种触发器，叫<Term k="输入字符串触发器" />：你打出一串事先定好的字符，宏就开始跑。因为你打的字会先照常进到当前的 App 里，所以它一般会先替你把这几个字符删掉，再做后面的动作（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。
+
+<mark><strong>打出一串你平时绝不会打的字符，它把这串字删掉，换成你存好的那段话。</strong></mark>
+
+「平时绝不会打」这一点很要紧。它盯着的是你在哪儿打的每一个键，要是你拿 `reply` 当触发字符串，写一句英文时一打出这个词，宏就跑了。官方的建议是给触发字符串加上固定的前缀或后缀，他们举的例子是用 `=em=`，而不是会在 them 里面冒出来的 `em`（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。本站的例子都照这个样子，前后各一个等号：`=reply=`、`=addr=`、`=sig=`。
+
+## 做这个宏
+
+和上一课一样，先在编辑器左边一栏选 **Global Macro Group**，点中间一栏下面的 **+** 新建一个宏，起名「常用回复」。
+
+1. 点绿色的 **+**（**New Trigger**），这次选 **Typed String Trigger**。
+2. 在 **This string is typed:** 后面的框里打 `=reply=`。
+3. 下面那一项 **Simulate 7 deletes before executing** 要勾着。它就是负责在宏开始之前，替你删掉刚打的那 7 个字符。
+4. 点 **New Action**，在 **All Actions** 里往下找到 **Insert Text by Pasting**（粘贴插入文字），双击它。
+5. 把下面这段话复制进这个动作的文字框里，换成你自己的说法和名字。
+
+<Copy id="l2-reply" code={"谢谢你的来信，我已经收到了，这周五前给你答复。\n\n祝好\n小林"} />
+
+好了，现在去试。打开文本编辑，新建一个文档，打 `=reply=`。
+
+<Callout type="ok">
+你刚打的 `=reply=` 不见了，换成了整段回复，连空行都在。
+</Callout>
+
+试的时候别在 Keyboard Maestro 的编辑器里打，官方说那里改一下就会存一次，触发器会被打断，所以在编辑器里基本不灵（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。还有一点要记住：<u>只在能打字的地方用它，别在 Finder 里打。</u>因为在 Finder 里打的字母会去选中文件，接着宏模拟的删除键可能就把选中的文件扔进废纸篓了（[官方说明](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)）。
+
+## 顺手加上今天的日期
+
+文字框里不光能放固定的字，还能放<Term k="令牌" />：一个用百分号包起来的名字，宏跑的时候换成真正的内容。最常用的一个是 `%LongDate%`，它会换成今天的日期，用写全了的长格式（[官方说明](https://wiki.keyboardmaestro.com/token/LongDate)）。
+
+比如把文字框里的话改成这样，每次打出来的就都是当天的日期：
+
+<Copy id="l2-date" code={"这份材料是 %LongDate% 整理的，有问题随时找我。"} />
+
+日期具体显示成什么样子，跟你 Mac 的设置有关，打一次就知道了。令牌还有很多，用到了再查，新手先认识这一个就够。
+
+## Pasting 和 Typing，挑哪个
+
+插文字的动作有两个，名字只差一个词，做法却很不一样。
+
+**Insert Text by Pasting** 先把整段文字放进剪贴板，再替你按一下 ⌘V。它快，多长的字都是一下就出来，什么字符都能放，中文、表情都行。代价是剪贴板里原来的东西被换掉了，而且宏跑完不会替你放回去（[官方说明](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)）。
+
+**Insert Text by Typing**（逐字打出文字）是真的一个键一个键地替你打，就像你自己在敲，所以字会跟着光标处原来的格式走，里面的换行和 Tab 也会像按了那个键一样，比如跳到表格的下一格。可是它慢，字一多就要等；而且只能打一两个键就能打出来的字符（[官方说明](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)）。中文要经过输入法，不是按一两个键就能出来的，所以带中文的文字，用 Pasting。
+
+所以挑起来很简单：短短一串英文或数字（官方说的是三四十个字符以内），或者你正想让 Tab 带你跳到下一格，用 Typing；其余的，包括所有带中文的、长的、不在意剪贴板被换掉的，用 Pasting（[官方说明](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)）。
+
+现在你有了两个宏：一个按键开 App，一个打字出整段话。下一课把好几个动作排成一串，让一个键做完你每天开工要点的那几下。
+
+## 不对怎么办
+
+<Q q="打了 =reply=，什么也没发生。">
+
+先想想是不是打得太慢了。官方说，停下来几秒不打、中途点了一下鼠标、切了 App、按了带 ⌘ 或 ⌃ 的组合键，都会让它从头开始数（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。一口气打完再看。
+
+再看看你是在哪儿打的：Keyboard Maestro 的编辑器里、它自己弹出来的窗口里，还有密码框里，它都不灵。换到文本编辑或者备忘录里试。
+
+都不是的话，和第 1 课一样，选 **Help ▸ Interactive Help** 让它查一遍：引擎在不在跑、辅助功能权限开没开、系统是不是卡在了输入密码的状态（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)）。
+
+</Q>
+<Q q="开着中文输入法打 =reply=，没反应，或者删错了字。">
+
+打触发字符串时切到英文输入（比如 ABC），这样打出来的就是那七个字符本身。官方也提醒过，触发字符串里一旦有非英文的字符，删除能不能删对，要你自己确认（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。所以触发字符串本身只用英文字母和符号，要插进去的那段话里写中文没关系。
+
+</Q>
+<Q q="整段话出来了，可 =reply= 还留在前面。">
+
+触发器里的 **Simulate 7 deletes before executing** 没勾上，宏没替你删掉打的那几个字符。勾上它再试。
+
+</Q>
+<Q q="贴完以后，剪贴板里我原来复制的东西没了。">
+
+这是 **Insert Text by Pasting** 的做法：它借用了剪贴板，跑完不会放回去（[官方说明](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)）。如果这段话很短、全是英文和数字，可以换成 **Insert Text by Typing**；其他时候，习惯一下先贴回复、再复制别的。Keyboard Maestro 其实记着你复制过的东西，完整教程的[第 5 步](/guide/5-clipboard/)讲怎么找回来。
+
+</Q>
+<Q q="我就是想打出 =reply= 这几个字本身。">
+
+官方给了一个办法：在中间按一下 ⇧ 加空格（Shift-Space），再按一下删除键，然后接着打完。⇧ 加空格会让它从头数，所以这一次不会触发（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。
+
+</Q>
+<Q q="大写打的 =REPLY=，没有触发。">
+
+触发器默认是分大小写的。触发器里可以选不分大小写，但更省事的是就按你定好的样子打（[官方说明](https://wiki.keyboardmaestro.com/trigger/Typed_String)）。
+
+</Q>

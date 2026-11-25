@@ -1,6 +1,100 @@
 ---
 layout: ../../../layouts/Lesson.astro
 lesson: 2
-tldr: "The address, intro or reply you type every day goes into a typed string trigger: type a few letters and the whole text appears"
+tldr: "The reply, sign-off or intro you type every day goes into a typed string trigger: type a few characters like =reply= and the whole text appears"
 ---
-{/* TBD: lesson 2, delivering what its title and tldr promise. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+Some things you type several times a day. A teacher answering parents, a shop owner answering customers, a freelancer answering a new enquiry. It's often the same few lines. "Thanks for getting in touch. I've got your message and I'll get back to you by Friday." Typing it out letter by letter, or digging up the last one to copy, is doing a job you've already done.
+
+In this lesson you build a macro so that anywhere you can type, typing the seven characters `=reply=` makes them disappear and puts the whole message in their place.
+
+## It watches what you type
+
+Last lesson's macro started with a key press. This one uses a different trigger, the <Term k="输入字符串触发器" />. Type a string you've chosen in advance and the macro starts. Since what you type goes into the current app as usual, the trigger normally deletes those characters for you first, then carries out the actions ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>Type a string you'd never type by accident, and it deletes the string and puts your saved text in its place.</strong></mark>
+
+"Never by accident" matters. The trigger watches every key you type, everywhere, so if you used `reply` as the string, the macro would fire every time you wrote that word in a sentence. The developers recommend giving your strings a consistent prefix or suffix. Their example is `=em=` instead of `em`, which would fire inside "them" ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Every example on this site follows that pattern, with an equals sign at each end: `=reply=`, `=addr=`, `=sig=`.
+
+## Build the macro
+
+As in the last lesson, select **Global Macro Group** in the left column of the editor, click the **+** under the middle column to add a macro, and name it "Reply".
+
+1. Click the green **+** (**New Trigger**) and this time choose **Typed String Trigger**.
+2. In the box after **This string is typed:**, type `=reply=`.
+3. Make sure the option below it, **Simulate 7 deletes before executing**, is ticked. That's what deletes the 7 characters you typed before the macro does anything else.
+4. Click **New Action**, scroll down the **All Actions** list to **Insert Text by Pasting**, and double-click it.
+5. Copy the text below into the action's text box, and change the wording and name to your own.
+
+<Copy id="l2-reply" code={"Thanks for getting in touch. I've got your message and I'll get back to you by Friday.\n\nBest,\nSam"} />
+
+Now try it. Open TextEdit, make a new document and type `=reply=`.
+
+<Callout type="ok">
+The `=reply=` you typed is gone, and the whole reply is there instead, blank line included.
+</Callout>
+
+Don't test it inside the Keyboard Maestro editor. The developers point out that every change there is saved straight away, which interrupts the trigger, so it hardly ever works in the editor ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)). And one thing to remember: <u>only use it where you're typing text, never in the Finder.</u> In the Finder, the letters you type select files, and the delete keystrokes the macro simulates can then move the selected file to the Trash ([official FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## Add today's date while you're at it
+
+A text box can hold more than fixed words. It can also hold a <Term k="令牌" />, a name wrapped in percent signs that's swapped for the real thing when the macro runs. One of the most useful is `%LongDate%`, which becomes today's date written out in full ([official page](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+Change the text in the box to something like this, and every time you type the trigger you get that day's date:
+
+<Copy id="l2-date" code={"I put these notes together on %LongDate%. Let me know if you have any questions."} />
+
+Exactly how the date looks depends on your Mac's settings, so type it once and see. There are many more tokens to look up when you need them. As a beginner, this one is enough.
+
+## Pasting or Typing?
+
+There are two actions for inserting text. Their names differ by one word, but they work very differently.
+
+**Insert Text by Pasting** puts the whole text on the clipboard and presses ⌘V for you. It's fast, so even long text appears at once, and it can hold any characters at all, emoji included. The catch is that whatever was on your clipboard is replaced, and the macro doesn't put it back ([official page](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing** really does type it for you, one key at a time, just as if you were typing. So the text takes on the formatting where your cursor is, and any Return or Tab in it acts like pressing that key, for example jumping to the next field of a form. But it's slow when there's a lot of text, and it can only type characters you can make with one or two keystrokes, so emoji are out ([official page](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+So the choice is simple. For a short bit of plain text (the developers suggest up to 30 or 40 characters), or when you want Tab to take you to the next field, use Typing. For everything else, long text, unusual characters, or whenever you don't mind the clipboard being replaced, use Pasting ([official FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+You now have two macros: one key that opens an app, and a few letters that give you a whole message. In the next lesson you'll line up several actions so that one key does all the clicking you do to start your day.
+
+## If something's off
+
+<Q q="I typed =reply= and nothing happened.">
+
+First, were you typing slowly? The developers say that pausing for more than a few seconds, clicking the mouse, switching apps, or pressing a ⌘ or ⌃ combination all make it start counting again ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Type it in one go and see.
+
+Then think about where you typed it. It doesn't work in the Keyboard Maestro editor, in windows Keyboard Maestro itself puts up, or in password fields. Try it in TextEdit or Notes instead.
+
+If neither of those is it, do what you did in lesson 1: choose **Help ▸ Interactive Help** and let it check whether the Engine is running, the Accessibility permission is on, and the system isn't stuck thinking you're typing a password ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="I typed it with another keyboard input source on, and nothing happened or the wrong characters got deleted.">
+
+Switch to a plain keyboard layout (such as ABC or U.S.) while you type the trigger, so what reaches the app is exactly those seven characters. The developers also warn that if a trigger contains anything other than plain ASCII characters, you should check that the deletes come out right ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)). So keep the trigger itself to plain letters and symbols. The text it inserts can be in any language.
+
+</Q>
+<Q q="The whole message appeared, but =reply= is still sitting in front of it.">
+
+**Simulate 7 deletes before executing** isn't ticked on the trigger, so the macro didn't delete what you typed. Tick it and try again.
+
+</Q>
+<Q q="After it pasted, whatever I'd copied before was gone.">
+
+That's how **Insert Text by Pasting** works. It borrows the clipboard and doesn't put it back afterwards ([official FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). If the text is short and plain, you can switch to **Insert Text by Typing**. Otherwise, get used to inserting the reply before you copy something else. Keyboard Maestro does remember what you've copied, though, and [step 5](/en/guide/5-clipboard/) of the full guide shows you how to get it back.
+
+</Q>
+<Q q="I actually want to type the characters =reply= themselves.">
+
+The developers have a trick for that: partway through, press Shift-Space (⇧ and the space bar) and then Delete, and finish typing. Shift-Space makes it start counting again, so this time it won't fire ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="I typed =REPLY= in capitals and it didn't fire.">
+
+By default the trigger cares about case. You can set it to ignore case, but it's simpler to just type it the way you set it up ([official page](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

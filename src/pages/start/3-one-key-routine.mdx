@@ -1,6 +1,99 @@
 ---
 layout: ../../layouts/Lesson.astro
 lesson: 3
-tldr: "把每天开工要点的那几下排成一个宏：打开几个 App、打开一个网页、把窗口摆好；再学会让它停下、不灵时去哪看"
+tldr: "把每天开工要点的那几下排成一个宏：打开几个 App、打开一个网页、把窗口摆好，中间该等的地方等一下；再学会让它停下、不灵时去哪看"
 ---
-{/* 待写：第 3 课正文，兑现标题和 tldr 说的事。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+每天早上坐到 Mac 前面，你的手大概是这么走的：点开日历，看看今天有什么安排；点开备忘录，看看待办；打开 Safari，进那个每天都要看的网页，可能是课程页、公司的系统，也可能是店铺的后台；然后把 Safari 拖到左边，备忘录拖到右边，这才开始干活。七八下，天天一模一样。
+
+这一课把这七八下排进一个宏，按一下 ⌃⌥⌘M（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command，M 取 morning 的意思），它从头做到尾。
+
+## 一串动作，从上到下
+
+前两课的宏都只有一个动作。其实一个宏可以放一串动作，宏一开始，Keyboard Maestro 就从上到下一个一个做（[官方 Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)）。你要做的，就是把自己的手每天走的那条路，原样排成一列。
+
+只有一个地方要多想一步。有些动作做完，Keyboard Maestro 没法知道那边是不是真的好了，比如让 Safari 打开一个网页，窗口要过一会儿才出来，可它不会等，马上就去做下一个动作（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。下一个动作要是去挪那个还没出来的窗口，就扑了个空。
+
+<mark><strong>把你每天点的那几下按顺序排成一列，在要等窗口出来的地方，放一个 Pause。</strong></mark>
+
+## 做这个宏
+
+在 **Global Macro Group** 里新建一个宏，起名「开工」。点 **New Trigger**，选 **Hot Key Trigger**，按 ⌃⌥⌘M。然后照下面的顺序加六个动作，每个都是点 **New Action**、在 **All Actions** 里找到它、双击：
+
+1. **Activate a Specific Application**（打开并切到某个 App），在 **Activate:** 里选日历（Calendar）。
+2. 再加一个 **Activate a Specific Application**，这次选备忘录（Notes）。
+3. **Open a URL**（打开网址）。在 **Open URL** 的框里填你每天要看的那个网址，要写完整，从 `https://` 开始；后面的 **with** 选 Safari。
+4. **Pause**（暂停），等 1 秒，让 Safari 的窗口先出来。
+5. **Manipulate a Window**（操作窗口）。第一个菜单选 **Move and Resize**，位置选 **Left Column**；窗口选 **the front window**，App 选 Safari。
+6. 再加一个 **Manipulate a Window**，同样选 **Move and Resize**，位置选 **Right Column**，窗口选 **the front window**，App 选备忘录。
+
+动作的顺序不对，拖一下就能换。哪个动作看不懂它的选项，点它右上角的齿轮 **⚙**，选 **Help**，会打开官方 Wiki 里讲这个动作的那一页（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Actions)）。
+
+## 试一下
+
+先把日历、备忘录、Safari 都退出，按 ⌃⌥⌘M。
+
+<Callout type="ok">
+日历、备忘录依次打开，Safari 打开了你填的网页，一秒左右以后，Safari 占住屏幕左半边，备忘录占住右半边。
+</Callout>
+
+窗口没摆好、或者只摆好了一个，多半是等得不够。官方说一般 0.3 秒就够，可 Mac 上开着很多 App、内存紧的时候，要等好几秒（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。把 **Pause** 改成 2 秒再试。
+
+## 让它停下
+
+宏跑起来以后，会一路做到最后一个动作。做错了、或者你想让它马上停，有两个办法，都在菜单栏上 Keyboard Maestro 的图标那里，那个图标点开就是<Term k="状态菜单" />（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)）：
+
+- 按住 ⌃⌥⇧（Control、Option、Shift）不放，点一下这个图标，所有正在跑的宏一起停下。
+- 或者点开这个图标，选 **Cancel**，里面列着正在跑的宏，选你要停的那个。这里也能看到现在有哪些宏在跑。
+
+记住第一个就够了。哪天哪个宏停不下来，按住这三个键点一下图标。
+
+## 不灵的时候去哪看
+
+宏没有动静的时候，别一个个去猜，先让 Keyboard Maestro 自己查。打开编辑器，选 **Help ▸ Interactive Help**，点 “Something expected is not happening”（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)）。
+
+它先查大环境：引擎在不在跑，开机会不会自动启动，辅助功能权限开没开，系统是不是卡在了输入密码的状态。这些都没问题，它让你从菜单里挑出这个宏，再查它所在的组有没有开、这个宏自己有没有开、有没有触发器、有没有开着的动作。最后它让你按一下热键，看这个宏到底有没有被触发。
+
+被触发了却没做对，问题就在动作里：顺序、选项，或者哪里少等了一下。没被触发，问题就在触发器、权限或者引擎。这样一分为二，就知道该往哪边找了。更细的查法，完整教程的[第 6 步](/guide/6-debug/)会讲。
+
+## 学完三课了
+
+你现在会的三件事，是 Keyboard Maestro 里几乎每个宏的样子：一个触发器管什么时候开始，一串动作管做什么，中间该等的地方等一下。按一个键开 App，打几个字出一段话，一个键做完一串事，这些已经能替你省下每天好些重复的操作。
+
+剩下的东西，都是遇到了再查：想做一件具体的事，看 [How-to](/howto/)；碰到一个不认识的词，查 [Wiki](/wiki/)；想把一样东西彻底弄懂，比如宏组、变量、剪贴板，看完整教程的[第 0 步](/guide/0-what/)起的那几步。最好的学法，是平时照常用 Mac，留意自己又在重复做哪件事，然后给它做一个宏（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_get_started)）。
+
+## 不对怎么办
+
+<Q q="按了 ⌃⌥⌘M，几个 App 都开了，窗口却没摆好。">
+
+等得不够。把 **Pause** 从 1 秒改成 2 秒，还不行就再加。动作的顺序也看一眼：**Pause** 要放在 **Open a URL** 后面、两个 **Manipulate a Window** 前面。
+
+</Q>
+<Q q="有一个窗口没动，别的都好了。">
+
+那个 App 打开了，却没有窗口，比如你上次把备忘录的窗口关了却没退出它，这时 **the front window** 就是空的。在那个 App 的 **Activate a Specific Application** 动作里勾上重新打开初始窗口的那一项（Reopen the app's initial windows），它就会把窗口也打开（[官方说明](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)）。
+
+</Q>
+<Q q="网页没打开，屏幕角上弹出一条失败的通知。">
+
+网址写得不对。**Open a URL** 要的是完整、合规的网址，从 `https://` 开始，中间不能有空格（[官方说明](https://wiki.keyboardmaestro.com/action/Open_a_URL)）。最稳的办法是在 Safari 里打开那个网页，从地址栏复制过来。这个动作失败了，宏会通知你，但会接着往下做。
+
+</Q>
+<Q q="宏一直在跑，停不下来。">
+
+按住 ⌃⌥⇧ 点菜单栏上 Keyboard Maestro 的图标。实在不行，点开这个图标选 **Quit Keyboard Maestro Engine**，把引擎整个退出，所有宏就都停了（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)）。之后打开一次 Keyboard Maestro，引擎会跟着重新启动。
+
+</Q>
+<Q q="菜单栏上找不到 Keyboard Maestro 的图标。">
+
+可能是引擎没在跑，打开一次 Keyboard Maestro 就好。也可能是在设置里被隐藏了：**Keyboard Maestro ▸ Settings…** 的 **General** 那一栏，管着状态菜单显不显示、显示成什么样（[官方说明](https://wiki.keyboardmaestro.com/manual/Preferences)）。
+
+</Q>
+<Q q="按了热键，什么也没发生。">
+
+照上面「不灵的时候去哪看」走一遍 **Help ▸ Interactive Help**。它说引擎和权限有问题，回[第 1 课的「不对怎么办」](/start/1-first-macro/)对着看。
+
+</Q>
