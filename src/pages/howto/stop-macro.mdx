@@ -12,13 +12,13 @@ import Q from "../../components/Q.astro";
 import Callout from "../../components/Callout.astro";
 import Fig from "../../components/Fig.astro";
 
-在公司整理表格的人，常会做这样一个宏：往下挪一格、打一个字、再往下挪一格，用 **Repeat**（重复）跑一百遍。哪天手一滑，一百写成了一千，或者光标根本不在表格里，它就在一个错的窗口里一行一行地打下去，你按什么键它都照打不误。照这一页做，几秒钟就能让它停下；读完最后一节，你还会知道怎么在宏里先留好出口。
+每天整理表格的上班族，常会做这样一个宏：往下挪一格、打一个字、再往下挪一格，用 **Repeat**（重复）跑一百遍。哪天手一滑，一百写成了一千，或者光标根本不在表格里，它就在一个错的窗口里一行一行地打下去，你按什么键它都照打不误。照这一页做，几秒钟就能让它停下；读完最后一节，你还会知道怎么在宏里先留好出口。
 
 先记住最要紧的一下，别的都可以以后再看。<mark>按住 ⌃⌥⇧，点菜单栏上 Keyboard Maestro 的图标，所有正在跑的宏都会停。</mark>
 
 ## 最快的一下：全部停掉
 
-菜单栏右边那个 Keyboard Maestro 的图标，就是它的<Term k="状态菜单" />。按住 ⌃⌥⇧（Control、Option、Shift 三个键），同时点一下这个图标，所有正在跑的宏都会被取消（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。官方几处写得不太一样：用户手册的菜单页说四个修饰键全按住，连 ⌘ Command 一起；「How do I」那页说 ⌃⌥⇧，⌘ 可按可不按；排查页写的也是 ⌃⌥⇧。所以三个键按住就行，手忙脚乱时连 ⌘ 一起按也没关系。
+菜单栏右边那个 Keyboard Maestro 的图标，就是它的<Term k="状态菜单" />。按住 ⌃⌥⇧（Control、Option、Shift 三个键），同时点一下这个图标，所有正在跑的宏都会被取消（[How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)）。官方几处写得不太一样：用户手册的菜单页说四个修饰键全按住，连 ⌘ Command 一起；「How do I」那页说 ⌃⌥⇧，⌘ 可按可不按；排查页写的也是 ⌃⌥⇧。所以三个键按住就行，手忙脚乱时连 ⌘ 一起按也没关系。
 
 <Callout type="ok">
 屏幕上的字不再往外冒，鼠标回到你手里。
@@ -28,37 +28,37 @@ import Fig from "../../components/Fig.astro";
 
 ## 只停某一个
 
-要是同时有几个宏在跑，你只想停那个出了问题的，就正常点开状态菜单，找 **Cancel**（取消）：它下面列着当前正在跑的所有宏，选哪个就停哪个（[菜单说明](https://wiki.keyboardmaestro.com/manual/Menus)）。这个菜单顺便也告诉你，现在到底有哪些宏在跑，有时候你以为它停了，其实它还在后面等着。
+要是同时有几个宏在跑，你只想停那个出了问题的，就正常点开状态菜单，找 **Cancel**（取消）：它下面列着当前正在跑的所有宏，选哪个就停哪个（[Menus](https://wiki.keyboardmaestro.com/manual/Menus)）。这个菜单顺便也告诉你，现在到底有哪些宏在跑，有时候你以为它停了，其实它还在后面等着。
 
 ## 看着它一步一步停
 
-从状态菜单选 **Start Debugging**（开始调试），会打开<Term k="调试器" />的窗口。它列出所有正在跑的宏，以及每个宏此刻正在做哪一个动作；右边的按钮能把某个宏 **Cancel** 掉（[调试器说明](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)）。在调试器里勾上 **Pause New Macros**（新宏先暂停），之后触发的宏会停在第一步等你，一步一步点着往下走，正好用来看那个停不下来的宏卡在了哪一步。关掉调试器窗口，被暂停的宏会接着照常跑，所以想让它停，就先 Cancel 再关窗口。
+从状态菜单选 **Start Debugging**（开始调试），会打开<Term k="调试器" />的窗口。它列出所有正在跑的宏，以及每个宏此刻正在做哪一个动作；右边的按钮能把某个宏 **Cancel** 掉（[Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)）。在调试器里勾上 **Pause New Macros**（新宏先暂停），之后触发的宏会停在第一步等你，一步一步点着往下走，正好用来看那个停不下来的宏卡在了哪一步。关掉调试器窗口，被暂停的宏会接着照常跑，所以想让它停，就先 Cancel 再关窗口。
 
 <Fig id="stop-macro-ladder" />
 
 ## 实在停不下来
 
-上面几招都不灵的时候，官方还给了更重的办法（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
+上面几招都不灵的时候，官方还给了更重的办法（[How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
 
-第一招，从状态菜单选 **Quit Keyboard Maestro Engine**（退出 Keyboard Maestro 引擎）。<Term k="引擎" />退出了，所有宏都不会再跑，等你把那个宏改好，再打开 Keyboard Maestro，引擎会跟着启动。
+第一招，从状态菜单选 **Quit Keyboard Maestro Engine**（退出 Keyboard Maestro 引擎）。<Term k="引擎" />退出了，所有宏都不会再跑。不过下次打开 Keyboard Maestro，引擎会跟着启动，那个宏要是一启动就又跑起来，就用下面不带引擎打开编辑器的办法去改它。
 
-最难办的是登录时就会跑的宏：每次开机它都冲出来，你还没来得及改它就又开始了。官方的排查页专门写了这种情况（[排查页](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)），步骤是这样：
+最难办的是登录时就会跑的宏：每次开机它都冲出来，你还没来得及改它就又开始了。官方的排查页专门写了这种情况（[Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)），步骤是这样：
 
 1. 先按住 ⌃⌥⇧ 点状态菜单图标，把正在跑的宏全部取消。
-2. 按住 ⌘⌃⌥⇧ 四个键，在程序坞里点 Keyboard Maestro，或者在「应用程序」文件夹里双击它。这样会退出引擎，并且打开编辑器而不启动引擎。
+2. 按住 ⌃⌥⇧⌘ 四个键，在程序坞里点 Keyboard Maestro，或者在「应用程序」文件夹里双击它。这样会退出引擎，并且打开编辑器而不启动引擎。
 3. 在编辑器里找到那个宏，删掉它的触发器，或者把它停用。
-4. 前面都不行，就用安全模式重启 Mac，这样登录项不会启动，引擎也不会跟着起来；然后照样按住 ⌘⌃⌥⇧ 打开 Keyboard Maestro，去改那个宏。
+4. 前面都不行，就用安全模式重启 Mac，这样登录项不会启动，引擎也不会跟着起来；然后照样按住 ⌃⌥⇧⌘ 打开 Keyboard Maestro，去改那个宏。
 
 ## 在宏里先留一个出口
 
-停得下来以后，下次可以先防着。Keyboard Maestro 有几个专门用来取消宏的<Term k="动作" />：**Cancel All Macros**（取消所有宏）、**Cancel All Other Macros**（取消其他所有宏）、**Cancel This Macro**（取消这个宏）、**Cancel Just This Macro**（只取消这个宏）（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。最简单的用法是做一个急停宏：新建一个宏，触发器是一个 **Hot Key**（热键），比如 ⌃⌥⌘.（Control、Option、Command 再加句号键），动作只放一个 **Cancel All Macros**。它跟点图标是一个意思，只是不用去找菜单栏。
+停得下来以后，下次可以先防着。Keyboard Maestro 有几个专门用来取消宏的<Term k="动作" />：**Cancel All Macros**（取消所有宏）、**Cancel All Other Macros**（取消其他所有宏）、**Cancel This Macro**（取消这个宏）、**Cancel Just This Macro**（只取消这个宏）（[How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)）。最简单的用法是做一个急停宏：新建一个宏，触发器是一个 **Hot Key**（热键），比如 ⌃⌥⌘.（Control、Option、Command 再加句号键），动作只放一个 **Cancel All Macros**。它跟点图标是一个意思，只是不用去找菜单栏。
 
 另外几个习惯能少惹麻烦。新做的循环先用很小的次数试，比如三遍，没问题了再改成一百；拿不准的宏，先打开调试器、勾上 **Pause New Macros**，一步一步看着它走。宏跑到一半出错、或者跳过了几步，多半是动作做得比 App 反应快，那是另一个问题，官方排查页的[动作之间的时间](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)一节讲了怎么让它等一等。
 
 ## 卡住了？
 
 <Q q="菜单栏上找不到 Keyboard Maestro 的图标。">
-图标通常只要引擎在跑就会显示，不过偏好设置的 **General**（通用）那一页能把它关掉，看看是不是被关了（[菜单说明](https://wiki.keyboardmaestro.com/manual/Menus)）。引擎根本没在跑的话，也就没有宏在跑。官方[常见问题](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)还提到，macOS Tahoe 摆放菜单栏图标有个毛病，图标可能挪了位置，或者和别的图标之间空出一块，多找找。
+偏好设置的 **General**（通用）那一页管要不要显示状态菜单、怎么显示，看看是不是被关掉了（[Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)）。引擎根本没在跑的话，也就没有宏在跑。官方的 [Frequently Asked Questions](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) 还提到，macOS Tahoe 摆放菜单栏图标有个毛病，图标可能挪了位置，或者和别的图标之间空出一块，多找找。
 </Q>
 <Q q="按着键点了图标，菜单照常打开了，宏没停。">
 三个键要先按住、一直按着，再去点图标。点开了菜单也不要紧，松手关掉菜单，重新按住再点一次。还不行，就用 **Cancel** 菜单挑那个宏，或者退出引擎。

@@ -10,7 +10,7 @@ description: Use the Select or Show a Menu Item action to choose the menu for yo
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-If you have kids in school, you often need to keep notices from the school's website: what to bring for the spring outing, next term's timetable, the supply list. The page changes in a few weeks, so saving it as a PDF is the safe bet. In Safari, that means opening the File menu and going down to Export as PDF, but that item has no shortcut, so it's the mouse every time. When you finish this page, you'll press ⌃⌥⌘E in Safari (⌃ is Control, ⌥ is Option, ⌘ is Command), the save window will come straight up, and all you do is name the file. The key only does anything in Safari. In every other app, nothing changes.
+Parents of school-age kids often need to keep notices from the school's website: what to bring for the spring outing, next term's timetable, the supply list. The page changes in a few weeks, so saving it as a PDF is the safe bet. In Safari, that means opening the File menu and going down to Export as PDF, but that item has no shortcut, so it's the mouse every time. By the end of this page, you'll press ⌃⌥⌘E in Safari (⌃ is Control, ⌥ is Option, ⌘ is Command), the save window will come straight up, and all you do is name the file. The key only does anything in Safari. In every other app, nothing changes.
 
 <mark>Any menu command you can click can have a key: the macro clicks the menu for you.</mark>
 
@@ -47,7 +47,7 @@ There are two usual causes. One is a menu name that doesn't match. Even one spac
 Make sure Safari is in front, the group and the macro are both ticked, and the Engine is running. Then check that the app added under **Available in these applications:** in the "Safari" group really is Safari. If it still won't fire, see [full guide step 6](/en/guide/6-debug/).
 </Q>
 <Q q="In some apps the menu is clearly there, but the action can't select it.">
-The official troubleshooting page explains that some cross-platform apps don't properly build their menus until you've clicked the menu bar with the mouse. The fix is to switch out of the app and back, or click in the menu bar first, before selecting the menu. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+The official troubleshooting page explains that some cross-platform apps don't properly build their menus until you've clicked the menu bar with the mouse. The fix is to switch out of the app and back, or have the macro simulate a click in the menu bar first with **Move or Click Mouse** (the official page says a click just right of the Help menu is often enough), and then select the menu. See this section of [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
 </Q>
 <Q q="Why not just press a key with Type a Keystroke?">
 Because this menu item has no key to press. And even when one has a key, the official advice is to select the menu rather than simulate its shortcut, especially when that shortcut is also some macro's hot key, since simulating it gives unpredictable results (see [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).

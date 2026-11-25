@@ -25,7 +25,7 @@ import Copy from "../../components/Copy.astro";
 
 先给这些缩写安个家。在编辑器左边宏组列表的底下点「+」，新建一个<Term k="宏组" />，叫「缩写」。宏组默认在所有 App 里都生效，这正合适，因为回复有时在 Mail 里写，有时在网页上的客服框里写。
 
-在这个宏组里新建一个宏，名字就写「=ship= 发货回复」，以后在列表里一眼就认得出。接着加一个触发器，选 **Typed String**（输入字符串），在 **This string is typed:** 后面填 `=ship=`；它下面那个「执行前先删掉打出的字」的选项要勾上，这样 `=ship=` 会先消失，回复才出现。然后加一个动作 **Insert Text by Pasting**（粘贴插入文字），把回复写进去：
+在这个宏组里新建一个宏，名字就写「=ship= 发货回复」，以后在列表里一眼就认得出。接着加一个触发器，选 **Typed String**（输入字符串），在 **This string is typed:** 后面填 `=ship=`；它下面那一项 **Simulate 6 deletes before executing**（执行前先按 6 下删除，数字跟着缩写的长度变）要勾上，这样 `=ship=` 会先消失，回复才出现。然后加一个动作 **Insert Text by Pasting**（粘贴插入文字），把回复写进去：
 
 <Copy id="ts-ship" title="=ship= 展开后的回复" code="谢谢你下单！包裹会在两个工作日内寄出，寄出以后我把单号发邮件告诉你。有任何问题，直接回这封邮件就行。" />
 
@@ -60,13 +60,13 @@ Mia
 ## 卡住了？
 
 <Q q="打了缩写，什么也没发生。">
-先想想你是不是一口气打完的。中途停了好几秒、点了一下鼠标、按了带 ⌘ 或 ⌃（Control）的组合键、切到了别的 App，Keyboard Maestro 都会把这一串作废，从头算起。如果确实连着打完了还是不灵，多半是权限：输入字符串触发器和热键一样，要有<Term k="辅助功能权限" />才看得见你打的字。选 **Help ▸ Interactive Help**，它会替你查引擎有没有在跑、权限有没有给好，官方的说明在[排查页](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)。
+先想想你是不是一口气打完的。中途停了好几秒、点了一下鼠标、按了带 ⌘ 或 ⌃（Control）的组合键、切到了别的 App，Keyboard Maestro 都会把这一串作废，从头算起。如果确实连着打完了还是不灵，多半是权限：输入字符串触发器和热键一样，要有<Term k="辅助功能权限" />才看得见你打的字。选 **Help ▸ Interactive Help**，点 Something unexpected is happening，有明显的毛病它会告诉你；官方的说明在 [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key) 这一页。
 </Q>
 <Q q="在密码框里、在 Keyboard Maestro 自己的窗口里，缩写不灵。">
-这是故意的。macOS 不让任何程序看你在密码框里打的字，所以缩写在密码框里一定不灵；Keyboard Maestro 自己弹出的窗口和编辑器本身，它也看不见或者用不好，官方建议在这些地方改用别的触发器。要是突然哪里都不灵了，可能是系统以为你一直待在密码框里（Secure Input），退出刚才要过密码的那个 App，或者重启一下，通常就好了，见[排查页的这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)。
+这是故意的。macOS 不让任何程序看你在密码框里打的字，所以缩写在密码框里一定不灵；Keyboard Maestro 自己弹出的窗口和编辑器本身，它也看不见或者用不好，官方建议在这些地方改用别的触发器。要是突然哪里都不灵了，可能是系统以为你一直待在密码框里（Secure Input），退出刚才要过密码的那个 App，或者重启一下，通常就好了，见 [Troubleshooting 里 Secure Input Mode 这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)。
 </Q>
 <Q q="在表格或文件列表里打了缩写，删掉了别的东西。">
-「先删掉打出的字」其实是 Keyboard Maestro 替你按了几下删除键。在不是打字的地方，这几下删除可能删掉选中的东西，官方也专门提醒过。缩写只在写字的地方用，或者在那个宏里不勾删除。
+**Simulate 6 deletes before executing** 说的就是 Keyboard Maestro 替你按几下删除键。在不是打字的地方，这几下删除可能删掉选中的东西，官方也专门提醒过。缩写只在写字的地方用，或者在那个宏里不勾这一项。
 </Q>
 <Q q="贴出来的是上一次复制的东西。">
 有的 App 处理粘贴慢，剪贴板已经换成了新的话，⌘V 却还没来得及生效，于是贴错；两条缩写紧挨着用时最容易遇到。官方在 [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) 里给了办法：要一起出来的话写进同一个动作，一次贴完；或者在两个粘贴动作之间加一个 **Pause**（暂停）。

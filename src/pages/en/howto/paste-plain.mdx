@@ -10,19 +10,19 @@ description: Use the Filter action's Remove Styles to turn the clipboard into pl
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-If you're a student writing a report, you often copy a quote from a web page into your own document. What lands there is the web page's font and size, sometimes gray text, sometimes with a link attached. Paste five or six quotes and the report looks like a patchwork quilt, so you end up selecting each one and setting it back by hand. When you finish this page, you'll paste with ⌃⌥⌘V (⌃ is Control, ⌥ is Option, ⌘ is Command), and only the words will come in.
+Copy a quote from a web page into the report you're writing for class, and what lands there is the web page's font and size, sometimes gray text, sometimes with a link attached. Paste five or six quotes and the report looks like a patchwork quilt, so you end up selecting each one and setting it back by hand. Most students have been through this. Once the macro below is built, you'll paste with ⌃⌥⌘V (⌃ is Control, ⌥ is Option, ⌘ is Command), and only the words will come in.
 
 <mark>Strip the formatting off the clipboard first, then paste, and only the words come through.</mark>
 
 ## The clipboard holds more than one version
 
-When you copy some text, the clipboard holds more than one thing. The official [troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) spells it out: a single copy may contain a plain text version, a styled version and even an image, and these are called "flavors". When you paste, the app picks the one it can use best. A word processor naturally picks the styled one, and the web page's fonts come along with it.
+When you copy some text, the clipboard holds more than one thing. The Removing Styles Changes The Text section of the official [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) page spells it out: a single copy may contain a plain text version, a styled version and even an image, and these are called "flavors". When you paste, the app picks the one it can use best. A word processor naturally picks the styled one, and the web page's fonts come along with it.
 
 Keyboard Maestro's **Filter** action has a filter called **Remove Styles** that makes the clipboard plain text (see [Filters](https://wiki.keyboardmaestro.com/manual/Filters)). Once the styled versions are gone, plain text is all the app can pick.
 
 ## Build the macro
 
-Make a new macro called "Paste plain text" in a macro group that's available in every app. For the trigger, choose **Hot Key** and press ⌃⌥⌘V. Then add two actions:
+You'll want this one in every app, so put it in a macro group that's available everywhere and call it "Paste plain text". For the trigger, choose **Hot Key** and press ⌃⌥⌘V. Then add two actions:
 
 1. **Filter**: for the source, choose **System Clipboard**. For the filter, choose **Remove Styles**, and put the result back on the system clipboard.
 2. **Type a Keystroke**: click in the box and press ⌘V.
@@ -33,14 +33,14 @@ The second step presses your normal paste key. The official advice is to use **T
 
 In Safari, find some text with bold or a link in it and copy it. Open TextEdit, make a new document, type a line of your own, press Return, then press ⌃⌥⌘V. You should see the text come in with the bold gone, the link gone, and the same font as the line you typed.
 
-One thing to know: the macro changed the clipboard itself into plain text, so if you press ⌘V afterwards, you'll get plain text too, until the next time you copy. To get the styled original back, look in your <Term k="剪贴板历史" />. See [full guide step 5](/en/guide/5-clipboard/).
+One thing to know: the macro changed the clipboard itself into plain text, so if you press ⌘V afterwards, you'll get plain text too, until the next time you copy. To get the styled original back, look in your <Term k="剪贴板历史" />, which [full guide step 5](/en/guide/5-clipboard/) explains.
 
 **Filter** has other filters as well. **Trim Whitespace**, for example, removes extra spaces at the start and end. Add a second **Filter** after the first one, and the stray spaces quotes often come with are cleaned up too.
 
 ## Stuck?
 
 <Q q="After removing styles, the text isn't quite the same. A bullet in front of a list item vanished, or one appeared.">
-Some apps put slightly different text in the plain version than in the styled version, and **Remove Styles** reads the plain one. The official fix is to add a **Set Clipboard to Text** action before the **Filter**, set it to styled text, and fill in `%SystemClipboard%`. That makes Keyboard Maestro rebuild a clean clipboard where both versions match, and then you remove the styles. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text).
+Some apps put slightly different text in the plain version than in the styled version, and **Remove Styles** reads the plain one. The official fix is to add a **Set Clipboard to Text** action before the **Filter**, set it to styled text, and fill in `%SystemClipboard%`. That makes Keyboard Maestro rebuild a clean clipboard where both versions match, and then you remove the styles. It's in the same Removing Styles Changes The Text section mentioned above.
 </Q>
 <Q q="Can I make ⌘V itself paste plain text by setting the hot key to ⌘V?">
 Don't. The macro's second step presses ⌘V itself, and the official page is clear that simulating a keystroke that's also an active macro's hot key gives unpredictable results: sometimes it types the key, sometimes it triggers the macro. Pick a different combination. ⌃⌥⌘V is easy to remember.

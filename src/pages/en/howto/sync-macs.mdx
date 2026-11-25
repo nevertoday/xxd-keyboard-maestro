@@ -13,7 +13,7 @@ import Callout from "../../../components/Callout.astro";
 
 You work on an iMac at home, and on weekends you take your MacBook to your parents' place for a couple of days, keeping them company while you get your work done. Last week you made an abbreviation on the iMac that types out a whole reply to clients. At your parents', you went to use it and the MacBook didn't have it, so you rebuilt it from memory, and it didn't come out quite the same. When you finish this page, both Macs will use the same set of macros, and a change on either one shows up on the other a little later.
 
-Keyboard Maestro has macro syncing built in ([official page](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)). It works well, but the rules are strict, and the official warnings get bolder as you read. <mark>Syncing is all or nothing: the second Mac's existing macros are replaced wholesale, so export first, then sync.</mark>
+Keyboard Maestro has macro syncing built in ([Macro Syncing](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)). It works well, but the rules are strict, and several of the official warnings are in bold. <mark>Syncing is all or nothing: the second Mac's existing macros are replaced wholesale, so export first, then sync.</mark>
 
 ## Before you start
 
@@ -63,7 +63,7 @@ Gather up the official warnings and you get these:
 ## Stuck?
 
 <Q q="Something I changed on one Mac is gone.">
-Choose **File ▸ Revert Macros**. Keyboard Maestro keeps backups and can take you back to how your macros were when you first launched it, yesterday, or even several days ago. Services like Dropbox often keep old versions too. Lost changes usually mean both Macs changed too quickly, before syncing had a chance, so give it a moment before switching next time.
+Choose **File ▸ Revert Macros**. Keyboard Maestro keeps backups and can take you back to how your macros were when you first launched it, yesterday, or even several days ago. Dropbox may keep old versions too. Lost changes usually mean both Macs changed too quickly, before syncing had a chance, so give it a moment before switching next time.
 </Q>
 <Q q="It warns me that the sync file is newer than the version on this Mac.">
 The other Mac has been updated. Update Keyboard Maestro on this one to the same version, downloading only from the [official site](https://www.keyboardmaestro.com/).
@@ -75,7 +75,7 @@ The other Mac has been updated. Update Keyboard Maestro on this one to the same 
 Usually that's because the Macs differ, in where an app lives or how big the screen is. The wiki suggests tokens and functions so the macro adapts: the `%MacUUID%` token is different on every Mac, so it can tell you which one you're on, and the SCREEN function lets you work out positions from the current screen.
 </Q>
 <Q q="I want to stop syncing.">
-Choose **File ▸ Stop Syncing Macros**. And if you're moving to a new Mac and won't use the old one anymore, syncing can do the move: turn it on on the old Mac and save the file anywhere, copy it to the new Mac, install Keyboard Maestro, turn on syncing and select that file, then turn syncing off. The wiki says this transfers just the macros, not settings, variables or clipboards ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+Choose **File ▸ Stop Syncing Macros**. And if you're moving to a new Mac and won't use the old one anymore, syncing can do the move: turn it on on the old Mac and save the file anywhere, copy it to the new Mac, install Keyboard Maestro, turn on syncing and select that file, then turn syncing off. The wiki says this transfers just the macros, not settings, variables or clipboards ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
 </Q>
 
 Once syncing is set up, you can mostly forget about it, as long as you remember not to edit on both Macs at once. To give macros to someone else rather than to your own other Mac, see [Export, import and share macros](/en/howto/share-macros/).

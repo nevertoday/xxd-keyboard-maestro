@@ -11,13 +11,13 @@ import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Callout from "../../../components/Callout.astro";
 
-If you run a small online shop, the macros pile up: open the supplier order sheet, paste the paragraph with your return address, open this month's receipts folder. They're all useful, but you use each one once or twice a week, and when the moment comes, was it ⌃⌥⌘ and which letter? You can't remember a single one. When you finish this page, you'll press ⌃⌥⌘P (Control, Option, Command and P) and a small <Term k="面板" /> will float up with those macros' names on it. Click one to run it. Press ⌃⌥⌘P again and the palette goes away.
+Run a small online shop for a while and the macros pile up: open the supplier order sheet, paste the paragraph with your return address, open this month's receipts folder. They're all useful, but you use each one once or twice a week, and when the moment comes, was it ⌃⌥⌘ and which letter? You can't remember a single one. When you finish this page, you'll press ⌃⌥⌘P (Control, Option, Command and P) and a small <Term k="面板" /> will float up with those macros' names on it. Click one to run it. Press ⌃⌥⌘P again and the palette goes away.
 
 Hot keys are for the things you do every day. <mark>For macros you rarely use, skip the hot keys and line them up as buttons you can see and click.</mark>
 
 ## One macro group is one palette
 
-Any <Term k="宏组" /> in Keyboard Maestro can be shown as a palette ([official page](https://wiki.keyboardmaestro.com/manual/Palettes)). So first give these macros a home. Click **+** at the bottom of the macro group list on the left of the editor to make a new group, and name it "Shop tools."
+Any <Term k="宏组" /> in Keyboard Maestro can be shown as a palette ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)). So first give these macros a home. Click **+** at the bottom of the macro group list on the left of the editor to make a new group, and name it "Shop tools."
 
 Select the group, and its settings appear on the right. The default is **Always activated**. Change it to **Shows/hides a palette when:**, and a hot key field appears next to it. Press ⌃⌥⌘P. Leave the group available in all applications for now.
 
@@ -31,20 +31,18 @@ One thing about this option is worth knowing. With these "shows a palette" setti
 
 ## Put them in order and change the look
 
-Buttons on a palette are sorted by macro name. To change the order, start each name with two characters and a closing parenthesis, like "01)Open order sheet" and "02)Return address." The palette sorts by that code and strips it off before showing the name ([official page](https://wiki.keyboardmaestro.com/manual/Palettes)).
+Buttons on a palette are sorted by macro name. To change the order, start each name with two characters and a closing parenthesis, like "01)Open order sheet" and "02)Return address." The palette sorts by that code and strips it off before showing the name ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
 
 You change the look in the group's own settings, or set the default style in the **Palettes** pane of the preferences. You can adjust the style, the opacity, the size of the entries, the number of columns, whether entries show the icon, the text and the trigger, the title bar, and whether the palette shrinks when the mouse isn't over it. Give each macro an icon and show only icons, and you have a neat row of icon buttons.
-
-If you want to change a macro while you're using the palette, hold Option and click its button, and you'll go straight to that macro in the editor.
 
 ## Other ways to show it
 
 The setup above is "press to show, press again to hide." The group settings have a few more options, so pick by how you work:
 
-- **Shows a palette for one action when:** the palette appears, and it goes away once you click a button or anything else changes on your Mac (you switch apps, press another key). The wiki's example is a group of macros that open apps, shown with ⌘⌃L, where one click opens the app and the palette is gone.
+- **Shows a palette for one action when:** the palette appears, and it goes away as soon as you trigger one of its macros or press any other key. The wiki's example is a group of macros that open apps, shown with ⌃⌘L, where one click opens the app and the palette is gone.
 - **Shows a palette until:** the palette is there from the start and hides when you press the hot key. Make the group available only in one app, and the palette appears only while that app is in front, like a toolbar of your own for it.
 
-There are also two routes that need no new group. Give a macro a **Global Macro Palette** trigger, and it appears on one floating palette shared by every macro with that trigger. The palette shows whenever any such macro is active ([the trigger](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)). And if you want a macro to stop partway and let you choose what's next, use the **Show Palette of Macros** action. It shows a palette of the macros, macro groups or <Term k="智能组" text="smart groups" /> you choose, runs whichever you click, and runs it even if that macro isn't currently active ([the action](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)).
+There are also two routes that need no new group. Give a macro a **Global Macro Palette** trigger, and it appears on one floating palette shared by every macro with that trigger. The palette shows whenever any such macro is active, and holding ⌥ while you click a macro on it takes you to that macro in the editor ([Global Macro Palette trigger](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)). And if you want a macro to stop partway and let you choose what's next, use the **Show Palette of Macros** action. It shows a palette of the macros, macro groups or <Term k="智能组" text="smart groups" /> you choose, runs whichever you click, and runs it even if that macro isn't currently active ([Show Palette of Macros action](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)).
 
 ## Stuck?
 
@@ -55,7 +53,7 @@ First check that the group is enabled. Select it in the group list, and the ✓ 
 Disabled macros don't appear on a palette, so check in the editor whether it's switched off. Also make sure you really dragged it into this group and it isn't still where it was.
 </Q>
 <Q q="The palette sits on top of the video I'm watching.">
-The **Conceal Macro Palettes** action hides all of Keyboard Maestro's palettes at once. Its "until application switch" option is, the wiki says, made for watching video full screen in Safari: switch out and the palettes come back ([the action](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)). If it just takes up too much room day to day, lower its opacity in the style settings or let it shrink when the mouse moves away.
+The **Conceal Macro Palettes** action hides all of Keyboard Maestro's palettes at once. Its "until application switch" option is, the wiki says, made for watching video full screen in Safari: switch out and the palettes come back ([Conceal Macro Palettes action](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)). If it just takes up too much room day to day, lower its opacity in the style settings or let it shrink when the mouse moves away.
 </Q>
 
 One palette turns "I know I made a macro for this, but what was the key?" into "look, click." Macro groups also decide where and when macros are active. See [full guide step 1](/en/guide/1-groups/).

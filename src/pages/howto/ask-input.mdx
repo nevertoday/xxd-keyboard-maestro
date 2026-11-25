@@ -18,7 +18,7 @@ import Copy from "../../components/Copy.astro";
 
 ## 先弹一个小表单问你
 
-新建一个<Term k="宏" />，叫「求职信开头」，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘L。第一个动作是 **Prompt for User Input**（请你输入），它会弹出一个你自己设计的表单，把你填的东西存进<Term k="变量" />（[官方说明](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
+新建一个<Term k="宏" />，叫「求职信开头」，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘L。第一个动作是 **Prompt for User Input**（请你输入），它会弹出一个你自己设计的表单，把你填的东西存进<Term k="变量" />（[Prompt for User Input 动作](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
 
 表单最上面是标题，写「求职信开头」；下面的提示语写一句给自己看的话，比如「这一封写给谁？」。再往下是变量，一行一个，左边是变量名，右边是默认值。加三行：
 
@@ -26,7 +26,7 @@ import Copy from "../../components/Copy.astro";
 - `Local Role`，默认值留空；
 - `Local Source`，默认值写 `招聘网站|朋友推荐|公司官网`。
 
-变量名前面的 `Local` 不是随便加的。以 Local 开头的是局部变量，只在这个宏里有、宏跑完就没了，不会在你的电脑里越攒越多；表单上显示的标签也会自动去掉「Local」，你看到的只是「Company」「Role」「Source」（[变量的说明](https://wiki.keyboardmaestro.com/manual/Variables)）。第三行的默认值里有竖线 `|`，Keyboard Maestro 会把它做成一个下拉菜单，竖线隔开的就是几个选项，排第一个的默认选中。
+变量名前面的 `Local` 不是随便加的。以 Local 开头的是局部变量，只在这个宏里有、宏跑完就没了，不会在你的电脑里越攒越多；表单上显示的标签也会自动去掉「Local」，你看到的只是「Company」「Role」「Source」（[Variables](https://wiki.keyboardmaestro.com/manual/Variables)、[Prompt for User Input 动作](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。第三行的默认值里有竖线 `|`，Keyboard Maestro 会把它做成一个下拉菜单，竖线隔开的就是几个选项，排第一个的默认选中。
 
 按钮用它自带的两个就好：**OK** 对应回车键，关掉表单、接着往下做；**Cancel**（取消）对应 Esc 或者 ⌘.，关掉表单、不写变量，并且直接取消这个宏。
 
@@ -48,7 +48,7 @@ import Copy from "../../components/Copy.astro";
 
 ## 只想从几句里挑一句：Prompt With List
 
-还有一种「先问你」，不用填字，只要挑。开网店的人回客户消息，翻来覆去就那么几句：已经发货了、什么时候能到、怎么退换。**Prompt With List**（列表选择）会弹出一个像 Spotlight 那样的窗口，把一串选项列出来，你打几个字筛一筛、选中按回车就行（[官方说明](https://wiki.keyboardmaestro.com/action/Prompt_With_List)）。
+还有一种「先问你」，不用填字，只要挑。开网店的人回客户消息，翻来覆去就那么几句：已经发货了、什么时候能到、怎么退换。**Prompt With List**（列表选择）会弹出一个像 Spotlight 那样的窗口，把一串选项列出来，你打几个字筛一筛、选中按回车就行（[Prompt With List 动作](https://wiki.keyboardmaestro.com/action/Prompt_With_List)）。
 
 选项一行一个，可以直接写在动作里。窗口里显示的和最后拿到的可以不一样：一行写成「要拿到的内容、两个下划线、要显示的字」，窗口里只显示后面那几个字，选中后拿到的是前面那一整句。比如：
 
@@ -56,7 +56,7 @@ import Copy from "../../components/Copy.astro";
 包裹在路上，物流信息隔天会更新一次，有任何变化我第一时间告诉您。__还在路上
 收到以后不合适也没关系，联系我就好，我把退换的步骤发给您。__退换`} />
 
-结果存进一个变量，比如 `Local Reply`，再接一个 **Insert Text by Pasting**，文字写 `%Variable%Local Reply%`。按 Esc 的话，这个动作算失败，什么也不存，默认还会取消整个宏，所以不想回了按 Esc 就好。
+这个动作单独放进一个新宏，配一个自己的热键，结果存进一个变量，比如 `Local Reply`，再接一个 **Insert Text by Pasting**，文字写 `%Variable%Local Reply%`。按 Esc 的话，这个动作算失败，什么也不存，默认还会取消整个宏、弹一条失败的通知，所以不想回了，按 Esc 退出来就好。
 
 ## 卡住了？
 
@@ -64,7 +64,7 @@ import Copy from "../../components/Copy.astro";
 这是它本来的样子：Cancel 不写变量，还会取消整个宏。想要第三个按钮做别的事，比如「只存不贴」，可以在表单里再加按钮，按了哪个，`%PromptButton%` 这个<Term k="令牌" />里就是哪个的名字，后面用 **If Then Else**（如果……否则）分开走。
 </Q>
 <Q q="粘贴出来的还是 %Variable%Local Company% 这几个字。">
-对一对表单里的变量名和文字里的是不是一字不差，`Local` 后面那个空格也算。最稳的办法是用 **Edit ▸ Insert Variable**（插入变量）菜单把变量插进去，别手打（[变量的说明](https://wiki.keyboardmaestro.com/manual/Variables)）。
+对一对表单里的变量名和文字里的是不是一字不差，`Local` 后面那个空格也算。最稳的办法是用 **Edit ▸ Insert Variable**（插入变量）菜单把变量插进去，别手打（[Variables](https://wiki.keyboardmaestro.com/manual/Variables)）。
 </Q>
 <Q q="我想要下拉菜单，出来的却是一个输入框。">
 默认值的类型是 Automatic（自动）时，它看默认值猜：有竖线才做成菜单。没写竖线，或者你想说得明白一点，就在默认值右边那个菜单里直接选 Menu（菜单）。

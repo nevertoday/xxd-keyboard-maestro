@@ -3,7 +3,7 @@ layout: ../../layouts/HowTo.astro
 slug: fill-form
 step: 3
 time: 十五分钟，先自己走一遍表格
-for: 同一个网站的申请表，每次都要重填姓名、邮箱、电话
+for: 同一个网站的报名表，每次都要重填姓名、邮箱、电话
 tldr: 点进第一栏，按 ⌃⌥⌘F，姓名、邮箱、电话、作品集链接一口气填好，提交前你再看一眼。
 description: 用 Insert Text by Typing 加 %Tab% 令牌，把一张表格从上到下填一遍：先自己按 Tab 走一遍确认顺序，中文名字改用 Insert Text by Pasting，网页填得太快丢字时放慢一点，最后的提交留给你自己按。
 ---
@@ -12,7 +12,7 @@ import Q from "../../components/Q.astro";
 import Copy from "../../components/Copy.astro";
 import Callout from "../../components/Callout.astro";
 
-在找工作的人，常常一天要在同一个招聘网站上投好几份申请。每一份都从头问一遍同样的几栏：姓名、邮箱、电话、作品集链接。四栏字打上二十遍，手机号还容易错一位，错了人家就联系不上你。照这一页做完，你点进第一栏，按 ⌃⌥⌘F（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），这四栏一口气填好，光标停在最后一栏，你检查一遍，再自己点提交。
+接活的自由职业者，常在同一个接单网站上一天报好几个项目。每报一个，报名表都从头问一遍同样的几栏：姓名、邮箱、电话、作品集链接。四栏字打上二十遍，手机号还容易错一位，错了客户就联系不上你。有了这个宏，你点进第一栏，按 ⌃⌥⌘F（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），这四栏一口气填好，光标停在最后一栏，你检查一遍，再自己点提交。
 
 <mark>表格里从一栏跳到下一栏靠的是 Tab 键，宏也一样：打一栏，按一下 Tab，再打下一栏。</mark>
 
@@ -38,25 +38,28 @@ import Callout from "../../components/Callout.astro";
 
 把示例换成你自己的邮箱、电话和链接。第二个动作只是打字，不再动剪贴板，所以它接在粘贴后面不会出现贴错的问题。
 
-<Callout type="warn">最后不要放回车，也不要让宏替你点提交。填完的表停在那里，你自己看一遍再交，错了还来得及改。密码也别写进宏里：官方说替你往密码框里打字是一件很不安全的事。</Callout>
+<Callout type="warn">最后不要放回车，也不要让宏替你点提交。填完的表停在那里，你自己看一遍再交，错了还来得及改。密码也别写进宏里：官方在 [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String) 那页说，用模拟打字往密码框里填，安全上是个大问题。</Callout>
 
 ## 做完怎么确认
 
-打开那个招聘网站的申请页，点进姓名那一栏，按 ⌃⌥⌘F。你应该看到名字先出现，接着光标一格一格往下跳，邮箱、电话、链接依次填进去，最后停在链接那一栏。每一栏对照着看一遍，有一栏对错了位置，就回到「先自己走一遍」，看 Tab 的顺序哪里和你想的不一样。
+打开那个网站的报名页，点进姓名那一栏，按 ⌃⌥⌘F。你应该看到名字先出现，接着光标一格一格往下跳，邮箱、电话、链接依次填进去，最后停在链接那一栏。每一栏对照着看一遍，有一栏对错了位置，就回到「先自己走一遍」，看 Tab 的顺序哪里和你想的不一样。
 
 ## 卡住了？
 
 <Q q="字填进去了，但是少了几个字母，或者顺序乱了。">
-网页上的输入框常常一边收字一边自己检查，Keyboard Maestro 打得太快，就会丢字或者打乱。官方的办法是在这个宏的开头加一个 **Set Action Delay**（设置动作间隔），让这一个宏打得慢一点，只对这个宏用，不要改全局的设置，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order)。
+网页上的输入框常常一边收字一边自己检查，Keyboard Maestro 打得太快，就会丢字或者打乱。官方的办法是在这个宏的开头加一个 **Set Action Delay**（设置动作间隔），让这一个宏打得慢一点，只对这个宏用，不要改全局的设置，见 [Troubleshooting 里讲字丢了或乱了的那一节](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order)。
 </Q>
 <Q q="名字那一栏贴进去的是我上一次复制的东西。">
-有的网页处理粘贴慢，⌘V 还没生效，后面的事已经开始了。在两个动作之间加一个 **Pause**（暂停），0.3 秒通常就够，官方在[排查页](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)里也是这样建议的。
+剪贴板里其实已经换成了你的名字，是那个 App 自己存着一份旧的剪贴板，没发现它变了。官方在 [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) 里说，这种情况多见于跨平台的 App。真碰上了，最省事的是名字那一栏自己打，宏从第二栏填起：去掉第一个动作，再去掉第二个动作开头的 `%Tab%`。
 </Q>
 <Q q="填到某一栏就错位了。">
 那一栏前面多半有一个你没注意到的下拉菜单、勾选框或者按钮，它也吃掉了一下 Tab。在那里多放或少放一个 `%Tab%`。
 </Q>
+<Q q="邮箱那一栏冒出一串拼音，或者弹出了候选字。">
+**Insert Text by Typing** 是一个键一个键地按，官方说它就像你自己在打字，所以中文输入法开着的话，邮箱里的字母会被输入法当成拼音接走。按 ⌃⌥⌘F 之前先切到英文输入。名字那一栏是粘贴进去的，不受输入法影响。
+</Q>
 <Q q="按了 ⌃⌥⌘F 没反应。">
-看看浏览器是不是在最前面：宏组设成了只在浏览器里生效，别的 App 里按是不会动的。再确认宏组和宏都勾着、引擎在跑，还不行就看[完整教程第 6 步](/guide/6-debug/)。
+看看浏览器是不是在最前面：宏组设成了只在浏览器里生效，别的 App 里按是不会动的。浏览器在前面也不动，就去编辑器里看一眼「填表」和这个宏是不是都还勾着，引擎是不是开着，还不行就看[完整教程第 6 步](/guide/6-debug/)。
 </Q>
 
-做好一张，以后每投一份就少打二十几个字，也少一次填错的机会。表格里要你每次现填的那一栏，比如应聘的职位，可以让宏先问你一句再填，见[先问你一句，再动手](/howto/ask-input/)。
+做好一张，以后每报一个项目就少打二十几个字，也少一次填错的机会。表格里要你每次现填的那一栏，比如报的是哪个项目，可以让宏先问你一句再填，见[先问你一句，再动手](/howto/ask-input/)。

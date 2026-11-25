@@ -12,15 +12,15 @@ import Q from "../../components/Q.astro";
 import Callout from "../../components/Callout.astro";
 import Copy from "../../components/Copy.astro";
 
-写东西的人大多有这样的早上：说好八点半开写，结果先回了几封邮件、刷了一会儿网页，十点才想起那份稿子。照这一页做完，每个工作日早上 8:30，Mac 会自己打开你正在写的那份稿子，再弹一条通知提醒你今天写多少。你什么键都不用按，到点它就开始。
+写东西的人大多有这样的早上：说好八点半开写，结果先回了几封邮件、刷了一会儿网页，十点才想起那份稿子。等这一页做完，每个工作日早上 8:30，Mac 会自己打开你正在写的那份稿子，再弹一条通知提醒你今天写多少。你什么键都不用按，到点它就开始。
 
-让宏开始跑的那件事叫<Term k="触发器" />，新手课里用的是热键，这一篇换成时间。<mark>到点就做的事交给时间触发器，可它只在 Mac 醒着的那一刻才会响。</mark>后面这一半，比前一半更要紧。
+让宏开始跑的那件事叫<Term k="触发器" />，新手课里用的是热键和打几个字，这一篇换成时间。<mark>到点就做的事交给时间触发器，可它只在 Mac 醒着的那一刻才会响。</mark>后面这一半，比前一半更要紧。
 
 ## 每个工作日 8:30 打开稿子
 
-新建一个<Term k="宏" />，起个名字，比如「开工：打开稿子」。触发器选 **Time of Day**（每天的某个时间），它能让宏在一天里的某个时间、在一周里选定的几天跑起来（[官方说明](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)）。时间填 8:30；下面那排小方块是星期几，蓝色的是会跑的日子，带斜线的浅色方块是不跑的，点一下就能切换，把周一到周五点成蓝色。时间显示成 24 小时制还是带上午、下午，跟着 macOS 的设置走。
+新建一个<Term k="宏" />，起个名字，比如「开工：打开稿子」。触发器选 **Time of Day**（每天的某个时间），它能让宏在一天里的某个时间、在一周里选定的几天跑起来（见 [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)）。时间填 8:30；下面那排小方块是星期几，蓝色的是会跑的日子，带斜线的浅色方块是不跑的，点一下就能切换，把周一到周五点成蓝色。时间显示成 24 小时制还是带上午、下午，跟着 macOS 的设置走。
 
-动作放两个。第一个是 **Open a File, Folder or Application**（打开文件、文件夹或 App），点右边的选择按钮选你的稿子，「用什么打开」那一栏选文本编辑或者你平时写作的 App。第二个是 **Notification**（通知），标题写「开写了」，正文写一句给自己的话，比如「今天先写五百字，邮件十点以后再看」（[通知动作](https://wiki.keyboardmaestro.com/action/Notification)）。
+动作放两个。第一个是 **Open a File, Folder or Application**（打开文件、文件夹或 App），点右边的选择按钮选你的稿子，「用什么打开」那一栏选文本编辑或者你平时写作的 App。第二个是 **Notification**（通知），标题写「开写了」，正文写一句给自己的话，比如「今天先写五百字，邮件十点以后再看」（见 [Notification Action](https://wiki.keyboardmaestro.com/action/Notification)）。
 
 <Callout type="tip">
 不想等到明天早上才知道做对了没有，先把时间改成两分钟以后，看它跑一次，再改回 8:30。
@@ -30,13 +30,13 @@ import Copy from "../../components/Copy.astro";
 
 这一条最容易让人误会。官方说得很清楚：触发器要响，Mac 必须是醒着的；要是那一刻 Mac 在睡眠，过后它也不会补跑。所以 8:30 合上盖子的笔记本，那天早上就不会打开稿子，等你 9:00 打开电脑，它也不会想起来。
 
-屏幕的情况又不一样。显示器睡了、屏幕锁了、或者在跑屏幕保护程序，宏照样会跑，但很多和界面打交道的动作（打字、点菜单、点鼠标）不会成功。有些动作能唤醒显示器、停掉屏幕保护，能解决一部分问题，可它们解不开锁屏（[官方说明](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)）。
+屏幕的情况又不一样。显示器睡了、屏幕锁了、或者在跑屏幕保护程序，宏照样会跑，但很多和界面打交道的动作（打字、点菜单、点鼠标）不会成功。有些动作能唤醒显示器、停掉屏幕保护，能解决一部分问题，可它们解不开锁屏（还是 [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)）。
 
-所以定时间的时候，挑一个你多半已经坐在电脑前的钟点。要是你真正想要的是「每天第一次打开电脑就做」，那就别用钟点：**Wake**（唤醒）触发器在 Mac 从睡眠中醒来时跑（[唤醒触发器](https://wiki.keyboardmaestro.com/trigger/Wake)），**Login**（登录）触发器在你登录、<Term k="引擎" />跟着启动时跑。
+所以定时间的时候，挑一个你多半已经坐在电脑前的钟点。要是你真正想要的是「一打开电脑就做」，那就别用钟点：**Wake**（唤醒）触发器在 Mac 每次从睡眠中醒来时都跑一次，不只是每天第一次（见 [Wake Trigger](https://wiki.keyboardmaestro.com/trigger/Wake)），**Login**（登录）触发器在你登录、<Term k="引擎" />跟着启动时跑。
 
 ## 每月最后一个星期五：用 Cron
 
-有些日子没法在一排星期几里点出来。做自由职业的人常常是每月最后一个星期五下午把这个月的账单发出去，忘一次就晚收一个月的钱。这种日子交给 **Cron** 触发器，它用一行五个字段写时间：分钟、小时、几号、几月、星期几（[官方说明](https://wiki.keyboardmaestro.com/trigger/Cron)）。官方页面上就有「每月最后一个星期五」的写法：几号那一栏写 `-1-7`，星期几那一栏写 `+Fri`。放到下午四点，就是：
+有些日子没法在一排星期几里点出来。做自由职业的人常常是每月最后一个星期五下午把这个月的账单发出去，忘一次就晚收一个月的钱。这种日子交给 **Cron** 触发器，它用一行五个字段写时间：分钟、小时、几号、几月、星期几（见 [Cron Trigger](https://wiki.keyboardmaestro.com/trigger/Cron)）。官方页面上就有「每月最后一个星期五」的写法：几号那一栏写 `-1-7`，星期几那一栏写 `+Fri`。放到下午四点，就是：
 
 <Copy id="ds-cron" title="每月最后一个星期五 16:00" code="0 16 -1-7 * +Fri" />
 
@@ -44,20 +44,20 @@ import Copy from "../../components/Copy.astro";
 
 ## 每隔一阵来一次：用 Periodic
 
-还有一种是「隔一阵就来一次」。在家复习的学生一坐就是一下午，脖子先受不了。**Periodic**（周期）触发器能每隔几秒、几分钟或几小时跑一次，还能只在一天里的某一段、一周里的某几天跑（[官方说明](https://wiki.keyboardmaestro.com/trigger/Periodic)）。设成每 50 分钟一次、只在 9:00 到 18:00 之间，动作放一个 **Notification**：「站起来，喝口水，看看窗外」。
+还有一种是「隔一阵就来一次」。在家复习的学生一坐就是一下午，脖子先受不了。**Periodic**（周期）触发器能每隔几秒、几分钟或几小时跑一次，还能只在一天里的某一段、一周里的某几天跑（见 [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)）。设成每 50 分钟一次、只在 9:00 到 18:00 之间，动作放一个 **Notification**：「站起来，喝口水，看看窗外」。
 
 间隔别设得太短。官方特别提醒，除非实在没办法，别用以秒计的间隔：一来费电脑，二来每有一个宏被触发，正在等你挑的冲突面板这类选择就会被取消，频繁触发的定时宏会让它们莫名其妙地消失。还有一点：跨过午夜的时间段会在午夜停下，想前后都覆盖，就放两个触发器。
 
 ## 卡住了？
 
 <Q q="到了时间，什么也没发生。">
-先想想那一刻 Mac 是不是睡着了，睡着时错过的不会补跑。再看宏所在的<Term k="宏组" />开着没有、宏本身开着没有。Keyboard Maestro 的 **Help ▸ Interactive Help**（交互式帮助）能替你把这几样挨个查一遍（[排查页](https://wiki.keyboardmaestro.com/manual/Troubleshooting)）。最后确认引擎在跑：它退出了，所有触发器都不会响。
+先想想那一刻 Mac 是不是睡着了，睡着时错过的不会补跑。再看宏所在的<Term k="宏组" />开着没有、宏本身开着没有。Keyboard Maestro 的 **Help ▸ Interactive Help**（交互式帮助）能替你把这几样挨个查一遍（见 [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)）。最后确认引擎在跑：它退出了，所有触发器都不会响。
 </Q>
 <Q q="宏跑了，可稿子没打开到前面，或者打字的动作没打出来。">
 多半那时屏幕锁着或者显示器睡着了。宏会跑，但和界面打交道的动作不灵，锁屏也解不开。把时间挪到你通常已经在用电脑的时候。
 </Q>
 <Q q="通知没弹出来。">
-**Notification** 用的是 macOS 的通知中心。看看系统设置的通知里，Keyboard Maestro Engine 的通知是不是被关掉了。
+**Notification** 用的是 macOS 的通知中心。看看系统设置的通知里，Keyboard Maestro Engine 的通知是不是被关掉了。官方的 [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting) 页也提醒，排查宏的时候先确认引擎能显示通知，不然动作失败时它报的错你也看不到。
 </Q>
 <Q q="Cron 那一行写得对不对，我拿不准。">
 官方页面上有一张对照表，从「每天零点过一分」到「每月第一个星期六 8:30」都有现成的写法，照着改最稳。也可以先把小时和分钟改成几分钟以后、几号和星期几都写成 `*`，看它跑一次，再改回去。

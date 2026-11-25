@@ -4,18 +4,18 @@ slug: rename-files
 step: 4
 time: Twenty minutes, tried on copies first
 for: A batch of files with useless names, and you're renaming them one at a time
-tldr: Select a batch of files in Finder, press ⌃⌥⌘R, type a prefix, and it goes on the front of every file name, like "Class 3 reading notes Scan 1.pdf".
+tldr: Select a batch of files in Finder, press ⌃⌥⌘R, type a prefix, and it goes on the front of every file name, like "Dad November check-up Scan 1.pdf".
 description: Use the For Each action to work through the files selected in Finder. Prompt for User Input asks for the prefix, Split Path pulls out the original file name, and the Rename option of File Actions gives the new name. Try it on copies first, and what to do about matching names and folders in the selection.
 ---
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 
-If you teach, you know the scanner's naming: Scan 1.pdf, Scan 2.pdf, Scan 3.pdf… Thirty from one class, and two weeks after they're on your Mac, you can't tell which class or which assignment they were. Renaming them one by one, your hand is sore by the tenth. When you finish this page, you'll select the batch in Finder and press ⌃⌥⌘R (⌃ is Control, ⌥ is Option, ⌘ is Command). It'll ask what to put in front, you'll type "Class 3 reading notes", and all thirty become names like "Class 3 reading notes Scan 1.pdf".
+When you look after a parent's medical paperwork, every test result, prescription and discharge note gets scanned in, and the scanner names them Scan 1.pdf, Scan 2.pdf, Scan 3.pdf… A few hospital visits and there are dozens, and six months later, finding the last blood test means opening them one after another. Renaming each by hand, your hand is sore by the tenth. With a macro, you'll select the batch in Finder and press ⌃⌥⌘R (hold Control, Option and Command, then press R). It'll ask what to put in front, you'll type "Dad November check-up", and the whole batch becomes names like "Dad November check-up Scan 1.pdf".
 
 <mark>Renaming a batch of files is really doing the same thing to each file you selected.</mark>
 
-<u>Try it on copies first.</u> Renaming changes the real files on your disk, and if the macro has a mistake in it, all thirty get the same mistake. Duplicate the folder in Finder, try it on the copy until you're happy, and only then use it on the real batch.
+<u>Try it on copies first.</u> Renaming changes the real files on your disk, and if the macro has a mistake in it, the whole batch gets the same mistake. Duplicate the folder in Finder, try it on the copy until you're happy, and only then use it on the real batch.
 
 ## For Each: do it once for every item
 
@@ -27,9 +27,9 @@ Once you have the path, there are two more steps: get the original file name out
 
 ## Build the macro
 
-Make a new macro called "Add a prefix to file names". If you want it to work only in Finder, put it in a macro group set to **Available in these applications:** Finder. For the trigger, choose **Hot Key** and press ⌃⌥⌘R. Then add the actions:
+Make a new macro called "Add a prefix to file names". If you want it to work only in Finder, put it in a macro group set to **Available in these applications:** Finder. Give it a **Hot Key** trigger and set it to ⌃⌥⌘R. Then add the actions:
 
-**First, ask for the prefix.** Add **Prompt for User Input** with the title "Add a prefix to file names", and add one variable to it called `Prefix`, with a default value you use often, like "Class 3 reading notes". When the macro reaches this step, a small window opens. Change the prefix if you need to and click **OK**. Click **Cancel** and the whole macro stops without touching a single file (see [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+**First, ask for the prefix.** Add **Prompt for User Input** with the title "Add a prefix to file names", and add one variable to it called `Prefix`, with a default value you use often, like "Dad November check-up". When the macro reaches this step, a small window opens. Change the prefix if you need to and click **OK**. Click **Cancel** and the whole macro stops without touching a single file (see [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
 
 **Second, go through them one by one.** Add **For Each**, type `FilePath` for the variable, and click + next to the collection to choose **The Finder’s selection**. The next two actions both go inside the For Each.
 

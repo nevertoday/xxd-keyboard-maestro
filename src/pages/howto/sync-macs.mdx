@@ -13,7 +13,7 @@ import Callout from "../../components/Callout.astro";
 
 平时在家用 iMac 干活，周末带着 MacBook 去父母家住两天，一边陪他们，一边把手头的事做完。上周在 iMac 上做了一个缩写，一打就出来一段给客户的回复，到了父母家想用，MacBook 上根本没有，只好凭记忆再做一遍，做出来还和家里那个不太一样。照这一页做完，两台 Mac 用的是同一套宏：在哪台上改，另一台过一会儿就跟着变。
 
-Keyboard Maestro 自带宏同步（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)）。它好用，但规矩很硬，官方的警告一条比一条醒目。<mark>同步是全有或全无的：第二台 Mac 上原来的宏会被整个换掉，所以先导出、再同步。</mark>
+Keyboard Maestro 自带宏同步（[Macro Syncing](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)）。它好用，但规矩很硬，官方那一页好几条警告都是加粗写的。<mark>同步是全有或全无的：第二台 Mac 上原来的宏会被整个换掉，所以先导出、再同步。</mark>
 
 ## 开始之前
 
@@ -57,13 +57,13 @@ Keyboard Maestro 自带宏同步（[官方说明](https://wiki.keyboardmaestro.c
 
 - **别在两台上同时改宏。** 一台改了、还没同步过去，另一台又改了，其中一边的改动可能就没了。不联网的时候尤其要小心。官方还提到，退出 Keyboard Maestro 编辑器本身也算一次改动。习惯是：换到另一台之前，等一会儿，让这边的改动先传过去。
 - **别在没导出的情况下，在第二台上点 Open Existing。** 上面说过，它会销毁那台上原有的宏。
-- **别用「迁移助理」把一台 Mac 整个复制到新 Mac，然后两台都接着用。** 两台会带着同一个 Mac 编号（MacUUID），Keyboard Maestro 分不清它们，同步会出问题。真要这样做，照官方[宏同步页](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)末尾的说明，在其中一台上重置这个编号。
+- **别用「迁移助理」把一台 Mac 整个复制到新 Mac，然后两台都接着用。** 两台会带着同一个 Mac 编号（MacUUID），Keyboard Maestro 分不清它们，同步会出问题。真要这样做，照官方 [Macro Syncing](https://wiki.keyboardmaestro.com/manual/Macro_Syncing) 那一页末尾的说明，在其中一台上重置这个编号。
 - **别在版本不同的两台之间硬同步。** 先把两台升到同一个版本。
 
 ## 卡住了？
 
 <Q q="我在一台上改的东西不见了。">
-选 **File ▸ Revert Macros**（恢复宏），Keyboard Maestro 留着备份，能退回到这次打开时、昨天，甚至几天前的样子。Dropbox 这类服务往往也留着旧版本。改动丢了，多半是两台改得太快、中间没来得及同步，以后换机器前多等一会儿。
+选 **File ▸ Revert Macros**（恢复宏），Keyboard Maestro 留着备份，能退回到这次打开时、昨天，甚至几天前的样子。Dropbox 也可能留着旧版本。改动丢了，多半是两台改得太快、中间没来得及同步，以后换机器前多等一会儿。
 </Q>
 <Q q="它提醒我，同步文件比这台 Mac 上的版本新。">
 另一台 Mac 已经升级了。把这台的 Keyboard Maestro 也升到同一个版本，下载只从[官网](https://www.keyboardmaestro.com/)。
@@ -75,7 +75,7 @@ Keyboard Maestro 自带宏同步（[官方说明](https://wiki.keyboardmaestro.c
 多半是两台不一样：App 的位置、屏幕的大小。官方建议用令牌和函数让宏自己适应，比如 `%MacUUID%` 令牌每台 Mac 都不同，可以拿来判断现在在哪一台；SCREEN 函数能按当前的屏幕来算位置。
 </Q>
 <Q q="不想同步了。">
-选 **File ▸ Stop Syncing Macros**（停止同步宏）。另外，换新 Mac、旧的不再用了，也能借同步搬家：在旧 Mac 上打开同步、把文件存在随便哪儿，拷到新 Mac，装好 Keyboard Maestro 后打开同步、选这个文件，然后关掉同步。官方说这样只搬宏，不搬设置、变量和剪贴板（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
+选 **File ▸ Stop Syncing Macros**（停止同步宏）。另外，换新 Mac、旧的不再用了，也能借同步搬家：在旧 Mac 上打开同步、把文件存在随便哪儿，拷到新 Mac，装好 Keyboard Maestro 后打开同步、选这个文件，然后关掉同步。官方说这样只搬宏，不搬设置、变量和剪贴板（[How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)）。
 </Q>
 
 同步设好以后，几乎可以忘了它，只要记住别两台同时改。想把宏给别人用，而不是给自己的另一台 Mac，看[导出、导入和分享宏](/howto/share-macros/)。

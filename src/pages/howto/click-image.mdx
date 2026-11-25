@@ -11,19 +11,19 @@ import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 import Callout from "../../components/Callout.astro";
 
-上班用的某个网页系统里，每次导出报表前都得先点一下右上角那个小小的刷新图标。它不在任何菜单里，也没有快捷键，而且窗口一拖宽、侧栏一收起，它的位置就跟着跑。照这一页做完，你按一下 ⌃⌥⌘J（Control、Option、Command 再加 J），Keyboard Maestro 会先在屏幕上找到那个图标，再替你点它的正中间。
+上班用的某个网页系统里，每次导出报表前都得先点一下右上角那个小小的刷新图标。它不在任何菜单里，也没有快捷键，而且窗口一拖宽、侧栏一收起，它的位置就跟着跑。跟着这一页做一个宏，以后你按一下 ⌃⌥⌘J（Control、Option、Command 再加 J），Keyboard Maestro 会先在屏幕上找到那个图标，再替你点它的正中间。
 
 记住「点屏幕上哪个坐标」的宏，窗口一动就点歪了。<mark>告诉它按钮长什么样，而不是按钮在哪，它才每次都找得到。</mark>这就是<Term k="找图" />：你给它一小块截图，它在屏幕上找一处一样的地方。
 
 ## 先看看有没有更稳的路
 
-其实官方并不鼓励点鼠标。[Found Image](https://wiki.keyboardmaestro.com/Found_Image) 那一页开头就说，能用 **Press a Button**（按下按钮）这类直接操作界面的动作，就别去屏幕上找图；用户手册的[常见问题](https://wiki.keyboardmaestro.com/manual/How_do_I)也提醒，点鼠标的动作很脆弱，系统或 App 稍有变化就会坏。所以动手之前先翻翻这个 App 的菜单：要是能找到同样功能的命令，照[给没有快捷键的菜单配一个](/howto/menu-shortcut/)做会更省心。确实只能点那个图标，再往下看。
+其实官方并不鼓励点鼠标。[Found Image](https://wiki.keyboardmaestro.com/Found_Image) 那一页开头就说，能用 **Press a Button**（按下按钮）这类直接操作界面的动作，就别去屏幕上找图；用户手册的 [How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I) 一页也提醒，点鼠标的动作很脆弱，系统或 App 稍有变化就会坏。所以动手之前先翻翻这个 App 的菜单：要是能找到同样功能的命令，照[给没有快捷键的菜单配一个](/howto/menu-shortcut/)做会更省心。确实只能点那个图标，再往下看。
 
 ## 截一小块图，做成宏
 
 先把图标截下来。按 ⌘⌃⇧4（Command、Control、Shift 加 4），框住图标本身，这样截图进的是剪贴板，不会存成文件。框得紧一点，只要图标，别把旁边会变的文字和数字带进去，不然下次数字一变就对不上了。
 
-然后新建一个<Term k="宏" />，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘J。动作只要一个，**Move or Click Mouse**（移动或点击鼠标），它能相对于一张找到的图来点（[官方说明](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)）。把它设成这样：操作选 **Click**（单击），按钮用默认的左键；位置「相对于」那个菜单选 **found image’s center**（找到的图的中心），X、Y 都填 0。这时动作里会多出一个放图的方框，点一下它，按 ⌘V 把刚才的截图贴进去。
+然后新建一个<Term k="宏" />，加一个 **Hot Key**（热键）触发器，按下 ⌃⌥⌘J。动作只要一个，**Move or Click Mouse**（移动或点击鼠标），它能相对于一张找到的图来点（见 [Move or Click Mouse](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)）。把它设成这样：操作选 **Click**（单击），按钮用默认的左键；位置「相对于」那个菜单选 **found image’s center**（找到的图的中心），X、Y 都填 0。这时动作里会多出一个放图的方框，点一下它，按 ⌘V 把刚才的截图贴进去。
 
 方框旁边还有两样要看一眼。一是模糊度：因为透明和抗锯齿，屏幕上的匹配几乎都有点「糊」，官方建议从 20% 左右开始试。二是 **Unique**（唯一）菜单：默认要求屏幕上只有一处匹配，否则它不知道该点哪儿，动作就算失败。你的图标在屏幕上要是有好几个一模一样的，就改成 **Best**（最像的那个），或者最上、最左、最下、最右的那一个。
 
@@ -39,9 +39,9 @@ import Callout from "../../components/Callout.astro";
 
 ## 按钮要等一会儿才出现
 
-有时候按钮不是一直在，比如点了导出以后，过几秒才冒出一个下载按钮。最简单的办法在动作右上角的齿轮 ⚙ 菜单里：打开「等图出现再点」的那一项（11.0 起有）。也可以在点之前放一个 **Pause Until**（暂停直到），条件选 **Found Image**（找到图），贴同一张截图，等它真出现了再往下走（[条件的说明](https://wiki.keyboardmaestro.com/condition/Found_Image)）。
+有时候按钮不是一直在，比如点了导出以后，过几秒才冒出一个下载按钮。最简单的办法在动作右上角的齿轮 ⚙ 菜单里：打开「等图出现再点」的那一项（11.0 起有）。也可以在点之前放一个 **Pause Until**（暂停直到），条件选 **Found Image**（找到图），贴同一张截图，等它真出现了再往下走（见 [Found Image Condition](https://wiki.keyboardmaestro.com/condition/Found_Image)）。
 
-要是你想先找到、再拿它的位置做别的事，用 **Find Image on Screen**（在屏幕上找图）。它把找到的位置存进一个你起名的<Term k="变量" />，比如 `ImageLocation`，后面的动作用 `ImageLocation.MidX`、`ImageLocation.MidY` 取它的中心点；没找到时，这个变量会是空的（[官方说明](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)）。
+要是你想先找到、再拿它的位置做别的事，用 **Find Image on Screen**（在屏幕上找图）。它把找到的位置存进一个你起名的<Term k="变量" />，比如 `ImageLocation`，后面的动作用 `ImageLocation.MidX`、`ImageLocation.MidY` 取它的中心点；没找到时，这个变量会是空的（见 [Find Image on Screen](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)）。
 
 ## 卡住了？
 
@@ -52,7 +52,7 @@ import Callout from "../../components/Callout.astro";
 屏幕上有不止一处像它。要么在 **Unique** 菜单里改成 **Best** 或者某个方向上的那一个，要么重新截一张更有特征的图。也看看编辑器是不是还开在前面，它可能找到的是动作里那张图。
 </Q>
 <Q q="不管换哪张图，从来都找不到。">
-找图要读屏幕上的内容，这要 macOS 的权限。打开 Keyboard Maestro 的偏好设置，**Security**（安全）那一页汇总了它需要的各项权限，也能在那儿逐项申请（[偏好设置](https://wiki.keyboardmaestro.com/manual/Preferences)）；官方的[排查页](https://wiki.keyboardmaestro.com/manual/Troubleshooting)把屏幕录制列在最常见的几种权限问题里。官方[常见问题](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)还提到，macOS Sequoia 和 Tahoe 会隔一阵就重新要一次屏幕权限，所以以前好好的、突然不灵了，也先看这里。
+找图要读屏幕上的内容，这要 macOS 的权限。打开 Keyboard Maestro 的偏好设置，**Security**（安全）那一页汇总了它需要的各项权限，也能在那儿逐项申请（见 [Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)）；官方的 [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) 页把屏幕录制列在最常见的几种权限问题里，这一项在 macOS 15 起的 **系统设置 ▸ 隐私与安全性** 里叫「录屏与系统录音」，旧版叫「屏幕录制」。官方[常见问题](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)还提到，macOS Sequoia 和 Tahoe 会隔一阵就重新要一次屏幕权限，所以以前好好的、突然不灵了，也先看这里。
 </Q>
 <Q q="点是点中了，可鼠标留在了按钮上。">
 动作右上角的齿轮 ⚙ 菜单里，可以选点完以后要不要把鼠标放回原处。

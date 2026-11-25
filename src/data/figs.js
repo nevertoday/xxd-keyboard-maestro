@@ -146,30 +146,30 @@ export const FIGS = {
       cap: "These four steps run once for every file that arrives. Anything that isn't a PDF stops at step three.",
     },
   },
-  // How-to「宏停不下来怎么办」：从轻到重的几种停法
+  // How-to「宏停不下来怎么办」：几种停法，先试的在上，最后一招在下
   "stop-macro-ladder": {
     type: "ladder",
-    base: { icons: ["Menu", "CircleStop", "Power", "Wrench"] },
+    base: { icons: ["CircleStop", "Menu", "Power", "Wrench"] },
     zh: {
-      cap: "停宏的几种办法，从轻到重：上面的先试，最下面的留到实在没办法时。",
+      cap: "停宏的几种办法：最上面那一下先试，不灵再往下走，最下面的留到实在没办法时。",
       high: "先试",
       low: "实在不行",
       rungs: [
-        { t: "Status Menu ▸ Cancel", d: "挑一个正在跑的宏停掉" },
         { t: "按住 ⌃⌥⇧ 点图标", d: "所有正在跑的宏一起停" },
+        { t: "Status Menu ▸ Cancel", d: "挑一个正在跑的宏停掉" },
         { t: "Quit Keyboard Maestro Engine", d: "引擎退出，宏都不跑了" },
-        { t: "按住 ⌘⌃⌥⇧ 打开编辑器", d: "引擎不启动，好去改那个宏" },
+        { t: "按住 ⌃⌥⇧⌘ 打开编辑器", d: "引擎不启动，好去改那个宏" },
       ],
     },
     en: {
-      cap: "Ways to stop a macro, lightest first: try the top ones, and save the bottom one for when nothing else works.",
+      cap: "Ways to stop a macro: try the top one first, move down if it doesn't work, and save the bottom one for when nothing else does.",
       high: "Try first",
       low: "Last resort",
       rungs: [
-        { t: "Status Menu ▸ Cancel", d: "Stop one running macro" },
         { t: "Hold ⌃⌥⇧, click the icon", d: "Stop every running macro" },
+        { t: "Status Menu ▸ Cancel", d: "Stop one running macro" },
         { t: "Quit Keyboard Maestro Engine", d: "The Engine quits, nothing runs" },
-        { t: "Hold ⌘⌃⌥⇧, open the editor", d: "No Engine, so you can fix the macro" },
+        { t: "Hold ⌃⌥⇧⌘, open the editor", d: "No Engine, so you can fix the macro" },
       ],
     },
   },

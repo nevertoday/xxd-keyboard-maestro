@@ -12,13 +12,13 @@ import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 import Fig from "../../../components/Fig.astro";
 
-If you freelance, your Downloads folder is probably like a doorway nobody tidies: contracts and invoice PDFs from clients, images saved from the web, installers, all in one heap. At the end of the month, when you do your books, you're digging this month's PDFs out one at a time. When you finish this page, each PDF will move itself into a folder called "PDF inbox" in Documents as soon as it finishes downloading. Everything else stays where it is until you have time to sort it.
+A freelancer's Downloads folder is often a doorway nobody tidies: contracts and invoice PDFs from clients, images saved from the web, installers, all in one heap. At the end of the month, when you do your books, you're digging this month's PDFs out one at a time. The macro on this page keeps that doorway for you. Each PDF will move itself into a folder called "PDF inbox" in Documents as soon as it finishes downloading. Everything else stays where it is until you have time to sort it.
 
 <mark>A Folder trigger keeps watch at the door: each time a file arrives, the macro runs once, holding that file's path.</mark>
 
 ## What a Folder trigger does
 
-The macros on the other pages run when you press a key. This one runs without you. Its <Term k="触发器" /> is **Folder**: you pick a folder, and the macro runs each time something is added to it, removed from it, or either (see [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). When the macro runs, the `%TriggerValue%` <Term k="令牌" /> holds the full path of the file that just arrived, and the actions after it use that to decide what to do and where to move it.
+On the earlier pages, macros ran when you pressed a key or typed a few characters. This one runs without you. Its <Term k="触发器" /> is **Folder**: you pick a folder, and the macro runs each time something is added to it, removed from it, or either (see [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). When the macro runs, the `%TriggerValue%` <Term k="令牌" /> holds the full path of the file that just arrived, and the actions after it use that to decide what to do and where to move it.
 
 One option matters a lot: **ignore partial or changing files**. Downloads take time, and when a file first appears it isn't finished. With this ticked, the trigger waits until the file stops changing before running the macro, and it ignores the temporary files whose extensions mark them as still in progress.
 

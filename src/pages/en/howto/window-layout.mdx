@@ -4,14 +4,14 @@ slug: window-layout
 step: 3
 time: Ten minutes
 for: Every time you start work, you drag windows around and pull at corners to get two apps side by side
-tldr: Press ⌃⌥⌘W, and Safari takes the left half of the screen and TextEdit the right half, in place at once and exactly the same every time.
+tldr: Press ⌃⌥⌘2, and Safari takes the left half of the screen and TextEdit the right half, in place at once and exactly the same every time.
 description: Use the Manipulate a Window action's Move and Resize with ready-made positions like Left Column and Right Column to put two apps side by side. Wait for a just-opened app's window with Pause Until, and work out other proportions with the SCREENVISIBLE function.
 ---
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Copy from "../../../components/Copy.astro";
 
-If you write, you often have your research open on one side and your draft on the other: Safari on the left with the articles you found, TextEdit on the right with what you're writing. Every day you start by dragging the two windows over and pulling at corners, and just when they're about right, a pop-up shoves them out of place. When you finish this page, you'll press ⌃⌥⌘W (⌃ is Control, ⌥ is Option, ⌘ is Command), Safari will take the left half of the screen, TextEdit the right half, and you can start writing.
+Research on one side, draft on the other: that's how a lot of writers work, with Safari on the left showing the articles they found and TextEdit on the right holding what they're writing. Every day you start by dragging the two windows over and pulling at corners, and just when they're about right, a pop-up shoves them out of place. Set up the macro on this page, and ⌃⌥⌘2 (⌃ is Control, ⌥ is Option, ⌘ is Command) puts Safari on the left half of the screen and TextEdit on the right, ready for you to start writing.
 
 <mark>Let an action decide where a window goes and how big it is, and it lands in exactly the same place every time.</mark>
 
@@ -27,7 +27,7 @@ The third one is the key to this page. When you pick a particular app, the macro
 
 ## Build the macro
 
-Make a new macro called "Writing layout". For the trigger, choose **Hot Key** and press ⌃⌥⌘W. Then add four actions in this order:
+Make a new macro called "Writing layout". For the trigger, choose **Hot Key** and press ⌃⌥⌘2, with 2 for two columns. Then add four actions in this order:
 
 1. **Activate a Specific Application**: Safari. If it isn't running, this opens it.
 2. **Manipulate a Window**: **Move and Resize** set to **Left Column**, window set to **the front window**, app set to Safari.
@@ -40,26 +40,34 @@ Bringing each app forward before you move it makes sure it's running and its win
 
 ## When an app has only just opened
 
-If TextEdit isn't running when you press the hot key, step 3 opens it, but its window takes a moment to appear, and step 4 finds no window to move. The official answer is to make the macro wait (see [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Between steps 3 and 4, add a **Pause Until** action with a **Front Window** condition set to TextEdit's front window existing. The moment the window appears, the macro carries on. You can add the same thing for Safari.
+If TextEdit isn't running when you press the hot key, step 3 opens it, but its window takes a moment to appear, and step 4 finds no window to move. The official answer is to make the macro wait (see [the Timing Between Actions section of Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Between steps 3 and 4, add a **Pause Until** action with a **Front Window** condition set to TextEdit's front window existing. The moment the window appears, the macro carries on. You can add the same thing for Safari.
 
 Waiting for a condition is sturdier than pausing for a fixed second. On a fast Mac it doesn't wait for nothing, and on a slow one it doesn't give up too soon.
 
 ## Other proportions
 
-Half and half isn't the only layout. Say you want your draft wider, at two thirds of the screen. Instead of a ready-made position, work it out. Anywhere Keyboard Maestro wants a number, you can write a <Term k="计算" />, and the `SCREENVISIBLE` function gives you the size of the screen minus the menu bar and the Dock (see [SCREEN function](https://wiki.keyboardmaestro.com/function/SCREEN)). For example, choose **Resize to** and write this for the width:
+Half and half isn't the only layout. Say you want your draft wider, at two thirds of the screen. Instead of a ready-made position, work it out. Anywhere Keyboard Maestro wants a number, you can write a <Term k="计算" />, and the `SCREENVISIBLE` function gives you the size of the screen minus the menu bar and the Dock (see [SCREEN function](https://wiki.keyboardmaestro.com/function/SCREEN)).
+
+Replace step 4 with two **Manipulate a Window** actions, both set to TextEdit. In the first, choose **Move to**, write `SCREENVISIBLE(Main,Top)` for the vertical position, and for the horizontal position write this line, which counts back two thirds of the width from the right edge of the screen:
+
+<Copy id="wl-left" title="Horizontal position: two thirds back from the right" code="SCREENVISIBLE(Main,Right)-SCREENVISIBLE(Main,Width)*2/3" />
+
+In the second, choose **Resize to**, write `SCREENVISIBLE(Main,Height)` for the height, and this for the width:
 
 <Copy id="wl-width" title="Width: two thirds of the visible area" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+With the top left corner in place first, stretching the window to that width puts its right edge right at the edge of the screen. Do the same for Safari at one third: move it to `SCREENVISIBLE(Main,Left)` and `SCREENVISIBLE(Main,Top)`, with a width of `SCREENVISIBLE(Main,Width)/3` and the same height as TextEdit.
 
 `Main` is the screen with the menu bar. With an external display, you can also write names like `Second` or `External` to mean another screen. All of these numbers are in points, not the screen's actual pixels. On a Retina screen, there are about half as many points as pixels.
 
 ## Check that it works
 
-Drag the Safari and TextEdit windows somewhere messy, then press ⌃⌥⌘W. You should see Safari jump to the left half and TextEdit to the right half, side by side. Then quit TextEdit and press it again to check that it opens and lands on the right as well.
+Drag the Safari and TextEdit windows somewhere messy, then press ⌃⌥⌘2. You should see Safari jump to the left half and TextEdit to the right half, side by side. Then quit TextEdit and press it again to check that it opens and lands on the right as well.
 
 ## Stuck?
 
 <Q q="I pressed the hot key and the windows didn't move.">
-Moving windows needs <Term k="辅助功能权限" />. The official troubleshooting page mentions that when this permission has problems, setting hot keys, typing keys and moving windows all stop working. Go back over the permissions step from [beginner lesson 1](/en/start/1-first-macro/) in **System Settings ▸ Privacy & Security ▸ Accessibility** (older macOS calls it System Preferences), then choose **Help ▸ Interactive Help** and let it check. See [this section of the troubleshooting page](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
+Moving windows needs <Term k="辅助功能权限" />. The official Troubleshooting page mentions that when this permission has problems, setting hot keys, typing keys and moving windows all stop working. Go back over the permissions step from [beginner lesson 1](/en/start/1-first-macro/) in **System Settings ▸ Privacy & Security ▸ Accessibility** (older macOS calls it System Preferences), then choose **Help ▸ Interactive Help** and see whether it spots the problem. See [the Accessibility section of Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
 </Q>
 <Q q="It moved a window from a different app.">
 Check whether the app in step 2 or 4 is set to **Front Application**. That moves whichever app was in front the moment you pressed the hot key, which may not be the one you meant. Pick the particular app instead.

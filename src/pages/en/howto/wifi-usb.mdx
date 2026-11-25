@@ -17,11 +17,11 @@ Time triggers handle "what time is it." The two <Term k="触发器" text="trigge
 
 ## Join the school Wi-Fi, and it mutes and quits Mail
 
-Make a new <Term k="宏" /> called "Into class." For the trigger, choose **Wireless Network**, which runs when a Wi-Fi network is connected to or disconnected from ([official page](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). You can have it respond to any network, or only to a matching name, and the wiki prefers the BSSID, a more unique ID, since lots of people have networks named "Home" or "Work."
+Make a new <Term k="宏" /> called "Into class." For the trigger, choose **Wireless Network**, which runs when a Wi-Fi network is connected to or disconnected from ([Wireless Network trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). You can have it respond to any network, or only to a matching name, and the wiki prefers the BSSID, a more unique ID, since lots of people have networks named "Home" or "Work."
 
 You don't have to type the name. Put your cursor in the name field of the trigger, then disconnect and rejoin the school Wi-Fi from the menu bar, and Keyboard Maestro fills in the network's name (or BSSID) for you. Have it run on connecting.
 
-Add two actions. **Mute Audio Device** can mute, unmute or toggle mute on the default sound output device (Keyboard Maestro 11 and later, [official page](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)), so choose mute. Then add **Quit a Specific Application**, pick Mail, and leave the option on **Quit**. If you want things back after class, make a second macro, "Out of class," triggered when the same network disconnects, with an action that unmutes.
+Add two actions. **Mute Audio Device** can mute, unmute or toggle mute on the default audio device (Keyboard Maestro 11 and later, [Mute Audio Device](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)), so choose mute. Then add **Quit a Specific Application**, pick Mail, and leave the option on **Quit**. If you want things back after class, make a second macro, "Out of class," triggered when the same network disconnects, with an action that unmutes.
 
 From macOS Sonoma on, there's one step you can't skip: reading Wi-Fi information needs the Location permission. The wiki says to make sure Keyboard Maestro Engine has it, which you'll find in **System Settings ▸ Privacy & Security**, under Location Services. Without it, the Engine can't read the Wi-Fi information.
 
@@ -35,15 +35,15 @@ The wiki makes a point of this. Your Mac disconnects and reconnects Wi-Fi every 
 
 ## Turn on the scanner, and the scanning app opens
 
-Now a different reader. If you have kids in school, you probably scan a few forms some evenings, and every time it's turn on the scanner, hunt down the scanning app, and forget to close it afterwards. The **USB Device** trigger runs a macro when a USB device is attached or detached, and the wiki's own example is exactly this: launch your scanner software when you turn on the scanner, and quit it when you turn it off ([official page](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
+Now a different reader. If you have kids in school, you probably scan a few forms some evenings, and every time it's turn on the scanner, hunt down the scanning app, and forget to close it afterwards. The **USB Device** trigger runs a macro when a USB device is attached or detached, and the wiki's own example is exactly this: launch your scanner software when you turn on the scanner, and quit it when you turn it off ([USB Device trigger](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
 
 USB device names often aren't what you'd expect, so let it fill this one in too. Put your cursor in the trigger's name field, then plug in (or turn on) the scanner, and the name appears. Two macros keep it clear. One runs when the device is attached, with **Activate a Specific Application** set to your scanning app, which launches it if it isn't running. The other runs when the device is detached, with **Quit a Specific Application** for the same app. While the macro runs, the `%TriggerValue%` <Term k="令牌" /> holds the device's name, which is handy if you want a notification to say which device it was.
 
-If what you're waiting for isn't a device but a disk, like an external drive or a memory card in a card reader, the trigger you want is **Mounted Volume**. It runs when a volume is mounted or unmounted, either a specific one or any volume ([official page](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
+If what you're waiting for isn't a device but a disk, like an external drive or a memory card in a card reader, the trigger you want is **Mounted Volume**. It runs when a volume is mounted or unmounted, either a specific one or any volume ([Mounted Volume trigger](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
 
 ## Just checking from inside another macro
 
-Sometimes you don't need a macro to start on connecting. You only want another macro to adapt, say a morning reminder that shows at home but not at school. Conditions do that: the **Wireless Network** condition checks whether a network is connected, and the **USB Device** condition checks whether a device is there, used with **If Then Else** ([Wi-Fi condition](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [USB condition](https://wiki.keyboardmaestro.com/condition/USB_Device)). For what conditions are and how they work, see [full guide step 4](/en/guide/4-variables/).
+Sometimes you don't need a macro to start on connecting. You only want another macro to adapt, say a morning reminder that shows at home but not at school. Conditions do that: the **Wireless Network** condition checks whether a network is connected, and the **USB Device** condition checks whether a device is there, used with **If Then Else** ([Wireless Network condition](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [USB Device condition](https://wiki.keyboardmaestro.com/condition/USB_Device)). For what conditions are and how they work, see [full guide step 4](/en/guide/4-variables/).
 
 ## Stuck?
 

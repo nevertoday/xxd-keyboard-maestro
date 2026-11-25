@@ -12,7 +12,7 @@
     "labels": "node scripts/km-labels.mjs",
     "sync-xxd": "node scripts/sync-xxd.mjs",
     "release": "npm run build && npm run check && ! grep -rlE '待写|TBD:' src/pages src/views src/i18n && wrangler deploy",
-    "check": "node scripts/check-i18n.mjs && node scripts/check-site.mjs && node scripts/check-ui-labels.mjs"
+    "check": "node scripts/check-i18n.mjs && node scripts/check-site.mjs && node scripts/check-ui-labels.mjs && node scripts/check-examples.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "7.0.3",

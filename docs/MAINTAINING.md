@@ -24,7 +24,7 @@
 npm install
 npm run dev        # http://localhost:4446
 npm run build      # 输出到 dist/
-npm run check      # 构建以后跑：多语言、整站、界面名字
+npm run check      # 构建以后跑：多语言、整站、界面名字、例子
 ```
 
 ## 现在的状态
@@ -75,7 +75,7 @@ npm run check      # 构建以后跑：多语言、整站、界面名字
 ```bash
 node scripts/sync-docs.mjs          # 重新抓官方 Wiki，列出新增、删除、改动的页面，更新 docs/sources/official.json
 node scripts/km-labels.mjs          # 升级了 App 或同步过 Wiki：重新整理界面名字，更新 tools/km-labels.json
-npm run build && npm run check      # 多语言检查 + 整站检查（<mark>、站内链接和锚点、示意标题、占位字、分享大图）+ 界面名字
+npm run build && npm run check      # 多语言检查 + 整站检查（<mark>、站内链接和锚点、示意标题、占位字、分享大图）+ 界面名字 + 例子
 node scripts/check-doc-links.mjs    # 联网查官方 Wiki 和官网的链接打得开、#锚点在线上页面里真的有
 ```
 
@@ -126,7 +126,7 @@ Keyboard Maestro 只有英文界面（App 里只有 `en.lproj`），所以按钮
 9. **要读者照抄的话像平时说话。** 比如一段缩写展开后的回复，写成完整、自然的话，不用填空模板腔：「谢谢你的来信，我这周五前给你答复。」
 10. **英文页同理。** Conversational, warm and plain. Contractions are fine. Vary sentence length. No corporate words (leverage, utilize, seamless, empower).
 
-例子要照顾到各种读者，哪个国家的都行：学生、上班族、老师、家长、照顾父母的人、自由职业者、小店老板、找工作的人、写东西的人。先讲痛点，再讲办法。不写只有某个国家才有的东西（地址格式、节日、证件号、当地的 App），品牌只提 Mac 自带的 App（Finder、Mail、Safari、备忘录、日历、预览、文本编辑、终端）和官方 Wiki 自己提到的。
+例子要照顾到各种读者，哪个国家的都行：学生、上班族、老师、家长、照顾父母的人、自由职业者、小店老板、找工作的人、写东西的人。先讲痛点，再讲办法。不写只有某个国家才有的东西（地址格式、节日、证件号、当地的 App），品牌只提 Mac 自带的 App（Finder、Mail、Safari、备忘录、日历、预览、文本编辑、终端）和官方 Wiki 自己提到的。每页已经用了哪种人、哪件事、哪个热键记在 `docs/EXAMPLES.md`，写新页先挑那里还没用过的；`npm run check` 里的 `scripts/check-examples.mjs` 拦品牌、只属于某个国家的例子和几页共用的套话。
 
 每类页面的样子：
 

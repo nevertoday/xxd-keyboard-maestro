@@ -10,7 +10,7 @@ description: 用 Hot Key 触发器加 Activate a Specific Application，给常�
 import Term from "../../components/Term.astro";
 import Q from "../../components/Q.astro";
 
-上班的人，一天里要在 Mail、日历、备忘录之间来回切几十次。按 ⌘Tab 切，常常一下跳过了头，再按又绕一圈；去 Dock 里找图标，眼睛还得离开手上的活。照这一页做完，⌃⌥⌘M 永远是 Mail，⌃⌥⌘C 永远是日历，⌃⌥⌘N 永远是备忘录（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command）。App 开着就切过去，没开就先打开它；已经在最前面时再按一下，就回到你刚才用的那个 App。
+Mail、日历、备忘录，上班的一天里要在这几个之间来回切几十次。按 ⌘Tab 切，常常一下跳过了头，再按又绕一圈；去 Dock 里找图标，眼睛还得离开手上的活。换个办法：让 ⌃⌥⌘M 永远是 Mail，⌃⌥⌘C 永远是日历，⌃⌥⌘N 永远是备忘录（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command）。App 开着就切过去，没开就先打开它；已经在最前面时再按一下，就回到你刚才用的那个 App。
 
 <mark>一个 App 配一个固定的键，手指记住了，眼睛就不用去找了。</mark>
 
@@ -20,7 +20,7 @@ import Q from "../../components/Q.astro";
 
 这个动作里有一栏 **If already at the front:**，管的是 App 已经在最前面时再按一下怎么办：可以留着不动，可以切回上一个 App，可以把它藏起来，等等。选「切回上一个 App」那一项，同一个键就成了一个来回开关：按一下过去，再按一下回来。
 
-[新手入门第 1 课](/start/1-first-macro/)做过一个这样的宏。这一页把它变成一整套。
+[新手入门第 1 课](/start/1-first-macro/)做过一个这样的宏，按 ⌃⌥⌘N 打开备忘录。这一页把它变成一整套。
 
 ## 做一整套
 
@@ -30,7 +30,7 @@ import Q from "../../components/Q.astro";
 - 「日历」：⌃⌥⌘C，选日历。
 - 「备忘录」：⌃⌥⌘N，选备忘录。
 
-三个宏的 **If already at the front:** 都选切回上一个 App。
+三个宏的 **If already at the front:** 都选切回上一个 App。备忘录那个不用重做，把第 1 课的宏从 **Global Macro Group** 拖进这个宏组，改一下这一项就行；要是再建一个同样按 ⌃⌥⌘N 的，两个宏抢一个键，Keyboard Maestro 会弹出一个小面板问你要跑哪一个（官方叫它 Conflict Palette）。
 
 键怎么挑，官方的建议是保持一致，比如用同一组修饰键表示「打开一个 App」，这样不用一个个死记（见 [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)）。这里统一用 ⌃⌥⌘ 加 App 英文名字的头一个字母：Mail 是 M，日历（Calendar）是 C，备忘录（Notes）是 N。你自己的那套，挑你一想就对得上的字母就好。
 
@@ -47,13 +47,13 @@ App 一多，⌃⌥⌘ 加字母也会撞车。官方手册里有一个办法：
 ## 卡住了？
 
 <Q q="按了热键，什么也没发生。">
-先确认宏和「切 App」这个宏组都勾着，引擎在跑。然后想想这个组合是不是别的 App 也在用：官方说，别的 App 注册了同一个热键时，你的宏和那个 App 的功能会一起发生。换一个字母试试。再不行，选 **Help ▸ Interactive Help** 让它替你查权限和引擎。
+宏和「切 App」宏组有一个没勾上、或者引擎没在跑，热键都不会响应，先看这两处。然后想想这个组合是不是别的 App 也在用：官方说，别的 App 注册了同一个热键时，你的宏和那个 App 的功能会一起发生。换一个字母试试。再不行，选 **Help ▸ Interactive Help**，跟着它一步步找原因。
 </Q>
 <Q q="设了热键以后，某个 App 里原来的快捷键不灵了。">
 这是热键的脾气：官方说，按下热键时系统把这个键吞掉交给宏，App 菜单里同样的快捷键就收不到了。如果那个 App 里正好有 ⌃⌥⌘ 加同一个字母的快捷键，你的宏会盖过它。换一个那边没用过的字母。
 </Q>
 <Q q="我在这个宏后面又加了几个动作，App 打开慢，后面的没等它。">
-官方提到，开着的 App 很多、内存又紧时，**Activate a Specific Application** 之后可能要等上好几秒，后面的动作才能顺利做。在中间加一个 **Pause**（暂停），或者用 **Pause Until**（等到……再继续）等那个 App 的窗口出现，见[排查页这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)。
+官方提到，开着的 App 很多、内存又紧时，**Activate a Specific Application** 之后可能要等上好几秒，后面的动作才能顺利做。在中间加一个 **Pause**（暂停），或者用 **Pause Until**（等到……再继续）等那个 App 的窗口出现，见 [Troubleshooting 里 Timing Between Actions 这一节](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)。
 </Q>
 
 几天以后，你的手指会比眼睛先找到那个 App。想让一个键把几个 App 一起打开、把窗口也摆好，接着看[把窗口摆到固定的位置](/howto/window-layout/)。
