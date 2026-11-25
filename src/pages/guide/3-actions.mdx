@@ -1,6 +1,107 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 3
-tldr: "打字、按键、选菜单、开 App、摆窗口、点鼠标、动文件：先认识最常用的十几个动作，其余的遇到再搜"
+need: 一个做好的宏（新手入门第 1 课那个就行）
+tldr: 动作就是你自己会动手做的那些事：打一段字，按一个键，选一个菜单，开 App，摆窗口，点按钮，动文件。宏把它们从上往下一个接一个做完。先认得最常用的十几个，其余的要用时在动作列表里搜一个词就能找到。
+description: 动作：一个宏就是一串动作；怎么加动作、怎么找到你要的那个（动作列表里搜、Insert Action by Name、按住 Option 看说明、收藏、Try 和 Record）；最常用的十几个，按打字、按键和菜单、App 和网页、窗口、鼠标和按钮、文件、等一等说一声分好组；其余的用到再查。
 ---
-{/* 待写：第 3 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Checkpoint from "../../components/Checkpoint.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Fig from "../../components/Fig.astro";
+
+想一想你每天收工前写一句工作日志，手上是怎么做的：切到文本编辑，选「新建」开一份空白文稿，打上今天的日期，再写一句今天做了什么。四下就完了，可天天都要来一遍。
+
+把这几下交给 Keyboard Maestro，几乎是一一对应的：切到 App 是一个动作，选菜单是一个动作，打字是一个动作，最后再加一个动作，弹个通知告诉你准备好了。
+
+<Fig id="3-actions-log" />
+
+<mark><strong>动作就是你自己会动手做的那些事，宏把它们从上往下一个接一个做完。先认得最常用的十几个，其余的要用时在动作列表里搜一个词就能找到。</strong></mark>
+
+## 一个宏就是一串动作
+
+宏被触发以后，就照着动作列表，从第一个做到最后一个。官方说，多数动作会等自己做完再往下走；可也有几个只是起个头就交出去，比如 **Type a Keystroke**（按一个键）把按键交给系统，接下来由系统和 App 去处理。所以有时候前一步还没真正做完，后一步已经开始了，这就是宏里常常要加一个短暂停顿的原因，后面会讲到。见官方的 [Fundamental Concepts](https://wiki.keyboardmaestro.com/Fundamental_Concepts)。
+
+## 怎么加动作，怎么找到你要的那个
+
+<Term k="动作" />有上百个，没人一个个记得住，所以先学会找。编辑一个宏的时候，点 **New Action** 按钮，或者细节那一栏底下的 **+**，就会打开动作列表。左边是分类，选 **All Actions** 看全部，再打一个词，列表就只剩和这个词对得上的动作。想开 App，搜 Activate；想选菜单，搜 Menu；想动文件，搜 File。找到了，双击它，或者把它拖进宏里。见官方的 [Macro Actions](https://wiki.keyboardmaestro.com/manual/Macro_Actions)。
+
+更快的办法是 **Edit ▸ Insert Action by Name**（按名字插入动作），快捷键 ⌃⌘A（⌃ 是 Control，⌘ 是 Command）：弹出一个小框，打几个字母，回车就插进去了。按住 Shift 再回车，会插在选中的动作上面。
+
+还有三个好帮手。挑动作的时候按住 Option 键（⌥），会打开官方 Wiki 里讲这个动作的那一页；动作右上角的齿轮 **⚙** 菜单里也有它的说明。常用的动作，右键加进 **Favorites**（收藏），连同你设好的选项一起存着，下次从这个分类里拿。想试一下某几个动作对不对，选中它们，点底下的 **Try** 按钮，不用跑整个宏。不过官方提醒，试的时候没有前面那几步铺垫，要是这个动作要对着某个 App 做，最好先在上面临时加一个切到那个 App 的动作，一起选中再试。
+
+不想挑，也可以点 **Record**，自己动手做一遍，让它记下来，再把多余的几步删掉。
+
+下面按你平时动手的几类事，把最常用的十几个过一遍。每一个都只讲它管什么、什么时候用它，选项细节点它在官方 Wiki 的那一页看。
+
+## 打字
+
+**Insert Text by Pasting**（粘贴插入文字）先把文字放进剪贴板，再替你按一下 ⌘V。它快，长长一段也是一下就出来，表情符号、特殊字符都行，还能带粗体、斜体这些格式。代价是你剪贴板里原来的东西会被换掉。见官方的 [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)。
+
+**Insert Text by Typing**（逐字键入文字）像你自己在键盘上一个字一个字地打，用的是你正在打字那个地方本来的格式，打到 Tab 和回车也会真的跳到下一格、换一行。它的短处是慢，官方的建议是三四十个字以内用它，而且只能打键盘上打得出来的字，打不了表情符号。见官方的 [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)。
+
+一句话分清：一大段话、要带格式，用粘贴；一小串字、要一格一格地填表，用键入。两个动作里的文字都可以放<Term k="令牌" />，比如 `%LongDate%`，跑的时候换成今天的日期，见 How-to 的[一键插入今天的日期](/howto/insert-date/)。
+
+## 按键和菜单
+
+**Type a Keystroke**（按一个键）替你按一下某个键，连同修饰键，比如 ⌘S 或者 ⌃Tab。只按一下、或者这一下带着 Command、Control 的，就用它。有一条要记住：别拿它去按一个正被某个热键触发器占着的组合，那样它可能打出这个键，也可能把那个宏触发了，说不准。见官方的 [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)。
+
+**Select or Show a Menu Item**（选择或显示菜单项）替你在菜单栏里选一个菜单项，可以是最前面那个 App 的，也可以是指定的某个 App 的。它的下拉菜单里列着正在运行的 App 和它们的菜单，照着点就不会写错名字。要选的菜单要是找不到、或者是灰的，它默认会让整个宏停下。官方在讲 **Type a Keystroke** 的那一页里也建议，要选菜单就用它，别去模拟那个菜单的快捷键。给一个没有快捷键的菜单命令配一个，见 How-to 的[给没有快捷键的菜单配一个](/howto/menu-shortcut/)。
+
+## App 和网页
+
+**Activate a Specific Application**（激活指定的 App）切到某个 App，没开着就先打开它，和你自己切过去、或者把它打开是一回事。开 App 就用它。见官方的 [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)。
+
+**Open a File, Folder or Application**（打开文件、文件夹或 App）打开一个文件或文件夹，还能指定用哪个 App 打开，比如总用预览打开某份 PDF。官方特别说明，它几乎从来不是开 App 的正确做法，开 App 请用上面那个。
+
+**Open a URL**（打开网址）用你选的浏览器打开一个网址。网址要写完整，不能有空格。
+
+**Quit a Specific Application**（退出指定的 App）退出某个 App，也能退出后重新打开，或者强制退出。
+
+## 窗口
+
+**Manipulate a Window**（调整窗口）对一个窗口做各种事：挪到某个位置、改成某个大小、按比例缩放、放到最前面，等等。新手入门第 3 课里摆窗口，用的也是它。见官方的 [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)，做法见[新手入门第 3 课](/start/3-one-key-routine/)和 How-to 的[把窗口摆到固定的位置](/howto/window-layout/)。
+
+## 鼠标和按钮
+
+**Press a Button**（按按钮）按下最前面那个窗口里某个有名字的按钮。它从 Keyboard Maestro 11 起还能扫描窗口，把里面所有的按钮列出来让你挑。见官方的 [Press a Button](https://wiki.keyboardmaestro.com/action/Press_a_Button)。
+
+**Move or Click Mouse**（移动或点击鼠标）把鼠标挪到某个位置、点一下或者拖一下，位置可以相对窗口的某个角、屏幕、鼠标现在的地方，或者屏幕上<Term k="找图" />找到的那块。可官方的建议是能不用就不用：按坐标点鼠标很脆弱，App 稍微改一下界面、窗口挪了个地方，就点空了，而且常常还得先加一个停顿，等界面摆好。所以能选菜单就选菜单，能按按钮就按按钮，实在没别的路再点鼠标。见官方的 [How do I…?](https://wiki.keyboardmaestro.com/manual/How_do_I) 和 How-to 的[找到屏幕上的按钮，点它](/howto/click-image/)。
+
+## 文件
+
+**File Actions**（文件动作）是一个多用途的动作，在里面选要做什么：在 Finder 里显示、移动、改名、复制、复制一份、移到废纸篓，或者永久删除。<u>永久删除没有废纸篓兜底，删了就找不回来；拿不准的时候，选移到废纸篓。</u>见官方的 [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions)，批量改名和自动归档见 How-to 的[批量给文件改名](/howto/rename-files/)、[文件一进文件夹就自动归档](/howto/watch-folder/)。
+
+## 等一等，说一声
+
+**Pause**（暂停）停几秒（也可以是百分之几秒、几分钟）再往下走，给 App 一点反应的时间。官方不建议停很久：停的时候 Mac 可能睡着，屏幕上的样子可能已经变了。
+
+**Pause Until**（暂停直到）不是死等几秒，而是一直等到某件事成立再走，比如某个 App 已经到了最前面，屏幕上出现了某张图。等的那件事叫<Term k="条件" />，[第 4 步](/guide/4-variables/)细讲。能用它的地方，比猜一个秒数更稳。
+
+**Display Text**（显示文字）弹一个小窗口把一段话给你看；**Notification**（通知）在屏幕右上角的通知中心里说一声，可以带标题、副标题和提示音，不打断你手上的事。宏跑完了、跑到哪一步了，用它们告诉自己。
+
+## 剩下的，用到再查
+
+这十几个，已经够你做出大多数日常用的宏了。剩下的上百个，有的管剪贴板，有的管图片，有的跑脚本，有的让宏看情况走不同的路，不用现在学。哪天你想做一件事，先想它是哪一类，在动作列表里搜一个词，或者去翻官方的 [Actions](https://wiki.keyboardmaestro.com/Actions) 清单。变量、条件和循环在[第 4 步](/guide/4-variables/)，剪贴板在[第 5 步](/guide/5-clipboard/)，脚本在[第 7 步](/guide/7-advanced/)。
+
+到这里，宏组、触发器、动作三样都认识了，你已经能自己拼出一个完整的宏。下一步讲变量、条件和循环，让宏学会看情况办事。
+
+## 卡住了？
+
+<Q q="动作列表里东西太多，找不到我要的那个。">
+<p>先选 <strong>All Actions</strong>，再打一个你想做的事的英文词，比如 Window、Menu、Clipboard。还是找不到，用 <strong>Edit ▸ Insert Action by Name</strong>（⌃⌘A）按名字搜，或者去官方的 <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> 清单里翻。</p>
+</Q>
+<Q q="单独点 Try 好好的，整个宏跑起来却出错。">
+<p>多半是快了：前一步还没做完，后一步已经开始了，比如 App 还没切到最前面就开始打字。在两步中间加一个 <strong>Pause</strong>，或者更好的，用 <strong>Pause Until</strong> 等到那个 App 真的在最前面再往下走。</p>
+</Q>
+<Q q="插入文字以后，剪贴板里原来的东西没了。">
+<p>这是 <strong>Insert Text by Pasting</strong> 的做法，它借剪贴板来贴。文字不长、不要格式的话，换成 <strong>Insert Text by Typing</strong>；剪贴板历史在<a href="/guide/5-clipboard/">第 5 步</a>里讲。</p>
+</Q>
+<Q q="选菜单的动作一跑，整个宏就停了。">
+<p>菜单的名字对不上，或者那一刻这个菜单是灰的。用动作里的下拉菜单从正在运行的 App 里重新选一次，别手打。这个菜单本来就可能是灰的话，可以在齿轮 <strong>⚙</strong> 菜单里设成失败了也接着往下走。</p>
+</Q>
+<Q q="点鼠标的动作点偏了。">
+<p>窗口挪了位置，或者界面变了。能换成选菜单、按按钮的就换掉；非点不可，就让位置相对窗口的某个角来算，或者先找到屏幕上的那张图再点它，见 How-to 的<a href="/howto/click-image/">找到屏幕上的按钮，点它</a>。</p>
+</Q>
+
+<Checkpoint id="s3" items={["我会在动作列表里搜一个词找到动作，也会用 Insert Action by Name", "我分得清粘贴插入和逐字键入各适合什么", "我知道要选菜单就用选菜单的动作，点鼠标是最后的办法", "我知道两步之间太快时，可以用 Pause Until 等一等"]} />

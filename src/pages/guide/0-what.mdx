@@ -1,6 +1,93 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 0
-tldr: "Mac 上的自动化工具：编辑器里写宏，后台的引擎替你跑；每个宏就是「什么时候」加「做什么」"
+need: 什么都不用，先读
+tldr: Keyboard Maestro 是 Mac 上的自动化工具，分成两半：编辑器里写宏，后台的引擎替你盯着、替你做。每个宏都是「什么时候」加「做什么」，再由它所在的宏组决定这会儿算不算数。
+description: Keyboard Maestro 是什么：编辑器和引擎两个程序；宏组、宏、触发器、动作四样东西怎么配合；它能做到哪一步；它只在 Mac 上、不在 App Store 上架的原因，许可证、价格、退款和系统要求；这套完整教程讲什么。
 ---
-{/* 待写：第 0 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Checkpoint from "../../components/Checkpoint.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+import Fig from "../../components/Fig.astro";
+
+你在 Mac 前做的事，有不少是一模一样的重复：今天第十次打同一个邮箱地址，早上开工先点开同样那几个 App，某个菜单命令天天要用，可它偏偏没有快捷键。这些事不难，就是烦，而且每一次都得你亲手来。Keyboard Maestro 就是把这类事交给 Mac 自己去做的程序，Stairways Software 做的。官方的说法很直白：你只要讲清楚想让 Mac 做什么、什么时候做。
+
+<mark><strong>每个宏都是两半：「什么时候」交给触发器，「做什么」交给动作。你在编辑器里把它写好，后台的引擎替你盯着那一刻，替你把事做完。</strong></mark>
+
+还没装过、也没做过任何宏的，先去做[新手入门的三课](/start/1-first-macro/)，半个小时就能有第一个能用的宏。这套完整教程写给已经上手、想弄明白它为什么这样工作的人，按 0 到 7 的顺序往深里走。
+
+本站是非官方的学习站，和 Stairways Software 没有关系。下面讲的事实都出自 [Keyboard Maestro 官方 Wiki](https://wiki.keyboardmaestro.com/)，两边说得不一样时，以官方为准。
+
+## 两个程序：编辑器和引擎
+
+装好以后，你的 Mac 上其实有两个程序。一个是你打开来看的那个窗口，叫 Keyboard Maestro，也就是<Term k="编辑器" />，写宏、改宏、调设置都在这里。另一个是 **Keyboard Maestro Engine**，它是<Term k="引擎" />，没有窗口，在后台默默开着。按热键、看时间、留意哪个 App 打开了、记下你复制过的东西、显示面板，还有真正把宏一步步做完，全是它的活。见官方的 [Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)。
+
+打个比方，编辑器像手机里设闹钟的那一页，设好就可以关掉；引擎是那个闹钟本身，一直在走，到点就响。所以改完宏，你完全可以退出编辑器，宏照样能用；可引擎要是没开着，什么宏都不会灵。官方建议在设置的 **General** 里打开 **Launch Engine at Login**（登录时启动引擎），这样每次开机登录，引擎就自己开起来了。
+
+还有一件新手常问的事：Keyboard Maestro 没有「保存」按钮。你每改一处，过几秒它就自己存好了，引擎也马上用上新的版本。
+
+## 四样东西：宏组、宏、触发器、动作
+
+编辑器的窗口从左到右分成三栏，正好对着这几样东西：最左边是宏组，中间是选中的宏组里的宏，右边是选中的那个宏的细节。
+
+<Term k="宏" />是一件小差事。它由两部分组成：几个<Term k="触发器" />，决定它什么时候开始；一串<Term k="动作" />，决定它开始以后做什么，从上往下一个接一个地做。拿「打出 `=addr=` 就换成你的地址」来说，触发器是一个 **Typed String Trigger**（输入字符串触发器），等你打出这几个字；动作只有一个 **Insert Text by Pasting**（粘贴插入文字），把整段地址贴进去。再比如「按 ⌃⌥⌘M 打开 Mail」（⌃ 是 Control，⌥ 是 Option，⌘ 是 Command），触发器是一个 **Hot Key Trigger**（热键触发器），动作是 **Activate a Specific Application**（激活指定的 App）。
+
+每个宏都住在一个<Term k="宏组" />里。宏组像文件夹，可它不只是用来归类：它还管着里面的宏这会儿算不算数，比如只在 Mail 里生效，或者你按一下某个键才生效。官方的规矩是，一个宏要被触发，它自己得是开着的，它所在的宏组也得开着，而且此刻正生效。宏组怎么设，是[第 1 步](/guide/1-groups/)的事。
+
+<Fig id="0-what-chain" />
+
+官方把这几样的分工总结成五句话，以后宏不灵的时候，照着这五句挨个想一遍，多半就能找到问题出在哪一层：
+
+- 想改东西，用编辑器。
+- 想让任何东西起作用，引擎得开着。
+- 想管宏什么时候算数，设它的宏组。
+- 想管宏什么时候开始跑，设它的触发器。
+- 想管宏做什么，设它的动作。
+
+## 它能做到哪一步
+
+动作能做的事比你想的多。官方列的有：控制 App，模拟你按键、点鼠标、选菜单，处理文件和图片，管 Mac 本身和剪贴板，还能跑 AppleScript、JavaScript、Swift、Shell 脚本和 Automator 流程，或者装别人写好的<Term k="插件动作" />。官方的原话是「if you can do it yourself, Keyboard Maestro can probably do it for you」，你自己能在 Mac 上做的，它多半也能替你做。见官方的 [Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start#Actions)。
+
+除了宏，它还自带几样现成的工具：<Term k="剪贴板历史" />记下你复制过的东西，过后还能挑一条贴回去；<Term k="命名剪贴板" />替你长期存几段常用的字或图；还有在 App 之间、窗口之间切换的切换器。见官方的 [Overview](https://wiki.keyboardmaestro.com/manual/Overview)。
+
+不想一个个挑动作，也可以点编辑器里的 **Record** 按钮，自己动手做一遍，让它记下来。官方提醒，录出来的动作多半要删掉或改几个，宏才稳当，不过拿来起个头很快。
+
+你做的宏存在这台 Mac 的你这个用户账户里（`~/Library/Application Support/Keyboard Maestro`），不跟许可证绑在一起，也不会自己同步到云上。两台 Mac 各有各的宏，要用同一套，得自己设同步，[第 7 步](/guide/7-advanced/)会讲。见官方的 [Fundamental Concepts](https://wiki.keyboardmaestro.com/Fundamental_Concepts)。
+
+## 动手之前，先知道的几件事
+
+它只在 Mac 上跑。Keyboard Maestro 11 要 macOS 10.13 或更新的系统，见官方的 [Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details#Requirements)。
+
+它也不在 Mac App Store 里卖，以后也不会。原因是 Apple 要求 App Store 里的程序都得做沙盒化（Sandboxed），而 Keyboard Maestro 这类替你操作别的 App 的工作流工具，没法沙盒化。见官方的 [How do I…?](https://wiki.keyboardmaestro.com/manual/How_do_I)。所以下载只认官网 [keyboardmaestro.com](https://www.keyboardmaestro.com/)，别处来的安装包都别用。
+
+买之前可以先试。官方提供全功能的试用版，没有功能上的限制，试用期结束以后要买许可证才能接着用；试用期多长，官方 Wiki 里没写。许可证按人算，一个人最多可以装在 5 台 Mac 上，几个人用就要几份。它不是订阅：买下的是当前这个大版本，小的更新一般都包含在内，以后出新的大版本时通常要付升级费，官方说大约每 12 到 36 个月会有一次。价格方面，官方购买页写的是 US$36（2026-11-24 查），以 [官方购买页](https://wiki.keyboardmaestro.com/manual/Purchase) 为准。
+
+买了也有后路：官方写明，买下以后 30 天内，要是发现它做不到文档里说的事，可以申请退款，许可证随之取消。见官方的 [Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details#Warranty)。
+
+## 这套教程讲什么
+
+主线一共八步。这一步先认识它。第 1 步讲宏组，管宏在哪里、什么时候生效；第 2 步讲触发器，挑一个最自然的时机；第 3 步讲动作，先认得最常用的十几个。到这里，你已经能做出大多数日常用的宏了。第 4 步让宏看情况办事，用上变量、条件和循环；第 5 步是剪贴板；第 6 步讲宏不灵的时候怎么查；第 7 步再往深走，接上脚本、子程序，在两台 Mac 之间同步、把宏分享给别人。
+
+某一件具体的事，比如一键插入今天的日期、把窗口摆到固定的位置，放在 [How-to](/howto/)；某个词是什么意思，查 [Wiki](/wiki/)；零散的问题，翻[常见问题](/faq/)。
+
+这一页说的就一件事：宏是「什么时候」加「做什么」，编辑器里写，引擎替你跑，宏组决定这会儿算不算数。下一步，就从宏组讲起。
+
+## 卡住了？
+
+<Q q="我退出了 Keyboard Maestro，宏还会灵吗？">
+<p>会。退出的只是编辑器，引擎还在后台开着，宏照样能用。要是连引擎也停了（比如你在 <strong>File</strong> 菜单里选过 <strong>Quit Engine</strong>），重新打开一次 Keyboard Maestro，引擎就跟着开起来了；也可以在 <strong>File</strong> 菜单里选 <strong>Launch Engine</strong>。想以后都不操这份心，就在设置的 <strong>General</strong> 里打开 <strong>Launch Engine at Login</strong>。</p>
+</Q>
+<Q q="改完宏，要去哪里点保存？">
+<p>不用点。Keyboard Maestro 没有保存这一步，改完几秒就自己存好了，引擎也立刻用上新的版本。</p>
+</Q>
+<Q q="在 App Store 里搜不到它，是不是下架了？">
+<p>它从来就不在 Mac App Store 里卖。Apple 要求那里的 App 都做沙盒化，Keyboard Maestro 这类工具做不到，所以只在官网 <a href="https://www.keyboardmaestro.com/">keyboardmaestro.com</a> 下载，别的地方给的安装包都别用。</p>
+</Q>
+<Q q="换了一台 Mac，或者换了许可证，我的宏会丢吗？">
+<p>宏存在每台 Mac 自己的用户账户里，和许可证没有关系，换许可证不会动它们。换 Mac 要自己把宏带过去，或者设好同步，见<a href="/guide/7-advanced/">第 7 步</a>和 How-to 的<a href="/howto/sync-macs/">两台 Mac 用同一套宏</a>。</p>
+</Q>
+<Q q="这个网站是 Keyboard Maestro 官方的吗？">
+<p>不是。本站是独立的非官方学习站，和 Stairways Software 没有关系，Keyboard Maestro 是 Stairways Software Pty Ltd 的商标。功能和规则以<a href="https://wiki.keyboardmaestro.com/">官方 Wiki</a> 为准。</p>
+</Q>
+
+<Checkpoint id="s0" items={["我知道编辑器可以关掉，引擎要一直开着", "我能说出一个宏的触发器和动作分别是什么", "我知道宏要被触发，它的宏组也得开着、正在生效", "我知道只从官网下载，许可证按人算、最多 5 台 Mac"]} />

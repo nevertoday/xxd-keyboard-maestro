@@ -1,6 +1,107 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 3
-tldr: "Typing, keystrokes, menus, apps, windows, clicks and files: meet the dozen actions you'll use most and search for the rest when you need them"
+need: One macro you've built (the one from beginner lesson 1 is fine)
+tldr: Actions are the things you'd otherwise do by hand. Type some text, press a key, choose a menu, open an app, place a window, press a button, move a file. A macro does them one after another from the top. Meet the dozen or so you'll use most, and when you need another, search the action list for a word.
+description: Actions. A macro is a list of actions; how to add them and find the one you want (search the action list, Insert Action by Name, Option for help, favorites, Try and Record); the dozen or so you'll use most, grouped as typing, keys and menus, apps and web pages, windows, mouse and buttons, files, and waiting and telling you; and looking up the rest when you need them.
 ---
-{/* TBD: step 3, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Think about what your hands do when you write a one-line work log at the end of each day. Switch to TextEdit, choose New to get a blank document, type today's date, then write a line about what you did. Four moves and you're done, but you make them every single day.
+
+Handing those moves to Keyboard Maestro maps almost one to one. Switching to an app is one action, choosing a menu item is another, typing is another, and one more at the end pops up a notification to say it's ready.
+
+<Fig id="3-actions-log" />
+
+<mark><strong>Actions are the things you'd otherwise do by hand, and a macro does them one after another from the top. Meet the dozen or so you'll use most; when you need another, search the action list for a word.</strong></mark>
+
+## A macro is a list of actions
+
+Once a macro is triggered, it works down its list of actions from the first to the last. The wiki says most actions wait until they've finished before the next one starts, but a few just set something going and hand it off. **Type a Keystroke**, for instance, passes the key to the system, and from there the system and the app deal with it. So sometimes the next step starts before the previous one has really finished, which is why macros often need a short pause, as you'll see below. See the official [Fundamental Concepts](https://wiki.keyboardmaestro.com/Fundamental_Concepts).
+
+## Adding actions, and finding the one you want
+
+There are well over a hundred <Term k="动作" text="actions" />, and nobody remembers them all, so learn to find them first. While editing a macro, click the **New Action** button, or **+** at the bottom of the detail column, to open the action list. Categories are on the left; choose **All Actions** to see everything, then type a word and the list narrows to the actions that match. To open an app, search Activate; to choose a menu, search Menu; to work with files, search File. When you've found it, double-click it or drag it into the macro. See the official [Macro Actions](https://wiki.keyboardmaestro.com/manual/Macro_Actions).
+
+Faster still is **Edit ▸ Insert Action by Name**, shortcut ⌃⌘A (⌃ is Control, ⌘ is Command). A small box appears; type a few letters and press Return to insert the action. Hold Shift as you press Return to insert it above the selected action.
+
+Three more helpers. Hold the Option key (⌥) while choosing an action and the wiki page for it opens; the gear **⚙** menu at the top right of an action has its help too. Right-click an action you use a lot and add it to **Favorites**, settings and all, so you can take it from that category next time. To check that a few actions do the right thing, select them and click **Try** at the bottom, without running the whole macro. The wiki points out that a tried action runs without the steps before it, so if it needs a particular app at the front, temporarily add an action above it that switches to that app and select both before trying.
+
+And if you'd rather not pick at all, click **Record**, do the task yourself, and let it take notes. Then delete the steps you don't need.
+
+Below are the dozen or so you'll use most, grouped by the kind of thing you do by hand. Each gets what it's for and when to reach for it; for the options, follow the link to its wiki page.
+
+## Typing
+
+**Insert Text by Pasting** puts the text on the clipboard, then presses ⌘V for you. It's fast, even for a long passage, handles emoji and any other characters, and can carry styles like bold and italic. The catch is that it replaces whatever was on your clipboard. See the official [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting).
+
+**Insert Text by Typing** types the text one key at a time, as if you were at the keyboard. It uses whatever style is already where you're typing, and a Tab or Return in the text really does move to the next field or start a new line. The downside is speed: the wiki suggests it for up to thirty or forty characters, and it can only type characters the keyboard can produce, so no emoji. See the official [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing).
+
+The short version: a long passage, or text with formatting, goes by pasting; a short string, or filling in a form field by field, goes by typing. In both you can include a <Term k="令牌" />, like `%LongDate%`, which becomes today's date when the macro runs. See the how-to [Insert today's date with one key](/en/howto/insert-date/).
+
+## Keys and menus
+
+**Type a Keystroke** presses one key for you, modifiers included, like ⌘S or ⌃Tab. Use it for a single keystroke, especially one with Command or Control. One rule to remember: don't use it to press a combination that's an active hot key trigger, because it may type the key or may fire that macro, and there's no telling which. See the official [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke).
+
+**Select or Show a Menu Item** chooses a menu item from the menu bar, in the front app or in a specific app. Its pop-up menu lists the running apps and their menus, so you can pick instead of typing the name and getting it wrong. If the menu item can't be found or is greyed out, by default the whole macro stops. On its **Type a Keystroke** page the wiki also recommends choosing a menu with this action rather than simulating the menu's shortcut. To give a menu command a shortcut it doesn't have, see the how-to [Give a menu command a shortcut it doesn't have](/en/howto/menu-shortcut/).
+
+## Apps and web pages
+
+**Activate a Specific Application** switches to an app, launching it first if it isn't running, just as if you'd switched to it or opened it yourself. This is the one for opening apps. See the official [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application).
+
+**Open a File, Folder or Application** opens a file or folder, and can say which app to open it with, say always opening a particular PDF in Preview. The wiki notes that it's almost never the right way to launch an app; use the one above for that.
+
+**Open a URL** opens a web address in the browser you choose. The address has to be complete, with no spaces.
+
+**Quit a Specific Application** quits an app, or quits and relaunches it, or force quits it.
+
+## Windows
+
+**Manipulate a Window** does all sorts of things to a window: move it somewhere, resize it, scale it, bring it to the front and more. Placing windows in beginner lesson 3 uses it too. See the official [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window), [beginner lesson 3](/en/start/3-one-key-routine/) and the how-to [Put your windows where you want them](/en/howto/window-layout/).
+
+## Mouse and buttons
+
+**Press a Button** presses a named button in the front window. Since Keyboard Maestro 11 it can also scan the window and list every button in it for you to pick from. See the official [Press a Button](https://wiki.keyboardmaestro.com/action/Press_a_Button).
+
+**Move or Click Mouse** moves the mouse somewhere, clicks or drags, with the position measured from a corner of the window, the screen, where the mouse is now, or a <Term k="找图" /> on the screen. But the wiki's advice is to avoid it where you can. Clicking at coordinates is fragile: a small change to an app's interface or a window in a different spot and the click lands on nothing, and you often need a pause first so the screen is ready. So choose a menu if you can, press a button if you can, and click the mouse only when there's no other way. See the official [How do I…?](https://wiki.keyboardmaestro.com/manual/How_do_I) and the how-to [Find a button on screen and click it](/en/howto/click-image/).
+
+## Files
+
+**File Actions** is one multipurpose action where you choose what to do: reveal in the Finder, move, rename, copy, duplicate, move to the Trash, or delete permanently. <u>Deleting permanently skips the Trash, so there's no getting the file back; when in doubt, move it to the Trash instead.</u> See the official [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions), and the how-tos [Rename a batch of files](/en/howto/rename-files/) and [File things away as soon as they land in a folder](/en/howto/watch-folder/).
+
+## Waiting, and telling you
+
+**Pause** waits a few seconds (or hundredths of a second, or minutes) before carrying on, giving the app a moment to react. The wiki advises against long pauses: in the meantime the Mac might sleep, or the screen might have changed.
+
+**Pause Until** doesn't wait a fixed time; it waits until something is true, such as an app being at the front or an image appearing on screen. The thing it waits for is a <Term k="条件" />, which [step 4](/en/guide/4-variables/) covers. Where you can use it, it's steadier than guessing a number of seconds.
+
+**Display Text** shows some text in a small window, and **Notification** posts a message in Notification Center at the top right of the screen, with a title, subtitle and sound if you like, without interrupting what you're doing. Use them to tell yourself a macro has finished, or how far it got.
+
+## The rest, when you need them
+
+These dozen or so are enough to build most everyday macros. The remaining hundred-plus handle the clipboard, images, scripts, choosing a different path depending on the situation and more, and none of them need learning now. When you want to do something new, think about which kind of thing it is, search the action list for a word, or browse the official [Actions](https://wiki.keyboardmaestro.com/Actions) list. Variables, conditions and loops are [step 4](/en/guide/4-variables/), the clipboard is [step 5](/en/guide/5-clipboard/), and scripts are [step 7](/en/guide/7-advanced/).
+
+You've now met macro groups, triggers and actions, which is enough to put a whole macro together yourself. Next come variables, conditions and loops, so macros can adapt to what's going on.
+
+## Stuck?
+
+<Q q="The action list is huge and I can't find what I need.">
+<p>Choose <strong>All Actions</strong>, then type a word for what you want to do, like Window, Menu or Clipboard. Still nothing? Search by name with <strong>Edit ▸ Insert Action by Name</strong> (⌃⌘A), or browse the official <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a> list.</p>
+</Q>
+<Q q="Each action works with Try, but the whole macro goes wrong.">
+<p>It's probably too fast: the next step starts before the last one has finished, like typing before the app has come to the front. Put a <strong>Pause</strong> between them, or better, a <strong>Pause Until</strong> that waits until that app really is at the front.</p>
+</Q>
+<Q q="After inserting text, what was on my clipboard is gone.">
+<p>That's how <strong>Insert Text by Pasting</strong> works: it borrows the clipboard to paste. If the text is short and needs no formatting, switch to <strong>Insert Text by Typing</strong>. Clipboard history is covered in <a href="/en/guide/5-clipboard/">step 5</a>.</p>
+</Q>
+<Q q="As soon as the menu action runs, the whole macro stops.">
+<p>The menu name doesn't match, or the item was greyed out at that moment. Pick it again from the action's pop-up menu of running apps instead of typing it. If the item can legitimately be greyed out, set the action in its gear <strong>⚙</strong> menu to let the macro carry on when it fails.</p>
+</Q>
+<Q q="The mouse click lands in the wrong place.">
+<p>The window moved or the interface changed. Replace it with a menu choice or a button press if you can. If you really must click, measure the position from a corner of the window, or find the image on screen first and click that; see the how-to <a href="/en/howto/click-image/">Find a button on screen and click it</a>.</p>
+</Q>
+
+<Checkpoint id="s3" items={["I can find an action by searching the action list, and with Insert Action by Name", "I know when to insert text by pasting and when by typing", "I know to choose menus with the menu action, and that clicking the mouse is the last resort", "I know Pause Until can wait when two steps run too close together"]} />
