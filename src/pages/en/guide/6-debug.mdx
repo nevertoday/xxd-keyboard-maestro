@@ -1,6 +1,121 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 6
-tldr: "Check permissions and the Engine first, then whether the group is active. Still stuck? Step through with the debugger or read the Engine log"
+tldr: "When a macro doesn't work, don't start rewriting it. Check from the outside in: are the permissions granted, is the Engine running, are the group and macro enabled and active, does the trigger clash with another one? Once all of that is fine, step through the macro in the debugger, or use the Log action and the Engine log to see where it goes wrong. Stop a runaway macro from Cancel in the status menu."
+description: "What to check, in order, when a macro doesn't work: let Interactive Help check first; permissions and Secure Input; whether the Engine is running; whether the group and macro are enabled and active; hot key clashes and the Conflict Palette; timing problems from actions that run too fast; stepping through with the debugger; the Log action and Engine.log; stopping running macros; where to ask."
 ---
-{/* TBD: step 6, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Fig from "../../../components/Fig.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+You press the hot key and nothing happens. Or the macro gets halfway and types into the wrong window. The natural reaction is to assume the macro is wrong and go back through it action by action, and after half an hour it still doesn't work. Often the macro is fine. It never got triggered at all, or macOS wouldn't let it act.
+
+<mark><strong>When a macro doesn't work, don't rush to change it. Check from the outside in: permissions, the Engine, whether the group and macro are active, whether the trigger clashes with another. Only when all of those are fine do you step through the actions inside.</strong></mark>
+
+The order isn't arbitrary. When one of the outer layers breaks, every macro stops working at once, and it's quick to check. The further in you go, the more the problem is about this one macro, and the more time it takes to find.
+
+<Fig id="6-debug-order" />
+
+## Let Keyboard Maestro check first
+
+In the editor, open the **Help** menu, choose **Interactive Help**, and click "Something expected is not happening". It runs through roughly the same order for you: whether the <Term k="引擎" /> is running, whether the editor can talk to it, whether Secure Input is on, and whether Accessibility permission is granted. If all is well, you pick the misbehaving macro from a menu, and it checks whether its group is enabled and active, whether the macro is enabled, has a trigger and has enabled actions. Finally you fire the trigger once, and the window shows which macros were triggered ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)).
+
+If the macro is doing something odd rather than nothing, choose "Something unexpected is happening" instead. The sections below explain what each layer it checks actually is, and how to look for yourself when it doesn't find the problem.
+
+## Layer one: permissions
+
+The wiki says about 80% of the support email Stairways Software receives is about Apple's security permissions. The usual suspects are Accessibility, Screen Recording, Secure Input (more on that below) and something called App Translocation ([wiki](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). The one that matters most is <Term k="辅助功能权限" />: Keyboard Maestro needs it to press keys, move windows and choose menus for you.
+
+The quickest check is the **Security** pane in Keyboard Maestro's preferences (**Keyboard Maestro ▸ Settings** in the menu bar). It lists the important permissions in one place and shows whether each is on. According to the wiki, turning everything on there fixes a lot of problems by itself. You grant permissions in places like **System Settings ▸ Privacy & Security ▸ Accessibility** (System Preferences on older macOS), and [beginner lesson 1](/en/start/1-first-macro/) walks through doing it the first time. A yellow warning triangle in the bottom right corner of the editor window also means something isn't on. Click it and follow the instructions.
+
+Unfortunately, the macOS permission system has been buggy since Mojave. Checkboxes don't appear, won't tick, or show as ticked without actually granting anything. The wiki suggests trying several things:
+
+- Restart your Mac.
+- Quit and relaunch Keyboard Maestro and Keyboard Maestro Engine.
+- Make sure you moved Keyboard Maestro.app into the Applications folder <strong>using the Finder</strong>. Opening it straight from the downloaded zip can trigger macOS App Translocation, which makes Keyboard Maestro launch improperly ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_1_--_New_Install)).
+
+Then there's a permission problem that doesn't look like one: Secure Input. While you type in a password field, macOS doesn't let any app watch the keyboard, to keep your password from being snooped on. Sometimes the system gets stuck thinking you're always in a password field, and then hot keys and <Term k="输入字符串触发器" text="typed string triggers" /> all stop working. Quitting the app that last asked for a password, or restarting, clears it. When Keyboard Maestro notices it's stuck, it tells you which process is responsible in the status menu or behind the yellow triangle in the editor ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+
+## Layer two: is the Engine running?
+
+The program that actually runs your macros is Keyboard Maestro Engine in the background, not the editor window you write them in. You can quit the editor, but not the Engine. Look for Keyboard Maestro's icon in the menu bar: if it's there, the Engine is running. If not, open Keyboard Maestro once and the Engine starts. So it's there every time you log in, turn on **Launch Engine at Login** in the **General** preferences ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
+
+## Layer three: are the group and macro active?
+
+For a macro to fire, two things must both be true: the macro and its <Term k="宏组" /> are enabled, and the group is active right now ([wiki](https://wiki.keyboardmaestro.com/Macro_Activation)).
+
+Enabled is the ✔ or ✖ in the top right corner of the macro and of the group. Click it to switch, or use **View ▸ Toggle Enable**. Active depends on the group's settings: if a group only works in Safari, its hot key does nothing while you're in Mail, and a group that has to be activated first does nothing until you activate it. [Step 1](/en/guide/1-groups/) covers those settings. When you check, notice which app was in front when you pressed the key.
+
+## Layer four: does the trigger clash?
+
+When two active macros share a hot key or a typed string, Keyboard Maestro can't tell which one you meant. So it shows a small Conflict Palette listing them, and you click one or type a letter until only one is left ([wiki](https://wiki.keyboardmaestro.com/Conflict_Palette)). If a little list pops up when you press a hot key, nothing is broken: two macros are sharing a trigger. Give one of them a different hot key, or put them in groups that are active in different apps. You can also do it on purpose: give a few related macros the same hot key and pick from the palette, so you have fewer combinations to remember.
+
+Clashes can also happen outside Keyboard Maestro. When you press a hot key, Keyboard Maestro takes the key, so an app's own menu shortcut on the same keys stops working. And if another app registers the same hot key system-wide, both your macro and the other app's action happen ([wiki](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Terminology)). Combinations like ⌃⌥⌘ (Control-Option-Command) plus a letter rarely clash with anything.
+
+## Layer five: it fires, but does the wrong thing
+
+Now the macro really is running, just not correctly. The most common cause isn't a wrong action. It's speed: the macro takes the next step before the app is ready, so it seems to skip steps or stop halfway. The wiki's fix is to make it wait. Add a **Pause**, which the wiki says is often fine at 0.3 seconds, or better, a **Pause Until** that waits for a condition, as in [step 4](/en/guide/4-variables/) ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
+
+If you can't tell which step goes wrong, have the macro walk through it with you.
+
+### The debugger: one step at a time
+
+The <Term k="调试器" /> is a window that slows a macro down and stops at each step so you can watch ([wiki](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)):
+
+1. Click Keyboard Maestro's icon in the menu bar and choose **Start Debugging**. The **Macro Debugger** window opens.
+2. Make sure **Pause New Macros** is checked.
+3. Trigger your macro the usual way. It appears in the window, paused at the start.
+4. Click the button with the down arrow to step into the first action, then click again for each step after that.
+
+Of the buttons on the left, **Continue** lets it run to the end, **Step Over** runs the current action (and anything inside it) in one go, **Step In To** goes inside it, and **Step Out Of** finishes the current level. On the right, **Edit** opens the current action in the editor and **Cancel** cancels the macro. The button at the top right shows the ten variables this run changed most recently, so you can see at a glance whether the values are right.
+
+Two things to know. First, once a macro starts, the Engine runs a copy of it, so edits you make in the editor don't affect the run in progress. Second, <u>if it works when you step through it but fails when it runs normally, it's almost certainly too fast</u>: while you click step by step, the app has plenty of time to catch up. Add a Pause before the step that fails. When you close the debugger window, any paused macros carry on as normal.
+
+### The Log action and the Engine log
+
+The debugger shows only ten variables. To see more, add a **Log** action to the macro. It writes your text to a file called Engine.log, and the text can include tokens and variables, like "Got here, name is `%Variable%Local Name%`" ([wiki](https://wiki.keyboardmaestro.com/action/Log)). To see something on screen right away, use **Display Text** to show it in a window.
+
+The <Term k="引擎日志" /> records more than your own messages: when an action fails, the reason is written there too. In the editor, choose **Help ▸ Open Logs Folder**, open Engine.log, and read the last few lines. If you see entries from your macro, it did fire. If there are none, go back to the earlier layers ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_6_--_After_New_Macros_or_Actions)). Also make sure Keyboard Maestro Engine is allowed to show notifications: it uses them to tell you an action failed, and if they're turned off you never see the message.
+
+If you don't know an action well, open the gear menu at its top right and choose **Help**. That opens the action's page on the official wiki.
+
+## Stopping a macro that won't stop
+
+If a macro is spinning or won't stop typing, don't panic. There are several places to stop it ([wiki](https://wiki.keyboardmaestro.com/manual/How_do_I)):
+
+- <strong>Stop one</strong>: click Keyboard Maestro's icon in the menu bar and choose the macro under **Cancel**. That list also shows which macros are running right now.
+- <strong>Stop them all</strong>: hold ⌃⌥⇧ (Control-Option-Shift, with or without ⌘) and click Keyboard Maestro's icon in the menu bar. Every running macro is cancelled.
+- <strong>From the debugger</strong>: the **Start Debugging** window lists every running macro. Click **Cancel**.
+- <strong>Build an emergency stop</strong>: actions like **Cancel All Macros** and **Cancel This Macro** can go in a macro too. Give one a hot key and you have your own stop button.
+
+If none of that works, quit Keyboard Maestro Engine from the status menu. If a macro that runs at login won't even let you reach the menu, the wiki has a more thorough route, such as holding ⌃⌥⇧⌘ while you open the editor, which quits the Engine and doesn't start it again, so you can fix the macro in peace. See the how-to [When a macro won't stop](/en/howto/stop-macro/).
+
+## Still stuck? Where to ask
+
+The wiki's advice is that questions about a specific macro get the quickest answers on the [official forum](https://forum.keyboardmaestro.com/), where plenty of people help. Say which versions of macOS and Keyboard Maestro you have, what the macro should do and what actually happens, and attach the exported macro if you can ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_3_--_After_Update_to_New_Version_of_Keyboard_Maestro)). Before you post, remove license details, passwords and any personal text.
+
+You now know where to start when a macro misbehaves. The last step is optional: it shows a few doors that lead further into Keyboard Maestro, namely scripts, subroutines, syncing and sharing.
+
+## Stuck?
+
+<Q q="I pressed the hot key and nothing happened.">
+<p>Go in order: is Keyboard Maestro's icon in the menu bar (is the Engine running)? Are all the permissions on in the Security preferences? Do the macro and its group both show ✔? Was the app in front one where the group is active? If you're not sure, let Interactive Help in the Help menu check for you.</p>
+</Q>
+<Q q="When I press the hot key, a small list pops up.">
+<p>That's the Conflict Palette: two or more active macros use the same hot key. Click the one you want to run it, or give one of them a different hot key if you don't want to choose every time.</p>
+</Q>
+<Q q="Suddenly none of my hot keys or typed strings work.">
+<p>Most likely Secure Input is stuck, or the Engine quit. Check for Keyboard Maestro's icon in the menu bar, then quit the app that last asked for a password, and restart if that doesn't help. When Keyboard Maestro sees Secure Input stuck on, the status menu says which process is responsible.</p>
+</Q>
+<Q q="The permission is ticked in System Settings, but Keyboard Maestro says it doesn't have it.">
+<p>That's a long-standing bug in the macOS permission system. Restart your Mac, quit and relaunch Keyboard Maestro and the Engine, and make sure Keyboard Maestro.app was moved into the Applications folder using the Finder.</p>
+</Q>
+<Q q="It works when I step through it in the debugger but fails when it runs normally.">
+<p>The macro is faster than the app. Add a Pause before the step that fails, or use Pause Until to wait for that window to appear.</p>
+</Q>
+<Q q="I changed the macro, but it still runs the old way.">
+<p>A run that's already going uses the copy it started with, so changes apply from the next run. Stop it from Cancel in the status menu and trigger it again.</p>
+</Q>
+
+<Checkpoint id="s6" items={["When a macro doesn't work, I check permissions, the Engine, the group and macro, the trigger, then the actions", "I've tried Interactive Help in the Help menu", "I can step through a macro with Start Debugging", "I know Engine.log is under Help ▸ Open Logs Folder", "I know holding ⌃⌥⇧ and clicking the menu bar icon stops every macro"]} />

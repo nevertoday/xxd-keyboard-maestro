@@ -1,6 +1,113 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 5
-tldr: "Clipboard history lets you paste what you copied earlier, named clipboards keep a few things for good, and filters change text before you paste"
+tldr: "Keyboard Maestro remembers what you've copied recently (up to 200 items by default). Press ⌃⇧⌘V to open the clipboard history and paste any of it again. Signatures and images you use often go in named clipboards, which survive a restart. The Filter action can strip formatting, change case or sort lines before you paste."
+description: "How to open the clipboard history, paste something you copied earlier, and paste it as plain text; what it doesn't record (things that look like passwords, excluded apps) and whether it survives a restart; how named clipboards differ from variables and how to make and use one; the Filter action and filtering inside the history; Paste by Name; common places people get stuck."
 ---
-{/* TBD: step 5, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Callout from "../../../components/Callout.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+You're filling in a job application online. You copy your phone number from your résumé and paste it in, then go back for your email address, then copy the intro paragraph you've rewritten a dozen times. Back in the form, you notice you skipped the link to your portfolio, and that copy is long gone because each new copy replaced it. The Mac's clipboard holds one thing at a time, and every copy pushes the last one out.
+
+<mark><strong>With Keyboard Maestro installed, the things you copied are still there: it keeps your last couple of hundred copies, and the few you use all the time can get a name and stay for good.</strong></mark>
+
+This step covers three things: the <Term k="剪贴板历史" /> for going back, <Term k="命名剪贴板" text="named clipboards" /> for keeping things, and filters for changing text before you paste it. None of them needs a macro from you; they work as soon as Keyboard Maestro is installed. Each also has actions, for when you want it inside your own macros.
+
+## Clipboard history: one key to go back
+
+Every time you copy in any app, the <Term k="引擎" /> saves a copy of the clipboard. By default it keeps up to 200 items, and you can change the number in the preferences ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)). To look through them, open the **Clipboard History Switcher**. It's a macro that comes with Keyboard Maestro, lives in the **Switcher Group** macro group, and uses the hot key ⌃⇧⌘V (Control-Shift-Command-V) by default.
+
+<Callout type="ok">
+Press ⌃⇧⌘V and a list appears. The top item is what you just copied, and older copies are below it.
+</Callout>
+
+Find the one you want and double-click it, press Return, or drag it into your document, and it's pasted where you were typing. A few handy variations:
+
+- Hold ⇧ Shift while pressing Return or double-clicking to paste it as plain text, without the original fonts and colors.
+- Hold ⌥ Option instead to put it back on the system clipboard without pasting yet.
+- ⌘ plus a number pastes the matching item directly.
+- The search field at the top finds an item from a few words you remember, and you can show only images or only favorites.
+- Mark an item you use a lot as a favorite and it's never pushed out.
+- Select several items and paste them together as one. Pick what goes between them from the gear menu.
+
+So the job seeker from the start can copy the phone number, email, link and intro in one go, then come back to the form and press ⌃⇧⌘V to paste them one by one.
+
+You don't even need the window. Click Keyboard Maestro's <Term k="状态菜单" /> in the menu bar: its **Paste** menu lists the 30 most recent text items, and choosing one pastes it ([wiki](https://wiki.keyboardmaestro.com/Status_Menu)).
+
+## What it doesn't keep, and for how long
+
+The clipboard history records everything, so a few things are worth knowing up front ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)):
+
+- <strong>Things that look like passwords</strong> are hidden in the list, deleted once they reach tenth place, and never saved to disk. Option-click one to see it. The **Detect (and Conceal) Possible Passwords** setting in the **General** preferences controls this.
+- <strong>Whether it survives a restart</strong> depends on **Save Clipboard History Between Launches** in **General**. With it off, the history is cleared every time the Engine quits, and restarting your Mac quits the Engine ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)).
+- <strong>Apps you don't want recorded</strong>, like the one that holds other people's details, go on the clipboard history exclusion list in the **Excluded** preferences. While an excluded app is in front, Keyboard Maestro doesn't record the clipboard automatically ([wiki](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)).
+
+The preferences are under **Keyboard Maestro ▸ Settings** in the menu bar (older macOS versions call it Preferences).
+
+One more thing affects your own macros. Many actions do their work through the system clipboard, such as **Insert Text by Pasting** and **Copy to Named Clipboard**, and <u>they all replace what was on the system clipboard</u> ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)). Press ⌘V after one of those macros and you may get the text the macro just pasted. The good news is that your own copy is still in the history, a step or two back.
+
+## Named clipboards: give it a name and keep it
+
+The clipboard history is a stream that keeps moving: new items come in and old ones slide down. Some things you want to stay put, like an email signature with your shop's logo and phone number, an image you paste all the time, or a formatted course description. That's what named clipboards are for.
+
+A named clipboard isn't really a clipboard. It's closer to a small file that stores clipboard contents: whatever you put in stays there, through restarts, until you change or delete it. The big difference from a <Term k="变量" text="variable" /> is that it can hold styled text and images, while a variable holds only plain text ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)).
+
+Making one is easy. Open the **Clipboards** preferences, click the + button, type a name in the one-line field at the top right, and paste the contents into the big field below it: text, styled text or an image.
+
+There are two ways to use it:
+
+- The **Named Clipboard Switcher** is a window listing all your named clipboards. Keyboard Maestro puts three macros for it in the **Switcher Group**, with the default hot keys ⇧⌘X, ⇧⌘C and ⇧⌘V: cut into a clipboard, copy into it, and paste from it ([wiki](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)). Keyboard Maestro takes the key when you press a hot key, so if ⇧⌘V does something you rely on in one of your apps, give this macro a different hot key.
+- Inside a macro, **Copy to Named Clipboard** copies the current selection into a named clipboard and **Paste from Named Clipboard** pastes it back out. These actions always go through the system clipboard, so afterwards the system clipboard holds the same contents ([wiki](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)). In a text field, the `%NamedClipboard%name%` token puts a named clipboard's text into a sentence.
+
+<Callout type="warn">
+Your list of named clipboards includes one called **Default Clipboard**. The wiki makes a point of saying it's an ordinary named clipboard, and "Default" only means it came with the app. <u>It isn't the Mac's system clipboard.</u>
+</Callout>
+
+## Change it before you paste
+
+Copy a paragraph from a web page and paste it into an email, and it brings the page's fonts and colors along. Copy a column of names from a spreadsheet and they come with stray spaces, in no particular order. You can fix all of that before pasting.
+
+The quickest place is the clipboard history itself. Select an item, click its gear button or right-click it, and the menu offers a set of ready-made operations, such as converting to plain text. Each one makes a new item, which you then paste ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)).
+
+To do it automatically in a macro, use the **Filter** action. First choose what to work on: the system clipboard, a named clipboard, a variable, some text, or a file. Then pick a filter from the **with** menu. Finally choose whether the result goes back where it came from or into another clipboard, variable or file ([wiki](https://wiki.keyboardmaestro.com/action/Filter)). A few you'll use:
+
+- **Remove Styles** turns styled text into plain text (clipboards only).
+- **Trim Whitespace** removes the space at the start and end.
+- **Uppercase**, **Lowercase**, **Title Case** and **Sentence Case** change the case.
+- **Sort Lines** puts the lines in order.
+- Counting characters, words or lines.
+
+The full list is on the wiki's [Filters](https://wiki.keyboardmaestro.com/manual/Filters) page. Say a teacher copies a column of student names out of a spreadsheet: one **Filter** trims the space, another **Filter** sorts the lines, and a paste puts them in the document. Three actions. If all you want is to paste without formatting, there's a how-to just for that: [Paste without the formatting](/en/howto/paste-plain/).
+
+Your own macros can show up in that gear menu too. Give a macro a **Clipboard Filter** trigger and it appears there, able to work on whichever item you selected in the list ([wiki](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)).
+
+## You remember the words, not the position: Paste by Name
+
+Scrolling down to the fortieth item in the history gets old. The **Paste by Name** action opens a search field instead: type a few words, it finds matching text in the clipboard history, and you pick one to paste ([wiki](https://wiki.keyboardmaestro.com/action/Paste_by_Name)). Put it in a macro with a hot key and you have a "search, then paste" key.
+
+You can now get back anything you copied, and the pieces you use all the time have a permanent home. Write enough macros and one of them will misbehave, so the next step covers what to check, in order, when a macro doesn't work.
+
+## Stuck?
+
+<Q q="I press ⌃⇧⌘V and nothing appears.">
+<p>First check that Keyboard Maestro's icon is in the menu bar; if it isn't, the Engine isn't running. Then open the editor and make sure both the Switcher Group and the Clipboard History Switcher macro inside it are enabled. Still nothing? Work through <a href="/en/guide/6-debug/">step 6</a> in order.</p>
+</Q>
+<Q q="After a restart, my clipboard history is empty.">
+<p>Save Clipboard History Between Launches in the General preferences is off. Turn it on and the history is kept when the Engine quits and starts again.</p>
+</Q>
+<Q q="Things I copy in one app never show up in the history.">
+<p>Check the Excluded preferences: that app may be on the clipboard history exclusion list. While an excluded app is in front, Keyboard Maestro doesn't record the clipboard automatically.</p>
+</Q>
+<Q q="Something I just copied is hidden, and later it's gone.">
+<p>It looked like a password, so Keyboard Maestro hid it, deleted it once it reached tenth place, and never saved it to disk. Option-click it to see it.</p>
+</Q>
+<Q q="My macro pastes two pieces of text and the second one comes out twice.">
+<p>The wiki explains that setting the clipboard happens instantly, but ⌘V waits in line for the app. If the app is slow, both clipboard changes happen before the first paste, so you get the second text twice. Put both pieces in a single Insert Text by Pasting, or add a Pause between the two actions (<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">wiki</a>).</p>
+</Q>
+<Q q="I put something in Default Clipboard, but ⌘V doesn't paste it.">
+<p>Default Clipboard is an ordinary named clipboard, not the system clipboard. Paste from it with the Named Clipboard Switcher or the Paste from Named Clipboard action.</p>
+</Q>
+
+<Checkpoint id="s5" items={["⌃⇧⌘V opens my clipboard history, and Shift-Return pastes plain text", "I know Save Clipboard History Between Launches decides whether the history survives a restart", "I made a named clipboard and put something I use often in it", "I know the Filter action can strip formatting and trim space before pasting"]} />

@@ -1,6 +1,121 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 6
-tldr: "先看权限和引擎，再看宏组有没有生效；还不行，用调试器一步一步走，或者翻引擎日志"
+tldr: "宏不灵，先别改宏，从外往里查：权限给了没有，引擎开着没有，宏组和宏生效了没有，触发器有没有撞车。这几样都对，再用调试器一步一步走，或者用 Log 动作和引擎日志看它卡在哪。停不下来的宏，从状态菜单的 Cancel 里停。"
+description: "宏不灵时按什么顺序查：先让 Interactive Help 查一遍；权限和 Secure Input；引擎有没有开；宏组和宏是不是启用并且生效；热键撞车和冲突面板；动作太快的时间问题；调试器怎么一步一步走；Log 动作和 Engine.log；怎么停下正在跑的宏；去哪里问。"
 ---
-{/* 待写：第 6 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Checkpoint from "../../components/Checkpoint.astro";
+import Fig from "../../components/Fig.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+你按下热键，什么也没发生。或者宏跑了一半，字打到了别的窗口里。第一反应往往是宏写错了，于是回去一个动作一个动作地改，改了半天还是不灵。其实很多时候，宏一个字都没写错，它压根就没被触发，或者是 macOS 不让它动手。
+
+<mark><strong>宏不灵，先别急着改宏，从外往里查：权限、引擎、宏组和宏有没有生效、触发器有没有撞车，这几样都没问题了，再一步一步看里面的动作。</strong></mark>
+
+这个顺序不是随便排的。外面那几层一出问题，所有的宏一起不灵，查起来也快；越往里，越是只跟这一个宏有关，要花的工夫也越多。
+
+<Fig id="6-debug-order" />
+
+## 先让 Keyboard Maestro 自己查一遍
+
+在编辑器的 **Help** 菜单里选 **Interactive Help**（交互式帮助），点「Something expected is not happening」（该发生的没发生）。它会按差不多同样的顺序替你查一遍：<Term k="引擎" />开着没有、能不能和编辑器说上话、Secure Input 是不是开着、辅助功能权限给了没有。都没问题，就让你从菜单里选出那个不灵的宏，再查它所在的宏组启用了没有、生效了没有，宏本身启用了没有、有没有触发器、有没有启用的动作。最后你按一次触发器，窗口里会显示刚才触发了哪些宏（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)）。
+
+宏是在做「奇怪的事」而不是「什么都不做」，就选另一个「Something unexpected is happening」。下面几节，讲的就是它查的每一层到底是什么，以及它查不出来的时候你自己怎么看。
+
+## 第一层：权限
+
+官方说，他们收到的求助邮件里，大约八成和苹果的安全权限有关，最常见的是辅助功能、屏幕录制、下面要讲的 Secure Input，和一个叫 App Translocation 的问题（[官方说明](https://wiki.keyboardmaestro.com/manual/Troubleshooting)）。其中最要紧的是<Term k="辅助功能权限" />：Keyboard Maestro 要替你按键、移窗口、选菜单，都得有它。
+
+最快的看法是打开 Keyboard Maestro 的偏好设置（菜单栏的 **Keyboard Maestro ▸ Settings**），点 **Security** 一栏：它把要紧的几项权限列在一起，标着开了没有。官方的说法是，把这里都打开，很多问题就跟着解决了。权限在 **系统设置 ▸ 隐私与安全性 ▸ 辅助功能** 这样的地方给（旧版本的 macOS 叫「系统偏好设置」），第一次怎么给，见[新手第 1 课](/start/1-first-macro/)。编辑器窗口右下角出现一个黄色的警告三角，也是在提醒你哪里没开，点它照着做。
+
+可惜 macOS 的权限系统从 Mojave 起一直有毛病：勾选框不出现，勾不上，或者明明勾着，权限其实没给。官方建议的办法是多试几样：
+
+- 重启 Mac。
+- 退出再重新打开 Keyboard Maestro 和 Keyboard Maestro Engine。
+- 确认 Keyboard Maestro.app 是**用 Finder** 拖进「应用程序」文件夹的。从网上下载的压缩包里直接打开，可能触发 macOS 的 App Translocation，Keyboard Maestro 会因此启动得不对（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_1_--_New_Install)）。
+
+还有一种不像权限问题的权限问题，叫 Secure Input（安全输入）。你在密码框里打字时，macOS 不让任何 App 看键盘，这本来是为了防止别人偷看密码；可它有时会卡在「一直在输密码」的状态，于是热键和<Term k="输入字符串触发器" />全都不灵了。退出刚才让你输过密码的那个 App，或者重启，就能恢复。Keyboard Maestro 发现它卡住时，会在状态菜单里、或者编辑器右下角的黄色三角里告诉你是哪个程序（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)）。
+
+## 第二层：引擎开着吗
+
+真正替你跑宏的，是后台的 Keyboard Maestro Engine，不是你打开来写宏的那个编辑器。编辑器可以关，引擎不能关。看菜单栏上有没有 Keyboard Maestro 的图标：有，引擎就开着；没有，打开一次 Keyboard Maestro 它就起来了。为了以后开机就有，在偏好设置的 **General** 里打开 **Launch Engine at Login**（登录时启动引擎）（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)）。
+
+## 第三层：宏组和宏生效了吗
+
+一个宏要被触发，得同时满足两件事：宏和它所在的<Term k="宏组" />都是启用的，并且宏组「这会儿」是生效的（[官方说明](https://wiki.keyboardmaestro.com/Macro_Activation)）。
+
+启用看的是宏和宏组右上角那个 ✔ 或 ✖，点一下就切换，也可以用 **View ▸ Toggle Enable**。生效看的是宏组的设置：一个只在 Safari 里生效的宏组，你在 Mail 里按它的热键，当然什么都不会发生；一个要先激活的宏组，你没激活，它也不动。这些设置在[第 1 步](/guide/1-groups/)讲过。查的时候，先确认你按热键时最前面是哪个 App。
+
+## 第四层：触发器撞车了吗
+
+两个都在生效的宏用了同一个热键、同一串输入字符串，Keyboard Maestro 不知道你想跑哪一个，就弹出一个小小的冲突面板（Conflict Palette），把这几个宏都列出来，让你点一个，或者打一个字母筛到只剩一个（[官方说明](https://wiki.keyboardmaestro.com/Conflict_Palette)）。所以按热键时屏幕上冒出一个小列表，不是坏了，是撞车了。办法是给其中一个换一个热键，或者把它们放进只在不同 App 里生效的宏组。反过来，你也可以故意让几个相关的宏共用一个热键，按下以后再挑，少记几个组合。
+
+还有一种撞车发生在 Keyboard Maestro 外面。热键按下时，Keyboard Maestro 会把这个键接走，App 自己菜单里同样的快捷键就用不了了；要是另一个 App 也在全局注册了同一个热键，按下去两边会一起动（[官方说明](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Terminology)）。挑 ⌃⌥⌘（Control-Option-Command）加一个字母这种组合，就很少撞上。
+
+## 第五层：触发了，但做得不对
+
+到这里，宏确实跑起来了，只是没做对。最常见的原因不是动作写错，而是太快：宏在 App 还没准备好的时候就做了下一步，于是像是跳过了几步，或者停在半路。官方的办法是告诉它等：加一个 **Pause**（暂停），官方说 0.3 秒常常就够；更稳的是 **Pause Until**（暂停直到），等某个条件成立再走，见[第 4 步](/guide/4-variables/)（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)）。
+
+不知道卡在哪一步，就让它一步一步走给你看。
+
+### 调试器：一步一步走
+
+<Term k="调试器" />就是让宏放慢、每一步停下来给你看的窗口（[官方说明](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)）：
+
+1. 点菜单栏上 Keyboard Maestro 的图标，选 **Start Debugging**（开始调试），**Macro Debugger**（宏调试器）窗口就出来了。
+2. 确认窗口里的 **Pause New Macros**（新宏先暂停）勾着。
+3. 照平常那样触发你的宏，它会出现在窗口里，停在开头。
+4. 点带向下箭头的按钮走进宏的第一步，之后每点一次往前走一步。
+
+左边的按钮里，**Continue** 让它一直跑完，**Step Over** 把当前这个动作（连同它里面的动作）一口气做完再停，**Step In To** 走进它里面，**Step Out Of** 跳出这一层。右边的 **Edit** 在编辑器里打开当前这个动作，**Cancel** 取消这个宏。右上角的按钮能显示这次运行最近改过的十个变量，看一眼就知道值对不对。
+
+有两件事要知道。一是宏一旦开始跑，引擎拿的是它的一份副本，这时候在编辑器里改，不影响正在跑的这一次。二是<u>在调试器里一步步走好好的、正常跑却出错，几乎就是太快了</u>：你一步步点的时候，App 有足够的时间跟上。去出错的那一步前面加一个 Pause。关掉调试器窗口，暂停着的宏会接着照常跑。
+
+### Log 动作和引擎日志
+
+调试器只显示十个变量。想知道更多，在宏里加一个 **Log**（记录）动作：它把你写的一段文字记进 Engine.log 这个文件，文字里可以放令牌和变量，比如「到这里了，名字是 `%Variable%Local Name%`」（[官方说明](https://wiki.keyboardmaestro.com/action/Log)）。想马上在屏幕上看到，用 **Display Text**（显示文字）弹一个窗口。
+
+<Term k="引擎日志" />不只记你写的东西，动作出错的原因也记在里面。在编辑器里选 **Help ▸ Open Logs Folder**（打开日志文件夹），打开 Engine.log，翻到最后几行。看得到这个宏的记录，说明它确实被触发了；一条都没有，就回到前几层查（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_6_--_After_New_Macros_or_Actions)）。另外，确认 Keyboard Maestro Engine 能发通知：动作失败时它会用通知告诉你，通知被关掉了，你就看不到。
+
+对某个动作不熟，点它右上角的齿轮菜单，选 **Help**，会打开官方 Wiki 里讲这个动作的那一页。
+
+## 停下一个停不下来的宏
+
+宏在原地转圈，或者一直在打字，别慌，有好几个地方能停它（[官方说明](https://wiki.keyboardmaestro.com/manual/How_do_I)）：
+
+- **停一个**：点菜单栏上的 Keyboard Maestro 图标，在 **Cancel** 里选这个宏。这里也能顺便看到现在有哪些宏在跑。
+- **全停**：按住 ⌃⌥⇧（Control-Option-Shift，加不加 ⌘ 都行），点菜单栏上的 Keyboard Maestro 图标，所有正在跑的宏都会被取消。
+- **在调试器里**：**Start Debugging** 的窗口里列着所有在跑的宏，点 **Cancel**。
+- **做一个急停键**：**Cancel All Macros**、**Cancel This Macro** 这几个动作也能放进宏里，给它配一个热键，就是你自己的急停按钮。
+
+实在不行，就在状态菜单里退出 Keyboard Maestro Engine。要是一个登录时就跑的宏让你连菜单都点不了，官方还有更彻底的办法，比如按住 ⌃⌥⇧⌘ 四个键打开编辑器，它会退出引擎、也不再启动引擎，你就能安心把那个宏改掉。详见 How-to 的[宏停不下来怎么办](/howto/stop-macro/)。
+
+## 还是不行，去哪问
+
+官方的建议是，具体的宏怎么写，去[官方论坛](https://forum.keyboardmaestro.com/)问最快，那里热心的人多。发帖时写清楚 macOS 和 Keyboard Maestro 的版本、宏应该做什么、实际发生了什么，最好附上导出的宏（[官方说明](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_3_--_After_Update_to_New_Version_of_Keyboard_Maestro)）。发之前看一眼，去掉许可证信息、密码和私人的文字。
+
+到这里，宏不灵的时候你知道从哪查起了。最后一步不是必修，讲的是 Keyboard Maestro 再往深走的几扇门：脚本、子程序、同步和分享。
+
+## 卡住了？
+
+<Q q="按了热键，什么也没发生。">
+<p>按顺序来：菜单栏上有没有 Keyboard Maestro 的图标（引擎开着没有），偏好设置的 Security 里权限是不是都开着，宏和宏组是不是都打着 ✔，按热键时最前面的 App 是不是宏组生效的那个。拿不准，就用 Help 菜单里的 Interactive Help 让它查一遍。</p>
+</Q>
+<Q q="一按热键，冒出来一个小列表。">
+<p>那是冲突面板：有两个以上生效的宏用了同一个热键。点你要的那个就能跑；不想每次都选，给其中一个换个热键。</p>
+</Q>
+<Q q="所有的热键和输入字符串突然都不灵了。">
+<p>多半是 Secure Input 卡住了，或者引擎退出了。先看菜单栏的 Keyboard Maestro 图标，再退出刚才让你输过密码的 App；还不行就重启。Keyboard Maestro 发现 Secure Input 卡住时，会在状态菜单里说是哪个程序。</p>
+</Q>
+<Q q="系统设置里明明勾上了权限，Keyboard Maestro 还说没有。">
+<p>这是 macOS 权限系统的老毛病。重启 Mac，退出再打开 Keyboard Maestro 和引擎，并确认 Keyboard Maestro.app 是用 Finder 拖进「应用程序」文件夹的。</p>
+</Q>
+<Q q="调试器里一步步走都对，正常跑就出错。">
+<p>宏太快了，App 没跟上。在出错的那一步前面加一个 Pause，或者换成 Pause Until 等那个窗口出现。</p>
+</Q>
+<Q q="我改了宏，可它跑出来还是老样子。">
+<p>正在跑的那一次用的是开始时的副本，改动下一次才生效。先在状态菜单的 Cancel 里停掉它，再触发一次。</p>
+</Q>
+
+<Checkpoint id="s6" items={["宏不灵时，我按权限、引擎、宏组和宏、触发器、动作的顺序查", "我用过 Help 菜单里的 Interactive Help", "我会用 Start Debugging 一步一步走一个宏", "我知道 Engine.log 在 Help ▸ Open Logs Folder 里", "我知道按住 ⌃⌥⇧ 点菜单栏图标能停下所有的宏"]} />

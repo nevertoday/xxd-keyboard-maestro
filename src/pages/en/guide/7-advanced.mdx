@@ -1,6 +1,139 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 7
-tldr: "Hook in shell scripts, AppleScript and JavaScript, turn repeated steps into subroutines, sync between two Macs, and share macros with others"
+tldr: "Nothing in this step is required. Each part is a door you open when you need it: shell, AppleScript or JavaScript scripts for things the built-in actions can't do; subroutines for steps repeated across several macros; syncing for the same macros on two Macs; the Macro Library for ready-made macros; plug-in actions for actions other people wrote; and web or remote triggers to start a macro from your phone or another computer."
+description: "Using Execute a Shell Script, Execute an AppleScript and Execute a JavaScript For Automation, and passing variables in and out; subroutines and Execute a Subroutine; what to watch for when syncing macros between Macs; the Macro Library and sharing macros; installing plug-in actions; the Web Server and Remote triggers; and when each one is actually worth it."
 ---
-{/* TBD: step 7, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+After a while with Keyboard Maestro, new kinds of trouble show up. There's a job none of its actions can do, though you know a one-line Terminal command could. Or you have so many macros that five of them end with the same three steps, and changing one means changing five. Or you have one Mac at home and one at work, and every macro you build on one has to be built again on the other.
+
+<mark><strong>Nothing in this step is required. Each part is a door that leads further out: open it when you hit the matching problem. Most people only ever use one or two of them.</strong></mark>
+
+So you don't need to read this page top to bottom. Each section starts with what the thing is and ends with one sentence on when you'd actually need it. Read that sentence and you'll know whether the section is for you.
+
+## Scripts: when the built-in actions aren't enough
+
+Keyboard Maestro can run several kinds of script. The three actions you'll use most are **Execute a Shell Script**, **Execute an AppleScript** and **Execute a JavaScript For Automation** (JXA for short). The script can be typed into the action or kept in a file. You choose what happens to its result: ignore it, show it in a window, show it in a notification, type or paste it into the current text field, save it to a <Term k="变量" text="variable" />, put it on a clipboard, or run the script without waiting so the macro carries on at once ([wiki](https://wiki.keyboardmaestro.com/manual/Scripting)).
+
+The part that matters is how variables get in and out, and each kind of script does it differently.
+
+### Shell scripts
+
+Keyboard Maestro puts your variables into the script's environment, with `KMVAR_` in front of each name and spaces turned into underscores ([wiki](https://wiki.keyboardmaestro.com/action/Execute_a_Shell_Script#Using_Keyboard_Maestro_Variables)). So `Local Name` from step 4 is `$KMVAR_Local_Name` in the script. Local and Instance variables are available in this action too. By default every variable is included; the menu next to the script lets you include none, or only a few.
+
+Here's a small example that changes nothing. Set the result to show in a window:
+
+<Copy id="s7-shell" title="Type this into Execute a Shell Script" lang="sh" code={`echo "Hello, $KMVAR_Local_Name"\ndate`} />
+
+Two things trip people up. First, <u>these environment variables are read-only: changing one in the script doesn't change the Keyboard Maestro variable</u>. To bring a result back, have the script print it and set the action to save the result to a variable. Second, the script doesn't run in your usual Terminal session. It doesn't read files like `.zshrc`, and it only looks for commands in the few folders that come with the system, so a command you installed yourself may come back as "not found". The wiki's fix is to write the command's full path, or to create a variable called `ENV_PATH`, which Keyboard Maestro uses as the script's `PATH` ([wiki](https://wiki.keyboardmaestro.com/action/Execute_a_Shell_Script#Path_in_Shell_Scripts)). The wiki also recommends naming the language with a `#!` line at the top of the script.
+
+### AppleScript
+
+AppleScript can read variables from the environment too, and it can also ask Keyboard Maestro Engine directly: `getvariable` to read and `setvariable` to write, which is how you send a value back ([wiki](https://wiki.keyboardmaestro.com/action/Execute_an_AppleScript#Using_Keyboard_Maestro_Variables)):
+
+```applescript
+tell application "Keyboard Maestro Engine"
+	set lastFolder to getvariable "Last Folder"
+end tell
+```
+
+For Local or Instance variables you also have to say which run you mean: read this run's ID from the `KMINSTANCE` environment variable and add `instance` to `getvariable`. The wiki page's [Local & Instance Variables](https://wiki.keyboardmaestro.com/action/Execute_an_AppleScript#Local_Instance_Variables) section shows how.
+
+### JavaScript for Automation
+
+Since Keyboard Maestro 11, JXA scripts use "Modern Syntax" by default. The whole script is wrapped in a function, so you hand the result back with `return`. Variables come from `kmvar`, again with spaces turned into underscores ([wiki](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)). Local and Instance variables are available; password variables aren't.
+
+```javascript
+return "Hello, " + kmvar.Local_Name;
+```
+
+<strong>When you actually need it</strong>: Keyboard Maestro has no action for what you want, but a Terminal command or an app's AppleScript support can do it, or you already write a little script and want it on a hot key. If you don't write scripts, you can happily leave this alone forever.
+
+## Subroutines: write repeated steps once
+
+A <Term k="子程序" /> is a macro other macros can call. The wiki's example is saving a web page as a PDF: several macros need to do it, so you write one subroutine, and each of the others calls it at that point and hands it the URL and where to save ([wiki](https://wiki.keyboardmaestro.com/Subroutines)).
+
+There are two ends to set up:
+
+- <strong>The macro being called</strong> gets a **Subroutine** trigger. In it you list the parameters it takes, the variable each one is stored in, and whether it returns a result. To return one, use the **Return Result** action in the macro.
+- <strong>The macro doing the calling</strong> uses the **Execute a Subroutine** action. Pick the macro and fill in a value for each parameter, and if there's a result, name a variable to receive it ([wiki](https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine)).
+
+One trap: <u>parameters are passed by position, not by name</u>. If you later add, remove or change the meaning of a parameter in the Subroutine trigger, every caller has to change too. The trigger's **Callers** menu takes you straight to them.
+
+If you don't need parameters or a result and just want to run that other macro, the simpler **Execute a Macro** action does it. It can pass one value, which the called macro reads with the `%TriggerValue%` token. The called macro can also see this run's Instance variables, which is where step 4's difference between Instance and Local comes in.
+
+<strong>When you actually need it</strong>: the same few steps already appear in three or four macros, and you've noticed that one change means editing several places. While you have only a few macros, don't rush to split them up.
+
+## The same macros on two Macs
+
+One Keyboard Maestro license covers one person on up to five Macs, so using the same macros on more than one Mac is common. There are two ways to do it ([wiki](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)):
+
+- <strong>Move a few macros over</strong>: select them, choose **File ▸ Export Macros**, and import the file on the other Mac.
+- <strong>Keep the whole set in sync</strong>: you need a folder that both Macs can see and that syncs itself. The wiki mentions services like Dropbox, or a shared file server that's always available, and warns that iCloud Drive can take a long time to sync, which can lose changes. On the Mac that has your macros, choose **File ▸ Start Syncing Macros**, read the text carefully, and click **Create New** to save your macros into that folder. Once the file has synced to the second Mac, choose **File ▸ Start Syncing Macros** there, click **Open Existing**, and pick the file.
+
+<Callout type="warn">
+When you click **Open Existing** on the second Mac, <u>every macro already on that Mac is replaced</u>. Export anything you want to keep first, then import it once syncing is on, and it will sync to all your Macs.
+</Callout>
+
+After that, a few rules apply. Both Macs must run the same version of Keyboard Maestro. Only macros sync: preferences, clipboards and variables don't. Don't edit macros on both Macs at the same time, or you may lose one side's changes. To keep a macro group from running on one particular Mac, turn on the group's **Disabled on this Mac** setting there. For the full walk-through, see the how-to [Use the same macros on two Macs](/en/howto/sync-macs/).
+
+<strong>When you actually need it</strong>: you really do use the same macros every day on two or more Macs. If you only move a macro over now and then, exporting and importing is enough, and syncing isn't worth setting up.
+
+## The Macro Library and sharing
+
+The <Term k="宏库" /> is a set of ready-made macros that comes with Keyboard Maestro. Open it from **Window ▸ Macro Library**. Each macro has a short description; when one looks useful, insert it into your own macros and use it as it is, or change its hot key or actions ([wiki](https://wiki.keyboardmaestro.com/manual/Macro_Library)). All the macros Keyboard Maestro installs by default are in there too, so if you deleted one from the Switcher Group and want it back, this is where you get it.
+
+Going the other way, when you've built a macro worth sharing, you can export it to a file and send it, or use the **Share** button at the top of the editor window or the **File ▸ Share** menu. The how-to [Export, import and share macros](/en/howto/share-macros/) covers the details.
+
+<Callout type="no">
+The wiki warns that a macro can do practically anything on your Mac, including a lot of damage. <u>Don't run a macro someone gave you until you know where it came from and understand what each step does.</u>
+</Callout>
+
+<strong>When you actually need it</strong>: you're new and want ideas for what people do with Keyboard Maestro, or you want one of the built-in macros back.
+
+## Plug-in actions
+
+A <Term k="插件动作" /> is an action someone else wrote that you install into Keyboard Maestro and then use like a built-in one ([wiki](https://wiki.keyboardmaestro.com/manual/Plug_In_Actions)). The wiki lists the Keyboard Maestro website and the official forum as places to get them. To install one, <u>don't unzip it</u>: drag the downloaded `.zip` file onto Keyboard Maestro's icon in the Dock. If it doesn't show up afterwards, quit the Engine, then quit and reopen the editor. It appears under the **Third Party Plug Ins** category of actions.
+
+A plug-in action is code running on your Mac, just like a macro someone gave you, so only install ones from sources you trust.
+
+<strong>When you actually need it</strong>: someone has already written an action for exactly what you want, which beats assembling a long chain of actions yourself. Most people never need one.
+
+## Triggering from a browser or from far away
+
+The last two let a macro run when you're not sitting at this Mac:
+
+- **Web Server**: turn it on in the **Web Server** preferences and you can reach Keyboard Maestro on this Mac from a web browser, at `http://localhost:4490` by default. With a username and password set, logging in lets you run any active macro. A macro with the **Public Web** trigger can be run by anyone who can connect to your Mac, with no password. The wiki says that for most home networks only computers on the local network can connect, but it depends on how your network is set up, and potentially anyone on the internet could ([wiki](https://wiki.keyboardmaestro.com/trigger/Web_Server)).
+- The **Remote** trigger gives a macro a URL that goes through a Stairways Software web server, so opening that URL from anywhere on the internet fires the macro, with no login. The wiki is blunt about it: anyone who knows the URL can trigger the macro, so use it only for very harmless macros. The feature also isn't guaranteed to stay around or to work every time, so don't rely on it for anything important ([wiki](https://wiki.keyboardmaestro.com/trigger/Remote)).
+
+<strong>When you actually need it</strong>: you want to tap something on your phone or another computer and have this Mac do a small, harmless job. Before you turn either on, think about who can reach it.
+
+That's the end of the full guide. The rest doesn't need to be learned in order: when you have a specific job, look in the [how-tos](/en/howto/), and when you meet a word you don't know, check the [wiki](/en/wiki/).
+
+## Stuck?
+
+<Q q="My shell script works in Terminal, but in Keyboard Maestro it says the command isn't found.">
+<p>When Keyboard Maestro runs a script, it only looks for commands in the few folders that come with the system and doesn't read your Terminal settings. Write the command's full path, or create a variable called <code>ENV_PATH</code> holding the path you need.</p>
+</Q>
+<Q q="My script can't see a Keyboard Maestro variable.">
+<p>In a shell script, write <code>$KMVAR_</code> plus the variable name with spaces turned into underscores. In JXA, write <code>kmvar.</code> plus the name, again with underscores for spaces. Then check the menu next to the script: it may be set to include no variables. Password variables are never available to JXA.</p>
+</Q>
+<Q q="I changed a variable in my shell script, but the macro's value didn't change.">
+<p>The environment variable is a read-only copy. Have the script print the result and set the action to save it to a variable. AppleScript and JXA can also write back directly with <code>setvariable</code>.</p>
+</Q>
+<Q q="After I changed a subroutine's parameters, the macros that call it broke.">
+<p>Parameters are passed by position. Open the subroutine's Subroutine trigger, use the Callers menu to jump to each caller, and line the parameters up again.</p>
+</Q>
+<Q q="After I started syncing on my second Mac, its old macros were gone.">
+<p>Clicking Open Existing replaces the second Mac's macros with the ones in the sync file. Keyboard Maestro keeps backup revisions, so look in <strong>File ▸ Revert Macros</strong> for the one you need. Next time, export first, then start syncing.</p>
+</Q>
+<Q q="I installed a plug-in action, but it's not in the list of actions.">
+<p>After installing, you may need to restart both the editor and the Engine before it's recognized. Quit the Engine, then quit and reopen the editor, and look under the Third Party Plug Ins category.</p>
+</Q>
+
+<Checkpoint id="s7" items={["I know a shell script reads variables as <code>$KMVAR_name</code>, and that results come back by saving them to a variable", "When the same steps show up in several macros, I know I can make them a subroutine", "I know starting sync on a second Mac replaces the macros already on it", "I read and understand a macro someone gave me before I run it"]} />

@@ -1,6 +1,137 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 4
-tldr: "记住一段文字，问你一句话，看情况走不同的路，等某件事发生再往下：宏从此不只是一串固定的按键"
+tldr: "变量让宏记住一段文字，Prompt for User Input 让它先问你一句，If Then Else 和 Switch/Case 让它看情况走不同的路，Pause Until 让它等某件事发生，循环让它把同一串动作做很多遍。变量里存的永远是文字；用完就不要的，起个 Local 开头的名字。"
+description: "变量是什么、Global 和 Local / Instance 有什么不同、为什么变量里只有文字；文字框里的令牌和数字框里的计算；Prompt for User Input 问你一句；If Then Else、Switch/Case 看情况走路；Pause Until 等一件事；Repeat、For Each、While 三种循环；常见的卡住情况。"
 ---
-{/* 待写：第 4 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Callout from "../../components/Callout.astro";
+import Copy from "../../components/Copy.astro";
+import Checkpoint from "../../components/Checkpoint.astro";
+import Fig from "../../components/Fig.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+你是不是也有这么一个宏：一按，就打出一段回复客户的话，省了不少事。可是开头那句「你好，某某」每次都得手动改名字，有时候这周排满了，后面那句还得整个换掉。宏只会照着写死的东西做，于是你一边用它，一边替它收拾。
+
+<mark><strong>这一步学的，是让宏先弄清楚情况再动手：记住一段文字，问你一句话，看情况走不同的路，等某件事发生再往下。</strong></mark>
+
+前面几步做的宏，是「什么时候」加「一串固定的动作」（[第 0 步](/guide/0-what/)、[第 3 步](/guide/3-actions/)）。这一步往这串动作里加几样东西：<Term k="变量" />、<Term k="令牌" />、<Term k="计算" />和<Term k="条件" />。听着像编程，其实每一样都只是一个动作，拖进宏里、填几个框就行。
+
+## 一个会问你的回复宏
+
+先看做好以后是什么样子。按下热键，屏幕上弹出一个小窗口，问你两件事：对方叫什么，这周有没有空。你填好名字、在下拉菜单里选「排满了」，按回车，宏就打出：
+
+> 你好，Alex，谢谢你的来信。这周我的时间已经排满了，下周一我再回你具体的安排。
+
+选「有空」，后半句就换成「我这周五前给你答复」。整个宏只有两个动作：
+
+1. **Prompt for User Input**（让用户输入）：窗口标题写「回复」，下面加两行变量。第一行变量名 `Local Name`，默认值空着；第二行变量名 `Local Week`，默认值写 `有空|排满了`。用竖线隔开的默认值会变成一个下拉菜单，第一项默认选中（[官方说明](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)）。
+2. **If Then Else**（如果……就……否则……）：点条件那一栏的绿色加号，选 **Variable Condition**（变量条件），设成 `Local Week` **is** `排满了`。上半边放一个 **Insert Text by Pasting**（粘贴插入文字），填下面第一段；下半边也放一个，填第二段。
+
+<Copy id="s4-busy" title="上半边：这周排满了" code="你好，%Variable%Local Name%，谢谢你的来信。这周我的时间已经排满了，下周一我再回你具体的安排。" />
+
+<Copy id="s4-free" title="下半边：这周有空" code="你好，%Variable%Local Name%，谢谢你的来信。我这周五前给你答复。" />
+
+做完这一个宏，这一步要讲的几样东西就都碰过了。下面一样一样说。
+
+## 变量：给一段文字起个名字
+
+变量就是一个带名字的格子，前面的动作往里放一段文字，后面的动作按名字把它拿出来。它不用事先声明，第一次往里存东西的那个动作会顺手把它建出来。名字要以字母开头，后面可以是字母、数字、空格和下划线，大小写不算区别，比如 `Local Name` 和 `local name` 是同一个（[官方说明](https://wiki.keyboardmaestro.com/manual/Variables#Variable_Naming_Rules)）。
+
+存进变量最直接的动作是 **Set Variable to Text**（把变量设为文字）。上面例子里没用它，是因为 **Prompt for User Input** 自己就会把你填的字存进变量。
+
+### 变量里只有文字
+
+官方说得很干脆：变量里只装纯文字，没有字体、颜色，也装不下图片。连数字也是当文字存着的，`3` 就是一个字符「3」，只有放进要填数字的框里，Keyboard Maestro 才把它当成数来算。要长期存一段带格式的字或者一张图，用的是下一步讲的<Term k="命名剪贴板" />。
+
+### Global 和 Local、Instance：这格子能放多久、谁能看见
+
+变量按名字的开头分成几种，管的是它能活多久、哪些宏看得见它（[官方说明](https://wiki.keyboardmaestro.com/manual/Variables#Scope)）：
+
+<Fig id="4-variables-scope" />
+
+- Global（全局）变量：名字没有特别的开头。所有宏都能读能改，脚本也能读，而且一直存在 Mac 上，重启也还在。你可以在 Keyboard Maestro 偏好设置的 **Variables**（变量）一栏里看到、改掉它们。
+- Instance 变量：名字以 `Instance` 开头。只属于这一次运行，这个宏和它这一次调用的子宏都看得见，宏跑完就没了。同一个宏同时跑两次，两次各有各的一份。
+- Local 变量：名字以 `Local` 开头。也只属于这一次运行，但只有这个宏自己看得见，它调用的子宏看不见。
+
+还有一种名字以 `PW` 或 `Password` 开头或结尾的密码变量，只放在内存里、不写到磁盘上。用到密码时再去官方页面看它的细节。
+
+那平时用哪一种？官方的建议是，<u>只在这一次运行里用的东西，优先用 Local 或 Instance</u>。因为同一个宏可能同时跑好几次，大家共用一个 Global 变量，就会你改了我的值；而且 Global 变量会一直留着，偏好设置里攒得越来越多，存过的密码、一大段网页内容也都还在。所以上面的例子用的是 `Local Name`：这个名字只在这次回复里有用，打完就该消失。真要让宏「记住上一次」，比如上次选的文件夹，才用 Global。
+
+## 令牌和计算：在文字里放变量，在数字里写算式
+
+把变量的值放进一段文字，用的是<Term k="令牌" />。令牌是一对百分号夹着的名字，宏运行到那一步时换成真正的内容，比如 `%LongDate%` 换成今天的日期（[官方说明](https://wiki.keyboardmaestro.com/manual/Tokens)）。变量对应的令牌是 `%Variable%变量名%`，所以例子里写的是 `%Variable%Local Name%`。不想记名字，把光标放进文字框，用 **Edit ▸ Insert Token**（插入令牌）菜单挑，或者按 ⌃⌘T（Control-Command-T）按名字搜。
+
+要填数字的地方就不一样了。这些框里可以直接写算式，叫作<Term k="计算" />，比如 **Pause**（暂停）的秒数写 `60*Local Minutes`，就是停「分钟数乘 60」秒（[官方说明](https://wiki.keyboardmaestro.com/manual/Calculations)）。<u>计算框里的变量直接写名字，不加百分号</u>，写成 `%Variable%Local Minutes%` 反而算不出来。变量里存的文字要是一个数或者一个算式才行：官方举的例子是，变量里存着文字 `2*3`，算 `4*这个变量` 得到 24。算出结果存进变量，用 **Set Variable to Calculation**（把变量设为计算结果）。
+
+怎么知道一个框要的是哪一种？编辑的时候看框里那个小字母：显示 **T** 的是文字框，能放令牌；显示 **C** 的是计算框，能写算式；显示 **V** 的只要一个变量名（[官方说明](https://wiki.keyboardmaestro.com/manual/Variables#Using_Variables)）。
+
+## Prompt for User Input：先问你一句
+
+**Prompt for User Input** 弹出一个小表单，你填的每一项都存进一个变量。每一行变量的默认值决定它长什么样：普通文字是输入框；用 `|` 隔开的几项是下拉菜单；变量名是密码变量，就是一个打字显示圆点的密码框。在默认值右边的菜单里还能直接选类型：勾选框、滑块、颜色、日期时间。
+
+表单上的名字不会把 `Local` 露出来，`Local Name` 在窗口里只显示「Name」，所以放心用 Local 变量。
+
+表单默认有两个按钮。**OK** 对应回车，按了就关掉窗口、宏接着往下走；**Cancel** 对应 Esc 键或 ⌘.（Command-句号），<u>按了 Cancel，填的值不会存进变量，整个宏也就此停下</u>。这是故意的：你改主意了，就不该再往下打字。你也可以加别的按钮，比如「存草稿」，宏后面用 `%PromptButton%` 令牌看按的是哪一个（[官方说明](https://wiki.keyboardmaestro.com/token/PromptButton)）。
+
+更完整的做法，看 How-to 的[先问你一句，再动手](/howto/ask-input/)。
+
+## If Then Else 和 Switch/Case：看情况走不同的路
+
+**If Then Else** 里有一组条件，满足就做上半边的动作，不满足就做下半边。点条件那一栏的绿色加号添一个条件，按类别挑：某个 App 开着没有、在不在最前面，变量是什么值，剪贴板里有没有字，屏幕上有没有某张图……能挑的条件很多，官方有一页总的[条件列表](https://wiki.keyboardmaestro.com/Conditions)。
+
+条件不止一个时，上面那行选怎么组合（[官方说明](https://wiki.keyboardmaestro.com/manual/Conditions)）：
+
+- **any of the following are true**：至少一个成立。
+- **all of the following are true**：全都成立。
+- **none of the following are true**：一个都不成立。
+- **not all of the following are true**：至少一个不成立。
+
+有一个坑：<u>一个条件都没加，If Then Else 两边都不会执行</u>。宏「跳过了」一整段的时候，先看看是不是忘了加条件。
+
+情况不止两种的时候，一层套一层的 If Then Else 很快就看不清了。这时候换成 **Switch/Case**（按值分支）：先选它看什么，剪贴板、某个变量、一段文字或者一个计算，再一段一段写「是这个值就做这些」（[官方说明](https://wiki.keyboardmaestro.com/action/Switch_or_Case)）。比如把回复宏的下拉菜单改成 `有空|排满了|在休假`，Switch 看 `Local Week`，三段各放一句话。Switch 只执行第一个对上的那一段，不会顺着往下多做几段；最后一段可以选 **otherwise**，前面都对不上时做它，所以它要放在最后。
+
+## Pause Until：等一件事发生再往下
+
+宏跑得比 App 快。你让它打开文本编辑、马上打字，窗口还没出来，字就打到别处去了。固定停几秒能凑合，可是电脑忙的时候几秒不够，闲的时候又白等。**Pause Until**（暂停直到）换了个思路：不等时间，等条件。比如加一个 **Application Condition**（App 条件），选文本编辑 **is at the front**，文本编辑一到最前面，宏马上接着往下走（[官方说明](https://wiki.keyboardmaestro.com/action/Pause_Until)）。
+
+它用的是和 If Then Else 一样的条件和组合方式。等得久了，它会隔一阵才检查一次，少占点 CPU：过了 10 秒省一点，过了 60 秒省很多；不想要这样，在动作的齿轮菜单里关掉。[新手第 3 课](/start/3-one-key-routine/)那种「打开几个 App 再摆窗口」的宏，就是 Pause Until 最常派上用场的地方。
+
+## 三种循环：同一串动作做很多遍
+
+要把同一串动作做好几遍，不用复制粘贴好几份，用循环把它们包起来就行：
+
+- **Repeat**（重复）：做固定的次数。次数框是计算框，可以写变量，比如先问你要做几遍，再按你填的数重复（[官方说明](https://wiki.keyboardmaestro.com/action/Repeat)）。
+- **For Each**（逐个处理）：一样一样地处理一批东西。你给它一个变量名和一个「集合」，比如一段文字里的每一行、Finder 里选中的每个文件、一串数字，它每次把一样东西放进变量，再跑一遍里面的动作（[官方说明](https://wiki.keyboardmaestro.com/action/For_Each)）。手里有「一张清单」要处理的时候，先想它。
+- **While Conditions Are Met**（条件满足时一直做）：开始时先看条件，成立才进去做；之后只要条件不再成立，马上停下（[官方说明](https://wiki.keyboardmaestro.com/action/While)）。
+
+三种循环里都可以用 **Break From Loop**（跳出循环）提前结束。Repeat 和 For Each 的齿轮菜单里还能打开进度显示，跑长循环时看得见走到哪了。
+
+<Callout type="warn">
+条件永远成立的 While、永远等不到的 Pause Until，会让宏一直跑下去。先学会怎么停：点菜单栏上 Keyboard Maestro 的图标，在 **Cancel** 里选这个宏。更多停下的办法在[第 6 步](/guide/6-debug/)。
+</Callout>
+
+到这里，你的宏已经会记、会问、会看情况、会等、会重复了。下一步讲剪贴板：变量装不下的带格式的字和图片，放在哪里。
+
+## 卡住了？
+
+<Q q="打出来的字里，名字那里是空的。">
+<p>先看令牌里的变量名和存值时的变量名是不是一字不差，空格也算。再看是不是用了 Local 变量，却在另一个宏、或者被调用的子宏里读它：Local 只有这个宏自己看得见，要传给子宏用 Instance，要留到下次用 Global。</p>
+</Q>
+<Q q="计算框报错，或者算出来是 0。">
+<p>计算框里变量直接写名字，不加 <code>%Variable%</code>。再确认变量里存的确实是一个数：存着「三」或者「3 个」这样的文字，是算不出来的。</p>
+</Q>
+<Q q="If Then Else 两边都没执行。">
+<p>多半是一个条件都没加。官方说，没有条件时两边都不执行。</p>
+</Q>
+<Q q="在 Prompt for User Input 里按了 Cancel，整个宏就停了。">
+<p>本来就是这样：Cancel 不存变量，并且取消整个宏。想让某个按钮只是走另一条路，就加一个新按钮，宏后面用 <code>%PromptButton%</code> 看按的是哪个。</p>
+</Q>
+<Q q="Pause Until 一直在等，宏不往下走了。">
+<p>它等的条件一直没成立。先从状态菜单的 Cancel 里把这个宏停下，再检查条件：App 的名字选对了没有，要的是「在最前面」还是「开着」。</p>
+</Q>
+<Q q="偏好设置的 Variables 里堆了一大堆变量。">
+<p>那都是 Global 变量，宏跑完不会自己消失。只在一次运行里用的，改成 Local 开头的名字；已经不要的，把值设成空的，它就不再留着。</p>
+</Q>
+
+<Checkpoint id="s4" items={["我知道 Local、Instance 和 Global 变量的区别，平时用 Local", "文字框里用 <code>%Variable%变量名%</code>，计算框里直接写名字", "我做出了一个先问我一句、再看情况打字的宏", "宏停不下来时，我知道在状态菜单的 Cancel 里停它"]} />
