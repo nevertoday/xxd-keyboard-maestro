@@ -1,6 +1,101 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 1
-tldr: "A macro group is a folder that also decides when its macros are live: only in certain apps, only after you activate it, or shown as a palette"
+need: Keyboard Maestro installed and beginner lesson 1 done
+tldr: A macro group is a folder that also holds the switch. Its macros can be live all the time, only in certain apps, only after you press its hot key, or laid out as a row of buttons you click. A smart group is just a saved search and doesn't switch anything.
+description: Macro groups. Whether a macro can fire starts with whether its group is enabled and active; live only in certain apps, or everywhere except some; the two ways to switch a group on with a key (for one action, or on and off); showing a group as a palette or in the menu bar; smart groups as saved searches; and the usual ways to get stuck.
 ---
-{/* TBD: step 1, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Say you want to move windows with the arrow keys: ← nudges the window left, → nudges it right. The macros are easy, four of them, each with an arrow key as its hot key. But as soon as they're done you notice the problem. You're writing something, you want to move the cursor back one character, you press ←, and the window moves instead. Your macros have taken the arrow keys, and you can't use them for anything else.
+
+The fix isn't in the macros. It's in the folder they sit in.
+
+<mark><strong>A macro group isn't just a folder for macros. It also decides when they're awake: all the time, only in certain apps, only after you press its hot key, or laid out as a row of buttons waiting for a click.</strong></mark>
+
+## Whether a macro can fire starts with its group
+
+[Step 0](/en/guide/0-what/) said that every <Term k="宏" /> lives in a <Term k="宏组" />. The wiki splits "can this macro fire?" into two separate questions, and keeping them apart makes a lot of "why isn't my macro working?" much easier to answer. See the official [Macro Activation](https://wiki.keyboardmaestro.com/Macro_Activation).
+
+The first is enabled or disabled. Macros and groups each have a tick, and the **✓** button in the editor turns them off or on. Something you disable stays disabled until you enable it again. The second is active or inactive, right now. You don't click anything for that; the <Term k="引擎" /> works it out continuously from the group's settings, so it changes as you switch apps or press the group's hot key. For a macro to fire, all three have to hold: the macro is enabled, its group is enabled, and its group is active at this moment. If the group is disabled or inactive, every macro in it is out too.
+
+A fresh install has a **Global Macro Group**, which is live in every app. Your first macro usually goes there. You can't delete, rename or disable it. If you want some of its macros to switch on differently, the wiki's advice is to make a new group and drag them into it.
+
+To make a group, click **+** at the bottom of the leftmost column and give it a name. To change a group's settings, select it and click **Edit**, or just double-click it. The settings appear in the right-hand column: which apps it works in, how it's activated, whether it shows as a palette, and whether it shows in the menu bar. See the official [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups).
+
+## Only in certain apps
+
+Which apps a group works in starts out as **Available in all applications**, so its macros can fire anywhere. Macros you want everywhere, like opening a news page, launching your mail app, or typing your name and email address, belong in a group like that.
+
+Some macros only make sense in one app. The replies you send over and over in Mail are no use anywhere else and might even clash with another app's shortcuts. So make a new group, choose **Available in these applications**, and add Mail. Now those macros are live only while Mail is at the front. It works the other way round too, with **Available except in these applications**. The wiki's examples are keeping macros from firing in games, or excluding an app that relies on a whole row of function keys, so you can still use those keys for macros everywhere else.
+
+Splitting by app has another benefit: one hot key can do different things in different apps. If two macros share a hot key but sit in groups that are each live in their own app, only one of them is active at any moment, so they never collide. When two macros that are active at the same time do share a hot key, Keyboard Maestro shows a Conflict Palette and lets you pick which one to run.
+
+Besides apps, a group can also depend on the window, say only windows whose title contains certain words, or on whether certain apps are running. Those options are in the same place; look at them when you need them.
+
+<u>One trap to know about up front: if a macro's trigger is "this app launched", don't put it in a group that's only live in that app.</u> At the moment the app launches, the group isn't active yet, and by the time it is, the moment has passed, so the macro never gets its chance. The wiki's advice is to keep such macros in a group that's always active. See the official [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application); triggers are [step 2](/en/guide/2-triggers/).
+
+## Only after you press a key: for one action, or on and off
+
+How a group is activated starts out as **Always activated**. This is where the arrow-key problem gets solved.
+
+Choose **Activated/deactivated when** and give the group a hot key, say ⌃⌥⌘W (⌃ is Control, ⌥ is Option, ⌘ is Command). Normally the group is inactive and the arrow keys do what they always do. Press ⌃⌥⌘W and the group wakes up, so the arrows move the window. Once the window's where you want it, press ⌃⌥⌘W again and the arrows are back to normal. Moving windows is exactly the example the wiki gives.
+
+<Fig id="1-groups-toggle" />
+
+There's a shorter version too, **Activated for one action when**. After you press the group's hot key its macros are awake, but only briefly: trigger one of them, press any other key, or switch apps, and the group goes back to sleep. The wiki's example is a group of app-launching macros. Press the group's hot key, then one letter: M for Mail, S for Safari, F for Finder. You remember one hot key, and the letters after it can be whatever's easy to recall.
+
+Because these macros are only live after you wake the group, their hot keys can be as simple as a single letter without getting in the way of normal typing. The group's hot key isn't the only way to wake it either; the wiki says you can also choose it from the <Term k="状态菜单" /> or click it on the global palette. To wake or put away a group from another macro, use the **Activate Macro Group** action. It only changes whether the group is active right now; the tick in the editor doesn't change.
+
+## As a palette: click to run
+
+Some macros you use rarely, so you'll never remember their hot keys, and you'd rather see them. A group can show as a <Term k="面板" /> floating on the screen, one button per macro, like a toolbar you made yourself. See the official [Palettes](https://wiki.keyboardmaestro.com/manual/Palettes).
+
+Under how the group is activated, three choices involve a palette:
+
+- **Shows a palette for one action when**: press the hot key and the palette appears, click one button and it goes away. Good for the occasional one-off, like a row of app buttons.
+- **Shows/hides a palette when**: press once to show it, again to hide it. Good when you'll click several in a row.
+- **Shows a palette until**: it's showing until you press the hot key to put it away. Good for something that stays put. Combined with "available in these applications", the palette appears only while that app is at the front, like giving the app a row of buttons of its own.
+
+With those three, the macros are live only while the palette is showing. Three more options have names starting with Always activated and, such as **Always activated and shows/hides a palette when**. The difference is that the macros are always live and the palette only shows up some of the time, so their hot keys keep working as usual.
+
+You can change how a palette looks: theme, opacity, number of columns, whether entries show icons and triggers, and whether it shrinks when the mouse isn't over it. To put buttons in your own order, start each macro's name with two characters and a closing parenthesis, like `01)`. The palette sorts on those characters and hides them when it shows the name. For the step-by-step version, see the how-to [Make a row of buttons that run macros](/en/howto/palette/).
+
+A group can also appear in the menu bar, with an icon and a title that can keep updating; the wiki's examples include the time, word counts and reminders. The menu can list every macro in the group, or only those with a **Group Status Menu Trigger**.
+
+## Smart groups: a saved search
+
+Once you have a lot of macros, finding them takes effort. That's what a <Term k="智能组" /> helps with. It's a saved search that lists every macro matching it. Click **⊕** at the bottom of the leftmost column to make one, then write one or more search strings; any macro that matches any of them is listed. See the official [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups).
+
+A search string can be a plain word, or use one of the prefixes the wiki defines. `mod:1w` finds macros changed in the last week, `app:Finder` finds macros specific to (or excluded from) the Finder, `h:` finds every macro with a hot key, and `t:=sig=` finds the macro whose trigger is `=sig=`. The full list is in the official [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings). The **All Macros** entry at the top is a smart group too, listing all your macros.
+
+The thing to remember is that a smart group only shows macros in a different way. Each macro still lives in its own macro group, and that group still decides where and when it's live.
+
+## Grouping that stays easy
+
+Don't overthink it at first. The wiki's advice is to start simple and let your macros grow. Keep everything in the **Global Macro Group** until a macro should only work in one app, or a few macros should wake up together on one key, and then give them a group of their own. One group for opening apps, one for typing, one for each app that has its own macros: come back months later and you'll still find things.
+
+That's the whole idea of this step: where and when a macro counts is up to its macro group. Next come triggers, the thing that starts a macro once it's awake.
+
+## Stuck?
+
+<Q q="Suddenly none of the macros in a group work.">
+<p>Select the group and check that the tick in its top-right corner is still on; a disabled group takes all its macros with it. Then check which apps it's available in: if it's set to certain apps only, pressing the key anywhere else does nothing. If you still can't see it, choose <strong>Help ▸ Interactive Help</strong>, which checks why a macro isn't firing. The full checklist is <a href="/en/guide/6-debug/">step 6</a>.</p>
+</Q>
+<Q q="I press the group's hot key, then the letter, and nothing happens.">
+<p>A group set to <strong>Activated for one action when</strong> is awake only briefly: press another key or switch apps in between and it goes back to sleep. Press the group's hot key, then the letter right away. If you want to use several in a row, switch it to <strong>Activated/deactivated when</strong> and press the group's hot key again when you're done.</p>
+</Q>
+<Q q="When I press a hot key, a list pops up asking me to choose.">
+<p>That's the Conflict Palette: two or more macros that are active at the same time share that hot key. Give one of them a different key, or move them into groups that are each live in their own app. You can also use it on purpose: give a few related macros the same hot key, then pick one with a number or its first letter. See the official <a href="https://wiki.keyboardmaestro.com/Conflict_Palette">Conflict Palette</a>.</p>
+</Q>
+<Q q="My palette disappeared.">
+<p>A palette set to <strong>Shows a palette until</strong> goes away when you press the group's hot key, and comes back when you press it again. If the group is only available in certain apps, the palette only appears while one of them is at the front.</p>
+</Q>
+<Q q="I want to rename or disable the Global Macro Group.">
+<p>You can't rename, delete or disable that group. To control some of its macros, make a new group, drag them in, and set how the new group is activated.</p>
+</Q>
+
+<Checkpoint id="s1" items={["I can tell a group being enabled from it being active right now", "I know how to make a group live only in certain apps", "I know the two ways to wake a group with a key: for one action, or on and off", "I know a smart group is a saved search and doesn't decide where macros work"]} />

@@ -1,6 +1,101 @@
 ---
 layout: ../../../layouts/Guide.astro
 step: 2
-tldr: "A hot key, a typed string, a time of day, an app launching, a Wi-Fi network, a new file in a folder: pick the moment that feels natural"
+need: One macro you've built (the one from beginner lesson 1 is fine)
+tldr: A trigger decides when a macro starts. Choosing one means choosing the moment the job naturally begins. When you reach for it, use a hot key, a few typed letters or a click. When it's time, use the clock. When the Mac itself changes, like an app launching, a Wi-Fi network joining or a new file landing in a folder, use that event.
+description: Triggers. How to add one, and why a macro can have several; four kinds of moment, when you reach for it (hot key, typed string, status menu, global palette), when it's time (time of day, every so often, idle), when the Mac changes (apps, login and wake, Wi-Fi, USB devices and disks, folders) and when another program calls it; looking up the rest in the official list; and the usual ways to get stuck.
 ---
-{/* TBD: step 2, delivering what its title and tldr promise; set ready: true in nav.js when it's done. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+You've built a macro that tidies up at the end of the day: everything that landed in your Downloads folder today goes into one folder. It works well, and yet you keep forgetting to run it, because by the end of the day your mind has already left the desk. This job doesn't need you to remember at all. At half past five, it can just run by itself.
+
+Another kind of macro is the opposite. When you'll need to type a long address, only you know; the Mac can't guess, so the starting moment has to come from you. Type a few letters and it takes over.
+
+<mark><strong>Choosing a trigger means choosing the moment the job naturally begins. When you reach for it, use a hot key, a few typed letters or a click. When it's time, use the clock. When the Mac itself changes, use that event.</strong></mark>
+
+## Adding a trigger
+
+<Term k="触发器" text="Triggers" /> sit in the macro's detail column, under its name. Click the green **+** (**New Trigger**) and choose a kind from the menu. Some work as soon as you add them, like the **Status Menu Trigger**. Most need a detail or two, such as which hot key or which string to type. See the official [Macro Triggers](https://wiki.keyboardmaestro.com/manual/Macro_Triggers).
+
+A macro can have several triggers, and any one of them starts it. The same "arrange my windows" macro can run on a hot key and also once by itself when you log in.
+
+A handy trick: hold the Option key (⌥) while you choose from the trigger menu, and Keyboard Maestro opens the wiki page for that trigger instead. This page only covers the ones worth meeting first, and that's the quickest way to look up the rest.
+
+And remember the rule from [step 1](/en/guide/1-groups/): a trigger only counts when the macro is enabled and its group is enabled and active right now.
+
+## When you reach for it: hot keys, typed strings, a click
+
+The most common is the **Hot Key Trigger**. You press the keys you set, the system swallows that keystroke instead of passing it to the front app, and Keyboard Maestro runs the macro. The key can be a letter, number, symbol or function key, often with one or more modifiers (⌃ Control, ⌥ Option, ⇧ Shift, ⌘ Command), and the number pad counts as different keys from the numbers on the main keyboard. A modifier on its own, like just Control, can't be a hot key. See the official [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key).
+
+Besides "run when pressed", you can have it run when the key is released, repeatedly while it's held down, on a long press, or only when it's tapped twice or three times. Whichever you choose, though, the key is swallowed and loses its usual job, so don't use a key you need for something else.
+
+The wiki has two tips for picking hot keys. Be consistent, for example Control plus a letter for typing text and Control-Option plus a letter for opening apps, with letters that remind you what they do. And steer clear of common command keys and the system's own shortcuts. The examples on this site use ⌃⌥⌘ plus a letter, a combination few apps claim. If another app registers the same hot key anyway, pressing it does both things.
+
+The other everyday trigger is the **Typed String Trigger**. Type its string anywhere and it fires, usually deleting the letters you just typed before running the macro, which makes it perfect for abbreviations: type `=addr=`, get your whole address. See the official [Typed String Trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String), or build one from scratch in [beginner lesson 2](/en/start/2-type-less/).
+
+The wiki specifically recommends a prefix and/or suffix you'd never type by accident. Its example: don't use `em` as the abbreviation for your email address, because it fires inside "them"; use `=em=` instead. This site's examples all follow that style, with an equals sign at each end: `=addr=`, `=sig=`.
+
+A few things interrupt a typed string: Shift-Space, any key with Control or Command, switching apps, clicking the mouse, or pausing for more than a few seconds. To type `=addr=` literally without it expanding, type a Shift-Space in the middle and delete it. It won't fire in password fields, and it doesn't work well in Keyboard Maestro's own windows either.
+
+Some macros you use too rarely to remember a hot key, so put them somewhere you can click. The **Status Menu Trigger** adds the macro to the menu under Keyboard Maestro's icon in the menu bar, the <Term k="状态菜单" />; choose its name and it runs. The wiki says it suits macros that feel like menu commands, such as opening or processing files or arranging windows. The **Global Macro Palette Trigger** puts the macro on a palette floating on the screen; click it to run. Both only show macros that are active right now, so if your group is only available in Safari, they only appear while Safari is at the front. Option-click an entry to jump straight to editing that macro.
+
+## When it's time: the clock
+
+The end-of-day tidy-up from the top of the page uses a **Time of Day Trigger**: choose a time, then tick the days of the week. See the official [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day).
+
+It has one quirk to know about. The Mac has to be awake at that time. If it's asleep, that run is simply missed; it won't catch up when the Mac wakes. If the screen is locked or the screen saver is on, the macro runs, but many actions that work the interface, like typing or choosing menus, won't.
+
+For "every so often" instead of "at this time", use the **Periodic Trigger**: run every so many seconds, minutes or hours, optionally only during part of the day or on certain days. The wiki advises against very short intervals like every few seconds, since they can use a lot of CPU and interrupt other things. A period that crosses midnight stops at midnight; add a second trigger to keep going. See the official [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic).
+
+Two more: the **Idle Trigger** runs once you haven't touched the keyboard or mouse for a while, say twenty minutes away from your desk, and if you know cron syntax there's the **Cron Trigger**. For the full walk-through of scheduled macros, see the how-to [Run something at the same time every day](/en/howto/daily-schedule/).
+
+## When the Mac itself changes
+
+Then there are jobs whose moment isn't you pressing something or the clock striking, but a small change in the Mac itself.
+
+The **Application Trigger** runs when an app (or any app) launches, quits, comes to the front or goes to the back, or periodically while it's running or at the front. Say every time you open Preview you drag its window to the right half of the screen; hand that to this trigger. Don't forget the trap from [step 1](/en/guide/1-groups/): a macro waiting for an app to launch must sit in a group that's always active. See the official [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application).
+
+The **Login Trigger** runs when you log in and the Engine starts with it, usually because you turned on **Launch Engine at Login**. The wiki suggests it for setting up your Mac the way you like it. Close relatives are the **Wake Trigger** (on waking from sleep), the **Sleep Trigger** (on going to sleep) and the **Unlock Trigger** (on unlocking the screen).
+
+The **Wireless Network Trigger** runs when you join or leave a Wi-Fi network. When your laptop joins the office network, open the apps you work with; when it joins the one at home, switch to another set. It can match the network by name or, as the wiki prefers, by BSSID, since lots of networks are called "Home" or "Work". Two more things to know. From macOS 14 on, Keyboard Maestro Engine needs Location permission before it can read Wi-Fi information. And the Mac drops and rejoins Wi-Fi every time it sleeps and wakes, so these macros should be safe to run several times. See the official [Wireless Network Trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network).
+
+The **USB Device Trigger** runs when a USB device is plugged in or removed. The wiki's example is opening your scanning app when you switch the scanner on, and quitting it when you switch it off. Device names are hard to guess, so put the cursor in the name field and connect the device; Keyboard Maestro fills the name in for you. For a disk, use the **Mounted Volume Trigger**, say to start a backup as soon as the backup disk is connected. For full walk-throughs of Wi-Fi and USB macros, see the how-to [Do something when you join a Wi-Fi network or plug in a device](/en/howto/wifi-usb/).
+
+The **Folder Trigger** runs when an item is added to or removed from a folder, say a new file arriving in Downloads that you want moved where it belongs. It only watches that folder itself, not changes inside its subfolders. It can also wait until a file has finished downloading or copying, so it never acts on half a file, though that adds a delay, because it has to wait until the file stops changing to be sure. See the official [Folder Trigger](https://wiki.keyboardmaestro.com/trigger/Folder), and the how-to [File things away as soon as they land in a folder](/en/howto/watch-folder/).
+
+There are plenty more of this kind: a display connected or removed (**Display Layout Changed Trigger**), the power adapter plugged in or out (**Power Status Changed Trigger**), the sound output changing, as when you plug in headphones (**Audio Output Device Changed Trigger**), the clipboard changing (**Clipboard Changed Trigger**), and the system switching between light and dark appearance (**Appearance Changed Trigger**).
+
+## When another program calls it
+
+The last kind lets something else start the macro: another macro calling it by name with an action, an AppleScript or shell command, a URL starting with `kmtrigger://`, or even a browser on another device triggering it remotely. These involve scripts and networking, so they wait for [step 7](/en/guide/7-advanced/).
+
+## For everything else, the official list
+
+Keyboard Maestro has more than thirty kinds of trigger. This page doesn't list them all, and you don't need to memorise them. When you need one, hold Option and choose it from the trigger menu, or browse the official [Triggers](https://wiki.keyboardmaestro.com/Triggers) list, where each has a page of its own.
+
+That's the whole idea of this step: think about the moment the job naturally starts, then find the trigger for that moment. Next come actions, the things a macro does for you once it has started.
+
+## Stuck?
+
+<Q q="I press the hot key and nothing happens.">
+<p>Check that the macro and its group are both enabled and the group is active right now; for example, are you pressing it in an app the group doesn't include? Then choose <strong>Help ▸ Interactive Help</strong>, which checks permissions, the group and the trigger one by one and tells you where it's stuck. The full checklist is <a href="/en/guide/6-debug/">step 6</a>.</p>
+</Q>
+<Q q="I type the abbreviation and nothing happens.">
+<p>Pausing for a few seconds, clicking the mouse or switching apps partway through all cancel it, so type it again from the start. It never fires in password fields and doesn't work well in Keyboard Maestro's own windows. If it doesn't work anywhere, the system may be stuck in Secure Input mode, thinking you're always in a password field: <strong>Help ▸ Interactive Help</strong> can detect that. See the official <a href="https://wiki.keyboardmaestro.com/Troubleshooting">Troubleshooting</a>.</p>
+</Q>
+<Q q="The abbreviation expands where I didn't want it to.">
+<p>The string matches something you type normally. As the wiki suggests, add a prefix and suffix you'd never type by accident, like <code>=sig=</code> instead of a bare <code>sig</code>.</p>
+</Q>
+<Q q="My scheduled macro didn't run last night.">
+<p>The Mac was most likely asleep. If it's asleep at the scheduled time, that run is missed, and it won't catch up after waking. With the screen locked the macro does run, but actions like typing or choosing menus won't work.</p>
+</Q>
+<Q q="I joined a Wi-Fi network and the macro didn't run.">
+<p>From macOS 14 on, Keyboard Maestro Engine needs Location permission to read Wi-Fi information. In <strong>System Settings ▸ Privacy & Security</strong>, look under Location Services and check that it's turned on.</p>
+</Q>
+<Q q="A macro ran twice.">
+<p>Check whether it has two triggers that both happened, such as one at login and one when Wi-Fi joins. The Wi-Fi trigger also fires again after every sleep and wake, so make these macros safe to run more than once.</p>
+</Q>
+
+<Checkpoint id="s2" items={["I know how to add a trigger, and that a macro can have several", "I gave a macro I use often a hot key that won't clash, or an abbreviation with a marker at each end", "I know a scheduled macro only runs if the Mac is awake", "I know holding Option while choosing a trigger opens its page in the official wiki"]} />

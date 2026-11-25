@@ -1,6 +1,101 @@
 ---
 layout: ../../layouts/Guide.astro
 step: 2
-tldr: "热键、打出的字、时间、打开某个 App、连上某个 Wi-Fi、文件夹里来了新文件……选一个最自然的时机"
+need: 一个做好的宏（新手入门第 1 课那个就行）
+tldr: 触发器决定宏什么时候开始跑。挑它，就是挑这件事最自然开始的那一刻：你伸手的时候，用热键、打几个字或者点一下；到点的时候，用时间；Mac 自己变了的时候，比如打开某个 App、连上某个 Wi-Fi、文件夹里来了新文件，就用那件事本身。
+description: 触发器：怎么给宏加触发器、一个宏可以有好几个；按时机分的四类，你伸手的时候（热键、输入字符串、状态菜单、全局面板）、到点的时候（每天几点、每隔多久、闲了多久）、Mac 变了的时候（App、登录和唤醒、Wi-Fi、USB 设备和磁盘、文件夹）、别的程序叫它的时候；其余的去官方清单查；常见的卡住情况。
 ---
-{/* 待写：第 2 步正文，兑现标题和 tldr 说的事；写完把 nav.js 里这一步改成 ready: true。写法见 docs/MAINTAINING.md 的「怎么写」，资料在 docs/sources/。 */}
+import Checkpoint from "../../components/Checkpoint.astro";
+import Term from "../../components/Term.astro";
+import Q from "../../components/Q.astro";
+
+你做好了一个宏：每天收工前，把下载文件夹里今天的东西归到一个文件夹里。宏很好用，可你还是常常忘了按它，因为收工那会儿，你的心思早就不在电脑上了。其实这件事根本不必等你想起来，到了下午五点半，它自己跑就行。
+
+另一种宏正好相反。打一段常用的地址，什么时候打，只有你自己知道，Mac 没法替你猜，那开始的那一刻就该由你来给：打出几个字，它接着做。
+
+<mark><strong>挑触发器，就是挑这件事最自然开始的那一刻：你伸手的时候，用热键、打几个字或者点一下；到点的时候，用时间；Mac 自己变了的时候，就用那件事本身。</strong></mark>
+
+## 加一个触发器
+
+<Term k="触发器" />在宏的细节那一栏里，宏的名字下面。点绿色的 **+**（**New Trigger**，新建触发器），从弹出的菜单里挑一种。有的触发器挑了就能用，比如 **Status Menu Trigger**（状态菜单触发器）；多数还要你填几个细节，比如热键是哪一组，要打的是哪几个字。见官方的 [Macro Triggers](https://wiki.keyboardmaestro.com/manual/Macro_Triggers)。
+
+一个宏可以有好几个触发器，其中任何一个发生，宏都会跑。比如同一个「把窗口摆好」的宏，既能按热键跑，也能在你登录时自己跑一次。
+
+有一个顺手的小技巧：挑触发器的时候按住 Option 键（⌥），菜单里选哪一种，就会打开官方 Wiki 里讲那一种的页面。这一页只讲值得先认识的那些，其余的这样查最快。
+
+还要记住[第 1 步](/guide/1-groups/)那条规矩：触发器只在宏开着、宏组开着而且此刻生效的时候才算数。
+
+## 你伸手的那一刻：热键、打出的字、点一下
+
+最常用的是 **Hot Key Trigger**（热键触发器）。你按下设好的那组键，系统把这一下吞掉，不再交给前面的 App，Keyboard Maestro 接着跑宏。键可以是字母、数字、符号或者功能键，常常配上一两个修饰键（⌃ Control、⌥ Option、⇧ Shift、⌘ Command）；小键盘上的数字和主键盘上的数字算两个不同的键。只按修饰键（比如光按一个 Control）不能当热键。见官方的 [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key)。
+
+除了「按下就跑」，它还能设成松开时跑、按住不放时一直跑、长按才跑、连按两下或三下才跑。不过不管设成哪一种，这个键都会被吞掉，它本来的用处就没了，所以别拿你平时要用的键来做热键。
+
+挑热键的时候，官方给了两条建议。一条是有规律，比如打字的一组都用 Control 加一个字母，开 App 的一组都用 Control-Option 加一个字母，字母取个好记的。另一条是避开常见的命令键和系统自己的快捷键。本站的例子都用 ⌃⌥⌘ 加一个字母，很少有 App 会占这样的组合。要是别的 App 也注册了同一个热键，按一下两边都会做。
+
+另一个常用的是 **Typed String Trigger**（输入字符串触发器）。你在哪里打出那一串字，它都会触发，还会先替你把刚打的那几个字删掉，再接着跑宏，所以最常见的用法就是缩写：打 `=addr=`，出来整段地址。见官方的 [Typed String Trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String)，从头做一个，见[新手入门第 2 课](/start/2-type-less/)。
+
+官方特别提醒，触发字前后最好加一个你平时绝不会打出来的记号。它举的例子是邮箱地址别用 `em` 当缩写，因为你打 them 的时候它也会触发，换成 `=em=` 就不会了。本站的例子都照这个写法，前后各一个等号：`=addr=`、`=sig=`。
+
+打这些字的时候有几件事会打断它：按 Shift-空格，按带 Control 或 Command 的键，切 App，点鼠标，或者停下好几秒不打。你想把 `=addr=` 原样打出来、不让它变，就在中间打一个 Shift-空格再删掉。在密码框里它不会触发，在 Keyboard Maestro 自己的窗口里也不灵。
+
+有的宏你不常用，热键记不住，那就让它待在一个点得到的地方。**Status Menu Trigger** 把宏放进菜单栏上 Keyboard Maestro 那个图标的菜单里，也就是<Term k="状态菜单" />，点开选它的名字就跑；官方说它特别适合那些「感觉像菜单命令」的宏，比如打开、处理文件，摆窗口。**Global Macro Palette Trigger**（全局面板触发器）把宏放进一个浮在屏幕上的面板，点一下就跑。两样都只显示此刻生效的宏，所以你的宏组要是只在 Safari 里可用，它们也只在 Safari 在最前面时出现。按住 Option 点它们，会直接打开这个宏去改。
+
+## 到点的那一刻：时间
+
+开头那个收工归档的宏，用的就是 **Time of Day Trigger**（时刻触发器）：选一个时间，再勾上一周里的哪几天。见官方的 [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)。
+
+它有一个脾气要先知道：到点的时候 Mac 得醒着。Mac 要是在睡觉，这一次就过去了，醒来以后它不会补跑。屏幕要是锁着、在屏保，宏会跑，可很多要动界面的动作（打字、选菜单）做不成。
+
+要「每隔一阵」而不是「每天几点」，用 **Periodic Trigger**（周期触发器）：每隔几秒、几分钟或几小时跑一次，还能限定在一天里的某一段、一周里的某几天。官方劝你别设得太密，比如每几秒一次，既费电脑，又会打断别的东西。这样的时段跨过午夜会在午夜停下，要接着跑就加第二个触发器。见官方的 [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)。
+
+还有两个：**Idle Trigger**（闲置触发器）在你一段时间没碰键盘和鼠标以后跑，比如离开座位二十分钟；熟悉 cron 写法的人可以用 **Cron Trigger**。到点自动跑的完整做法，见 How-to 的[每天到点自动跑](/howto/daily-schedule/)。
+
+## Mac 自己变了的那一刻
+
+还有一类事，开始的那一刻既不是你按了什么，也不是到了几点，而是 Mac 身上发生了一点变化。
+
+**Application Trigger**（App 触发器）在某个 App（或者任何一个 App）打开、退出、来到最前面、退到后面的时候跑，也可以在它开着或者在最前面的时候每隔一阵跑一次。比如你每次打开预览，都要先把窗口拉到屏幕右半边，这件事就可以交给它。别忘了[第 1 步](/guide/1-groups/)说的那个坑：等「某个 App 打开」的宏，要放在一直生效的宏组里。见官方的 [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application)。
+
+**Login Trigger**（登录触发器）在你登录、引擎跟着启动的时候跑，通常是因为你打开了 **Launch Engine at Login**；官方说它适合把 Mac 摆成你习惯的样子。和它相近的有 **Wake Trigger**（唤醒时）、**Sleep Trigger**（睡眠时）、**Unlock Trigger**（解锁屏幕时）。
+
+**Wireless Network Trigger**（Wi-Fi 触发器）在连上或断开某个 Wi-Fi 时跑。比如笔记本一连上办公室的网，就打开你上班要用的那几个 App；回到家连上家里的网，就换一套。可以按网络的名字认，也可以按 BSSID 认，官方更推荐后者，因为叫「Home」「Work」的网络太多了。还有两点要知道：从 macOS 14 起，要给 Keyboard Maestro Engine 定位的权限，它才读得到 Wi-Fi 的信息；Mac 每次睡眠、唤醒都会断开再连上一次，所以这样的宏要经得起跑好几遍。见官方的 [Wireless Network Trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)。
+
+**USB Device Trigger**（USB 设备触发器）在插上或拔下某个 USB 设备时跑，官方举的例子是打开扫描仪时自动开扫描软件，关掉时退出它。设备的名字不好猜，把光标放在名字那一栏，再插上设备，它会替你填好。插上一块磁盘，用的是 **Mounted Volume Trigger**（磁盘挂载触发器），比如一插上备份盘就开始备份。Wi-Fi 和 USB 的完整做法，见 How-to 的[连上某个 Wi-Fi、插上某个设备时自动做事](/howto/wifi-usb/)。
+
+**Folder Trigger**（文件夹触发器）在某个文件夹里多了或少了一样东西时跑，比如下载文件夹里来了一个新文件，就把它挪到该去的地方。只看这个文件夹本身，里面子文件夹的变化它不管。它还能等文件下载或者复制完了再跑，不会对着半个文件动手，只是这样会慢一点，因为它得等文件不再变化才能确定。见官方的 [Folder Trigger](https://wiki.keyboardmaestro.com/trigger/Folder)，完整做法见 How-to 的[文件一进文件夹就自动归档](/howto/watch-folder/)。
+
+同一类的还有不少：接上或拔掉显示器（**Display Layout Changed Trigger**），插上或拔掉电源（**Power Status Changed Trigger**），声音输出换了，比如插上耳机（**Audio Output Device Changed Trigger**），剪贴板变了（**Clipboard Changed Trigger**），系统在浅色和深色外观之间切换（**Appearance Changed Trigger**）。
+
+## 别的程序叫它的那一刻
+
+最后一类，是让别的东西来启动宏：另一个宏用动作按名字去叫它，AppleScript 或者 Shell 命令叫它，一个 `kmtrigger://` 开头的网址叫它，甚至另一台设备上的浏览器远程叫它。这些用到脚本和网络，放在[第 7 步](/guide/7-advanced/)再讲。
+
+## 其余的，去官方清单查
+
+Keyboard Maestro 的触发器一共有三十多种，这一页没有一一列出来，也用不着都记住。要用的时候，按住 Option 在触发器菜单里点它，或者去翻官方的 [Triggers](https://wiki.keyboardmaestro.com/Triggers) 清单，每一种都有一页说明。
+
+这一步说的就一件事：先想这件事最自然在哪一刻开始，再去找对应的触发器。下一步讲动作，也就是宏开始以后，替你做的那些事。
+
+## 卡住了？
+
+<Q q="按了热键，什么也没发生。">
+<p>先看宏和它的宏组都开着，宏组此刻也生效，比如你是不是在宏组没包括的 App 里按的。再选 <strong>Help ▸ Interactive Help</strong>，它会挨个查权限、宏组和触发器，告诉你卡在哪。完整的查法在<a href="/guide/6-debug/">第 6 步</a>。</p>
+</Q>
+<Q q="打出缩写，什么也没发生。">
+<p>打的时候中间停了好几秒、点了鼠标或者切了 App，都会打断它，从头再打一遍。在密码框里它本来就不会触发，在 Keyboard Maestro 自己的窗口里也不灵。要是在哪里都不灵，可能是系统卡在了「安全输入」状态，以为你一直在密码框里：选 <strong>Help ▸ Interactive Help</strong>，它能查出来，见官方的 <a href="https://wiki.keyboardmaestro.com/Troubleshooting">Troubleshooting</a>。</p>
+</Q>
+<Q q="缩写在不该出现的地方自己冒出来了。">
+<p>触发字和你平时打的字撞上了。照官方的建议，前后加一个你绝不会打出来的记号，比如 <code>=sig=</code>，而不是光一个 <code>sig</code>。</p>
+</Q>
+<Q q="定时的宏昨晚没跑。">
+<p>那会儿 Mac 多半在睡觉。到点时 Mac 睡着，那一次就过去了，醒来以后不会补跑。屏幕锁着的时候宏会跑，可打字、选菜单这类动作做不成。</p>
+</Q>
+<Q q="连上 Wi-Fi，宏没反应。">
+<p>从 macOS 14 起，Keyboard Maestro Engine 要有定位的权限，才读得到 Wi-Fi 的信息。到<strong>系统设置 ▸ 隐私与安全性</strong>的定位服务里，看它有没有打开。</p>
+</Q>
+<Q q="一个宏跑了两遍。">
+<p>看看它是不是有两个触发器碰巧都发生了，比如登录时一个，连上 Wi-Fi 时一个。Wi-Fi 触发器在每次睡眠唤醒后也会再触发一次，所以这样的宏要做成跑几遍都没关系。</p>
+</Q>
+
+<Checkpoint id="s2" items={["我知道怎么给宏加触发器，一个宏可以有好几个", "我给常用的宏挑了一组不容易撞上的热键，或者一个前后带记号的缩写", "我知道定时的宏要 Mac 醒着才会跑", "我知道按住 Option 选触发器，能打开它在官方 Wiki 里的说明"]} />
