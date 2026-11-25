@@ -106,3 +106,9 @@
 - `trigger/Cron` 的例子表把 `0 9,12,18 * * *` 讲成「9am, noon, and 3pm」，18 点是下午 6 点。同页正文说「+」加在日期（day of month）那一栏，可紧接着的例子和表里的 `+Fri`、`+Mon`、`+Sat` 都加在星期（day of week）那一栏。How-to「每天到点自动跑」照官方的例子写（日期栏 `-1-7`、星期栏 `+Fri`），没用那一行时间表。
 - `manual/Quick_Start` 的 Actions 一节把能跑的脚本列成「AppleScript, Java, Swift, shell Script」，这里的 Java 应该是 JavaScript（见 `action/Execute_a_JavaScript_For_Automation`）。本站写 JavaScript。
 - `_root/Frequently_Asked_Questions`「When should I use Typed String triggers」说在访达里模拟的删除键会把选中的文件移到废纸篓。访达里单按 Delete 不会删文件，⌘Delete 才会，这句没法确认。第 2 课只说「可能」误删，没照搬。
+- `manual/How_do_I` 说「Cancel Other Macros」，App 上是 **Cancel All Other Macros**。本站照 App。
+- `action/OCR_Image` 标题是「OCR Screen or Image」，正文又叫它「OCR Image action」，`manual/Whats_New` 链的是 `action:OCR_Screen`。本站照 App 写 **OCR Image**。
+- 动作名写错的：`_root/Found_Image` 写「Press Button」（实际是 **Press a Button**），`action/Find_Image_on_Screen` 写「Move and Click Mouse」（实际是 **Move or Click Mouse**）。
+- `trigger/Typed_String` 写「Simulate N deletes before executing」，App 上 N 是实际的数字（比如 **Simulate 6 deletes before executing**）。
+- `token/LongDate` 那句自相矛盾的 Localization 说明，`token/ICUDateTime`、`token/ShortDate`、`token/NumberDate` 里也有。
+- `_root/Troubleshooting` 还链着第 5 版的偏好设置页，还在用 `%CurrentClipboard%`。
