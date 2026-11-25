@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 2
+tldr: "A resposta, assinatura ou apresentação que você digita todo dia vai para um gatilho de texto digitado: digite alguns caracteres como =reply= e o texto inteiro aparece"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+Tem coisas que você digita várias vezes por dia. Um professor respondendo aos pais, um dono de loja respondendo a clientes, um freelancer respondendo a um novo pedido de orçamento. Quase sempre são as mesmas poucas linhas: “Agradeço o contato. Já recebi sua mensagem e respondo até sexta-feira.” Digitar tudo letra por letra, ou procurar a última mensagem só para copiar, é fazer de novo um trabalho que você já fez.
+
+Nesta lição, você vai criar uma macro: em qualquer lugar onde dê para escrever, você digita os sete caracteres `=reply=`, eles desaparecem e a mensagem inteira entra no lugar.
+
+## Ele fica de olho no que você digita
+
+A macro da lição anterior começava com uma tecla. Esta usa outro gatilho: o <Term k="输入字符串触发器" text="gatilho de texto digitado" />. Você digita uma sequência definida antes e a macro começa a rodar. Como o que você digita vai normalmente para o app que está aberto, o gatilho costuma apagar esses caracteres para você primeiro e só então executar as ações ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>Digite uma sequência que você nunca escreveria por acidente, e o gatilho apaga essa sequência e coloca seu texto salvo no lugar.</strong></mark>
+
+Esse “nunca por acidente” faz toda a diferença. O gatilho acompanha cada tecla que você aperta, em qualquer lugar; então, se você usasse `reply` como sequência, a macro dispararia toda vez que você escrevesse essa palavra em uma frase. Os criadores recomendam colocar um prefixo ou sufixo fixo nas suas sequências. O exemplo deles é `=em=` em vez de `em`, que dispararia dentro de “them” ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Todos os exemplos deste site seguem esse padrão, com um sinal de igual em cada ponta: `=reply=`, `=addr=`, `=sig=`.
+
+## Monte a macro
+
+Como na lição anterior, selecione **Global Macro Group** (grupo global de macros) na coluna esquerda do editor, clique no **+** embaixo da coluna do meio para adicionar uma macro e dê a ela o nome “Resposta”.
+
+1. Clique no **+** verde de **New Trigger** (novo gatilho) e, desta vez, escolha **Typed String Trigger** (gatilho de texto digitado).
+2. No campo ao lado de **This string is typed:** (este texto é digitado), digite `=reply=`.
+3. Confira se a opção logo abaixo, **Simulate 7 deletes before executing** (simular 7 teclas Delete antes de executar), está marcada. É ela que apaga os 7 caracteres que você digitou antes de a macro fazer qualquer outra coisa.
+4. Clique em **New Action** (nova ação), role a lista **All Actions** (todas as ações) até **Insert Text by Pasting** (inserir texto colando) e dê um clique duplo nela.
+5. Copie o texto abaixo para a caixa de texto dessa ação e troque as palavras e o nome pelos seus.
+
+<Copy id="l2-reply" code={"Agradeço o contato. Já recebi sua mensagem e respondo até sexta-feira.\n\nUm abraço,\nRafa"} />
+
+Agora teste. Abra o Editor de Texto, crie um novo documento e digite `=reply=`.
+
+<Callout type="ok">
+O `=reply=` que você digitou sumiu, e a resposta inteira apareceu no lugar, incluindo a linha em branco.
+</Callout>
+
+Não faça esse teste dentro do editor do Keyboard Maestro. Os criadores explicam que qualquer alteração ali é salva na hora, o que interrompe o gatilho, então ele quase nunca funciona dentro do editor ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). E guarde uma regra importante: <u>só use esse gatilho onde você estiver digitando texto, nunca no Finder.</u> No Finder, as letras que você digita selecionam arquivos, e as teclas Delete que a macro simula podem acabar mandando o arquivo selecionado para o Lixo ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## Aproveite e coloque a data de hoje
+
+Uma caixa de texto não serve só para palavras fixas. Ela também aceita um <Term k="令牌" text="token" />, um marcador dinâmico entre sinais de porcentagem que é substituído pelo conteúdo real na hora em que a macro roda. Um dos mais úteis é `%LongDate%`, que vira a data de hoje escrita por extenso ([página oficial](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+Troque o texto da caixa por algo assim e, toda vez que você digitar o gatilho, vai sair a data daquele dia:
+
+<Copy id="l2-date" code={"Organizei estas anotações em %LongDate%. Se tiver qualquer dúvida, é só me avisar."} />
+
+O formato exato da data depende dos ajustes do seu Mac, então digite uma vez para ver como fica. Existem muitos outros tokens para consultar quando precisar. Para começar, este já basta.
+
+## Pasting ou Typing?
+
+Existem duas ações para inserir texto. O nome muda só em uma palavra, mas o jeito que elas funcionam é bem diferente.
+
+**Insert Text by Pasting** coloca o texto inteiro na área de transferência e aperta ⌘V para você. É rápido, então até textos longos aparecem na hora, e aceita qualquer caractere, incluindo emojis. O porém é que o conteúdo anterior da sua área de transferência é substituído, e a macro não coloca de volta ([página oficial](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing** (inserir texto digitando) digita de verdade para você, uma tecla de cada vez, exatamente como se você estivesse no teclado. Por isso, o texto acompanha a formatação do lugar onde está o cursor, e qualquer Return ou Tab nele funciona como se você apertasse essa tecla, por exemplo pulando para o próximo campo de um formulário. Mas fica lento quando há muito texto, e só consegue digitar caracteres que você faz com um ou dois toques de tecla, então emojis ficam de fora ([página oficial](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+Então a escolha é simples. Para um trecho curto de texto simples (os criadores sugerem até 30 ou 40 caracteres), ou quando você quiser que o Tab leve você para o próximo campo, use Typing. Para todo o resto (textos longos, caracteres incomuns ou sempre que você não se importar em substituir a área de transferência), use Pasting ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+Agora você já tem duas macros: uma tecla que abre um app e algumas letras que entregam uma mensagem inteira. Na próxima lição, você vai colocar várias ações em sequência para que uma única tecla faça todos os cliques que você dá para começar o dia.
+
+## Se algo não der certo
+
+<Q q="Digitei =reply= e nada aconteceu.">
+
+Primeiro, veja se você não digitou devagar demais. Os criadores explicam que pausar por mais de alguns segundos, clicar com o mouse, trocar de app ou apertar uma combinação com ⌘ ou ⌃ faz o gatilho recomeçar a contagem ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Digite tudo de uma vez e veja se funciona.
+
+Depois, repare onde você digitou. Isso não funciona no editor do Keyboard Maestro, nas janelas que o próprio Keyboard Maestro abre nem em campos de senha. Em vez disso, teste no Editor de Texto ou no app Notas.
+
+Se não for nenhum desses casos, faça como na lição 1: escolha **Help ▸ Interactive Help** (ajuda interativa) para ele verificar se o Engine está rodando, se a permissão de Acessibilidade está ativada e se o sistema não ficou preso achando que você está digitando uma senha ([página oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="Digitei com outra fonte de entrada de teclado ativada e nada aconteceu, ou os caracteres errados foram apagados.">
+
+Troque para um layout de teclado simples (como ABC ou EUA) na hora de digitar o gatilho, para que cheguem ao app exatamente esses sete caracteres. Os criadores também avisam que, se o gatilho tiver algo além de caracteres ASCII simples, vale conferir se ele está apagando direito ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Então deixe o gatilho em si só com letras e símbolos simples. O texto que ele insere pode estar em qualquer idioma.
+
+</Q>
+<Q q="A mensagem inteira apareceu, mas =reply= continuou lá na frente.">
+
+A opção **Simulate 7 deletes before executing** não está marcada no gatilho, então a macro não apagou o que você digitou. Marque essa opção e tente de novo.
+
+</Q>
+<Q q="Depois de colar, o que eu tinha copiado antes sumiu.">
+
+É assim que **Insert Text by Pasting** funciona. Essa ação pega a área de transferência emprestada e não devolve o conteúdo depois ([FAQ oficial](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Se o texto for curto e simples, você pode trocar para **Insert Text by Typing**. Nos outros casos, acostume-se a inserir a resposta antes de copiar outra coisa. Mas o Keyboard Maestro guarda o que você copiou, e o [passo 5](/en/guide/5-clipboard/) do guia completo mostra como recuperar esse conteúdo.
+
+</Q>
+<Q q="Na verdade, eu quero digitar os próprios caracteres =reply=.">
+
+Os criadores têm um truque para isso: no meio da digitação, aperte Shift + Espaço (⇧ e a barra de espaço), depois aperte Delete e termine de digitar. Shift + Espaço faz o gatilho recomeçar a contagem, então dessa vez ele não dispara ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="Digitei =REPLY= em maiúsculas e não disparou.">
+
+Por padrão, o gatilho diferencia maiúsculas de minúsculas. Você pode configurar o gatilho para ignorar essa diferença, mas é mais simples digitar do jeito que você definiu ([página oficial](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

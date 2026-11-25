@@ -1,10 +1,18 @@
-// 非全站语言的界面文字和首页、新手入门的文字。v1 只有中文、英文两种全站语言，所以 EXTRA 是空的。
-// 加语言：照 base.js 的结构写 src/i18n/<语言>.js，在这里 import 并加进 EXTRA（比如 import ja from "./ja.js"; export const EXTRA = { ja };），nav.js 的 LANGS 里加一行（不写 full）。步骤见 docs/TRANSLATE.md。
+// 非全站语言的界面文字和首页、新手入门的文字。中文、英文是全站语言；日、韩、西、葡、法、德、俄、阿 8 种语言只有首页和新手三课，文字在这里。
+// 加语言：照 base.js 的结构写 src/i18n/<语言>.js，在这里 import 并加进 EXTRA（比如 import ja from "./ja.js"; export const EXTRA = { ja, ko, es, pt, fr, de, ru, ar };），nav.js 的 LANGS 里加一行（不写 full）。步骤见 docs/TRANSLATE.md。
 // base.js 是英文底稿，也是兜底：某种语言缺了哪个键，就显示英文。
 // 全站语言（中文、英文）的文字在各组件里，不走这里。
 import BASE from "./base.js";
+import ja from "./ja.js";
+import ko from "./ko.js";
+import es from "./es.js";
+import pt from "./pt.js";
+import fr from "./fr.js";
+import de from "./de.js";
+import ru from "./ru.js";
+import ar from "./ar.js";
 
-export const EXTRA = {};
+export const EXTRA = { ja, ko, es, pt, fr, de, ru, ar };
 
 const isObj = (v) => v && typeof v === "object" && !Array.isArray(v);
 const merge = (a, b) => {

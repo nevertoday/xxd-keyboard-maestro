@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 2
+tldr: "매일 반복해서 쓰는 답장, 서명, 자기소개를 문자열 입력 트리거에 맡겨 두세요. =reply= 같은 몇 글자만 치면 문장 전체가 바로 나타나요"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+하루에도 몇 번씩 똑같이 치게 되는 말들이 있어요. 학부모에게 답장하는 선생님, 손님에게 응대하는 가게 사장님, 새로 들어온 문의에 답하는 프리랜서까지, 알고 보면 늘 같은 몇 줄이에요. “연락 주셔서 감사합니다. 보내 주신 메시지는 잘 받았고, 이번 주 금요일까지 답변드리겠습니다.” 이 문장을 매번 한 글자씩 새로 치거나, 예전에 보낸 글을 찾아 복사하는 건 이미 끝낸 일을 또 하는 셈이에요.
+
+이 레슨에서는 글자를 입력할 수 있는 곳이라면 어디서든 `=reply=` 일곱 글자만 치면 그 글자들이 사라지고, 그 자리에 답장 전체가 들어가게 하는 매크로를 만들어 볼게요.
+
+## 입력하는 글자를 지켜봐요
+
+지난 레슨의 매크로는 키를 눌러서 실행했어요. 이번에는 다른 트리거인 <Term k="输入字符串触发器" text="문자열 입력 트리거" />를 써 볼게요. 미리 정해 둔 문자열을 입력하면 매크로가 시작돼요. 이때 입력한 글자도 평소처럼 현재 앱에 그대로 들어가기 때문에, 트리거는 보통 그 글자들을 먼저 대신 지운 다음 이어지는 동작을 실행해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>평소에 실수로 칠 일이 없는 문자열을 입력하면, 그 글자들을 지우고 저장해 둔 문장으로 바꿔 줘요.</strong></mark>
+
+‘실수로 칠 일이 없는’ 문자열이라는 점이 중요해요. 이 트리거는 어디서든 누르는 모든 키를 지켜보고 있거든요. 그래서 `reply`를 문자열로 정해 두면, 문장 속에 그 단어를 쓸 때마다 매크로가 실행되어 버려요. 개발사에서도 문자열 앞이나 뒤에 일정한 접두사나 접미사를 붙이라고 권해요. 예를 들어 “them”을 쓸 때도 걸려 버리는 `em` 대신 `=em=`을 쓰라는 식이죠([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)). 이 사이트의 예시도 모두 이 방식을 따라 앞뒤에 등호를 붙여요: `=reply=`, `=addr=`, `=sig=`.
+
+## 매크로 만들기
+
+지난 레슨과 마찬가지로 편집기 왼쪽 열에서 **Global Macro Group**(전역 매크로 그룹)을 선택하고, 가운데 열 아래의 **+** 버튼을 클릭해 매크로를 추가한 뒤 이름을 “답장”으로 지어 주세요.
+
+1. 초록색 **+** 버튼인 **New Trigger**(새 트리거)를 클릭하고, 이번에는 **Typed String Trigger**(문자열 입력 트리거)를 선택하세요.
+2. **This string is typed:**(이 문자열을 입력할 때) 뒤의 입력 칸에 `=reply=`를 입력하세요.
+3. 그 아래에 있는 **Simulate 7 deletes before executing**(실행 전 7회 삭제 시뮬레이션) 항목이 체크되어 있는지 확인하세요. 매크로가 다른 일을 하기 전에 방금 입력한 7글자를 대신 지워 주는 옵션이에요.
+4. **New Action**(새 동작)을 클릭하고, **All Actions**(모든 동작) 목록을 아래로 내려 **Insert Text by Pasting**(붙여넣기로 텍스트 삽입)을 찾은 뒤 더블클릭하세요.
+5. 아래 문구를 이 동작의 텍스트 칸에 복사해 넣고, 말투와 이름은 본인에게 맞게 바꿔 주세요.
+
+<Copy id="l2-reply" code={"연락 주셔서 감사합니다. 보내 주신 메시지는 잘 받았고, 이번 주 금요일까지 답변드리겠습니다.\n\n좋은 하루 보내세요.\n민수 드림"} />
+
+이제 직접 시험해 보세요. 텍스트 편집기를 열고 새 문서를 만든 다음 `=reply=`를 입력해 보세요.
+
+<Callout type="ok">
+방금 입력한 `=reply=`가 사라지고, 빈 줄까지 그대로 포함된 답장 전체가 그 자리에 나타나요.
+</Callout>
+
+Keyboard Maestro 편집기 안에서는 시험하지 마세요. 개발사 설명에 따르면 편집기에서는 바뀐 내용이 곧바로 저장되면서 트리거가 끊기기 때문에, 편집기 안에서는 거의 작동하지 않아요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)). 그리고 한 가지 꼭 기억해 두세요. <u>글을 입력하는 곳에서만 쓰고, Finder에서는 절대 쓰지 마세요.</u> Finder에서는 글자를 치면 파일이 선택되고, 이어서 매크로가 대신 누르는 삭제 키 때문에 선택된 파일이 휴지통으로 옮겨질 수 있거든요([공식 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## 하는 김에 오늘 날짜도 넣어 보세요
+
+텍스트 칸에는 고정된 글자뿐만 아니라 <Term k="令牌" text="토큰" />도 넣을 수 있어요. 퍼센트 기호로 감싼 이름인데, 매크로가 실행될 때 실제 값으로 바뀌어요. 가장 유용한 것 중 하나가 `%LongDate%`예요. 오늘 날짜를 생략 없이 전체 형식으로 바꿔 주죠([공식 문서](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+텍스트 칸의 문구를 아래처럼 바꿔 두면, 트리거를 입력할 때마다 그날의 날짜가 들어가요.
+
+<Copy id="l2-date" code={"이 내용은 %LongDate%에 정리했어요. 궁금한 점이 있으면 언제든 알려 주세요."} />
+
+날짜가 정확히 어떤 형식으로 보이는지는 Mac의 설정에 따라 다르니, 한 번 입력해서 직접 확인해 보세요. 토큰은 이 밖에도 많으니 필요할 때 찾아보세요. 처음 시작할 때는 이 하나만 알아도 충분해요.
+
+## Pasting과 Typing, 어느 쪽을 쓸까요?
+
+텍스트를 넣는 동작은 두 가지예요. 이름은 단어 하나 차이지만 작동 방식은 아주 달라요.
+
+**Insert Text by Pasting**은 문장 전체를 클립보드에 넣은 뒤 ⌘V를 대신 눌러 줘요. 속도가 빨라서 긴 글도 한 번에 나타나고, 이모지를 포함해 어떤 문자든 넣을 수 있어요. 대신 클립보드에 원래 들어 있던 내용은 덮어씌워지고, 매크로가 끝나도 원래대로 돌려놓지 않아요([공식 문서](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing**(직접 입력으로 텍스트 삽입)은 말 그대로 직접 치는 것처럼 키를 하나씩 대신 눌러서 입력해요. 그래서 커서가 있는 자리의 서식을 그대로 따라가고, 안에 들어 있는 Return이나 Tab도 실제로 그 키를 누른 것처럼 작동해요. 예를 들어 입력 양식에서 다음 칸으로 넘어가는 식이죠. 하지만 글이 길면 느리고, 키를 한두 번 눌러서 입력할 수 있는 문자만 칠 수 있어서 이모지는 넣을 수 없어요([공식 문서](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+그래서 고르는 기준은 간단해요. 짧은 일반 텍스트(개발사 기준 30~40자 이내)이거나, Tab으로 다음 칸으로 넘어가고 싶을 때는 Typing을 쓰세요. 그 밖의 모든 경우, 즉 글이 길거나 특수한 문자가 들어 있거나 클립보드가 바뀌어도 상관없을 때는 Pasting을 쓰면 돼요([공식 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+이제 매크로가 두 개 생겼어요. 키 하나로 앱을 여는 매크로와, 몇 글자만 쳐서 문장 전체를 불러오는 매크로예요. 다음 레슨에서는 여러 동작을 순서대로 이어 붙여, 하루를 시작할 때 매번 클릭하던 일들을 키 하나로 끝내는 방법을 알아볼게요.
+
+## 뭔가 잘 안 될 때
+
+<Q q="=reply=를 입력했는데 아무 일도 일어나지 않아요.">
+
+먼저 너무 천천히 입력하지 않았는지 생각해 보세요. 개발사 설명에 따르면 몇 초 이상 멈추거나, 마우스를 클릭하거나, 앱을 전환하거나, ⌘나 ⌃ 조합 키를 누르면 글자 수를 처음부터 다시 세기 시작해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)). 한 번에 쭉 입력해서 다시 확인해 보세요.
+
+그다음에는 어디에 입력했는지 살펴보세요. Keyboard Maestro 편집기 안이나 Keyboard Maestro가 직접 띄운 창, 그리고 암호 입력 칸에서는 작동하지 않아요. 대신 텍스트 편집기나 메모에서 시험해 보세요.
+
+둘 다 아니라면 레슨 1에서 했던 것처럼 **Help ▸ Interactive Help**(도움말 ▸ 대화형 도움말)를 선택해 점검해 보세요. 엔진이 실행 중인지, 손쉬운 사용 권한이 켜져 있는지, 그리고 시스템이 암호를 입력 중인 상태로 멈춰 있지는 않은지 확인해 줘요([공식 문서](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="다른 키보드 입력 소스가 켜진 상태에서 입력했더니 반응이 없거나 엉뚱한 글자가 지워져요.">
+
+트리거를 입력할 때는 기본 영문 키보드 레이아웃(예: ABC나 미국(U.S.))으로 전환하세요. 그래야 그 일곱 글자가 그대로 앱에 전달돼요. 개발사에서도 트리거에 기본 ASCII 문자가 아닌 글자가 들어 있으면 삭제가 제대로 되는지 직접 확인하라고 안내해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)). 그러니 트리거 자체는 기본 영문자와 기호만으로 정해 두세요. 대신 삽입되는 문장은 어떤 언어로 써도 괜찮아요.
+
+</Q>
+<Q q="답장 전체가 나오긴 했는데, 앞에 =reply=가 그대로 남아 있어요.">
+
+트리거의 **Simulate 7 deletes before executing**에 체크가 되어 있지 않아서, 매크로가 방금 입력한 글자를 지우지 못한 거예요. 체크한 뒤 다시 시도해 보세요.
+
+</Q>
+<Q q="붙여넣고 나니 그전에 복사해 둔 내용이 사라졌어요.">
+
+**Insert Text by Pasting**은 원래 그렇게 작동해요. 클립보드를 잠시 빌려 쓰고, 끝난 뒤에 원래 내용을 되돌려 놓지 않거든요([공식 FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). 문구가 짧고 일반 텍스트라면 **Insert Text by Typing**으로 바꿀 수 있어요. 그게 아니라면 다른 걸 복사하기 전에 답장부터 먼저 붙여넣는 습관을 들여 보세요. 그래도 Keyboard Maestro는 복사했던 내용을 기억해 두고 있어요. 되찾는 방법은 전체 가이드(영어)의 [5단계](/en/guide/5-clipboard/)에서 알려 줘요.
+
+</Q>
+<Q q="정말로 =reply=라는 글자 자체를 입력하고 싶어요.">
+
+개발사에서 알려 주는 요령이 있어요. 중간에 Shift-Space(⇧와 스페이스 바)를 한 번 누른 뒤 Delete를 누르고 나머지를 마저 치면 돼요. Shift-Space를 누르면 글자 수를 처음부터 다시 세기 때문에 이번에는 실행되지 않아요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="대문자로 =REPLY=라고 쳤더니 실행되지 않아요.">
+
+이 트리거는 기본적으로 대소문자를 구분해요. 대소문자를 무시하도록 설정할 수도 있지만, 처음 정해 둔 그대로 입력하는 편이 더 간단해요([공식 문서](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

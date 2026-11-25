@@ -2,7 +2,7 @@
 
 # Keyboard Maestro for Beginners
 
-[中文](./README.md) · **English**
+[中文](./README.md) · **English** · [日本語](./README.ja.md) · [한국어](./README.ko.md) · [Español](./README.es.md) · [Português](./README.pt.md) · [Français](./README.fr.md) · [Deutsch](./README.de.md) · [Русский](./README.ru.md) · [العربية](./README.ar.md)
 
 ### Get the most out of Keyboard Maestro: hand the repetitive stuff to one key
 
@@ -10,7 +10,7 @@ Keyboard Maestro is automation for the Mac: you write macros in the editor, and 
 
 **[Start with lesson 1 →](https://keyboardmaestro.xiaoxiaodong.ai/en/start/1-first-macro/)**　·　**[Already using it? The full guide →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>Unofficial · free · open source · Chinese and English</sub>
+<sub>Unofficial · free · open source · 10 languages (the full site in Chinese and English; home and the three lessons in 8 more)</sub>
 
 </div>
 

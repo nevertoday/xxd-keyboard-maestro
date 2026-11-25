@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/Lesson.astro
+lesson: 2
+tldr: "La réponse, la signature ou la présentation que vous tapez tous les jours passe dans un déclencheur par texte saisi : tapez quelques caractères comme =reply= et tout le texte apparaît"
+---
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Copy from "../../../components/Copy.astro";
+import Q from "../../../components/Q.astro";
+
+Il y a des phrases que vous tapez plusieurs fois par jour. Un enseignant qui répond à des parents, un commerçant qui répond à ses clients, un indépendant qui répond à une nouvelle demande : ce sont souvent les mêmes quelques lignes. « Merci pour votre message. Je l’ai bien reçu et je vous répondrai d’ici vendredi. » Tout retaper lettre par lettre, ou aller repêcher votre dernier message pour le copier, c’est refaire un travail que vous avez déjà fait.
+
+Dans cette leçon, vous allez créer une macro : partout où vous pouvez écrire, il suffira de taper les sept caractères `=reply=` pour qu’ils disparaissent et laissent place à tout le message.
+
+## Le déclencheur surveille ce que vous tapez
+
+La macro de la leçon précédente se lançait d’une pression sur un raccourci. Celle-ci utilise un autre déclencheur : le <Term k="输入字符串触发器" text="déclencheur par texte saisi" />. Vous tapez une séquence choisie à l’avance, et la macro se lance. Comme ce que vous tapez s’affiche normalement dans l’app en cours, le déclencheur commence en général par effacer ces caractères pour vous, puis exécute les actions ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark><strong>Tapez une séquence que vous ne taperiez jamais par hasard : la macro l’efface et met votre texte enregistré à la place.</strong></mark>
+
+Ce « jamais par hasard » compte beaucoup. Le déclencheur observe chaque touche sur laquelle vous appuyez, partout : si vous preniez `reply` comme séquence, la macro se lancerait chaque fois que vous écririez ce mot dans une phrase. Les développeurs recommandent d’ajouter un préfixe ou un suffixe fixe à vos séquences. Leur exemple est `=em=` plutôt que `em`, qui se déclencherait au milieu de « them » ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Tous les exemples de ce site suivent ce modèle, avec un signe égal de chaque côté : `=reply=`, `=addr=`, `=sig=`.
+
+## Créer la macro
+
+Comme dans la leçon précédente, sélectionnez **Global Macro Group** (groupe de macros global) dans la colonne de gauche de l’éditeur, cliquez sur le **+** sous la colonne du milieu pour ajouter une macro, et nommez-la « Réponse ».
+
+1. Cliquez sur le **+** vert (**New Trigger**, nouveau déclencheur) et choisissez cette fois **Typed String Trigger** (déclencheur par texte saisi).
+2. Dans le champ qui suit **This string is typed:** (quand ce texte est saisi), tapez `=reply=`.
+3. Vérifiez que l’option juste en dessous, **Simulate 7 deletes before executing** (simuler 7 suppressions avant d’exécuter), est bien cochée. C’est elle qui efface les 7 caractères que vous avez tapés avant que la macro fasse le reste.
+4. Cliquez sur **New Action** (nouvelle action), faites défiler la liste **All Actions** (toutes les actions) jusqu’à **Insert Text by Pasting** (insérer du texte en le collant), puis double-cliquez dessus.
+5. Copiez le texte ci-dessous dans la zone de texte de l’action, puis remplacez la formulation et le nom par les vôtres.
+
+<Copy id="l2-reply" code={"Merci pour votre message. Je l’ai bien reçu et je vous répondrai d’ici vendredi.\n\nBien cordialement,\nCamille"} />
+
+Maintenant, essayez. Ouvrez TextEdit, créez un nouveau document et tapez `=reply=`.
+
+<Callout type="ok">
+Le `=reply=` que vous avez tapé a disparu, et toute la réponse a pris sa place, ligne vide comprise.
+</Callout>
+
+Ne faites pas l’essai dans l’éditeur de Keyboard Maestro. Les développeurs précisent que chaque modification y est enregistrée immédiatement, ce qui interrompt le déclencheur : dans l’éditeur, il ne fonctionne donc presque jamais ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Et gardez une chose en tête : <u>utilisez-le uniquement là où vous tapez du texte, jamais dans le Finder.</u> Dans le Finder, les lettres que vous tapez servent à sélectionner des fichiers, et les touches de suppression simulées par la macro peuvent alors envoyer le fichier sélectionné à la Corbeille ([FAQ officielle](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Typed_String_triggers)).
+
+## Ajouter la date du jour au passage
+
+Une zone de texte ne sert pas qu’à du texte fixe. Elle peut aussi contenir un <Term k="令牌" text="jeton" />, un nom entouré de signes pour cent qui est remplacé par la vraie valeur quand la macro s’exécute. L’un des plus utiles est `%LongDate%`, qui devient la date du jour au format long ([page officielle](https://wiki.keyboardmaestro.com/token/LongDate)).
+
+Remplacez le texte dans la zone par un exemple comme celui-ci, et chaque fois que vous taperez le déclencheur, vous aurez la date du jour :
+
+<Copy id="l2-date" code={"J’ai préparé ces notes le %LongDate%. N’hésitez pas à me contacter si vous avez des questions."} />
+
+L’affichage exact de la date dépend des réglages de votre Mac : essayez une fois pour voir. Il existe bien d’autres jetons, à consulter au besoin. Pour débuter, celui-ci suffit.
+
+## Pasting ou Typing ?
+
+Il existe deux actions pour insérer du texte. Leurs noms ne diffèrent que d’un mot, mais elles fonctionnent de manière très différente.
+
+**Insert Text by Pasting** place tout le texte dans le presse-papiers et appuie sur ⌘V à votre place. C’est rapide : même un long texte apparaît d’un coup, et il peut contenir n’importe quel caractère, émojis compris. Le revers de la médaille, c’est que tout ce qui se trouvait déjà dans votre presse-papiers est remplacé, et la macro ne le remet pas en place ([page officielle](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting)).
+
+**Insert Text by Typing** (insérer du texte en le tapant) tape vraiment le texte à votre place, une touche après l’autre, exactement comme si vous le faisiez vous-même. Le texte adopte donc la mise en forme de l’endroit où se trouve votre curseur, et chaque Retour ou Tabulation qu’il contient agit comme un vrai appui sur cette touche, par exemple pour passer au champ suivant d’un formulaire. En revanche, c’est lent dès qu’il y a beaucoup de texte, et cette action ne peut taper que des caractères accessibles en une ou deux touches : les émojis sont donc exclus ([page officielle](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)).
+
+Le choix est donc simple. Pour un petit bout de texte tout simple (les développeurs parlent de 30 à 40 caractères maximum), ou quand vous voulez que Tabulation vous fasse passer au champ suivant, utilisez Typing. Pour tout le reste (texte long, caractères particuliers, ou chaque fois que remplacer le presse-papiers ne vous gêne pas), utilisez Pasting ([FAQ officielle](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_should_I_use_Insert_Text_by_Typing_instead_of_by_Pasting)).
+
+Vous avez maintenant deux macros : un raccourci qui ouvre une app, et quelques lettres qui écrivent tout un message. Dans la leçon suivante, vous allez enchaîner plusieurs actions pour qu’un seul raccourci fasse tous les clics par lesquels vous commencez votre journée.
+
+## Si quelque chose cloche
+
+<Q q="J’ai tapé =reply= et rien ne s’est passé.">
+
+D’abord, avez-vous tapé lentement ? Les développeurs précisent qu’une pause de plus de quelques secondes, un clic de souris, un changement d’app ou une combinaison avec ⌘ ou ⌃ remettent le compteur à zéro ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Tapez-le d’une traite pour voir.
+
+Ensuite, vérifiez où vous l’avez tapé. Cela ne fonctionne ni dans l’éditeur de Keyboard Maestro, ni dans les fenêtres affichées par Keyboard Maestro lui-même, ni dans les champs de mot de passe. Essayez plutôt dans TextEdit ou Notes.
+
+Si ce n’est rien de tout ça, faites comme dans la leçon 1 : choisissez **Help ▸ Interactive Help** (aide interactive) et laissez-le vérifier que le moteur tourne bien, que l’autorisation d’accessibilité est activée et que le système ne croit pas, à tort, que vous tapez un mot de passe ([page officielle](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+</Q>
+<Q q="Je l’ai tapé avec une autre méthode de saisie active, et rien ne s’est passé ou les mauvais caractères ont été effacés.">
+
+Passez sur une disposition de clavier simple (comme ABC ou États-Unis) le temps de taper le déclencheur, afin que l’app reçoive exactement ces sept caractères. Les développeurs préviennent aussi que si un déclencheur contient autre chose que des caractères ASCII simples, mieux vaut vérifier que l’effacement se fait correctement ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)). Limitez donc le déclencheur lui-même à des lettres et des symboles simples. Le texte qu’il insère, lui, peut être dans n’importe quelle langue.
+
+</Q>
+<Q q="Tout le message est apparu, mais =reply= est resté devant.">
+
+L’option **Simulate 7 deletes before executing** n’est pas cochée dans le déclencheur : la macro n’a donc pas effacé ce que vous avez tapé. Cochez-la et réessayez.
+
+</Q>
+<Q q="Après le collage, ce que j’avais copié avant a disparu.">
+
+C’est comme ça que fonctionne **Insert Text by Pasting** : l’action emprunte le presse-papiers et ne remet pas son contenu en place après coup ([FAQ officielle](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#Why_is_the_clipboard_not_restored_after_any_clipboard_action)). Si le texte est court et simple, vous pouvez passer à **Insert Text by Typing**. Sinon, prenez l’habitude d’insérer votre réponse avant de copier autre chose. Cela dit, Keyboard Maestro garde bien en mémoire ce que vous avez copié, et [l’étape 5](/en/guide/5-clipboard/) du guide complet vous montre comment le retrouver.
+
+</Q>
+<Q q="Je veux vraiment taper les caractères =reply= tels quels.">
+
+Les développeurs ont une astuce pour ça : au milieu de la saisie, appuyez sur Maj + Espace (⇧ et la barre d’espace), puis sur la touche Supprimer, et terminez de taper. Maj + Espace remet le compteur à zéro, donc cette fois la macro ne se déclenche pas ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>
+<Q q="J’ai tapé =REPLY= en majuscules et la macro ne s’est pas déclenchée.">
+
+Par défaut, le déclencheur tient compte des majuscules et des minuscules. Vous pouvez le régler pour qu’il les ignore, mais le plus simple reste de taper la séquence exactement comme vous l’avez définie ([page officielle](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+</Q>

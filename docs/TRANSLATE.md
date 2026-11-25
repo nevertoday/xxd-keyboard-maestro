@@ -23,6 +23,7 @@ Mac users who have never automated anything, reading in their own language. The 
 ## Do translate
 - All prose, headings, list items, table cells, `title="…"`, `q="…"`, Checkpoint `items`, `text="…"` on Term, Callout titles, Reply bodies (titled in your language's word for "Illustration"), figure captions.
 - Text the reader copies into their own macro (the body of a snippet, a reply): translate it so a reader of your language would naturally write it, keeping tokens and typed strings as they are.
+- Every `<Term k="…" />` gets a `text="…"` attribute with your language's term from the term list (the English pages don't need it, yours do: without it the page shows the English term mid-sentence). `npm run check` fails on a missing one.
 - Internal links: lessons and home link to `/<lang>/…`; every other site page links to `/en/…`. External links stay identical.
 
 ## MDX safety

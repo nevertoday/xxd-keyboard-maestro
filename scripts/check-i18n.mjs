@@ -55,6 +55,8 @@ for (const code of want) {
     if (ids(s) !== ids(en)) fail(code, `${f} 复制块的 id 和英文版不一样`);
     if (figs(s) !== figs(en)) fail(code, `${f} 的图示和英文版不一样（英文版：${figs(en) || "没有"}）`);
     if ((s.match(/<mark/g) || []).length > 1) fail(code, `${f} 有不止一处 <mark>`);
+    // 这些语言的 <Term> 不写 text，页面上显示的是英文术语名，夹在本语言的句子里
+    for (const m of s.matchAll(/<Term k="([^"]+)"(?![^>]*\btext=)[^>]*\/>/g)) fail(code, `${f} 的 <Term k="${m[1]}" /> 没写 text，页面上会显示英文；照本语言的术语表加 text="…"`);
     if (!/^tldr: /m.test(s)) fail(code, `${f} 缺 tldr`);
     for (const m of s.matchAll(/\]\((\/[^)\s]*)\)|href="(\/[^"]*)"/g)) {
       const href = m[1] ?? m[2];

@@ -36,12 +36,24 @@ const ALLOW = [
   ["Automation", "Privacy & Security 里的一项"],
   ["Location Services", "Privacy & Security 里的一项（定位服务）；macOS 14 起，引擎要它才读得到连着哪个 Wi-Fi（trigger/Wireless_Network）"],
   ["Login Items & Extensions", "System Settings ▸ General 里的一项"],
+  // 新手三课的其他语言版本：macOS 系统设置在那种语言里的名字（Apple 自己的译名，docs/l10n/glossary/<语言>.md 里有对照）
+  ["Systemeinstellungen", "de：System Settings"],
+  ["Datenschutz & Sicherheit", "de：Privacy & Security"],
+  ["Bedienungshilfen", "de：Accessibility"],
+  ["Ajustes del Sistema", "es：System Settings"],
+  ["Preferencias del Sistema", "es：System Preferences"],
+  ["Privacidad y seguridad", "es：Privacy & Security"],
+  ["Accesibilidad", "es：Accessibility"],
+  ["Ajustes do Sistema", "pt-BR：System Settings"],
+  ["Preferências do Sistema", "pt-BR：System Preferences"],
+  ["Privacidade e Segurança", "pt-BR：Privacy & Security"],
+  ["Acessibilidade", "pt-BR：Accessibility"],
   // Keyboard Maestro 菜单里由 macOS 生成的几项（App 的文件里没有这几个字）
   ["Settings", "macOS 13 起，App 菜单里的 Preferences… 显示成 Settings…（Wiki 和 App 文件里还叫 Preferences）"],
   ["Quit Keyboard Maestro", "App 菜单的退出项，macOS 按 App 名生成；官方 Wiki 的菜单路径写作 Keyboard Maestro ➤ Quit Keyboard Maestro"],
 ];
 
-const norm = (s) => s.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().replace(/(…|\.\.\.|[.:])+$/, "").trim();
+const norm = (s) => s.replace(/[\u2066\u2069]/g, "").replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, " ").trim().replace(/(…|\.\.\.|[.:])+$/, "").trim();
 const known = new Set([...KM.labels, ...ALLOW.map(([l]) => l)].map(norm));
 const byLower = new Map([...known].map((l) => [l.toLowerCase(), l]));
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -70,7 +82,7 @@ for (const file of files) {
   const en = isEnglish(file);
   const text = strip(readFileSync(file, "utf8"));
   for (const m of text.matchAll(/\*\*([^*\n]+?)\*\*/g)) {
-    const bold = m[1].trim();
+    const bold = m[1].replace(/[\u2066\u2069]/g, "").trim();
     const menu = MENU.test(bold);
     const parts = menu ? bold.split(MENU) : [bold];
     for (const part of parts) {
