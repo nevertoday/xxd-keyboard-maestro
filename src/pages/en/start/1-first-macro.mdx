@@ -1,6 +1,128 @@
 ---
 layout: ../../../layouts/Lesson.astro
 lesson: 1
-tldr: "Download it, grant the permissions, keep the Engine running, then build your first macro: one hot key that opens the app you use every day"
+tldr: "Download it from the official site, grant the permissions, keep the Engine running from login, then build your first macro: press ⌃⌥⌘N and the app you open every day is in front of you"
 ---
-{/* TBD: lesson 1, delivering what its title and tldr promise. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+How many times a day do you open Notes? A thought comes to you, so you move the mouse down to the Dock, find the yellow icon, click it and wait for the window. It only takes a few seconds, but you do it a dozen times a day, and every so often the thought is gone by the time the window shows up.
+
+By the end of this lesson, pressing ⌃⌥⌘N brings Notes to the front, and opens it first if it isn't running. To get there you'll do three things: install Keyboard Maestro, give it permission, and keep it running in the background. You only do each of them once.
+
+## A macro is one sentence: when this, do that
+
+Every job Keyboard Maestro does for you is called a <Term k="宏" />. However complicated it gets, a macro has two parts. When it starts is its <Term k="触发器" />. What it does once it starts is its <Term k="动作" />, or a list of actions, which it works through from top to bottom ([official Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)).
+
+So the macro you're about to build fits in one sentence:
+
+<mark><strong>When I press ⌃⌥⌘N, bring Notes to the front.</strong></mark>
+
+⌃ is the Control key, ⌥ is Option and ⌘ is Command. Holding all three and pressing a letter is a combination other apps almost never use, so it's unlikely to clash with anything. Notes is just the example. If the app you open most is Mail, Calendar or TextEdit, use that instead and every step stays the same.
+
+## Download it, then move it to Applications with the Finder
+
+You get Keyboard Maestro from the official site, [keyboardmaestro.com](https://www.keyboardmaestro.com/). It isn't on the Mac App Store, because, as the developers explain, it can't be sandboxed the way the store requires ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)). It needs macOS 10.13 or later, and until you buy it you're using a fully working trial ([official page](https://wiki.keyboardmaestro.com/manual/Purchase)).
+
+The download is a zip file. Double-click it and you have the Keyboard Maestro app. Don't skip the next part: <u>use the Finder to drag it into your Applications folder, and open it from there.</u> macOS has a security feature called App Translocation. If you open a downloaded app without moving it first, the system runs it from a random location, and then launching at login won't work and updates will fail. Moving it in the Finder turns that off. Moving it any other way doesn't ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)).
+
+## Opening it actually starts two programs
+
+When you open Keyboard Maestro, the window you see is the <Term k="编辑器" />. That's where you write and change macros. At the same time it quietly starts a second program, **Keyboard Maestro Engine**, the <Term k="引擎" />. The Engine has no window and stays in the background. It's the one listening for your hot keys and running your macros ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+Keep that split in mind and a lot of things make sense later. You can quit the editor once you're done and your macros keep working, because the Engine does the work. And if the Engine isn't running, no macro will do anything.
+
+The first time you open it you'll see a welcome window with a **Start Tutorial** button, the official built-in tutorial. It covers much the same ground as this lesson, so you can save it for later.
+
+## Give it permission
+
+Keyboard Maestro presses keys, chooses menus and moves windows for you. That's operating your Mac on your behalf, so macOS wants your explicit say-so. That's the <Term k="辅助功能权限" />. Without it, Keyboard Maestro can't even see the keyboard, so hot keys can't work ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)).
+
+Keyboard Maestro reminds you about this the first time you open it, and while something is missing there's a small yellow triangle in the bottom right corner of the editor window. Click it and follow the steps. Or do it yourself:
+
+1. Open **System Settings ▸ Privacy & Security ▸ Accessibility**. On older versions of macOS it's under **System Preferences**, in Security & Privacy ▸ Privacy.
+2. Find **Keyboard Maestro Engine** in the list and turn it on. If **Keyboard Maestro** is there too, turn that on as well. macOS may ask for your login password.
+
+<Callout type="ok">
+Back in Keyboard Maestro, the yellow triangle in the bottom right corner is gone. If it's still there, click it to see what's missing.
+</Callout>
+
+Later on, the first time it controls a particular app or uses a particular system feature, macOS may ask you again. That's normal ([official FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)). Check that it's Keyboard Maestro asking, then allow it.
+
+## Keep the Engine running from login
+
+The Engine keeps running until you log out or shut down. The next time you start your Mac it won't come back on its own unless you tell it to. The developers recommend turning this on ([official Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)):
+
+1. In Keyboard Maestro, choose **Keyboard Maestro ▸ Settings…**. On older versions of macOS it's called Preferences….
+2. In the **General** pane, tick **Launch Engine at Login**.
+
+Now the Engine is waiting in the background every time you start up, and your macros work as soon as you log in.
+
+## Build your first macro
+
+The editor window has three columns. On the left are your <Term k="宏组" text="macro groups" />, folders for macros. In the middle are the macros in the selected group. On the right is whatever macro you've selected.
+
+1. In the left column, select **Global Macro Group**. Macros in this group work in every app.
+2. Click the **+** under the middle column to add a new macro. Give it a name, like "Open Notes".
+3. On the right, click the green **+** (**New Trigger**) and choose **Hot Key Trigger**. An empty box appears. Click in it and press ⌃⌥⌘N. The box now shows the keys you pressed.
+4. Click **New Action**. A long list of actions appears on the left of the window. Choose the **All Actions** category. They're in alphabetical order, so **Activate a Specific Application** is among the first few. Double-click it.
+5. In that action's **Activate:** menu, choose Notes.
+
+There's no Save button in Keyboard Maestro. Whatever you change is saved a few seconds later ([official Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)). The macro works as soon as it's made, with nothing to restart.
+
+## Try it
+
+Click on the desktop, or switch to any other app, and press ⌃⌥⌘N.
+
+<Callout type="ok">
+Notes jumps to the front. Quit Notes with ⌘Q and press it again, and Notes opens.
+</Callout>
+
+One more small experiment. Choose **Keyboard Maestro ▸ Quit Keyboard Maestro** to close the editor, then press ⌃⌥⌘N again. Notes still comes up, because the Engine in the background is the one listening and doing the work.
+
+You've installed Keyboard Maestro, given it permission, set the Engine to start at login, and built your first macro: one hot key, one action. In the next lesson you'll use a different kind of trigger, so that typing a few letters gives you a whole paragraph.
+
+<Callout type="tip" title="Three lessons are enough">
+In lesson 2 you build a macro that turns a few typed letters into a whole paragraph. In lesson 3 you put your start-of-day routine into one macro, then learn how to stop a macro and where to look when one doesn't fire. After these three lessons you can build your own macros. Everything else on the site is there to look up when you need it.
+</Callout>
+
+## If something's off
+
+<Q q="I pressed ⌃⌥⌘N and nothing happened.">
+
+The quickest fix is to let Keyboard Maestro check for you. Open the editor, choose **Help ▸ Interactive Help**, and click "Something expected is not happening". It checks whether the Engine is running and the permissions are on, then has you pick this macro and checks that its group and the macro itself are enabled and that it has a trigger and actions ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)). Whatever it flags, fix that.
+
+</Q>
+<Q q="I click in the hot key box and press keys, but nothing shows up.">
+
+That's almost always the Accessibility permission: Keyboard Maestro can't see the keyboard ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key)). Go back over "Give it permission" above. If the permissions are on and it still happens, the system may be stuck thinking you're typing a password. See the next item.
+
+</Q>
+<Q q="It's turned on in System Settings, but Keyboard Maestro says it has no permission.">
+
+The developers say plainly that the macOS permission system has been buggy since Mojave: a box is ticked but doesn't take effect, or the system tells Keyboard Maestro it has permission when it doesn't ([official page](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Try their fixes in order. In **Accessibility**, turn **Keyboard Maestro Engine** off and on again. Quit Keyboard Maestro and the Engine and open them again. Restart your Mac.
+
+There's one more possibility. Some app can leave the system convinced you're always typing a password, and then no program can see the keyboard. This is called Secure Input. Quitting that app or restarting fixes it, and in **Help ▸ Interactive Help**, "Something unexpected is happening" tells you whether that's the cause ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+
+</Q>
+<Q q="The editor warns about App Translocation, or macros stopped working after a restart.">
+
+Most likely the app is still in your Downloads folder, or it wasn't moved to Applications with the Finder. Quit Keyboard Maestro, drag it into Applications in the Finder, and open it from there ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security)). Then make sure **Launch Engine at Login** is ticked.
+
+</Q>
+<Q q="After I started my Mac today, none of my hot keys work.">
+
+The Engine didn't start at login. Open Keyboard Maestro once and the Engine starts with it. Then go to the **General** pane of **Keyboard Maestro ▸ Settings…** and tick **Launch Engine at Login** so you don't have to think about it again ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
+
+</Q>
+<Q q="I pressed the hot key, Notes came up, and the app I was in did something else too.">
+
+Another app uses ⌃⌥⌘N as well. When two programs register the same hot key, the developers say your macro and the other app's command both happen ([official page](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Click in the trigger's box and pick a different combination, such as ⌃⌥⌘ with another letter.
+
+</Q>
+<Q q="I pressed the hot key and a small list of macros popped up for me to pick from.">
+
+Two of your macros use the same hot key, so Keyboard Maestro doesn't know which one you mean and lists them both ([official page](https://wiki.keyboardmaestro.com/trigger/Hot_Key)). Give one of them a different hot key and the list won't appear again.
+
+</Q>

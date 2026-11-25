@@ -1,6 +1,99 @@
 ---
 layout: ../../../layouts/Lesson.astro
 lesson: 3
-tldr: "Turn the clicks you make every morning into one macro: open a few apps and a web page, put the windows in place, then learn to stop it and where to look when it misfires"
+tldr: "Turn the clicks you make every morning into one macro: open a few apps and a web page, put the windows in place, wait where it needs to; then learn to stop it and where to look when it misfires"
 ---
-{/* TBD: lesson 3, delivering what its title and tldr promise. Voice and hard rules in docs/MAINTAINING.md; sources in docs/sources/. */}
+import Callout from "../../../components/Callout.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+When you sit down at your Mac in the morning, your hands probably go something like this. Open Calendar to see what's on today. Open Notes to see your to-do list. Open Safari and go to the page you check every day, maybe a course page, a work system, or the back end of your shop. Then drag Safari to the left and Notes to the right, and only then start working. Seven or eight moves, exactly the same every day.
+
+In this lesson you put those moves into one macro. Press ⌃⌥⌘M (⌃ is Control, ⌥ is Option, ⌘ is Command, and M is for morning) and it does the lot.
+
+## A list of actions, top to bottom
+
+The macros in the last two lessons had one action each. A macro can hold a whole list, and when it starts, Keyboard Maestro works through them from top to bottom ([official Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start)). All you do is write down, in order, the path your hands take every day.
+
+There's just one place that needs a little more thought. After some actions, Keyboard Maestro has no way of telling when the other side is actually ready. Ask Safari to open a web page, for example, and its window takes a moment to appear, but Keyboard Maestro doesn't wait. It goes straight on to the next action ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). If that next action moves a window that isn't there yet, it misses.
+
+<mark><strong>Line up the clicks you make every day, in order, and wherever a window needs time to appear, put in a Pause.</strong></mark>
+
+## Build the macro
+
+In **Global Macro Group**, make a new macro called "Start the day". Click **New Trigger**, choose **Hot Key Trigger** and press ⌃⌥⌘M. Then add these six actions in this order. For each one, click **New Action**, find it in **All Actions** and double-click it:
+
+1. **Activate a Specific Application**, with Calendar chosen in **Activate:**.
+2. Another **Activate a Specific Application**, this time with Notes.
+3. **Open a URL**. In the **Open URL** box, put the address of the page you check every day, written out in full starting with `https://`, and choose Safari in **with**.
+4. **Pause**, set to 1 second, so Safari's window has time to appear.
+5. **Manipulate a Window**. In the first menu choose **Move and Resize**, and for the position choose **Left Column**. Set the window to **the front window** and the app to Safari.
+6. Another **Manipulate a Window**, again **Move and Resize**, this time **Right Column**, with **the front window** of Notes.
+
+If an action ends up in the wrong place, drag it to where it belongs. If you can't make sense of an action's options, click the gear **⚙** at its top right and choose **Help** to open that action's page on the official wiki ([official page](https://wiki.keyboardmaestro.com/manual/Macro_Actions)).
+
+## Try it
+
+Quit Calendar, Notes and Safari first, then press ⌃⌥⌘M.
+
+<Callout type="ok">
+Calendar and Notes open one after the other, Safari opens your page, and after a second or so Safari fills the left half of the screen and Notes the right half.
+</Callout>
+
+If the windows didn't move, or only one did, it most likely didn't wait long enough. The developers say 0.3 seconds is often enough, but with lots of apps open and memory running low it can take several seconds ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Change the **Pause** to 2 seconds and try again.
+
+## Stopping it
+
+Once a macro is running, it carries on to its last action. If it's going wrong, or you just want it to stop now, there are two ways, both at Keyboard Maestro's icon in the menu bar. Clicking that icon opens the <Term k="状态菜单" /> ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)):
+
+- Hold down ⌃⌥⇧ (Control, Option, Shift) and click the icon. Every running macro stops.
+- Or click the icon, choose **Cancel**, and pick the macro you want to stop from the list of running ones. It's also a handy way to see which macros are running right now.
+
+The first one is all you need to remember. If a macro ever won't stop, hold those three keys and click the icon.
+
+## Where to look when it doesn't fire
+
+When a macro does nothing, don't guess your way through it. Let Keyboard Maestro check first. Open the editor, choose **Help ▸ Interactive Help** and click "Something expected is not happening" ([official page](https://wiki.keyboardmaestro.com/Troubleshooting#Use_the_Interactive_Help_Wizard)).
+
+It starts with the big picture: whether the Engine is running, whether it starts at login, whether the Accessibility permission is on, and whether the system is stuck thinking you're typing a password. If all of that is fine, it has you pick your macro from a menu and checks that its group is enabled, the macro itself is enabled, and it has a trigger and some enabled actions. Finally it asks you to press the hot key and shows whether the macro actually triggered.
+
+If it triggered but did the wrong thing, the problem is in the actions, such as their order, their options, or a missing wait. If it didn't trigger, the problem is the trigger, the permissions or the Engine. Splitting it in two like that tells you which way to look. [Step 6](/en/guide/6-debug/) of the full guide goes into more detail.
+
+## You've done all three lessons
+
+The three things you now know are the shape of almost every macro in Keyboard Maestro: a trigger decides when it starts, a list of actions says what it does, and it waits wherever it needs to. One key that opens an app, a few letters that give you a paragraph, one key that does a whole routine. That already takes a good few repetitive moves out of your day.
+
+Everything else is for looking up when you need it. For a specific job, see the [how-tos](/en/howto/). For a word you don't know, check the [wiki](/en/wiki/). To really understand something, like macro groups, variables or the clipboard, work through the full guide starting at [step 0](/en/guide/0-what/). The best way to learn, the developers suggest, is to use your Mac as usual, notice when you're repeating yourself, and make a macro for it ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_get_started)).
+
+## If something's off
+
+<Q q="I pressed ⌃⌥⌘M and the apps opened, but the windows didn't move.">
+
+It didn't wait long enough. Change the **Pause** from 1 second to 2, and more if that still isn't enough. Check the order too. The **Pause** belongs after **Open a URL** and before the two **Manipulate a Window** actions.
+
+</Q>
+<Q q="One window didn't move, but everything else worked.">
+
+That app was open but had no window. Say you'd closed the Notes window last time without quitting Notes. Then **the front window** is empty. In that app's **Activate a Specific Application** action, tick the option to reopen the app's initial windows ("Reopen the app's initial windows") and it'll bring a window back too ([official page](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+</Q>
+<Q q="The web page didn't open, and a notification in the corner said it failed.">
+
+The address isn't right. **Open a URL** needs a complete, properly formed address that starts with `https://` and has no spaces in it ([official page](https://wiki.keyboardmaestro.com/action/Open_a_URL)). The safest way is to open the page in Safari and copy the address from the address bar. When this action fails, the macro tells you but carries on with the rest.
+
+</Q>
+<Q q="A macro keeps running and won't stop.">
+
+Hold down ⌃⌥⇧ and click Keyboard Maestro's icon in the menu bar. If that doesn't do it, click the icon and choose **Quit Keyboard Maestro Engine** to quit the Engine altogether, which stops every macro ([official page](https://wiki.keyboardmaestro.com/manual/How_do_I#How_do_I_cancel_a_running_Macro)). Open Keyboard Maestro afterwards and the Engine starts again.
+
+</Q>
+<Q q="I can't find Keyboard Maestro's icon in the menu bar.">
+
+The Engine may not be running. Open Keyboard Maestro once and it will be. Or the icon may be hidden in the settings: the **General** pane of **Keyboard Maestro ▸ Settings…** controls whether the status menu shows and how it looks ([official page](https://wiki.keyboardmaestro.com/manual/Preferences)).
+
+</Q>
+<Q q="I pressed the hot key and nothing happened.">
+
+Go through **Help ▸ Interactive Help** as in "Where to look when it doesn't fire" above. If it says the Engine or the permissions are the problem, work through [lesson 1's "If something's off"](/en/start/1-first-macro/).
+
+</Q>
