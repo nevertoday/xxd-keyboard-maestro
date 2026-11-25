@@ -1,242 +1,232 @@
 #!/usr/bin/env python3
-"""README 里的三张配图（SVG，轻动画，和头图 hero.svg 同一套深色风格，颜色、字体、SIM 卡图形都从 build_hero 拿）。
+"""README 里的三张配图（SVG，轻动画，和头图 hero.svg 同一套笔法：颜色、字体、键帽和动画小工具都从 build_hero 拿）。
 
     python3 tools/build_readme_svgs.py
 
 输出 assets/readme/<名字>.svg（中文）和 assets/en/readme/<名字>.svg（英文）：
-  two-lines  主号码和 Saily 各管一件事：主号码接电话、收短信，流量关掉；Saily 管出国上网
-             （依据官方帮助中心 16747226859164、20793044376092）
-  no-esim    手机不支持 eSIM：买 eSIM.me 的实体卡，找 Saily 客服要二维码，Saily 套餐就能用（依据 12822397552028）
-  lessons    新手入门三课：每课多长、学完你手里多了什么。课名和时间从 src/data/nav.js 的 LESSONS 读
-系统设了「减少动效」时直接显示最后的样子；不播动画的地方看到的也是最后的样子。文字改 TEXT。
+  editor-engine  编辑器和引擎是两个程序：编辑器写宏、改完就关；引擎在后台一直开着，听热键、执行宏
+                 （依据官方 Wiki manual/Quick_Start）
+  macro          编辑器的三栏：宏组 → 宏 → 这个宏的触发器和动作；任何一个触发器都能让它开始，动作从上往下一个个做
+                 （依据 manual/Quick_Start；按钮名照 App 的英文）
+  lessons        新手入门三课：每课多长、学完你手里多了什么。课名和时间从 src/data/nav.js 的 LESSONS 读
+元素自己的属性写的是播完的样子，所以不播动画的地方（静态渲染、系统设了「减少动效」）看到的就是最后一帧。文字改 TEXT。
 """
 import os
 import re
-from html import escape
 
-from build_hero import BG, PANEL, INK, MUTED, HOT, LINE, MONO, FONT, sim, tick_box, txt as t
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REDUCE = "@media (prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}"
+from build_hero import (CARD, FAINT, INK, LINE, LINE2, MARK, MONO, MUTED, OK, PAPER, ROOT, SKY,
+                        anim, frame, light, nav, pct, show, tick, tr, txt as t, width)
 
 TEXT = {
     "zh": {
-        "two": {
-            "head": "一部手机，两条线各管一件事",
-            "main": ("你的主号码", "号码"), "saily": ("Saily eSIM", "流量"),
-            "main_rows": [("tick", "电话、短信照常用你的号码"), ("off", "流量关掉，免得产生漫游费")],
-            "saily_rows": [("on", "流量开着，在国外上网走这条线"), ("tick", "用了多少，在 Saily App 里看")],
-            "notes": ["前提：手机能让两条线同时开着（双卡双待）。",
-                      "用主号码接电话，运营商可能另收漫游费，出发前问一下你的运营商。"],
+        "ee": {
+            "editor": ("Keyboard Maestro", "编辑器"),
+            "editor_rows": ["写宏、改宏的地方", "改完几秒就自动存好，没有保存按钮", "改完就可以关掉"],
+            "engine": ("Keyboard Maestro Engine", "引擎"),
+            "engine_rows": ["在后台一直开着，没有窗口", "听热键、看时间、盯着 App、记剪贴板历史", "真正替你执行宏的是它"],
+            "flow": "你写的宏", "quit": "已关掉", "runs": "宏照样跑",
+            "note": "引擎要一直开着：在 Keyboard Maestro 的偏好设置里打开 Launch Engine at Login，登录 Mac 时它就自己开好。",
         },
-        "noesim": {
-            "phone": "手机不支持 eSIM",
-            "tag": "Saily 官方做法", "card": "eSIM.me 实体卡",
-            "steps": ["买一张 eSIM.me 的卡", "插进卡槽，代替原来的卡", "找 Saily 客服要二维码"],
-            "done": "Saily 套餐能用了",
-            "note": "BeeSIM 等其他卡是社区里的做法，Saily 的帮助文档没有写到。",
+        "macro": {
+            "cols": ["宏组：宏放在哪、在哪里生效", "宏：一件小差事", "触发器管什么时候开始，动作管做什么"],
+            "macros": ["每天开工", "插入今天的日期", "粘贴时去掉格式"],
+            "groups": ["Global Macro Group", "Mail", "Safari"],
+            "any": "任何一个都能让它开始", "order": "从上往下，一个个做",
+            "app": "日历", "time": "9:00",
+            "note": "宏和它所在的宏组都要打开、宏组正在生效，宏才会被触发。",
         },
         "lessons": {"num": "第 {n} 课", "get_label": "学完你有：",
-                    "get": ["知道手机能不能用", "一个装好的流量套餐", "落地就能上网"]},
+                    "get": ["一个热键，打开你每天都开的 App", "打几个字母，整段文字自己出现", "一个键做完开工那几下：开 App、开网页、摆窗口"]},
     },
     "en": {
-        "two": {
-            "head": "One phone, two lines, one job each",
-            "main": ("Your main SIM", "Number"), "saily": ("Saily eSIM", "Data"),
-            "main_rows": [("tick", "Calls and texts stay on your number"), ("off", "Data off, to avoid roaming charges")],
-            "saily_rows": [("on", "Data on: your internet abroad"), ("tick", "Track your usage in the Saily app")],
-            "notes": ["Your phone has to keep both lines on at once (Dual SIM Dual Standby).",
-                      "Your carrier may charge roaming fees for calls on your main number. Ask them before you go."],
+        "ee": {
+            "editor": ("Keyboard Maestro", "the editor"),
+            "editor_rows": ["Where you write and change macros", "Saves itself seconds after each change; no Save", "Quit it when you're done"],
+            "engine": ("Keyboard Maestro Engine", "the Engine"),
+            "engine_rows": ["Runs in the background, no window", "Hears hot keys, watches the time, tracks apps", "The part that actually runs your macros"],
+            "flow": "your macros", "quit": "Quit", "runs": "Macros still run",
+            "note": "Keep the Engine running: turn on Launch Engine at Login in Keyboard Maestro's preferences, and it starts when you log in.",
         },
-        "noesim": {
-            "phone": "Your phone has no eSIM",
-            "tag": "Saily's official route", "card": "An eSIM.me card",
-            "steps": ["Buy an eSIM.me card", "Put it in place of your SIM card", "Ask Saily support for the QR code"],
-            "done": "Your Saily plan works",
-            "note": "Other cards, such as BeeSIM, are community methods that Saily's docs don't cover.",
+        "macro": {
+            "cols": ["Macro groups: where macros live and work", "A macro: one small job", "Triggers say when it starts, actions say what it does"],
+            "macros": ["Start my day", "Insert today's date", "Paste without formatting"],
+            "groups": ["Global Macro Group", "Mail", "Safari"],
+            "any": "Any one of them starts it", "order": "Top to bottom, one at a time",
+            "app": "Calendar", "time": "9:00",
+            "note": "A macro fires only when it's enabled and its macro group is enabled and active.",
         },
         "lessons": {"num": "Lesson {n}", "get_label": "After this lesson:",
-                    "get": ["You know if your phone works", "A data plan, installed", "You're online when you land"]},
+                    "get": ["One hot key that opens the app you use every day", "A few letters that turn into a whole paragraph", "One key for your morning routine: apps, a web page, windows in place"]},
     },
 }
 
 
-def read_lessons():
-    """从 src/data/nav.js 的 LESSONS 读每课的中英文课名和时间。"""
-    src = open(os.path.join(ROOT, "src", "data", "nav.js"), encoding="utf-8").read()
-    block = re.search(r"export const LESSONS = \[(.*?)\n\];", src, re.S).group(1)
-    out = []
-    for line in re.findall(r"^\s*\{ n: \d.*$", block, re.M):
-        zh, en = line.split("en: {", 1)
-        field = lambda part, key: re.search(key + r': "([^"]*)"', part).group(1)
-        out.append({"zh": (field(zh, "title"), field(zh, "minutes")), "en": (field(en, "title"), field(en, "minutes"))})
-    if len(out) != 3:
-        raise SystemExit(f"expected 3 lessons in src/data/nav.js, found {len(out)}")
-    return out
-
-
-def width(s, size):
-    """估一行字有多宽（PingFang / Avenir Next 的大致字宽），只用来折行，最后以截图检查为准。"""
-    w = 0
-    for ch in s:
-        w += 1.0 if ord(ch) > 0x2e7f else .3 if ch == " " else .68 if ch.isupper() or ch.isdigit() else .56
-    return w * size
-
-
 def wrap(s, size, maxw):
-    """按宽度折行。英文各行尽量一样长（不让最后一行只剩一个词）；中文照 greedy 断在逗号后面。"""
-    rows = greedy(s, size, maxw)
-    while len(rows) > 1 and not re.search(r"[\u2e80-\uffff]", s) and len(greedy(s, size, maxw - 4)) == len(rows):
-        maxw -= 4
-        rows = greedy(s, size, maxw)
-    return rows
-
-
-def greedy(s, size, maxw):
-    """英文在空格处断，中文在字间断，优先断在逗号后面。"""
-    lines, cur = [], []
-    for tok in re.findall(r"[^\s\u2e80-\uffff]+\s*|\s+|.[，、。；：）]?", s):
+    """按宽度折行：英文在空格处断，中文在字间断，优先断在逗号、冒号后面。"""
+    rows, cur = [], []
+    for tok in re.findall(r"[^\s⺀-￿]+\s*|\s+|.[，、。；：）]?", s):
         if cur and width("".join(cur) + tok.rstrip(), size) > maxw:
-            commas = [i for i, c in enumerate(cur) if c[-1] in "，、"]
-            cut = commas[-1] + 1 if commas else len(cur)
-            lines.append("".join(cur[:cut]).rstrip())
+            cut = max((i + 1 for i, c in enumerate(cur) if c.rstrip().endswith(tuple("，、：;:"))), default=len(cur))
+            rows.append("".join(cur[:cut]).rstrip())
             cur = cur[cut:]
         cur.append(tok)
-    return lines + ["".join(cur).rstrip()]
+    return rows + ["".join(cur).rstrip()]
 
 
-def lines(x, y, rows, size, fill, font, lh, weight=400, anchor="start"):
-    return "".join(t(x, y + i * lh, s, size, fill, font, weight, anchor) for i, s in enumerate(rows))
+def lines(x, y, rows, size, fill, lh, weight=400):
+    return "".join(t(x, y + i * lh, s, size, fill, weight) for i, s in enumerate(rows))
 
 
-def show(name, start, total, dur=.4):
-    """在 start 秒淡入，循环结束前 0.8 秒淡出。"""
-    p = lambda s: f"{s / total * 100:.2f}%"
-    end = total - .8
-    return (f"@keyframes {name}{{0%,{p(start)}{{opacity:0;transform:translateY(6px)}}{p(start + dur)},{p(end)}{{opacity:1;transform:translateY(0)}}"
-            f"{p(end + .5)},100%{{opacity:0}}}}.{name}{{animation:{name} {total}s infinite;transform-box:fill-box}}")
+def bullet_rows(x, y, rows, maxw, lh=30):
+    """一列圆点短句，长的自动折行。返回 (svg, 最后一行的 y)。"""
+    out = []
+    for s in rows:
+        parts = wrap(s, 17, maxw)
+        out.append(f'<circle cx="{x + 4}" cy="{y - 6}" r="3" fill="{INK}"/>' + lines(x + 18, y, parts, 17, INK, 24))
+        y += 24 * (len(parts) - 1) + lh
+    return "".join(out), y
 
 
-def toggle(x, y, on):
-    knob = x + 30 if on else x + 12
-    return (f'<rect x="{x}" y="{y + 2}" width="42" height="24" rx="12" fill="{HOT if on else LINE}"/>'
-            f'<circle cx="{knob}" cy="{y + 14}" r="8" fill="{INK if on else MUTED}"/>')
-
-
-def signal_arcs(cx, y, cls=""):
-    c0, c1 = (f' class="{cls}0"', f' class="{cls}1"') if cls else ("", "")
-    return (f'<path{c0} d="M{cx - 18} {y} a24 24 0 0 1 36 0" fill="none" stroke="{INK}" stroke-width="5"/>'
-            f'<path{c1} d="M{cx - 31} {y - 12} a42 42 0 0 1 62 0" fill="none" stroke="{MUTED}" stroke-width="5"/>')
-
-
-def wrap_svg(w, h, css, body, label):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}">'
-            f'<style>{css}{REDUCE}</style><rect width="{w}" height="{h}" fill="{BG}"/>{body}</svg>\n')
-
-
-def two_lines(lang):
-    T, f = TEXT[lang]["two"], FONT[lang]
-    W, H, TOTAL = 1200, 440, 9.0
+def editor_engine(lang):
+    T = TEXT[lang]["ee"]
+    W, H, D, END = 1200, 386, 9.0, 8.2
     css, out = [], []
-    out.append(t(40, 52, T["head"], 24, INK, f, 700))
-    cw, top, ch = 532, 82, 250
-    cards = [(40, T["main"], T["main_rows"], LINE, MUTED, "m", 0.3), (628, T["saily"], T["saily_rows"], HOT, HOT, "s", 2.4)]
-    for x, (title, tag), rows, stroke, tag_fill, key, t0 in cards:
-        out.append(f'<g class="{key}"><rect x="{x}" y="{top}" width="{cw}" height="{ch}" fill="{PANEL}" stroke="{stroke}" stroke-width="2"/>')
-        out.append(sim(x + 28, top + 26, .17, INK, HOT if key == "s" else MUTED))
-        out.append(t(x + 86, top + 64, title, 26, INK, f, 700))
-        out.append(t(x + cw - 28, top + 62, tag, 18, tag_fill, f, 700, "end"))
-        out.append(f'<rect x="{x + 28}" y="{top + 100}" width="{cw - 56}" height="2" fill="{LINE}"/></g>')
-        css.append(show(key, t0, TOTAL))
-        for i, (icon, text) in enumerate(rows):
-            y, name = top + 128 + i * 58, f"{key}{i}"
-            mark = tick_box(x + 28, y, 28) if icon == "tick" else toggle(x + 21, y, icon == "on")
-            out.append(f'<g class="{name}">{mark}{t(x + 80, y + 21, text, 21, INK, f, 500)}</g>')
-            css.append(show(name, t0 + .6 + i * .6, TOTAL))
-    out.append(t(600, top + ch // 2 + 12, "+", 34, MUTED, MONO, 700, "middle", "plus"))
-    css.append(show("plus", 1.9, TOTAL))
-    out.append(f'<g class="note">{lines(40, top + ch + 46, T["notes"], 17, MUTED, f, 28)}</g>')
-    css.append(show("note", 4.4, TOTAL))
-    label = f'{T["head"]}. {T["main"][0]}: ' + "; ".join(r[1] for r in T["main_rows"]) + f'. {T["saily"][0]}: ' + "; ".join(r[1] for r in T["saily_rows"]) + ". " + " ".join(T["notes"])
-    return wrap_svg(W, H, "".join(css), "".join(out), label)
+    cw, ch, y0 = 470, 236, 40
+    xs = (40, W - 40 - cw)
+
+    # 左：编辑器（一个带标题栏的窗口），播到一半关掉、变淡
+    x = xs[0]
+    out.append(f'<g class="ed"><rect x="{x}" y="{y0}" width="{cw}" height="{ch}" rx="12" fill="{CARD}" stroke="{LINE}" filter="url(#sh)"/>')
+    out += [f'<circle cx="{x + 22 + i * 16}" cy="{y0 + 22}" r="5" fill="{c}"/>' for i, c in enumerate(("#FF5F57", "#FEBC2E", "#28C840"))]
+    out.append(f'<path d="M{x} {y0 + 44} H{x + cw}" stroke="{LINE}"/>')
+    out.append(t(x + 28, y0 + 84, T["editor"][0], 22, INK, 700) + t(x + 30 + width(T["editor"][0], 22) + 12, y0 + 84, T["editor"][1], 17, MUTED, 500))
+    body, _ = bullet_rows(x + 30, y0 + 128, T["editor_rows"], cw - 80)
+    out.append(body + "</g>")
+    out.append(f'<g class="quit"><rect x="{x + cw - 28 - width(T["quit"], 15) - 24:.0f}" y="{y0 + 10}" width="{width(T["quit"], 15) + 24:.0f}" height="26" rx="13" fill="{PAPER}" stroke="{LINE2}"/>'
+               + t(x + cw - 28 - (width(T["quit"], 15) + 24) / 2, y0 + 28, T["quit"], 15, MUTED, 600, "middle") + "</g>")
+    css.append(light("ed", 4.2, "opacity", 1, .45, D, END) + show("quit", 4.2, D, END))
+
+    # 中间：宏从编辑器流到引擎
+    ax0, ax1, ay = xs[0] + cw + 14, xs[1] - 14, y0 + ch / 2
+    out.append(f'<path d="M{ax0} {ay} H{ax1 - 6}" stroke="{LINE2}" stroke-width="1.5" stroke-dasharray="3 5"/>'
+               f'<path d="M{ax1 - 10} {ay - 6} l8 6 l-8 6" fill="none" stroke="{INK}" stroke-width="1.5"/>')
+    out.append(t((ax0 + ax1) / 2, ay - 16, T["flow"], 14, MUTED, 500, "middle"))
+    for i in range(3):
+        n = f"dot{i}"
+        out.append(f'<rect class="{n}" x="{ax1 - 18}" y="{ay - 5}" width="10" height="10" rx="2" fill="{INK}"/>')
+        t0 = 1.0 + i * .5
+        css.append(anim(n, f"0%,{pct(t0, D)}{{opacity:0;transform:translateX({ax0 - ax1 + 10}px)}}{pct(t0 + .1, D)}{{opacity:1}}"
+                           f"{pct(t0 + 1.1, D)}{{opacity:1;transform:none}}{pct(t0 + 1.3, D)},100%{{opacity:0;transform:none}}", D))
+
+    # 右：引擎（没有窗口，只有一个在跑的圆点），编辑器关掉以后，热键照样把宏跑起来
+    x = xs[1]
+    out.append(f'<rect x="{x}" y="{y0}" width="{cw}" height="{ch}" rx="12" fill="{CARD}" stroke="{LINE}" filter="url(#sh)"/>')
+    out.append(f'<circle cx="{x + 28}" cy="{y0 + 22}" r="5" fill="{OK}"/><circle class="beat" cx="{x + 28}" cy="{y0 + 22}" r="5" fill="none" stroke="{OK}" stroke-width="1.5"/>')
+    css.append(f"@keyframes beat{{0%{{transform:scale(1);opacity:.9}}60%,100%{{transform:scale(2.6);opacity:0}}}}.beat{{animation:beat 1.5s infinite;transform-box:fill-box;transform-origin:50% 50%}}")
+    out.append(f'<path d="M{x} {y0 + 44} H{x + cw}" stroke="{LINE}"/>')
+    out.append(t(x + 28, y0 + 84, T["engine"][0], 22, INK, 700) + t(x + 30 + width(T["engine"][0], 22) + 12, y0 + 84, T["engine"][1], 17, MUTED, 500))
+    body, _ = bullet_rows(x + 30, y0 + 128, T["engine_rows"], cw - 80)
+    out.append(body)
+    # 右上角从左往右：热键、勾、「宏照样跑」
+    rx = x + cw - 28 - (70 + 34 + width(T["runs"], 15))
+    out.append(f'<g class="runs"><rect x="{rx:.0f}" y="{y0 + 10}" width="70" height="26" rx="5" fill="{PAPER}" stroke="{LINE2}"/>'
+               + t(rx + 35, y0 + 28, "⌃⌥⌘T", 15, INK, 500, "middle")
+               + tick(rx + 92, y0 + 23, 10) + t(rx + 108, y0 + 28, T["runs"], 15, OK, 600) + "</g>")
+    css.append(show("runs", 5.0, D, END))
+
+    out.append(f'<rect x="40" y="{y0 + ch + 28}" width="{W - 80}" height="54" rx="10" fill="{MARK}"/>')
+    out.append(t(64, y0 + ch + 61, T["note"], 17, INK, 500))
+    label = (f'{T["editor"][0]} ({T["editor"][1]}): {"; ".join(T["editor_rows"])}. {T["engine"][0]} ({T["engine"][1]}): '
+             f'{"; ".join(T["engine_rows"])}. {T["note"]}')
+    return frame(W, H, "".join(css), "".join(out), label)
 
 
-def no_esim(lang):
-    T, f = TEXT[lang]["noesim"], FONT[lang]
-    W, H, TOTAL = 1200, 390, 9.0
+def macro(lang):
+    T = TEXT[lang]["macro"]
+    W, H, D, END = 1200, 492, 10.0, 9.2
     css, out = [], []
-    top, bh = 40, 270
-    # 1 手机不支持 eSIM
-    bx, bw = 40, 280
-    out.append(f'<g class="b0"><rect x="{bx}" y="{top}" width="{bw}" height="{bh}" fill="{PANEL}" stroke="{LINE}" stroke-width="2"/>')
-    px, py = bx + bw // 2 - 36, top + 34
-    out.append(f'<rect x="{px}" y="{py}" width="72" height="124" rx="12" fill="none" stroke="{INK}" stroke-width="4"/>'
-               f'<rect x="{px + 26}" y="{py + 112}" width="20" height="3" fill="{INK}"/>')
-    out.append(t(px + 36, py + 70, "eSIM", 17, MUTED, MONO, 700, "middle"))
-    out.append(f'<path d="M{px + 8} {py + 74} L{px + 64} {py + 50}" stroke="{HOT}" stroke-width="4"/>')
-    out.append(lines(bx + bw // 2, top + 210, wrap(T["phone"], 22, bw - 48), 22, INK, f, 30, 700, "middle") + "</g>")
-    css.append(show("b0", .3, TOTAL))
-    # 2 官方做法：eSIM.me 实体卡
-    cx, cwid = 380, 440
-    out.append(f'<g class="b1"><rect x="{cx}" y="{top}" width="{cwid}" height="{bh}" fill="{PANEL}" stroke="{HOT}" stroke-width="2"/>')
-    out.append(sim(cx + 28, top + 28, .2, INK, INK))
-    out.append(t(cx + 96, top + 52, T["tag"], 16, HOT, f, 700))
-    out.append(t(cx + 96, top + 86, T["card"], 26, INK, f, 700) + "</g>")
-    css.append(show("b1", 1.5, TOTAL))
-    for i, step in enumerate(T["steps"]):
-        y, name = top + 128 + i * 44, f"st{i}"
-        out.append(f'<g class="{name}"><rect x="{cx + 28}" y="{y}" width="28" height="28" fill="{LINE}"/>'
-                   f'{t(cx + 42, y + 20, str(i + 1), 15, INK, MONO, 700, "middle")}{t(cx + 72, y + 21, step, 20, INK, f, 500)}</g>')
-        css.append(show(name, 2.1 + i * .6, TOTAL))
-    # 3 Saily 套餐能用了
-    dx, dw = 880, 280
-    out.append(f'<g class="b2"><rect x="{dx}" y="{top}" width="{dw}" height="{bh}" fill="{PANEL}" stroke="{LINE}" stroke-width="2"/>')
-    out.append(sim(dx + dw // 2 - 42, top + 70, .36))
-    out.append(lines(dx + dw // 2, top + 210, wrap(T["done"], 22, dw - 48), 22, INK, f, 30, 700, "middle") + "</g>")
-    out.append(signal_arcs(dx + dw // 2, top + 56, "arc"))
-    css += [show("b2", 4.4, TOTAL), show("arc0", 4.8, TOTAL), show("arc1", 5.1, TOTAL)]
-    # 箭头
-    for i, (x0, x1) in enumerate([(bx + bw, cx), (cx + cwid, dx)]):
-        y = top + bh // 2
-        out.append(f'<g class="ar{i}"><path d="M{x0 + 10} {y} H{x1 - 12}" stroke="{HOT}" stroke-width="3"/>'
-                   f'<path d="M{x1 - 20} {y - 8} l8 8 l-8 8" stroke="{HOT}" stroke-width="3" fill="none"/></g>')
-        css.append(show(f"ar{i}", 1.1 if i == 0 else 4.0, TOTAL))
-    out.append(t(40, top + bh + 46, T["note"], 17, MUTED, f, 400, cls="note"))
-    css.append(show("note", 5.4, TOTAL))
-    label = f'{T["phone"]} → {T["card"]}: ' + "; ".join(T["steps"]) + f' → {T["done"]}. {T["note"]}'
-    return wrap_svg(W, H, "".join(css), "".join(out), label)
+    y0, top, bottom = 40, 104, 404
+    cols = [(40, 250), (306, 250), (572, 588)]
+
+    # 每一栏上面一句白话说明，下面是编辑器里对应的那一栏
+    heads = ["Macro Groups", "Macros", T["macros"][0]]
+    for i, ((x, w), cap) in enumerate(zip(cols, T["cols"])):
+        out.append(f'<g class="c{i}">' + lines(x + 2, y0 + 14, wrap(cap, 16, w - 4)[:2], 16, MUTED, 22, 500))
+        out.append(f'<rect x="{x}" y="{top}" width="{w}" height="{bottom - top}" rx="12" fill="{CARD}" stroke="{LINE}" filter="url(#sh)"/>')
+        out.append(t(x + 18, top + 30, heads[i], 15, INK, 700) + f'<path d="M{x} {top + 46} H{x + w}" stroke="{LINE}"/>')
+        if i < 2:
+            names = T["groups"] if i == 0 else T["macros"]
+            for j, name in enumerate(names):
+                y = top + 58 + j * 42
+                if j == 0:
+                    out.append(f'<rect x="{x + 8}" y="{y}" width="{w - 16}" height="34" rx="7" fill="{SKY}"/>')
+                out.append(t(x + 20, y + 22, name, 15, INK if j == 0 else MUTED, 600 if j == 0 else 400))
+        out.append("</g>")
+        css.append(show(f"c{i}", .2 + i * .6, D, END, rise=6))
+    for x in (cols[0][0] + cols[0][1], cols[1][0] + cols[1][1]):
+        out.append(f'<path d="M{x + 12} {top + 75} l8 0 m-4 -4 l4 4 l-4 4" fill="none" stroke="{INK}" stroke-width="1.5"/>')
+
+    # 第三栏：触发器（任何一个）和动作（按顺序）
+    x, w = cols[2]
+    rx, rw = x + 16, w - 32
+    out.append(t(rx + 2, top + 72, "Triggered by any of the following:", 13, MUTED) + t(x + w - 18, top + 72, T["any"], 13, INK, 600, "end"))
+    trig = [("Hot Key", "⌃⌥⌘T"), ("Time of Day", T["time"])]
+    for j, (name, val) in enumerate(trig):
+        y = top + 84 + j * 40
+        n = f"t{j}"
+        out.append(f'<rect class="{n}" x="{rx}" y="{y}" width="{rw}" height="34" rx="7" fill="{SKY if j == 0 else CARD}" stroke="{LINE}"/>')
+        out.append(t(rx + 16, y + 22, name, 14, INK, 700))
+        cx = rx + 24 + width(name, 14) + 8
+        out.append(f'<rect x="{cx:.0f}" y="{y + 6}" width="{width(val, 13) + 20:.0f}" height="22" rx="5" fill="{PAPER}" stroke="{LINE2}"/>' + t(cx + 10, y + 22, val, 13, INK, 500))
+        if j == 0:
+            css.append(light(n, 2.4, "fill", CARD, SKY, D, END))
+    ay = top + 186
+    out.append(t(rx + 2, ay, "Will execute the following actions:", 13, MUTED) + t(x + w - 18, ay, T["order"], 13, INK, 600, "end"))
+    acts = [("Activate a Specific Application", T["app"]), ("Open a URL", "https://wiki.keyboardmaestro.com/"), ("Manipulate a Window", "Move and Resize Front Window")]
+    for j, (name, detail) in enumerate(acts):
+        y = ay + 12 + j * 30
+        n = f"a{j}"
+        out.append(f'<rect class="{n}" x="{rx}" y="{y}" width="{rw}" height="26" rx="6" fill="{SKY}" stroke="{LINE}"/>')
+        out.append(t(rx + 12, y + 18, str(j + 1), 12, FAINT, 700, font=MONO))
+        out.append(t(rx + 32, y + 18, name, 14, INK, 700) + t(x + w - 30, y + 18, detail, 12, MUTED, 400, "end"))
+        css.append(light(n, 3.2 + j * .8, "fill", CARD, SKY, D, END))
+
+    out.append(f'<rect x="40" y="{bottom + 28}" width="{W - 80}" height="44" rx="10" fill="{MARK}"/>')
+    out.append(t(64, bottom + 56, T["note"], 16, INK, 500))
+    label = (f'{T["cols"][0]}: {", ".join(T["groups"])}. {T["cols"][1]}: {", ".join(T["macros"])}. {T["cols"][2]}. '
+             f'Triggered by any of the following: Hot Key ⌃⌥⌘T, Time of Day {T["time"]}. Will execute the following actions: '
+             + ", ".join(a for a, _ in acts) + f'. {T["note"]}')
+    return frame(W, H, "".join(css), "".join(out), label)
 
 
 def lessons(lang):
-    T, f = TEXT[lang]["lessons"], FONT[lang]
-    W, H, TOTAL = 1200, 308, 8.0
+    T = TEXT[lang]["lessons"]
+    W, H, D, END = 1200, 330, 8.0, 7.4
     css, out = [], []
-    cw, gap, x0, y0, ch = 352, 32, 40, 40, 228
-    out.append(f'<rect x="{x0}" y="{y0 + 130}" width="{cw * 3 + gap * 2}" height="4" fill="{LINE}"/>')
-    out.append(f'<rect class="bar" x="{x0}" y="{y0 + 130}" width="{cw * 3 + gap * 2}" height="4" fill="{HOT}"/>')
-    css.append(f"@keyframes bar{{0%{{transform:scaleX(0);opacity:1}}70%,92%{{transform:scaleX(1);opacity:1}}100%{{transform:scaleX(1);opacity:0}}}}"
-               f".bar{{transform-origin:0 50%;transform-box:fill-box;animation:bar {TOTAL}s infinite}}")
-    items = read_lessons()
+    cw, gap, x0, y0, ch = 357, 24, 40, 40, 250
+    out.append(f'<rect x="{x0}" y="{y0 + 146}" width="{cw * 3 + gap * 2}" height="2" fill="{LINE}"/>')
+    out.append(f'<rect class="bar" x="{x0}" y="{y0 + 146}" width="{cw * 3 + gap * 2}" height="2" fill="{INK}"/>')
+    css.append(anim("bar", f"0%{{transform:scaleX(0);opacity:1}}70%,{pct(END, D)}{{transform:scaleX(1);opacity:1}}100%{{transform:scaleX(1);opacity:0}}", D, "0 50%"))
+    items = nav()["LESSONS"]
     for i, lesson in enumerate(items):
-        title, mins = lesson[lang]
-        x, name = x0 + i * (cw + gap), f"l{i}"
-        out.append(f'<g class="{name}"><rect x="{x}" y="{y0}" width="{cw}" height="{ch}" fill="{PANEL}" stroke="{HOT if i == 2 else LINE}" stroke-width="2"/>')
-        out.append(t(x + 24, y0 + 40, T["num"].format(n=i + 1), 18, HOT, f, 700))
-        out.append(t(x + cw - 24, y0 + 40, mins, 16, MUTED, f, 600, "end"))
-        out.append(lines(x + 24, y0 + 80, wrap(title, 22, cw - 48), 22, INK, f, 30, 700))
-        out.append(t(x + 24, y0 + 160, T["get_label"], 16, MUTED, f, 500))
-        out.append(lines(x + 24, y0 + 192, wrap(T["get"][i], 20, cw - 48), 20, INK, f, 28, 600))
-        out.append("</g>")
-        css.append(show(name, .2 + i * 1.6, TOTAL, .45))
-    label = " · ".join(f'{T["num"].format(n=i + 1)} {it[lang][0]} ({it[lang][1]}): {T["get"][i]}' for i, it in enumerate(items))
-    return wrap_svg(W, H, "".join(css), "".join(out), label)
+        title, mins = tr(lesson, "title", lang), tr(lesson, "minutes", lang)
+        x, n = x0 + i * (cw + gap), f"l{i}"
+        out.append(f'<g class="{n}"><rect x="{x}" y="{y0}" width="{cw}" height="{ch}" rx="12" fill="{CARD}" stroke="{INK if i == 2 else LINE}" filter="url(#sh)"/>')
+        out.append(f'<rect x="{x + 22}" y="{y0 + 20}" width="28" height="28" rx="6" fill="{INK}"/>' + t(x + 36, y0 + 40, str(i + 1), 15, CARD, 700, "middle"))
+        out.append(t(x + 60, y0 + 40, mins, 15, MUTED, 500))
+        out.append(lines(x + 22, y0 + 84, wrap(title, 21, cw - 44), 21, INK, 29, 700))
+        out.append(t(x + 22, y0 + 180, T["get_label"], 14, MUTED, 500))
+        out.append(lines(x + 22, y0 + 208, wrap(T["get"][i], 17, cw - 44), 17, INK, 25, 600) + "</g>")
+        css.append(show(n, .2 + i * 1.6, D, END, rise=6))
+    label = " · ".join(f'{T["num"].format(n=i + 1)} {tr(it, "title", lang)} ({tr(it, "minutes", lang)}): {T["get"][i]}' for i, it in enumerate(items))
+    return frame(W, H, "".join(css), "".join(out), label)
 
 
 if __name__ == "__main__":
     for lang, sub in [("zh", "readme"), ("en", "en/readme")]:
         d = os.path.join(ROOT, "assets", sub)
         os.makedirs(d, exist_ok=True)
-        for name, fn in [("two-lines", two_lines), ("no-esim", no_esim), ("lessons", lessons)]:
+        for name, fn in [("editor-engine", editor_engine), ("macro", macro), ("lessons", lessons)]:
             with open(os.path.join(d, f"{name}.svg"), "w") as fh:
                 fh.write(fn(lang))
-        print("wrote", f"assets/{sub}/" + "{two-lines,no-esim,lessons}.svg")
+        print("wrote", f"assets/{sub}/" + "{editor-engine,macro,lessons}.svg")

@@ -1,5 +1,6 @@
 // 分享大图（og:image）：每张卡一条，path 是它在 public/ 下的路径，query 是填进 tools/og.html 的参数。
-// 全站两张（中文页用 og.png，其他语言用 og-en.png，顺带复制成 README 头图），每个 Wiki 条目中英文各一张。
+// 全站两张（中文页用 og.png，其他语言用 og-en.png），每个 Wiki 条目中英文各一张。
+// copies：截完顺带存一份到仓库里别的地方，width 是存成多宽（按比例缩）。英文那张缩成 1280×640 存成 assets/social.png，给 GitHub 仓库的 Social preview 手动上传。
 // tools/build_og.py 照这张表截图（npm run og），scripts/check-site.mjs 照它查卡在不在、是不是最新。
 import { WIKI } from "./wiki.js";
 import { WIKI_EN, WIKI_GROUPS_EN } from "./wiki.en.js";
@@ -12,7 +13,7 @@ export const wikiOg = (slug, lang) => `/og${lang === "en" ? "/en" : ""}/wiki/${s
 
 const wikiCard = (slug, lang, { title, one }, group) => ({ path: wikiOg(slug, lang), copies: [], query: { kind: "wiki", lang, title, one: plain(one), group } });
 export const OG_CARDS = [
-  { path: SITE_OG.zh, copies: ["assets/social.png"], query: { lang: "zh" } },
-  { path: SITE_OG.en, copies: ["assets/en/social.png"], query: { lang: "en" } },
+  { path: SITE_OG.zh, copies: [], query: { lang: "zh" } },
+  { path: SITE_OG.en, copies: [{ path: "assets/social.png", width: OG_SIZE.width }], query: { lang: "en" } },
   ...WIKI.flatMap((w) => [wikiCard(w.slug, "zh", w, w.group), wikiCard(w.slug, "en", WIKI_EN[w.slug], WIKI_GROUPS_EN[w.group])]),
 ];

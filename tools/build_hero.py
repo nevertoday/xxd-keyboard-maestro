@@ -1,226 +1,234 @@
 #!/usr/bin/env python3
-"""README 头图：一段循环播放的 SVG 动画，把新手入门三步演一遍。
+"""README 头图：一段循环播放的 SVG 动画，演一遍「按一个键，宏替你做完一串事」。
 
     python3 tools/build_hero.py
 
-输出 assets/hero.svg（中文）和 assets/en/hero.svg（英文）。左边是标题和三步，右边是一部手机：
-勾上「支持 eSIM」→ 装好 eSIM → 飞机落地、打开数据漫游 → 状态栏换成 Saily、信号满格、「已连上当地网络」。
-三步跟着画面依次亮起，播完淡出重来。手机里每一屏都是不透明的，后一屏盖住前一屏，
-所以不播动画的地方（静态渲染、系统设了「减少动效」）看到的就是最后一屏、三步全亮。
-文字改 TEXT，时间改 T，位置改下面的常量。
+输出 assets/hero.svg（中文）和 assets/en/hero.svg（英文）。左边是标题和新手入门三课，右边是一个宏：
+按下 ⌃⌥⌘T 四个键 → 宏卡片的 Hot Key 那一行亮起 → 三个动作一行行亮起（Activate a Specific Application、
+Open a URL、Manipulate a Window），同时右下角的小屏幕上日历窗口出现、浏览器窗口打开再挪到右半边 → 宏名旁打勾。
+三课跟着三个动作依次亮起，播完淡出重来。
+
+图里的界面字是 Keyboard Maestro 自带的英文（按钮名对照 tools/km-labels.json），中文版只翻译说明文字和宏名。
+不用 Keyboard Maestro 或 Stairways Software 的图标；左上角是本站自己的键帽标志（和 public/favicon.svg 同一个形状）。
+每个元素自己的属性写的是播完的样子，动画只管「之前」：不播动画的地方（静态渲染、系统设了「减少动效」）看到的就是最后一帧。
+配色、字体、键帽和动画的小工具也给 build_readme_svgs.py 用。课名从 src/data/nav.js 读；文字改 TEXT，时间改 T。
 """
+import json
 import os
+import subprocess
 from html import escape
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-W, H, DUR, FADE_OUT = 1200, 660, 12.0, 11.0
-BG, PANEL, INK, MUTED, HOT, LINE = "#171612", "#211f1a", "#f3f0ea", "#a7a194", "#ff7a4d", "#3a372f"
-MONO = "ui-monospace,Menlo,monospace"
-FONT = {"zh": "'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif",
-        "en": "'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif"}
+
+# 配色：画布接近白，一圈淡边；卡片纯白；线和次要文字用 UI Kit 的 --line、--muted；浅色块去掉灰调
+PAPER, CARD, LINE, LINE2 = "#FAFAF8", "#FFFFFF", "#E9E7E4", "#D6D3CE"
+INK, MUTED, FAINT = "#111111", "#6D6B67", "#9A968D"
+SKY, MARK, SAGE, OK = "#E4EEFB", "#FCE6C4", "#E2F1DC", "#4F8A55"
+SANS = "-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Noto Sans CJK SC','Microsoft YaHei',sans-serif"
+MONO = "ui-monospace,'SF Mono',Menlo,Consolas,monospace"
+REDUCE = "@media (prefers-reduced-motion:reduce){*{animation:none!important}}"
+SHADOW = '<filter id="sh" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#111111" flood-opacity=".07"/></filter>'
+
+W, H, DUR, FADE_OUT = 1200, 660, 12.0, 10.8
 
 TEXT = {
     "zh": {
-        "brand": "Saily 新手教程",
-        "h1": ["如何爽用 Saily", "出国落地就有网"], "h1_size": 62,
-        "src": "对照 Saily 官方帮助中心 · 非官方中文教程",
-        "steps": ["先看手机支不支持 eSIM", "出发前买好套餐、装好", "落地打开数据漫游"],
-        "demo": "示意",
-        "line_before": "主号码", "line_after": "Saily",
-        "check": ("检查手机", "支持 eSIM"),
-        "install": ("添加 eSIM", "流量套餐已装好"),
-        "land": ("落地", "Saily", "数据漫游"),
-        "online": ("上网", ["已连上当地网络"], "流量走 Saily"),
+        "brand": "Keyboard Maestro 新手教程",
+        "h1": ["如何爽用", "Keyboard Maestro"],
+        "tag": "重复的点击和打字，交给一个键",
+        "src": "对照 Keyboard Maestro 官方 Wiki · 非官方中文教程",
+        "macro": "每天开工", "app": "日历", "demo": "示意",
     },
     "en": {
-        "brand": "Saily for beginners",
-        "h1": ["Get the most out of Saily", "Online when you land"], "h1_size": 50,
-        "src": "Checked against Saily's help center · unofficial guide",
-        "steps": ["Check your phone supports eSIM", "Buy a plan, install it before you go", "Land, turn on data roaming"],
-        "demo": "Illustration",
-        "line_before": "Main line", "line_after": "Saily",
-        "check": ("Check the phone", "Supports eSIM"),
-        "install": ("Add the eSIM", "Data plan installed"),
-        "land": ("Landing", "Saily", "Data roaming"),
-        "online": ("Online", ["Connected to a", "local network"], "Data via Saily"),
+        "brand": "Keyboard Maestro for beginners",
+        "h1": ["Get the most out of", "Keyboard Maestro"],
+        "tag": "Hand the clicks and typing you repeat to one key",
+        "src": "Checked against the official Keyboard Maestro wiki · unofficial guide",
+        "macro": "Start my day", "app": "Calendar", "demo": "Illustration",
     },
 }
+URL = "https://wiki.keyboardmaestro.com/"
 
-# 每一屏出现的时间（秒）；三步分别跟着 check、install、land 亮起
-T = {"check": 0.4, "tick": 1.4, "install": 3.2, "bar": (3.6, 5.0), "done": 5.1,
-     "land": 6.2, "plane": (6.3, 7.6), "roam": 7.9, "online": 8.6, "signal": 8.8, "card": 9.6}
-
-# 手机和屏幕
-PX, PY, PW, PH = 812, 32, 316, 596
-SX, SY, SW, SH = PX + 12, PY + 12, PW - 24, PH - 24
-CX, LX, RX = SX + SW // 2, SX + 24, SX + SW - 24   # 屏幕中线、内容左右边
-TOP = SY + 50                                          # 状态栏下面，每一屏从这里开始
-Y0 = TOP + 36                                          # 每一屏标题下面，画面从这里排
+# 秒：四个键依次按下、一起松开；触发器亮；三个动作各自亮起（三课跟着亮）；两个窗口；浏览器挪到右半边；宏名旁打勾
+T = {"keys": (.4, .6, .8, 1.1), "release": 1.8, "trigger": 1.5,
+     "acts": (2.6, 4.2, 5.8), "win_a": 2.9, "win_b": 4.5, "move": (6.1, 6.9), "done": 7.4}
 
 
-def pct(t):
-    return f"{t / DUR * 100:.2f}%"
+def nav():
+    """src/data/nav.js 的 LESSONS、STEPS、HOWTO（用 node 读，和网站用的是同一份）。"""
+    code = "import { LESSONS, STEPS, HOWTO } from './src/data/nav.js'; console.log(JSON.stringify({ LESSONS, STEPS, HOWTO }))"
+    out = subprocess.run(["node", "--input-type=module", "-e", code], cwd=ROOT, check=True, capture_output=True, text=True)
+    return json.loads(out.stdout)
 
 
-def anim(name, frames, origin=None):
-    o = f";transform-origin:{origin}" if origin else ""
-    return f"@keyframes {name}{{{frames}}}.{name}{{animation:{name} {DUR}s infinite;transform-box:fill-box{o}}}"
+def tr(item, key, lang):
+    """nav.js 条目在这种语言下的字段（英文在 en: {} 里）。"""
+    return item[key] if lang == "zh" else item["en"][key]
 
 
-def show(name, t):
-    """t 秒淡入，播完淡出。"""
-    return anim(name, f"0%,{pct(t)}{{opacity:0}}{pct(t + .45)},{pct(FADE_OUT)}{{opacity:1}}{pct(FADE_OUT + .6)},100%{{opacity:0}}")
+def width(s, size):
+    """估一行字有多宽（苹方 / San Francisco 的大致字宽），只用来排版和折行，最后以截图为准。"""
+    w = 0
+    for ch in s:
+        w += (1.0 if ord(ch) > 0x2e7f or ch in "⌃⌥⌘⇧" else .28 if ch == " " else .28 if ch in "iljf.,:·'" else .36 if ch in "rt" else
+              .84 if ch in "MW" else .64 if ch.isupper() or ch.isdigit() else .54)
+    return w * size
 
 
-def light(name, t, prop, off, on):
-    """t 秒从 off 变成 on（元素自己的属性写 on，静态时就是亮的）。"""
-    return anim(name, f"0%,{pct(t)}{{{prop}:{off}}}{pct(t + .3)},{pct(FADE_OUT)}{{{prop}:{on}}}{pct(FADE_OUT + .6)},100%{{{prop}:{off}}}")
-
-
-def grow(name, t0, t1, axis, origin):
-    return anim(name, f"0%,{pct(t0)}{{transform:scale{axis}(0)}}{pct(t1)},100%{{transform:scale{axis}(1)}}", origin)
-
-
-def move(name, t0, t1, start, mid):
-    return anim(name, f"0%,{pct(t0)}{{transform:{start}}}{pct(t0 + (t1 - t0) * .8)}{{transform:{mid}}}{pct(t1)},100%{{transform:none}}", "50% 50%")
-
-
-def txt(x, y, s, size, fill, font, weight=400, anchor="start", cls=""):
+def txt(x, y, s, size, fill=INK, weight=400, anchor="start", font=SANS, cls=""):
     c = f' class="{cls}"' if cls else ""
     return f'<text{c} x="{x}" y="{y}" font-family="{font}" font-size="{size}" font-weight="{weight}" fill="{fill}" text-anchor="{anchor}">{escape(s)}</text>'
 
 
-def sim(x, y, s, stroke=INK, chip=HOT):
-    """封面上那张 SIM 卡：切角 + 芯片。(x, y) 是左上角，s 是相对封面的缩放（封面卡 232×312）。"""
-    p = lambda v: f"{v * s:.1f}"
-    return (f'<path d="M{x} {y} h{p(172)} l{p(60)} {p(60)} v{p(252)} h-{p(232)} Z" fill="none" stroke="{stroke}" stroke-width="{p(14)}" stroke-linejoin="miter"/>'
-            f'<rect x="{x + 48 * s:.1f}" y="{y + 136 * s:.1f}" width="{p(136)}" height="{p(104)}" fill="{chip}"/>'
-            f'<path d="M{x + 48 * s:.1f} {y + 170 * s:.1f} h{p(136)} M{x + 48 * s:.1f} {y + 206 * s:.1f} h{p(136)} M{x + 116 * s:.1f} {y + 136 * s:.1f} v{p(104)}" stroke="{BG}" stroke-width="{p(8)}"/>')
+def pct(t, dur):
+    return f"{t / dur * 100:.2f}%"
 
 
-def tick_box(x, y, s, cls=""):
+def anim(name, frames, dur, origin=None):
+    o = f";transform-origin:{origin}" if origin else ""
+    return f"@keyframes {name}{{{frames}}}.{name}{{animation:{name} {dur}s infinite;transform-box:fill-box{o}}}"
+
+
+def show(name, t, dur=DUR, end=FADE_OUT, rise=0):
+    """t 秒淡入（rise 像素从下往上），end 秒淡出。"""
+    up = f";transform:translateY({rise}px)" if rise else ""
+    still = ";transform:none" if rise else ""
+    return anim(name, f"0%,{pct(t, dur)}{{opacity:0{up}}}{pct(t + .4, dur)},{pct(end, dur)}{{opacity:1{still}}}{pct(end + .5, dur)},100%{{opacity:0{still}}}", dur)
+
+
+def light(name, t, prop, off, on, dur=DUR, end=FADE_OUT):
+    """t 秒从 off 变成 on，end 秒变回去（元素自己的属性写 on）。"""
+    return anim(name, f"0%,{pct(t, dur)}{{{prop}:{off}}}{pct(t + .3, dur)},{pct(end, dur)}{{{prop}:{on}}}{pct(end + .5, dur)},100%{{{prop}:{off}}}", dur)
+
+
+def mark(x, y, s, bg=INK, fg=CARD):
+    """本站的键帽标志（public/favicon.svg）：墨色方块，一圈细框是键面，键面上一个播放三角。s 是边长。"""
+    return (f'<g transform="translate({x} {y}) scale({s / 20:g})"><rect width="20" height="20" fill="{bg}"/>'
+            f'<path fill="{fg}" fill-rule="evenodd" d="M3 3H17V15H3ZM4.5 4.5V13.5H15.5V4.5Z"/><path fill="{fg}" d="M8.5 6.5V11.5L12.5 9Z"/></g>')
+
+
+def keycap(x, y, s, label, cls="", size=None, cap_cls=""):
+    """一个键帽：底下一条键座，上面白色的键面。(x, y) 是键面左上角，s 是边长。"""
+    c, cc = (f' class="{cls}"' if cls else ""), (f' class="{cap_cls}"' if cap_cls else "")
+    return (f'<rect x="{x}" y="{y + 5}" width="{s}" height="{s}" rx="{s * .18:.1f}" fill="{LINE2}"/>'
+            f'<g{c}><rect{cc} x="{x}" y="{y}" width="{s}" height="{s}" rx="{s * .18:.1f}" fill="{CARD}" stroke="{INK}" stroke-width="1.5"/>'
+            + txt(x + s / 2, y + s * .64, label, size or s * .42, INK, 500, "middle") + "</g>")
+
+
+def tick(cx, cy, r, fill=OK, cls=""):
     c = f' class="{cls}"' if cls else ""
-    return (f'<g{c}><rect x="{x}" y="{y}" width="{s}" height="{s}" fill="{HOT}"/>'
-            f'<path d="M{x + s * .24:.1f} {y + s * .52:.1f} l{s * .2:.1f} {s * .2:.1f} l{s * .34:.1f} -{s * .38:.1f}" stroke="{BG}" stroke-width="{s * .12:.1f}" fill="none"/></g>')
+    return (f'<g{c}><circle cx="{cx}" cy="{cy}" r="{r}" fill="{fill}"/>'
+            f'<path d="M{cx - r * .45:.1f} {cy:.1f} l{r * .32:.1f} {r * .32:.1f} l{r * .6:.1f} -{r * .62:.1f}" stroke="{CARD}" stroke-width="{r * .22:.1f}" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>')
 
 
-def plane(cx, ground):
-    """侧面的小飞机，机头朝右，轮子落在 ground 上。"""
-    x, y = cx, ground
-    body = f"M{x - 62} {y - 30} H{x + 44} Q{x + 60} {y - 30} {x + 60} {y - 22} Q{x + 60} {y - 14} {x + 44} {y - 14} H{x - 62} Z"
-    fin = f"M{x - 62} {y - 22} L{x - 68} {y - 50} H{x - 52} L{x - 36} {y - 30} Z"
-    wing = f"M{x - 6} {y - 22} H{x + 16} L{x - 8} {y - 4} H{x - 26} Z"
-    wins = "".join(f'<rect x="{x + k}" y="{y - 26}" width="5" height="4" fill="{BG}"/>' for k in range(-44, 30, 11))
-    gear = (f'<path d="M{x - 30} {y - 14} V{y - 6} M{x + 34} {y - 14} V{y - 6}" stroke="{INK}" stroke-width="3"/>'
-            f'<circle cx="{x - 30}" cy="{y - 4}" r="4" fill="{INK}"/><circle cx="{x + 34}" cy="{y - 4}" r="4" fill="{INK}"/>')
-    return f'<g class="plane"><path d="{body}" fill="{INK}"/><path d="{fin}" fill="{INK}"/><path d="{wing}" fill="{MUTED}"/>{wins}{gear}</g>'
+def frame(w, h, css, body, label):
+    """外框：接近白的画布、一圈淡边、圆角，和 pstack、ghostty-tint 的 README 插画一样。"""
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="{escape(label)}">'
+            f'<style>{css}{REDUCE}</style><defs>{SHADOW}</defs>'
+            f'<rect x=".5" y=".5" width="{w - 1}" height="{h - 1}" rx="22" fill="{PAPER}" stroke="{LINE}"/>{body}</svg>\n')
 
 
-def bars(right, bottom, color, cls_prefix=""):
-    out = []
-    for i, h in enumerate((6, 9, 12, 15)):
-        c = f' class="{cls_prefix}{i}"' if cls_prefix else ""
-        out.append(f'<rect{c} x="{right - 29 + i * 8}" y="{bottom - h}" width="5" height="{h}" fill="{color}"/>')
+def window(x, y, w, h, kind):
+    """小屏幕上的一个窗口：标题栏三个圆点，日历是格子，浏览器是地址栏加几行字。"""
+    out = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="5" fill="{CARD}" stroke="{INK}" stroke-width="1.2"/>',
+           f'<path d="M{x} {y + 13} H{x + w}" stroke="{LINE2}"/>']
+    out += [f'<circle cx="{x + 8 + i * 7}" cy="{y + 6.5}" r="2.2" fill="{c}"/>' for i, c in enumerate(("#FF5F57", "#FEBC2E", "#28C840"))]
+    if kind == "cal":
+        cw, ch = (w - 16) / 4, (h - 34) / 3
+        out.append(f'<rect x="{x + 8}" y="{y + 19}" width="{w * .4:.0f}" height="5" rx="2" fill="{INK}"/>')
+        for r in range(3):
+            for c in range(4):
+                hot = (r, c) == (1, 2)
+                out.append(f'<rect x="{x + 8 + c * cw + 1:.1f}" y="{y + 29 + r * ch + 1:.1f}" width="{cw - 2:.1f}" height="{ch - 2:.1f}" rx="2" '
+                           f'fill="{MARK if hot else CARD}" stroke="{LINE2}" stroke-width=".8"/>')
+    else:
+        out.append(f'<rect x="{x + 8}" y="{y + 19}" width="{w - 16}" height="9" rx="4.5" fill="{PAPER}" stroke="{LINE2}" stroke-width=".8"/>')
+        out.append(f'<rect x="{x + 10}" y="{y + 38}" width="{w * .45:.0f}" height="6" rx="2" fill="{INK}"/>')
+        out += [f'<rect x="{x + 10}" y="{y + 52 + i * 10}" width="{(w - 20) * f:.0f}" height="4" rx="2" fill="{LINE2}"/>' for i, f in enumerate((1, .92, 1, .7, .85))]
     return "".join(out)
 
 
-def screen(name, head, f, body):
-    """手机里的一屏：不透明底，盖住前一屏。"""
-    return (f'<g class="{name}" clip-path="url(#screen)"><rect x="{SX}" y="{TOP}" width="{SW}" height="{SY + SH - TOP}" fill="{BG}"/>'
-            f'{txt(LX, TOP + 42, head, 18, MUTED, f, 600)}{body}</g>')
-
-
 def svg(lang):
-    t, f = TEXT[lang], FONT[lang]
-    css = [show(n, T[n]) for n in ("check", "install", "land", "online")]
-    css += [light(f"s{i}", T[n], "fill", LINE, HOT) + light(f"s{i}t", T[n], "fill", MUTED, INK)
-            for i, n in enumerate(("check", "install", "land"))]
-    css += [show("tick", T["tick"]), grow("bar", *T["bar"], "X", "0 50%"), show("done", T["done"]),
-            move("plane", *T["plane"], "translate(-236px,-118px) rotate(14deg)", "translate(-30px,-8px) rotate(3deg)"),
-            light("track", T["roam"], "fill", LINE, HOT),
-            anim("knob", f"0%,{pct(T['roam'])}{{transform:translateX(-16px)}}{pct(T['roam'] + .3)},100%{{transform:none}}"),
-            show("after", T["online"]), show("card", T["card"])]
-    css += [grow(f"sig{i}", T["signal"] + i * .18, T["signal"] + i * .18 + .2, "Y", "50% 100%") for i in range(4)]
-    css += [show(f"arc{i}", T["online"] + .5 + i * .35) for i in range(2)]
-    css.append("@media (prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}")
+    t = TEXT[lang]
+    lessons = [tr(x, "title", lang) for x in nav()["LESSONS"]]
+    css, out = [], []
 
-    label = " ".join(t["h1"]) + ": " + " → ".join(t["steps"])
-    out = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{escape(label)}">',
-           f"<style>{''.join(css)}</style>",
-           f'<clipPath id="screen"><rect x="{SX}" y="{SY}" width="{SW}" height="{SH}" rx="24"/></clipPath>',
-           f'<rect width="{W}" height="{H}" fill="{BG}"/>']
+    # 左栏：标志、标题（第二行铺一条荧光笔）、一句话、出处、三课
+    out.append(mark(64, 46, 30))
+    out.append(txt(108, 69, t["brand"], 22, INK, 600))
+    out.append(txt(64, 176, t["h1"][0], 54, INK, 700))
+    out.append(f'<rect x="60" y="226" width="{width(t["h1"][1], 54) + 6:.0f}" height="24" fill="{MARK}"/>')
+    out.append(txt(64, 246, t["h1"][1], 54, INK, 700))
+    out.append(txt(64, 304, t["tag"], 24, INK, 500))
+    out.append(txt(64, 340, t["src"], 17, MUTED))
+    for i, title in enumerate(lessons):
+        y = 396 + i * 62
+        out.append(f'<rect class="n{i}" x="64" y="{y}" width="34" height="34" rx="7" fill="{INK}"/>')
+        out.append(txt(81, y + 23, str(i + 1), 17, CARD, 700, "middle", MONO))
+        out.append(txt(114, y + 24, title, 20, INK, 600, cls=f"l{i}"))
+        css.append(light(f"n{i}", T["acts"][i], "fill", LINE2, INK) + light(f"l{i}", T["acts"][i], "fill", FAINT, INK))
 
-    # 左栏：品牌、标题、出处、三步
-    out.append(f'<path d="M64 50 h18 l8 7 v25 h-26 Z" fill="{INK}"/><rect x="70" y="63" width="14" height="11" fill="{HOT}"/>')
-    out.append(txt(104, 74, t["brand"], 22, INK, f, 600))
-    out.append(txt(64, 182, t["h1"][0], t["h1_size"], INK, f, 700))
-    out.append(txt(64, 252, t["h1"][1], t["h1_size"], HOT, f, 700))
-    out.append(txt(64, 302, t["src"], 20, MUTED, f))
-    for i, step in enumerate(t["steps"]):
-        y = 372 + i * 62
-        out.append(f'<rect class="s{i}" x="64" y="{y}" width="34" height="34" fill="{HOT}"/>')
-        out.append(txt(81, y + 23, f"0{i + 1}", 16, BG, MONO, 700, "middle"))
-        out.append(txt(114, y + 24, step, 22, INK, f, 600, cls=f"s{i}t"))
+    # 右栏：宏卡片
+    X0, CW, Y0 = 704, 440, 40
+    RX, RW = X0 + 16, CW - 32
+    out.append(f'<rect x="{X0}" y="{Y0}" width="{CW}" height="372" rx="12" fill="{CARD}" stroke="{LINE}" filter="url(#sh)"/>')
+    out.append(txt(RX + 4, Y0 + 28, "Global Macro Group", 13, MUTED, 500))
+    out.append(txt(RX + 4, Y0 + 54, t["macro"], 21, INK, 700))
+    out.append(f'<rect x="{X0 + CW - 44}" y="{Y0 + 30}" width="22" height="22" rx="5" fill="none" stroke="{LINE2}" stroke-width="1.5"/>')
+    out.append(tick(X0 + CW - 33, Y0 + 41, 11, OK, "done"))
+    css.append(show("done", T["done"]))
+    out.append(f'<path d="M{X0} {Y0 + 72} H{X0 + CW}" stroke="{LINE}"/>')
 
-    # 右栏：手机外壳、状态栏（一开始是主号码）
-    out.append(f'<rect x="{PX}" y="{PY}" width="{PW}" height="{PH}" rx="36" fill="{PANEL}" stroke="{LINE}" stroke-width="2"/>')
-    out.append(f'<rect x="{SX}" y="{SY}" width="{SW}" height="{SH}" rx="24" fill="{BG}"/>')
-    out.append(txt(LX, SY + 34, "10:24", 15, INK, MONO, 600))
-    out.append(txt(RX - 38, SY + 34, t["line_before"], 14, MUTED, f, 500, "end"))
-    out.append(bars(RX, SY + 37, LINE))
+    def row(y, h, name, t_on, body):
+        out.append(f'<rect class="{name}" x="{RX}" y="{y}" width="{RW}" height="{h}" rx="8" fill="{SKY}" stroke="{LINE}"/>')
+        out.append(f'<rect class="{name}b" x="{RX}" y="{y + 10}" width="3" height="{h - 20}" rx="1.5" fill="{INK}"/>')
+        out.append(body)
+        css.append(light(name, t_on, "fill", CARD, SKY) + show(f"{name}b", t_on))
 
-    # 第一屏：勾上「支持 eSIM」
-    head, row = t["check"]
-    body = (f'<path d="M{CX - 60} {Y0 + 90} h88 l32 32 v118 h-120 Z" fill="none" stroke="{INK}" stroke-width="6"/>'
-            + txt(CX, Y0 + 188, "eSIM", 26, INK, MONO, 700, "middle")
-            + f'<rect x="{LX}" y="{Y0 + 300}" width="{RX - LX}" height="64" fill="{PANEL}" stroke="{LINE}" stroke-width="2"/>'
-            + f'<rect x="{LX + 18}" y="{Y0 + 316}" width="32" height="32" fill="none" stroke="{MUTED}" stroke-width="2"/>'
-            + tick_box(LX + 18, Y0 + 316, 32, "tick")
-            + txt(LX + 66, Y0 + 340, row, 21, INK, f, 600))
-    out.append(screen("check", head, f, body))
+    out.append(txt(RX + 4, Y0 + 96, "Triggered by any of the following:", 13, MUTED))
+    ty = Y0 + 108
+    chip_x = RX + 20 + width("Hot Key", 15) + 12
+    row(ty, 46, "trg", T["trigger"],
+        txt(RX + 18, ty + 28, "Hot Key", 15, INK, 700)
+        + f'<rect x="{chip_x:.0f}" y="{ty + 10}" width="70" height="26" rx="5" fill="{PAPER}" stroke="{LINE2}"/>'
+        + txt(chip_x + 35, ty + 28, "⌃⌥⌘T", 15, INK, 500, "middle")
+        + txt(chip_x + 82, ty + 28, "is pressed", 14, MUTED))
 
-    # 第二屏：eSIM 装进手机，进度条走满
-    head, done = t["install"]
-    body = (f'<path d="M{CX} {Y0 + 70} v34 m-12 -12 l12 12 l12 -12" stroke="{HOT}" stroke-width="4" fill="none"/>'
-            + sim(CX - 50, Y0 + 120, .43)
-            + f'<rect x="{LX}" y="{Y0 + 300}" width="{RX - LX}" height="10" fill="{LINE}"/>'
-            + f'<rect class="bar" x="{LX}" y="{Y0 + 300}" width="{RX - LX}" height="10" fill="{HOT}"/>'
-            + f'<g class="done">{tick_box(LX, Y0 + 330, 26)}{txt(LX + 40, Y0 + 350, done, 20, INK, f, 600)}</g>')
-    out.append(screen("install", head, f, body))
+    out.append(txt(RX + 4, Y0 + 182, "Will execute the following actions:", 13, MUTED))
+    acts = [("Activate a Specific Application", t["app"]), ("Open a URL", URL), ("Manipulate a Window", "Move and Resize Front Window")]
+    for i, (name, detail) in enumerate(acts):
+        y = Y0 + 194 + i * 56
+        row(y, 50, f"a{i}", T["acts"][i], txt(RX + 18, y + 22, name, 15, INK, 700) + txt(RX + 18, y + 40, detail, 13, MUTED))
 
-    # 第三屏：飞机落地，给 Saily 打开数据漫游
-    head, top, row = t["land"]
-    ground = Y0 + 230
-    dashes = "".join(f'<rect x="{x}" y="{ground + 12}" width="18" height="3" fill="{LINE}"/>' for x in range(LX, RX - 10, 36))
-    body = (f'<path d="M{SX} {ground} H{SX + SW}" stroke="{MUTED}" stroke-width="3"/>{dashes}'
-            + plane(CX, ground)
-            + f'<rect x="{LX}" y="{Y0 + 296}" width="{RX - LX}" height="76" fill="{PANEL}" stroke="{LINE}" stroke-width="2"/>'
-            + txt(LX + 18, Y0 + 324, top, 15, MUTED, f, 600)
-            + txt(LX + 18, Y0 + 352, row, 20, INK, f, 600)
-            + f'<rect class="track" x="{RX - 62}" y="{Y0 + 322}" width="44" height="24" rx="12" fill="{HOT}"/>'
-            + f'<circle class="knob" cx="{RX - 30}" cy="{Y0 + 334}" r="9" fill="{INK}"/>')
-    out.append(screen("land", head, f, body))
+    # 右下：四个键（⌃ ⌥ ⌘ 先按住，再按 T），一条线连到 Hot Key 那一行
+    KY, KS, KG = 484, 44, 9
+    ks = [(X0 + i * (KS + KG), lab) for i, lab in enumerate(("⌃", "⌥", "⌘", "T"))]
+    out.append(f'<path d="M{X0 + 2 * (KS + KG) - KG / 2:.0f} {KY - 12} V{Y0 + 384}" stroke="{LINE2}" stroke-width="1.5" stroke-dasharray="3 4"/>')
+    out.append(f'<circle class="pulse" cx="{X0 + 2 * (KS + KG) - KG / 2:.0f}" cy="{Y0 + 384}" r="4" fill="{INK}"/>')
+    t0 = T["keys"][3]
+    css.append(anim("pulse", f"0%,{pct(t0, DUR)}{{opacity:0;transform:translateY({KY - 12 - Y0 - 384}px)}}{pct(t0 + .05, DUR)}{{opacity:1}}"
+                             f"{pct(T['trigger'], DUR)}{{opacity:1;transform:none}}{pct(T['trigger'] + .2, DUR)},100%{{opacity:0;transform:none}}", DUR))
+    for i, (x, lab) in enumerate(ks):
+        out.append(keycap(x, KY, KS, lab, f"k{i}", 20 if lab != "T" else 19, f"kc{i}"))
+        p0, p1, r1 = pct(T["keys"][i], DUR), pct(T["keys"][i] + .08, DUR), pct(T["release"], DUR)
+        css.append(anim(f"k{i}", f"0%,{p0}{{transform:none}}{p1},{r1}{{transform:translateY(4px)}}{pct(T['release'] + .12, DUR)},100%{{transform:none}}", DUR))
+        css.append(anim(f"kc{i}", f"0%,{p0}{{fill:{CARD}}}{p1},{r1}{{fill:{MARK}}}{pct(T['release'] + .12, DUR)},100%{{fill:{CARD}}}", DUR))
 
-    # 第四屏：Saily 的信号满格，已连上当地网络
-    head, card, sub = t["online"]
-    sx, sy = CX - 44, Y0 + 112
-    arcs = (f'<path class="arc0" d="M{CX - 22} {sy - 14} a30 30 0 0 1 44 0" fill="none" stroke="{INK}" stroke-width="6"/>'
-            f'<path class="arc1" d="M{CX - 38} {sy - 28} a52 52 0 0 1 76 0" fill="none" stroke="{MUTED}" stroke-width="6"/>')
-    ch = 64 + 28 * len(card)
-    lines = "".join(txt(LX + 56, Y0 + 290 + 30 * i, s, 22, INK, f, 700) for i, s in enumerate(card))
-    body = (arcs + sim(sx, sy, .38)
-            + f'<g class="card"><rect x="{LX}" y="{Y0 + 254}" width="{RX - LX}" height="{ch}" fill="{PANEL}" stroke="{HOT}" stroke-width="2"/>'
-            + tick_box(LX + 16, Y0 + 272, 26) + lines
-            + txt(LX + 56, Y0 + 290 + 30 * len(card), sub, 16, MUTED, f, 500) + "</g>")
-    out.append(screen("online", head, f, body))
+    # 右下：一块小屏幕。日历先出来；浏览器打开在中间，再挪到右半边
+    DX, DY, DW, DH = 930, 440, 214, 146
+    out.append(f'<path d="M{DX + DW / 2 - 18} {DY + DH} l-6 22 h48 l-6 -22" fill="{CARD}" stroke="{INK}" stroke-width="1.5" stroke-linejoin="round"/>')
+    out.append(f'<rect x="{DX}" y="{DY}" width="{DW}" height="{DH}" rx="9" fill="{CARD}" stroke="{INK}" stroke-width="1.5"/>')
+    out.append(f'<path d="M{DX} {DY + 14} H{DX + DW}" stroke="{LINE}"/>')
+    out.append(f'<circle cx="{DX + 12}" cy="{DY + 7}" r="2.5" fill="{INK}"/>')
+    out.append(f'<g class="wa">{window(DX + 8, DY + 22, 96, 116, "cal")}</g>')
+    out.append(f'<g class="wb"><g class="mv">{window(DX + 110, DY + 22, 96, 116, "web")}</g></g>')
+    css.append(show("wa", T["win_a"], rise=6) + show("wb", T["win_b"], rise=6))
+    m0, m1 = T["move"]
+    css.append(anim("mv", f"0%,{pct(m0, DUR)}{{transform:translate(-56px,0)}}{pct(m1, DUR)},100%{{transform:none}}", DUR))
+    out.append(txt(W - 56, H - 30, t["demo"], 13, FAINT, 400, "end"))
 
-    # 状态栏换成 Saily：先盖住「主号码」，信号一格格满起来
-    out.append(f'<g class="after"><rect x="{RX - 128}" y="{SY + 14}" width="132" height="30" fill="{BG}"/>'
-               + txt(RX - 38, SY + 34, t["line_after"], 15, INK, f, 700, "end") + bars(RX, SY + 37, HOT, "sig") + "</g>")
-    out.append(f'<rect x="{CX - 50}" y="{SY + SH - 14}" width="100" height="4" rx="2" fill="{LINE}"/>')
-    out.append(txt(PX + PW, H - 10, t["demo"], 14, MUTED, f, 400, "end"))
-    out.append("</svg>")
-    return "".join(out) + "\n"
+    label = f'{" ".join(t["h1"])}: ⌃⌥⌘T → {" → ".join(a for a, _ in acts)} · ' + " · ".join(lessons)
+    return frame(W, H, "".join(css), "".join(out), label)
 
 
 if __name__ == "__main__":
