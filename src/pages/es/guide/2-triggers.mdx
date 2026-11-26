@@ -1,0 +1,101 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 2
+need: Una macro que ya hayas creado (sirve la de la lección 1 para principiantes)
+tldr: Un activador decide cuándo empieza una macro. Elegirlo significa elegir el momento en que la tarea empieza de forma natural. Cuando la lanzas tú, usa un atajo de teclado, unas letras escritas o un clic. Cuando llega la hora, usa el reloj. Cuando el propio Mac cambia, por ejemplo al abrirse una app, al conectarte a una red Wi-Fi o al llegar un archivo nuevo a una carpeta, usa ese evento.
+description: Activadores. Cómo añadir uno y por qué una macro puede tener varios; cuatro tipos de momento —cuando la lanzas tú (atajo de teclado, texto escrito, menú de estado, paleta global), cuando llega la hora (hora del día, cada cierto tiempo, inactividad), cuando cambia el Mac (apps, inicio de sesión y salida del reposo, Wi-Fi, dispositivos USB y discos, carpetas) y cuando otro programa la llama—; consultar el resto en la lista oficial; y los bloqueos más habituales.
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Has creado una macro para ordenar todo al final del día: todo lo que haya llegado hoy a la carpeta Descargas va a parar a una sola carpeta. Funciona muy bien, pero aun así se te olvida ejecutarla a menudo, porque a esa hora tu cabeza ya está lejos del escritorio. En realidad, esta tarea no necesita que te acuerdes de nada: a las cinco y media puede ejecutarse sola.
+
+Otro tipo de macro es justo lo contrario. Cuándo vas a necesitar escribir una dirección larga es algo que solo sabes tú; el Mac no puede adivinarlo, así que el momento de empezar tiene que venir de ti. Escribes unas pocas letras y la macro toma el relevo.
+
+<mark><strong>Elegir un activador significa elegir el momento en que la tarea empieza de forma natural. Cuando la lanzas tú, usa un atajo de teclado, unas letras escritas o un clic. Cuando llega la hora, usa el reloj. Cuando el propio Mac cambia, usa ese evento.</strong></mark>
+
+## Añadir un activador
+
+Los <Term k="触发器" text="activadores" /> están en la columna de detalles de la macro, debajo de su nombre. Haz clic en el **+** verde (**New Trigger**, nuevo activador) y elige un tipo en el menú. Algunos funcionan en cuanto los añades, como el **Status Menu Trigger** (activador del menú de estado). La mayoría necesitan uno o dos detalles, como qué atajo de teclado usar o qué texto escribir. Consulta la página oficial de [Macro Triggers](https://wiki.keyboardmaestro.com/manual/Macro_Triggers).
+
+Una macro puede tener varios activadores, y cualquiera de ellos la pone en marcha. La misma macro para «organizar mis ventanas» puede ejecutarse con un atajo de teclado y también una vez por sí sola cuando inicias sesión.
+
+Un truco muy práctico: mantén pulsada la tecla Opción (⌥) mientras eliges una opción en el menú de activadores y Keyboard Maestro abrirá en su lugar la página de la wiki sobre ese activador. En esta página solo vemos los que conviene conocer primero, así que esa es la forma más rápida de consultar el resto.
+
+Y recuerda la regla del [paso 1](/es/guide/1-groups/): un activador solo cuenta cuando la macro está habilitada y su grupo está habilitado y activo en ese momento.
+
+## Cuando la lanzas tú: atajos de teclado, texto escrito o un clic
+
+El más habitual es el **Hot Key Trigger** (activador por atajo de teclado). Pulsas las teclas que hayas configurado, el sistema intercepta esa pulsación en lugar de pasarla a la app en primer plano y Keyboard Maestro ejecuta la macro. La tecla puede ser una letra, un número, un símbolo o una tecla de función, a menudo con una o varias teclas modificadoras (⌃ Control, ⌥ Opción, ⇧ Mayúsculas, ⌘ Comando), y los números del teclado numérico cuentan como teclas distintas a los del teclado principal. Una tecla modificadora por sí sola, como pulsar solo Control, no puede ser un atajo de teclado. Consulta la página oficial de [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key).
+
+Además de «ejecutar al pulsar», puedes configurarlo para que se ejecute al soltar la tecla, de forma repetida mientras la mantienes pulsada, con una pulsación larga, o solo al pulsarla dos o tres veces seguidas. Eso sí, elijas la opción que elijas, esa tecla queda interceptada y deja de hacer su función habitual, así que no uses una tecla que necesites para otra cosa.
+
+La wiki da dos consejos para elegir atajos de teclado. Sigue un criterio coherente: por ejemplo, Control más una letra para escribir texto y Control-Opción más una letra para abrir apps, con letras que te recuerden qué hace cada macro. Y evita las combinaciones habituales con Comando y los atajos propios del sistema. Los ejemplos de este sitio usan ⌃⌥⌘ más una letra, una combinación de teclas que muy pocas apps reclaman. Si aun así otra app tiene registrado el mismo atajo de teclado, al pulsarlo ocurrirán las dos cosas.
+
+El otro activador de uso diario es el **Typed String Trigger** (activador por texto escrito). Escribes esa secuencia de texto en cualquier sitio y se dispara; normalmente borra antes las letras que acabas de escribir y luego ejecuta la macro, lo que lo hace ideal para abreviaturas: escribes `=addr=` y aparece tu dirección completa. Consulta la página oficial de [Typed String Trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String), o crea una desde cero en la [lección 2 para principiantes](/es/start/2-type-less/).
+
+La wiki recomienda especialmente usar un prefijo o un sufijo (o ambos) que nunca escribirías por accidente. Su ejemplo: no uses `em` como abreviatura para tu dirección de correo, porque se dispara dentro de «them» (o en español, «siempre»); usa `=em=` en su lugar. Todos los ejemplos de este sitio siguen ese estilo, con un signo igual en cada extremo: `=addr=`, `=sig=`.
+
+Hay varias cosas que interrumpen una secuencia de texto escrito: pulsar Mayúsculas-Espacio, cualquier tecla con Control o Comando, cambiar de app, hacer clic con el ratón o hacer una pausa de más de unos segundos. Si quieres escribir `=addr=` tal cual sin que se expanda, escribe un Mayúsculas-Espacio en medio y luego bórralo. En campos de contraseña nunca se dispara, y en las propias ventanas de Keyboard Maestro tampoco funciona bien.
+
+Hay macros que usas tan de vez en cuando que no te acordarías de su atajo de teclado, así que conviene ponerlas en un sitio donde puedas hacer clic. El **Status Menu Trigger** añade la macro al menú que hay bajo el icono de Keyboard Maestro en la barra de menús, el <Term k="状态菜单" text="menú de estado" />; eliges su nombre y se ejecuta. La wiki dice que encaja muy bien con macros que funcionan como comandos de menú, como abrir o procesar archivos u organizar ventanas. El **Global Macro Palette Trigger** (activador de paleta global) coloca la macro en una paleta flotante en la pantalla; haces clic en ella y se ejecuta. Ambos solo muestran las macros que están activas en ese momento, así que si tu grupo solo está disponible en Safari, solo aparecerán mientras Safari esté en primer plano. Mantén pulsada la tecla Opción y haz clic en una entrada para ir directamente a editar esa macro.
+
+## Cuando llega la hora: el reloj
+
+La macro que ordena tus descargas al final del día, la que vimos al principio, usa un **Time of Day Trigger** (activador por hora del día): eliges una hora y marcas los días de la semana. Consulta la página oficial de [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day).
+
+Tiene una peculiaridad que conviene saber: a esa hora el Mac tiene que estar despierto. Si está en reposo, esa ejecución simplemente se pierde y no se recupera cuando el Mac despierta. Si la pantalla está bloqueada o el salvapantallas está puesto, la macro sí se ejecuta, pero muchas acciones que interactúan con la interfaz, como escribir texto o elegir menús, no funcionarán.
+
+Si prefieres «cada cierto tiempo» en lugar de «a esta hora», usa el **Periodic Trigger** (activador periódico): se ejecuta cada ciertos segundos, minutos u horas, y opcionalmente solo durante una franja del día o en determinados días. La wiki desaconseja intervalos muy cortos, como cada pocos segundos, porque pueden consumir mucha CPU e interrumpir otras cosas. Si un tramo horario cruza la medianoche, se detiene a medianoche; añade un segundo activador para que continúe. Consulta la página oficial de [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic).
+
+Dos más: el **Idle Trigger** (activador por inactividad) se ejecuta cuando llevas un rato sin tocar el teclado ni el ratón, por ejemplo veinte minutos lejos del escritorio; y si conoces la sintaxis de cron, tienes el **Cron Trigger** (activador cron). Para ver paso a paso cómo montar macros programadas, consulta la guía práctica [Ejecutar algo a la misma hora cada día](/es/howto/daily-schedule/).
+
+## Cuando cambia el propio Mac
+
+También hay tareas cuyo momento no es cuando pulsas algo ni cuando el reloj marca una hora, sino cuando ocurre un pequeño cambio en el propio Mac.
+
+El **Application Trigger** (activador de aplicación) se ejecuta cuando una app (o cualquier app) se abre, se cierra, pasa a primer plano o queda en segundo plano, o periódicamente mientras está abierta o en primer plano. Imagina que cada vez que abres Vista Previa arrastras su ventana a la mitad derecha de la pantalla; puedes dejarle eso a este activador. No olvides la trampa del [paso 1](/es/guide/1-groups/): una macro que espera a que se abra una app tiene que estar en un grupo que esté siempre activo. Consulta la página oficial de [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application).
+
+El **Login Trigger** (activador al iniciar sesión) se ejecuta cuando inicias sesión y el Engine arranca a la vez, normalmente porque marcaste **Launch Engine at Login** (iniciar el Engine al iniciar sesión). La wiki lo sugiere para dejar tu Mac preparado a tu gusto. Parientes cercanos son el **Wake Trigger** (al salir del reposo), el **Sleep Trigger** (al entrar en reposo) y el **Unlock Trigger** (al desbloquear la pantalla).
+
+El **Wireless Network Trigger** (activador de red Wi-Fi) se ejecuta cuando te conectas a una red Wi-Fi o te desconectas de ella. Cuando tu Mac portátil se conecta a la red de la oficina, abre las apps con las que trabajas; cuando se conecta a la de casa, cambia a otro conjunto. Puede reconocer la red por su nombre o, como prefiere la wiki, por su BSSID, porque hay muchísimas redes llamadas «Casa» o «Trabajo». Dos cosas más que conviene saber: a partir de macOS 14, Keyboard Maestro Engine necesita permiso de Localización para poder leer la información del Wi-Fi. Además, el Mac se desconecta y vuelve a conectarse al Wi-Fi cada vez que entra en reposo y despierta, así que estas macros deberían poder ejecutarse varias veces sin causar problemas. Consulta la página oficial de [Wireless Network Trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network).
+
+El **USB Device Trigger** (activador de dispositivo USB) se ejecuta cuando conectas o desconectas un dispositivo USB. El ejemplo de la wiki es abrir tu app de escaneo cuando enciendes el escáner y cerrarla cuando lo apagas. Los nombres de los dispositivos son difíciles de adivinar, así que pon el cursor en el campo del nombre y conecta el dispositivo: Keyboard Maestro lo completa por ti. Para un disco, usa el **Mounted Volume Trigger** (activador al montar un disco), por ejemplo para iniciar una copia de seguridad en cuanto conectes el disco de respaldo. Para ver paso a paso cómo crear macros de Wi-Fi y USB, consulta la guía práctica [Hacer algo al conectarte a una red Wi-Fi o enchufar un dispositivo](/es/howto/wifi-usb/).
+
+El **Folder Trigger** (activador de carpeta) se ejecuta cuando se añade o se quita un elemento de una carpeta, por ejemplo cuando llega un archivo nuevo a Descargas y quieres moverlo a su sitio. Solo vigila esa carpeta en concreto, no los cambios dentro de sus subcarpetas. También puede esperar a que un archivo termine de descargarse o copiarse, para no actuar nunca sobre un archivo a medias, aunque eso añade un pequeño retraso porque tiene que esperar a que el archivo deje de cambiar para estar seguro. Consulta la página oficial de [Folder Trigger](https://wiki.keyboardmaestro.com/trigger/Folder) y la guía práctica [Archivar cosas en cuanto llegan a una carpeta](/es/howto/watch-folder/).
+
+Hay muchos más de este tipo: cuando conectas o desconectas una pantalla (**Display Layout Changed Trigger**), cuando enchufas o desenchufas el cargador (**Power Status Changed Trigger**), cuando cambia la salida de sonido, como al conectar unos auriculares (**Audio Output Device Changed Trigger**), cuando cambia el portapapeles (**Clipboard Changed Trigger**), y cuando el sistema alterna entre el aspecto claro y el oscuro (**Appearance Changed Trigger**).
+
+## Cuando otro programa la llama
+
+El último tipo permite que otra cosa ponga en marcha la macro: otra macro que la llama por su nombre mediante una acción, un comando de AppleScript o de shell, una URL que empiece por `kmtrigger://`, o incluso un navegador en otro dispositivo que la lance de forma remota. Todo esto implica scripts y red, así que lo dejamos para el [paso 7](/es/guide/7-advanced/).
+
+## Para todo lo demás, la lista oficial
+
+Keyboard Maestro tiene más de treinta tipos de activadores. En esta página no aparecen todos, y tampoco hace falta que te los aprendas de memoria. Cuando necesites uno, mantén pulsada la tecla Opción y elígelo en el menú de activadores, o echa un vistazo a la lista oficial de [Triggers](https://wiki.keyboardmaestro.com/Triggers), donde cada uno tiene su propia página.
+
+Esa es toda la idea de este paso: piensa en el momento en que la tarea empieza de forma natural y busca el activador para ese momento. Lo siguiente son las acciones: las cosas que una macro hace por ti una vez que ha empezado.
+
+## ¿Te atascas?
+
+<Q q="Pulso el atajo de teclado y no pasa nada.">
+<p>Comprueba que tanto la macro como su grupo estén habilitados y que el grupo esté activo en ese momento; por ejemplo, ¿lo estás pulsando en una app que el grupo no incluye? Luego elige <strong>Help ▸ Interactive Help</strong> (ayuda interactiva), que revisa los permisos, el grupo y el activador uno por uno y te dice dónde se atasca. La lista completa de comprobaciones está en el <a href="/es/guide/6-debug/">paso 6</a>.</p>
+</Q>
+<Q q="Escribo la abreviatura y no pasa nada.">
+<p>Hacer una pausa de unos segundos, hacer clic con el ratón o cambiar de app a mitad de camino cancela la secuencia, así que vuelve a escribirla desde el principio. Nunca se dispara en campos de contraseña y tampoco funciona bien en las propias ventanas de Keyboard Maestro. Si no funciona en ningún sitio, puede que el sistema se haya quedado atascado en el modo de entrada segura (Secure Input), creyendo que sigues en un campo de contraseña: <strong>Help ▸ Interactive Help</strong> puede detectarlo. Consulta la página oficial de <a href="https://wiki.keyboardmaestro.com/Troubleshooting">Troubleshooting</a>.</p>
+</Q>
+<Q q="La abreviatura se expande donde no quería.">
+<p>La secuencia coincide con algo que escribes normalmente. Como sugiere la wiki, añade un prefijo y un sufijo que nunca escribirías por accidente, como <code>=sig=</code> en lugar de un <code>sig</code> a secas.</p>
+</Q>
+<Q q="Mi macro programada no se ejecutó anoche.">
+<p>Lo más probable es que el Mac estuviera en reposo. Si está en reposo a la hora programada, esa ejecución se pierde y no se recupera al despertar. Con la pantalla bloqueada la macro sí se ejecuta, pero acciones como escribir texto o elegir menús no funcionarán.</p>
+</Q>
+<Q q="Me conecté a una red Wi-Fi y la macro no se ejecutó.">
+<p>A partir de macOS 14, Keyboard Maestro Engine necesita permiso de Localización para leer la información del Wi-Fi. En <strong>Ajustes del Sistema ▸ Privacidad y seguridad</strong>, mira en Localización y comprueba que tenga el permiso concedido. Si ni siquiera aparece en la lista, la solución que recomiendan sus creadores es ejecutar una vez la acción <strong>Get Location</strong> (obtener ubicación) dentro de una macro para que el sistema te pida permiso (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions">preguntas frecuentes oficiales</a>).</p>
+</Q>
+<Q q="Una macro se ejecutó dos veces.">
+<p>Comprueba si tiene dos activadores y se dispararon los dos, por ejemplo uno al iniciar sesión y otro al conectarse al Wi-Fi. El activador de Wi-Fi también vuelve a dispararse cada vez que el Mac entra en reposo y despierta, así que asegúrate de que estas macros puedan ejecutarse más de una vez sin problemas.</p>
+</Q>
+
+<Checkpoint id="s2" items={["Sé cómo añadir un activador y que una macro puede tener varios", "Le puse a una macro que uso a menudo un atajo de teclado que no choque con otros, o una abreviatura con un símbolo en cada extremo", "Sé que una macro programada solo se ejecuta si el Mac está despierto", "Sé que mantener pulsada la tecla Opción al elegir un activador abre su página en la wiki oficial"]} />

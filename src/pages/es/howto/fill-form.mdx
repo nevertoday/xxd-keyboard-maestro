@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: fill-form
+step: 3
+time: Quince minutos, empezando por recorrer el formulario por tu cuenta
+for: El formulario del mismo sitio te pide tu nombre, correo y teléfono cada vez
+tldr: Haz clic en el primer campo, pulsa ⌃⌥⌘F y tu nombre, correo, teléfono y enlace al portafolio se rellenan de una sola vez. Lo revisas antes de enviarlo.
+description: Usa Insert Text by Typing con el token %Tab% para rellenar un formulario de arriba abajo. Recorre primero el formulario con Tab para conocer su orden, pega cualquier campo que un teclado no pueda escribir, baja el ritmo si un formulario web pierde caracteres y deja el botón de enviar en tus manos.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Callout from "../../../components/Callout.astro";
+
+Quienes trabajan por cuenta propia y consiguen clientes en una misma plataforma de proyectos suelen enviar varias propuestas al día, y cada formulario vuelve a pedir desde cero los mismos campos: nombre, correo, teléfono y enlace al portafolio. Cuatro campos escritos veinte veces, y es fácil equivocarse en un dígito del teléfono, con lo que el cliente ya no puede contactarte. Con esta macro, haces clic en el primer campo, pulsas ⌃⌥⌘F (⌃ es Control, ⌥ es Opción, ⌘ es Comando) y los cuatro campos se rellenan de una sola vez. El cursor se detiene en el último campo, lo revisas todo y haces clic en enviar por tu cuenta.
+
+<mark>En un formulario, la tecla Tab es la que te lleva de un campo al siguiente, y una macro hace lo mismo: escribe un campo, pulsa Tab y escribe el siguiente.</mark>
+
+## Recórrelo primero por tu cuenta
+
+Antes de crear nada, abre el formulario, haz clic en el primer campo y pulsa solo Tab, una vez tras otra, fijándote en adónde va el cursor. La mayoría de los formularios avanzan de arriba abajo, pero algunos sitios cuelan en medio un menú desplegable o una casilla de «Acepto», y esos también consumen un Tab. Anota el orden. El único trabajo de la macro es repetirlo.
+
+Eso también te deja algo claro: una macro sirve para un solo formulario. Es muy probable que otro sitio ordene sus campos de otra manera, así que crea otra macro distinta para ese.
+
+## Crea la macro
+
+Primero crea un grupo de macros llamado «Formularios», y en sus ajustes elige **Available in these applications:** (disponible en estas aplicaciones) y añade Safari, o el navegador que uses habitualmente. Así, ⌃⌥⌘F solo funciona en el navegador y queda libre en el resto de las apps.
+
+Dentro de ese grupo, crea una macro nueva. Como activador, elige **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘F. Lleva dos acciones.
+
+La primera es **Insert Text by Pasting** (insertar texto pegando), con tu nombre dentro. ¿Por qué poner el nombre en una acción aparte? Porque la otra acción, **Insert Text by Typing** (insertar texto escribiendo), pulsa las teclas una a una por ti, y la página oficial explica que solo puede escribir caracteres que se puedan teclear con una o dos pulsaciones en el teclado (consulta [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)). Muchos nombres tienen caracteres fuera de ese límite, como los caracteres chinos, y pegar funciona con cualquiera.
+
+<Copy id="ff-name" title="Primera acción: tu nombre" code="Sofía López" />
+
+La segunda acción es **Insert Text by Typing**, con el resto de los campos escritos juntos y un `%Tab%` entre cada uno. `%Tab%` es un <Term k="令牌" text="token" />: cuando la macro se ejecuta, se convierte en una pulsación real de Tab, que te lleva al siguiente campo. Eso es justo lo que recomienda la página oficial: cuando quieras moverte entre campos con Tab o Retorno, hazlo escribiendo. El `%Tab%` del principio sirve para sacar primero el cursor del campo del nombre:
+
+<Copy id="ff-rest" title="Segunda acción: el resto de los campos" code="%Tab%sofia.lopez@example.com%Tab%000 1234 5678%Tab%https://example.com/sofia" />
+
+Cambia los ejemplos por tu propio correo, teléfono y enlace. La segunda acción solo escribe y no toca el portapapeles, así que ponerla después del pegado no provoca el problema de que se pegue algo equivocado.
+
+<Callout type="warn">No pongas Retorno al final ni dejes que la macro haga clic en enviar. Deja el formulario ya relleno ahí para que puedas leerlo entero, cuando aún estás a tiempo de corregir cualquier cosa. Tampoco guardes contraseñas en la macro. La página oficial de [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String) señala que escribir así en campos de contraseña es un problema serio de seguridad.</Callout>
+
+## Comprueba que funciona
+
+Abre el formulario de propuesta del sitio, haz clic en el campo del nombre y pulsa ⌃⌥⌘F. Deberías ver aparecer tu nombre y luego cómo el cursor salta campo por campo mientras se rellenan el correo, el teléfono y el enlace, hasta detenerse en el campo del enlace. Revisa cada uno. Si algún dato cayó en el lugar equivocado, vuelve al recorrido previo con Tab y mira en qué punto el orden difiere de lo que esperabas.
+
+## ¿Te atascas?
+
+<Q q="El texto se escribió, pero faltan algunas letras o salen desordenadas.">
+Los campos de los formularios web suelen comprobar lo que escribes sobre la marcha y, si Keyboard Maestro escribe demasiado rápido, algunos caracteres se pierden o se desordenan. La solución oficial es añadir una acción **Set Action Delay** (establecer retraso de acción) al principio de esta macro para que escriba más despacio. Úsala solo en esta macro, no como ajuste global. Consulta [la sección de Troubleshooting sobre caracteres perdidos o desordenados](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order).
+</Q>
+<Q q="En el campo del nombre se pegó lo último que había copiado.">
+Para ese momento, el portapapeles sí contiene tu nombre. El problema es que la app guardó su propia copia del portapapeles anterior y no se enteró del cambio. La sección oficial [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) señala que esto ocurre sobre todo en apps multiplataforma. Si te pasa, la salida más fácil es escribir tu nombre a mano y dejar que la macro empiece en el segundo campo: borra la primera acción y quita el `%Tab%` del principio de la segunda.
+</Q>
+<Q q="A mitad del formulario, todo se desplaza un campo.">
+Seguramente antes de ese campo hay un menú desplegable, una casilla o un botón del que no te diste cuenta y que consumió un Tab. Añade o quita un `%Tab%` ahí.
+</Q>
+<Q q="El campo del correo se llenó con sugerencias del método de entrada en vez de letras.">
+**Insert Text by Typing** pulsa una tecla cada vez y la página oficial dice que es igual que si teclearas tú, así que si estás usando un método de entrada chino o similar, captura las letras de tu correo como entrada propia. Cambia a un teclado normal antes de pulsar ⌃⌥⌘F. El nombre va pegado, así que el método de entrada no lo toca.
+</Q>
+<Q q="Pulsé ⌃⌥⌘F y no pasó nada.">
+Asegúrate de que tu navegador esté en primer plano. El grupo de macros está configurado para funcionar solo ahí, así que pulsar el atajo en cualquier otra app no hace nada. Si el navegador está al frente y sigue sin pasar nada, mira en el editor que tanto «Formularios» como la macro sigan con la casilla marcada y que el Engine esté en marcha. Si aun así no se dispara, consulta el [paso 6 de la guía completa](/es/guide/6-debug/).
+</Q>
+
+Crea una macro así y, a partir de entonces, cada propuesta serán veintitantos caracteres menos que escribir y una oportunidad menos de equivocarte al teclear. Para el campo que rellenas de nuevo cada vez, como el proyecto al que te presentas, la macro puede preguntarte primero y rellenarlo después. Consulta [Hacer una pregunta antes de empezar el trabajo](/es/howto/ask-input/).

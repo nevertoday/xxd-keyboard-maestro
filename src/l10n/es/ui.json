@@ -5,7 +5,7 @@
     "skip": "Saltar al contenido",
     "menu": "Abrir menú",
     "search": "Buscar en la guía",
-    "searchPh": "Buscar lecciones, pasos, guías prácticas, términos…",
+    "searchPh": "Buscar lecciones, pasos, guías prácticas, términos, preguntas…",
     "searchEmpty": "No se encontró nada. Prueba con otra palabra",
     "look": "Apariencia",
     "lang": "Idioma",
@@ -30,12 +30,17 @@
     "start": "Empezar",
     "home": "Inicio",
     "lessons": "Ruta para principiantes: tres lecciones",
+    "main": "Guía completa: para ir más allá",
+    "pending": "En preparación",
+    "ref": "Referencia",
     "howto": "Guías prácticas: cómo se hace",
     "wiki": "Wiki: qué es cada cosa",
     "faq": "Preguntas frecuentes",
     "toc": "En esta página",
     "tocLabel": "En esta página",
+    "hintMain": "Guía completa",
     "hintLesson": "Ruta para principiantes",
+    "hintFaq": "Preguntas frecuentes",
     "section": "Sección",
     "docsLink": "wiki oficial",
     "foot": "Guía no oficial de Keyboard Maestro, sin relación con Stairways Software. Keyboard Maestro es una marca comercial de Stairways Software Pty Ltd. Para consultar sus características y cómo funciona, la {docs} es la fuente de referencia. El código fuente y los comentarios sobre esta guía están en {github}.",
@@ -59,6 +64,7 @@
       ", sin relación con Stairways Software. Para consultar sus características y cómo funciona, la wiki oficial es la fuente de referencia."
     ],
     "cta": "¿Es tu primera vez? Empieza por la lección 1",
+    "ctaHowto": "¿Ya lo usas? Guías prácticas",
     "ctaNote": "En la lección 1 configuras una tecla que abre una app, en la lección 2 conviertes unas pocas letras en un párrafo entero y en la lección 3 haces que una sola tecla ejecute tu rutina de inicio del día. No hace falta escribir código.",
     "painH": "¿Te suena familiar?",
     "PAIN": [
@@ -115,11 +121,75 @@
     "title": "Lección {n}: {title}",
     "tldr": "En una línea"
   },
+  "guide": {
+    "head": "Paso {n}: {title}",
+    "eyebrow": "Guía completa · paso {n} de {last}",
+    "prog": "Progreso: paso {n} de {last}",
+    "need": "Necesitas: ",
+    "nav": "Paso anterior y siguiente",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "pending": "Siguiente (en preparación)",
+    "tldr": "En una línea"
+  },
+  "howto": {
+    "tldr": "En una línea",
+    "for": "Para: ",
+    "step": "Paso {n} de la guía completa: ",
+    "related": "Artículos relacionados",
+    "more": "Más en «{group}»"
+  },
+  "howtoIndex": {
+    "h": "Guías prácticas: cómo se hace",
+    "p": "Una tarea por artículo: encuentra el que encaje con tu situación y síguelo."
+  },
+  "faq": {
+    "h": "Preguntas frecuentes",
+    "p": [
+      "Las preguntas que más surgen al empezar a usar Keyboard Maestro. ¿No encuentras la tuya? Pregunta en ",
+      ", o pulsa ",
+      " para buscar en todo el sitio."
+    ]
+  },
+  "notFound": {
+    "h": "Página no encontrada",
+    "p": [
+      "Puede que el enlace esté mal o que la página se haya movido. Pulsa ",
+      " para buscar, o vuelve a empezar desde aquí:"
+    ],
+    "home": "Inicio",
+    "step0": "Ruta para principiantes: lección 1",
+    "howto": "Guías prácticas",
+    "faq": "Preguntas frecuentes"
+  },
+  "wikiIndex": {
+    "h": "Wiki: qué es cada cosa",
+    "p1": "Todos los términos de la guía, explicados en palabras sencillas. Cada uno empieza con una sola frase; sigue leyendo solo si quieres saber más.",
+    "p2": "¿No quieres leer el artículo completo? Pasa el cursor sobre cualquier palabra con subrayado punteado en la guía para ver una explicación en una línea; haz clic en ella para venir aquí."
+  },
+  "wikiEntry": {
+    "like": "Una analogía",
+    "here": "En Keyboard Maestro",
+    "list": "Lista",
+    "head": [
+      "Nombre",
+      "En palabras sencillas"
+    ],
+    "myths": "Confusiones frecuentes",
+    "try": "Pruébalo: ",
+    "step": "Paso {n} de la guía completa: ",
+    "see": "Relacionado: ",
+    "sep": ", "
+  },
   "callout": {
     "ok": "Deberías ver",
     "warn": "Ten en cuenta",
     "no": "No hagas esto",
     "tip": "Consejo"
+  },
+  "checkpoint": {
+    "title": "Antes de seguir, comprueba esto",
+    "done": "Todo marcado: vamos al siguiente paso."
   },
   "copy": {
     "title": "Copia esto",
@@ -131,6 +201,15 @@
   },
   "reply": {
     "title": "Ejemplo: más o menos lo que muestra Keyboard Maestro"
+  },
+  "tabs": {
+    "label": "Elegir"
+  },
+  "shot": {
+    "stamp": "Captura de pantalla ({date}); la interfaz puede haber cambiado desde entonces."
+  },
+  "annot": {
+    "stamp": "Captura de pantalla ({date}); la página puede haber cambiado desde entonces."
   },
   "feedback": {
     "lead": "¿Algo en esta página no quedó claro o no funcionó como se describe?",

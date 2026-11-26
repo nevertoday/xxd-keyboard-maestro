@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: palette
+step: 1
+time: 10 minutos
+for: Has creado varias macros, pero las usas una o dos veces por semana y nunca recuerdas los atajos de teclado
+tldr: Mete esas macros en un grupo de macros y configúralo para mostrarse como una paleta con un atajo de teclado. En pantalla flotará una fila de botones, uno por macro; un clic la ejecuta y volver a pulsar el atajo la oculta.
+description: "Crea una paleta de Keyboard Maestro, una fila flotante de botones que ejecutan macros: quien lleva una pequeña tienda mete varias macros poco usadas en un grupo de macros configurado en Shows/hides a palette when con un atajo de teclado; cómo ordenar los botones y cambiar su aspecto, qué modo de visualización elegir y las alternativas Global Macro Palette y Show Palette of Macros."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Llevas un tiempo con una pequeña tienda online y las macros se van acumulando: abrir la hoja de pedidos del proveedor, pegar el párrafo con tu dirección de devolución, abrir la carpeta con los recibos de este mes. Todas son útiles, pero usas cada una solo una o dos veces por semana y, cuando llega el momento, ¿era ⌃⌥⌘ y qué letra? No recuerdas ni una. Al terminar esta página, pulsarás ⌃⌥⌘P (Control, Opción, Comando y P) y aparecerá flotando en pantalla una pequeña <Term k="面板" text="paleta" /> con los nombres de esas macros. Haz clic en una para ejecutarla; vuelve a pulsar ⌃⌥⌘P y la paleta desaparece.
+
+Los atajos de teclado son para lo que haces todos los días. <mark>Para las macros que usas poco, olvídate de los atajos y ponlas en fila como botones para verlas y hacer clic.</mark>
+
+## Un grupo de macros es una paleta
+
+Cualquier <Term k="宏组" text="grupo de macros" /> de Keyboard Maestro puede mostrarse como una paleta ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)). Así que primero dale una casa a estas macros: haz clic en **+** en la parte inferior de la lista de grupos de macros, a la izquierda del editor, para crear un grupo nuevo, y llámalo «Herramientas de la tienda».
+
+Selecciona el grupo y sus ajustes aparecerán a la derecha. Por defecto viene en **Always activated** (siempre activo). Cámbialo a **Shows/hides a palette when:** (muestra u oculta una paleta cuando) y al lado aparecerá un campo para el atajo de teclado. Pulsa ⌃⌥⌘P. De momento, deja el grupo disponible en todas las aplicaciones.
+
+Después arrastra tus macros a este grupo desde donde estuvieran. Da igual si tienen atajos de teclado propios o no, porque basta con hacer clic en la paleta para ejecutarlas.
+
+<Callout type="ok">
+Cambia a cualquier app y pulsa ⌃⌥⌘P. Aparecerá una paleta titulada «Herramientas de la tienda» con los nombres de tus macros. Haz clic en «Abrir hoja de pedidos» y la hoja se abrirá. Vuelve a pulsar ⌃⌥⌘P y la paleta desaparece.
+</Callout>
+
+Conviene saber un detalle sobre esta opción. Con estos ajustes de mostrar una paleta, las macros del grupo solo están activas mientras la paleta está visible ([Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)). La ventaja es que puedes asignarles atajos de teclado muy sencillos, incluso letras sueltas, sin que se disparen por error mientras escribes. La desventaja es que, en cuanto la paleta se oculta, sus propios atajos también dejan de funcionar. Si quieres que esos atajos sigan funcionando con la paleta oculta, elige la variante que incluye **Always activated**: **Always activated and shows/hides a palette when:** (siempre activo y muestra u oculta una paleta cuando).
+
+## Ordena los botones y cambia el aspecto
+
+Los botones de una paleta se ordenan por el nombre de cada macro. Para cambiar el orden, empieza cada nombre con dos caracteres y un paréntesis de cierre, como «01)Abrir hoja de pedidos» y «02)Dirección de devolución». La paleta se guía por ese código para ordenarlos y lo quita antes de mostrar el nombre ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
+
+Puedes cambiar el aspecto en la configuración del propio grupo o definir el estilo predeterminado en la pestaña **Palettes** (paletas) de los ajustes de Keyboard Maestro. Ahí puedes regular el estilo, la opacidad, el tamaño de las entradas, el número de columnas, si las entradas muestran el icono, el texto y el activador, la barra de título y si la paleta se encoge cuando el puntero no está encima. Ponle un icono a cada macro, muestra solo iconos y tendrás una fila limpia de botones de iconos.
+
+## Otras formas de mostrarla
+
+La configuración anterior funciona como «pulsa para mostrar, vuelve a pulsar para ocultar». En los ajustes del grupo hay algunas opciones más, así que elige según tu forma de trabajar:
+
+- **Shows a palette for one action when:** (muestra una paleta para una acción cuando). La paleta aparece y desaparece en cuanto ejecutas una de sus macros o pulsas cualquier otra tecla. El ejemplo de la wiki es un grupo de macros para abrir apps que se muestra con ⌃⌘L: un clic abre la app y la paleta se va.
+- **Shows a palette until:** (muestra una paleta hasta que). La paleta está visible desde el principio y se oculta cuando pulsas el atajo de teclado. Si haces que el grupo esté disponible solo en una app, la paleta aparece únicamente mientras esa app está en primer plano, como una barra de herramientas propia para ella.
+
+También hay dos caminos que no necesitan ningún grupo nuevo. Si le añades a una macro un activador **Global Macro Palette** (paleta global de macros), aparecerá en una paleta flotante compartida por todas las macros que tengan ese activador. La paleta se muestra siempre que alguna de esas macros esté activa y, si mantienes pulsada ⌥ mientras haces clic en una macro de la paleta, te lleva directo a esa macro en el editor ([activador Global Macro Palette](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)). Y si quieres que una macro se detenga a mitad de camino y te deje elegir qué hacer después, usa la acción **Show Palette of Macros** (mostrar paleta de macros): muestra una paleta con las macros, los grupos de macros o los <Term k="智能组" text="grupos inteligentes" /> que elijas, y ejecuta la que elijas con un clic, incluso si esa macro no está activa en ese momento ([acción Show Palette of Macros](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)).
+
+## ¿Te atascas?
+
+<Q q="Pulsé el atajo de teclado y no apareció ninguna paleta.">
+Primero comprueba que el grupo esté habilitado. Selecciónalo en la lista de grupos: el botón ✓ de la parte inferior lo habilita y deshabilita. Cuando un grupo está deshabilitado, ninguna de sus macros está activa. Después revisa si el grupo está limitado a ciertas apps, porque en ese caso la paleta solo aparece mientras una de esas apps está en primer plano. También es posible que ⌃⌥⌘P ya esté ocupado por otra macro o por otra app, así que prueba con otra combinación.
+</Q>
+<Q q="Falta una de mis macros en la paleta.">
+Las macros deshabilitadas no aparecen en la paleta, así que comprueba en el editor que esté habilitada. Asegúrate también de haberla arrastrado de verdad a este grupo y de que no siga donde estaba.
+</Q>
+<Q q="La paleta se queda encima del video que estoy viendo.">
+La acción **Conceal Macro Palettes** (ocultar paletas de macros) esconde a la vez todas las paletas de Keyboard Maestro. Según la wiki, su opción **until application switch** (hasta cambiar de app) está pensada para ver video a pantalla completa en Safari: en cuanto cambias de app, las paletas vuelven a aparecer ([acción Conceal Macro Palettes](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)). Si simplemente ocupa demasiado espacio en el día a día, bájale la opacidad en los ajustes de estilo o haz que se encoja cuando apartas el puntero.
+</Q>
+
+Una sola paleta convierte el «sé que hice una macro para esto, pero ¿cuál era el atajo?» en «mirar y hacer clic». Los grupos de macros también deciden dónde y cuándo están activas las macros. Consulta el [paso 1 de la guía completa](/es/guide/1-groups/).

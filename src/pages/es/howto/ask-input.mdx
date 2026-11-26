@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ask-input
+step: 4
+time: 15 minutos
+for: El texto es casi siempre el mismo, salvo unos pocos datos como la empresa, el puesto o el nombre de alguien
+tldr: Prompt for User Input muestra primero un pequeño formulario, guarda tus respuestas en variables y las acciones siguientes las insertan en el texto. Si solo quieres elegir entre varias opciones, usa Prompt With List.
+description: "Haz una pregunta antes de actuar con Prompt for User Input de Keyboard Maestro: un atajo de teclado para quienes buscan trabajo redacta el inicio de una carta de presentación rellenando al momento la empresa, el puesto y cómo se enteraron de la oferta; cómo nombrar variables y usarlas en el texto, cómo crear un menú desplegable y qué hace Cancel; luego, Prompt With List para elegir una respuesta entre varias ya preparadas."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Cuando buscas trabajo, envías varias solicitudes al día y las primeras líneas de cada correo son en realidad las mismas. Solo cambian la empresa, el puesto y cómo te enteraste de la oferta. Copiar el correo anterior y editarlo funciona hasta que se te pasa cambiar un dato y le envías a una empresa el nombre de otra. Cuando termines esta página, pulsarás ⌃⌥⌘L (Control, Opción, Comando y L) en un correo nuevo, aparecerá un pequeño formulario que te preguntará esos tres datos y, en cuanto los rellenes y pulses Retorno, aparecerá donde está el cursor un inicio educado con todos los nombres correctos.
+
+Las macros que hemos visto hasta ahora se ejecutan de principio a fin sin detenerse. <mark>Si preguntas primero y luego trabajas con la respuesta, una macro puede encargarse de tareas que son casi iguales cada vez.</mark>
+
+## Pregunta primero con un pequeño formulario
+
+Crea una nueva <Term k="宏" text="macro" /> llamada «Inicio de carta de presentación», añade un activador **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘L. La primera acción es **Prompt for User Input** (pedir datos al usuario), que muestra un formulario diseñado por ti y guarda lo que escribes en <Term k="变量" text="variables" /> ([acción Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+En la parte superior del formulario va el título: «Inicio de carta de presentación». Debajo está el mensaje, una frase para ti, como «¿Para quién es esta carta?». Más abajo van las variables, una por línea, con el nombre a la izquierda y un valor predeterminado a la derecha. Añade tres líneas:
+
+- `Local Company`, con el valor predeterminado vacío;
+- `Local Role`, con el valor predeterminado vacío;
+- `Local Source`, con el valor predeterminado `un portal de empleo|un amigo|su sitio web`.
+
+El `Local` del principio no está ahí por adorno. Las variables que empiezan por Local son variables locales: solo existen dentro de esta macro y desaparecen cuando termina, así que no se van acumulando en tu Mac. Además, el formulario quita «Local» de las etiquetas, así que solo verás «Company», «Role» y «Source» ([Variables](https://wiki.keyboardmaestro.com/manual/Variables), [acción Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)). Como el tercer valor predeterminado lleva barras verticales `|`, Keyboard Maestro lo convierte en un menú desplegable: las barras separan las opciones y la primera aparece seleccionada de forma predeterminada.
+
+Con los dos botones que trae te basta. **OK** (aceptar) responde a Retorno, cierra el formulario y sigue adelante. **Cancel** (cancelar) responde a Escape o ⌘., cierra el formulario sin guardar las variables y cancela la macro.
+
+## Rellena el texto con las respuestas
+
+La segunda acción es **Insert Text by Pasting** (insertar texto pegando), y en su texto `%Variable%nombre%` recupera cada respuesta. Adapta esto a tus propias palabras:
+
+<Copy id="ai-letter" title="Texto para Insert Text by Pasting" code={`Hola:
+
+Me enteré a través de %Variable%Local Source% de que en %Variable%Local Company% buscan %Variable%Local Role%. Al leer la descripción del puesto, me parece que encaja muy bien con el trabajo que he hecho en los últimos años, así que les escribo y adjunto mi currículum con la esperanza de que podamos hablar.`} />
+
+Para usarla, coloca el cursor al principio del cuerpo del correo y pulsa ⌃⌥⌘L.
+
+<Callout type="ok">
+Aparece una pequeña ventana titulada «Inicio de carta de presentación» con dos campos de texto y un menú desplegable. Rellénalos y pulsa Retorno: la ventana se cierra y el texto de inicio aparece en tu correo con las tres partes sustituidas por lo que acabas de escribir.
+</Callout>
+
+Léelo una vez antes de enviarlo. El formulario recuerda qué partes hay que cambiar, pero asegurarte de que la empresa y el tono son los adecuados sigue dependiendo de ti.
+
+## Elegir una frase entre varias: Prompt With List
+
+Hay otra forma de preguntar primero en la que no escribes nada, solo eliges. Si llevas una pequeña tienda online, las respuestas a los clientes son siempre las mismas: ya salió el pedido, cuándo llegará, cómo funcionan las devoluciones. **Prompt With List** (elegir de una lista) muestra una ventana parecida a Spotlight con una lista de opciones. Escribe unas cuantas letras para filtrar, selecciona una y pulsa Retorno ([acción Prompt With List](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+
+Las opciones van una por línea y puedes escribirlas directamente en la acción. Lo que muestra la ventana y lo que recibes al elegir pueden ser distintos: si escribes una línea con el formato «lo que quieres obtener, dos guiones bajos, lo que se muestra», la ventana enseñará solo la parte corta, pero al elegirla obtendrás la frase completa que va delante. Por ejemplo:
+
+<Copy id="ai-list" title="Opciones para Prompt With List" code={`Tu pedido salió hoy. El número de seguimiento está en los detalles del pedido y suele tardar entre tres y cinco días.__Enviado
+Tu paquete está en camino. El seguimiento se actualiza más o menos una vez al día y te avisaré enseguida si hay algún cambio.__En camino
+Si al recibirlo no es lo que esperabas, no hay problema. Escríbeme y te envío los pasos para hacer una devolución o un cambio.__Devoluciones`} />
+
+Pon esta acción en una macro nueva aparte con su propio atajo de teclado, guarda el resultado en una variable —por ejemplo, `Local Reply`— y añade después **Insert Text by Pasting** con el texto `%Variable%Local Reply%`. Si pulsas Escape, la acción falla y no guarda nada; además, de forma predeterminada cancela toda la macro y muestra un aviso de que falló, así que Escape sigue sirviendo para echarte atrás.
+
+## ¿Te atascas?
+
+<Q q="Hice clic en Cancel y no se pegó nada.">
+Así es como funciona: **Cancel** no guarda las variables y cancela toda la macro. Si quieres un tercer botón que haga otra cosa, como «guardar sin pegar», añade más botones al formulario. El <Term k="令牌" text="token" /> `%PromptButton%` guarda el nombre del botón que se haya pulsado, y una acción **If Then Else** (si, entonces, si no) puede elegir qué camino seguir según ese valor.
+</Q>
+<Q q="Lo que se pega es literalmente %Variable%Local Company%.">
+Comprueba que el nombre de la variable en el formulario y el que pusiste en el texto coincidan letra por letra, incluido el espacio después de `Local`. Lo más seguro es insertar la variable desde el menú **Edit ▸ Insert Variable** (editar ▸ insertar variable) en lugar de escribirla a mano ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)).
+</Q>
+<Q q="Quería un menú desplegable y me salió un campo de texto.">
+Cuando el tipo de un campo está en **Automatic** (automático), Keyboard Maestro lo deduce a partir del valor predeterminado, y solo crea un menú si hay barras verticales. Si no pusiste barras, o prefieres indicarlo de forma explícita, elige **Menu** (menú) en el desplegable que está a la derecha del valor predeterminado.
+</Q>
+<Q q="El formulario está abierto, pero mis abreviaturas no se expanden en él.">
+La wiki explica que el sistema no deja que Keyboard Maestro Engine vea lo que tecleas en sus propias ventanas, así que los activadores por texto escrito no funcionan dentro de estos formularios. Escribe el texto directamente en el formulario o cópialo antes desde otro sitio y pégalo ahí.
+</Q>
+
+Con un formulario y unas cuantas variables, tú solo te ocupas de lo que cambia cada vez y la macro hace el resto. Las variables y las condiciones dan para mucho más: consulta el [paso 4 de la guía completa](/es/guide/4-variables/).

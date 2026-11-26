@@ -1,0 +1,82 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: window-layout
+step: 3
+time: Diez minutos
+for: Cada vez que empiezas a trabajar, arrastras ventanas y tiras de las esquinas para poner dos apps una al lado de la otra
+tldr: Pulsa ⌃⌥⌘2 y Safari ocupa la mitad izquierda de la pantalla y TextEdit la derecha, en su sitio al instante y exactamente igual cada vez.
+description: Usa Move and Resize dentro de la acción Manipulate a Window, con posiciones listas para usar como Left Column y Right Column, para poner dos apps una al lado de la otra. Espera a que aparezca la ventana de una app recién abierta con Pause Until y calcula otras proporciones con la función SCREENVISIBLE.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+El material de consulta a un lado y el borrador al otro: así trabaja mucha gente cuando escribe, con Safari a la izquierda mostrando los artículos que encontró y TextEdit a la derecha con lo que está redactando. Cada día empiezas arrastrando las dos ventanas y tirando de las esquinas y, justo cuando quedan más o menos bien, una ventana emergente las descoloca. Configura la macro de esta página y ⌃⌥⌘2 (⌃ es Control, ⌥ es Opción y ⌘ es Comando) colocará Safari en la mitad izquierda de la pantalla y TextEdit en la derecha, listo para que empieces a escribir.
+
+<mark>Deja que una acción decida dónde va una ventana y qué tamaño tiene, y quedará exactamente en el mismo sitio cada vez.</mark>
+
+## Una acción, tres opciones
+
+Las ventanas se mueven con **Manipulate a Window** (ajustar una ventana). La página oficial la divide en tres cosas que eliges (consulta [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)):
+
+- Qué hacer: mover, cambiar de tamaño, centrar, minimizar y más. En esta página usamos **Move and Resize** (mover y redimensionar), que trae un conjunto de posiciones listas para usar: **Left Column** (columna izquierda), **Right Column** (columna derecha), **Top Half** (mitad superior), **Full Screen** (pantalla completa) y otras similares. También está **Custom** (personalizada), donde escribes los números tú.
+- Sobre qué ventana: normalmente **the front window** (la ventana en primer plano), aunque también puedes elegir una por su título.
+- De qué app es la ventana: una app concreta de la lista o **Front Application** (la app en primer plano).
+
+La tercera es la clave de esta página. Cuando eliges una app concreta, la macro sabe que tiene que mover la ventana de Safari y no la de cualquier app que estuviera en primer plano cuando pulsaste el atajo de teclado.
+
+## Crea la macro
+
+Crea una macro nueva llamada «Distribución para escribir». Como activador, elige **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘2, con el 2 por las dos columnas. Después añade cuatro acciones en este orden:
+
+1. **Activate a Specific Application** (activar una aplicación específica): Safari. Si no está abierta, esta acción la abre.
+2. **Manipulate a Window**: **Move and Resize** en **Left Column**, ventana en **the front window** y app en Safari.
+3. **Activate a Specific Application**: TextEdit.
+4. **Manipulate a Window**: **Move and Resize** en **Right Column**, ventana en **the front window** y app en TextEdit.
+
+Traer cada app al frente antes de moverla asegura que esté abierta y que su ventana sea visible. Cuando la macro termina, TextEdit queda en primer plano con el cursor en el borrador, así que puedes empezar a escribir enseguida.
+
+La [lección 3 para principiantes](/es/start/3-one-key-routine/) reúne abrir apps y colocar ventanas en una rutina completa para empezar el día. Esta página se centra solo en el paso de las ventanas, con más detalle.
+
+## Cuando una app se acaba de abrir
+
+Si TextEdit no está abierta cuando pulsas el atajo de teclado, el paso 3 la abre, pero su ventana tarda un momento en aparecer y el paso 4 no encuentra ninguna ventana que mover. La solución oficial es hacer que la macro espere (consulta [la sección Timing Between Actions de Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Entre los pasos 3 y 4, añade una acción **Pause Until** (pausar hasta que) con una condición **Front Window** (ventana en primer plano) configurada para comprobar que exista la ventana en primer plano de TextEdit. En cuanto aparece la ventana, la macro sigue adelante. Puedes añadir lo mismo para Safari.
+
+Esperar a que se cumpla una condición es más fiable que hacer una pausa fija de un segundo. En un Mac rápido no espera sin motivo y en uno lento no se rinde antes de tiempo.
+
+## Otras proporciones
+
+Mitad y mitad no es la única distribución posible. Imagina que quieres el borrador más ancho, ocupando dos tercios de la pantalla. En lugar de una posición lista para usar, calcúlalo tú. En cualquier sitio donde Keyboard Maestro pida un número puedes escribir un <Term k="计算" text="cálculo" />, y la función `SCREENVISIBLE` te da el tamaño de la pantalla sin contar la barra de menús ni el Dock (consulta [SCREEN function](https://wiki.keyboardmaestro.com/function/SCREEN)).
+
+Sustituye el paso 4 por dos acciones **Manipulate a Window**, ambas dirigidas a TextEdit. En la primera, elige **Move to** (mover a), escribe `SCREENVISIBLE(Main,Top)` en la posición vertical y, en la posición horizontal, escribe esta línea que resta dos tercios del ancho desde el borde derecho de la pantalla:
+
+<Copy id="wl-left" title="Posición horizontal: a dos tercios del borde derecho" code="SCREENVISIBLE(Main,Right)-SCREENVISIBLE(Main,Width)*2/3" />
+
+En la segunda, elige **Resize to** (cambiar de tamaño a), escribe `SCREENVISIBLE(Main,Height)` en el alto y esto en el ancho:
+
+<Copy id="wl-width" title="Ancho: dos tercios del área visible" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+Con la esquina superior izquierda ya en su sitio, al estirar la ventana hasta ese ancho su borde derecho queda justo pegado al borde de la pantalla. Haz lo mismo con Safari para un tercio: muévelo a `SCREENVISIBLE(Main,Left)` y `SCREENVISIBLE(Main,Top)`, con un ancho de `SCREENVISIBLE(Main,Width)/3` y el mismo alto que TextEdit.
+
+`Main` es la pantalla que tiene la barra de menús. Con un monitor externo, también puedes usar nombres como `Second` o `External` para referirte a otra pantalla. Todos estos números están en puntos, no en los píxeles reales de la pantalla. En una pantalla Retina hay aproximadamente la mitad de puntos que de píxeles.
+
+## Comprueba que funciona
+
+Arrastra y desordena las ventanas de Safari y TextEdit, y luego pulsa ⌃⌥⌘2. Deberías ver que Safari salta a la mitad izquierda y TextEdit a la mitad derecha, una al lado de la otra. Después sal de TextEdit y vuelve a pulsar el atajo para comprobar que también se abre y se coloca a la derecha.
+
+## ¿Te atascas?
+
+<Q q="Pulso el atajo de teclado y las ventanas no se mueven.">
+Mover ventanas requiere el <Term k="辅助功能权限" text="permiso de Accesibilidad" />. La página oficial de Troubleshooting menciona que, cuando este permiso da problemas, configurar atajos de teclado, escribir por ti y mover ventanas dejan de funcionar. Repasa el paso de los permisos de la [lección 1 para principiantes](/es/start/1-first-macro/) en **Ajustes del Sistema ▸ Privacidad y seguridad ▸ Accesibilidad** (en versiones anteriores de macOS se llamaba Preferencias del Sistema), y después elige **Help ▸ Interactive Help** (ayuda interactiva) para ver si detecta el problema. Consulta [la sección Accessibility de Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
+</Q>
+<Q q="Se mueve la ventana de otra app.">
+Comprueba si en el paso 2 o en el 4 la app está puesta en **Front Application**. Así se mueve la app que estaba en primer plano justo al pulsar el atajo de teclado, que puede no ser la que querías. Elige en su lugar la app concreta.
+</Q>
+<Q q="La primera vez funciona, pero cuando una app aún no está abierta solo se coloca una ventana.">
+La app que no estaba abierta no llegó a mostrar su ventana a tiempo. Añade una acción **Pause Until** tal como se explica arriba en «Cuando una app se acaba de abrir».
+</Q>
+<Q q="La posición que calculé queda muy desviada.">
+Seguramente usaste los píxeles reales de la pantalla en lugar de puntos. La página oficial indica que esta acción trabaja en puntos, y una pantalla Retina tiene aproximadamente la mitad de puntos que de píxeles. Usa la función `SCREENVISIBLE` y no tendrás que convertir nada.
+</Q>
+
+Un solo atajo de teclado y las dos ventanas quedan en su sitio. Si quieres dar un paso más y abrir también el borrador de hoy con la misma combinación, añade una acción **Open a File, Folder or Application** (abrir un archivo, carpeta o app).

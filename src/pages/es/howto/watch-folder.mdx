@@ -1,0 +1,68 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: watch-folder
+step: 2
+time: Quince minutos
+for: Todo se acumula en tu carpeta Descargas y tienes que rebuscar cada vez que necesitas algo
+tldr: Cada PDF se mueve solo a una carpeta «Bandeja de PDF» en Documentos en cuanto termina de descargarse. Todo lo demás se queda en su sitio sin que muevas un dedo.
+description: Usa un activador de carpeta para vigilar tu carpeta Descargas. Cuando llega un archivo nuevo, espera a que termine, comprueba con If Then Else si su nombre termina en .pdf y, si es así, lo mueve con la opción Move de File Actions. Solo detecta archivos directamente en la carpeta, tarda unos segundos a propósito y aquí verás qué pasa cuando coinciden los nombres.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Fig from "../../../components/Fig.astro";
+
+La carpeta Descargas de quien trabaja por su cuenta suele ser una entrada que nadie ordena: contratos y facturas en PDF de clientes, imágenes guardadas de la web e instaladores, todo en un mismo montón. Al final del mes, cuando toca hacer cuentas, acabas sacando uno por uno los PDF de ese mes. La macro de esta página vigila esa entrada por ti. Cada PDF se moverá solo a una carpeta llamada «Bandeja de PDF» dentro de Documentos en cuanto termine de descargarse. Todo lo demás se queda donde está hasta que tengas tiempo de ordenarlo.
+
+<mark>Un activador de carpeta hace guardia en la puerta: cada vez que llega un archivo, la macro se ejecuta una vez con la ruta de ese archivo en la mano.</mark>
+
+## Qué hace un activador de carpeta
+
+En las páginas anteriores, las macros se ejecutaban cuando pulsabas una tecla o escribías unos cuantos caracteres. Esta se ejecuta sin que intervengas. Su <Term k="触发器" text="activador" /> es **Folder** (carpeta): eliges una carpeta y la macro se ejecuta cada vez que se añade algo a ella, se quita algo o cualquiera de las dos cosas (consulta [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). Cuando la macro se ejecuta, el <Term k="令牌" text="token" /> `%TriggerValue%` guarda la ruta completa del archivo que acaba de llegar, y las acciones siguientes usan esa ruta para decidir qué hacer y adónde moverlo.
+
+Hay una opción muy importante: **ignore partial or changing files** (ignorar archivos incompletos o que están cambiando). Las descargas llevan tiempo y, cuando un archivo aparece por primera vez, todavía no ha terminado. Con esta casilla marcada, el activador espera a que el archivo deje de cambiar antes de ejecutar la macro e ignora los archivos temporales cuyas extensiones indican que siguen en curso.
+
+<Fig id="watch-folder-flow" />
+
+## Crea la macro
+
+Primero prepara el destino en Finder: dentro de tu carpeta Documentos, crea una carpeta nueva llamada «Bandeja de PDF». La página oficial indica que **Move** (mover) necesita una carpeta de destino que ya exista, así que no te saltes este paso.
+
+Luego crea una macro nueva llamada «Archivar PDF automáticamente» dentro de un grupo de macros que esté siempre activo.
+
+**El activador.** Añade un activador **Folder**, elige tu carpeta Descargas, configúralo en **adds an item** (añade un elemento) y marca **ignore partial or changing files**.
+
+**¿Es un PDF?** Añade una acción **If Then Else** (si, entonces, si no) con una condición **Text** (texto). Como texto a comprobar, usa `%TriggerValue%`. En la comparación, elige **ends with** (termina en) y escribe `.pdf`. La página oficial indica que esta comparación no distingue entre mayúsculas y minúsculas, así que los nombres que terminan en `.PDF` también cuentan (consulta [Text condition](https://wiki.keyboardmaestro.com/condition/Text)).
+
+**Muévelo.** En la parte «entonces» de If Then Else, añade **File Actions** (acciones de archivo), elige **Move**, usa `%TriggerValue%` como archivo y, como destino:
+
+<Copy id="wf-dest" title="Destino" code="~/Documents/Bandeja de PDF" />
+
+`~` es tu carpeta de inicio (y aunque en Finder veas «Documentos», en la ruta se escribe Documents). Deja vacía la parte «si no» para que los archivos que no son PDF se queden intactos.
+
+Si quieres separar también las imágenes, añade otra acción **If Then Else** configurada en **any of the following are true:** (cualquiera de las siguientes es verdadera), pon dentro tres condiciones **Text** para nombres que terminen en `.png`, `.jpg` y `.jpeg`, y mueve esos archivos a una carpeta que hayas creado en Imágenes.
+
+## Comprueba que funciona
+
+Guarda un PDF desde Safari en Descargas, o guarda allí un archivo adjunto de un correo. Cuando termine de descargarse, dale unos segundos. Deberías ver cómo desaparece de Descargas y aparece en «Bandeja de PDF». Guarda también una imagen allí para comparar: la imagen debería quedarse en Descargas.
+
+Ten en cuenta que la macro solo se encarga de los archivos que lleguen a partir de ahora. El activador no tocará los PDF que ya estaban en Descargas antes de crearla. Muévelos a mano una sola vez, o usa el método con For Each de [Renombrar varios archivos a la vez](/es/howto/rename-files/) para procesarlos todos juntos.
+
+## ¿Te atascas?
+
+<Q q="La descarga terminó, pero el archivo no se movió.">
+Primero comprueba que la macro y su grupo tengan la casilla marcada, que el Engine esté en marcha y que el activador apunte de verdad a Descargas. Después mira si el archivo cayó dentro de una subcarpeta de Descargas, como algo que se acaba de descomprimir. La página oficial indica que el activador solo detecta elementos directamente dentro de la carpeta, no los cambios en subcarpetas.
+</Q>
+<Q q="Tarda varios segundos en mover el archivo.">
+Es normal. La página oficial explica que esperar a que un archivo deje de cambiar añade una pausa necesaria, porque Keyboard Maestro no puede saber de antemano que el archivo ya terminó. Esos pocos segundos son lo que evita que se muevan archivos descargados a medias.
+</Q>
+<Q q="La macro mostró un error y el archivo sigue en Descargas.">
+Lo más probable es que «Bandeja de PDF» ya tenga un archivo con el mismo nombre. La página oficial indica que mover un archivo falla cuando en el destino ya existe otro con ese nombre. Cambia el nombre o mueve el antiguo, y luego mueve este a mano.
+</Q>
+<Q q="Después de moverse el archivo, parece que la macro se ejecutó otra vez.">
+Comprueba si el activador está configurado para dispararse cuando se añaden o quitan elementos. Sacar un archivo cuenta como quitar un elemento de Descargas, así que vuelve a dispararse. Elige solo **adds an item**.
+</Q>
+
+<u>No incluyas acciones de borrado en una macro como esta.</u> Se ejecuta con cada archivo nuevo sin que estés mirando. Un archivo movido al sitio equivocado se puede devolver a su sitio; uno borrado desaparece. Además, la página oficial advierte expresamente que las opciones de borrado de **File Actions** no muestran ningún aviso y se saltan la Papelera, así que ten mucho cuidado con ellas.
+
+Con alguien haciendo guardia en la puerta, dejan de amontonarse cosas en Descargas. Si quieres macros que se ejecuten solas en otros momentos, como a una hora fija cada día o al conectarte a una red Wi-Fi concreta, consulta [Ejecutar algo a la misma hora cada día](/es/howto/daily-schedule/) y el [paso 2 de la guía completa](/es/guide/2-triggers/).

@@ -1,0 +1,121 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 6
+tldr: "Cuando una macro no funciona, no te pongas a reescribirla. Revisa de fuera hacia dentro: si tiene los permisos concedidos, si el Engine está en marcha, si el grupo y la macro están habilitados y activos, y si el activador choca con otro. Si todo eso está bien, recórrela paso a paso con el depurador, o usa la acción Log y el registro del Engine para ver dónde falla. Para detener una macro descontrolada, usa Cancel en el menú de estado."
+description: "Qué revisar, y en qué orden, cuando una macro no funciona: deja que Interactive Help revise primero; permisos y Secure Input; si el Engine está en marcha; si el grupo y la macro están habilitados y activos; conflictos de atajos de teclado y la paleta de conflictos; problemas de tiempo por acciones que van demasiado rápido; avanzar paso a paso con el depurador; la acción Log y Engine.log; cómo detener macros en ejecución; dónde pedir ayuda."
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Fig from "../../../components/Fig.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Pulsas el atajo de teclado y no pasa nada. O la macro se queda a medias y empieza a escribir en otra ventana. La reacción natural es pensar que la macro está mal hecha, así que vuelves a repasarla acción por acción y, media hora después, sigue sin funcionar. Muchas veces la macro está perfecta: ni siquiera llegó a dispararse, o macOS no la dejó actuar.
+
+<mark><strong>Cuando una macro no funciona, no te apresures a modificarla. Revisa de fuera hacia dentro: los permisos, el Engine, si el grupo y la macro están activos y si el activador choca con otro. Solo cuando todo eso está bien toca revisar una a una las acciones de dentro.</strong></mark>
+
+Este orden no es casual. Cuando falla una de las capas exteriores, todas las macros dejan de funcionar a la vez y se comprueba rápido. Cuanto más hacia dentro vas, más probable es que el problema sea solo de esa macro y más tiempo lleva dar con él.
+
+<Fig id="6-debug-order" />
+
+## Deja que Keyboard Maestro revise primero
+
+En el editor, abre el menú **Help** (ayuda), elige **Interactive Help** (ayuda interactiva) y haz clic en «Something expected is not happening» (no ocurre algo que debería ocurrir). La herramienta recorre casi el mismo orden por ti: comprueba si el <Term k="引擎" text="Engine" /> está en marcha, si el editor puede comunicarse con él, si Secure Input está activado y si el permiso de Accesibilidad está concedido. Si todo está en orden, eliges de un menú la macro que falla, y comprueba si su grupo está habilitado y activo, y si la macro está habilitada, tiene un activador y tiene acciones habilitadas. Por último, disparas el activador una vez y la ventana te muestra qué macros se dispararon ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_Triggered)).
+
+Si en lugar de no hacer nada la macro hace algo raro, elige «Something unexpected is happening» (está ocurriendo algo inesperado). En los apartados siguientes verás qué es exactamente cada capa que revisa y cómo comprobarlo por tu cuenta cuando no encuentre el problema.
+
+## Primera capa: los permisos
+
+Según la wiki oficial, alrededor del 80 % de los correos de soporte que recibe Stairways Software tiene que ver con los permisos de seguridad de Apple. Los sospechosos habituales son Accesibilidad, Grabación de pantalla, Secure Input (más abajo lo vemos con calma) y algo llamado App Translocation ([wiki oficial](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). El más importante es el <Term k="辅助功能权限" text="permiso de Accesibilidad" />: Keyboard Maestro lo necesita para pulsar teclas, mover ventanas y elegir opciones de menú por ti.
+
+La forma más rápida de comprobarlo es la pestaña **Security** (seguridad) de los ajustes de Keyboard Maestro (**Keyboard Maestro ▸ Settings** en la barra de menús). Ahí reúne los permisos clave y te muestra si cada uno está concedido. Según la wiki, conceder todos los permisos que aparecen ahí resuelve muchos problemas por sí solo. Los permisos se conceden en rutas como **Ajustes del Sistema ▸ Privacidad y seguridad ▸ Accesibilidad** (Preferencias del Sistema en versiones anteriores de macOS); en la [lección 1 para principiantes](/es/start/1-first-macro/) tienes los pasos para hacerlo la primera vez. Un triángulo amarillo de aviso en la esquina inferior derecha del editor también indica que falta algún permiso: haz clic en él y sigue las instrucciones.
+
+Por desgracia, el sistema de permisos de macOS arrastra fallos desde Mojave. A veces las casillas no aparecen, no dejan marcarse o salen marcadas sin haber concedido nada en realidad. La wiki recomienda probar varias cosas:
+
+- Reinicia tu Mac.
+- Cierra y vuelve a abrir Keyboard Maestro y Keyboard Maestro Engine.
+- Asegúrate de haber movido Keyboard Maestro.app a la carpeta Aplicaciones <strong>usando el Finder</strong>. Si lo abres directamente desde el archivo zip descargado, puede saltar el mecanismo App Translocation de macOS y hacer que Keyboard Maestro arranque mal ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_1_--_New_Install)).
+
+Además, hay un problema de permisos que no parece tal: Secure Input (entrada segura). Mientras escribes en un campo de contraseña, macOS no deja que ninguna app observe el teclado para evitar que alguien espíe lo que tecleas. A veces el sistema se queda atascado creyendo que sigues en un campo de contraseña, y entonces dejan de funcionar todos los atajos de teclado y los <Term k="输入字符串触发器" text="activadores por texto escrito" />. Para desbloquearlo, cierra la última app que te pidió una contraseña o reinicia. Cuando Keyboard Maestro detecta que está atascado, te indica qué proceso es el responsable en el menú de estado o dentro del triángulo amarillo del editor ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)).
+
+## Segunda capa: ¿está en marcha el Engine?
+
+El programa que realmente ejecuta tus macros es Keyboard Maestro Engine en segundo plano, no la ventana del editor donde las escribes. Puedes cerrar el editor, pero no el Engine. Busca el icono de Keyboard Maestro en la barra de menús: si está ahí, el Engine está en marcha. Si no aparece, abre Keyboard Maestro una vez y el Engine arrancará. Para que esté listo cada vez que inicies sesión, marca **Launch Engine at Login** (iniciar el Engine al iniciar sesión) en la pestaña **General** de los ajustes ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).
+
+## Tercera capa: ¿están activos el grupo y la macro?
+
+Para que una macro se dispare, tienen que cumplirse dos cosas a la vez: que la macro y su <Term k="宏组" text="grupo de macros" /> estén habilitados, y que el grupo esté activo en ese momento ([wiki oficial](https://wiki.keyboardmaestro.com/Macro_Activation)).
+
+Que esté habilitado se ve en el símbolo ✔ o ✖ en la esquina superior derecha de la macro y del grupo. Haz clic en él para cambiarlo, o usa **View ▸ Toggle Enable** (ver ▸ habilitar o deshabilitar). Que esté activo depende de los ajustes del grupo: si un grupo solo funciona en Safari, su atajo de teclado no hará nada mientras estás en Mail, y un grupo que hay que activar antes no hace nada hasta que lo activas. En el [paso 1](/es/guide/1-groups/) tienes todos esos ajustes. Al revisarlo, fíjate bien en qué app estaba en primer plano cuando pulsaste la tecla.
+
+## Cuarta capa: ¿choca el activador con otro?
+
+Cuando dos macros activas comparten un atajo de teclado o un texto escrito, Keyboard Maestro no sabe cuál quieres ejecutar. Así que muestra una pequeña paleta de conflictos (Conflict Palette) con la lista, y tú haces clic en una o escribes una letra hasta que solo quede una opción ([wiki oficial](https://wiki.keyboardmaestro.com/Conflict_Palette)). Si al pulsar un atajo aparece una pequeña lista, no se ha roto nada: simplemente hay dos macros compartiendo activador. Dale a una de ellas un atajo distinto, o colócalas en grupos que estén activos en apps diferentes. También puedes hacerlo a propósito: asigna el mismo atajo de teclado a varias macros relacionadas y elige desde la paleta, así tienes menos combinaciones que recordar.
+
+Los choques también pueden ocurrir fuera de Keyboard Maestro. Al pulsar un atajo de teclado, Keyboard Maestro se queda con esa combinación, así que el atajo de menú de la propia app con esas mismas teclas deja de funcionar. Y si otra app registra ese mismo atajo a nivel de todo el sistema, se ejecutarán a la vez tu macro y la acción de la otra app ([wiki oficial](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Terminology)). Las combinaciones como ⌃⌥⌘ (Control-Opción-Comando) más una letra rara vez chocan con nada.
+
+## Quinta capa: se dispara, pero no hace lo que toca
+
+Aquí la macro sí está en marcha, solo que no hace lo que debería. La causa más común no es una acción mal puesta, sino la velocidad: la macro pasa al siguiente paso antes de que la app esté lista, así que parece saltarse pasos o quedarse a medias. La solución de la wiki es hacerla esperar. Añade la acción **Pause** (pausa), para la que según la wiki suelen bastar 0.3 segundos, o mejor aún, **Pause Until** (pausar hasta que), que espera a que se cumpla una condición, como en el [paso 4](/es/guide/4-variables/) ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
+
+Si no ves claro en qué paso falla, haz que la macro lo recorra contigo paso a paso.
+
+### El depurador: paso a paso
+
+El <Term k="调试器" text="depurador" /> es una ventana que frena la macro y se detiene en cada paso para que puedas observarla ([wiki oficial](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)):
+
+1. Haz clic en el icono de Keyboard Maestro en la barra de menús y elige **Start Debugging** (iniciar depuración). Se abrirá la ventana **Macro Debugger** (depurador de macros).
+2. Comprueba que la opción **Pause New Macros** (pausar macros nuevas) esté marcada.
+3. Dispara tu macro como de costumbre. Aparecerá en la ventana, en pausa al principio.
+4. Haz clic en el botón con la flecha hacia abajo para entrar en la primera acción, y vuelve a hacer clic para avanzar cada paso siguiente.
+
+Entre los botones de la izquierda, **Continue** (continuar) la deja correr hasta el final, **Step Over** (ejecutar el paso completo) ejecuta la acción actual (y todo lo que haya dentro) de una sola vez antes de volver a detenerse, **Step In To** (entrar en el paso) entra en su interior y **Step Out Of** (salir del nivel) termina el nivel actual. A la derecha, **Edit** (editar) abre la acción actual en el editor y **Cancel** (cancelar) cancela la macro. El botón de la esquina superior derecha muestra las diez variables que más recientemente ha cambiado esta ejecución, para que compruebes de un vistazo si los valores son correctos.
+
+Hay dos cosas que conviene saber. Primero, en cuanto una macro arranca, el Engine ejecuta una copia de ella, así que los cambios que hagas en el editor no afectan a la ejecución en curso. Segundo, <u>si funciona cuando vas paso a paso pero falla al ejecutarse con normalidad, casi seguro que va demasiado rápido</u>: mientras haces clic paso a paso, a la app le da tiempo de sobra a reaccionar. Añade una acción **Pause** antes del paso que falla. Cuando cierres la ventana del depurador, las macros en pausa seguirán ejecutándose con normalidad.
+
+### La acción Log y el registro del Engine
+
+El depurador solo muestra diez variables. Si necesitas ver más, añade una acción **Log** (registrar) a la macro. Escribe el texto que le pongas en un archivo llamado Engine.log, y ese texto puede llevar tokens y variables, como «Llegué aquí, el nombre es `%Variable%Local Name%`» ([wiki oficial](https://wiki.keyboardmaestro.com/action/Log)). Si quieres ver algo en pantalla al instante, usa **Display Text** (mostrar texto) para abrirlo en una ventana.
+
+El <Term k="引擎日志" text="registro del Engine" /> guarda más cosas aparte de tus mensajes: cuando falla una acción, el motivo también queda anotado ahí. En el editor, elige **Help ▸ Open Logs Folder** (ayuda ▸ abrir carpeta de registros), abre Engine.log y lee las últimas líneas. Si ves entradas de tu macro, es que sí llegó a dispararse; si no hay ninguna, vuelve a revisar las capas anteriores ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_6_--_After_New_Macros_or_Actions)). Asegúrate también de que Keyboard Maestro Engine tiene permiso para mostrar notificaciones: las usa para avisarte cuando falla una acción, y si están desactivadas nunca verás el aviso.
+
+Si no conoces bien una acción, abre el menú del engranaje en su esquina superior derecha y elige **Help**. Eso abre la página de esa acción en la wiki oficial.
+
+## Cómo detener una macro que no para
+
+Si una macro se queda dando vueltas o no deja de escribir, no entres en pánico. Hay varios sitios desde donde puedes pararla ([wiki oficial](https://wiki.keyboardmaestro.com/manual/How_do_I)):
+
+- <strong>Detener una sola</strong>: haz clic en el icono de Keyboard Maestro en la barra de menús y elige la macro dentro de **Cancel**. Esa lista también te muestra qué macros están en ejecución ahora mismo.
+- <strong>Detenerlas todas</strong>: mantén pulsadas las teclas ⌃⌥⇧ (Control-Opción-Mayúsculas, con o sin ⌘) y haz clic en el icono de Keyboard Maestro en la barra de menús. Se cancelarán todas las macros en ejecución.
+- <strong>Desde el depurador</strong>: la ventana de **Start Debugging** muestra todas las macros que están corriendo. Haz clic en **Cancel**.
+- <strong>Crear un botón de parada de emergencia</strong>: acciones como **Cancel All Macros** (cancelar todas las macros) y **Cancel This Macro** (cancelar esta macro) también pueden ir dentro de una macro. Ponle un atajo de teclado a una de ellas y ya tienes tu propio botón de emergencia.
+
+Si nada de eso funciona, cierra Keyboard Maestro Engine desde el menú de estado. Si una macro que arranca al iniciar sesión ni siquiera te deja llegar al menú, en la wiki hay soluciones más drásticas, como mantener pulsado ⌃⌥⇧⌘ mientras abres el editor: eso cierra el Engine y no lo vuelve a arrancar, así que puedes arreglar la macro con tranquilidad. Consulta la guía práctica [Cuando una macro no se detiene](/es/howto/stop-macro/).
+
+## ¿Sigue sin funcionar? Dónde preguntar
+
+El consejo de la wiki es que las dudas sobre una macro concreta se responden más rápido en el [foro oficial](https://forum.keyboardmaestro.com/), donde hay mucha gente dispuesta a ayudar. Indica qué versiones de macOS y de Keyboard Maestro tienes, qué debería hacer la macro y qué ocurre en realidad, y adjunta la macro exportada si puedes ([wiki oficial](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_3_--_After_Update_to_New_Version_of_Keyboard_Maestro)). Antes de publicar, borra datos de licencia, contraseñas y cualquier texto personal.
+
+Con esto ya sabes por dónde empezar cuando una macro se comporta mal. El último paso es opcional: abre unas cuantas puertas para ir más allá con Keyboard Maestro, como scripts, subrutinas, sincronización y cómo compartir tus macros.
+
+## ¿Te atascas?
+
+<Q q="Pulsé el atajo de teclado y no pasó nada.">
+<p>Ve en orden: ¿está el icono de Keyboard Maestro en la barra de menús (el Engine está en marcha)? ¿Están concedidos todos los permisos en la pestaña Security de los ajustes? ¿Muestran ✔ tanto la macro como su grupo? ¿La app en primer plano era una en la que el grupo está activo? Si tienes dudas, deja que Interactive Help, en el menú Help, lo compruebe por ti.</p>
+</Q>
+<Q q="Al pulsar el atajo de teclado, aparece una pequeña lista.">
+<p>Es la paleta de conflictos (Conflict Palette): hay dos o más macros activas con el mismo atajo de teclado. Haz clic en la que quieras para ejecutarla, o cambia el atajo de una de ellas si no quieres elegir cada vez.</p>
+</Q>
+<Q q="De repente no me funciona ningún atajo de teclado ni texto escrito.">
+<p>Lo más probable es que Secure Input se haya quedado atascado o que el Engine se haya cerrado. Comprueba si el icono de Keyboard Maestro está en la barra de menús, cierra la última app que te pidió una contraseña y reinicia si eso no lo soluciona. Cuando Keyboard Maestro detecta que Secure Input está atascado, el menú de estado indica qué proceso es el responsable.</p>
+</Q>
+<Q q="El permiso está marcado en Ajustes del Sistema, pero Keyboard Maestro dice que no lo tiene.">
+<p>Es un fallo antiguo del sistema de permisos de macOS. Reinicia tu Mac, cierra y vuelve a abrir Keyboard Maestro y el Engine, y asegúrate de haber movido Keyboard Maestro.app a la carpeta Aplicaciones usando el Finder.</p>
+</Q>
+<Q q="Funciona cuando voy paso a paso en el depurador, pero falla al ejecutarse con normalidad.">
+<p>La macro va más rápido que la app. Añade una acción Pause antes del paso que falla, o usa Pause Until para esperar a que aparezca esa ventana.</p>
+</Q>
+<Q q="Cambié la macro, pero sigue haciendo lo de antes.">
+<p>Una ejecución que ya está en marcha usa la copia con la que empezó, así que los cambios se aplican a partir de la siguiente vez. Detenla desde Cancel en el menú de estado y vuelve a dispararla.</p>
+</Q>
+
+<Checkpoint id="s6" items={["Cuando una macro no funciona, reviso primero los permisos, el Engine, el grupo y la macro, el activador y después las acciones", "He probado Interactive Help en el menú Help", "Sé recorrer una macro paso a paso con Start Debugging", "Sé que Engine.log está en Help ▸ Open Logs Folder", "Sé que mantener pulsado ⌃⌥⇧ y hacer clic en el icono de la barra de menús detiene todas las macros"]} />

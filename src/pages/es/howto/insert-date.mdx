@@ -1,0 +1,73 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: insert-date
+step: 4
+time: Diez minutos
+for: Llevas un registro o un diario y cada entrada empieza con la fecha
+tldr: Pulsa ⌃⌥⌘D en Notas y la fecha y la hora, como 2026-11-25 08:30, aparecen donde tienes el cursor, con el formato que elijas. Ya no hace falta mirar el calendario.
+description: Usa el token de fecha %ICUDateTime% con Insert Text by Typing para insertar la fecha y la hora de hoy con un solo atajo de teclado. Cambia el formato con los códigos oficiales y calcula también la fecha de dentro de dos semanas.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quienes cuidan a un padre o a una madre mayor suelen acabar llevando un registro diario: a qué hora tomó las pastillas, qué marcó la presión arterial, qué le dolió hoy. En la siguiente consulta, cuando el médico pregunte cómo fue la semana, el registro tiene la respuesta. Pero cada entrada necesita fecha y hora, varias veces al día; al cabo de un tiempo te da pereza y pones «ayer», y una semana después ya no cuadra nada. Cuando tengas hecha la macro de esta página, bastará con pulsar ⌃⌥⌘D en Notas (⌃ es Control, ⌥ es Opción, ⌘ es Comando) para que aparezca `2026-11-25 08:30 ` justo donde tienes el cursor, y sigas escribiendo sin más.
+
+<mark>Tú no escribes la fecha. Pones un token y, en el momento en que se ejecuta la macro, se convierte en el día de hoy.</mark>
+
+## Tokens: marcadores que se rellenan solos
+
+La mayoría de los campos de Keyboard Maestro donde puedes escribir texto entienden los <Term k="令牌" text="tokens" />. Un token es un nombre rodeado de signos de porcentaje, como `%LongDate%`. Mientras editas la macro, son solo esos caracteres; cuando la macro se ejecuta, se sustituyen por el valor real (consulta [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)). Hay varios tokens de fecha: `%ShortDate%`, `%LongDate%` y `%NumberDate%` devuelven la fecha de hoy en el formato corto, largo y numérico configurado en los ajustes regionales de tu Mac. Otro, `%ICUDateTime%`, te permite escribir el formato por tu cuenta.
+
+Un registro funciona mejor cuando todas las entradas tienen el mismo aspecto y se leen de un vistazo, así que en esta página vamos a usar `%ICUDateTime%`. Solo tienes que escribir tu formato a continuación del token y cerrarlo con otro signo de porcentaje:
+
+<Copy id="id-token" title="Fecha y hora" code="%ICUDateTime%yyyy-MM-dd HH:mm% " />
+
+Cada letra del formato tiene un significado. Las más habituales, tomadas de la página oficial [Dates and Times](https://wiki.keyboardmaestro.com/Dates_and_Times), son estas: `yyyy` es el año con cuatro dígitos, `MM` el mes con dos dígitos, `dd` el día con dos dígitos, `HH` la hora en formato de 24 horas, `mm` los minutos y `EEEE` el nombre completo del día de la semana. `MM` en mayúsculas es el mes y `mm` en minúsculas son los minutos, así que cambiar una letra de mayúscula a minúscula marca una gran diferencia. El espacio del final está ahí para que puedas seguir escribiendo directamente.
+
+## Crea la macro
+
+Crea una macro nueva llamada «Insertar fecha y hora» dentro de un grupo de macros disponible en todas las apps. Como activador, elige **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘D; es muy raro que otras apps usen tres teclas modificadoras más una letra. Como acción, elige **Insert Text by Typing** (insertar texto escribiendo) y pega ahí la línea de arriba.
+
+Aquí conviene más escribir que pegar porque la fecha es corta y solo usa caracteres que están en tu teclado. Además, según la documentación oficial, esta acción funciona exactamente como si escribieras tú, así que conserva el estilo del texto donde tienes el cursor y tampoco reemplaza tu portapapeles como hace el pegado (consulta [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text)).
+
+No hace falta que memorices las letras de formato. Coloca el cursor en el cuadro de texto de la acción y elige **Edit ▸ Insert ICU Date Field** (insertar campo de fecha ICU) para escoger una. En **Edit ▸ Insert Token** (insertar token) tienes la lista de todos los tokens, así que no hay nada que aprenderse de memoria.
+
+## Elige el formato que prefieras
+
+Cada persona escribe las fechas a su manera, así que basta con cambiar la parte del formato. Estos ejemplos salen de la tabla oficial de formatos, con lo que obtendrías el 25 de noviembre de 2026 entre paréntesis:
+
+- `%ICUDateTime%yyyy-MM-dd%` (2026-11-25): de mayor a menor, así los archivos con este nombre quedan ordenados por fecha.
+- `%ICUDateTime%dd/MM/yyyy%` (25/11/2026): el día primero, como se escribe en muchos lugares.
+- `%ICUDateTime%EEE, MMM d, yyyy%` (Wed, Nov 25, 2026): con los nombres abreviados del día de la semana y del mes.
+
+Cuando un formato incluye nombres de días de la semana o de meses, el idioma en el que aparecen depende de tu sistema y de tu versión de macOS; la sección Localization de la página oficial de [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime) explica este detalle. Si quieres obtener siempre el mismo resultado en cualquier Mac, quédate solo con números.
+
+## Mira hacia adelante: la cita de control en dos semanas
+
+Los médicos suelen decir «vuelve en dos semanas». `%ICUDateTimePlus%` suma tiempo a la fecha de hoy; en medio indicas cuánto sumar y en qué unidad:
+
+<Copy id="id-plus" title="Dentro de dos semanas" code="Próxima cita: %ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
+
+La unidad puede ser Days (días), Weeks (semanas), Months (meses) y otras parecidas; para contar hacia atrás se usa `%ICUDateTimeMinus%` de la misma forma (consulta [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). Puedes convertir esta línea en otra macro con ⌃⌥⇧⌘D, es decir, la misma combinación de la fecha más ⇧ (Mayúsculas). Si escribes el texto con caracteres que tu teclado no puede introducir directamente, por ejemplo en chino, **Insert Text by Typing** no podrá escribirlos, así que usa en su lugar la acción **Insert Text by Pasting** (insertar texto pegando). O conviértela en una abreviatura como `=next=` con un activador por texto escrito, como en [Convertir lo que escribes a menudo en abreviaturas](/es/howto/text-snippets/).
+
+## Comprueba que funciona
+
+Abre Notas, crea una nota nueva y pulsa ⌃⌥⌘D. Deberías ver la fecha de hoy y la hora actual justo donde tienes el cursor, seguidas de un espacio. Echa un vistazo al reloj de la barra de menús: si coinciden, ya lo tienes.
+
+## ¿Te atascas?
+
+<Q q="Escribió literalmente %ICUDateTime%yyyy-MM-dd HH:mm%.">
+El token no se sustituyó, seguramente porque se cambió el procesamiento de texto de la acción. Haz clic en el engranaje de la esquina superior derecha de la acción y comprueba si está marcado **Process Nothing** (no procesar nada). Cámbialo de nuevo a **Process Text Normally** (procesar el texto normalmente). Luego compara tu línea con la de arriba y revisa que estén bien el nombre del token y los tres signos de porcentaje.
+</Q>
+<Q q="Alrededor de Año Nuevo, el año sale con uno de diferencia.">
+Seguramente escribiste `YYYY` en mayúsculas. La página oficial advierte expresamente que la Y mayúscula corresponde al año de la «semana del año» y produce resultados raros al principio y al final de cada año. Para el año, usa `yyyy` en minúsculas.
+</Q>
+<Q q="En la hora aparece el mes en lugar de los minutos.">
+Escribiste los minutos con `MM` en mayúsculas. El mes va con `MM` en mayúsculas y los minutos van con `mm` en minúsculas.
+</Q>
+<Q q="Pulsé ⌃⌥⌘D y no pasó nada.">
+Tanto la macro como el grupo en el que está deben tener la casilla marcada, y el Engine tiene que estar en marcha. Si todo eso está bien, es posible que otra app ya esté usando ⌃⌥⌘D, así que prueba con otra letra. Si sigue sin dispararse, revisa uno por uno los puntos del [paso 6 de la guía completa](/es/guide/6-debug/).
+</Q>
+
+Un token y un atajo de teclado, y a partir de ahora cada entrada llevará la fecha y la hora exactas. Los tokens también funcionan en otras acciones, por ejemplo para añadir la fecha de hoy al renombrar archivos. Consulta [Renombrar varios archivos a la vez](/es/howto/rename-files/).

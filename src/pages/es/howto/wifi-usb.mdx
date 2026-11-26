@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: wifi-usb
+step: 2
+time: 10 minutos
+for: Cada vez que llegas a un lugar concreto o conectas cierto dispositivo, siempre haces primero las mismas cosas
+tldr: El activador Wireless Network ejecuta una macro cuando te conectas a una red Wi-Fi o te desconectas de ella, y el activador USB Device lo hace cuando conectas o desconectas un dispositivo USB. Keyboard Maestro puede completar cualquiera de los dos nombres por ti.
+description: "Haz cosas automáticamente al conectarte a una red Wi-Fi o conectar un dispositivo con los activadores Wireless Network y USB Device de Keyboard Maestro: el Mac de un profesor se silencia y cierra Mail en la red de la escuela, encender un escáner abre la app de escaneo; el permiso de Localización que pide macOS Sonoma y por qué estas macros deben poder ejecutarse más de una vez sin problemas."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Si das clases, probablemente te haya pasado alguna vez. Conectas tu Mac al proyector, levantas la tapa y la música de anoche retumba por toda el aula mientras las notificaciones de correo aparecen una tras otra en la pantalla grande. En realidad solo tienes que hacer dos cosas al entrar a clase: quitar el sonido y cerrar Mail, pero en un día ajetreado se te olvida. Cuando termines esta página, tu MacBook se silenciará y cerrará Mail en cuanto se conecte al Wi-Fi de la escuela, sin que tengas que pulsar nada.
+
+Los activadores de tiempo se encargan de «qué hora es». Los dos <Term k="触发器" text="activadores" /> de esta página se encargan de «dónde estás y qué tienes conectado». <mark>Para las cosas que siempre haces al llegar a un lugar o conectar algo, deja que esa red o ese dispositivo pulse el botón de inicio.</mark>
+
+## Al conectarte al Wi-Fi de la escuela, se silencia y cierra Mail
+
+Crea una nueva <Term k="宏" text="macro" /> llamada «Al entrar a clase». Como activador, elige **Wireless Network** (red inalámbrica), que se ejecuta cuando te conectas a una red Wi-Fi o te desconectas de ella ([activador Wireless Network](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). Puedes hacer que responda a cualquier red o solo a un nombre concreto, y la wiki de Keyboard Maestro prefiere el BSSID, un identificador más específico, ya que mucha gente tiene redes llamadas «Casa» o «Trabajo».
+
+No tienes que escribir el nombre a mano. Coloca el cursor en el campo del nombre del activador, luego desconéctate y vuelve a conectarte al Wi-Fi de la escuela desde la barra de menús, y Keyboard Maestro completará el nombre de la red (o el BSSID) por ti. Configúralo para que se ejecute al conectarse.
+
+Añade dos acciones. **Mute Audio Device** (silenciar dispositivo de audio) permite silenciar, quitar el silencio o alternarlo en el dispositivo de audio predeterminado (a partir de Keyboard Maestro 11, [Mute Audio Device](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)), así que elige silenciar. Después añade **Quit a Specific Application** (cerrar una app concreta), elige Mail y deja la opción en **Quit** (salir). Si quieres que todo vuelva a la normalidad al terminar la clase, crea una segunda macro, «Al salir de clase», que se ejecute al desconectarse de esa misma red, con una acción para quitar el silencio.
+
+A partir de macOS Sonoma hay un paso que no puedes saltarte: leer la información del Wi-Fi requiere el permiso de Localización. La wiki oficial indica que debes asegurarte de que Keyboard Maestro Engine tenga ese permiso, algo que encontrarás en **Ajustes del Sistema ▸ Privacidad y seguridad**, dentro de Localización. Sin él, el Engine no puede leer la información del Wi-Fi.
+
+<Callout type="ok">
+En el aula, apaga y vuelve a encender el Wi-Fi. En cuanto vuelva a conectarse a la red de la escuela, el icono de sonido aparecerá silenciado y Mail se habrá cerrado.
+</Callout>
+
+## Se ejecutará más de una vez, así que debe poder repetirse sin problemas
+
+La wiki oficial insiste en este punto. Tu Mac se desconecta y vuelve a conectarse al Wi-Fi cada vez que entra en reposo y se despierta, y macOS también se reconecta a veces en silencio en segundo plano, así que estas macros deben poder ejecutarse varias veces sin problemas. Con silenciar el sonido y cerrar Mail no pasa nada: silenciar algo que ya está silenciado o cerrar una app que ya está cerrada no rompe nada. En cambio, si incluyes «crear las notas de clase de hoy», acabarás con un archivo extra cada vez que cierres la tapa. Elige acciones que produzcan el mismo resultado sin importar cuántas veces se ejecuten.
+
+## Al encender el escáner, se abre la app de escaneo
+
+Pensemos ahora en otra persona. Si tienes hijos en edad escolar, seguro que algunas noches te toca escanear varios formularios de la escuela, y siempre es lo mismo: encender el escáner, buscar la app de escaneo y olvidarte de cerrarla después. El activador **USB Device** (dispositivo USB) ejecuta una macro cuando conectas o desconectas un dispositivo USB, y el ejemplo que pone la propia wiki es exactamente este: abrir el programa del escáner cuando lo enciendes y cerrarlo cuando lo apagas ([activador USB Device](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
+
+Los nombres de los dispositivos USB muchas veces no son los que esperarías, así que deja que Keyboard Maestro complete este también. Coloca el cursor en el campo del nombre del activador, luego conecta (o enciende) el escáner y el nombre aparecerá solo. Lo más claro es crear dos macros. Una se ejecuta cuando el dispositivo se conecta, con la acción **Activate a Specific Application** (activar una aplicación específica) configurada para tu app de escaneo, que la inicia si aún no está abierta. La otra se ejecuta cuando el dispositivo se desconecta, con **Quit a Specific Application** para esa misma app. Mientras la macro se ejecuta, el <Term k="令牌" text="token" /> `%TriggerValue%` guarda el nombre del dispositivo, algo muy útil si quieres que una notificación indique de qué dispositivo se trataba.
+
+Si lo que esperas no es un dispositivo, sino un disco, como un disco externo o una tarjeta de memoria en un lector de tarjetas, el activador que necesitas es **Mounted Volume** (volumen montado). Se ejecuta cuando un volumen se monta o se desmonta, ya sea uno concreto o cualquiera ([activador Mounted Volume](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
+
+## Si solo quieres comprobarlo dentro de otra macro
+
+A veces no necesitas que una macro empiece al conectarte. Solo quieres que otra macro se adapte a la situación, por ejemplo un recordatorio de la mañana que aparezca en casa pero no en la escuela. Para eso sirven las condiciones: la condición **Wireless Network** comprueba si una red está conectada y la condición **USB Device** comprueba si un dispositivo está presente, usadas junto con **If Then Else** (si, entonces, si no) ([condición Wireless Network](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [condición USB Device](https://wiki.keyboardmaestro.com/condition/USB_Device)). Para ver qué son las condiciones y cómo funcionan, consulta el [paso 4 de la guía completa](/es/guide/4-variables/).
+
+## ¿Te atascas?
+
+<Q q="Me conecté a la red y la macro no se ejecutó.">
+En macOS Sonoma y versiones posteriores, comprueba primero que Keyboard Maestro Engine tenga el permiso de Localización. Luego revisa que el nombre del activador coincida exactamente con el de la red. Lo más seguro es borrarlo, colocar el cursor en el campo, desconectarte y volver a conectarte para que se complete solo. Asegúrate también de que tanto la macro como su <Term k="宏组" text="grupo de macros" /> estén habilitados.
+</Q>
+<Q q="La macro se ejecutó varias veces en un mismo día.">
+Es lo normal. Entrar en reposo, despertarse y las reconexiones del propio sistema hacen que vuelva a ejecutarse. Cambia a acciones que puedan repetirse sin problema y deja fuera de este tipo de macros cualquier cosa que cree archivos o envíe mensajes.
+</Q>
+<Q q="El nombre del escáner no es el que yo pensaba y escribirlo a mano no funciona.">
+No escribas el nombre. Deja que Keyboard Maestro lo complete cuando conectes el dispositivo. La wiki dice que funciona tanto al conectarlo como al encenderlo, así que, si tu escáner tiene botón de encendido, coloca primero el cursor en el campo y después enciéndelo.
+</Q>
+<Q q="Conecté un disco externo y el activador USB Device no hizo nada.">
+Si estás esperando a que aparezca un disco, el activador **Mounted Volume** encaja mejor, ya que se guía por el nombre del volumen.
+</Q>
+
+Una red o un dispositivo bastan para pulsar el botón de inicio por ti. Si quieres que una macro también empiece a una hora fija, consulta [Ejecutar algo a la misma hora cada día](/es/howto/daily-schedule/).

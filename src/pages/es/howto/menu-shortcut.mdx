@@ -1,0 +1,56 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: menu-shortcut
+step: 1
+time: Diez minutos
+for: Usas un comando de menú todos los días, no tiene atajo y siempre tienes que recurrir al ratón
+tldr: Pulsa ⌃⌥⌘E en Safari y se abre directamente la ventana de guardado de «Exportar como PDF». El atajo solo funciona en Safari, así que no afecta a ninguna otra app.
+description: Usa la acción Select or Show a Menu Item para que elija el menú por ti, seleccionándolo desde el desplegable Menu de la acción para no equivocarte con el nombre. Configura el grupo de macros para que solo funcione en esa app y el atajo de teclado no estorbará en ninguna otra.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Quienes tienen hijos en edad escolar a menudo necesitan guardar avisos del sitio web de la escuela: qué llevar a la excursión de primavera, el horario del próximo trimestre, la lista de materiales. Esa página cambia al cabo de unas semanas, así que guardarla como PDF es la opción más segura. En Safari, eso significa abrir el menú Archivo y bajar hasta «Exportar como PDF», pero ese elemento no tiene atajo, así que cada vez tienes que usar el ratón. Cuando termines esta página, pulsarás ⌃⌥⌘E en Safari (⌃ es Control, ⌥ es Opción, ⌘ es Comando), la ventana de guardado aparecerá al instante y solo tendrás que ponerle nombre al archivo. El atajo solo hace algo en Safari. En cualquier otra app, no cambia nada.
+
+<mark>Cualquier comando de menú en el que puedas hacer clic puede tener un atajo: la macro hace clic en el menú por ti.</mark>
+
+## Primero, un grupo de macros solo para Safari
+
+Este atajo solo tiene sentido en Safari, así que empieza por un <Term k="宏组" text="grupo de macros" /> que solo esté activo en Safari. Haz clic en el botón + en la parte inferior de la lista de grupos de macros, a la izquierda del editor, crea un grupo nuevo llamado «Safari» y, en sus ajustes, elige **Available in these applications:** (disponible en estas aplicaciones) y añade Safari. El manual oficial indica que las macros de un grupo configurado así solo están activas en esas apps (consulta [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Además hay una ventaja extra: ⌃⌥⌘E queda libre en todas las demás apps, así que más adelante podrás asignar la misma combinación a Vista Previa o a TextEdit sin ningún conflicto.
+
+## Crea la macro
+
+Dentro del grupo «Safari», crea una nueva macro llamada «Exportar como PDF». Como activador, elige **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘E. Como acción, elige **Select or Show a Menu Item** (seleccionar o mostrar un elemento de menú), que selecciona por ti un elemento de la barra de menús (consulta [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)).
+
+No escribas tú los nombres de los menús; elígelos desde el desplegable **Menu** (menú) de la acción. La página oficial explica que este desplegable existe precisamente para que aciertes con el menú: muestra todas las apps abiertas y sus menús, así que lo que elijas coincide exactamente con el menú real. Abre primero Safari, búscalo en el desplegable, elige Archivo y luego «Exportar como PDF». Si tu Mac está configurado en otro idioma, los nombres de los menús aparecerán en ese idioma, y elegirlos desde el desplegable se encarga de todo.
+
+La acción también pregunta en qué app está el menú. Con **the Front Application** (la app en primer plano) basta, porque el grupo de macros ya se asegura de que este atajo solo funcione mientras Safari esté en primer plano.
+
+## Qué más puede hacer esta acción
+
+- Algunos elementos de menú cambian de nombre, como cuando «Mostrar barra lateral» pasa a llamarse «Ocultar barra lateral» en cuanto haces clic en él. La página oficial dice que puedes unir los dos nombres con una barra vertical (como `Show Sidebar|Hide Sidebar` en inglés), y la acción elige el que esté disponible en ese momento, así que un solo atajo sirve de interruptor.
+- En los nombres de menú, trata igual tres puntos seguidos que los puntos suspensivos (…), así que sirve cualquiera de las dos formas.
+- El menú Apple, en la esquina superior izquierda de la pantalla, se escribe Apple en la acción.
+
+## Comprueba que funciona
+
+Abre cualquier página en Safari y pulsa ⌃⌥⌘E. Deberías ver aparecer la ventana de guardado de «Exportar como PDF», igual que si hubieras hecho clic en el menú. Después cambia a Notas y pulsa ⌃⌥⌘E. No debería pasar nada, lo que demuestra que el grupo solo está activo en Safari.
+
+## ¿Te atascas?
+
+<Q q="Pulsé el atajo de teclado y no apareció ninguna ventana de guardado.">
+Hay dos causas habituales. Una es que el nombre del menú no coincida. Basta un solo espacio de diferencia para que no lo encuentre, así que vuelve al desplegable **Menu** y selecciónalo otra vez. La otra es que el elemento de menú esté en gris en ese momento, por ejemplo porque no hay ninguna página abierta en Safari. La página oficial dice que, cuando esta acción no encuentra el menú o el menú está deshabilitado, detiene toda la macro de forma predeterminada. En menús que no importen demasiado, puedes configurar la acción para que deje continuar la macro.
+</Q>
+<Q q="Lo pulso en Safari y no pasa nada, como si la macro no se disparara.">
+Asegúrate de que Safari esté en primer plano, de que tanto el grupo como la macro estén marcados y de que el Engine (el motor en segundo plano) esté en marcha. Después comprueba que la app añadida en **Available in these applications:** dentro del grupo «Safari» sea realmente Safari. Si sigue sin dispararse, consulta el [paso 6 de la guía completa](/es/guide/6-debug/).
+</Q>
+<Q q="En algunas apps el menú está ahí claramente, pero la acción no puede seleccionarlo.">
+La página oficial de resolución de problemas explica que algunas apps multiplataforma no construyen bien sus menús hasta que haces clic en la barra de menús con el ratón. La solución es cambiar a otra app y volver a ella, o hacer que la macro simule primero un clic en la barra de menús con **Move or Click Mouse** (mover el cursor o hacer clic) —la página oficial dice que suele bastar con hacer clic justo a la derecha del menú Ayuda— y después seleccione el menú. Consulta esta sección de [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+</Q>
+<Q q="¿Por qué no pulsar simplemente una tecla con Type a Keystroke?">
+Porque este elemento de menú no tiene ninguna tecla que pulsar. E incluso cuando un comando sí tiene atajo, la recomendación oficial es seleccionar el menú en lugar de simularlo, sobre todo si esa combinación de teclas también es el atajo de teclado de alguna macro, ya que simularla da resultados impredecibles (consulta [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+</Q>
+
+Ahora el comando de menú que usas todos los días tiene su propio atajo. Puedes hacer lo mismo con cualquier elemento de menú en el que puedas hacer clic, en cualquier app, con un grupo de macros por app para que nunca se estorben entre sí.

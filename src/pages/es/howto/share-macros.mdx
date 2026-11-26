@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: share-macros
+step: 7
+time: 10 minutos
+for: Hiciste una macro útil y un compañero te la pide, o encontraste en internet la macro de otra persona y quieres usarla
+tldr: Selecciona las macros y usa File ▸ Export ▸ Export Macros para guardar un archivo .kmmacros listo para enviar. Cuando recibas un archivo, impórtalo con Import Macros Safely para que las macros entren deshabilitadas, y habilítalas cuando hayas leído cada paso.
+description: "Exportar, importar y compartir macros de Keyboard Maestro: un profesor exporta una macro de comentarios de corrección para una compañera y la revisa antes de enviarla; las macros que recibes llegan deshabilitadas con Import Macros Safely y las habilitas después de leerlas; Export Actions para solo unos pasos; macros listas para usar en la biblioteca de macros integrada; y por qué no debes ejecutar tal cual la macro de un desconocido."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Corregir al final del trimestre implica escribir cien comentarios, y frases como «Estructura clara, el final podría cerrarse mejor» se repiten una y otra vez. Hiciste una macro que escribe una de esas frases con solo teclear unas pocas letras; la profesora del aula de al lado lo vio y te preguntó si le podías pasar una copia. Al terminar esta página, guardarás la macro en un archivo para enviárselo, y ella la importará, la revisará y la habilitará. Y al revés: cuando alguien te envíe una macro, sabrás cómo importarla de forma segura.
+
+<mark>Una macro puede hacer casi cualquier cosa en tu Mac, así que importa deshabilitadas las macros de otras personas y habilítalas solo cuando entiendas cada paso.</mark> Volverás a ver esta idea más abajo.
+
+## Guarda la macro como archivo
+
+En el <Term k="编辑器" text="editor" />, selecciona las macros que quieres compartir (mantén pulsada la tecla ⌘ Comando para seleccionar varias), elige **File ▸ Export ▸ Export Macros** (exportar macros) y guarda el archivo. Termina en `.kmmacros` ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Si quieres entregar un <Term k="宏组" text="grupo de macros" /> completo con todo lo que contiene, selecciona solo ese grupo sin marcar ninguna macro y expórtalo: todo el grupo se guardará en un único archivo `.kmmacros`.
+
+El archivo pesa muy poco, así que basta con enviarlo adjunto por correo.
+
+Antes de enviarlo, abre cada macro que vayas a compartir y léela entera. Las macros que creaste para ti suelen incluir datos que solo deberías saber tú: el teléfono y la dirección de tu firma, el nombre de usuario de alguna web o incluso una contraseña. Si en un comentario aparece el nombre de algún estudiante, redáctalo de otro modo. Lo mismo vale para las capturas de pantalla que subas a internet cuando pidas ayuda: revisa primero qué se ve en la imagen.
+
+Otra cosa que conviene decirle: las macros importadas conservan sus activadores. Puede que tu atajo de teclado ya haga otra cosa en su Mac, así que conviene que lo revise después de importar y lo cambie si coincide con otro.
+
+## Solo unas pocas acciones, o compártela directamente
+
+A veces no quiere la macro entera, sino solo algunos de sus pasos, como la secuencia de acciones que organiza las ventanas. Selecciona esas <Term k="动作" text="acciones" /> dentro de la macro y guárdalas con **File ▸ Export ▸ Export Actions** (exportar acciones). Por su parte, ella abre una macro y las añade con **File ▸ Import ▸ Import Actions** (importar acciones).
+
+El botón **Share** (compartir) en la parte superior de la ventana del editor, o **File ▸ Share**, pasa directamente el grupo, la macro o las acciones seleccionados a un servicio para compartir de tu Mac, incluida la publicación en el foro oficial ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Mantén pulsada la tecla Mayúsculas antes de elegirlo y compartirá una imagen en su lugar, útil para sitios que solo admiten imágenes.
+
+## Recibir una macro: impórtala deshabilitada
+
+Ahora te toca a ti recibir un archivo. La wiki recoge varias formas de importarlo: hacer doble clic en el archivo `.kmmacros` en el Finder, o elegir **File ▸ Import ▸ Import Macros Safely** (importar macros de forma segura) en el editor y seleccionar el archivo ([Macros](https://wiki.keyboardmaestro.com/manual/Macros)). Las macros importadas conservan el estado con el que se guardaron: los mismos activadores y un grupo con el mismo nombre, que se crea si todavía no tienes uno.
+
+La palabra clave es «Safely»: las macros importadas así entran deshabilitadas. La wiki explica que, de lo contrario, una macro importada podría dispararse en el mismo momento en que se importa. Así que, a continuación, abre la macro, léela desde la primera acción hasta la última, comprueba que hace exactamente lo que te dijeron y solo entonces habilítala.
+
+<Callout type="no" title="No ejecutes tal cual la macro de un desconocido">
+La wiki lo dice sin rodeos: las macros pueden hacer prácticamente cualquier cosa en tu Mac, incluido causar un daño enorme, así que nunca ejecutes una sin verificar su origen y, mejor aún, comprueba exactamente qué hace ([Macro Library](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Si incluye acciones que ejecutan scripts o mueven archivos y no entiendes qué están haciendo, déjala deshabilitada. **File ▸ Import ▸ Import Macros** (importar macros) solo aparece cuando mantienes pulsada la tecla Opción, y las macros importadas así podrían ejecutarse de inmediato, así que úsalo solo cuando confíes por completo en quien te las envió.
+</Callout>
+
+<Callout type="ok">
+La macro aparece en el editor, deshabilitada, así que al escribir sus letras todavía no pasa nada. Cuando la hayas leído y habilitado, vuelve a escribirlas y aparece el comentario.
+</Callout>
+
+## Macros listas para usar: la biblioteca de macros
+
+Si no sabes por dónde empezar, echa un vistazo a la <Term k="宏库" text="biblioteca de macros" /> que viene con Keyboard Maestro. Elige **Window ▸ Macro Library** (biblioteca de macros) para ver una colección de macros listas para usar, cada una con una breve descripción. Inserta las que te gusten en tus macros y úsalas tal cual, o cambia los atajos de teclado y ajústalas a tu manera ([Macro Library](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Ahí también están todas las macros que instala Keyboard Maestro, así que si borraste alguna y te arrepientes, puedes volver a instalarla desde aquí.
+
+En el menú también aparece **Export as Macro Library** (exportar como biblioteca de macros), pensado para macros que vas a importar muchas veces. La wiki advierte que las entradas importadas a tu biblioteca, por ahora, no se pueden borrar desde ahí: la única forma es cerrar Keyboard Maestro y el Engine y eliminar los archivos manualmente desde una carpeta. Para compartir en el día a día, basta con **Export Macros**.
+
+## ¿Te atascas?
+
+<Q q="Hice doble clic en el archivo y se importó, pero la macro no hace nada.">
+Entró deshabilitada, y esa es precisamente la idea. Después de leerla, habilita la macro en el editor. Si su grupo es nuevo y también está deshabilitado, habilita también el grupo.
+</Q>
+<Q q="Apareció un grupo nuevo que nunca había visto.">
+El archivo exportado conserva el nombre del grupo del que salió y, si tú no tienes un grupo con ese nombre, se crea uno. Para mover la macro a uno de tus propios grupos, solo tienes que arrastrarla hasta ahí.
+</Q>
+<Q q="Su atajo de teclado choca con uno que ya uso.">
+Al pulsarlo aparece la Conflict Palette (paleta de conflictos) para preguntarte cuál quieres ejecutar. Ponle un atajo de teclado distinto a una de las dos. La wiki señala que también puedes usar esa paleta a propósito: asigna el mismo atajo de teclado a varias macros relacionadas y elige con una pulsación más ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
+</Q>
+<Q q="Quiero una copia de seguridad de todas mis macros.">
+**File ▸ Export ▸ Export All Macros as Folder** (exportar todas las macros como carpeta) exporta todas las macros como archivos individuales, agrupadas en carpetas, algo muy práctico para archivarlas. Para mantener siempre al día dos Mac tuyos entre sí, la [sincronización de macros](/es/howto/sync-macs/) es mejor opción.
+</Q>
+
+Léela antes de darla, vuelve a leerla cuando recibas una, y las macros podrán pasar con seguridad de una persona a otra. Para que varias macros compartan un conjunto de pasos, o para incorporar scripts, consulta el [paso 7 de la guía completa](/es/guide/7-advanced/).

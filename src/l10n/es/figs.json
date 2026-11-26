@@ -2,5 +2,158 @@
   "ui": {
     "label": "Diagrama",
     "replay": "Ver de nuevo"
+  },
+  "0-what-chain": {
+    "steps": [
+      {
+        "t": "Editor",
+        "d": "escribes la macro y lo cierras"
+      },
+      {
+        "t": "Engine",
+        "d": "siempre funcionando en segundo plano"
+      },
+      {
+        "t": "Grupo de macros",
+        "d": "¿está activo ahora mismo?"
+      },
+      {
+        "t": "Activador",
+        "d": "llega el momento"
+      },
+      {
+        "t": "Acciones",
+        "d": "se ejecutan de arriba abajo"
+      }
+    ],
+    "cap": "Desde que la escribes hasta que funciona: el Engine está en marcha, el grupo está activo, el activador se dispara y las acciones se ejecutan en orden"
+  },
+  "1-groups-toggle": {
+    "a": {
+      "who": "Las flechas como atajos normales",
+      "steps": [
+        "Las flechas mueven la ventana",
+        "Quieres mover el cursor",
+        "Pulsas una y la ventana salta"
+      ],
+      "end": "Las flechas no sirven el resto del tiempo"
+    },
+    "b": {
+      "who": "En un grupo que activas tú",
+      "steps": [
+        "Pulsa ⌃⌥⌘W para activar el grupo",
+        "Las flechas mueven la ventana",
+        "Pulsa ⌃⌥⌘W otra vez para desactivarlo"
+      ],
+      "end": "Las flechas vuelven a la normalidad"
+    },
+    "cap": "Las mismas cuatro flechas pertenecen a tus macros solo mientras el grupo está activo"
+  },
+  "3-actions-log": {
+    "steps": [
+      {
+        "t": "Activate a Specific Application",
+        "d": "cambia a TextEdit"
+      },
+      {
+        "t": "Select or Show a Menu Item",
+        "d": "elige «Nuevo» en el menú"
+      },
+      {
+        "t": "Insert Text by Typing",
+        "d": "escribe la fecha de hoy"
+      },
+      {
+        "t": "Notification",
+        "d": "dice que ya está listo"
+      }
+    ],
+    "cap": "Una macro es una lista de acciones que se ejecutan una tras otra, de arriba abajo"
+  },
+  "4-variables-scope": {
+    "layers": [
+      {
+        "t": "Global",
+        "d": "Sin prefijo especial. Todas las macros pueden leerla y cambiarla, y sigue en tu Mac aunque lo reinicies"
+      },
+      {
+        "t": "Instance",
+        "d": "Empieza con Instance. Esta única ejecución, más las submacros que llame"
+      },
+      {
+        "t": "Local",
+        "d": "Empieza con Local. Solo esta macro, en esta única ejecución"
+      }
+    ],
+    "cap": "Cuanto más abajo, menos macros pueden verla y menos tiempo dura. Si solo la necesitas para esta ejecución, usa Local."
+  },
+  "6-debug-order": {
+    "steps": [
+      {
+        "t": "Permisos",
+        "d": "Todo activado en la pestaña Security de los ajustes"
+      },
+      {
+        "t": "Engine",
+        "d": "Su icono está en la barra de menús"
+      },
+      {
+        "t": "Grupo y macro",
+        "d": "Ambos habilitados, el grupo activo ahora mismo"
+      },
+      {
+        "t": "Activador",
+        "d": "Ninguna otra macro usa el mismo atajo de teclado"
+      },
+      {
+        "t": "Acciones",
+        "d": "Avanza paso a paso en el depurador y lee Engine.log"
+      }
+    ],
+    "cap": "Un problema en los dos primeros hace que fallen todas las macros a la vez. Cuanto más avanzas, más tiene que ver solo con esta macro."
+  },
+  "watch-folder-flow": {
+    "steps": [
+      {
+        "t": "Llega un archivo",
+        "d": "Folder Trigger: adds an item"
+      },
+      {
+        "t": "Espera la descarga",
+        "d": "ignora archivos incompletos o que cambian"
+      },
+      {
+        "t": "¿Es un PDF?",
+        "d": "%TriggerValue% termina en .pdf"
+      },
+      {
+        "t": "Muévelo",
+        "d": "File Actions: Move"
+      }
+    ],
+    "cap": "Estos cuatro pasos se ejecutan una vez por cada archivo que llega. Todo lo que no sea un PDF se detiene en el paso tres."
+  },
+  "stop-macro-ladder": {
+    "cap": "Formas de detener una macro: prueba primero la de arriba, ve bajando si no funciona y deja la de abajo para cuando nada más sirva.",
+    "high": "Prueba primero",
+    "low": "Último recurso",
+    "rungs": [
+      {
+        "t": "Mantén pulsadas ⌃⌥⇧ y haz clic en el icono",
+        "d": "Detiene todas las macros en ejecución"
+      },
+      {
+        "t": "Menú de estado ▸ Cancel",
+        "d": "Detiene una macro en ejecución"
+      },
+      {
+        "t": "Quit Keyboard Maestro Engine",
+        "d": "El Engine se cierra y no se ejecuta nada"
+      },
+      {
+        "t": "Mantén pulsadas ⌃⌥⇧⌘ y abre el editor",
+        "d": "Sin el Engine, así puedes corregir la macro"
+      }
+    ]
   }
 }

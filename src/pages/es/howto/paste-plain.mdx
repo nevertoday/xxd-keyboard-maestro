@@ -1,0 +1,52 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: paste-plain
+step: 5
+time: Cinco minutos
+for: Copias texto de una página web y al pegarlo en tu documento viene con fuentes, colores y enlaces ajenos
+tldr: Pulsa ⌃⌥⌘V para pegar y solo entrará el texto, sin las fuentes, los colores ni los enlaces de la página web.
+description: Usa Remove Styles en la acción Filter para convertir el portapapeles en texto sin formato y luego haz que Type a Keystroke pulse ⌘V. Por qué el portapapeles guarda en realidad varias versiones, por qué quitar los estilos a veces cambia el texto y por qué el atajo de teclado no puede ser simplemente ⌘V.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Copias una cita de una página web en el informe que estás escribiendo para clase y lo que entra es la fuente y el tamaño de esa web, a veces en gris y a veces con un enlace incluido. Pegas cinco o seis citas y el informe acaba convertido en un popurrí de formatos, así que terminas seleccionándolas una por una para corregirlas a mano. La mayoría de los estudiantes han pasado por esto. Cuando tengas lista la macro de abajo, pegarás con ⌃⌥⌘V (⌃ es Control, ⌥ es Opción, ⌘ es Comando) y solo entrará el texto.
+
+<mark>Quita primero el formato del portapapeles, pega después y solo entrará el texto.</mark>
+
+## El portapapeles guarda más de una versión
+
+Cuando copias un texto, el portapapeles guarda más de una cosa. La sección Removing Styles Changes The Text de la página oficial [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) lo deja bien claro: una misma copia puede contener una versión en texto sin formato, una versión con formato e incluso una imagen, y a estas se las llama «flavors». Al pegar, la app elige la que mejor puede aprovechar. Un procesador de textos elige, como es lógico, la que tiene formato, y con ella se cuelan las fuentes de la página web.
+
+La acción **Filter** (filtrar) de Keyboard Maestro tiene un filtro llamado **Remove Styles** (quitar estilos) que convierte el portapapeles en texto sin formato (consulta [Filters](https://wiki.keyboardmaestro.com/manual/Filters)). En cuanto desaparecen las versiones con formato, la app solo puede elegir el texto sin formato.
+
+## Crea la macro
+
+Esta macro te va a hacer falta en todas las apps, así que ponla en un grupo de macros disponible en todas partes y llámala «Pegar texto sin formato». Como activador, elige **Hot Key** (atajo de teclado) y pulsa ⌃⌥⌘V. Después añade dos acciones:
+
+1. **Filter**: como origen, elige **System Clipboard** (portapapeles del sistema). Como filtro, elige **Remove Styles**, y pon el resultado de nuevo en el portapapeles del sistema.
+2. **Type a Keystroke** (pulsar una tecla): haz clic en el cuadro y pulsa ⌘V.
+
+El segundo paso pulsa tu atajo habitual para pegar. La recomendación oficial es usar **Type a Keystroke** para las combinaciones de teclas que incluyen la tecla Comando (consulta [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+
+## Comprueba que funciona
+
+En Safari, busca un texto que tenga negrita o algún enlace y cópialo. Abre TextEdit, crea un documento nuevo, escribe una línea tuya, pulsa Retorno y luego pulsa ⌃⌥⌘V. Deberías ver que el texto entra sin la negrita, sin el enlace y con la misma fuente que la línea que acabas de escribir.
+
+Conviene saber una cosa: la macro convierte el propio portapapeles en texto sin formato, así que si después pulsas ⌘V también pegarás texto sin formato hasta la próxima vez que copies algo. Para recuperar el original con formato, busca en tu <Term k="剪贴板历史" text="historial del portapapeles" />, tal como explica el [paso 5 de la guía completa](/es/guide/5-clipboard/).
+
+**Filter** también tiene otros filtros. **Trim Whitespace** (recortar espacios), por ejemplo, elimina los espacios sobrantes al principio y al final. Añade un segundo **Filter** después del primero y también limpiarás los espacios sueltos que suelen traer las citas.
+
+## ¿Te atascas?
+
+<Q q="Después de quitar los estilos, el texto ya no es exactamente igual. Desapareció una viñeta delante de un elemento de una lista, o apareció una.">
+Algunas apps guardan un texto ligeramente distinto en la versión sin formato que en la versión con formato, y **Remove Styles** lee la versión sin formato. La solución oficial es añadir una acción **Set Clipboard to Text** (establecer el portapapeles como texto) antes de **Filter**, configurarla como texto con formato y escribir `%SystemClipboard%`. Así Keyboard Maestro reconstruye un portapapeles limpio donde ambas versiones coinciden, y después ya quitas los estilos. Está en la misma sección Removing Styles Changes The Text que mencionamos arriba.
+</Q>
+<Q q="¿Puedo hacer que el propio ⌘V pegue texto sin formato si pongo ⌘V como atajo de teclado?">
+No lo hagas. El segundo paso de la macro pulsa ⌘V por sí mismo, y la página oficial deja claro que simular una pulsación que también es el atajo de teclado de una macro activa produce resultados impredecibles: a veces envía esa pulsación y a veces dispara la propia macro. Elige otra combinación. ⌃⌥⌘V es fácil de recordar.
+</Q>
+<Q q="Sigue pegando con formato, o pega algo que copié antes.">
+Algunas apps, sobre todo las multiplataforma, guardan en caché el portapapeles y no notan el cambio que Keyboard Maestro acaba de hacer. La sugerencia oficial es «despertar» la app antes de pegar, por ejemplo cambiando a otra app y volviendo a ella. Consulta [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted).
+</Q>
+
+Un atajo de teclado y dos acciones, y las citas dejan de convertir tu informe en un popurrí. El portapapeles puede hacer mucho más, como guardarte algunas cosas que pegas a menudo. Todo eso está en el [paso 5 de la guía completa](/es/guide/5-clipboard/).

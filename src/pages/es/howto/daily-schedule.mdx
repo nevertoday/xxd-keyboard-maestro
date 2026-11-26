@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: daily-schedule
+step: 2
+time: 10 minutos
+for: A una hora concreta cada día o cada semana, hay algo que tienes que acordarte de hacer por tu cuenta
+tldr: El activador Time of Day fija una hora y los días de la semana para que la macro se ejecute sola al llegar el momento. Usa Cron para fechas más complejas y Periodic para repetir cada cierto tiempo. El Mac tiene que estar despierto en ese instante.
+description: "Ejecuta una macro de Keyboard Maestro a una hora fija cada día o ciertos días de la semana: Time of Day para una hora diaria, Cron para fechas como el último viernes del mes y Periodic para repetir cada cierto tiempo; qué ocurre si el Mac está en reposo o la pantalla bloqueada, y qué comprobar si no se ejecutó."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+La mayoría de la gente que escribe conoce bien esta mañana. Te prometiste empezar a las 8:30, luego respondiste unos cuantos correos, leíste algunas páginas en internet y ya son las diez cuando te acuerdas del borrador. Cuando termines esta página, de lunes a viernes a las 8:30 tu Mac abrirá por sí solo el borrador en el que trabajas y mostrará una notificación con tu objetivo del día. No tienes que pulsar ninguna tecla: al llegar la hora, simplemente arranca.
+
+Lo que pone en marcha una macro es un <Term k="触发器" text="activador" />. Las lecciones iniciales usaban un atajo de teclado y abreviaturas escritas, mientras que esta página usa el reloj. <mark>Confía a un activador de tiempo todo lo que deba ocurrir a una hora fija, pero solo se disparará si el Mac está despierto en ese momento.</mark> La segunda mitad de esa frase importa más que la primera.
+
+## Abre el borrador a las 8:30 de lunes a viernes
+
+Crea una nueva <Term k="宏" text="macro" /> y ponle un nombre como «Empezar a escribir: abrir borrador». Como activador, elige **Time of Day** (hora del día), que ejecuta una macro a una hora concreta en los días de la semana que escojas (consulta [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)). Pon la hora a las 8:30. La fila de cuadros pequeños de abajo representa los días de la semana: los azules están activos y los claros con una línea diagonal, no. Haz clic en un cuadro para cambiar su estado y deja en azul los de lunes a viernes. Que la hora aparezca en formato de 24 horas o con AM y PM depende de los ajustes de macOS.
+
+Añade dos acciones. La primera es **Open a File, Folder or Application** (abrir un archivo, carpeta o app). Haz clic en el botón de la derecha para elegir tu borrador y, en el menú «with» (abrir con), escoge TextEdit o la app en la que sueles escribir. La segunda es **Notification** (notificación). Ponle como título «Hora de escribir» y en el mensaje una nota para ti, por ejemplo «Primero 500 palabras, el correo después de las diez» (consulta [Notification Action](https://wiki.keyboardmaestro.com/action/Notification)).
+
+<Callout type="tip">
+No esperes a mañana por la mañana para saber si funciona. Pon la hora dos minutos más adelante, comprueba que se ejecuta una vez y luego vuelve a cambiarla a las 8:30.
+</Callout>
+
+## Si el Mac está en reposo, no lo ejecutará después
+
+Aquí es donde la gente suele confundirse. La wiki lo deja claro: el Mac debe estar despierto para que el activador se dispare y, si está en reposo, la macro no se ejecutará después. Así que, si la tapa de tu Mac portátil está cerrada a las 8:30, el borrador no se abrirá esa mañana, y cuando la abras a las 9:00 tampoco se acordará de hacerlo.
+
+Con la pantalla pasa algo distinto. Si la pantalla está en reposo, bloqueada o con el protector de pantalla en marcha, la macro sí se ejecuta, pero muchas acciones que interactúan con la interfaz (escribir, abrir menús, hacer clic) no funcionarán. Algunas acciones pueden despertar la pantalla o detener el protector de pantalla, lo que resuelve parte del problema, pero no pueden desbloquear la pantalla (también en [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)).
+
+Así que elige una hora a la que normalmente ya estés frente al Mac. Y si lo que de verdad quieres es «hacer esto en cuanto abra el Mac», olvídate del reloj. El activador **Wake** (al despertar) se ejecuta cada vez que el Mac sale del reposo, no solo la primera vez del día (consulta [Wake Trigger](https://wiki.keyboardmaestro.com/trigger/Wake)), y el activador **Login** (al iniciar sesión) se ejecuta cuando inicias sesión y el <Term k="引擎" text="Engine" /> se inicia con tu sesión.
+
+## El último viernes del mes: usa Cron
+
+Hay fechas que no se pueden marcar en una fila con los días de la semana. Muchos profesionales independientes envían las facturas del mes el último viernes por la tarde, y olvidarlo una sola vez supone cobrar un mes más tarde. Ese tipo de fechas le corresponde al activador **Cron** (programación de fechas), que describe el momento en una línea de cinco campos: minuto, hora, día del mes, mes y día de la semana (consulta [Cron Trigger](https://wiki.keyboardmaestro.com/trigger/Cron)). En la página oficial se explica cómo indicar el último viernes del mes: `-1-7` en el día del mes y `+Fri` en el día de la semana. Para las cuatro de la tarde, queda así:
+
+<Copy id="ds-cron" title="Último viernes de cada mes a las 16:00" code="0 16 -1-7 * +Fri" />
+
+La acción vuelve a ser **Notification**, con el texto «Enviar las facturas de este mes», y puedes añadir **Open a File, Folder or Application** para que abra la carpeta donde guardas tus facturas. Cron también necesita que el Mac esté despierto en ese momento.
+
+## Cada cierto tiempo: usa Periodic
+
+Luego está el caso de «cada cierto rato». Alguien que estudia en casa puede pasarse toda la tarde sin levantarse de la silla, y lo primero que acaba cediendo es el cuello. El activador **Periodic** (periódico) se ejecuta cada ciertos segundos, minutos u horas, y puede limitarse a una franja del día o a determinados días de la semana (consulta [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)). Configúralo cada 50 minutos entre las 9:00 y las 18:00, con una **Notification**: «Levántate, bebe un poco de agua y mira por la ventana».
+
+No pongas un intervalo demasiado corto. La wiki desaconseja expresamente usar intervalos de segundos salvo que no quede más remedio: por un lado puede consumir mucha CPU y, por otro, cada vez que se ejecuta una macro se cancelan las elecciones que estaban esperándote —como la Conflict Palette (paleta de conflictos)—, así que las macros programadas con demasiada frecuencia hacen que desaparezcan de repente. Un detalle más: si una franja horaria cruza la medianoche, se detendrá en ese punto; si quieres cubrir tanto antes como después, usa dos activadores.
+
+## ¿Te atascas?
+
+<Q q="Llegó la hora y no pasó nada.">
+Primero, ¿estaba el Mac en reposo en ese momento? Lo que se pierde durante el reposo no se ejecuta después. Luego comprueba que tanto el <Term k="宏组" text="grupo de macros" /> como la propia macro estén habilitados. La opción **Help ▸ Interactive Help** (ayuda interactiva) de Keyboard Maestro puede revisar todos estos puntos uno por uno por ti (consulta [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Por último, asegúrate de que el Engine esté en marcha. Si está cerrado, no se disparará ningún activador.
+</Q>
+<Q q="La macro se ejecutó, pero el borrador no pasó al frente o la acción de escribir no escribió nada.">
+Lo más probable es que la pantalla estuviera bloqueada o en reposo. La macro se ejecuta, pero las acciones que interactúan con la interfaz no funcionan, y tampoco pueden desbloquear la pantalla. Cambia la hora a un momento en el que normalmente ya estés usando el Mac.
+</Q>
+<Q q="No apareció ninguna notificación.">
+**Notification** pasa por el Centro de notificaciones de macOS. Comprueba en Ajustes del Sistema si las notificaciones de Keyboard Maestro Engine están desactivadas. La página oficial [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting) también recuerda que, cuando estés investigando un problema, conviene asegurarte de que el Engine pueda mostrar notificaciones; de lo contrario, no verás el aviso cuando falle una acción.
+</Q>
+<Q q="No sé con seguridad si mi línea de Cron está bien escrita.">
+La página oficial tiene una tabla con líneas listas para usar, desde «un minuto después de la medianoche, cada día» hasta «las 8:30 del primer sábado de cada mes». Adaptar una de ellas es lo más seguro. También puedes poner la hora y los minutos unos minutos más adelante con `*` en los campos de fecha, comprobar que se ejecuta una vez y luego volver a cambiarlo.
+</Q>
+
+Un activador de tiempo recuerda la hora por ti; lo único que tienes que recordar tú es que el Mac debe estar despierto. Además del reloj, una macro también puede ponerse en marcha cuando te conectas a una red Wi-Fi o enchufas un dispositivo. Consulta [Hacer algo al conectarte a una red Wi-Fi o enchufar un dispositivo](/es/howto/wifi-usb/).

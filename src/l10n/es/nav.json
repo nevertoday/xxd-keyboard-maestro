@@ -15,5 +15,174 @@
       "minutes": "15 minutos",
       "sum": "Convierte los clics que haces cada mañana en una sola macro: abre varias apps y una página web, coloca las ventanas en su lugar y luego aprende a detenerla y dónde mirar cuando algo falla"
     }
+  },
+  "steps": {
+    "0-what": {
+      "title": "Qué es Keyboard Maestro",
+      "minutes": "5 minutos de lectura",
+      "sum": "Automatización para Mac: creas macros en el editor y el Engine las ejecuta en segundo plano. Cada macro es un cuándo y un qué"
+    },
+    "1-groups": {
+      "title": "Grupos de macros: dónde funcionan las macros",
+      "minutes": "10 minutos",
+      "sum": "Un grupo de macros es una carpeta que también decide cuándo están activas sus macros: solo en ciertas apps, solo después de activarlo o mostradas en una paleta"
+    },
+    "2-triggers": {
+      "title": "Activadores: cuándo empieza una macro",
+      "minutes": "15 minutos",
+      "sum": "Un atajo de teclado, un texto escrito, una hora del día, abrir una app, una red Wi-Fi o un archivo nuevo en una carpeta: elige el momento que te resulte más natural"
+    },
+    "3-actions": {
+      "title": "Acciones: qué hace una macro",
+      "minutes": "15 minutos",
+      "sum": "Escribir texto, pulsar teclas, menús, apps, ventanas, clics y archivos: conoce la docena de acciones que más usarás y busca las demás cuando las necesites"
+    },
+    "4-variables": {
+      "title": "Variables, condiciones y bucles: macros que se adaptan",
+      "minutes": "20 minutos",
+      "sum": "Recordar un texto, hacerte una pregunta, tomar un camino distinto según lo que haya en pantalla, esperar a que ocurra algo: una macro deja de ser una secuencia fija de teclas"
+    },
+    "5-clipboard": {
+      "title": "El portapapeles: todo lo que copiaste sigue ahí",
+      "minutes": "10 minutos",
+      "sum": "El historial del portapapeles te permite pegar lo que copiaste antes, los portapapeles con nombre guardan algunas cosas de forma permanente y los filtros transforman el texto antes de pegarlo"
+    },
+    "6-debug": {
+      "title": "Cuando una macro no funciona",
+      "minutes": "15 minutos",
+      "sum": "Revisa primero los permisos y el Engine, y luego si el grupo está activo. ¿Sigue sin funcionar? Avanza paso a paso con el depurador o lee el registro del Engine"
+    },
+    "7-advanced": {
+      "title": "Ir más allá: scripts, subrutinas, sincronizar y compartir",
+      "minutes": "10 minutos de lectura",
+      "sum": "Conecta scripts de shell, AppleScript y JavaScript, convierte pasos repetidos en subrutinas, sincroniza entre dos Mac y comparte macros con otras personas"
+    }
+  },
+  "howtoGroups": {
+    "text": "Escritura y texto",
+    "apps": "Apps y ventanas",
+    "files": "Archivos",
+    "screen": "Pantalla y ratón",
+    "schedule": "Tareas programadas",
+    "ask": "Preguntarte antes",
+    "keep": "Guardar y compartir"
+  },
+  "howto": {
+    "text-snippets": "Convertir lo que escribes a menudo en abreviaturas",
+    "insert-date": "Insertar la fecha de hoy con una tecla",
+    "paste-plain": "Pegar sin formato",
+    "fill-form": "Rellenar el mismo formulario con una tecla",
+    "app-hotkeys": "Saltar a una app con una tecla",
+    "window-layout": "Colocar tus ventanas donde quieras",
+    "menu-shortcut": "Darle un atajo a un comando de menú que no tiene",
+    "rename-files": "Renombrar varios archivos a la vez",
+    "watch-folder": "Archivar cosas en cuanto llegan a una carpeta",
+    "click-image": "Encontrar un botón en pantalla y hacer clic en él",
+    "ocr-text": "Leer el texto de tu pantalla",
+    "daily-schedule": "Ejecutar algo a la misma hora cada día",
+    "wifi-usb": "Hacer algo al conectarte a una red Wi-Fi o enchufar un dispositivo",
+    "ask-input": "Hacer una pregunta antes de empezar el trabajo",
+    "palette": "Crear una fila de botones que ejecutan macros",
+    "sync-macs": "Usar las mismas macros en dos Mac",
+    "share-macros": "Exportar, importar y compartir macros",
+    "stop-macro": "Cuando una macro no se detiene"
+  },
+  "glossary": {
+    "宏": {
+      "label": "macro",
+      "tip": "Una pequeña tarea en Keyboard Maestro: los activadores deciden cuándo empieza y una lista de acciones indica qué hace."
+    },
+    "宏组": {
+      "label": "grupo de macros",
+      "tip": "Una carpeta de macros que también decide en qué apps y cuándo están activas sus macros."
+    },
+    "触发器": {
+      "label": "activador",
+      "tip": "Lo que pone en marcha una macro: pulsar un atajo de teclado, escribir una secuencia de texto, una hora del día, abrir una app…"
+    },
+    "动作": {
+      "label": "acción",
+      "tip": "Un paso que da una macro, como escribir un texto, elegir una opción de menú o abrir un archivo."
+    },
+    "编辑器": {
+      "label": "editor",
+      "tip": "La ventana de Keyboard Maestro donde creas y modificas macros. Puedes salir del editor cuando termines y tus macros seguirán funcionando."
+    },
+    "引擎": {
+      "label": "Engine",
+      "tip": "Keyboard Maestro Engine, la parte que funciona en segundo plano y ejecuta realmente tus macros. Si no está en marcha, no se dispara nada."
+    },
+    "热键": {
+      "label": "atajo de teclado",
+      "tip": "Una combinación de teclas que dispara una macro, como ⌃⌥⌘T. Elige una que no use ya ninguna otra app."
+    },
+    "输入字符串触发器": {
+      "label": "activador por texto escrito",
+      "tip": "Se dispara cuando escribes una secuencia, como =addr=, donde estés escribiendo texto, y suele borrar lo que escribiste antes de ejecutar la macro."
+    },
+    "面板": {
+      "label": "paleta",
+      "tip": "Un panel flotante de botones en pantalla, uno por macro, que ejecuta la macro correspondiente al hacer clic."
+    },
+    "状态菜单": {
+      "label": "menú de estado",
+      "tip": "El icono de Keyboard Maestro en la barra de menús. Ábrelo para ejecutar macros o cancelar las que estén en marcha."
+    },
+    "变量": {
+      "label": "variable",
+      "tip": "Un fragmento de texto con nombre que una macro guarda para que las acciones siguientes puedan usarlo por su nombre."
+    },
+    "令牌": {
+      "label": "token",
+      "tip": "Un marcador en el texto, como %LongDate%, que se sustituye al ejecutar la macro: la fecha de hoy, la app en primer plano o el portapapeles."
+    },
+    "计算": {
+      "label": "cálculo",
+      "tip": "En casi cualquier campo que pida un número puedes escribir una fórmula, con funciones incluidas, como la mitad del ancho de la pantalla."
+    },
+    "条件": {
+      "label": "condición",
+      "tip": "Algo que una macro comprueba: si una app está abierta, si una imagen aparece en pantalla o si una variable tiene algún valor."
+    },
+    "剪贴板历史": {
+      "label": "historial del portapapeles",
+      "tip": "Keyboard Maestro recuerda lo que copiaste, así que puedes elegir un elemento anterior y volver a pegarlo."
+    },
+    "命名剪贴板": {
+      "label": "portapapeles con nombre",
+      "tip": "Un portapapeles aparte con nombre propio, que no se sobrescribe la próxima vez que copias algo."
+    },
+    "找图": {
+      "label": "búsqueda de imagen",
+      "tip": "Encontrar en pantalla un punto que coincida con una imagen que le das, para que una macro pueda hacer clic ahí o esperar a que aparezca."
+    },
+    "辅助功能权限": {
+      "label": "permiso de Accesibilidad",
+      "tip": "Un ajuste de Privacidad y seguridad en macOS. Keyboard Maestro lo necesita para detectar tus atajos de teclado, y para escribir, elegir menús y mover ventanas por ti."
+    },
+    "智能组": {
+      "label": "grupo inteligente",
+      "tip": "Una búsqueda guardada que muestra todas las macros que cumplen ese criterio, como las que modificaste hace poco."
+    },
+    "子程序": {
+      "label": "subrutina",
+      "tip": "Una macro a la que otras macros pueden llamar, con parámetros. Guarda en una los pasos que repites y llámala donde los necesites."
+    },
+    "宏库": {
+      "label": "biblioteca de macros",
+      "tip": "Un conjunto de macros listas para usar que viene con Keyboard Maestro. Importa una y adáptala."
+    },
+    "插件动作": {
+      "label": "acción de plugin",
+      "tip": "Una acción que creas tú o descargas de otra persona, instalas en Keyboard Maestro y usas como si viniera integrada."
+    },
+    "调试器": {
+      "label": "depurador",
+      "tip": "Una herramienta que ejecuta una macro paso a paso para que puedas ver dónde falla."
+    },
+    "引擎日志": {
+      "label": "registro del Engine",
+      "tip": "El historial de actividad del Engine. Cuando una macro falla, mira aquí los errores que registró."
+    }
   }
 }

@@ -1,0 +1,113 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 5
+tldr: "Keyboard Maestro recuerda lo que has copiado recientemente (hasta 200 elementos por defecto). Pulsa ⌃⇧⌘V para abrir el historial del portapapeles y volver a pegar cualquiera de ellos. Las firmas y las imágenes que usas a menudo van en portapapeles con nombre, que se conservan al reiniciar. La acción Filter puede quitar el formato, cambiar mayúsculas y minúsculas u ordenar líneas antes de pegar."
+description: "Cómo abrir el historial del portapapeles, pegar algo que copiaste antes y pegarlo como texto sin formato; qué no guarda (lo que parece una contraseña, las apps excluidas) y si se conserva al reiniciar; en qué se diferencian los portapapeles con nombre de las variables y cómo crear y usar uno; la acción Filter y el filtrado dentro del historial; Paste by Name; los bloqueos más habituales."
+---
+import Callout from "../../../components/Callout.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Estás completando una solicitud de empleo en línea. Copias tu número de teléfono del currículum y lo pegas, luego vuelves a buscar tu correo electrónico y después copias ese párrafo de presentación que ya has reescrito una docena de veces. De vuelta en el formulario, te das cuenta de que te saltaste el enlace a tu portafolio, y esa copia ya se perdió hace rato porque cada copia nueva reemplaza a la anterior. El portapapeles del Mac solo guarda una cosa a la vez, y cada vez que copias algo nuevo, desplaza a lo anterior.
+
+<mark><strong>Con Keyboard Maestro instalado, lo que copiaste sigue ahí: guarda unas doscientas copias recientes, y las pocas que usas todo el tiempo pueden llevar un nombre y quedarse para siempre.</strong></mark>
+
+Este paso cubre tres cosas: el <Term k="剪贴板历史" text="historial del portapapeles" /> para volver atrás, los <Term k="命名剪贴板" text="portapapeles con nombre" /> para guardar contenido y los filtros para modificar el texto antes de pegarlo. Ninguna te exige crear una macro: funcionan en cuanto instalas Keyboard Maestro. Además, cada una tiene sus propias acciones para cuando quieras usarlas dentro de tus macros.
+
+## Historial del portapapeles: un atajo para volver atrás
+
+Cada vez que copias algo en cualquier app, el <Term k="引擎" text="Engine" /> guarda una copia del portapapeles. Por defecto conserva hasta 200 elementos, y puedes cambiar esa cantidad en los ajustes ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)). Para revisarlos, abre **Clipboard History Switcher** (selector del historial del portapapeles). Es una macro que ya viene incluida en Keyboard Maestro, está dentro del grupo de macros **Switcher Group** (grupo de selectores) y usa por defecto el atajo de teclado ⌃⇧⌘V (Control-Mayús-Comando-V).
+
+<Callout type="ok">
+Pulsa ⌃⇧⌘V y aparecerá una lista. El primer elemento de arriba es lo que acabas de copiar, y debajo están las copias anteriores.
+</Callout>
+
+Busca el que necesitas y haz doble clic sobre él, pulsa Retorno o arrástralo a tu documento, y se pegará justo donde estabas escribiendo. Algunas variantes muy útiles:
+
+- Mantén pulsada ⇧ Mayús al pulsar Retorno o hacer doble clic para pegarlo como texto sin formato, sin las fuentes ni los colores originales.
+- Mantén pulsada ⌥ Opción en su lugar para devolverlo al portapapeles del sistema sin pegarlo todavía.
+- ⌘ más un número pega directamente el elemento correspondiente.
+- El campo de búsqueda de la parte superior encuentra un elemento a partir de unas pocas palabras que recuerdes, y también puedes mostrar solo imágenes o solo favoritos.
+- Marca como favorito un elemento que uses mucho y nunca quedará desplazado.
+- Selecciona varios elementos y pégalos juntos como uno solo. En el menú del engranaje puedes elegir qué va entre uno y otro.
+
+Así, la persona que buscaba empleo al principio puede copiar el teléfono, el correo, el enlace y la presentación de una sola vez, y luego volver al formulario y pulsar ⌃⇧⌘V para pegarlos uno a uno.
+
+Ni siquiera necesitas abrir esa ventana. Haz clic en el <Term k="状态菜单" text="menú de estado" /> de Keyboard Maestro en la barra de menús: su menú **Paste** (pegar) muestra los 30 elementos de texto más recientes, y al elegir uno lo pega al instante ([wiki](https://wiki.keyboardmaestro.com/Status_Menu)).
+
+## Qué no guarda y durante cuánto tiempo
+
+El historial del portapapeles registra todo, así que conviene saber algunas cosas desde el principio ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)):
+
+- <strong>Lo que parece una contraseña</strong> se oculta en la lista, se borra en cuanto llega al décimo lugar y nunca se guarda en disco. Mantén pulsada ⌥ Opción y haz clic sobre ese elemento para verlo. Esto se controla con la opción **Detect (and Conceal) Possible Passwords** (detectar y ocultar posibles contraseñas) en la pestaña **General** de los ajustes.
+- <strong>Si se conserva al reiniciar</strong> depende de **Save Clipboard History Between Launches** (guardar el historial del portapapeles entre arranques) en **General**. Si está desmarcada, el historial se vacía cada vez que el Engine se cierra, y reiniciar tu Mac cierra el Engine ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)).
+- <strong>Las apps que no quieres registrar</strong>, como la que guarda datos de otras personas, van en la lista de exclusión del historial del portapapeles, en la pestaña **Excluded** (excluidas) de los ajustes. Mientras una app excluida esté en primer plano, Keyboard Maestro no registra el portapapeles automáticamente ([wiki](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)).
+
+Los ajustes están en **Keyboard Maestro ▸ Settings** (ajustes) en la barra de menús (en versiones anteriores de macOS se llamaba Preferences).
+
+Hay una cosa más que afecta a tus propias macros. Muchas acciones trabajan a través del portapapeles del sistema, como **Insert Text by Pasting** (insertar texto pegando) y **Copy to Named Clipboard** (copiar a portapapeles con nombre), y <u>todas reemplazan lo que había en el portapapeles del sistema</u> ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)). Si pulsas ⌘V después de ejecutar una de esas macros, puede que pegues el texto que la macro acaba de pegar. La buena noticia es que tu propia copia sigue en el historial, uno o dos puestos más atrás.
+
+## Portapapeles con nombre: ponle nombre y guárdalo
+
+El historial del portapapeles es una corriente que no deja de moverse: entran elementos nuevos y los anteriores van bajando. En cambio, hay cosas que quieres que se queden quietas en su sitio, como una firma de correo con el logotipo y el teléfono de tu tienda, una imagen que pegas constantemente o la descripción con formato de un curso. Para eso sirven los portapapeles con nombre.
+
+Un portapapeles con nombre no es realmente un portapapeles. Se parece más a un pequeño archivo que guarda contenido de portapapeles: lo que metas ahí se queda, incluso si reinicias, hasta que lo cambies o lo borres. La gran diferencia frente a una <Term k="变量" text="variable" /> es que puede guardar texto con formato e imágenes, mientras que una variable solo guarda texto sin formato ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)).
+
+Crear uno es muy sencillo. Abre la pestaña **Clipboards** (portapapeles) de los ajustes, haz clic en el botón +, escribe un nombre en el campo de una línea arriba a la derecha y pega el contenido en el recuadro grande de abajo: texto, texto con formato o una imagen.
+
+Hay dos formas de usarlo:
+
+- **Named Clipboard Switcher** (selector de portapapeles con nombre) es una ventana que muestra todos tus portapapeles con nombre. Keyboard Maestro incluye tres macros para abrirla dentro de **Switcher Group**, con los atajos de teclado predeterminados ⇧⌘X, ⇧⌘C y ⇧⌘V: cortar hacia un portapapeles, copiar en él y pegar desde él ([wiki](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)). Como Keyboard Maestro intercepta la combinación cuando pulsas un atajo de teclado, si ⇧⌘V hace algo que necesitas en alguna de tus apps, cámbiale el atajo a esa macro.
+- Dentro de una macro, **Copy to Named Clipboard** copia la selección actual a un portapapeles con nombre y **Paste from Named Clipboard** (pegar desde portapapeles con nombre) lo vuelve a pegar. Estas acciones pasan siempre por el portapapeles del sistema, así que después el portapapeles del sistema queda con ese mismo contenido ([wiki](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)). En un campo de texto, el token `%NamedClipboard%name%` inserta el texto de un portapapeles con nombre dentro de una frase.
+
+<Callout type="warn">
+En tu lista de portapapeles con nombre viene uno llamado **Default Clipboard** (portapapeles predeterminado). La wiki insiste en aclarar que es un portapapeles con nombre corriente y que «Default» solo significa que venía creado con la app. <u>No es el portapapeles del sistema del Mac.</u>
+</Callout>
+
+## Modifícalo antes de pegar
+
+Si copias un párrafo de una página web y lo pegas en un correo, arrastra consigo las fuentes y los colores de la página. Si copias una columna de nombres de una hoja de cálculo, llegan con espacios sueltos y sin ningún orden. Puedes arreglar todo eso antes de pegar.
+
+El sitio más rápido es el propio historial del portapapeles. Selecciona un elemento, haz clic en el botón del engranaje o haz clic derecho sobre él, y el menú te ofrece varias operaciones listas para usar, como convertirlo en texto sin formato. Cada operación crea un elemento nuevo, que luego pegas ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)).
+
+Para hacerlo automáticamente dentro de una macro, usa la acción **Filter** (filtrar). Primero elige sobre qué trabajar: el portapapeles del sistema, un portapapeles con nombre, una variable, un texto o un archivo. Luego elige un filtro en el menú **with** (con). Por último, decide si el resultado vuelve al mismo sitio de donde salió o si va a otro portapapeles, variable o archivo ([wiki](https://wiki.keyboardmaestro.com/action/Filter)). Algunos filtros que te resultarán útiles:
+
+- **Remove Styles** (quitar estilos) convierte el texto con formato en texto sin formato (solo para portapapeles).
+- **Trim Whitespace** (recortar espacios) elimina los espacios del principio y del final.
+- **Uppercase** (todo en mayúsculas), **Lowercase** (todo en minúsculas), **Title Case** (iniciales en mayúscula) y **Sentence Case** (mayúscula al inicio de frase) cambian el uso de mayúsculas y minúsculas.
+- **Sort Lines** (ordenar líneas) pone las líneas en orden.
+- Contar caracteres, palabras o líneas.
+
+La lista completa está en la página [Filters](https://wiki.keyboardmaestro.com/manual/Filters) de la wiki. Imagina que un profesor copia una columna de nombres de alumnos de una hoja de cálculo: una acción **Filter** recorta los espacios, otra acción **Filter** ordena las líneas y un pegado los pone en el documento. Tres acciones. Si lo único que quieres es pegar sin formato, hay una guía práctica dedicada justo a eso: [Pegar sin formato](/es/howto/paste-plain/).
+
+Tus propias macros también pueden aparecer en ese menú del engranaje. Añade a una macro un activador **Clipboard Filter** (filtro del portapapeles) y aparecerá ahí, lista para trabajar sobre cualquier elemento que selecciones en la lista ([wiki](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)).
+
+## Recuerdas las palabras, no la posición: Paste by Name
+
+Ir bajando hasta el elemento número 40 del historial cansa rápido. En su lugar, la acción **Paste by Name** (pegar por nombre) abre un campo de búsqueda: escribes unas pocas palabras, encuentra el texto que coincide en el historial del portapapeles y eliges cuál pegar ([wiki](https://wiki.keyboardmaestro.com/action/Paste_by_Name)). Ponla en una macro con un atajo de teclado y tendrás un atajo para «buscar y pegar».
+
+Ahora ya puedes recuperar cualquier cosa que hayas copiado, y los fragmentos que usas todo el tiempo tienen un sitio fijo. En cuanto crees unas cuantas macros, alguna acabará fallando, así que el siguiente paso explica qué revisar, y en qué orden, cuando una macro no funciona.
+
+## ¿Te atascas?
+
+<Q q="Pulso ⌃⇧⌘V y no aparece nada.">
+<p>Primero comprueba que el icono de Keyboard Maestro esté en la barra de menús; si no está, es que el Engine no está en marcha. Luego abre el editor y asegúrate de que tanto el grupo Switcher Group como la macro Clipboard History Switcher que está dentro estén habilitados. ¿Sigue sin salir nada? Repasa en orden el <a href="/es/guide/6-debug/">paso 6</a>.</p>
+</Q>
+<Q q="Después de reiniciar, mi historial del portapapeles aparece vacío.">
+<p>La opción Save Clipboard History Between Launches, en la pestaña General de los ajustes, está desmarcada. Márcala y el historial se conservará cuando el Engine se cierre y vuelva a iniciarse.</p>
+</Q>
+<Q q="Lo que copio en una app concreta nunca aparece en el historial.">
+<p>Revisa la pestaña Excluded de los ajustes: puede que esa app esté en la lista de exclusión del historial del portapapeles. Mientras una app excluida esté en primer plano, Keyboard Maestro no registra el portapapeles automáticamente.</p>
+</Q>
+<Q q="Algo que acabo de copiar aparece oculto y luego desaparece.">
+<p>Parecía una contraseña, así que Keyboard Maestro lo ocultó, lo borró al llegar al décimo lugar y nunca lo guardó en disco. Mantén pulsada ⌥ Opción y haz clic sobre ese elemento para verlo.</p>
+</Q>
+<Q q="Mi macro pega dos fragmentos de texto y el segundo sale dos veces.">
+<p>La wiki explica que cambiar el portapapeles ocurre al instante, pero ⌘V hace cola esperando a la app. Si la app va lenta, los dos cambios del portapapeles ocurren antes del primer pegado, así que acabas pegando el segundo texto dos veces. Pon ambos fragmentos en una sola acción Insert Text by Pasting, o añade una acción Pause (pausa) entre las dos acciones (<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">wiki</a>).</p>
+</Q>
+<Q q="Puse algo en Default Clipboard, pero ⌘V no lo pega.">
+<p>Default Clipboard es un portapapeles con nombre corriente, no el portapapeles del sistema. Pega su contenido con Named Clipboard Switcher o con la acción Paste from Named Clipboard.</p>
+</Q>
+
+<Checkpoint id="s5" items={["⌃⇧⌘V abre mi historial del portapapeles, y ⇧ Mayús + Retorno pega texto sin formato", "Sé que Save Clipboard History Between Launches decide si el historial se conserva al reiniciar", "Creé un portapapeles con nombre y guardé en él algo que uso a menudo", "Sé que la acción Filter puede quitar el formato y recortar espacios antes de pegar"]} />
