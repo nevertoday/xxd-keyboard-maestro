@@ -27,7 +27,7 @@ Mac users who have never automated anything, reading in their own language. The 
 - **A trigger fires; a group is active.** Use one verb for a trigger firing a macro (es disparar, fr se déclencher, de auslösen, pt disparar, ru срабатывать, ar ينطلق) and keep the verb for *activate* only for a group becoming active.
 - **The `## Stuck?` heading** (on every guide and how-to page) is the same words on every page, as your language's lessons and term list have it.
 - Keys keep the names Apple prints for your language (es Opción, Mayúsculas, Comando, Retorno; de Wahltaste, Umschalttaste, Befehlstaste, Zeilenschalter; fr Option, Maj, Commande, Retour) beside the symbol; use them the same way on every page.
-- **No em dashes (—).** The English uses none; join clauses with a comma, colon, parentheses or a new sentence as your language does naturally.
+- **No em dashes (—).** The English uses none; join clauses with a comma, colon, parentheses or a new sentence as your language does naturally. Russian keeps the dash its grammar requires (between subject and predicate, «Keyboard Maestro — программа…»), only not as a clause joiner.
 - Option values inside an action or condition are interface labels too (a condition's **is** / **contains**, a palette's **until application switch**, a dialog's **live dangerously**): keep them English like any other label, with a gloss the first time.
 - Keyboard Maestro's own Settings window has one name throughout. The debugger's **Step Over** runs the current action and pauses after it; it does not skip it.
 
