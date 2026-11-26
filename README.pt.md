@@ -8,9 +8,9 @@
 
 O Keyboard Maestro é uma ferramenta de automação para Mac: você cria macros no editor, e o Engine (a parte que roda em segundo plano) executa tudo para você.<br>Este guia segue a wiki oficial do Keyboard Maestro e transforma o conteúdo em três lições curtas, para que mesmo quem nunca automatizou nada consiga acompanhar.
 
-**[Comece pela lição 1 →](https://keyboardmaestro.xiaoxiaodong.ai/pt/start/1-first-macro/)**　·　**[Já usa o app? Veja o guia completo (em inglês) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
+**[Comece pela lição 1 →](https://keyboardmaestro.xiaoxiaodong.ai/pt/start/1-first-macro/)**　·　**[Já usa o app? Veja o guia completo →](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/0-what/)**
 
-<sub>Não oficial · gratuito · código aberto · 10 idiomas (o site completo em chinês e inglês; a página inicial e as três lições em mais 8)</sub>
+<sub>Não oficial · gratuito · código aberto · o site completo em 10 idiomas</sub>
 
 </div>
 
@@ -50,30 +50,30 @@ Você não precisa programar nem aprender cem ações antes de começar. Cada li
 
 ## O guia completo
 
-Terminou as lições e quer criar macros que se adaptam, usar uma área de transferência com memória e saber descobrir por que algo não disparou? Siga estes passos na ordem (páginas em inglês):
+Terminou as lições e quer criar macros que se adaptam, usar uma área de transferência com memória e saber descobrir por que algo não disparou? Siga estes passos na ordem:
 
 | Passo | Tema | Em uma linha |
 | --- | --- | --- |
-| 0 | [O que é o Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/) | Automação para Mac: você cria macros no editor e o Engine roda tudo em segundo plano. Toda macro combina um “quando” com um “o quê” |
-| 1 | [Grupos de macros: onde as macros funcionam](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/1-groups/) | Um grupo de macros é uma pasta que também decide quando suas macros ficam ativas: só em certos apps, só depois que você ativar, ou exibidas em uma paleta (um painel flutuante de botões) |
-| 2 | [Gatilhos: quando uma macro começa](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | Uma tecla de atalho, um texto digitado, um horário do dia, um app abrindo, uma rede Wi-Fi, um arquivo novo em uma pasta: escolha o momento mais natural |
-| 3 | [Ações: o que uma macro faz](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | Digitação, toques de tecla, menus, apps, janelas, cliques e arquivos: conheça a dúzia de ações que você mais vai usar e procure o resto quando precisar |
-| 4 | [Variáveis, condições e loops: macros que se adaptam](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | Guardar um texto, fazer uma pergunta para você, seguir caminhos diferentes conforme o que está na tela, esperar algo acontecer: a macro deixa de ser uma sequência fixa de teclas |
-| 5 | [A área de transferência: tudo o que você copiou continua lá](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | O histórico da área de transferência permite colar o que você copiou antes, as áreas de transferência nomeadas guardam itens de forma permanente e os filtros transformam o texto antes de colar |
-| 6 | [Quando uma macro não funciona](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | Confira primeiro as permissões e o Engine, depois veja se o grupo está ativo. Ainda empacou? Acompanhe passo a passo com o depurador ou leia o log do Engine (registro de atividade) |
-| 7 | [Indo além: scripts, sub-rotinas, sincronização e compartilhamento](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/7-advanced/) | Conecte shell scripts, AppleScript e JavaScript, transforme passos repetidos em sub-rotinas, sincronize entre dois Macs e compartilhe macros com outras pessoas |
+| 0 | [O que é o Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/0-what/) | Automação para Mac: você cria macros no editor e o Engine roda tudo em segundo plano. Toda macro combina um “quando” com um “o quê” |
+| 1 | [Grupos de macros: onde as macros funcionam](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/1-groups/) | Um grupo de macros é uma pasta que também decide quando suas macros ficam ativas: só em certos apps, só depois que você ativar, ou exibidas em uma paleta (um painel flutuante de botões) |
+| 2 | [Gatilhos: quando uma macro começa](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/2-triggers/) | Uma tecla de atalho, um texto digitado, um horário do dia, um app abrindo, uma rede Wi-Fi, um arquivo novo em uma pasta: escolha o momento mais natural |
+| 3 | [Ações: o que uma macro faz](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/3-actions/) | Digitação, toques de tecla, menus, apps, janelas, cliques e arquivos: conheça a dúzia de ações que você mais vai usar e procure o resto quando precisar |
+| 4 | [Variáveis, condições e repetições: macros que se adaptam](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/4-variables/) | Guardar um texto, fazer uma pergunta para você, seguir caminhos diferentes conforme o que está na tela, esperar algo acontecer: a macro deixa de ser uma sequência fixa de teclas |
+| 5 | [A área de transferência: tudo o que você copiou continua lá](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/5-clipboard/) | O histórico da área de transferência permite colar o que você copiou antes, as áreas de transferência nomeadas guardam itens de forma permanente e os filtros transformam o texto antes de colar |
+| 6 | [Quando uma macro não funciona](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/6-debug/) | Confira primeiro as permissões e o Engine, depois veja se o grupo está ativo. Ainda empacou? Acompanhe passo a passo com o depurador ou leia o log do Engine (registro de atividade) |
+| 7 | [Indo além: scripts, sub-rotinas, sincronização e compartilhamento](https://keyboardmaestro.xiaoxiaodong.ai/pt/guide/7-advanced/) | Conecte shell scripts, AppleScript e JavaScript, transforme passos repetidos em sub-rotinas, sincronize entre dois Macs e compartilhe macros com outras pessoas |
 
 ## Guias práticos: tarefas específicas
 
-- **Digitação e texto**: [Transforme o que você digita com frequência em abreviações](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [Insira a data de hoje com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [Cole sem formatação](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [Preencha o mesmo formulário com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **Apps e janelas**: [Vá direto para um app com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Coloque suas janelas onde você quiser](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Crie um atalho para um comando de menu que não tem atalho](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
-- **Arquivos**: [Renomeie vários arquivos de uma vez](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [Organize arquivos assim que eles chegarem a uma pasta](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
-- **Tela e mouse**: [Encontre um botão na tela e clique nele](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [Leia o texto que aparece na tela](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
-- **Com hora marcada**: [Execute algo no mesmo horário todos os dias](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [Faça algo ao entrar em uma rede Wi-Fi ou conectar um dispositivo](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
-- **Perguntando antes**: [Faça uma pergunta antes de executar a tarefa](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ask-input/) · [Crie uma fileira de botões que executam macros](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/palette/)
-- **Guardar e compartilhar**: [Use as mesmas macros em dois Macs](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/sync-macs/) · [Exporte, importe e compartilhe macros](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/share-macros/) · [Quando uma macro não para de rodar](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/stop-macro/)
+- **Digitação e texto**: [Transforme o que você digita sempre em abreviações](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/text-snippets/) · [Insira a data de hoje com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/insert-date/) · [Cole sem formatação](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/paste-plain/) · [Preencha o mesmo formulário com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/fill-form/)
+- **Apps e janelas**: [Vá direto para um app com uma tecla](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/app-hotkeys/) · [Coloque suas janelas onde você quiser](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/window-layout/) · [Dê um atalho a um comando de menu que não tem](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/menu-shortcut/)
+- **Arquivos**: [Renomeie vários arquivos de uma vez](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/rename-files/) · [Organize os arquivos assim que eles chegarem a uma pasta](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/watch-folder/)
+- **Tela e mouse**: [Encontre um botão na tela e clique nele](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/click-image/) · [Leia o texto direto da sua tela](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/ocr-text/)
+- **Com hora marcada**: [Execute algo no mesmo horário todo dia](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/daily-schedule/) · [Faça algo ao entrar em uma rede Wi-Fi ou conectar um dispositivo](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/wifi-usb/)
+- **Perguntando antes**: [Faça uma pergunta antes de executar a tarefa](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/ask-input/) · [Crie uma fileira de botões que executam macros](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/palette/)
+- **Guardar e compartilhar**: [Use as mesmas macros em dois Macs](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/sync-macs/) · [Exporte, importe e compartilhe macros](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/share-macros/) · [Quando uma macro não para](https://keyboardmaestro.xiaoxiaodong.ai/pt/howto/stop-macro/)
 
-Empacou em alguma palavra ou ficou na dúvida sobre algo? Consulte a **[Wiki](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)** e o **[FAQ](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)** (em inglês).
+Empacou em alguma palavra ou ficou na dúvida sobre algo? Consulte a **[Wiki](https://keyboardmaestro.xiaoxiaodong.ai/pt/wiki/)** e o **[FAQ](https://keyboardmaestro.xiaoxiaodong.ai/pt/faq/)**.
 
 ## De onde vem este conteúdo
 
