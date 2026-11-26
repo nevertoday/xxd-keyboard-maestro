@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: share-macros
+step: 7
+time: 10 Minuten
+for: Du hast ein praktisches Makro gebaut und eine Kollegin möchte es auch haben, oder du hast im Netz ein fremdes Makro gefunden und willst es nutzen
+tldr: Wähle die Makros aus und speichere sie über File ▸ Export ▸ Export Macros als .kmmacros-Datei zum Verschicken. Dateien, die du bekommst, importierst du mit Import Macros Safely; sie kommen deaktiviert an, und du aktivierst sie erst, wenn du jeden Schritt gelesen hast.
+description: "Makros in Keyboard Maestro exportieren, importieren und teilen: Eine Lehrerin exportiert ein Makro mit Korrekturkommentaren für eine Kollegin und prüft es vor dem Verschicken; empfangene Makros kommen mit Import Macros Safely deaktiviert an und werden erst nach dem Durchlesen aktiviert; Export Actions für einzelne Schritte; fertige Makros in der eingebauten Makro-Bibliothek; und warum du fremde Makros nicht einfach so ausführen solltest."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Am Ende des Halbjahrs stehen beim Korrigieren schnell hundert Kommentare an, und Sätze wie „Klar gegliedert, der Schluss könnte noch etwas knapper sein“ wiederholen sich ständig. Du hast dir ein Makro gebaut, das so einen Satz nach ein paar Buchstaben ausschreibt. Die Kollegin aus der Nachbarklasse hat es gesehen und gefragt, ob sie eine Kopie haben kann. Nach dieser Seite kannst du das Makro als Datei speichern und ihr schicken, und sie importiert es, schaut es sich in Ruhe an und aktiviert es. Umgekehrt weißt du dann auch, wie du ein Makro, das dir jemand schickt, sicher übernimmst.
+
+<mark>Ein Makro kann auf deinem Mac fast alles tun, also importiere fremde Makros immer deaktiviert und aktiviere sie erst, wenn du jeden Schritt verstehst.</mark> Darauf kommen wir weiter unten noch einmal zurück.
+
+## Das Makro als Datei speichern
+
+Markiere im <Term k="编辑器" text="Editor" /> die Makros, die du weitergeben möchtest (halte die Befehlstaste ⌘ gedrückt, um mehrere auszuwählen), wähle dann **File ▸ Export ▸ Export Macros** (Ablage ▸ Exportieren ▸ Makros exportieren) und speichere die Datei. Sie hat die Endung `.kmmacros` ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Wenn du eine ganze <Term k="宏组" text="Makrogruppe" /> samt allem darin weitergeben willst, markiere nur diese Gruppe ohne ein einzelnes Makro und exportiere sie. Dann wird die gesamte Gruppe als eine einzige Datei im Format `.kmmacros` gespeichert.
+
+Die Datei ist klein, als E-Mail-Anhang lässt sie sich also problemlos verschicken.
+
+Bevor du sie losschickst, öffne jedes Makro, das du weitergibst, und lies es einmal komplett durch. In Makros für den eigenen Gebrauch stehen oft Dinge, die nur für dich bestimmt sind: deine Telefonnummer und Adresse in der Signatur, ein Benutzername für eine Website oder sogar ein Passwort. Wenn in einem Kommentar noch ein Schülername auftaucht, formuliere die Stelle um. Dasselbe gilt für Screenshots, die du bei Fragen ins Netz stellst: Schau erst genau nach, was alles im Bild zu sehen ist.
+
+Noch ein Hinweis, den du ihr mitgeben solltest: Importierte Makros behalten ihre Auslöser. Dein Tastenkürzel ist auf ihrem Mac vielleicht schon für etwas anderes belegt, deshalb sollte sie nach dem Import kurz nachsehen und es ändern, falls es sich überschneidet.
+
+## Nur ein paar Aktionen oder direkt teilen
+
+Manchmal braucht sie gar nicht das ganze Makro, sondern nur ein paar Schritte daraus, zum Beispiel die Abfolge von Aktionen, die Fenster anordnet. Markiere diese <Term k="动作" text="Aktionen" /> im Makro und speichere sie über **File ▸ Export ▸ Export Actions** (Aktionen exportieren). Bei sich öffnet sie dann ein Makro und fügt sie mit **File ▸ Import ▸ Import Actions** (Aktionen importieren) ein.
+
+Über die Schaltfläche **Share** (Teilen) oben im Editor-Fenster oder über **File ▸ Share** gibst du die markierte Gruppe, das Makro oder die Aktionen direkt an einen Teilen-Dienst auf deinem Mac weiter, zum Beispiel auch als Beitrag im offiziellen Forum ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Wenn du vorher die Umschalttaste ⇧ gedrückt hältst, wird stattdessen ein Bild geteilt, gedacht für Orte, die nur Bilder annehmen.
+
+## Ein Makro empfangen: deaktiviert importieren
+
+Jetzt bist du an der Reihe und bekommst eine Datei. Das Wiki nennt mehrere Wege für den Import: Du kannst im Finder doppelt auf die Datei mit der Endung `.kmmacros` klicken oder im Editor **File ▸ Import ▸ Import Macros Safely** (Ablage ▸ Importieren ▸ Makros sicher importieren) wählen und die Datei aussuchen ([Macros](https://wiki.keyboardmaestro.com/manual/Macros)). Importierte Makros behalten den Zustand, in dem sie gespeichert wurden: dieselben Auslöser und eine Gruppe mit demselben Namen, die neu angelegt wird, falls es sie bei dir noch nicht gibt.
+
+„Safely“ ist dabei das entscheidende Wort. Makros, die du auf diesem Weg importierst, kommen deaktiviert an. Das Wiki weist darauf hin, dass ein importiertes Makro sonst schon im Moment des Imports ausgelöst werden könnte. Öffne das Makro also zuerst, lies es von der ersten bis zur letzten Aktion durch, vergewissere dich, dass es genau das tut, was dir gesagt wurde, und aktiviere es erst danach.
+
+<Callout type="no" title="Fremde Makros nicht ungeprüft ausführen">
+Das Wiki formuliert es deutlich: Makros können auf deinem Mac praktisch alles tun und auch enormen Schaden anrichten. Führe deshalb niemals ein Makro aus, ohne die Quelle geprüft zu haben, und noch besser: Schau dir genau an, was es tatsächlich macht ([Macro Library](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Wenn darin Aktionen stecken, die Skripte ausführen oder Dateien verschieben, und du nicht erkennst, was sie tun, lass das Makro deaktiviert. **File ▸ Import ▸ Import Macros** (Makros direkt importieren) erscheint nur, wenn du die Wahltaste ⌥ gedrückt hältst. Makros, die du darüber importierst, können sofort loslaufen, nutze diesen Weg also nur, wenn du der Person, die sie dir geschickt hat, voll vertraust.
+</Callout>
+
+<Callout type="ok">
+Das Makro erscheint deaktiviert im Editor, sodass beim Tippen der Buchstaben erst einmal nichts passiert. Sobald du es durchgelesen und aktiviert hast, tippst du sie noch einmal ein, und der Kommentar erscheint.
+</Callout>
+
+## Fertige Makros: die Makro-Bibliothek
+
+Wenn du nicht weißt, wo du anfangen sollst, stöbere in der <Term k="宏库" text="Makro-Bibliothek" />, die Keyboard Maestro mitbringt. Über **Window ▸ Macro Library** (Fenster ▸ Makro-Bibliothek) öffnest du eine Sammlung fertiger Makros, jedes mit einer kurzen Beschreibung. Die Makros, die dir gefallen, fügst du einfach in deine eigenen Makros ein und nutzt sie unverändert, oder du änderst die Tastenkürzel und passt sie für dich an ([Macro Library](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Alle Makros, die Keyboard Maestro von Haus aus installiert, liegen dort ebenfalls. Wenn du also einmal eines gelöscht hast und es bereust, kannst du es von hier einfach wieder installieren.
+
+Im Menü gibt es außerdem **Export as Macro Library** (Als Makro-Bibliothek exportieren), gedacht für Makros, die du viele Male importieren wirst. Das Wiki warnt allerdings, dass sich Einträge, die einmal in deiner Bibliothek gelandet sind, dort derzeit nicht wieder löschen lassen: Dafür musst du Keyboard Maestro und die Engine beenden und die Dateien von Hand aus einem Ordner entfernen. Zum normalen Teilen reicht das einfache **Export Macros** völlig aus.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe doppelt auf die Datei geklickt und sie wurde importiert, aber das Makro tut nichts.">
+Es wurde deaktiviert importiert, und genau das ist so gewollt. Nachdem du es gelesen hast, aktiviere das Makro im Editor. Falls auch die zugehörige Gruppe neu angelegt wurde und deaktiviert ist, aktiviere die Gruppe ebenfalls.
+</Q>
+<Q q="Da ist plötzlich eine neue Gruppe, die ich noch nie gesehen habe.">
+Die exportierte Datei enthält den Namen der Gruppe, aus der das Makro stammt. Hast du noch keine Gruppe mit diesem Namen, wird sie neu angelegt. Wenn du das Makro lieber in einer deiner eigenen Gruppen haben möchtest, ziehe es einfach dorthin.
+</Q>
+<Q q="Das Tastenkürzel überschneidet sich mit einem, das ich schon nutze.">
+Wenn du es drückst, öffnet sich die **Conflict Palette** (Konflikt-Palette) und fragt, welches Makro laufen soll. Gib einfach einem der beiden ein anderes Tastenkürzel. Das Wiki weist darauf hin, dass du diese Palette auch ganz bewusst nutzen kannst: Gib mehreren zusammengehörigen Makros dasselbe Tastenkürzel und wähle das gewünschte mit einem weiteren Tastendruck aus ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
+</Q>
+<Q q="Ich möchte eine Sicherungskopie aller meiner Makros anlegen.">
+**File ▸ Export ▸ Export All Macros as Folder** (Alle Makros als Ordner exportieren) exportiert jedes Makro als einzelne Datei, nach Gruppen in Ordner sortiert, was sich gut zum Archivieren eignet. Wenn zwei eigene Macs dauerhaft auf demselben Stand bleiben sollen, ist die [Makro-Synchronisierung](/de/howto/sync-macs/) das bessere Werkzeug.
+</Q>
+
+Lies ein Makro durch, bevor du es weitergibst, und lies es noch einmal, wenn du eines bekommst, dann lassen sich Makros sicher von Mensch zu Mensch weiterreichen. Wenn mehrere Makros dieselbe Abfolge von Schritten gemeinsam nutzen sollen oder du Skripte einbinden möchtest, schau in [Schritt 7 der ausführlichen Anleitung](/de/guide/7-advanced/).

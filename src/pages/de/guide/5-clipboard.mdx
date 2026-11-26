@@ -1,0 +1,113 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 5
+tldr: "Keyboard Maestro merkt sich, was du zuletzt kopiert hast (standardmäßig bis zu 200 Einträge). Drücke ⌃⇧⌘V, um den Zwischenablage-Verlauf zu öffnen und jeden beliebigen Eintrag daraus erneut einzufügen. Häufig genutzte Signaturen und Bilder gehören in benannte Zwischenablagen, die auch einen Neustart überstehen. Mit der Aktion Filter kannst du vor dem Einfügen Formatierungen entfernen, die Groß- und Kleinschreibung ändern oder Zeilen sortieren."
+description: "Wie du den Zwischenablage-Verlauf öffnest, früher Kopiertes noch einmal einfügst und reinen Text einfügst; was er nicht speichert (Dinge, die wie Passwörter aussehen, ausgeschlossene Apps) und ob er einen Neustart übersteht; wie sich benannte Zwischenablagen von Variablen unterscheiden und wie du sie anlegst und nutzt; die Aktion Filter und das Filtern direkt im Verlauf; Paste by Name; typische Stellen, an denen es hakt."
+---
+import Callout from "../../../components/Callout.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Du füllst gerade online eine Bewerbung aus. Du kopierst deine Telefonnummer aus dem Lebenslauf und fügst sie ein, holst dir danach deine E-Mail-Adresse und kopierst schließlich die kurze Vorstellung, die du schon ein Dutzend Mal umgeschrieben hast. Zurück im Formular merkst du, dass du den Link zu deinem Portfolio vergessen hast, aber der ist längst weg, weil jeder neue Kopiervorgang den vorigen überschrieben hat. Die Zwischenablage des Mac fasst eben immer nur eine einzige Sache, und alles Neue verdrängt sofort das Alte.
+
+<mark><strong>Sobald Keyboard Maestro installiert ist, bleiben deine kopierten Inhalte einfach da: Es hebt die letzten paar hundert Kopien für dich auf, und die wenigen Dinge, die du ständig brauchst, bekommen einen eigenen Namen und bleiben dauerhaft erhalten.</strong></mark>
+
+In diesem Schritt geht es um drei Dinge: den <Term k="剪贴板历史" text="Zwischenablage-Verlauf" /> zum Zurückblättern, <Term k="命名剪贴板" text="benannte Zwischenablagen" /> zum dauerhaften Aufbewahren und Filter, mit denen du Text vor dem Einfügen noch anpasst. Für keines davon musst du erst ein Makro bauen, denn alle drei funktionieren sofort nach der Installation von Keyboard Maestro. Außerdem bringt jedes eigene Aktionen mit, falls du es später in deinen eigenen Makros nutzen willst.
+
+## Zwischenablage-Verlauf: Mit einer Taste zurückblättern
+
+Jedes Mal, wenn du in irgendeiner App etwas kopierst, sichert die <Term k="引擎" text="Engine" /> eine Kopie der Zwischenablage. Standardmäßig speichert sie bis zu 200 Einträge, und diese Zahl lässt sich in den Einstellungen anpassen ([Wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)). Um darin zu stöbern, öffnest du den **Clipboard History Switcher** (Auswahl für den Zwischenablage-Verlauf). Das ist ein Makro, das Keyboard Maestro schon mitbringt: Es liegt in der Makrogruppe **Switcher Group** (Auswahl-Gruppe) und hat standardmäßig das Tastenkürzel ⌃⇧⌘V (Control-Umschalttaste-Befehlstaste-V).
+
+<Callout type="ok">
+Drücke ⌃⇧⌘V, und schon erscheint eine Liste. Ganz oben steht, was du gerade eben kopiert hast, darunter folgen die älteren Kopien.
+</Callout>
+
+Such dir den gewünschten Eintrag aus und klicke doppelt darauf, drücke den Zeilenschalter oder ziehe ihn einfach in dein Dokument, dann landet er genau dort, wo du gerade schreibst. Ein paar praktische Varianten:
+
+- Halte beim Drücken des Zeilenschalters oder beim Doppelklick die ⇧ Umschalttaste gedrückt, um den Eintrag als reinen Text einzufügen, also ohne ursprüngliche Schriftarten und Farben.
+- Halte stattdessen die ⌥ Wahltaste gedrückt, um den Eintrag erst einmal wieder in die System-Zwischenablage zu legen, ohne ihn sofort einzufügen.
+- ⌘ plus eine Ziffer fügt den entsprechenden Eintrag direkt ein.
+- Über das Suchfeld oben findest du einen Eintrag schon mit ein paar Wörtern, an die du dich erinnerst; außerdem kannst du dir gezielt nur Bilder oder nur Favoriten anzeigen lassen.
+- Markierst du einen oft genutzten Eintrag als Favorit, wird er nie aus der Liste verdrängt.
+- Du kannst auch mehrere Einträge markieren und zusammen als einen Block einfügen. Was dazwischen eingefügt wird, legst du über das Zahnrad-Menü fest.
+
+In unserem Bewerbungsbeispiel vom Anfang kannst du also Telefonnummer, E-Mail, Link und Vorstellung in einem Rutsch kopieren, dann zurück ins Formular wechseln und mit ⌃⇧⌘V alles der Reihe nach einfügen.
+
+Du brauchst dafür nicht einmal das Fenster zu öffnen. Klicke in der Menüleiste auf das <Term k="状态菜单" text="Statusmenü" /> von Keyboard Maestro: Unter **Paste** (Einfügen) stehen die letzten 30 Texteinträge, und ein Klick auf einen Eintrag fügt ihn direkt ein ([Wiki](https://wiki.keyboardmaestro.com/Status_Menu)).
+
+## Was er nicht speichert, und wie lange er sich Dinge merkt
+
+Der Zwischenablage-Verlauf zeichnet erst einmal alles auf, deshalb solltest du ein paar Dinge von Anfang an wissen ([Wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)):
+
+- <strong>Dinge, die wie Passwörter aussehen</strong>, werden in der Liste verdeckt, automatisch gelöscht, sobald sie auf Platz 10 rutschen, und niemals auf der Festplatte gespeichert. Wenn du kurz nachsehen willst, klicke bei gedrückter ⌥ Wahltaste darauf. Gesteuert wird das in den Einstellungen im Reiter **General** (Allgemein) über die Option **Detect (and Conceal) Possible Passwords** (Mögliche Passwörter erkennen und verbergen).
+- <strong>Ob der Verlauf einen Neustart übersteht</strong>, hängt von **Save Clipboard History Between Launches** (Zwischenablage-Verlauf zwischen Starts sichern) unter **General** ab. Ist diese Option ausgeschaltet, wird der Verlauf jedes Mal geleert, wenn die Engine beendet wird, und ein Neustart deines Mac beendet die Engine ([Wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)).
+- <strong>Apps, aus denen nichts aufgezeichnet werden soll</strong>, etwa eine App mit den Daten anderer Leute, setzt du in den Einstellungen im Reiter **Excluded** (Ausgeschlossen) auf die Ausschlussliste für den Zwischenablage-Verlauf. Solange eine ausgeschlossene App im Vordergrund ist, zeichnet Keyboard Maestro die Zwischenablage nicht automatisch auf ([Wiki](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)).
+
+Die Einstellungen findest du oben in der Menüleiste unter **Keyboard Maestro ▸ Settings** (Einstellungen; auf älteren macOS-Versionen heißt es Preferences).
+
+Eine weitere Sache betrifft deine eigenen Makros. Viele Aktionen arbeiten über die System-Zwischenablage, zum Beispiel **Insert Text by Pasting** (Text durch Einfügen) und **Copy to Named Clipboard** (In benannte Zwischenablage kopieren), und <u>sie alle überschreiben das, was vorher in der System-Zwischenablage lag</u> ([Wiki](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)). Wenn du nach so einem Makro ⌘V drückst, bekommst du unter Umständen den Text, den das Makro gerade eingefügt hat. Die gute Nachricht ist, dass deine eigene Kopie trotzdem noch im Verlauf liegt, nur ein oder zwei Einträge weiter unten.
+
+## Benannte Zwischenablagen: Einen Namen geben und dauerhaft behalten
+
+Der Zwischenablage-Verlauf ist ein Strom, der ständig weiterfließt: Kommt etwas Neues dazu, rutschen die älteren Einträge nach unten. Manche Dinge sollen aber an Ort und Stelle bleiben, zum Beispiel eine E-Mail-Signatur mit dem Logo und der Telefonnummer deines Ladens, ein Bild, das du ständig einfügst, oder eine fertig formatierte Kursbeschreibung. Genau dafür gibt es benannte Zwischenablagen.
+
+Eigentlich ist eine benannte Zwischenablage gar keine klassische Zwischenablage, sondern eher eine kleine Datei für Zwischenablage-Inhalte: Was du hineinlegst, bleibt dort auch über Neustarts hinweg liegen, bis du es änderst oder löschst. Der große Unterschied zu einer <Term k="变量" text="Variable" /> ist, dass sie formatierten Text und Bilder speichern kann, während eine Variable nur reinen Text aufnimmt ([Wiki](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)).
+
+Eine anzulegen geht ganz leicht. Öffne die Einstellungen im Reiter **Clipboards** (Zwischenablagen), klicke auf die Schaltfläche +, tippe oben rechts in das einzeilige Feld einen Namen ein und füge den Inhalt in das große Feld darunter ein: Text, formatierten Text oder ein Bild.
+
+Nutzen kannst du sie auf zwei Wegen:
+
+- Der **Named Clipboard Switcher** (Auswahl für benannte Zwischenablagen) ist ein Fenster, das alle deine benannten Zwischenablagen auflistet. Keyboard Maestro legt dafür drei Makros in der **Switcher Group** an, standardmäßig mit den Tastenkürzeln ⇧⌘X, ⇧⌘C und ⇧⌘V: in eine Zwischenablage ausschneiden, hineinkopieren und daraus einfügen ([Wiki](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)). Wenn du ein Tastenkürzel drückst, fängt Keyboard Maestro die Tastenkombination ab. Falls ⇧⌘V also in einer deiner Apps eine Funktion hat, auf die du dich verlässt, gib diesem Makro einfach ein anderes Tastenkürzel.
+- In einem Makro kopiert **Copy to Named Clipboard** die aktuelle Auswahl in eine benannte Zwischenablage, und **Paste from Named Clipboard** (Aus benannter Zwischenablage einfügen) fügt sie wieder ein. Diese Aktionen laufen immer über die System-Zwischenablage, deshalb enthält danach auch die System-Zwischenablage denselben Inhalt ([Wiki](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)). In einem Textfeld setzt das Token `%NamedClipboard%name%` den Text einer benannten Zwischenablage mitten in einen Satz.
+
+<Callout type="warn">
+In deiner Liste der benannten Zwischenablagen gibt es eine namens **Default Clipboard** (Standard-Zwischenablage). Das Wiki weist ausdrücklich darauf hin, dass das eine ganz normale benannte Zwischenablage ist, und „Default“ bedeutet nur, dass sie von Haus aus dabei war. <u>Sie ist nicht die System-Zwischenablage des Mac.</u>
+</Callout>
+
+## Vor dem Einfügen noch kurz anpassen
+
+Kopierst du einen Absatz von einer Webseite und fügst ihn in eine E-Mail ein, schleppt er die Schriftarten und Farben der Webseite mit. Kopierst du eine Spalte mit Namen aus einer Tabelle, hängen oft überflüssige Leerzeichen daran, und die Reihenfolge stimmt auch nicht. All das kannst du schon vor dem Einfügen geradebiegen.
+
+Am schnellsten geht das direkt im Zwischenablage-Verlauf. Markiere einen Eintrag und klicke auf das Zahnrad-Symbol oder klicke mit der rechten Maustaste darauf: Das Menü bietet dir eine Reihe fertiger Bearbeitungen an, zum Beispiel das Umwandeln in reinen Text. Jede davon erzeugt einen neuen Eintrag, den du dann einfach einfügst ([Wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)).
+
+Wenn ein Makro das automatisch erledigen soll, nimmst du die Aktion **Filter** (Filtern). Zuerst wählst du aus, was bearbeitet werden soll: die System-Zwischenablage, eine benannte Zwischenablage, eine Variable, einen Text oder eine Datei. Dann suchst du im Menü **with** (mit) den passenden Filter aus. Zum Schluss legst du fest, ob das Ergebnis wieder an seinen Ursprungsort zurück soll oder in eine andere Zwischenablage, Variable oder Datei ([Wiki](https://wiki.keyboardmaestro.com/action/Filter)). Ein paar Filter, die du oft brauchen wirst:
+
+- **Remove Styles** (Stile entfernen) wandelt formatierten Text in reinen Text um (funktioniert nur bei Zwischenablagen).
+- **Trim Whitespace** (Leerzeichen am Rand entfernen) löscht Leerzeichen am Anfang und am Ende.
+- **Uppercase** (Großbuchstaben), **Lowercase** (Kleinbuchstaben), **Title Case** (Wortanfänge groß) und **Sentence Case** (Satzanfang groß) ändern die Groß- und Kleinschreibung.
+- **Sort Lines** (Zeilen sortieren) bringt die Zeilen in die richtige Reihenfolge.
+- Zeichen, Wörter oder Zeilen zählen.
+
+Die vollständige Liste findest du im Wiki auf der Seite [Filters](https://wiki.keyboardmaestro.com/manual/Filters). Angenommen, eine Lehrkraft kopiert eine Spalte mit Schülernamen aus einer Tabelle: Ein **Filter** entfernt die überflüssigen Leerzeichen, ein zweiter **Filter** sortiert die Zeilen, und eine Einfüge-Aktion setzt alles ins Dokument. Drei Aktionen, fertig. Wenn du einfach nur ohne Formatierung einfügen möchtest, gibt es dafür ein eigenes How-to: [Ohne Formatierung einfügen](/de/howto/paste-plain/).
+
+Auch deine eigenen Makros können in diesem Zahnrad-Menü auftauchen. Gib einem Makro den Auslöser **Clipboard Filter** (Zwischenablage-Filter), und schon erscheint es dort und kann den jeweils ausgewählten Eintrag aus der Liste verarbeiten ([Wiki](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)).
+
+## Du kennst die Wörter, aber nicht den Platz: Paste by Name
+
+Bis zum vierzigsten Eintrag im Verlauf herunterzuscrollen wird schnell lästig. Die Aktion **Paste by Name** (Nach Namen einfügen) öffnet stattdessen ein Suchfeld: Du tippst ein paar Wörter ein, sie sucht passende Texte aus dem Zwischenablage-Verlauf heraus, und du wählst den gewünschten Eintrag zum Einfügen aus ([Wiki](https://wiki.keyboardmaestro.com/action/Paste_by_Name)). Packst du das in ein Makro mit einem Tastenkürzel, hast du eine Taste für „Erst suchen, dann einfügen“.
+
+Damit holst du jetzt alles wieder zurück, was du kopiert hast, und deine Dauerbrenner haben einen festen Platz. Wenn du aber genug Makros baust, wird irgendwann eines davon streiken. Deshalb geht es im nächsten Schritt darum, was du in welcher Reihenfolge prüfst, wenn ein Makro nicht funktioniert.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich drücke ⌃⇧⌘V, aber es erscheint nichts.">
+<p>Prüfe zuerst, ob das Symbol von Keyboard Maestro oben in der Menüleiste zu sehen ist; wenn nicht, läuft die Engine nicht. Öffne dann den Editor und schau nach, ob sowohl die Switcher Group als auch das Makro Clipboard History Switcher darin aktiviert sind. Immer noch nichts? Geh <a href="/de/guide/6-debug/">Schritt 6</a> der Reihe nach durch.</p>
+</Q>
+<Q q="Nach einem Neustart ist mein Zwischenablage-Verlauf leer.">
+<p>In den Einstellungen unter General ist Save Clipboard History Between Launches ausgeschaltet. Schalte die Option ein, dann bleibt der Verlauf erhalten, wenn die Engine beendet und neu gestartet wird.</p>
+</Q>
+<Q q="Was ich in einer bestimmten App kopiere, taucht nie im Verlauf auf.">
+<p>Schau in den Einstellungen unter Excluded nach: Vielleicht steht diese App auf der Ausschlussliste für den Zwischenablage-Verlauf. Solange eine ausgeschlossene App im Vordergrund ist, zeichnet Keyboard Maestro die Zwischenablage nicht automatisch auf.</p>
+</Q>
+<Q q="Etwas, das ich gerade kopiert habe, wird verdeckt und ist später verschwunden.">
+<p>Es sah aus wie ein Passwort, deshalb hat Keyboard Maestro es verdeckt, auf Platz 10 automatisch gelöscht und nie auf der Festplatte gespeichert. Klicke bei gedrückter ⌥ Wahltaste darauf, um es anzusehen.</p>
+</Q>
+<Q q="Mein Makro fügt zwei Texte nacheinander ein, aber der zweite erscheint zweimal.">
+<p>Im Wiki wird erklärt, dass das Befüllen der Zwischenablage sofort passiert, ⌘V sich aber bei der App hinten anstellen muss. Ist die App langsam, laufen beide Änderungen an der Zwischenablage schon vor dem ersten Einfügen durch, sodass du zweimal den zweiten Text bekommst. Packe beide Teile zusammen in eine einzige Aktion Insert Text by Pasting, oder setze die Aktion Pause (Pausieren) zwischen die beiden Aktionen (<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">Wiki</a>).</p>
+</Q>
+<Q q="Ich habe etwas in Default Clipboard gelegt, aber mit ⌘V wird es nicht eingefügt.">
+<p>Default Clipboard ist eine ganz normale benannte Zwischenablage, nicht die System-Zwischenablage. Füge daraus über den Named Clipboard Switcher oder mit der Aktion Paste from Named Clipboard ein.</p>
+</Q>
+
+<Checkpoint id="s5" items={["⌃⇧⌘V öffnet meinen Zwischenablage-Verlauf, und ⇧ Umschalttaste + Zeilenschalter fügt reinen Text ein", "Ich weiß, dass Save Clipboard History Between Launches entscheidet, ob der Verlauf einen Neustart übersteht", "Ich habe eine benannte Zwischenablage angelegt und etwas hineingelegt, das ich oft brauche", "Ich weiß, dass die Aktion Filter vor dem Einfügen Formatierungen und Leerzeichen entfernen kann"]} />

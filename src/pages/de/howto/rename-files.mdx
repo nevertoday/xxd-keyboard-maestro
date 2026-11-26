@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: rename-files
+step: 4
+time: Zwanzig Minuten, zuerst an Kopien ausprobieren
+for: Ein Stapel Dateien mit nichtssagenden Namen, die du einzeln umbenennen musst
+tldr: Markiere im Finder einen Stapel Dateien, drücke ⌃⌥⌘R, gib ein Präfix ein, und es landet vor jedem Dateinamen, zum Beispiel „Papa Kontrolle November Scan 1.pdf“.
+description: Mit der Aktion For Each arbeitest du die im Finder ausgewählten Dateien nacheinander ab. Prompt for User Input fragt das Präfix ab, Split Path holt den ursprünglichen Dateinamen heraus, und die Option Rename in File Actions vergibt den neuen Namen. Zuerst an Kopien ausprobieren, plus Tipps zu doppelten Namen und Ordnern in der Auswahl.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Wenn du dich um die Arztunterlagen deiner Eltern kümmerst, scannst du jeden Befund, jedes Rezept und jeden Entlassungsbrief ein, und der Scanner nennt sie Scan 1.pdf, Scan 2.pdf, Scan 3.pdf … Nach ein paar Klinikbesuchen sind es Dutzende, und ein halbes Jahr später musst du für das letzte Blutbild eine Datei nach der anderen öffnen. Wenn du alle von Hand umbenennst, tut dir schon nach der zehnten die Hand weh. Mit einem Makro markierst du den ganzen Stapel im Finder und drückst ⌃⌥⌘R (Control-Taste, Wahltaste und Befehlstaste gedrückt halten, dann R drücken). Es fragt dich, was davor stehen soll, du tippst „Papa Kontrolle November“ ein, und der ganze Stapel bekommt Namen wie „Papa Kontrolle November Scan 1.pdf“.
+
+<mark>Einen Stapel Dateien umzubenennen bedeutet eigentlich nur, mit jeder ausgewählten Datei genau dasselbe zu tun.</mark>
+
+<u>Probiere es zuerst an Kopien aus.</u> Beim Umbenennen veränderst du die echten Dateien auf deiner Festplatte, und wenn ein Fehler im Makro steckt, trifft er sofort den ganzen Stapel. Dupliziere den Ordner im Finder, probiere das Makro an der Kopie aus, bis du zufrieden bist, und nutze es erst dann für die echten Dateien.
+
+## For Each: dasselbe für jedes Element tun
+
+„Dasselbe für jedes Element tun“ heißt in Keyboard Maestro **For Each** (Für jedes Element). Du gibst der Aktion eine Liste von Dingen, sie nimmt sie einzeln heraus, legt jedes in eine <Term k="变量" text="Variable" /> und führt die darin liegenden Aktionen aus (siehe [For Each](https://wiki.keyboardmaestro.com/action/For_Each)).
+
+Woher kommt diese Liste? Wähle bei For Each **The Finder’s selection** (Die Finder-Auswahl), also alles, was du im Finder markiert hast. Auf der offiziellen Seite steht, dass die Variable jeweils den vollständigen Pfad der Datei bekommt, also die lange Zeichenkette von der obersten Ebene der Festplatte bis zum Dateinamen (siehe [Working with the Finder Selection](https://wiki.keyboardmaestro.com/collection/Finders_Selection)). Ausgewählte Dateien einheitlich umzubenennen gehört zu den Beispielen, die dort genannt werden.
+
+Sobald du den Pfad hast, fehlen noch zwei Schritte: den ursprünglichen Dateinamen herausholen und die Datei dann mit dem neuen Namen umbenennen.
+
+## Das Makro bauen
+
+Erstelle ein neues Makro namens „Präfix vor Dateinamen setzen“. Wenn es nur im Finder funktionieren soll, lege es in eine Makrogruppe, die bei **Available in these applications:** (Verfügbar in diesen Apps) auf Finder gestellt ist. Gib ihm den Auslöser **Hot Key** (Tastenkürzel) und stelle ihn auf ⌃⌥⌘R ein. Füge dann die Aktionen hinzu:
+
+**Erstens: das Präfix abfragen.** Füge **Prompt for User Input** (Benutzereingabe abfragen) mit dem Titel „Präfix vor Dateinamen setzen“ hinzu und ergänze eine Variable namens `Prefix` mit einem Standardwert, den du oft brauchst, zum Beispiel „Papa Kontrolle November“. Wenn das Makro an diesen Schritt kommt, öffnet sich ein kleines Fenster. Ändere das Präfix bei Bedarf und klicke auf **OK**. Klickst du auf **Cancel** (Abbrechen), stoppt das gesamte Makro, ohne auch nur eine einzige Datei anzufassen (siehe [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+**Zweitens: die Dateien einzeln durchgehen.** Füge **For Each** hinzu, trage als Variable `FilePath` ein und klicke neben der Sammlung auf +, um **The Finder’s selection** auszuwählen. Die nächsten beiden Aktionen gehören beide in das For Each hinein.
+
+**Drittens: den ursprünglichen Namen herausholen.** Füge innerhalb von For Each **Split Path** (Pfad aufteilen) hinzu und verwende als Pfad zum Aufteilen:
+
+<Copy id="rf-path" title="Pfad zum Aufteilen" code="%Variable%FilePath%" />
+
+Die Aktion teilt einen Pfad in seine Bestandteile auf: den Ordner, in dem die Datei liegt, den Dateinamen, den Namen ohne Dateiendung und die Dateiendung, und jeder Teil kann in eine eigene Variable geschrieben werden (siehe [Split Path](https://wiki.keyboardmaestro.com/action/Split_Path)). Hier brauchst du nur **File Name** (Dateiname). Speichere ihn in einer Variable namens `FileName`. Darin steht dann so etwas wie `Scan 1.pdf`, inklusive Dateiendung.
+
+**Viertens: umbenennen.** Füge als Nächstes **File Actions** (Dateiaktionen) hinzu und wähle **Rename** (Umbenennen). Für die Datei trägst du `%Variable%FilePath%` ein und für den neuen Namen:
+
+<Copy id="rf-new" title="Der neue Name" code="%Variable%Prefix% %Variable%FileName%" />
+
+`%Variable%Prefix%` ist ein <Term k="令牌" text="Token" /> (ein Platzhalter): Wenn das Makro läuft, wird es durch den Inhalt dieser Variable ersetzt. Auf der offiziellen Seite steht, dass der neue Name bei **Rename** wirklich nur ein Dateiname ohne Schrägstrich sein darf, sodass die Datei in ihrem Ordner bleibt und sich nur ihr Name ändert (siehe [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions)).
+
+## Prüfen, ob es klappt
+
+Markiere im kopierten Ordner drei Dateien und drücke ⌃⌥⌘R. Du solltest das kleine Fenster sehen, das dich nach einem Präfix fragt. Fülle es aus und klicke auf **OK**, und im Finder beginnen diese drei Dateien jetzt mit dem, was du eingetippt hast, während ihre ursprünglichen Namen und Dateiendungen erhalten bleiben. Dateien, die du nicht markiert hast, behalten ihre Namen.
+
+Das Feld für den neuen Namen akzeptiert auch andere Tokens. Wenn das heutige Datum ganz vorne stehen soll, schreibe `%ICUDateTime%yyyy-MM-dd% %Variable%Prefix% %Variable%FileName%`. Wie du das Datumsformat änderst, steht in [Das heutige Datum mit einer Taste einfügen](/de/howto/insert-date/).
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe ⌃⌥⌘R gedrückt und das Fenster erschien, aber kein einziger Name hat sich geändert.">
+For Each verarbeitet genau das, was im Finder in diesem Moment ausgewählt ist. Prüfe zuerst, ob im Finder tatsächlich Dateien markiert sind. Wenn deine Makrogruppe so eingestellt ist, dass sie nur im Finder funktioniert, muss der Finder beim Drücken des Tastenkürzels außerdem im Vordergrund sein. Schau danach nach, ob Schritt drei und vier wirklich innerhalb von For Each liegen und nicht einfach dahinter eingereiht sind.
+</Q>
+<Q q="Es hat mittendrin aufgehört. Einige Dateien wurden umbenannt, andere nicht.">
+Höchstwahrscheinlich sind zwei Namen kollidiert. Auf der offiziellen Seite steht, dass dieser Schritt fehlschlägt, wenn es in demselben Ordner bereits eine Datei mit dem neuen Namen gibt, und das Makro bleibt an dieser Stelle stehen. Schau nach, bei welcher Datei es gestoppt hat, kläre den doppelten Namen, markiere dann die übrigen Dateien und starte das Makro noch einmal.
+</Q>
+<Q q="Ein Ordner in meiner Auswahl wurde ebenfalls umbenannt.">
+**The Finder’s selection** gibt alles weiter, was ausgewählt ist, und **Rename** funktioniert bei Ordnern genauso wie bei Dateien. Markiere deshalb nur die Dateien, die du wirklich umbenennen willst.
+</Q>
+<Q q="Die Dateien sind in einem anderen Ordner gelandet.">
+Wahrscheinlich hast du **Move or Rename** (Verschieben oder Umbenennen) gewählt und im neuen Namen stand ein Schrägstrich, sodass die Dateien dorthin verschoben wurden. Verwende stattdessen **Rename** und trage nur einen Dateinamen ein.
+</Q>
+
+Sobald du For Each kennst, funktioniert jede Aufgabe nach dem Prinzip „mache das mit jedem Element“ genauso: einen Stapel Dateien mit Tags versehen oder alle an einen gemeinsamen Ort verschieben, wobei du nur die Aktionen darin austauschst. Wenn Dateien sofort verarbeitet werden sollen, sobald sie in einem Ordner landen, mach weiter mit [Dateien sofort einsortieren, sobald sie in einem Ordner landen](/de/howto/watch-folder/).

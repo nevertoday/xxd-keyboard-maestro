@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: app-hotkeys
+step: 2
+time: Zwei Minuten pro App
+for: Du wechselst jeden Tag dutzendfach zwischen denselben paar Apps hin und her und musst sie jedes Mal erst suchen
+tldr: ⌃⌥⌘M ist immer Mail und ⌃⌥⌘C ist immer Kalender. Ist die App offen, wechselst du zu ihr; sonst wird sie geöffnet. Drückst du noch einmal, während sie im Vordergrund ist, landest du wieder dort, wo du eben warst.
+description: "Mit dem Auslöser Hot Key und Activate a Specific Application gibst du jeder App, die du oft nutzt, ein eigenes festes Tastenkürzel. Stellst du If already at the front so ein, dass zur vorherigen App zurückgewechselt wird, bringt dich dasselbe Tastenkürzel hin und zurück. Wenn dir die Tastenkürzel ausgehen, nutze eine Makrogruppe, die nur für eine Aktion aktiv ist: Erst eine Tastenkombination drücken, dann einen Buchstaben."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Im Büroalltag springst du vielleicht Dutzende Male am Tag zwischen Mail, Kalender und Notizen hin und her. Mit ⌘Tab schießt du oft übers Ziel hinaus und drehst noch eine Runde, und wenn du das Symbol im Dock suchst, wandert dein Blick von der Arbeit weg. Es geht auch anders: Lege fest, dass ⌃⌥⌘M immer Mail ist, ⌃⌥⌘C immer Kalender und ⌃⌥⌘N immer Notizen (⌃ ist die Control-Taste, ⌥ die Wahltaste, ⌘ die Befehlstaste). Ist die App schon offen, wechselst du direkt zu ihr. Wenn nicht, öffnet sie sich zuerst. Und ist sie bereits im Vordergrund, bringt dich ein erneuter Druck zurück zu der App, die du eben genutzt hast.
+
+<mark>Gib jeder App ein festes Tastenkürzel: Sobald deine Finger es kennen, müssen deine Augen nicht mehr suchen.</mark>
+
+## Ein Tastenkürzel, eine App
+
+Du möchtest ein Makro, bei dem ein <Term k="热键" text="Tastenkürzel" /> eine bestimmte App in den Vordergrund holt. Die passende Aktion heißt **Activate a Specific Application** (Bestimmte App nach vorn holen). Laut der offiziellen Seite wechselt sie zu dieser App und startet sie bei Bedarf zuerst, genauso, als würdest du mit ⌘Tab wechseln oder sie auf anderem Weg öffnen (siehe [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+In dieser Aktion gibt es die Einstellung **If already at the front:** (Wenn bereits im Vordergrund). Sie legt fest, was passiert, wenn du das Tastenkürzel drückst, obwohl die App schon ganz vorn ist. Du kannst sie einfach dort lassen, zur vorherigen App zurückwechseln, sie ausblenden und noch einiges mehr. Wählst du dort die Option aus, zur vorherigen App zurückzuwechseln, funktioniert das Tastenkürzel wie ein Umschalter: einmal drücken, und du bist dort; noch einmal drücken, und du bist wieder zurück.
+
+In [Einsteiger-Lektion 1](/de/start/1-first-macro/) hast du schon so ein Makro gebaut, das mit ⌃⌥⌘N Notizen öffnet. Auf dieser Seite machen wir daraus ein komplettes Set.
+
+## Das Set anlegen
+
+Lege zuerst eine Makrogruppe namens „Apps wechseln“ an. Makrogruppen sind standardmäßig in allen Apps verfügbar, solange du nichts daran änderst; lass diese Einstellung also einfach so. Erstelle darin dann für jede App ein eigenes Makro. Alle drei sind gleich aufgebaut, nur Tastenkürzel und App unterscheiden sich:
+
+- „Mail“: Auslöser **Hot Key** (Tastenkürzel) mit ⌃⌥⌘M und die Aktion **Activate a Specific Application**, eingestellt auf Mail.
+- „Kalender“: ⌃⌥⌘C, eingestellt auf Kalender.
+- „Notizen“: ⌃⌥⌘N, eingestellt auf Notizen.
+
+Stelle bei allen dreien **If already at the front:** so ein, dass zur vorherigen App zurückgewechselt wird. Das Makro für Notizen musst du nicht neu bauen: Zieh einfach das Makro aus Lektion 1 aus der **Global Macro Group** (Globale Makrogruppe) in diese Gruppe und ändere diese eine Einstellung. Legst du stattdessen ein zweites Makro auf ⌃⌥⌘N an, streiten sich beide um dasselbe Tastenkürzel: Keyboard Maestro blendet eine kleine schwebende Palette ein und fragt dich, welches davon laufen soll (offiziell heißt sie **Conflict Palette**).
+
+Bei der Wahl der Tasten lautet der offizielle Rat, konsequent zu bleiben und zum Beispiel eine feste Gruppe von Sondertasten für „eine App öffnen“ zu reservieren, damit du dir nicht jede Kombination einzeln merken musst (siehe [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)). Hier ist es immer ⌃⌥⌘ plus der erste Buchstabe des englischen App-Namens: M für Mail, C für Kalender (Calendar), N für Notizen (Notes). Für dein eigenes Set wählst du einfach Buchstaben, die du der jeweiligen App ohne Nachdenken zuordnen kannst.
+
+## Keine Tasten mehr frei? Erst eine Kombination, dann ein Buchstabe
+
+Wenn viele Apps zusammenkommen, wird es irgendwann selbst bei ⌃⌥⌘ plus Buchstabe eng. Im offiziellen Handbuch steht ein Ausweg: Pack diese Makros in eine Makrogruppe, die immer nur für eine einzige Aktion aktiv ist. Stelle die Gruppe auf **Activated for one action when:** (Für eine Aktion aktiv, wenn) ein und gib ihr ein Tastenkürzel, etwa ⌃⌥⌘A. Die Makros darin bekommen dann einzelne Buchstaben als Tastenkürzel: M für Mail, S für Safari, F für Finder. Die übrige Zeit tippst du mit diesen Buchstaben ganz normal weiter. Erst wenn du ⌃⌥⌘A drückst, wacht die Gruppe auf, und sobald du einen Buchstaben drückst und das zugehörige Makro gelaufen ist, schläft sie sofort wieder ein (siehe [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Eine solche Gruppe reicht für ein Dutzend Apps und belegt auf deiner ganzen Tastatur nur eine einzige Tastenkombination.
+
+## Prüfen, ob es klappt
+
+Beende Mail und drücke dann aus einer beliebigen App heraus ⌃⌥⌘M. Mail sollte sich öffnen und in den Vordergrund kommen. Drücke noch einmal ⌃⌥⌘M, während du in Mail bist, und du solltest wieder in der App landen, die du vorher genutzt hast. Probiere Kalender und Notizen auf die gleiche Weise aus.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Tastenkürzel gedrückt, aber es passiert nichts.">
+Wenn beim Makro oder bei der Gruppe „Apps wechseln“ das Häkchen nicht gesetzt ist oder die Engine nicht läuft, reagiert das Tastenkürzel nicht. Schau dort zuerst nach. Überlege danach, ob vielleicht eine andere App dieselbe Tastenkombination nutzt. Laut der offiziellen Seite werden dein Makro und die Funktion der anderen App beide ausgeführt, wenn eine andere App dasselbe Tastenkürzel registriert hat. Probiere es mit einem anderen Buchstaben. Wenn das Makro immer noch nicht ausgelöst wird, wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und folge der Anleitung Schritt für Schritt bis zur Ursache.
+</Q>
+<Q q="Seit ich das Tastenkürzel eingerichtet habe, funktioniert ein Kurzbefehl in einer meiner Apps nicht mehr.">
+So verhalten sich Tastenkürzel nun einmal. Laut der offiziellen Seite fängt das System den Tastendruck ab und reicht ihn an dein Makro weiter, sodass ein Kurzbefehl im Menü einer App mit denselben Tasten ihn gar nicht erst bekommt. Falls eine deiner Apps zufällig ⌃⌥⌘ plus denselben Buchstaben verwendet, gewinnt dein Makro. Suche dir einen Buchstaben aus, den diese App nicht nutzt.
+</Q>
+<Q q="Ich habe danach noch weitere Aktionen angehängt, aber die App öffnet sich zu langsam dafür.">
+Die offizielle Seite weist darauf hin, dass du bei vielen offenen Apps und knappem Arbeitsspeicher nach **Activate a Specific Application** manchmal mehrere Sekunden warten musst, bis die nächsten Aktionen funktionieren. Füge dazwischen die Aktion **Pause** (Pausieren) ein oder nutze **Pause Until** (Warten, bis …), damit das Makro wartet, bis das Fenster der App erscheint. Siehe dazu den [Abschnitt „Timing Between Actions“ unter Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions).
+</Q>
+
+Nach ein paar Tagen finden deine Finger die App schneller als deine Augen. Wenn du mit einem Tastenkürzel gleich mehrere Apps öffnen und ihre Fenster an ihren Platz bringen willst, mach weiter mit [Deine Fenster dorthin schieben, wo du sie haben willst](/de/howto/window-layout/).

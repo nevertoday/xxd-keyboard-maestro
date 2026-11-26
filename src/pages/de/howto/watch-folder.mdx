@@ -1,0 +1,68 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: watch-folder
+step: 2
+time: Fünfzehn Minuten
+for: Im Ordner „Downloads“ stapelt sich alles, und jedes Mal musst du dich durchwühlen, wenn du etwas brauchst
+tldr: Jedes PDF verschiebt sich direkt nach dem Herunterladen von selbst in einen Ordner „PDF-Eingang“ unter „Dokumente“. Alles andere bleibt liegen, ohne dass du einen Finger rührst.
+description: Überwache deinen Ordner „Downloads“ mit einem Ordner-Auslöser. Sobald eine neue Datei ankommt, wartet das Makro, bis sie fertig geladen ist, prüft mit If Then Else, ob der Name auf .pdf endet, und verschiebt sie dann mit der Option Move von File Actions. Es sieht nur Dateien direkt im Ordner, wartet absichtlich ein paar Sekunden, und hier steht, was passiert, wenn Dateinamen doppelt vorkommen.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Fig from "../../../components/Fig.astro";
+
+Der Ordner „Downloads“ von Selbstständigen ist oft wie ein Eingangsbereich, den niemand aufräumt: Verträge und Rechnungs-PDFs von Kunden, Bilder aus dem Web, Installationsdateien, alles auf einem Haufen. Am Monatsende, wenn du deine Buchhaltung machst, suchst du die PDFs dieses Monats einzeln heraus. Das Makro auf dieser Seite passt für dich auf diesen Eingang auf. Jedes PDF verschiebt sich sofort nach dem Herunterladen von selbst in einen Ordner namens „PDF-Eingang“ unter „Dokumente“. Alles andere bleibt dort liegen, bis du Zeit hast, es auszusortieren.
+
+<mark>Ein Ordner-Auslöser hält an der Tür Wache: Jedes Mal, wenn eine Datei ankommt, läuft das Makro einmal durch und hat den Pfad dieser Datei direkt in der Hand.</mark>
+
+## Was ein Ordner-Auslöser macht
+
+Auf den vorherigen Seiten liefen die Makros erst los, wenn du eine Taste gedrückt oder ein paar Zeichen getippt hast. Dieses hier läuft ganz ohne dich. Sein <Term k="触发器" text="Auslöser" /> ist **Folder** (Ordner): Du suchst einen Ordner aus, und das Makro läuft jedes Mal, wenn dort etwas hinzukommt, entfernt wird oder eines von beidem passiert (siehe [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). Wenn das Makro läuft, enthält das <Term k="令牌" text="Token" /> `%TriggerValue%` (ein Platzhalter) den vollständigen Pfad der Datei, die gerade angekommen ist, und die Aktionen danach nutzen ihn, um zu entscheiden, was passieren soll und wohin die Datei verschoben wird.
+
+Eine Option ist besonders wichtig: **ignore partial or changing files** (unvollständige oder sich noch ändernde Dateien ignorieren). Downloads brauchen ihre Zeit, und wenn eine Datei zum ersten Mal auftaucht, ist sie noch nicht fertig. Ist das Häkchen gesetzt, wartet der Auslöser, bis sich die Datei nicht mehr verändert, bevor er das Makro auslöst, und er ignoriert die temporären Dateien, deren Endung zeigt, dass der Download noch läuft.
+
+<Fig id="watch-folder-flow" />
+
+## Das Makro bauen
+
+Bereite zuerst im Finder das Ziel vor: Lege in deinem Ordner „Dokumente“ einen neuen Ordner namens „PDF-Eingang“ an. Laut offizieller Dokumentation braucht **Move** (Verschieben) einen Zielordner, der schon existiert. Überspringe diesen Schritt also nicht.
+
+Erstelle dann ein neues Makro namens „PDFs automatisch ablegen“ in einer Makrogruppe, die immer aktiv ist.
+
+**Der Auslöser.** Füge den Auslöser **Folder** hinzu, wähle deinen Ordner „Downloads“ aus, stelle ihn auf **adds an item** (fügt ein Element hinzu) ein und setze das Häkchen bei **ignore partial or changing files**.
+
+**Ist es ein PDF?** Füge die Aktion **If Then Else** (Wenn-Dann-Sonst) hinzu und wähle die Bedingung **Text**. Als zu prüfenden Text trägst du `%TriggerValue%` ein. Für den Vergleich wählst du **ends with** (endet auf) und tippst `.pdf` ein. Laut offizieller Dokumentation unterscheidet dieser Vergleich nicht zwischen Groß- und Kleinschreibung, sodass Namen auf `.PDF` ebenfalls zählen (siehe [Text condition](https://wiki.keyboardmaestro.com/condition/Text)).
+
+**Verschieben.** Füge im „Dann“-Bereich von If Then Else die Aktion **File Actions** (Dateiaktionen) hinzu, wähle **Move**, gib bei der Datei `%TriggerValue%` an und als Ziel:
+
+<Copy id="wf-dest" title="Ziel" code="~/Documents/PDF-Eingang" />
+
+`~` steht für deinen Benutzerordner, und der Ordner „Dokumente“ heißt im Pfad Documents. Lass den „Sonst“-Bereich leer, damit Dateien, die keine PDFs sind, einfach in Ruhe gelassen werden.
+
+Wenn du auch Bilder heraussortieren willst, füge ein weiteres **If Then Else** hinzu, stelle es auf **any of the following are true:** (mindestens eine der folgenden Bedingungen trifft zu) ein, packe drei Bedingungen vom Typ **Text** für Namen auf `.png`, `.jpg` und `.jpeg` hinein und verschiebe sie in einen Ordner, den du unter „Bilder“ angelegt hast.
+
+## Prüfen, ob es klappt
+
+Speichere in Safari ein PDF im Ordner „Downloads“ oder lege dort einen E-Mail-Anhang ab. Sobald der Download fertig ist, warte ein paar Sekunden. Du solltest sehen, wie die Datei aus „Downloads“ verschwindet und in „PDF-Eingang“ auftaucht. Speichere zum Vergleich auch ein Bild dort ab. Das Bild sollte in „Downloads“ liegen bleiben.
+
+Denk daran, dass sich das Makro nur um Dateien kümmert, die ab jetzt neu ankommen. PDFs, die schon vor dem Erstellen des Makros in „Downloads“ lagen, rührt der Auslöser nicht an. Verschiebe sie einmal von Hand, oder nutze den Ansatz mit For Each aus [Mehrere Dateien auf einmal umbenennen](/de/howto/rename-files/), um sie alle zusammen zu erledigen.
+
+## Wenn etwas nicht klappt
+
+<Q q="Der Download ist fertig, aber die Datei wurde nicht verschoben.">
+Prüfe zuerst, ob beim Makro und seiner Makrogruppe das Häkchen gesetzt ist, die Engine läuft und der Auslöser wirklich auf „Downloads“ zeigt. Schau dann nach, ob die Datei in einem Unterordner von „Downloads“ gelandet ist, zum Beispiel nach dem Entpacken. Laut offizieller Dokumentation bemerkt der Auslöser nur Elemente direkt in diesem Ordner, nicht aber Änderungen in Unterordnern.
+</Q>
+<Q q="Es dauert mehrere Sekunden, bis die Datei verschoben wird.">
+Das ist normal. Laut offizieller Dokumentation bringt das Warten darauf, dass sich eine Datei nicht mehr verändert, eine notwendige Verzögerung mit sich, weil Keyboard Maestro nicht im Voraus wissen kann, wann die Datei fertig ist. Genau diese paar Sekunden verhindern, dass halb heruntergeladene Dateien verschoben werden.
+</Q>
+<Q q="Das Makro meldet einen Fehler, und die Datei liegt noch in „Downloads“.">
+Höchstwahrscheinlich gibt es in „PDF-Eingang“ schon eine Datei mit demselben Namen. Laut offizieller Dokumentation schlägt das Verschieben fehl, wenn am Ziel bereits eine gleichnamige Datei liegt. Benenne die alte Datei um oder verschiebe sie woandershin und schiebe die neue dann von Hand hinein.
+</Q>
+<Q q="Nachdem die Datei verschoben wurde, lief das Makro offenbar noch einmal.">
+Schau nach, ob der Auslöser so eingestellt ist, dass er beim Hinzufügen oder Entfernen von Elementen auslöst. Wenn eine Datei herausgeschoben wird, zählt das für „Downloads“ als entferntes Element, also löst er noch einmal aus. Wähle nur **adds an item**.
+</Q>
+
+<u>Bau in so ein Makro kein Löschen ein.</u> Es läuft für jede neue Datei im Hintergrund, während du nicht hinschaust. Eine falsch verschobene Datei kannst du wieder zurückholen; eine gelöschte ist weg. Die offizielle Dokumentation warnt außerdem ausdrücklich davor, dass die Löschoptionen in **File Actions** ohne Rückfrage arbeiten und den Papierkorb umgehen. Sei also besonders vorsichtig damit.
+
+Wenn jemand an der Tür Wache hält, wächst der Stapel in „Downloads“ nicht mehr an. Für Makros, die zu anderen Anlässen von selbst starten, etwa jeden Tag zu einer bestimmten Uhrzeit oder beim Verbinden mit einem bestimmten WLAN, schau dir [Jeden Tag zur gleichen Zeit etwas ausführen](/de/howto/daily-schedule/) und [Schritt 2 der ausführlichen Anleitung](/de/guide/2-triggers/) an.

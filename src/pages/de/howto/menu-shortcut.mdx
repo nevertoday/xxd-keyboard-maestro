@@ -1,0 +1,56 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: menu-shortcut
+step: 1
+time: Zehn Minuten
+for: Du nutzt einen Menübefehl jeden Tag, er hat kein Tastenkürzel, und jedes Mal greifst du zur Maus
+tldr: Drücke in Safari ⌃⌥⌘E, und das Speicherfenster für „Als PDF exportieren“ öffnet sich sofort. Das Tastenkürzel funktioniert nur in Safari, sodass keine andere App beeinflusst wird.
+description: Nutze die Aktion Select or Show a Menu Item, die den Menüpunkt für dich auswählt, und wähle ihn über das Ausklappmenü Menu der Aktion aus, damit der Name nie falsch geschrieben wird. Stelle die Makrogruppe so ein, dass sie nur in dieser App aktiv ist, dann kommt das Tastenkürzel keiner anderen App in die Quere.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Eltern von Schulkindern müssen oft Mitteilungen von der Schulwebsite aufheben: was für den Frühlingsausflug mitzubringen ist, den Stundenplan fürs nächste Halbjahr, die Materialliste. Nach ein paar Wochen ändert sich die Seite wieder, deshalb bist du auf der sicheren Seite, wenn du sie als PDF speicherst. In Safari heißt das, das Menü „Ablage“ zu öffnen und bis zu „Als PDF exportieren“ zu gehen, aber dieser Punkt hat kein Tastenkürzel, also greifst du jedes Mal zur Maus. Am Ende dieser Seite drückst du in Safari ⌃⌥⌘E (⌃ ist die Control-Taste, ⌥ ist die Wahltaste, ⌘ ist die Befehlstaste), das Speicherfenster öffnet sich sofort, und du gibst der Datei nur noch einen Namen. Das Tastenkürzel wirkt nur in Safari. In jeder anderen App ändert sich nichts.
+
+<mark>Jeder Menübefehl, den du anklicken kannst, kann auch ein Tastenkürzel bekommen: Das Makro klickt das Menü für dich an.</mark>
+
+## Zuerst eine Makrogruppe nur für Safari
+
+Dieses Tastenkürzel ergibt nur in Safari Sinn, beginne also mit einer <Term k="宏组" text="Makrogruppe" />, die nur in Safari aktiv ist. Klicke links im Editor ganz unten in der Liste der Makrogruppen auf das +, erstelle eine neue Gruppe namens „Safari“, wähle in ihren Einstellungen **Available in these applications:** (Verfügbar in diesen Apps) aus und füge Safari hinzu. Im offiziellen Handbuch steht, dass die Makros in einer so eingerichteten Gruppe nur in diesen Apps aktiv sind (siehe [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Das hat noch einen Vorteil: ⌃⌥⌘E bleibt in jeder anderen App frei, sodass du später auch Vorschau oder TextEdit dieselbe Tastenkombination geben kannst, ohne dass sich etwas in die Quere kommt.
+
+## Das Makro erstellen
+
+Lege in der Gruppe „Safari“ ein neues Makro namens „Als PDF exportieren“ an. Wähle als Auslöser **Hot Key** (Tastenkürzel) und drücke ⌃⌥⌘E. Als Aktion wählst du **Select or Show a Menu Item** (Menüpunkt auswählen oder zeigen), die für dich einen Eintrag aus der Menüleiste auswählt (siehe [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)).
+
+Tippe die Menünamen lieber nicht selbst ein. Wähle sie stattdessen über das Ausklappmenü **Menu** (Menü) in der Aktion aus. Die offizielle Seite erklärt, dass es dieses Ausklappmenü genau dafür gibt, damit du das Menü sicher richtig triffst: Es listet jede laufende App mit ihren Menüs auf, sodass deine Auswahl exakt mit dem Menü übereinstimmt. Öffne zuerst Safari, suche Safari dann im Ausklappmenü, wähle „Ablage“ und danach „Als PDF exportieren“. Ist dein Mac auf eine andere Sprache eingestellt, stehen die Menünamen in dieser Sprache dort, und die Auswahl über das Ausklappmenü erledigt das von selbst.
+
+Die Aktion fragt außerdem, in welcher App sich das Menü befindet. Hier reicht **the Front Application** (die vorderste App), weil die Makrogruppe ohnehin schon dafür sorgt, dass dieses Tastenkürzel nur funktioniert, solange Safari im Vordergrund ist.
+
+## Was diese Aktion noch kann
+
+- Manche Menüpunkte ändern ihren Namen, zum Beispiel wird aus „Seitenleiste einblenden“ nach dem Klick „Seitenleiste ausblenden“. Laut der offiziellen Seite kannst du beide Namen mit einem senkrechten Strich verbinden, `Seitenleiste einblenden|Seitenleiste ausblenden`. Die Aktion wählt dann einfach denjenigen aus, der gerade da ist, sodass ein einziges Tastenkürzel zum Umschalter wird.
+- Bei Menünamen macht die Aktion keinen Unterschied zwischen drei Punkten und einem Auslassungszeichen (…), es funktioniert also beides.
+- Das Apple-Menü ganz oben links auf dem Bildschirm schreibst du in der Aktion als Apple.
+
+## Prüfen, ob es klappt
+
+Öffne in Safari eine beliebige Seite und drücke ⌃⌥⌘E. Jetzt sollte sich das Speicherfenster für „Als PDF exportieren“ öffnen, genau so, als hättest du den Menüpunkt angeklickt. Wechsle dann zu Notizen und drücke ⌃⌥⌘E. Es sollte nichts passieren, was zeigt, dass die Gruppe nur in Safari aktiv ist.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Tastenkürzel gedrückt, aber es öffnet sich kein Speicherfenster.">
+Dafür gibt es meistens zwei Ursachen. Die erste ist ein Menüname, der nicht genau stimmt. Schon ein einziges Leerzeichen daneben reicht, damit die Aktion ihn nicht findet, gehe also noch einmal ins Ausklappmenü **Menu** und wähle ihn neu aus. Die zweite Ursache ist, dass der Menüpunkt gerade ausgegraut ist, zum Beispiel weil in Safari gar keine Seite geöffnet ist. Laut der offiziellen Seite hält diese Aktion standardmäßig das gesamte Makro an, wenn sie das Menü nicht findet oder der Menüpunkt deaktiviert ist. Bei weniger wichtigen Menüs kannst du die Aktion so einstellen, dass das Makro trotzdem weiterläuft.
+</Q>
+<Q q="Ich drücke das Tastenkürzel in Safari und es passiert nichts, als wäre das Makro gar nicht ausgelöst worden.">
+Prüfe, ob Safari wirklich im Vordergrund ist, bei der Gruppe und beim Makro jeweils das Häkchen gesetzt ist und die Engine läuft. Kontrolliere dann, ob in der Gruppe „Safari“ unter **Available in these applications:** tatsächlich Safari eingetragen ist. Wenn das Makro immer noch nicht ausgelöst wird, sieh dir [Schritt 6 der ausführlichen Anleitung](/de/guide/6-debug/) an.
+</Q>
+<Q q="In manchen Apps ist das Menü eindeutig da, aber die Aktion kann es nicht auswählen.">
+Die offizielle Seite zur Fehlersuche erklärt, dass manche plattformübergreifende Apps ihre Menüs erst richtig aufbauen, wenn du einmal mit der Maus in die Menüleiste geklickt hast. Die Lösung: Wechsle kurz aus der App heraus und wieder zurück, oder lass das Makro zuerst mit **Move or Click Mouse** (Maus bewegen oder klicken) einen Klick in die Menüleiste simulieren (laut der offiziellen Seite reicht oft ein Klick knapp rechts neben dem Menü „Hilfe“) und wähle erst danach das Menü aus. Siehe dazu diesen Abschnitt unter [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+</Q>
+<Q q="Warum nicht einfach mit Type a Keystroke (Tastendruck eingeben) eine Taste drücken?">
+Weil dieser Menüpunkt gar keine Taste hat, die du drücken könntest. Und selbst wenn einer ein App-Tastenkürzel hat, lautet der offizielle Rat, lieber das Menü auszuwählen, statt es zu simulieren, besonders wenn dieses App-Tastenkürzel gleichzeitig das Tastenkürzel eines Makros ist, weil das Simulieren unvorhersehbare Ergebnisse liefert (siehe [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+</Q>
+
+Jetzt hat der Menübefehl, den du jeden Tag benutzt, sein eigenes Tastenkürzel. Genauso kannst du es für jeden Menüpunkt machen, den du anklicken kannst, in jeder beliebigen App – mit einer Makrogruppe pro App, damit sie sich nie in die Quere kommen.

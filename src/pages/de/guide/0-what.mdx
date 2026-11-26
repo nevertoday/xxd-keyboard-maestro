@@ -1,0 +1,93 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 0
+need: Noch nichts, einfach lesen
+tldr: Keyboard Maestro ist ein Automatisierungstool für den Mac und besteht aus zwei Hälften. Im Editor erstellst du Makros, und im Hintergrund passt die Engine auf und erledigt die Arbeit. Jedes Makro besteht aus einem Wann und einem Was, und die Makrogruppe, in der es liegt, entscheidet, ob es gerade zählt.
+description: Was Keyboard Maestro ist. Der Editor und die Engine; wie Makrogruppen, Makros, Auslöser und Aktionen zusammenspielen; was damit alles möglich ist; warum es nur für den Mac existiert und nicht im App Store steht; Lizenz, Preis, Rückgabefrist und macOS-Voraussetzungen; und worum es in dieser ausführlichen Anleitung geht.
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Vieles von dem, was du am Mac machst, wiederholt sich ständig haargenau gleich. Du tippst heute zum zehnten Mal dieselbe E-Mail-Adresse ein. Jeden Morgen startest du mit derselben Handvoll Apps. Und es gibt diesen einen Menübefehl, den du täglich brauchst, der aber einfach kein Tastenkürzel hat. Nichts davon ist schwer, es ist bloß lästig, und jedes Mal musst du selbst ran. Keyboard Maestro von Stairways Software ist das Programm, das genau solche Aufgaben an den Mac abgibt. Die offizielle Beschreibung bringt es schlicht auf den Punkt: Du sagst, was dein Mac tun soll und wann er es tun soll.
+
+<mark><strong>Jedes Makro besteht aus zwei Hälften: Auslöser bestimmen das Wann, Aktionen bestimmen das Was. Du erstellst es im Editor, und die Engine im Hintergrund wartet auf diesen Moment und erledigt die Arbeit für dich.</strong></mark>
+
+Wenn du es noch nicht installiert und noch kein Makro gebaut hast, fang am besten mit den [drei Einsteiger-Lektionen](/de/start/1-first-macro/) an. In einer halben Stunde hast du dein erstes funktionierendes Makro. Diese ausführliche Anleitung ist für alle, die schon eingestiegen sind und verstehen wollen, warum das Ganze so funktioniert, und geht von Schritt 0 bis Schritt 7 immer weiter in die Tiefe.
+
+Dies ist eine inoffizielle Lernseite ohne Verbindung zu Stairways Software. Die Fakten unten stammen aus dem [offiziellen Keyboard Maestro Wiki](https://wiki.keyboardmaestro.com/), und wenn sich beide Seiten einmal widersprechen, gilt das Wiki.
+
+## Zwei Programme: der Editor und die Engine
+
+Sobald alles installiert ist, hast du eigentlich zwei Programme auf deinem Mac. Das eine heißt Keyboard Maestro und ist das Fenster, das du öffnest. Das ist der <Term k="编辑器" text="Editor" />, in dem du Makros erstellst, änderst und Einstellungen anpasst. Das andere ist **Keyboard Maestro Engine**, die <Term k="引擎" text="Engine" />. Sie hat kein Fenster und läuft still im Hintergrund. Auf Tastenkürzel reagieren, die Uhr im Blick behalten, merken, welche App gerade geöffnet wurde, deinen Zwischenablage-Verlauf festhalten, schwebende Paletten einblenden und deine Makros tatsächlich Schritt für Schritt ausführen: All das ist die Aufgabe der Engine. Siehe den offiziellen [Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start).
+
+Stell dir den Editor wie den Bildschirm auf deinem Smartphone vor, auf dem du einen Wecker stellst. Ist der Wecker gestellt, schließt du die App wieder. Die Engine ist der Wecker selbst: Sie läuft ständig weiter und klingelt pünktlich. Wenn du also mit deinen Makros fertig bist, kannst du den Editor ruhig beenden, und sie funktionieren trotzdem weiter; läuft aber die Engine nicht, löst nichts aus. Das Wiki empfiehlt, in den Einstellungen unter **General** (Allgemein) die Option **Launch Engine at Login** (Engine bei der Anmeldung starten) einzuschalten, damit die Engine bei jeder Anmeldung von selbst startet.
+
+Noch eine Sache, nach der Einsteiger oft fragen: Es gibt keinen „Speichern“-Button. Ein paar Sekunden nach jeder Änderung speichert Keyboard Maestro sie von selbst, und die Engine nutzt sofort die neue Version.
+
+## Vier Dinge: Makrogruppen, Makros, Auslöser und Aktionen
+
+Das Editor-Fenster hat von links nach rechts drei Spalten, die genau zu diesen Dingen passen: links die Makrogruppen, in der Mitte die Makros der ausgewählten Gruppe und rechts die Details des ausgewählten Makros.
+
+Ein <Term k="宏" text="Makro" /> ist eine kleine Aufgabe, die aus zwei Teilen besteht. Ein paar <Term k="触发器" text="Auslöser" /> bestimmen, wann es startet, und eine Liste von <Term k="动作" text="Aktionen" /> legt fest, was es danach tut, indem es einen Eintrag nach dem anderen abarbeitet. Nimm zum Beispiel „tippe `=addr=` ein und erhalte deine Adresse“: Der Auslöser ist ein **Typed String Trigger** (Texteingabe-Auslöser), der auf genau diese Zeichen wartet, und die einzige Aktion ist **Insert Text by Pasting** (Text durch Einfügen), die die komplette Adresse einfügt. Oder „drücke ⌃⌥⌘M, um Mail zu öffnen“ (⌃ ist die Control-Taste, ⌥ ist die Wahltaste, ⌘ ist die Befehlstaste): Hier ist der Auslöser ein **Hot Key Trigger** (Tastenkürzel-Auslöser) und die Aktion **Activate a Specific Application** (Bestimmte App nach vorn holen).
+
+Jedes Makro liegt in einer <Term k="宏组" text="Makrogruppe" />. Eine Makrogruppe ist wie ein Ordner, aber sie sortiert nicht bloß. Sie entscheidet auch, ob ihre Makros in diesem Moment überhaupt zählen, zum Beispiel nur in Mail oder erst, nachdem du eine bestimmte Taste gedrückt hast. Die Regel lautet im Wiki: Ein Makro kann nur ausgelöst werden, wenn es selbst aktiviert ist und seine Makrogruppe ebenfalls aktiviert und gerade aktiv ist. Wie du Gruppen einrichtest, zeigt [Schritt 1](/de/guide/1-groups/).
+
+<Fig id="0-what-chain" />
+
+Das Wiki fasst die Aufgabenverteilung in fünf Sätzen zusammen. Wenn ein Makro später einmal zickt, findest du meist schnell heraus, an welcher Stelle es hakt, wenn du sie der Reihe nach durchgehst:
+
+- Wenn du etwas ändern willst, nutze den Editor.
+- Damit überhaupt etwas funktioniert, muss die Engine laufen.
+- Wenn du steuern willst, wann ein Makro aktiv ist, richte seine Makrogruppe ein.
+- Wenn du steuern willst, wann ein Makro startet, richte seine Auslöser ein.
+- Wenn du steuern willst, was ein Makro tut, richte seine Aktionen ein.
+
+## Was damit alles möglich ist
+
+Aktionen decken mehr ab, als du vermuten würdest. Das Wiki nennt unter anderem: Apps steuern, Tastenanschläge, Mausklicks und Menüauswahlen simulieren, mit Dateien und Bildern arbeiten, den Mac und die Zwischenablage steuern, AppleScript, JavaScript, Swift, Shell-Skripte und Automator-Arbeitsabläufe ausführen sowie <Term k="插件动作" text="Plug-in-Aktionen" /> installieren, die andere geschrieben haben. In den Worten des Wikis: „Wenn du es selbst machen kannst, kann Keyboard Maestro es wahrscheinlich auch für dich erledigen.“ Siehe den offiziellen [Quick Start](https://wiki.keyboardmaestro.com/manual/Quick_Start#Actions).
+
+Neben Makros bringt es ein paar fertige Werkzeuge mit. Der <Term k="剪贴板历史" text="Zwischenablage-Verlauf" /> merkt sich, was du kopiert hast, damit du einen älteren Eintrag später wieder einfügen kannst; <Term k="命名剪贴板" text="benannte Zwischenablagen" /> bewahren ein paar Textstücke oder Bilder dauerhaft auf, und es gibt Umschalter, mit denen du zwischen Apps und Fenstern springen kannst. Siehe die offizielle [Overview](https://wiki.keyboardmaestro.com/manual/Overview).
+
+Wenn du Aktionen nicht einzeln zusammensuchen willst, klicke im Editor auf **Record** (Aufnehmen), erledige die Aufgabe einmal selbst und lass Keyboard Maestro mitschreiben. Das Wiki weist darauf hin, dass du meist ein paar aufgezeichnete Aktionen löschen oder anpassen musst, damit das Makro zuverlässig läuft, aber es ist ein schneller Einstieg.
+
+Deine Makros werden auf diesem Mac in deinem Benutzeraccount gespeichert (`~/Library/Application Support/Keyboard Maestro`). Sie sind nicht an deine Lizenz gebunden und synchronisieren sich auch nicht von selbst mit der Cloud. Zwei Macs haben jeweils ihre eigenen Makros, solange du keine Synchronisierung einrichtest. Wie das geht, erklärt [Schritt 7](/de/guide/7-advanced/). Siehe die offiziellen [Fundamental Concepts](https://wiki.keyboardmaestro.com/Fundamental_Concepts).
+
+## Ein paar Dinge, die du vorab wissen solltest
+
+Es läuft nur auf dem Mac. Keyboard Maestro 11 braucht macOS 10.13 oder neuer, laut den offiziellen [Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details#Requirements).
+
+Im Mac App Store gibt es das Programm nicht, und das wird auch so bleiben. Apple verlangt, dass App-Store-Apps in einer Sandbox laufen, und ein Workflow-Tool wie Keyboard Maestro, das andere Apps für dich bedient, kann in einer Sandbox nicht funktionieren. Siehe das offizielle [How do I…?](https://wiki.keyboardmaestro.com/manual/How_do_I). Der einzige Ort für den Download ist deshalb die offizielle Website [keyboardmaestro.com](https://www.keyboardmaestro.com/). Nutze kein Installationsprogramm aus anderen Quellen.
+
+Du kannst es vor dem Kauf ausprobieren. Es gibt eine voll funktionsfähige Testversion ohne Einschränkungen, und sobald die Testphase endet, brauchst du eine Lizenz, um weiterzumachen. Wie lange die Testphase dauert, steht im Wiki nicht. Eine Lizenz gilt pro Person, und eine Person darf sie auf bis zu fünf Macs nutzen; wer es sonst noch verwendet, braucht eine eigene Lizenz. Es ist kein Abo: Du kaufst die aktuelle Hauptversion, kleinere Updates sind in der Regel enthalten, und für eine spätere neue Hauptversion fällt meistens eine Upgrade-Gebühr an, laut Wiki ungefähr alle 12 bis 36 Monate. Beim Preis nennt die offizielle Kaufseite 36 US-Dollar (Stand: 24.11.2026). Den aktuellen Betrag findest du auf der [offiziellen Kaufseite](https://wiki.keyboardmaestro.com/manual/Purchase).
+
+Und es gibt einen Weg zurück. Laut Wiki kannst du innerhalb von 30 Tagen nach dem Kauf eine Erstattung verlangen, wenn das Programm nicht tut, was die Dokumentation beschreibt; deine Lizenz wird dann storniert. Siehe die offiziellen [Administrative Details](https://wiki.keyboardmaestro.com/manual/Administrative_Details#Warranty).
+
+## Worum es in dieser Anleitung geht
+
+Der Hauptweg umfasst acht Schritte. Dieser hier stellt dir das Programm vor. In Schritt 1 geht es um Makrogruppen, die entscheiden, wo und wann Makros greifen. Schritt 2 dreht sich um Auslöser, also darum, den natürlichsten Moment zu wählen. In Schritt 3 kommen die Aktionen, angefangen mit dem Dutzend, das du am häufigsten brauchst. Spätestens dann kannst du die meisten Alltagsmakros selbst bauen. Schritt 4 bringt Makros bei, auf die Situation zu reagieren, mit Variablen, Bedingungen und Schleifen. Schritt 5 widmet sich der Zwischenablage. Schritt 6 zeigt, was du prüfst, wenn ein Makro nicht funktioniert. Schritt 7 geht noch weiter: Skripte, Unterprogramme, die Synchronisierung zwischen zwei Macs und das Teilen von Makros mit anderen.
+
+Konkrete Einzelaufgaben, etwa das heutige Datum mit einer Taste einzufügen oder Fenster an feste Plätze zu rücken, findest du unter [How-to](/de/howto/). Was ein Begriff bedeutet, steht im [Wiki](/de/wiki/). Und einzelne Fragen zwischendurch klären die [FAQ](/de/faq/).
+
+Das ist die ganze Grundidee dieser Seite: Ein Makro ist ein Wann plus ein Was, du erstellst es im Editor, die Engine führt es aus, und seine Makrogruppe entscheidet, ob es gerade zählt. Als Nächstes schauen wir uns die Makrogruppen an.
+
+## Wenn etwas nicht klappt
+
+<Q q="Funktionieren meine Makros weiter, wenn ich Keyboard Maestro beende?">
+<p>Ja. Du hast nur den Editor beendet. Die Engine läuft weiter im Hintergrund, sodass deine Makros ganz normal weiterfunktionieren. Falls auch die Engine gestoppt wurde (zum Beispiel weil du im Menü <strong>File</strong> (Ablage) den Eintrag <strong>Quit Engine</strong> (Engine beenden) gewählt hast), öffne einfach Keyboard Maestro wieder, dann startet die Engine mit, oder wähle im Menü <strong>File</strong> den Eintrag <strong>Launch Engine</strong> (Engine starten). Wenn du dir darüber gar keine Gedanken mehr machen willst, schalte in den Einstellungen unter <strong>General</strong> die Option <strong>Launch Engine at Login</strong> ein.</p>
+</Q>
+<Q q="Wo klicke ich auf „Speichern“, nachdem ich ein Makro geändert habe?">
+<p>Nirgendwo. Keyboard Maestro hat keinen eigenen Speichern-Schritt. Ein paar Sekunden nach einer Änderung ist alles gespeichert, und die Engine nutzt sofort die neue Version.</p>
+</Q>
+<Q q="Ich finde es nicht im App Store. Wurde es entfernt?">
+<p>Es war nie dort. Apple verlangt, dass App-Store-Apps in einer Sandbox laufen, und das ist bei einem Tool wie Keyboard Maestro nicht möglich. Lade es deshalb nur von der offiziellen Website <a href="https://www.keyboardmaestro.com/">keyboardmaestro.com</a> herunter und nirgendwo anders.</p>
+</Q>
+<Q q="Verliere ich meine Makros, wenn ich den Mac oder die Lizenz wechsle?">
+<p>Makros liegen im Benutzeraccount des jeweiligen Macs und haben nichts mit deiner Lizenz zu tun, deshalb lässt eine neue Lizenz sie in Ruhe. Bei einem Wechsel auf einen anderen Mac nimmst du sie selbst mit oder richtest eine Synchronisierung ein; siehe <a href="/de/guide/7-advanced/">Schritt 7</a> und das How-to <a href="/de/howto/sync-macs/">Dieselben Makros auf zwei Macs nutzen</a>.</p>
+</Q>
+<Q q="Ist das hier die offizielle Website von Keyboard Maestro?">
+<p>Nein. Dies ist eine unabhängige, inoffizielle Lernseite ohne Verbindung zu Stairways Software. Keyboard Maestro ist eine Marke von Stairways Software Pty Ltd. Bei Funktionen und Regeln ist das <a href="https://wiki.keyboardmaestro.com/">offizielle Wiki</a> maßgeblich.</p>
+</Q>
+
+<Checkpoint id="s0" items={["Ich weiß, dass ich den Editor beenden kann, die Engine aber weiterlaufen muss", "Ich kann den Auslöser und die Aktionen eines Makros benennen", "Ich weiß, dass ein Makro nur auslöst, wenn auch seine Makrogruppe aktiviert und aktiv ist", "Ich weiß, dass ich es nur von der offiziellen Website herunterlade und eine Lizenz pro Person für bis zu fünf Macs gilt"]} />

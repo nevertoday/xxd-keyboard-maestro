@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: wifi-usb
+step: 2
+time: 10 Minuten
+for: Jedes Mal, wenn du an einem bestimmten Ort ankommst oder ein bestimmtes Gerät anschließt, erledigst du zuerst dieselben paar Handgriffe
+tldr: Der Auslöser Wireless Network löst ein Makro aus, wenn du dich mit einem WLAN verbindest oder die Verbindung trennst, und der Auslöser USB Device löst eines aus, wenn du ein USB-Gerät anschließt oder abziehst. Beide Namen kann Keyboard Maestro selbst für dich eintragen.
+description: "Erledige Dinge automatisch, sobald du dich mit einem WLAN verbindest oder ein Gerät anschließt, mit den Keyboard-Maestro-Auslösern Wireless Network und USB Device: Der Mac einer Lehrkraft schaltet sich im Schulnetzwerk stumm und beendet Mail, das Einschalten eines Scanners öffnet die Scan-App; welche Berechtigung für die Ortungsdienste macOS Sonoma verlangt und warum diese Makros problemlos mehrfach laufen können müssen."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Wenn du unterrichtest, ist dir das bestimmt schon einmal passiert. Du schließt deinen Laptop an den Beamer an, klappst ihn auf, und plötzlich dröhnt die Musik von gestern Abend durch das ganze Klassenzimmer, während eine E-Mail-Benachrichtigung nach der anderen auf der großen Leinwand aufpoppt. Eigentlich musst du beim Betreten des Klassenzimmers nur zwei Dinge tun, den Ton ausschalten und Mail beenden, aber an einem hektischen Tag vergisst du es schnell. Wenn du mit dieser Seite fertig bist, schaltet sich dein MacBook stumm und beendet Mail, sobald es sich mit dem Schul-WLAN verbindet, ohne dass du irgendetwas drücken musst.
+
+Zeitauslöser kümmern sich um „Wie spät ist es?“. Die beiden <Term k="触发器" text="Auslöser" /> auf dieser Seite kümmern sich um „Wo bist du, und was ist angeschlossen?“. <mark>Für die Dinge, die du immer tust, wenn du irgendwo ankommst oder etwas anschließt, lass einfach dieses Netzwerk oder dieses Gerät auf Start drücken.</mark>
+
+## Mit dem Schul-WLAN verbinden: stummschalten und Mail beenden
+
+Erstelle ein neues <Term k="宏" text="Makro" /> namens „Ins Klassenzimmer“. Wähle als Auslöser **Wireless Network** (WLAN-Netzwerk), der auslöst, wenn eine Verbindung zu einem WLAN-Netzwerk hergestellt oder getrennt wird ([Auslöser Wireless Network](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). Du kannst ihn auf jedes beliebige Netzwerk reagieren lassen oder nur auf einen passenden Namen. Das Wiki empfiehlt dafür die BSSID, eine eindeutigere Kennung, denn Netzwerke namens „Home“ oder „Work“ gibt es überall.
+
+Den Namen musst du nicht selbst eintippen. Setze den Cursor in das Namensfeld des Auslösers, trenne dann in der Menüleiste die Verbindung zum Schul-WLAN und verbinde dich wieder. Keyboard Maestro trägt den Namen (oder die BSSID) des Netzwerks dann für dich ein. Stelle ein, dass er beim Verbinden auslöst.
+
+Füge zwei Aktionen hinzu. **Mute Audio Device** (Audiogerät stummschalten) kann das Standard-Audiogerät stummschalten, die Stummschaltung aufheben oder zwischen beidem umschalten (ab Keyboard Maestro 11, [Mute Audio Device](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)). Wähle hier also das Stummschalten. Füge dann **Quit a Specific Application** (bestimmte App beenden) hinzu, wähle Mail aus und lass die Option auf **Quit** (Beenden) stehen. Wenn nach dem Unterricht wieder alles wie vorher sein soll, erstelle ein zweites Makro namens „Aus dem Klassenzimmer“, das beim Trennen desselben Netzwerks ausgelöst wird, mit einer Aktion zum Aufheben der Stummschaltung.
+
+Ab macOS Sonoma gibt es einen Schritt, den du nicht auslassen darfst: Zum Auslesen von WLAN-Informationen ist die Berechtigung für die Ortungsdienste nötig. Laut Wiki solltest du sicherstellen, dass die Keyboard Maestro Engine diese Berechtigung hat; du findest sie in den **Systemeinstellungen ▸ Datenschutz & Sicherheit** unter Ortungsdienste. Ohne sie kann die Engine die WLAN-Informationen nicht auslesen.
+
+<Callout type="ok">
+Schalte im Klassenzimmer das WLAN aus und wieder ein. Sobald sich der Mac wieder mit dem Schulnetzwerk verbindet, steht das Lautsprechersymbol auf stumm und Mail wurde beendet.
+</Callout>
+
+## Es läuft mehr als einmal, also muss es das aushalten
+
+Das Wiki betont das ausdrücklich. Dein Mac trennt und verbindet das WLAN jedes Mal neu, wenn er in den Ruhezustand geht und wieder aufwacht, und macOS verbindet sich manchmal auch still im Hintergrund neu. Deshalb sollten solche Makros problemlos mehrmals laufen können. Stummschalten und Mail beenden sind kein Problem. Etwas stummzuschalten, das bereits stumm ist, oder eine App zu beenden, die ohnehin schon geschlossen ist, macht nichts kaputt. Wenn du dort aber „Heutige Unterrichtsnotizen erstellen“ hineinpackst, bekommst du jedes Mal eine weitere Datei, wenn du den Deckel zuklappst. Wähle Aktionen, die immer zum selben Ergebnis führen, egal wie oft sie laufen.
+
+## Scanner einschalten, und die Scan-App öffnet sich
+
+Nun zu einer anderen Leserin oder einem anderen Leser. Wenn du Schulkinder hast, scannst du abends wahrscheinlich hin und wieder ein paar Formulare ein, und jedes Mal läuft es gleich ab: Scanner einschalten, die Scan-App suchen und danach vergessen, sie wieder zu schließen. Der Auslöser **USB Device** (USB-Gerät) löst ein Makro aus, wenn ein USB-Gerät angeschlossen oder getrennt wird, und das Wiki nennt genau dieses Beispiel: die Scanner-Software starten, wenn du den Scanner einschaltest, und sie beenden, wenn du ihn ausschaltest ([Auslöser USB Device](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
+
+Die Namen von USB-Geräten sehen oft ganz anders aus, als du erwarten würdest, also lass Keyboard Maestro auch diesen selbst eintragen. Setze den Cursor in das Namensfeld des Auslösers, schließe dann den Scanner an (oder schalte ihn ein), und der Name erscheint. Mit zwei Makros bleibt es übersichtlich. Eines wird ausgelöst, wenn das Gerät angeschlossen wird, mit **Activate a Specific Application** (Bestimmte App nach vorn holen), eingestellt auf deine Scan-App; falls sie noch nicht läuft, wird sie dabei gestartet. Das andere wird ausgelöst, wenn das Gerät getrennt wird, mit **Quit a Specific Application** für dieselbe App. Während das Makro läuft, enthält das <Term k="令牌" text="Token" /> `%TriggerValue%` den Namen des Geräts, was praktisch ist, wenn eine Benachrichtigung anzeigen soll, welches Gerät es war.
+
+Wenn du nicht auf ein Gerät wartest, sondern auf ein Laufwerk, zum Beispiel eine externe Festplatte oder eine Speicherkarte im Kartenleser, ist **Mounted Volume** (Eingebundenes Volume) der passende Auslöser. Er löst aus, wenn ein Volume eingebunden oder ausgeworfen wird, entweder ein bestimmtes oder jedes beliebige ([Auslöser Mounted Volume](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
+
+## Einfach aus einem anderen Makro heraus nachsehen
+
+Manchmal muss ein Makro gar nicht direkt beim Verbinden starten. Du möchtest nur, dass sich ein anderes Makro anpasst, etwa eine morgendliche Erinnerung, die zu Hause erscheint, aber nicht in der Schule. Genau dafür gibt es Bedingungen: Zusammen mit **If Then Else** (Wenn-Dann-Sonst) prüft die Bedingung **Wireless Network**, ob ein Netzwerk verbunden ist, und die Bedingung **USB Device**, ob ein Gerät da ist ([Bedingung Wireless Network](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [Bedingung USB Device](https://wiki.keyboardmaestro.com/condition/USB_Device)). Was Bedingungen sind und wie sie funktionieren, findest du in [Schritt 4 der ausführlichen Anleitung](/de/guide/4-variables/).
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich bin mit dem Netzwerk verbunden, aber das Makro wurde nicht ausgelöst.">
+Prüfe unter macOS Sonoma und neuer zuerst, ob die Keyboard Maestro Engine die Berechtigung für die Ortungsdienste hat. Schau dann nach, ob der Name im Auslöser exakt mit dem des Netzwerks übereinstimmt. Am sichersten ist es, das Feld zu leeren, den Cursor hineinzusetzen, die Verbindung zu trennen und neu herzustellen, damit es sich selbst ausfüllt. Prüfe außerdem, ob das Makro und seine <Term k="宏组" text="Makrogruppe" /> beide aktiviert sind.
+</Q>
+<Q q="Das Makro lief mehrmals an einem Tag.">
+Das ist normal. Ruhezustand, Aufwachen und automatische Neuverbindungen des Systems lösen es jedes Mal erneut aus. Wechsle zu Aktionen, denen Wiederholungen nichts ausmachen, und halte alles, was Dateien erstellt oder Nachrichten verschickt, aus solchen Makros heraus.
+</Q>
+<Q q="Der Name des Scanners ist anders, als ich dachte, und Eintippen funktioniert nicht.">
+Tippe den Namen nicht selbst ein. Lass ihn von Keyboard Maestro eintragen, wenn du das Gerät anschließt. Laut Wiki funktioniert sowohl das Anschließen als auch das Einschalten: Bei einem Scanner mit Einschaltknopf setzt du also zuerst den Cursor ins Feld und schaltest ihn dann ein.
+</Q>
+<Q q="Ich habe eine externe Festplatte angeschlossen, aber der Auslöser USB Device hat nichts getan.">
+Wenn du auf ein Laufwerk wartest, passt der Auslöser **Mounted Volume** besser, weil er sich nach dem Namen des Volumes richtet.
+</Q>
+
+Ein Netzwerk oder ein Gerät reicht aus, um für dich auf Start zu drücken. Wenn ein Makro auch zu einer festen Uhrzeit starten soll, schau dir [Jeden Tag zur gleichen Zeit etwas ausführen](/de/howto/daily-schedule/) an.

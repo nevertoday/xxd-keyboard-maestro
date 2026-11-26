@@ -1,0 +1,70 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: stop-macro
+step: 6
+time: 5 Minuten Lesezeit, 2 Sekunden, wenn du es brauchst
+for: Ein Makro hört einfach nicht auf, tippt oder klickt endlos weiter und du bekommst deine Tastatur nicht mehr zurück
+tldr: Halte ⌃⌥⇧ gedrückt und klicke in der Menüleiste auf das Symbol von Keyboard Maestro, dann stoppen alle laufenden Makros. Willst du nur ein einzelnes stoppen, wähle es im Statusmenü unter Cancel aus. Hilft das alles nichts, kannst du die Engine beenden oder den Editor ohne Engine öffnen.
+description: "Wenn ein Makro in Keyboard Maestro nicht mehr stoppt: Control-Taste, Wahltaste und Umschalttaste gedrückt halten und auf das Statusmenü-Symbol klicken, um alle Makros abzubrechen, ein einzelnes über Status Menu ▸ Cancel stoppen oder ihm im Debugger beim Stoppen zusehen; die Engine beenden, den Editor ohne sie öffnen und ein Makro in den Griff bekommen, das bei der Anmeldung läuft; mit Aktionen wie Cancel All Macros einen Ausweg einbauen und Gewohnheiten, die das verhindern."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Fig from "../../../components/Fig.astro";
+
+Viele Leute, die im Büro Tabellen aufräumen, bauen sich so ein Makro: eine Zelle nach unten gehen, etwas tippen, noch eine Zelle nach unten und das Ganze mit **Repeat** (Wiederholen) hundertmal durchlaufen lassen. Eines Tages verrutscht dir der Finger und aus hundert wird tausend, oder der Cursor stand gar nicht in der Tabelle. Dann tippt das Makro Zeile für Zeile ins falsche Fenster, ganz egal, welche Taste du drückst. Mit dieser Seite stoppst du es in wenigen Sekunden, und nach dem letzten Abschnitt weißt du auch, wie du schon vorher einen Ausweg ins Makro einbaust.
+
+Merk dir zuerst den einen Handgriff, auf den es wirklich ankommt, der Rest kann warten. <mark>Halte ⌃⌥⇧ gedrückt und klicke in der Menüleiste auf das Symbol von Keyboard Maestro, dann stoppen alle laufenden Makros.</mark>
+
+## Der schnellste Handgriff: alle auf einmal stoppen
+
+Das Symbol von Keyboard Maestro rechts in der Menüleiste ist das <Term k="状态菜单" text="Statusmenü" />. Halte ⌃⌥⇧ (Control-Taste, Wahltaste und Umschalttaste) gedrückt und klicke auf dieses Symbol, dann werden alle laufenden Makros abgebrochen ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). Die offiziellen Seiten sind sich bei den Tasten nicht ganz einig: Auf der Handbuch-Seite „Menus“ steht, du sollst alle vier Sondertasten inklusive ⌘ Befehlstaste gedrückt halten, auf der Seite „How do I“ reicht ⌃⌥⇧ und die Befehlstaste ist optional, und auf der Seite „Troubleshooting“ steht ebenfalls nur ⌃⌥⇧. Die drei Tasten genügen also völlig, und wenn du in der Hektik ⌘ mitdrückst, schadet das auch nicht.
+
+<Callout type="ok">
+Es rattert kein Text mehr über den Bildschirm, und die Maus gehört wieder dir.
+</Callout>
+
+Das Stoppen macht nicht rückgängig, was das Makro bereits getan hat. Alles, was es getippt hat, steht noch in diesem Fenster, also räum es einfach mit der eigenen Rückgängig-Funktion dieser App wieder auf.
+
+## Nur ein einzelnes stoppen
+
+Wenn mehrere Makros gleichzeitig laufen und du nur das eine stoppen willst, das schiefgelaufen ist, öffne das Statusmenü wie gewohnt und geh auf **Cancel** (Abbrechen). Dort sind alle Makros aufgelistet, die gerade laufen, und sobald du eines auswählst, stoppt es ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Nebenbei siehst du dort auch, welche Makros überhaupt gerade laufen. Manchmal wartet das Makro, das du längst für beendet hieltest, nämlich noch im Hintergrund.
+
+## Schritt für Schritt beim Stoppen zusehen
+
+Wählst du im Statusmenü **Start Debugging** (Fehlersuche starten), öffnet sich der <Term k="调试器" text="Debugger" />, das Fenster für die Schritt-für-Schritt-Fehlersuche. Dort siehst du jedes laufende Makro und die Aktion, bei der es gerade steht, und über eine Schaltfläche rechts kannst du ein Makro mit **Cancel** abbrechen ([Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)). Setzt du im Debugger das Häkchen bei **Pause New Macros** (Neue Makros pausieren), bleiben alle danach ausgelösten Makros beim ersten Schritt stehen. So kannst du sie Aktion für Aktion durchklicken und genau sehen, an welcher Stelle das außer Kontrolle geratene Makro falsch abbiegt. Wenn du das Debugger-Fenster schließt, laufen pausierte Makros ganz normal weiter. Willst du eines stoppen, brich es also zuerst ab und schließ das Fenster erst danach.
+
+<Fig id="stop-macro-ladder" />
+
+## Wenn es sich einfach nicht stoppen lässt
+
+Wenn nichts davon hilft, kennt das Wiki noch stärkere Mittel ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+Der erste Schritt ist **Quit Keyboard Maestro Engine** (Keyboard Maestro Engine beenden) im Statusmenü. Ist die <Term k="引擎" text="Engine" /> aus, läuft kein Makro mehr. Beim nächsten Öffnen von Keyboard Maestro startet die Engine allerdings automatisch wieder mit. Falls das Makro dann sofort wieder losrennt, nutze den nächsten Trick und öffne den Editor ohne die Engine, um es zu reparieren.
+
+Der kniffligste Fall ist ein Makro, das schon bei der Anmeldung läuft. Es schießt bei jedem Start direkt los und rennt weiter, bevor du überhaupt etwas ändern kannst. Die Troubleshooting-Seite im Wiki beschreibt genau diesen Fall ([Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)), und so gehst du vor:
+
+1. Halte ⌃⌥⇧ gedrückt und klicke auf das Statusmenü-Symbol, um alles abzubrechen, was gerade läuft.
+2. Halte alle vier Tasten ⌃⌥⇧⌘ gedrückt und klicke im Dock auf Keyboard Maestro oder öffne es per Doppelklick im Ordner „Programme“. Dadurch wird die Engine beendet und der Editor öffnet sich, ohne die Engine zu starten.
+3. Suche das Makro im Editor und entferne seinen Auslöser oder deaktiviere es.
+4. Klappt auch das nicht, starte den Mac im sicheren Modus neu, damit die Anmeldeobjekte, einschließlich der Engine, gar nicht erst starten. Halte danach beim Öffnen von Keyboard Maestro wieder ⌃⌥⇧⌘ gedrückt und bring das Makro in Ordnung.
+
+## Schon vorher einen Ausweg ins Makro einbauen
+
+Sobald du ein Makro zuverlässig stoppen kannst, lohnt es sich, fürs nächste Mal vorzusorgen. Keyboard Maestro hat mehrere <Term k="动作" text="Aktionen" />, die genau zum Abbrechen von Makros gedacht sind: **Cancel All Macros** (Alle Makros abbrechen), **Cancel All Other Macros** (Alle anderen Makros abbrechen), **Cancel This Macro** (Dieses Makro abbrechen) und **Cancel Just This Macro** (Nur dieses Makro abbrechen) ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). Am einfachsten baust du dir ein Not-Aus-Makro: Erstelle ein neues Makro mit dem Auslöser **Hot Key** (Tastenkürzel), zum Beispiel ⌃⌥⌘. (Control-Taste, Wahltaste, Befehlstaste und Punkttaste), und packe als einzige Aktion **Cancel All Macros** hinein. Das bewirkt genau dasselbe wie der Klick auf das Symbol, nur dass du nicht erst die Menüleiste suchen musst.
+
+Ein paar Gewohnheiten ersparen dir ebenfalls viel Ärger. Teste eine neue Schleife zuerst mit einer winzigen Zahl, etwa drei Durchläufen, und erhöhe erst auf hundert, wenn alles sauber läuft. Bist du dir bei einem Makro unsicher, öffne den Debugger, setze das Häkchen bei **Pause New Macros** und klicke es Schritt für Schritt durch. Bricht ein Makro auf halbem Weg ab oder scheint Schritte zu überspringen, arbeitet es meistens schneller, als die App reagieren kann, und das ist ein anderes Problem. Im Wiki-Abschnitt [Timing Between Actions](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions) (Zeitabstand zwischen Aktionen) erfährst du, wie du es kurz warten lässt.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich finde das Symbol von Keyboard Maestro nicht in der Menüleiste.">
+Im Bereich **General** (Allgemein) der Einstellungen von Keyboard Maestro legst du fest, ob und wie das Statusmenü angezeigt wird. Schau dort nach, ob es vielleicht ausgeschaltet ist ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). Läuft die Engine gar nicht erst, läuft auch kein Makro. Auf der offiziellen Seite [Frequently Asked Questions](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) steht außerdem, dass macOS Tahoe einen Fehler beim Platzieren von Statusmenüs hat: Das Symbol könnte also an einer anderen Stelle sitzen oder eine Lücke neben sich haben. Schau dich einfach kurz in der Menüleiste um.
+</Q>
+<Q q="Ich habe die Tasten gedrückt und auf das Symbol geklickt, aber das Menü ging ganz normal auf und das Makro lief weiter.">
+Drücke erst die drei Tasten, halte sie fest und klicke erst dann. Wenn sich das Menü trotzdem geöffnet hat, ist das nicht schlimm: Lass kurz los, schließ das Menü und versuch es noch einmal. Klappt es wieder nicht, wähle das Makro einfach im Menü **Cancel** aus oder beende die Engine.
+</Q>
+<Q q="Es hat gestoppt, lief aber kurz darauf von selbst wieder los.">
+Du hast nur diesen einen Durchlauf gestoppt, der Auslöser ist aber noch da. Wenn das Makro zeitgesteuert, in regelmäßigen Abständen oder bei der Anmeldung ausgelöst wird, meldet es sich beim nächsten Mal wieder. Deaktiviere das Makro, behebe den Fehler und aktiviere es danach wieder.
+</Q>
+
+Merk dir diesen einen Handgriff, ⌃⌥⇧ gedrückt halten und auf das Symbol klicken, dann kannst du Makros ganz entspannt auch größere Aufgaben übernehmen lassen. Wie du herausfindest, warum ein Makro zickt und wo es hängen bleibt, liest du unter [Wenn ein Makro nicht funktioniert](/de/guide/6-debug/).

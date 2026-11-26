@@ -1,0 +1,101 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 2
+need: Ein selbst erstelltes Makro (das aus Lektion 1 reicht völlig)
+tldr: Ein Auslöser bestimmt, wann ein Makro startet. Den passenden zu wählen heißt, den Moment zu wählen, in dem die Aufgabe ganz natürlich beginnt. Wenn du selbst danach greifst, nimm ein Tastenkürzel, ein paar getippte Buchstaben oder einen Klick. Wenn es an der Zeit ist, nimm die Uhr. Wenn sich am Mac selbst etwas ändert, etwa wenn eine App startet, dein Mac sich mit einem WLAN verbindet oder eine neue Datei in einem Ordner landet, nimm genau dieses Ereignis.
+description: Auslöser. Wie du einen hinzufügst und warum ein Makro mehrere haben kann; vier Arten von Momenten, wenn du selbst danach greifst (Tastenkürzel, Texteingabe, Statusmenü, globale Palette), wenn es an der Zeit ist (Uhrzeit, Zeitintervall, Inaktivität), wenn sich am Mac etwas ändert (Apps, Anmeldung und Aufwachen, WLAN, USB-Geräte und Laufwerke, Ordner) und wenn ein anderes Programm es aufruft; wo du den Rest in der offiziellen Liste nachschlägst; und typische Stellen, an denen es hakt.
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Du hast ein Makro gebaut, das am Feierabend aufräumt: Alles, was heute im Ordner „Downloads“ gelandet ist, wandert in einen einzigen Ordner. Es funktioniert wunderbar, und trotzdem vergisst du immer wieder, es zu starten, weil du am Ende des Tages mit den Gedanken längst nicht mehr am Schreibtisch bist. Dabei musst du gar nicht selbst daran denken. Um halb sechs kann es einfach von allein laufen.
+
+Bei einer anderen Art von Makro ist es genau umgekehrt. Wann du eine lange Adresse eintippen musst, weißt nur du; der Mac kann das nicht erraten, also muss der Startimpuls von dir kommen. Du tippst ein paar Buchstaben, und es übernimmt.
+
+<mark><strong>Den passenden Auslöser zu wählen heißt, den Moment zu wählen, in dem die Aufgabe ganz natürlich beginnt. Wenn du selbst danach greifst, nimm ein Tastenkürzel, ein paar getippte Buchstaben oder einen Klick. Wenn es an der Zeit ist, nimm die Uhr. Wenn sich am Mac selbst etwas ändert, nimm genau dieses Ereignis.</strong></mark>
+
+## Einen Auslöser hinzufügen
+
+<Term k="触发器" text="Auslöser" /> findest du in der Detailspalte des Makros, direkt unter seinem Namen. Klicke auf das grüne **+** (**New Trigger**, Neuer Auslöser) und wähle eine Art aus dem Menü. Manche funktionieren sofort nach dem Hinzufügen, wie der **Status Menu Trigger** (Statusmenü-Auslöser). Bei den meisten musst du noch ein oder zwei Angaben machen, etwa welches Tastenkürzel oder welche Zeichenfolge du tippen willst. Siehe die offizielle Seite [Macro Triggers](https://wiki.keyboardmaestro.com/manual/Macro_Triggers).
+
+Ein Makro kann mehrere Auslöser haben, und jeder einzelne davon startet es. Dasselbe Makro „Fenster anordnen“ kann zum Beispiel per Tastenkürzel laufen und zusätzlich einmal von selbst, wenn du dich anmeldest.
+
+Ein praktischer Trick: Halte die Wahltaste (⌥) gedrückt, während du im Auslöser-Menü etwas auswählst, dann öffnet Keyboard Maestro stattdessen direkt die Wiki-Seite zu diesem Auslöser. Auf dieser Seite gehen wir nur die wichtigsten durch, und so schlägst du alle anderen am schnellsten nach.
+
+Und denk an die Regel aus [Schritt 1](/de/guide/1-groups/): Ein Auslöser zählt nur dann, wenn das Makro aktiviert ist und seine Makrogruppe sowohl aktiviert als auch gerade aktiv ist.
+
+## Wenn du selbst danach greifst: Tastenkürzel, Texteingabe, ein Klick
+
+Am häufigsten kommt der **Hot Key Trigger** (Tastenkürzel-Auslöser) zum Einsatz. Du drückst die festgelegte Tastenkombination, das System fängt diesen Tastendruck ab, statt ihn an die App im Vordergrund weiterzureichen, und Keyboard Maestro führt das Makro aus. Die Taste kann ein Buchstabe, eine Ziffer, ein Sonderzeichen oder eine Funktionstaste sein, meistens zusammen mit einer oder mehreren Sondertasten (⌃ Control-Taste, ⌥ Wahltaste, ⇧ Umschalttaste, ⌘ Befehlstaste); die Ziffern auf dem Ziffernblock gelten dabei als andere Tasten als die auf der Haupttastatur. Eine Sondertaste allein, etwa nur die Control-Taste, kann kein Tastenkürzel sein. Siehe die offizielle Seite [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key).
+
+Neben „beim Drücken ausführen“ kannst du auch einstellen, dass das Makro erst beim Loslassen startet, wiederholt läuft, solange du die Taste gedrückt hältst, erst bei langem Drücken oder erst nach zwei- oder dreimaligem Antippen. Egal was du wählst: Die Taste wird abgefangen und verliert ihre normale Funktion. Nimm also keine Taste, die du sonst noch brauchst.
+
+Das Wiki gibt zwei Tipps für die Wahl von Tastenkürzeln. Bleib einem System treu, zum Beispiel Control-Taste plus ein Buchstabe zum Texttippen und Control- plus Wahltaste plus ein Buchstabe zum Öffnen von Apps, jeweils mit Buchstaben, die dich an die Aufgabe erinnern. Und halte dich von gängigen Tastenkürzeln mit der Befehlstaste und den eigenen Tastenkürzeln von macOS fern. Die Beispiele auf dieser Website nutzen ⌃⌥⌘ plus einen Buchstaben, eine Kombination, die kaum eine App belegt. Falls eine andere App trotzdem dasselbe Tastenkürzel registriert hat, passiert beim Drücken beides gleichzeitig.
+
+Der andere Auslöser für den Alltag ist der **Typed String Trigger** (Texteingabe-Auslöser). Tippst du seine Zeichenfolge irgendwo ein, löst er aus und löscht dabei in der Regel zuerst die gerade getippten Buchstaben, bevor das Makro läuft. Deshalb eignet er sich ideal für Kürzel: Du tippst `=addr=` ein und bekommst deine komplette Adresse. Siehe die offizielle Seite [Typed String Trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String), oder baue dir in [Einsteiger-Lektion 2](/de/start/2-type-less/) selbst einen von Grund auf.
+
+Das Wiki empfiehlt ausdrücklich ein Zeichen davor und/oder danach, das du nie aus Versehen tippen würdest. Sein Beispiel: Nimm nicht `em` als Kürzel für deine E-Mail-Adresse, weil es sonst mitten im englischen Wort „them“ auslöst; nimm stattdessen `=em=`. Alle Beispiele auf dieser Website folgen diesem Muster mit einem Gleichheitszeichen an beiden Enden: `=addr=`, `=sig=`.
+
+Ein paar Dinge unterbrechen eine getippte Zeichenfolge: Umschalttaste + Leertaste, jede Taste zusammen mit Control- oder Befehlstaste, ein App-Wechsel, ein Mausklick oder eine Pause von mehr als ein paar Sekunden. Wenn du `=addr=` einmal wörtlich tippen willst, ohne dass es ersetzt wird, tippe mittendrin einmal Umschalttaste + Leertaste und lösche das Leerzeichen wieder. In Passwortfeldern löst der Auslöser nie aus, und in den eigenen Fenstern von Keyboard Maestro funktioniert er ebenfalls nicht zuverlässig.
+
+Manche Makros brauchst du zu selten, um dir ein Tastenkürzel zu merken; lege sie dir lieber an eine Stelle, die du anklicken kannst. Der **Status Menu Trigger** fügt das Makro dem Menü unter dem Symbol von Keyboard Maestro in der Menüleiste hinzu, also dem <Term k="状态菜单" text="Statusmenü" />; wähle dort seinen Namen aus, und es läuft. Laut Wiki passt das gut zu Makros, die sich wie Menübefehle anfühlen, etwa Dateien öffnen oder verarbeiten oder Fenster anordnen. Der **Global Macro Palette Trigger** (Auslöser für die globale Makro-Palette) setzt das Makro auf eine schwebende Palette auf dem Bildschirm; ein Klick darauf startet es. Beide zeigen nur Makros an, die gerade aktiv sind. Ist deine Makrogruppe also nur in Safari verfügbar, tauchen sie auch nur auf, solange Safari im Vordergrund ist. Klicke mit gedrückter Wahltaste auf einen Eintrag, um das Makro direkt zu bearbeiten.
+
+## Wenn es an der Zeit ist: die Uhr
+
+Das Feierabend-Aufräumen vom Anfang dieser Seite nutzt einen **Time of Day Trigger** (Uhrzeit-Auslöser): Du wählst eine Uhrzeit und hakst dann die gewünschten Wochentage an. Siehe die offizielle Seite [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day).
+
+Eine Eigenheit solltest du dabei kennen. Zu dieser Uhrzeit muss der Mac wach sein. Befindet er sich im Ruhezustand, fällt dieser Durchlauf einfach aus; beim Aufwachen holt er ihn nicht nach. Ist der Bildschirm gesperrt oder läuft der Bildschirmschoner, startet das Makro zwar, aber viele Aktionen, die mit der Oberfläche arbeiten, etwa Tippen oder Menüpunkte auswählen, funktionieren dann nicht.
+
+Für „immer mal wieder“ statt „um genau diese Uhrzeit“ nimmst du den **Periodic Trigger** (Zeitintervall-Auslöser): Er läuft in einem festen Abstand, den du in Sekunden, Minuten oder Stunden angibst, auf Wunsch nur in einem bestimmten Zeitfenster am Tag oder an bestimmten Wochentagen. Das Wiki rät von sehr kurzen Abständen wie wenigen Sekunden ab, weil sie viel Prozessorleistung kosten und andere Abläufe stören können. Ein Zeitfenster über Mitternacht hinaus stoppt um Mitternacht; füge einen zweiten Auslöser hinzu, wenn es danach weiterlaufen soll. Siehe die offizielle Seite [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic).
+
+Noch zwei weitere: Der **Idle Trigger** (Inaktivitäts-Auslöser) läuft, sobald du Tastatur und Maus eine Weile nicht angerührt hast, etwa zwanzig Minuten weg vom Schreibtisch, und wenn du die Cron-Syntax kennst, gibt es noch den **Cron Trigger** (Cron-Auslöser). Die vollständige Anleitung für zeitgesteuerte Makros findest du im How-to [Jeden Tag zur gleichen Zeit etwas ausführen](/de/howto/daily-schedule/).
+
+## Wenn sich am Mac selbst etwas ändert
+
+Und dann gibt es Aufgaben, deren Startmoment weder ein Tastendruck noch eine bestimmte Uhrzeit ist, sondern eine kleine Veränderung am Mac selbst.
+
+Der **Application Trigger** (App-Auslöser) löst aus, wenn eine bestimmte App (oder irgendeine App) startet, beendet wird, in den Vordergrund kommt oder in den Hintergrund rückt, oder regelmäßig, solange sie läuft oder im Vordergrund ist. Angenommen, du ziehst das Fenster von Vorschau jedes Mal beim Öffnen in die rechte Bildschirmhälfte; überlass das diesem Auslöser. Vergiss dabei die Falle aus [Schritt 1](/de/guide/1-groups/) nicht: Ein Makro, das auf den Start einer App wartet, muss in einer Makrogruppe liegen, die immer aktiv ist. Siehe die offizielle Seite [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application).
+
+Der **Login Trigger** (Anmelde-Auslöser) löst aus, wenn du dich anmeldest und die Engine mitstartet, meistens weil du **Launch Engine at Login** (Engine bei der Anmeldung starten) eingeschaltet hast. Laut Wiki eignet er sich gut, um den Mac gleich so einzurichten, wie du ihn magst. Eng verwandt sind der **Wake Trigger** (beim Aufwachen aus dem Ruhezustand), der **Sleep Trigger** (beim Wechsel in den Ruhezustand) und der **Unlock Trigger** (beim Entsperren des Bildschirms).
+
+Der **Wireless Network Trigger** (WLAN-Auslöser) löst aus, wenn du dich mit einem WLAN verbindest oder die Verbindung trennst. Verbindet sich dein Laptop mit dem Büro-WLAN, öffnet das Makro deine Arbeits-Apps; verbindet er sich mit dem WLAN zu Hause, startet es eine andere Auswahl. Er kann das Netzwerk anhand seines Namens erkennen oder, wie das Wiki bevorzugt, anhand der BSSID, weil unzählige Netze „Home“ oder „Work“ heißen. Noch zwei Dinge solltest du wissen. Ab macOS 14 braucht Keyboard Maestro Engine die Berechtigung für die Ortungsdienste, um WLAN-Informationen überhaupt auslesen zu können. Außerdem trennt der Mac bei jedem Ruhezustand die WLAN-Verbindung und baut sie beim Aufwachen neu auf; solche Makros sollten also problemlos mehrmals hintereinander laufen können. Siehe die offizielle Seite [Wireless Network Trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network).
+
+Der **USB Device Trigger** (USB-Geräte-Auslöser) löst aus, wenn ein USB-Gerät angeschlossen oder getrennt wird. Das Beispiel aus dem Wiki: Schaltest du den Scanner ein, öffnet sich deine Scan-App, und schaltest du ihn aus, wird sie wieder beendet. Gerätenamen lassen sich schwer erraten; setze deshalb den Cursor ins Namensfeld und schließe das Gerät an, dann trägt Keyboard Maestro den Namen selbst ein. Für ein Laufwerk nimmst du den **Mounted Volume Trigger** (Laufwerk-Auslöser), etwa um ein Backup zu starten, sobald die Backup-Festplatte angeschlossen ist. Vollständige Anleitungen für WLAN- und USB-Makros findest du im How-to [Etwas ausführen, wenn du dich mit einem WLAN verbindest oder ein Gerät anschließt](/de/howto/wifi-usb/).
+
+Der **Folder Trigger** (Ordner-Auslöser) löst aus, wenn in einem Ordner ein Objekt hinzukommt oder entfernt wird, etwa eine neue Datei im Ordner „Downloads“, die gleich an ihren richtigen Platz verschoben werden soll. Er beobachtet nur diesen einen Ordner selbst, nicht Änderungen in seinen Unterordnern. Außerdem kann er warten, bis eine Datei fertig heruntergeladen oder kopiert ist, damit er nie eine halbe Datei anfasst; das sorgt allerdings für eine kurze Verzögerung, weil er abwarten muss, bis sich die Datei nicht mehr verändert. Siehe die offizielle Seite [Folder Trigger](https://wiki.keyboardmaestro.com/trigger/Folder) und das How-to [Dateien sofort einsortieren, sobald sie in einem Ordner landen](/de/howto/watch-folder/).
+
+Von dieser Sorte gibt es noch etliche mehr: wenn ein Bildschirm angeschlossen oder getrennt wird (**Display Layout Changed Trigger**), wenn das Netzteil angesteckt oder abgezogen wird (**Power Status Changed Trigger**), wenn die Tonausgabe wechselt, etwa beim Anschließen von Kopfhörern (**Audio Output Device Changed Trigger**), wenn sich die Zwischenablage ändert (**Clipboard Changed Trigger**) oder wenn das System zwischen hellem und dunklem Erscheinungsbild wechselt (**Appearance Changed Trigger**).
+
+## Wenn ein anderes Programm es aufruft
+
+Bei der letzten Art startet etwas anderes das Makro: ein anderes Makro, das es über eine Aktion beim Namen aufruft, ein AppleScript- oder Shell-Befehl, eine URL, die mit `kmtrigger://` beginnt, oder sogar ein Browser auf einem anderen Gerät, der es aus der Ferne auslöst. Dabei geht es um Skripte und Netzwerke, deshalb kommen sie erst in [Schritt 7](/de/guide/7-advanced/) dran.
+
+## Für alles andere: die offizielle Liste
+
+Keyboard Maestro kennt mehr als dreißig Arten von Auslösern. Diese Seite zählt nicht alle auf, und du musst sie dir auch nicht merken. Wenn du einen brauchst, halte die Wahltaste gedrückt und wähle ihn im Auslöser-Menü aus, oder stöbere in der offiziellen Liste [Triggers](https://wiki.keyboardmaestro.com/Triggers), in der jeder eine eigene Seite hat.
+
+Genau das ist der ganze Gedanke dieses Schritts: Überlege dir, in welchem Moment die Aufgabe ganz natürlich beginnt, und suche dann den passenden Auslöser für diesen Moment. Als Nächstes kommen die Aktionen, also alles, was ein Makro für dich erledigt, sobald es gestartet ist.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich drücke das Tastenkürzel, aber nichts passiert.">
+<p>Prüfe zuerst, ob das Makro und seine Makrogruppe aktiviert sind und die Makrogruppe gerade aktiv ist; drückst du es zum Beispiel in einer App, die gar nicht in der Makrogruppe enthalten ist? Wähle dann <strong>Help ▸ Interactive Help</strong> (Hilfe ▸ Interaktive Hilfe): Sie prüft Berechtigungen, Makrogruppe und Auslöser der Reihe nach und sagt dir, wo es hakt. Die vollständige Checkliste findest du in <a href="/de/guide/6-debug/">Schritt 6</a>.</p>
+</Q>
+<Q q="Ich tippe das Kürzel ein, aber nichts passiert.">
+<p>Wenn du zwischendurch ein paar Sekunden pausierst, mit der Maus klickst oder die App wechselst, wird die Eingabe abgebrochen; tippe das Kürzel also noch einmal von vorn. In Passwortfeldern löst es nie aus, und in den eigenen Fenstern von Keyboard Maestro funktioniert es ebenfalls nicht zuverlässig. Klappt es nirgendwo, hängt das System womöglich im Modus „Sichere Eingabe“ (Secure Input) fest und denkt, du bist dauerhaft in einem Passwortfeld: <strong>Help ▸ Interactive Help</strong> erkennt das. Siehe die offizielle Seite <a href="https://wiki.keyboardmaestro.com/Troubleshooting">Troubleshooting</a>.</p>
+</Q>
+<Q q="Das Kürzel wird an Stellen ersetzt, an denen ich das gar nicht wollte.">
+<p>Die Zeichenfolge kommt auch in Wörtern vor, die du ganz normal tippst. Wie im Wiki empfohlen, setze davor und dahinter ein Zeichen, das du nie aus Versehen tippst, also zum Beispiel <code>=sig=</code> statt bloß <code>sig</code>.</p>
+</Q>
+<Q q="Mein zeitgesteuertes Makro lief letzte Nacht nicht.">
+<p>Der Mac war höchstwahrscheinlich im Ruhezustand. Schläft er zur geplanten Uhrzeit, fällt dieser Durchlauf aus und wird nach dem Aufwachen nicht nachgeholt. Bei gesperrtem Bildschirm läuft das Makro zwar, aber Aktionen wie Tippen oder Menüpunkte auswählen funktionieren dann nicht.</p>
+</Q>
+<Q q="Ich habe mich mit einem WLAN verbunden, aber das Makro lief nicht.">
+<p>Ab macOS 14 braucht Keyboard Maestro Engine die Berechtigung für die Ortungsdienste, um WLAN-Informationen auszulesen. Schau unter <strong>Systemeinstellungen ▸ Datenschutz & Sicherheit</strong> bei den Ortungsdiensten nach, ob die Engine dort eingeschaltet ist. Taucht sie in der Liste gar nicht erst auf, empfehlen die Entwickler, einmal die Aktion <strong>Get Location</strong> (Standort abrufen) in einem Makro laufen zu lassen, damit das System dich danach fragt (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions">offizielle FAQ</a>).</p>
+</Q>
+<Q q="Ein Makro lief zweimal.">
+<p>Prüfe, ob es zwei Auslöser hat, die beide eingetreten sind, zum Beispiel einen bei der Anmeldung und einen beim Verbinden mit dem WLAN. Der WLAN-Auslöser löst außerdem nach jedem Ruhezustand und Aufwachen erneut aus; baue solche Makros also so, dass sie problemlos mehrmals laufen können.</p>
+</Q>
+
+<Checkpoint id="s2" items={["Ich weiß, wie ich einen Auslöser hinzufüge und dass ein Makro mehrere haben kann", "Ich habe einem häufig genutzten Makro ein Tastenkürzel gegeben, das nicht mit anderen kollidiert, oder ein Kürzel mit einem Zeichen an beiden Enden", "Ich weiß, dass ein zeitgesteuertes Makro nur läuft, wenn der Mac wach ist", "Ich weiß, dass ich mit gedrückter Wahltaste beim Auswählen eines Auslösers direkt seine Seite im offiziellen Wiki öffne"]} />

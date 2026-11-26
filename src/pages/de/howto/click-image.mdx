@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: click-image
+step: 3
+time: 10 Minuten
+for: Es gibt eine Schaltfläche, die du jeden Tag anklickst, aber sie hat weder einen Menübefehl noch ein Tastenkürzel
+tldr: Gib Keyboard Maestro einen kleinen Screenshot der Schaltfläche. Jedes Mal sucht es dieses Bild auf dem Bildschirm und klickt genau in die Mitte, selbst wenn das Fenster verschoben wurde.
+description: "Mit der Bildsuche von Keyboard Maestro eine Schaltfläche auf dem Bildschirm finden und anklicken: zuerst nach einem Menübefehl suchen, dann einen Screenshot machen, mit Move or Click Mouse in die Mitte des gefundenen Bildes klicken, Unschärfe und Eindeutigkeit einstellen, warten, bis die Schaltfläche erscheint, und prüfen, was zu tun ist, wenn das Bild nicht gefunden wird."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Bei der Arbeit nutzt du ein Websystem, in dem du vor jedem Berichtsexport erst auf ein winziges Aktualisieren-Symbol oben rechts klicken musst. Es steht in keinem Menü, hat kein Tastenkürzel, und jedes Mal, wenn du das Fenster breiter ziehst oder die Seitenleiste einklappst, wandert es an eine andere Stelle. Bau dir das Makro auf dieser Seite nach: Danach drückst du einfach ⌃⌥⌘J (Control-Taste, Wahltaste, Befehlstaste und J), und Keyboard Maestro findet das Symbol auf dem Bildschirm und klickt genau in die Mitte.
+
+Ein Makro, das sich Bildschirmkoordinaten merkt, klickt daneben, sobald das Fenster verschoben wird. <mark>Sag ihm, wie die Schaltfläche aussieht, statt wo sie liegt, dann findet es sie jedes Mal.</mark> In Keyboard Maestro nennt man das die <Term k="找图" text="Bildsuche" />: Du gibst ihm einen kleinen Screenshot, und es sucht auf dem Bildschirm nach einer passenden Stelle.
+
+## Schau zuerst, ob es einen robusteren Weg gibt
+
+Das offizielle Wiki ist von Mausklicks nicht gerade begeistert. Gleich am Anfang der Seite [Found Image](https://wiki.keyboardmaestro.com/Found_Image) heißt es, dass es meistens besser ist, direktere Aktionen wie **Press a Button** (Schaltfläche drücken) zu nutzen, statt den Bildschirm nach einem Bild abzusuchen. Und die Seite [How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I) im Handbuch warnt, dass Klick-Aktionen anfällig sind und schon bei kleinen Änderungen am System oder an Apps nicht mehr funktionieren. Schau dir also zuerst die Menüs der App an, bevor du loslegst. Wenn es dort einen Befehl mit derselben Funktion gibt, hält die Lösung aus [Einem Menübefehl ein Tastenkürzel geben](/de/howto/menu-shortcut/) deutlich zuverlässiger. Führt wirklich kein Weg am Klick auf das Symbol vorbei, lies einfach weiter.
+
+## Mach einen kleinen Screenshot und bau das Makro
+
+Zuerst machst du einen Screenshot von dem Symbol. Drücke ⌘⌃⇧4 (Befehlstaste, Control-Taste, Umschalttaste und 4) und ziehe einen Rahmen nur um das Symbol selbst: So landet der Screenshot in der Zwischenablage, statt als Datei gespeichert zu werden. Fasse den Rahmen möglichst eng. Lass Text oder Zahlen daneben, die sich ändern können, unbedingt weg, denn sonst findet Keyboard Maestro das Bild beim nächsten Wechsel nicht mehr.
+
+Lege dann ein neues <Term k="宏" text="Makro" /> an, füge den Auslöser **Hot Key** (Tastenkürzel) hinzu und drücke ⌃⌥⌘J. Das Makro braucht nur eine einzige Aktion: **Move or Click Mouse** (Maus bewegen oder klicken), denn damit kannst du relativ zu einem gefundenen Bild klicken (siehe [Move or Click Mouse](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)). Stelle die Aktion auf **Click** (Klicken) mit der voreingestellten linken Maustaste, wähle im Menü **relative to** (relativ zu) den Eintrag **found image’s center** (Mitte des gefundenen Bildes) und trage bei X und Y jeweils 0 ein. Daraufhin erscheint in der Aktion ein Bildfeld. Klicke hinein und drücke ⌘V, um deinen Screenshot einzufügen.
+
+Zwei Einstellungen neben dem Bildfeld solltest du dir kurz ansehen. Die erste ist die Unschärfe. Durch Transparenz und Kantenglättung ist fast jede Übereinstimmung auf dem Bildschirm ein kleines bisschen unscharf, deshalb empfiehlt das Wiki, bei etwa 20 % zu starten. Die zweite ist das Menü **Unique** (Eindeutig). Standardmäßig darf das Bild nur ein einziges Mal auf dem Bildschirm vorkommen, weil Keyboard Maestro sonst nicht weiß, wohin es klicken soll, und die Aktion fehlschlägt. Taucht dein Symbol mehrmals identisch auf, stell das Menü auf **Best** (Beste Übereinstimmung) um oder wähle den Treffer ganz oben, ganz links, ganz unten oder ganz rechts.
+
+## Probier es aus und schau, was gefunden wurde
+
+Ein kleiner Haken, bevor du testest: Das Bild in der Aktion ist ja ebenfalls auf dem Bildschirm zu sehen. Das Wiki rät deshalb, die Aktion oder gleich den ganzen <Term k="编辑器" text="Editor" /> während des Tests auszublenden, weil Keyboard Maestro sonst womöglich die Kopie im Editor findet. Schicke das Fenster von Keyboard Maestro also in den Hintergrund, wechsle zu deiner Webseite und drücke ⌃⌥⌘J.
+
+Wenn du beim ersten Mal genau sehen willst, was Keyboard Maestro erkannt hat, hake **Display** (Anzeigen) in der Aktion kurz an. Es hebt dann jeden Treffer auf dem Bildschirm hervor, sodass du auch sofort merkst, wenn das Bild an mehr als einer Stelle auftaucht. Nimm das Häkchen wieder heraus, sobald alles klappt. Und wenn die Klick-Versätze feste Zahlen sind, wählst du das Bildfeld aus und drückst die Leertaste: Dann wird die Klickposition direkt auf dem Bild eingezeichnet (ab Version 11.0).
+
+<Callout type="ok">
+Der Mauszeiger springt zum Symbol und klickt darauf, und die Seite lädt neu. Zieh das Fenster breiter oder verschiebe es, drücke das Tastenkürzel noch einmal, und der Klick trifft trotzdem.
+</Callout>
+
+## Wenn die Schaltfläche erst nach einem Moment erscheint
+
+Manchmal ist die Schaltfläche noch gar nicht da. Du klickst auf Exportieren, und erst ein paar Sekunden später taucht eine Schaltfläche zum Herunterladen auf. Die einfachste Lösung steckt im Zahnrad-Menü ⚙ der Aktion: Dort gibt es eine Option, mit der die Aktion wartet, bis das Bild erscheint (ab Version 11.0). Oder du setzt vor den Klick ein **Pause Until** (Warten, bis …) mit der Bedingung **Found Image** (Gefundenes Bild) und demselben Screenshot, damit das Makro wartet, bis die Schaltfläche wirklich da ist (siehe [Found Image Condition](https://wiki.keyboardmaestro.com/condition/Found_Image)).
+
+Wenn du das Bild lieber zuerst suchst und seine Position für etwas anderes weiterverwenden willst, nimm **Find Image on Screen** (Bild auf dem Bildschirm suchen). Die Aktion schreibt die Position in eine selbst gewählte <Term k="变量" text="Variable" />, zum Beispiel `ImageLocation`, und spätere Aktionen greifen mit `ImageLocation.MidX` und `ImageLocation.MidY` auf die Mitte zu. Findet die Aktion nichts, setzt sie die Variable auf leer (siehe [Find Image on Screen](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)).
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Tastenkürzel gedrückt, der Mauszeiger hat sich nicht bewegt und es kommt die Meldung, dass das Bild nicht gefunden wurde.">
+Dreh die Unschärfe ein wenig höher und hake **Display** an, damit du siehst, was Keyboard Maestro gerade sieht. Hat sich die Oberfläche seit deinem Screenshot verändert, etwa weil du in den Dunkelmodus gewechselt bist oder das Symbol in einem schmaleren Fenster anders aussieht, mach einfach einen neuen Screenshot. Kleine graue Symbole und grauer Text lassen sich am schwersten finden, weil Bildschirme voller kleiner grauer Flächen sind. Der Tipp aus dem Wiki lautet, den Suchbereich auf weniger als ein Viertel des Schreibtischs zu verkleinern: Lass nur in einem bestimmten Fenster suchen (es muss zur vordersten App gehören) oder in einem festgelegten Bereich des Bildschirms.
+</Q>
+<Q q="Es hat woanders hingeklickt oder meldet, das Bild sei nicht eindeutig.">
+Auf dem Bildschirm sieht mehr als eine Stelle so aus wie dein Screenshot. Stelle im Menü **Unique** entweder **Best** oder eine der Richtungen ein, oder mach einen aussagekräftigeren Screenshot. Prüfe außerdem, ob der Editor noch im Vordergrund liegt, denn vielleicht hat Keyboard Maestro einfach das Bild in der Aktion selbst gefunden.
+</Q>
+<Q q="Egal welches Bild ich nehme, es wird nie etwas gefunden.">
+Für die Bildsuche muss Keyboard Maestro den Bildschirm auslesen, und dafür braucht es eine macOS-Berechtigung. In den Einstellungen von Keyboard Maestro fasst der Bereich **Security** (Sicherheit) alle benötigten Berechtigungen zusammen und lässt dich jede einzelne direkt anfordern ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). Die offizielle Seite [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) nennt die Bildschirmaufnahme als eines der häufigsten Berechtigungsprobleme. Ab macOS 15 heißt dieser Punkt unter **Systemeinstellungen ▸ Datenschutz & Sicherheit** genau **Bildschirm- & Systemaudioaufnahme**. In den [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) steht außerdem, dass macOS Sequoia und Tahoe die Bildschirmberechtigung in regelmäßigen Abständen erneut abfragen. Wenn es also vorher geklappt hat und plötzlich nicht mehr will, schau zuerst dort nach.
+</Q>
+<Q q="Es klickt zwar an die richtige Stelle, aber der Mauszeiger bleibt auf der Schaltfläche stehen.">
+Im Zahnrad-Menü ⚙ der Aktion kannst du festlegen, ob der Mauszeiger danach wieder an seine ursprüngliche Position zurückkehren soll.
+</Q>
+
+Das ist schon das ganze Prinzip: Wenn es einen Menübefehl oder eine Schaltflächen-Aktion gibt, lass die Maus aus dem Spiel. Und wenn du wirklich klicken musst, lass Keyboard Maestro das Bild erkennen, statt sich Koordinaten zu merken. Soll es auch Text auf dem Bildschirm lesen können? Dann schau dir [Text vom Bildschirm auslesen](/de/howto/ocr-text/) an.

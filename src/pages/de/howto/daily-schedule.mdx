@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: daily-schedule
+step: 2
+time: 10 Minuten
+for: Jeden Tag oder jede Woche gibt es zu einer bestimmten Uhrzeit etwas, an das du sonst selbst denken musst
+tldr: Mit dem Auslöser Time of Day legst du Uhrzeit und Wochentage fest, und das Makro startet von selbst, sobald es so weit ist. Für kniffligere Termine nutzt du Cron, für regelmäßige Abstände Periodic. Der Mac muss in diesem Moment wach sein.
+description: "Ein Makro in Keyboard Maestro jeden Tag oder an bestimmten Wochentagen zur festen Uhrzeit starten: Time of Day für eine tägliche Uhrzeit, Cron für Termine wie den letzten Freitag im Monat, Periodic für regelmäßige Abstände; was passiert, wenn der Mac schläft oder der Bildschirm gesperrt ist, und was du prüfst, wenn das Makro nicht gelaufen ist."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Wer schreibt, kennt diesen Morgen. Du hast dir fest vorgenommen, um 8:30 Uhr loszulegen, beantwortest aber erst ein paar E-Mails, liest ein paar Seiten im Netz, und ehe du dich versiehst, ist es zehn Uhr und dir fällt dein Entwurf wieder ein. Wenn du mit dieser Seite durch bist, öffnet dein Mac von Montag bis Freitag um 8:30 Uhr automatisch den Entwurf, an dem du gerade arbeitest, und blendet eine Mitteilung mit deinem Tagesziel ein. Du musst keine einzige Taste drücken. Sobald es so weit ist, geht es einfach los.
+
+Das, was ein Makro in Gang setzt, ist ein <Term k="触发器" text="Auslöser" />. In den Einsteiger-Lektionen haben wir dafür ein Tastenkürzel und getippte Textkürzel verwendet, auf dieser Seite übernimmt stattdessen die Uhr diese Aufgabe. <mark>Alles, was zu einer festen Uhrzeit passieren soll, kannst du einem Zeitauslöser überlassen, aber er löst nur aus, wenn der Mac in diesem Moment wach ist.</mark> Die zweite Hälfte dieses Satzes ist wichtiger als die erste.
+
+## Montags bis freitags um 8:30 Uhr den Entwurf öffnen
+
+Lege ein neues <Term k="宏" text="Makro" /> an und nenne es zum Beispiel „Schreibstart: Entwurf öffnen“. Als Auslöser wählst du **Time of Day** (Tageszeit), mit dem ein Makro zu einer bestimmten Uhrzeit an den ausgewählten Wochentagen startet (siehe [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)). Stelle die Uhrzeit auf 8:30 Uhr ein. Die Reihe kleiner Quadrate darunter steht für die Wochentage: Blaue Felder sind aktiv, blasse mit einem Schrägstrich nicht. Klicke auf ein Quadrat, um es umzuschalten, und stelle Montag bis Freitag auf Blau. Ob die Uhrzeit im 24-Stunden-Format oder mit AM und PM angezeigt wird, richtet sich nach deinen macOS-Einstellungen.
+
+Füge zwei Aktionen hinzu. Die erste ist **Open a File, Folder or Application** (Datei, Ordner oder App öffnen). Klicke auf die Schaltfläche rechts davon, um deinen Entwurf auszuwählen, und wähle im Menü **with** (öffnen mit) TextEdit oder die App, in der du normalerweise schreibst. Die zweite Aktion ist **Notification** (Mitteilung). Als Titel schreibst du „Zeit zum Schreiben“ und als Text eine kurze Erinnerung an dich selbst, etwa „Erst 500 Wörter schreiben, Mails erst nach zehn“ (siehe [Notification Action](https://wiki.keyboardmaestro.com/action/Notification)).
+
+<Callout type="tip">
+Warte nicht bis morgen früh, um herauszufinden, ob alles klappt. Stelle die Uhrzeit einfach auf zwei Minuten in der Zukunft, schau einmal zu, wie das Makro läuft, und stelle sie danach wieder auf 8:30 Uhr zurück.
+</Callout>
+
+## Wenn der Mac schläft, wird nichts nachgeholt
+
+Genau diesen Punkt missverstehen viele. Im Wiki steht es eindeutig: Der Mac muss wach sein, damit der Auslöser funktionieren kann, und wenn er schläft, wird das Makro auch später nicht mehr ausgelöst. Ist dein Laptop um 8:30 Uhr also zugeklappt, öffnet sich der Entwurf an diesem Morgen nicht, und wenn du ihn um 9:00 Uhr aufklappst, holt er das auch nicht nach.
+
+Beim Bildschirm sieht es anders aus. Wenn sich das Display im Ruhezustand befindet, der Bildschirm gesperrt ist oder der Bildschirmschoner läuft, startet das Makro trotzdem, aber viele Aktionen, die mit der Oberfläche arbeiten (Tippen, Menüs, Klicks), funktionieren dann nicht. Manche Aktionen können das Display wecken oder den Bildschirmschoner beenden und beheben damit einen Teil des Problems, aber entsperren können sie den Bildschirm nicht (ebenfalls aus [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)).
+
+Such dir deshalb eine Uhrzeit aus, zu der du meistens schon am Rechner sitzt. Und wenn du eigentlich meinst „Mach das, sobald ich den Mac öffne“, dann lass die Uhrzeit weg. Der Auslöser **Wake** (Aufwachen) löst jedes Mal aus, wenn der Mac aus dem Ruhezustand aufwacht, nicht nur beim ersten Mal am Tag (siehe [Wake Trigger](https://wiki.keyboardmaestro.com/trigger/Wake)), und **Login** (Anmeldung) löst aus, wenn du dich anmeldest und die <Term k="引擎" text="Engine" /> damit startet.
+
+## Der letzte Freitag im Monat: Cron nutzen
+
+Manche Termine lassen sich nicht einfach in einer Reihe von Wochentagen anklicken. Viele Selbstständige verschicken am Nachmittag des letzten Freitags im Monat ihre Rechnungen, und wer es einmal vergisst, bekommt sein Geld erst einen Monat später. Solche Termine sind ein Fall für den Auslöser **Cron** (Zeitplan-Format), der den Zeitpunkt in einer Zeile aus fünf Feldern beschreibt: Minute, Stunde, Tag im Monat, Monat und Wochentag (siehe [Cron Trigger](https://wiki.keyboardmaestro.com/trigger/Cron)). Auf der offiziellen Seite steht gleich das Beispiel für den letzten Freitag im Monat: `-1-7` für den Tag im Monat und `+Fri` für den Wochentag. Nachmittags um vier sieht das so aus:
+
+<Copy id="ds-cron" title="Jeden letzten Freitag im Monat um 16:00 Uhr" code="0 16 -1-7 * +Fri" />
+
+Als Aktion nimmst du wieder **Notification** mit dem Text „Rechnungen für diesen Monat verschicken“, und wenn du magst, hängst du noch **Open a File, Folder or Application** an, damit sich direkt dein Rechnungsordner öffnet. Auch bei Cron muss der Mac in diesem Moment wach sein.
+
+## In regelmäßigen Abständen: Periodic nutzen
+
+Und dann gibt es noch „immer mal wieder zwischendurch“. Wer zu Hause für Prüfungen lernt, sitzt schnell einen ganzen Nachmittag am Stück, und als Erstes streikt der Nacken. Der Auslöser **Periodic** (Regelmäßig) löst alle paar Sekunden, Minuten oder Stunden aus und lässt sich auf eine bestimmte Tageszeit oder ausgewählte Wochentage eingrenzen (siehe [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)). Stelle ihn auf alle 50 Minuten zwischen 9:00 und 18:00 Uhr ein und füge eine **Notification** hinzu: „Aufstehen, etwas Wasser trinken, aus dem Fenster schauen.“
+
+Wähle das Intervall nicht zu kurz. Das Wiki rät ausdrücklich von Abständen im Sekundenbereich ab, solange es sich irgendwie vermeiden lässt: zum einen, weil das viel Rechenleistung kosten kann, und zum anderen, weil jedes Mal, wenn ein Makro ausgelöst wird, offene Auswahlen abgebrochen werden, die gerade auf deine Eingabe warten, wie die **Conflict Palette** (Konflikt-Palette). Zeitgesteuerte Makros, die häufig ausgelöst werden, lassen sie dann unerwartet verschwinden. Noch ein Hinweis: Ein Zeitraum, der über Mitternacht hinausgeht, endet um Mitternacht. Wenn du beide Seiten abdecken willst, legst du einfach zwei Auslöser an.
+
+## Wenn etwas nicht klappt
+
+<Q q="Die Uhrzeit war erreicht, aber nichts ist passiert.">
+Überlege zuerst, ob der Mac in diesem Moment geschlafen hat. Alles, was im Ruhezustand verpasst wird, läuft später nicht mehr nach. Prüfe dann, ob die <Term k="宏组" text="Makrogruppe" /> des Makros und das Makro selbst aktiviert sind. Über **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) geht Keyboard Maestro diese Punkte Schritt für Schritt mit dir durch (siehe [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Vergewissere dich schließlich, dass die Engine läuft. Ist sie beendet, löst kein einziger Auslöser aus.
+</Q>
+<Q q="Das Makro ist gelaufen, aber der Entwurf kam nicht nach vorn, oder die Tipp-Aktion hat nichts geschrieben.">
+Sehr wahrscheinlich war der Bildschirm gesperrt oder das Display im Ruhezustand. Das Makro läuft dann zwar, aber Aktionen, die mit der Oberfläche arbeiten, greifen nicht, und den Bildschirm können sie nicht entsperren. Verschiebe die Uhrzeit auf einen Zeitpunkt, zu dem du den Rechner normalerweise schon benutzt.
+</Q>
+<Q q="Es ist keine Mitteilung erschienen.">
+**Notification** nutzt die macOS-Mitteilungszentrale. Schau in den Systemeinstellungen unter Mitteilungen nach, ob Mitteilungen für Keyboard Maestro Engine ausgeschaltet sind. Die offizielle Seite [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting) weist außerdem darauf hin, dass du bei der Fehlersuche darauf achten solltest, dass die Engine Mitteilungen anzeigen darf, weil du sonst nicht mitbekommst, wenn eine Aktion fehlschlägt.
+</Q>
+<Q q="Ich bin mir nicht sicher, ob meine Cron-Zeile stimmt.">
+Auf der offiziellen Seite gibt es eine Tabelle mit fertigen Zeilen, von „jeden Tag eine Minute nach Mitternacht“ bis „8:30 Uhr am ersten Samstag jedes Monats“. Am sichersten ist es, eine davon anzupassen. Oder du stellst Minute und Stunde auf ein paar Minuten in der Zukunft, trägst in den Tagesfeldern jeweils `*` ein, schaust zu, wie das Makro einmal ausgelöst wird, und stellst danach wieder die eigentlichen Werte ein.
+</Q>
+
+Ein Zeitauslöser merkt sich die Uhrzeit für dich. Du musst nur an eines denken: Der Mac muss in diesem Moment wach sein. Neben der Uhrzeit kann ein Makro auch starten, wenn du dich mit einem WLAN verbindest oder ein Gerät anschließt. Mehr dazu unter [Etwas ausführen, wenn du dich mit einem WLAN verbindest oder ein Gerät anschließt](/de/howto/wifi-usb/).

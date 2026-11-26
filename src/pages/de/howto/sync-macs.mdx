@@ -1,0 +1,81 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: sync-macs
+step: 7
+time: 20 Minuten, beide Macs griffbereit
+for: Du hast zwei Macs, und ein Makro, das du auf dem einen baust, musst du auf dem anderen noch einmal bauen
+tldr: Auf dem ersten Mac speicherst du deine Makros als Synchronisierungsdatei in einem Ordner, auf den beide Macs zugreifen können. Der zweite Mac öffnet diese Datei, und ab da erscheint jede Änderung auf dem einen auch auf dem anderen. Die bisherigen Makros auf dem zweiten Mac werden dabei ersetzt, also exportiere sie vorher.
+description: "Dieselben Makros auf zwei Macs mit der Makro-Synchronisierung von Keyboard Maestro nutzen: was vorher bereitstehen muss, Create New auf dem ersten Mac und Open Existing auf dem zweiten, wie du die Makros des zweiten Macs behältst, wie eine Makrogruppe nur auf einem Mac läuft; was du auf keinen Fall tun solltest und wie du verlorene Änderungen zurückholst."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Zuhause arbeitest du an einem iMac, und am Wochenende nimmst du dein MacBook für ein paar Tage mit zu deinen Eltern, um ihnen Gesellschaft zu leisten und nebenbei deine Arbeit zu erledigen. Letzte Woche hast du auf dem iMac ein Kürzel angelegt, das eine ganze Antwort an Kunden ausschreibt. Bei deinen Eltern wolltest du es nutzen, aber auf dem MacBook fehlte es. Also hast du es aus dem Gedächtnis noch einmal nachgebaut, und es wurde nicht ganz dasselbe. Wenn du mit dieser Seite durch bist, arbeiten beide Macs mit denselben Makros, und jede Änderung auf dem einen taucht wenig später auch auf dem anderen auf.
+
+Keyboard Maestro bringt die Makro-Synchronisierung direkt mit ([Macro Syncing](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)). Sie funktioniert gut, aber die Regeln sind streng, und etliche der offiziellen Warnungen stehen dort fett gedruckt. <mark>Bei der Synchronisierung gilt alles oder nichts: Die vorhandenen Makros auf dem zweiten Mac werden komplett ersetzt, also erst exportieren, dann synchronisieren.</mark>
+
+## Bevor du loslegst
+
+Drei Dinge sollten vorher bereitstehen.
+
+Erstens läuft auf beiden Macs genau dieselbe Version von Keyboard Maestro. Laut Wiki darfst du nur zwischen identischen Versionen synchronisieren. Ist die Synchronisierungsdatei neuer als deine installierte Version, warnt dich Keyboard Maestro und bietet dir an, ein Update zu machen, die Synchronisierung auszuschalten oder **live dangerously** (auf eigene Gefahr weitermachen) zu wählen. Nimm auf keinen Fall die letzte Option. Sie schaltet die Synchronisierung vorübergehend aus und lässt dich weiter Änderungen vornehmen, die später sehr wahrscheinlich Ärger machen.
+
+Zweitens brauchst du einen Ordner, der auf beiden Macs automatisch abgeglichen wird. Das Wiki empfiehlt dafür Dropbox oder einen ähnlichen Dienst oder einen gemeinsamen Dateiserver, solange beide Macs ihn immer erreichen können. Speziell weist es auf iCloud Drive hin: Dort dauert die Synchronisierung zwischen Macs oft lange, und das kann zu verlorenen Änderungen führen.
+
+Drittens liegt jede App, die deine Makros verwenden, auf beiden Macs am selben Pfad. Dateien und Apps, die es nur auf dem einen Mac gibt und auf dem anderen nicht, machen sehr wahrscheinlich Probleme.
+
+## Der erste Mac: Create New
+
+Auf dem Mac, auf dem deine Makros jetzt liegen (hier also dem iMac), wählst du **File ▸ Start Syncing Macros** (Ablage ▸ Makro-Synchronisierung starten). Das Wiki legt dir ausdrücklich ans Herz, den Hinweis, der dann erscheint, sorgfältig zu lesen. Klicke danach auf **Create New** (Neu erstellen) und speichere die Synchronisierungsdatei in dem Ordner, auf den beide Macs zugreifen können. Ab jetzt schreibt dieser Mac seine Änderungen in diese Datei und liest Änderungen von anderswo aus ihr ein.
+
+Warte anschließend ab, bis die Datei auf dem zweiten Mac tatsächlich in diesem Ordner auftaucht.
+
+## Der zweite Mac: erst exportieren, dann Open Existing
+
+Auf dem MacBook hältst du kurz inne und überlegst: Gibt es hier Makros, die du behalten möchtest? Wenn ja, wähle sie jetzt aus und speichere sie mit **File ▸ Export ▸ Export Macros** (Ablage ▸ Exportieren ▸ Makros exportieren) in einer Datei. Wie das geht, zeigt [Makros exportieren, importieren und teilen](/de/howto/share-macros/). Diesen Schritt darfst du nicht überspringen, denn das Wiki lässt keinen Zweifel daran: Sobald du im nächsten Schritt auf den Button klickst, werden alle vorhandenen Makros auf diesem Mac gelöscht.
+
+<Callout type="no" title="Bevor du auf dem zweiten Mac auf Open Existing klickst">
+Die Makros auf diesem Mac werden vollständig durch die vom ersten Mac ersetzt. Es wird nichts zusammengeführt. Exportiere alles, was du behalten willst.
+</Callout>
+
+Sobald der Export fertig ist, wähle **File ▸ Start Syncing Macros**, lies den Hinweis noch einmal durch, klicke diesmal auf **Open Existing** (Vorhandene öffnen) und wähle die abgeglichene Synchronisierungsdatei aus. Die Makros auf dem MacBook werden damit durch die vom iMac ersetzt. Zum Schluss importierst du die Datei, die du gerade exportiert hast, und ab dann werden auch diese Makros mit dem iMac synchronisiert. Für einen dritten oder vierten Mac wiederholst du einfach genau das, was du auf dem zweiten gemacht hast.
+
+<Callout type="ok">
+Benenne auf dem iMac irgendein Makro um, warte kurz, und dasselbe Makro trägt im Editor auf dem MacBook den neuen Namen.
+</Callout>
+
+## Makros, die nur auf einem Mac laufen sollen
+
+Deine beiden Macs sind schließlich nicht identisch. Manche Makros sollen nur zuhause laufen, zum Beispiel eines, das einen Ordner auf einer externen Festplatte öffnet. Dafür brauchst du keine zwei getrennten Sätze. Schalte in den Einstellungen dieser <Term k="宏组" text="Makrogruppe" /> die Option **Disabled on this Mac** (Auf diesem Mac deaktiviert) ein, dann ist sie nur auf diesem Mac deaktiviert. Oder geh andersherum vor: Klicke auf **Disable On All Macs** (Auf allen Macs deaktivieren) und schalte **Disabled on this Mac** danach auf den Macs wieder aus, auf denen du sie haben willst. Sobald du auf diesen Button geklickt hast, ist die Gruppe auf jedem neuen Mac, den du künftig mit synchronisierst, standardmäßig deaktiviert.
+
+Gut zu wissen ist außerdem, dass wirklich nur deine Makros synchronisiert werden. Einstellungen, Zwischenablagen und <Term k="变量" text="Variablen" /> werden nicht synchronisiert.
+
+## Was du auf keinen Fall tun solltest
+
+Kurz zusammengefasst sind das die offiziellen Warnungen:
+
+- **Bearbeite Makros nicht auf beiden Macs gleichzeitig.** Wenn du auf einem Mac etwas änderst und dann auf dem anderen etwas änderst, bevor die erste Änderung synchronisiert wurde, geht unter Umständen die eine oder die andere verloren. Sei besonders vorsichtig, wenn du offline bist. Das Wiki weist außerdem darauf hin, dass schon das Beenden des Editors von Keyboard Maestro als Änderung zählt. Gewöhne dir einfach an, vor dem Wechsel zum anderen Mac einen Moment zu warten, damit die Änderungen von hier erst durchlaufen können.
+- **Klicke auf dem zweiten Mac nicht auf Open Existing, bevor du exportiert hast.** Wie oben beschrieben werden dabei alle Makros gelöscht, die vorher dort waren.
+- **Klone keinen Mac mit dem Migrationsassistenten auf einen neuen, wenn du danach beide weiterbenutzen willst.** Beide tragen dann dieselbe Mac-ID (MacUUID), Keyboard Maestro kann sie nicht auseinanderhalten, und die Synchronisierung geht schief. Wenn du es doch so machst, setze diese ID auf einem der beiden Macs zurück, wie am Ende der offiziellen Seite [Macro Syncing](https://wiki.keyboardmaestro.com/manual/Macro_Syncing) beschrieben.
+- **Erzwinge keine Synchronisierung zwischen unterschiedlichen Versionen.** Bringe zuerst beide Macs auf dieselbe Version.
+
+## Wenn etwas nicht klappt
+
+<Q q="Eine Änderung von einem Mac ist verschwunden.">
+Wähle **File ▸ Revert Macros** (Ablage ▸ Makros wiederherstellen). Keyboard Maestro legt Sicherungen an und kann deine Makros auf den Stand beim Öffnen, von gestern oder sogar von vor ein paar Tagen zurücksetzen. Auch Dropbox bewahrt oft ältere Versionen auf. Verlorene Änderungen bedeuten meist, dass auf beiden Macs zu schnell nacheinander etwas geändert wurde, bevor die Synchronisierung hinterherkam. Warte beim nächsten Mal vor dem Wechsel einfach einen Moment länger.
+</Q>
+<Q q="Ich bekomme eine Warnung, dass die Synchronisierungsdatei neuer ist als die Version auf diesem Mac.">
+Auf dem anderen Mac wurde ein Update gemacht. Aktualisiere Keyboard Maestro auch hier auf dieselbe Version und lade es ausschließlich von der [offiziellen Website](https://www.keyboardmaestro.com/) herunter.
+</Q>
+<Q q="Wo ist die Synchronisierungsdatei eigentlich gelandet?">
+**File ▸ Reveal Macro Sync File** (Makro-Synchronisierungsdatei anzeigen) zeigt dir im Finder, wo sie liegt.
+</Q>
+<Q q="Dasselbe Makro verhält sich auf dem anderen Mac seltsam.">
+Meist liegt das an Unterschieden zwischen den beiden Macs, etwa daran, wo eine App liegt oder wie groß der Bildschirm ist. Das Wiki empfiehlt Tokens und Funktionen, damit sich das Makro selbst anpasst: Das Token `%MacUUID%` ist auf jedem Mac anders, sodass sich erkennen lässt, auf welchem Mac das Makro gerade läuft, und mit der Funktion SCREEN kannst du Positionen anhand des aktuellen Bildschirms berechnen.
+</Q>
+<Q q="Ich möchte die Synchronisierung beenden.">
+Wähle **File ▸ Stop Syncing Macros** (Makro-Synchronisierung beenden). Und wenn du auf einen neuen Mac umziehst und den alten danach nicht mehr nutzt, kannst du die Synchronisierung auch für den Umzug verwenden: Schalte sie auf dem alten Mac ein und speichere die Datei irgendwo ab, kopiere sie auf den neuen Mac, installiere dort Keyboard Maestro, schalte die Synchronisierung ein, wähle diese Datei aus und schalte die Synchronisierung anschließend wieder aus. Laut Wiki wandern dabei nur die Makros mit, keine Einstellungen, Variablen oder Zwischenablagen ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+</Q>
+
+Sobald die Synchronisierung eingerichtet ist, kannst du sie im Alltag fast vergessen, solange du daran denkst, Makros nicht auf beiden Macs gleichzeitig zu bearbeiten. Wenn du Makros nicht auf deinen eigenen zweiten Mac bringen, sondern an jemand anderen weitergeben willst, schau unter [Makros exportieren, importieren und teilen](/de/howto/share-macros/) nach.

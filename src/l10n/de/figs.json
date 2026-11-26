@@ -2,5 +2,158 @@
   "ui": {
     "label": "Schaubild",
     "replay": "Nochmal ansehen"
+  },
+  "0-what-chain": {
+    "steps": [
+      {
+        "t": "Editor",
+        "d": "Makro schreiben, dann beenden"
+      },
+      {
+        "t": "Engine",
+        "d": "läuft immer im Hintergrund"
+      },
+      {
+        "t": "Makrogruppe",
+        "d": "ist sie gerade aktiv?"
+      },
+      {
+        "t": "Auslöser",
+        "d": "der Moment ist da"
+      },
+      {
+        "t": "Aktionen",
+        "d": "laufen von oben nach unten"
+      }
+    ],
+    "cap": "Vom Schreiben bis zum Ablauf: Die Engine läuft, die Gruppe ist aktiv, der Auslöser löst aus, die Aktionen werden der Reihe nach ausgeführt"
+  },
+  "1-groups-toggle": {
+    "a": {
+      "who": "Pfeiltasten als normale Tastenkürzel",
+      "steps": [
+        "Pfeiltasten verschieben das Fenster",
+        "Du willst den Cursor bewegen",
+        "Du drückst eine, das Fenster springt"
+      ],
+      "end": "Den Rest der Zeit sind die Pfeiltasten unbrauchbar"
+    },
+    "b": {
+      "who": "In einer Gruppe, die du aktiv schaltest",
+      "steps": [
+        "Drücke ⌃⌥⌘W, um die Gruppe aktiv zu schalten",
+        "Pfeiltasten verschieben das Fenster",
+        "Drücke ⌃⌥⌘W nochmal, um sie wieder inaktiv zu schalten"
+      ],
+      "end": "Pfeiltasten funktionieren wieder normal"
+    },
+    "cap": "Dieselben vier Pfeiltasten gehören deinen Makros nur, solange die Gruppe aktiv ist"
+  },
+  "3-actions-log": {
+    "steps": [
+      {
+        "t": "Activate a Specific Application",
+        "d": "zu TextEdit wechseln"
+      },
+      {
+        "t": "Select or Show a Menu Item",
+        "d": "Menüpunkt „Neu“ wählen"
+      },
+      {
+        "t": "Insert Text by Typing",
+        "d": "heutiges Datum eintippen"
+      },
+      {
+        "t": "Notification",
+        "d": "melden, dass es fertig ist"
+      }
+    ],
+    "cap": "Ein Makro ist eine Liste von Aktionen, die von oben der Reihe nach ablaufen"
+  },
+  "4-variables-scope": {
+    "layers": [
+      {
+        "t": "Global",
+        "d": "Kein besonderes Präfix. Jedes Makro kann sie lesen und ändern, und sie bleibt auch nach Neustarts auf deinem Mac erhalten"
+      },
+      {
+        "t": "Instance",
+        "d": "Beginnt mit Instance. Dieser eine Durchlauf plus die dabei aufgerufenen Untermakros"
+      },
+      {
+        "t": "Local",
+        "d": "Beginnt mit Local. Nur dieses Makro, in diesem einen Durchlauf"
+      }
+    ],
+    "cap": "Je weiter unten, desto weniger Makros können sie sehen und desto kürzer lebt sie. Wenn du sie nur für diesen Durchlauf brauchst, nimm Local."
+  },
+  "6-debug-order": {
+    "steps": [
+      {
+        "t": "Berechtigungen",
+        "d": "In den Einstellungen unter Security ist alles an"
+      },
+      {
+        "t": "Engine",
+        "d": "Ihr Symbol ist in der Menüleiste"
+      },
+      {
+        "t": "Gruppe und Makro",
+        "d": "Beide aktiviert, Gruppe gerade aktiv"
+      },
+      {
+        "t": "Auslöser",
+        "d": "Kein anderes Makro nutzt dasselbe Tastenkürzel"
+      },
+      {
+        "t": "Aktionen",
+        "d": "Im Debugger schrittweise durchgehen, Engine.log lesen"
+      }
+    ],
+    "cap": "Ein Problem bei den ersten beiden legt alle Makros auf einmal lahm. Je weiter du kommst, desto eher geht es nur um dieses eine Makro."
+  },
+  "watch-folder-flow": {
+    "steps": [
+      {
+        "t": "Eine Datei kommt an",
+        "d": "Folder Trigger: adds an item (fügt ein Objekt hinzu)"
+      },
+      {
+        "t": "Auf den Download warten",
+        "d": "unvollständige oder sich ändernde Dateien ignorieren"
+      },
+      {
+        "t": "Ist es ein PDF?",
+        "d": "%TriggerValue% ends with (endet auf) .pdf"
+      },
+      {
+        "t": "Datei verschieben",
+        "d": "File Actions: Move (Verschieben)"
+      }
+    ],
+    "cap": "Diese vier Schritte laufen einmal für jede Datei ab, die ankommt. Alles, was kein PDF ist, stoppt bei Schritt drei."
+  },
+  "stop-macro-ladder": {
+    "cap": "Wege, ein Makro zu stoppen: Probiere zuerst den obersten, gehe weiter nach unten, wenn es nicht klappt, und hebe dir den untersten auf, falls sonst nichts hilft.",
+    "high": "Zuerst probieren",
+    "low": "Letzter Ausweg",
+    "rungs": [
+      {
+        "t": "⌃⌥⇧ gedrückt halten, Symbol anklicken",
+        "d": "Alle laufenden Makros stoppen"
+      },
+      {
+        "t": "Statusmenü ▸ Cancel (Abbrechen)",
+        "d": "Ein einzelnes laufendes Makro stoppen"
+      },
+      {
+        "t": "Quit Keyboard Maestro Engine (Engine beenden)",
+        "d": "Die Engine wird beendet, nichts läuft mehr"
+      },
+      {
+        "t": "⌃⌥⇧⌘ gedrückt halten, Editor öffnen",
+        "d": "Ohne Engine, damit du das Makro reparieren kannst"
+      }
+    ]
   }
 }

@@ -1,0 +1,75 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: text-snippets
+step: 2
+time: Fünf Minuten pro Kürzel, danach hast du es für immer
+for: Du tippst mehrmals am Tag dieselbe Antwort oder dieselbe Signatur
+tldr: Tippe irgendwo, wo du schreiben kannst, ein paar Zeichen wie =ship= ein, und sie verschwinden und werden zu deiner ganzen Antwort. Genauso machst du es für deine Signatur und den Rücksendehinweis.
+description: Mit einem Texteingabe-Auslöser und Insert Text by Pasting machst du aus Standardantworten und deiner Signatur Kürzel wie =ship= und =sig=. Ein Gleichheitszeichen an beiden Enden verhindert, dass sie beim normalen Tippen auslösen, und durch Einfügen erscheinen mehrzeilige Signaturen genau wie geschrieben.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Ein kleiner Online-Shop verschickt den ganzen Tag über immer wieder dieselben paar Antworten: Danke für die Bestellung, Versand innerhalb von zwei Werktagen, die Sendungsnummer kommt per E-Mail. Zwanzig E-Mails am Tag bedeuten zwanzigmal denselben Text tippen, und wenn es schnell gehen muss, fehlt plötzlich ein halber Satz. Wenn du mit dieser Seite fertig bist, tippst du in Mail oder an jeder anderen Stelle, an der du schreiben kannst, einfach `=ship=` ein: Die sechs Zeichen verschwinden von selbst und machen deiner ganzen Antwort Platz. Deine Signatur und dein Rücksendehinweis bekommen jeweils ein eigenes Kürzel.
+
+Wenn du noch nie ein Kürzel angelegt hast, fang mit [Lektion 2](/de/start/2-type-less/) für Einsteiger an, dort geht es direkt mit dem Öffnen des Editors los. Diese Seite knüpft genau dort an: wie du deine Kürzel benennst, sobald es mehrere werden, warum lange Texte eingefügt statt getippt werden sollten und an welchen Stellen Kürzel grundsätzlich nicht funktionieren.
+
+## Warum die Gleichheitszeichen?
+
+Ein <Term k="输入字符串触发器" text="Texteingabe-Auslöser" /> beobachtet alles, was du tippst, und sobald die letzten paar Zeichen zu seiner Zeichenfolge passen, läuft das Makro los. Wenn dein Kürzel also ein ganz normales Wort ist, löst es auch dann aus, wenn du es gar nicht willst. Das offizielle Beispiel dafür ist `em` für deine E-Mail-Adresse, was dann jedes Mal auslöst, wenn du das englische Wort „them“ tippst. Der offizielle Tipp lautet deshalb, allen Kürzeln ein festes Zeichen voranzustellen oder anzuhängen, zum Beispiel `=em=`, also etwas, das du nie aus Versehen tippen würdest (siehe [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark>Setze an beide Enden ein Gleichheitszeichen, dann erscheint ein Kürzel nur, wenn du es rufst.</mark> Alle Beispiele auf dieser Website nutzen genau dieses Muster: `=ship=`, `=sig=`, `=ret=`. Bei einem einzigen Muster zu bleiben macht es dir außerdem leicht, sie dir zu merken. Sobald du ein Gleichheitszeichen tippst, weißt du sofort, dass du gerade ein Kürzel aufrufst.
+
+## Fang mit der Versandantwort an
+
+Gib deinen Kürzeln zuerst ein Zuhause. Klicke unten links im Editor in der Liste der Makrogruppen auf **+** und erstelle eine neue <Term k="宏组" text="Makrogruppe" /> namens „Textbausteine“. Neue Makrogruppen sind standardmäßig in jeder App verfügbar, und das passt hier genau, weil du Antworten mal in Mail und im nächsten Moment in einem Webformular schreibst.
+
+Erstelle in dieser Gruppe ein neues Makro und nenne es „=ship= Versandantwort“, damit du es später in der Liste sofort wiedererkennst. Füge einen Auslöser hinzu, wähle **Typed String** (Texteingabe) und tippe hinter **This string is typed:** (Wenn diese Zeichenfolge getippt wird) `=ship=` ein. Achte darauf, dass direkt darunter das Häkchen bei **Simulate 6 deletes before executing** (vor dem Ausführen 6-mal Löschen simulieren) gesetzt ist; die Zahl richtet sich nach der Länge deines Kürzels, und so verschwindet `=ship=`, bevor die Antwort erscheint. Füge dann die Aktion **Insert Text by Pasting** (Text durch Einfügen) hinzu und schreibe die Antwort hinein:
+
+<Copy id="ts-ship" title="Was aus =ship= wird" code="Vielen Dank für deine Bestellung! Das Paket geht innerhalb von zwei Werktagen raus, und die Sendungsnummer schicke ich dir per E-Mail, sobald es unterwegs ist. Falls noch etwas ist, antworte einfach auf diese E-Mail." />
+
+In Keyboard Maestro gibt es keinen Speichern-Knopf. Deine Änderungen werden wenige Sekunden nach dem Bearbeiten automatisch gesichert.
+
+## Warum einfügen statt tippen?
+
+Zum Einfügen von Text gibt es zwei Aktionen für den Alltag. **Insert Text by Typing** (Text durch Tippen) tippt den Text Taste für Taste ein, genau wie du selbst. Das eignet sich für kurze Texte aus Zeichen, die du mit ein oder zwei Tastenanschlägen schreiben kannst, bis ungefähr 30 oder 40 Zeichen. Alles, was länger ist, wird langsam, und Emojis kann diese Aktion nicht tippen. **Insert Text by Pasting** legt den Text in die Zwischenablage und drückt für dich ⌘V (⌘ ist die Befehlstaste). So erscheint jede beliebige Textlänge auf einmal, mit beliebigen Zeichen, und Zeilenumbrüche bleiben Zeilenumbrüche, statt wie der Zeilenschalter zu wirken und auf einer Webseite irgendeinen Button zu drücken. Der Haken ist, dass dabei überschrieben wird, was vorher in deiner Zwischenablage lag. Die offizielle Seite [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text) vergleicht beide Aktionen.
+
+Antworten und Signaturen sind oft lang und haben mehrere Zeilen, deshalb greifst du bei Kürzeln am besten zu **Insert Text by Pasting**. Dass die Zwischenablage überschrieben wird, ist dabei halb so wild: Der <Term k="剪贴板历史" text="Zwischenablage-Verlauf" /> von Keyboard Maestro merkt sich, was du vorher kopiert hast, sodass du es dir zurückholen kannst. Siehe [Schritt 5 der ausführlichen Anleitung](/de/guide/5-clipboard/).
+
+## Noch zwei weitere: Signatur und Rücksendungen
+
+Lege in derselben Gruppe auf genau dieselbe Art noch zwei weitere Makros an. Die Signatur hat drei Zeilen und zeigt gut, wofür sich das Einfügen lohnt. Jeder Zeilenumbruch bleibt erhalten:
+
+<Copy id="ts-sig" title="Was aus =sig= wird" code={`Viele Grüße
+Mia
+Laden Grüne Ecke, Antworten Montag bis Freitag, 9:00 bis 18:00 Uhr`} />
+
+Der Rücksendehinweis ist die zweithäufigste Antwort, also gib ihm das Kürzel `=ret=`:
+
+<Copy id="ts-ret" title="Was aus =ret= wird" code="Falls etwas beschädigt angekommen ist, antworte einfach mit einem Foto, und ich schicke dir Ersatz oder erstatte den Betrag. Das Porto für Hin- und Rückversand übernehme ich." />
+
+Beschränke dich bei den Kürzeln selbst auf einfache Buchstaben und Zeichen. Die offizielle Seite warnt, dass du bei einem Auslöser mit Nicht-ASCII-Zeichen (wie Umlauten) prüfen solltest, ob das Löschen richtig funktioniert; mit einfachen Buchstaben tritt dieses Problem nie auf.
+
+## Prüfen, ob es klappt
+
+Öffne Mail, beginne eine neue E-Mail und tippe im Textfeld `=ship=` ein. Du siehst, wie die sechs Zeichen verschwinden und stattdessen die ganze Antwort erscheint. Tippe darunter `=sig=` ein, und alle drei Zeilen deiner Signatur stehen genau wie geschrieben da.
+
+Falls du irgendwann tatsächlich einmal `=ship=` selbst schreiben musst, etwa um Freunden diesen Trick zu zeigen, hat die offizielle Seite einen Kniff parat: Drücke mittendrin ⇧Leertaste (⇧ ist die Umschalttaste) und lösche das Leerzeichen wieder. Tippe zum Beispiel `=sh`, drücke ⇧Leertaste, lösche es und tippe dann `ip=`. ⇧Leertaste unterbricht die Zeichenfolge, sodass das Kürzel nicht auslöst.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Kürzel eingetippt, aber nichts ist passiert.">
+Überlege zuerst, ob du es wirklich in einem Zug getippt hast. Wenn du ein paar Sekunden Pause machst, mit der Maus klickst, eine Tastenkombination mit ⌘ oder ⌃ (Control-Taste) drückst oder in eine andere App wechselst, verwirft Keyboard Maestro die bisherige Eingabe und fängt wieder von vorn an. Hast du es wirklich am Stück eingetippt, liegt es meistens an den Berechtigungen. Texteingabe-Auslöser brauchen, genau wie Tastenkürzel, die <Term k="辅助功能权限" text="Berechtigung für Bedienungshilfen" />, um zu sehen, was du tippst. Wähle **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe), klicke auf **Something unexpected is happening** (Etwas Unerwartetes passiert), dann weist dich die Hilfe auf offensichtliche Probleme hin. Die offiziellen Hinweise stehen auf der Seite [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key).
+</Q>
+<Q q="In Passwortfeldern oder in den eigenen Fenstern von Keyboard Maestro funktionieren Kürzel nicht.">
+Das ist Absicht. macOS erlaubt keiner App zu sehen, was du in ein Passwortfeld tippst, deshalb funktionieren Kürzel dort nie. Auch in den eigenen Einblendfenstern von Keyboard Maestro sieht die Engine deine Eingaben nicht, und im Editor selbst funktionieren sie nicht zuverlässig; der offizielle Rat ist deshalb, an solchen Stellen einen anderen Auslöser zu verwenden. Wenn Kürzel plötzlich nirgendwo mehr funktionieren, glaubt das System vielleicht, du befindest dich noch immer in einem Passwortfeld („Secure Input“). Wenn du die App beendest, die zuletzt nach einem Passwort gefragt hat, oder neu startest, ist das Problem meistens behoben. Siehe den [Abschnitt „Secure Input Mode“ unter Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode).
+</Q>
+<Q q="Ich habe ein Kürzel in einer Tabelle oder Dateiliste getippt und dabei etwas anderes gelöscht.">
+**Simulate 6 deletes before executing** meint genau das: Keyboard Maestro drückt ein paar Mal die Löschtaste für dich. Außerhalb eines Textfelds können diese Tastendrücke das löschen, was gerade ausgewählt ist, und genau davor warnt auch die offizielle Seite. Nutze Kürzel also nur dort, wo du Text schreibst, oder nimm das Häkchen bei dieser Option im Makro heraus.
+</Q>
+<Q q="Es wurde das eingefügt, was ich beim letzten Mal kopiert habe.">
+Manche Apps verarbeiten das Einfügen langsam. Die Zwischenablage wurde zwar schon ausgetauscht, aber das ⌘V ist noch nicht angekommen, und so landet der falsche Inhalt im Text. Das passiert am ehesten, wenn du zwei Kürzel direkt hintereinander auslöst. Die offizielle Lösung unter [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) ist, Text, der zusammengehört, in eine einzige Aktion zu packen, damit alles auf einmal eingefügt wird, oder zwischen zwei Einfüge-Aktionen eine **Pause** (Pausieren) einzubauen.
+</Q>
+
+Jetzt haben die Texte, die du am häufigsten schreibst, jeweils einen Namen, der mit einem Gleichheitszeichen anfängt und aufhört. Um das heutige Datum in deinen Text einzufügen, mach weiter mit [Das heutige Datum mit einer Taste einfügen](/de/howto/insert-date/).

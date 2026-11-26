@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ask-input
+step: 4
+time: 15 Minuten
+for: Der Text ist fast jedes Mal gleich, nur ein paar Stellen wie Firma, Stelle oder Name ändern sich
+tldr: Mit Prompt for User Input öffnet sich zuerst ein kleines Formular, deine Antworten landen in Variablen und spätere Aktionen fügen sie in den Text ein. Wenn du lieber eine aus wenigen Optionen wählen willst, nimmst du Prompt With List.
+description: "Mit Prompt for User Input von Keyboard Maestro erst kurz nachfragen und dann loslegen: Ein Tastenkürzel für die Jobsuche schreibt den Einstieg für ein Anschreiben und füllt Firma, Stelle und Quelle direkt ein; wie du Variablen benennst und im Text nutzt, ein Auswahlmenü baust und was Cancel bewirkt; danach Prompt With List, um eine fertige Antwort auszuwählen."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Wenn du auf Jobsuche bist, verschickst du oft mehrere Bewerbungen am Tag, und die ersten Zeilen jeder E-Mail sind im Grunde immer gleich. Nur der Firmenname, die Stelle und wo du davon erfahren hast, ändern sich jedes Mal. Die letzte Mail zu kopieren und anzupassen funktioniert genau so lange, bis du eine Stelle übersiehst und den Namen der vorigen Firma an die nächste schickst. Wenn du diese Seite durchgearbeitet hast, drückst du in einer neuen E-Mail einfach ⌃⌥⌘L (Control-Taste, Wahltaste, Befehlstaste und L), ein kleines Formular fragt dich nach diesen drei Angaben, und sobald du sie ausfüllst und den Zeilenschalter drückst, erscheint am Cursor ein höflicher Einstieg, in dem jeder Name stimmt.
+
+Die bisherigen Makros laufen einfach in einem Zug durch. <mark>Fragt dich ein Makro zuerst etwas und arbeitet dann mit deiner Antwort weiter, schafft es auch Aufgaben, die jedes Mal fast gleich sind.</mark>
+
+## Zuerst mit einem kleinen Formular nachfragen
+
+Lege ein neues <Term k="宏" text="Makro" /> namens „Bewerbungseinstieg“ an, wähle als Auslöser **Hot Key** (Tastenkürzel) und drücke ⌃⌥⌘L. Die erste Aktion ist **Prompt for User Input** (Benutzereingabe abfragen). Sie öffnet ein selbst gestaltetes Formular und speichert deine Eingaben in <Term k="变量" text="Variablen" /> ([Aktion „Prompt for User Input“](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+Ganz oben im Formular steht der Titel „Bewerbungseinstieg“. Darunter kommt der Hinweistext für dich selbst, etwa „An wen geht diese Bewerbung?“. Noch eine Ebene tiefer stehen die Variablen, eine pro Zeile, links der Name und rechts ein Standardwert. Füge drei Zeilen hinzu:
+
+- `Local Company`, Standardwert bleibt leer;
+- `Local Role`, Standardwert bleibt leer;
+- `Local Source`, als Standardwert `eine Jobbörse|eine Empfehlung|Ihre Website`.
+
+Das `Local` am Anfang ist keine Deko. Variablen, die mit Local beginnen, sind lokale Variablen: Sie existieren nur innerhalb dieses Makros und verschwinden wieder, sobald es durchgelaufen ist, sodass sich auf deinem Mac nichts ansammelt. Außerdem blendet das Formular „Local“ in den Beschriftungen automatisch aus, sodass du dort nur „Company“, „Role“ und „Source“ siehst ([Variables](https://wiki.keyboardmaestro.com/manual/Variables), [Aktion „Prompt for User Input“](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)). Im dritten Standardwert stehen senkrechte Striche `|`, deshalb macht Keyboard Maestro daraus ein Auswahlmenü. Die Striche trennen die einzelnen Einträge, und der erste ist standardmäßig vorausgewählt.
+
+Die beiden mitgelieferten Buttons reichen völlig aus. **OK** reagiert auf den Zeilenschalter, schließt das Formular und macht weiter. **Cancel** (Abbrechen) reagiert auf die Esc-Taste oder ⌘., schließt das Formular, ohne die Variablen zu speichern, und bricht das Makro ab.
+
+## Die Antworten in den Text einfügen
+
+Die zweite Aktion ist **Insert Text by Pasting** (Text durch Einfügen). In ihrem Textfeld holt `%Variable%name%` jede Antwort wieder hervor. Passe diesen Entwurf einfach an deine eigenen Worte an:
+
+<Copy id="ai-letter" title="Text für Insert Text by Pasting" code={`Guten Tag,
+
+ich habe über %Variable%Local Source% erfahren, dass %Variable%Local Company% Verstärkung als %Variable%Local Role% sucht. Nach der Stellenbeschreibung passt die Aufgabe sehr gut zu dem, was ich in den letzten Jahren gemacht habe. Deshalb schreibe ich Ihnen heute mit meinem Lebenslauf im Anhang und würde mich freuen, mit Ihnen ins Gespräch zu kommen.`} />
+
+Um das Makro zu nutzen, setzt du den Cursor an den Anfang der E-Mail und drückst ⌃⌥⌘L.
+
+<Callout type="ok">
+Es erscheint ein kleines Fenster mit dem Titel „Bewerbungseinstieg“, zwei Textfeldern und einem Auswahlmenü. Sobald du sie ausfüllst und den Zeilenschalter drückst, schließt sich das Fenster und der Einstieg erscheint in deiner E-Mail, wobei alle drei Stellen durch deine Eingaben ersetzt sind.
+</Callout>
+
+Lies den Text vor dem Abschicken trotzdem einmal durch. Das Formular merkt sich, welche Stellen ausgetauscht werden müssen, aber ob die Firma und der Ton passen, entscheidest immer noch du.
+
+## Eine Zeile aus mehreren auswählen: Prompt With List
+
+Es gibt noch eine zweite Art, vorher nachzufragen, bei der du gar nichts tippen musst, sondern einfach auswählst. Wenn du einen kleinen Onlineshop betreibst, antwortest du Kunden immer wieder mit denselben paar Sätzen: ist verschickt, wann es ankommt, wie Rückgaben laufen. **Prompt With List** (Aus Liste auswählen) zeigt ein Fenster ähnlich wie Spotlight mit einer Liste von Einträgen. Du tippst ein paar Buchstaben ein, um die Liste einzugrenzen, wählst einen Eintrag aus und drückst den Zeilenschalter ([Aktion „Prompt With List“](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+
+Die Einträge stehen Zeile für Zeile direkt in der Aktion. Was das Fenster anzeigt und was du am Ende bekommst, muss nicht dasselbe sein: Schreibst du eine Zeile nach dem Muster „Text, den du brauchst, zwei Unterstriche, kurzer Anzeigename“, siehst du im Fenster nur den kurzen Teil, bekommst bei der Auswahl aber den ganzen Satz davor. Zum Beispiel:
+
+<Copy id="ai-list" title="Optionen für Prompt With List" code={`Ihre Bestellung ist heute rausgegangen. Die Sendungsnummer finden Sie in Ihren Bestelldetails, in der Regel dauert der Versand drei bis fünf Tage.__Versendet
+Ihr Paket ist unterwegs. Die Sendungsverfolgung aktualisiert sich etwa einmal am Tag, und ich melde mich sofort, falls sich etwas ändert.__Unterwegs
+Falls nach der Lieferung etwas nicht passt, ist das kein Problem. Melden Sie sich einfach kurz, dann schicke ich Ihnen alle Schritte für Rückgabe oder Umtausch.__Rückgabe`} />
+
+Packe diese Aktion in ein eigenes neues Makro mit eigenem Tastenkürzel, speichere das Ergebnis in einer Variablen, etwa `Local Reply`, und hänge dann **Insert Text by Pasting** mit dem Text `%Variable%Local Reply%` dahinter. Wenn du die Esc-Taste drückst, schlägt die Aktion fehl und es wird nichts gespeichert. Standardmäßig wird dabei das gesamte Makro mit einem Hinweis abgebrochen, dass die Aktion fehlgeschlagen ist. Mit der Esc-Taste kommst du also trotzdem sauber wieder raus.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe auf Cancel geklickt und es wurde nichts eingefügt.">
+Genau so soll es sein: **Cancel** speichert keine Variablen und bricht das gesamte Makro ab. Wenn du einen dritten Button möchtest, der etwas anderes tut, etwa „nur speichern, nicht einfügen“, kannst du dem Formular weitere Buttons hinzufügen. Im <Term k="令牌" text="Token" /> `%PromptButton%` steht dann der Name des geklickten Buttons, und mit **If Then Else** (Wenn-Dann-Sonst) kannst du darauf verzweigen.
+</Q>
+<Q q="Eingefügt wird wörtlich %Variable%Local Company%.">
+Prüfe, ob der Variablenname im Formular und der Name im Text Zeichen für Zeichen übereinstimmen, einschließlich des Leerzeichens nach `Local`. Am sichersten fügst du die Variable über das Menü **Edit ▸ Insert Variable** (Bearbeiten ▸ Variable einfügen) ein, statt sie von Hand abzutippen ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)).
+</Q>
+<Q q="Ich wollte ein Auswahlmenü, bekommen habe ich aber ein Textfeld.">
+Steht der Feldtyp auf **Automatic** (Automatisch), rät Keyboard Maestro anhand des Standardwerts, und nur senkrechte Striche ergeben ein Menü. Wenn dort keine Striche stehen oder du es lieber ausdrücklich festlegen willst, wähle im Menü rechts neben dem Standardwert **Menu** (Menü).
+</Q>
+<Q q="Das Formular ist offen, aber meine Kürzel funktionieren darin nicht.">
+Laut Wiki lässt das System die Keyboard Maestro Engine keine Tastenanschläge in ihren eigenen Fenstern sehen, deshalb funktionieren Texteingabe-Auslöser in diesen Formularen nicht. Tippe den Text direkt ins Formular oder kopiere ihn vorher woanders und füge ihn dann ein.
+</Q>
+
+Mit einem Formular und ein paar Variablen behältst du die Stellen in der Hand, die sich jedes Mal ändern, und das Makro erledigt den Rest. Variablen und Bedingungen können noch viel mehr. Mehr dazu findest du in [Schritt 4 der ausführlichen Anleitung](/de/guide/4-variables/).

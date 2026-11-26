@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: palette
+step: 1
+time: 10 Minuten
+for: Du hast mehrere Makros erstellt, nutzt sie aber nur ein- oder zweimal pro Woche und kannst dir die Tastenkürzel nie merken
+tldr: Lege diese Makros in eine Makrogruppe und stelle sie so ein, dass sie per Tastenkürzel als Palette erscheint. Auf dem Bildschirm schwebt eine Reihe Buttons, einer pro Makro, ein Klick führt das Makro aus und das Tastenkürzel blendet die Palette wieder aus.
+description: "Eine Palette in Keyboard Maestro erstellen, eine schwebende Reihe Buttons, die Makros ausführen: In einem kleinen Onlineshop landen ein paar selten genutzte Makros in einer Makrogruppe mit Shows/hides a palette when und einem Tastenkürzel; dazu das Sortieren und Gestalten der Buttons, welche Anzeigeoption passt und die Alternativen Global Macro Palette und Show Palette of Macros."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Wenn du eine Weile einen kleinen Onlineshop betreibst, sammeln sich schnell Makros an: die Bestelltabelle für den Lieferanten öffnen, den Absatz mit deiner Rücksendeadresse einfügen, den Ordner mit den Belegen dieses Monats öffnen. Alle sind praktisch, aber du brauchst jedes davon nur ein- oder zweimal pro Woche, und wenn es so weit ist, überlegst du: ⌃⌥⌘ plus welcher Buchstabe noch mal? Kein einziges fällt dir mehr ein. Wenn du mit dieser Seite fertig bist, drückst du ⌃⌥⌘P (Control, Wahltaste, Befehlstaste und P), und eine kleine, schwebende <Term k="面板" text="Palette" /> mit den Namen dieser Makros erscheint auf dem Bildschirm. Ein Klick auf eines davon führt es aus. Drückst du ⌃⌥⌘P noch einmal, verschwindet die Palette wieder.
+
+Tastenkürzel sind für Dinge da, die du jeden Tag machst. <mark>Bei Makros, die du nur selten brauchst, spar dir die Tastenkürzel und ordne sie als Buttons an, die du siehst und einfach anklickst.</mark>
+
+## Eine Makrogruppe ist eine Palette
+
+Jede <Term k="宏组" text="Makrogruppe" /> in Keyboard Maestro lässt sich als Palette anzeigen ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)). Gib diesen Makros also zuerst ein eigenes Zuhause. Klicke links im Editor ganz unten in der Makrogruppen-Liste auf **+**, um eine neue Gruppe anzulegen, und nenne sie „Shop-Tools“.
+
+Wähle die Gruppe aus, dann erscheinen rechts ihre Einstellungen. Standardmäßig steht dort **Always activated** (immer aktiv). Ändere das auf **Shows/hides a palette when:** (zeigt/verbirgt eine Palette, wenn), woraufhin daneben ein Feld für ein Tastenkürzel erscheint. Drücke ⌃⌥⌘P. Lass die Gruppe vorerst für alle Apps verfügbar.
+
+Ziehe deine Makros dann aus ihren bisherigen Gruppen hier hinein. Es spielt keine Rolle, ob sie eigene Tastenkürzel haben, denn ein Klick auf der Palette führt sie einfach aus.
+
+<Callout type="ok">
+Wechsle in eine beliebige App und drücke ⌃⌥⌘P. Es erscheint eine Palette mit dem Titel „Shop-Tools“ und den Namen deiner Makros. Klicke auf „Bestelltabelle öffnen“, und die Tabelle öffnet sich. Drücke noch einmal ⌃⌥⌘P, und die Palette verschwindet wieder.
+</Callout>
+
+Eine Besonderheit dieser Option solltest du kennen. Bei diesen Einstellungen zum Anzeigen einer Palette sind die Makros der Gruppe nur aktiv, solange die Palette auch sichtbar ist ([Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)). Der Vorteil: Du kannst ihnen ganz einfache Tastenkürzel geben, sogar einzelne Buchstaben, ohne sie beim Tippen versehentlich auszulösen. Der Nachteil: Sobald die Palette ausgeblendet ist, funktionieren auch ihre eigenen Tastenkürzel nicht mehr. Wenn diese Tastenkürzel auch bei ausgeblendeter Palette funktionieren sollen, wähle die Variante mit **Always activated**: **Always activated and shows/hides a palette when:** (immer aktiv und zeigt/verbirgt eine Palette, wenn).
+
+## Reihenfolge festlegen und Aussehen anpassen
+
+Die Buttons auf einer Palette werden nach dem Makronamen sortiert. Wenn du die Reihenfolge ändern willst, stelle jedem Namen zwei Zeichen und eine schließende Klammer voran, zum Beispiel „01)Bestelltabelle öffnen“ und „02)Rücksendeadresse“. Die Palette sortiert nach diesem Präfix und lässt es bei der Anzeige einfach weg ([Palettes](https://wiki.keyboardmaestro.com/manual/Palettes)).
+
+Das Aussehen änderst du direkt in den Einstellungen der Makrogruppe, oder du legst den Standardstil in den Einstellungen von Keyboard Maestro im Bereich **Palettes** (Paletten) fest. Anpassen kannst du Stil, Deckkraft, Größe der Einträge, Anzahl der Spalten, ob Symbol, Text und Auslöser angezeigt werden, die Titelleiste und ob sich die Palette verkleinert, wenn der Mauszeiger nicht darüber liegt. Gibst du jedem Makro ein Symbol und zeigst nur die Symbole an, hast du eine kompakte Reihe aus Symbol-Buttons.
+
+## Weitere Möglichkeiten, die Palette anzuzeigen
+
+Die Einrichtung oben funktioniert nach dem Prinzip „einmal drücken zum Einblenden, noch einmal zum Ausblenden“. In den Gruppeneinstellungen gibt es noch weitere Optionen, je nachdem, wie du arbeitest:
+
+- **Shows a palette for one action when:** (zeigt eine Palette für eine Aktion, wenn): Die Palette erscheint und verschwindet wieder, sobald du eines ihrer Makros auslöst oder eine andere Taste drückst. Das Beispiel im Wiki ist eine Gruppe aus Makros zum Öffnen von Apps, die per ⌃⌘L erscheint: Ein Klick öffnet die App, und die Palette ist sofort wieder weg.
+- **Shows a palette until:** (zeigt eine Palette, bis): Die Palette ist von Anfang an sichtbar und verschwindet erst, wenn du das Tastenkürzel drückst. Stellst du die Makrogruppe so ein, dass sie nur in einer bestimmten App verfügbar ist, erscheint die Palette nur, solange diese App im Vordergrund ist, fast wie eine eigene Symbolleiste dafür.
+
+Es gibt außerdem zwei Wege, für die du gar keine neue Makrogruppe brauchst. Gibst du einem Makro den Auslöser **Global Macro Palette** (Globale Makro-Palette), taucht es auf einer gemeinsamen schwebenden Palette mit allen anderen Makros auf, die diesen Auslöser nutzen. Diese Palette ist immer dann zu sehen, wenn mindestens ein solches Makro aktiv ist; hältst du die Wahltaste ⌥ gedrückt, während du dort ein Makro anklickst, landest du direkt bei diesem Makro im Editor ([Auslöser Global Macro Palette](https://wiki.keyboardmaestro.com/trigger/Global_Macro_Palette)). Und wenn ein Makro mittendrin anhalten soll, damit du den nächsten Schritt auswählst, nutze die Aktion **Show Palette of Macros** (Makro-Palette anzeigen). Sie zeigt eine Palette mit den Makros, Makrogruppen oder <Term k="智能组" text="intelligenten Gruppen" />, die du auswählst, und führt das angeklickte Makro selbst dann aus, wenn es gerade nicht aktiv ist ([Aktion Show Palette of Macros](https://wiki.keyboardmaestro.com/action/Show_Palette_of_Macros)).
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Tastenkürzel gedrückt, aber es erscheint keine Palette.">
+Prüfe zuerst, ob die Makrogruppe aktiviert ist (Häkchen gesetzt). Wähle sie in der Gruppenliste aus: Mit dem Button ✓ ganz unten aktivierst und deaktivierst du sie. Ist eine Gruppe deaktiviert, ist keines ihrer Makros aktiv. Schau danach, ob die Gruppe auf bestimmte Apps eingeschränkt ist; in dem Fall erscheint die Palette nur, solange eine dieser Apps im Vordergrund ist. Es kann auch sein, dass ⌃⌥⌘P schon von einem anderen Makro oder einer anderen App belegt ist, probiere also einfach eine andere Tastenkombination aus.
+</Q>
+<Q q="Eines meiner Makros fehlt auf der Palette.">
+Deaktivierte Makros erscheinen nicht auf einer Palette; schau also im Editor nach, ob es deaktiviert ist. Vergewissere dich außerdem, dass du es wirklich in diese Makrogruppe gezogen hast und es nicht noch an seinem alten Platz liegt.
+</Q>
+<Q q="Die Palette liegt über dem Video, das ich gerade schaue.">
+Die Aktion **Conceal Macro Palettes** (Makro-Paletten ausblenden) versteckt alle Paletten von Keyboard Maestro auf einmal. Die Option **until application switch** (bis zum App-Wechsel) ist laut Wiki genau dafür gedacht, in Safari Videos im Vollbild zu schauen: Sobald du die App wechselst, kommen die Paletten zurück ([Aktion Conceal Macro Palettes](https://wiki.keyboardmaestro.com/action/Conceal_Macro_Palettes)). Nimmt dir eine Palette im Alltag einfach zu viel Platz weg, verringere in den Stileinstellungen ihre Deckkraft oder lass sie sich verkleinern, wenn der Mauszeiger sie verlässt.
+</Q>
+
+Eine einzige Palette macht aus „Ich weiß, ich habe dafür ein Makro gebaut, aber welches Tastenkürzel war das noch mal?“ ein einfaches „kurz hinschauen, anklicken“. Makrogruppen legen außerdem fest, wo und wann Makros aktiv sind. Mehr dazu steht in [Schritt 1 der ausführlichen Anleitung](/de/guide/1-groups/).

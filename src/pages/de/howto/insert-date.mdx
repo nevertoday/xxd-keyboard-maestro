@@ -1,0 +1,73 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: insert-date
+step: 4
+time: Zehn Minuten
+for: Du führst ein Protokoll oder Tagebuch und jeder Eintrag beginnt mit dem Datum
+tldr: Drücke in Notizen ⌃⌥⌘D, und schon stehen Datum und Uhrzeit wie 2026-11-25 08:30 direkt am Cursor, in genau dem Format, das du wählst. Kein Blick mehr in den Kalender.
+description: Nutze das Datums-Token %ICUDateTime% zusammen mit Insert Text by Typing, um mit einem Tastenkürzel das heutige Datum und die Uhrzeit einzufügen. Passe das Format mit den offiziellen Formatcodes an und berechne auch gleich das Datum in zwei Wochen.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Wer sich um einen älter werdenden Elternteil kümmert, führt oft irgendwann ein laufendes Protokoll: wann die Tabletten genommen wurden, wie der Blutdruck war, was heute wehgetan hat. Wenn beim nächsten Arztbesuch gefragt wird, wie die Woche war, steht die Antwort direkt darin. Aber jeder Eintrag braucht Datum und Uhrzeit, mehrmals am Tag. Nach einer Weile wird man bequem und schreibt nur noch „gestern“, und eine Woche später passt nichts mehr zusammen. Sobald du das Makro von dieser Seite gebaut hast, drückst du in Notizen einfach ⌃⌥⌘D (⌃ ist die Control-Taste, ⌥ die Wahltaste, ⌘ die Befehlstaste), schon steht `2026-11-25 08:30 ` genau an der Cursor-Position, und du schreibst einfach weiter.
+
+<mark>Das Datum tippst du nicht selbst. Du schreibst ein Token, und in dem Moment, in dem das Makro läuft, wird es zum heutigen Datum.</mark>
+
+## Tokens: Platzhalter, die sich selbst ausfüllen
+
+Die meisten Felder in Keyboard Maestro, in die du Text eingeben kannst, verstehen <Term k="令牌" text="Tokens" />. Ein Token ist ein Name zwischen zwei Prozentzeichen, zum Beispiel `%LongDate%`. Beim Bearbeiten stehen dort einfach nur diese Zeichen. Sobald das Makro läuft, werden sie durch den echten Inhalt ersetzt (siehe [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)). Für das Datum gibt es gleich mehrere Tokens. `%ShortDate%`, `%LongDate%` und `%NumberDate%` liefern das heutige Datum im kurzen, langen und rein numerischen Format aus den Regionseinstellungen deines Mac. Mit einem weiteren Token, `%ICUDateTime%`, legst du das Format einfach selbst fest.
+
+Ein Protokoll liest sich am besten, wenn jeder Eintrag gleich aussieht und auf einen Blick klar ist, deshalb nutzen wir hier `%ICUDateTime%`. Hinter das Token schreibst du dein Format und schließt es mit einem weiteren Prozentzeichen ab:
+
+<Copy id="id-token" title="Datum und Uhrzeit" code="%ICUDateTime%yyyy-MM-dd HH:mm% " />
+
+Jeder Buchstabe im Format hat eine eigene Bedeutung. Die wichtigsten stehen auf der offiziellen Seite [Dates and Times](https://wiki.keyboardmaestro.com/Dates_and_Times): `yyyy` ist das vierstellige Jahr, `MM` der zweistellige Monat, `dd` der zweistellige Tag, `HH` die Stunde im 24-Stunden-Format, `mm` die Minuten und `EEEE` der ausgeschriebene Wochentag. Großes `MM` steht für den Monat und kleines `mm` für die Minuten: Die Groß- und Kleinschreibung macht hier also einen großen Unterschied. Das Leerzeichen ganz am Ende ist dafür da, dass du direkt weiterschreiben kannst.
+
+## Das Makro bauen
+
+Lege ein neues Makro mit dem Namen „Datum und Uhrzeit einfügen“ in einer Makrogruppe an, die in allen Apps verfügbar ist. Als Auslöser wählst du **Hot Key** (Tastenkürzel) und drückst ⌃⌥⌘D. Drei Sondertasten plus ein Buchstabe werden von anderen Apps nur selten belegt. Als Aktion wählst du **Insert Text by Typing** (Text durch Tippen) und fügst die Zeile von oben ein.
+
+Tippen ist hier besser als Einfügen, weil das Datum kurz ist und nur aus Zeichen besteht, die auf deiner Tastatur liegen. Laut offizieller Dokumentation funktioniert diese Aktion genau so, als würdest du selbst tippen, und übernimmt die Textformatierung an der Cursor-Position. Außerdem überschreibt sie anders als das Einfügen deine Zwischenablage nicht (siehe [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text)).
+
+Die Formatbuchstaben musst du dir nicht merken. Setze den Cursor in das Textfeld der Aktion, wähle **Edit ▸ Insert ICU Date Field** (Bearbeiten ▸ ICU-Datumsfeld einfügen) und suche dir eins aus. Unter **Edit ▸ Insert Token** (Bearbeiten ▸ Token einfügen) findest du alle Tokens aufgelistet, sodass du nichts auswendig lernen musst.
+
+## Das passende Format auswählen
+
+Alle schreiben ein Datum auf ihre eigene Art, tausche also einfach den Formatteil aus. Diese Beispiele stammen aus der offiziellen Formattabelle, in Klammern steht das Ergebnis für den 25. November 2026:
+
+- `%ICUDateTime%yyyy-MM-dd%` (2026-11-25): vom Größten zum Kleinsten, sodass Dateinamen in dieser Form automatisch nach Datum sortiert werden.
+- `%ICUDateTime%dd/MM/yyyy%` (25/11/2026): der Tag zuerst, wie es an vielen Orten üblich ist.
+- `%ICUDateTime%EEE, MMM d, yyyy%` (Wed, Nov 25, 2026): mit abgekürztem Wochentag und Monatsnamen.
+
+Wenn ein Format Wochentags- oder Monatsnamen enthält, hängt es von deinem System und deiner macOS-Version ab, in welcher Sprache sie ausgegeben werden. Der Abschnitt „Localization“ auf der offiziellen Seite [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime) erklärt das genauer. Wenn du auf jedem Mac genau dasselbe Ergebnis willst, bleibe einfach bei Zahlen.
+
+## Vorausdenken: der Kontrolltermin in zwei Wochen
+
+Ärzte sagen oft „Kommen Sie in zwei Wochen wieder“. `%ICUDateTimePlus%` rechnet ab heute nach vorn. In der Mitte gibst du an, wie viel und in welcher Einheit dazugerechnet wird:
+
+<Copy id="id-plus" title="Zwei Wochen ab heute" code="Nächster Termin: %ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
+
+Die Einheit kann Days (Tage), Weeks (Wochen), Months (Monate) und so weiter sein, und zum Zurückrechnen nutzt du `%ICUDateTimeMinus%` auf dieselbe Weise (siehe [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). Du kannst aus dieser Zeile ein eigenes Makro auf ⌃⌥⇧⌘D machen, also dein Datums-Tastenkürzel plus ⇧ (Umschalttaste). Wenn du für den Text davor Zeichen verwendest, die deine Tastatur nicht direkt tippen kann, zum Beispiel Chinesisch, kann **Insert Text by Typing** sie nicht eingeben, deshalb gibst du diesem Makro stattdessen die Aktion **Insert Text by Pasting** (Text durch Einfügen). Oder mache mit einer getippten Zeichenfolge ein Kürzel wie `=next=` daraus, wie in [Oft getippte Texte zu Kürzeln machen](/de/howto/text-snippets/).
+
+## Prüfen, ob es klappt
+
+Öffne Notizen, lege eine neue Notiz an und drücke ⌃⌥⌘D. An deiner Cursor-Position sollten jetzt das heutige Datum und die aktuelle Uhrzeit erscheinen, gefolgt von einem Leerzeichen. Wirf einen kurzen Blick auf die Uhr in deiner Menüleiste. Stimmen beide überein, bist du fertig.
+
+## Wenn etwas nicht klappt
+
+<Q q="Eingetippt wird wörtlich %ICUDateTime%yyyy-MM-dd HH:mm%.">
+Das Token wurde nicht ersetzt, höchstwahrscheinlich weil die Textverarbeitung der Aktion verstellt wurde. Klicke oben rechts in der Aktion auf das Zahnrad und schau nach, ob dort **Process Nothing** (Nichts verarbeiten) eingestellt ist. Stelle es zurück auf **Process Text Normally** (Text normal verarbeiten). Vergleiche danach deine Zeile mit der von oben und prüfe, ob der Token-Name und alle drei Prozentzeichen da sind.
+</Q>
+<Q q="Rund um Neujahr liegt die Jahreszahl um ein Jahr daneben.">
+Wahrscheinlich hast du ein großes `YYYY` geschrieben. Die offizielle Seite warnt ausdrücklich davor: Das große Y steht für das Jahr der „Kalenderwoche“ und liefert am Jahresanfang und -ende seltsame Ergebnisse. Nutze für die Jahreszahl immer das kleine `yyyy`.
+</Q>
+<Q q="Bei der Uhrzeit steht der Monat statt der Minuten.">
+Du hast die Minuten als großes `MM` geschrieben. Der Monat ist ein großes `MM`, die Minuten sind ein kleines `mm`.
+</Q>
+<Q q="Ich habe ⌃⌥⌘D gedrückt und nichts ist passiert.">
+Bei dem Makro und bei der Makrogruppe, in der es liegt, muss das Häkchen gesetzt sein, und die Engine muss laufen. Wenn das alles passt, belegt vielleicht eine andere App schon ⌃⌥⌘D, probiere also einfach einen anderen Buchstaben. Wenn das Makro trotzdem nicht ausgelöst wird, gehe [Schritt 6 der ausführlichen Anleitung](/de/guide/6-debug/) Punkt für Punkt durch.
+</Q>
+
+Ein Token und ein Tastenkürzel, und ab jetzt trägt jeder Eintrag das genaue Datum samt Uhrzeit. Tokens funktionieren auch in anderen Aktionen, zum Beispiel wenn du beim Umbenennen von Dateien das heutige Datum anhängst. Schau dir dazu [Mehrere Dateien auf einmal umbenennen](/de/howto/rename-files/) an.

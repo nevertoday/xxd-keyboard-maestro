@@ -1,0 +1,82 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: window-layout
+step: 3
+time: Zehn Minuten
+for: Jedes Mal, wenn du anfängst zu arbeiten, schiebst du Fenster herum und ziehst an den Ecken, bis zwei Apps nebeneinanderstehen
+tldr: Drücke ⌃⌥⌘2, dann belegt Safari die linke Bildschirmhälfte und TextEdit die rechte, sofort an Ort und Stelle und jedes Mal exakt gleich.
+description: Mit Move and Resize in der Aktion Manipulate a Window und fertigen Positionen wie Left Column und Right Column legst du zwei Apps nebeneinander. Auf das Fenster einer gerade erst geöffneten App wartest du mit Pause Until, und andere Größenverhältnisse berechnest du mit der Funktion SCREENVISIBLE.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Auf der einen Seite die Recherche, auf der anderen der Entwurf: So arbeiten viele beim Schreiben, links Safari mit den gefundenen Artikeln und rechts TextEdit mit dem eigenen Text. Jeden Tag fängst du damit an, beide Fenster zurechtzuschieben und an den Ecken zu ziehen, und kaum passt es ungefähr, wirft ein Pop-up sie wieder durcheinander. Wenn du das Makro auf dieser Seite einrichtest, legt ⌃⌥⌘2 (⌃ ist die Control-Taste, ⌥ ist die Wahltaste, ⌘ ist die Befehlstaste) Safari in die linke Bildschirmhälfte und TextEdit in die rechte, und du kannst sofort losschreiben.
+
+<mark>Überlass einer Aktion, wohin ein Fenster kommt und wie groß es ist, und es landet jedes Mal an genau derselben Stelle.</mark>
+
+## Eine Aktion, drei Entscheidungen
+
+Fenster bewegst du mit **Manipulate a Window** (Fenster steuern). Die offizielle Seite teilt die Aktion in drei Dinge auf, die du auswählst (siehe [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)):
+
+- Was passieren soll: verschieben, Größe ändern, zentrieren, minimieren und mehr. Auf dieser Seite nutzen wir **Move and Resize** (Bewegen und Größe ändern), das eine Reihe fertiger Positionen mitbringt: **Left Column** (Linke Spalte), **Right Column** (Rechte Spalte), **Top Half** (Obere Hälfte), **Full Screen** (Vollbild) und so weiter. Es gibt auch **Custom** (Benutzerdefiniert), falls du die Zahlen selbst eintragen willst.
+- Welches Fenster: meistens **the front window** (das vorderste Fenster), du kannst ein Fenster aber auch nach seinem Titel auswählen.
+- Zu welcher App das Fenster gehört: eine bestimmte App aus der Liste oder **Front Application** (Vorderste App).
+
+Der dritte Punkt ist das Entscheidende auf dieser Seite. Wenn du eine bestimmte App auswählst, weiß das Makro, dass es das Safari-Fenster bewegen soll und nicht die App, die beim Drücken des Tastenkürzels zufällig gerade im Vordergrund war.
+
+## Das Makro bauen
+
+Lege ein neues Makro mit dem Namen „Schreib-Layout“ an. Als Auslöser wählst du **Hot Key** (Tastenkürzel) und drückst ⌃⌥⌘2, wobei die 2 für zwei Spalten steht. Füge dann nacheinander diese vier Aktionen hinzu:
+
+1. **Activate a Specific Application** (Bestimmte App nach vorn holen): Safari. Läuft Safari noch nicht, wird die App dabei geöffnet.
+2. **Manipulate a Window**: **Move and Resize** auf **Left Column**, Fenster auf **the front window**, App auf Safari.
+3. **Activate a Specific Application**: TextEdit.
+4. **Manipulate a Window**: **Move and Resize** auf **Right Column**, Fenster auf **the front window**, App auf TextEdit.
+
+Dass jede App vor dem Verschieben in den Vordergrund geholt wird, stellt sicher, dass sie tatsächlich läuft und ihr Fenster sichtbar ist. Wenn das Makro durchgelaufen ist, liegt TextEdit vorn und dein Cursor steht im Entwurf, sodass du sofort lostippen kannst.
+
+[Lektion 3](/de/start/3-one-key-routine/) verbindet das Öffnen von Apps und das Anordnen von Fenstern zu einer kompletten Routine für den Arbeitsbeginn. Diese Seite greift nur den Fensterschritt heraus und geht dabei etwas mehr ins Detail.
+
+## Wenn eine App gerade erst geöffnet wurde
+
+Läuft TextEdit noch nicht, wenn du das Tastenkürzel drückst, öffnet Schritt 3 die App erst. Ihr Fenster braucht dann aber einen kurzen Moment, bis es erscheint, und Schritt 4 findet noch kein Fenster zum Verschieben. Die offizielle Lösung ist, das Makro warten zu lassen (siehe [den Abschnitt „Timing Between Actions“ auf der Troubleshooting-Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Füge zwischen Schritt 3 und 4 die Aktion **Pause Until** (Warten, bis …) ein und wähle die Bedingung **Front Window** (Vorderstes Fenster) mit der Einstellung, dass das vorderste Fenster von TextEdit existiert. Sobald das Fenster auftaucht, läuft das Makro weiter. Dasselbe kannst du auch für Safari einbauen.
+
+Auf eine Bedingung zu warten ist zuverlässiger als eine feste Pause von einer Sekunde. Auf einem schnellen Mac wartet das Makro nicht umsonst, und auf einem langsamen gibt es nicht zu früh auf.
+
+## Andere Größenverhältnisse
+
+Halbe-halbe ist nicht die einzige Aufteilung. Angenommen, dein Entwurf soll breiter sein und zwei Drittel des Bildschirms einnehmen. Statt einer fertigen Position rechnest du sie selbst aus. Überall, wo Keyboard Maestro eine Zahl erwartet, kannst du eine <Term k="计算" text="Berechnung" /> eintragen, und die Funktion `SCREENVISIBLE` liefert dir die Größe des Bildschirms ohne Menüleiste und Dock (siehe [Funktion SCREEN](https://wiki.keyboardmaestro.com/function/SCREEN)).
+
+Ersetze Schritt 4 durch zwei Aktionen vom Typ **Manipulate a Window**, beide für TextEdit. In der ersten wählst du **Move to** (Verschieben nach), trägst für die vertikale Position `SCREENVISIBLE(Main,Top)` ein und für die horizontale Position diese Zeile, die vom rechten Bildschirmrand aus zwei Drittel der Breite zurückrechnet:
+
+<Copy id="wl-left" title="Horizontale Position: zwei Drittel vom rechten Rand zurück" code="SCREENVISIBLE(Main,Right)-SCREENVISIBLE(Main,Width)*2/3" />
+
+In der zweiten wählst du **Resize to** (Größe ändern auf), trägst für die Höhe `SCREENVISIBLE(Main,Height)` ein und für die Breite diese Zeile:
+
+<Copy id="wl-width" title="Breite: zwei Drittel des sichtbaren Bereichs" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+Weil die linke obere Ecke zuerst an ihrem Platz sitzt, landet der rechte Rand des Fensters genau am Bildschirmrand, sobald es auf diese Breite gezogen wird. Für Safari machst du dasselbe mit einem Drittel: Verschiebe es nach `SCREENVISIBLE(Main,Left)` und `SCREENVISIBLE(Main,Top)`, mit einer Breite von `SCREENVISIBLE(Main,Width)/3` und derselben Höhe wie TextEdit.
+
+`Main` ist der Bildschirm mit der Menüleiste. Wenn du einen externen Monitor angeschlossen hast, kannst du auch Namen wie `Second` oder `External` schreiben, um einen anderen Bildschirm anzusprechen. Alle diese Werte sind in Punkten angegeben, nicht in den tatsächlichen Pixeln des Bildschirms. Auf einem Retina-Display gibt es ungefähr halb so viele Punkte wie Pixel.
+
+## Prüfen, ob es klappt
+
+Ziehe die Fenster von Safari und TextEdit erst einmal wild durcheinander und drücke dann ⌃⌥⌘2. Jetzt sollte Safari in die linke Hälfte springen und TextEdit in die rechte, direkt nebeneinander. Beende TextEdit anschließend und drücke das Tastenkürzel noch einmal, um zu prüfen, ob sich die App öffnet und ebenfalls rechts landet.
+
+## Wenn etwas nicht klappt
+
+<Q q="Ich habe das Tastenkürzel gedrückt, aber die Fenster haben sich nicht bewegt.">
+Um Fenster zu bewegen, braucht Keyboard Maestro die <Term k="辅助功能权限" text="Berechtigung für Bedienungshilfen" />. Die offizielle Troubleshooting-Seite erwähnt, dass bei Problemen mit dieser Berechtigung weder das Festlegen von Tastenkürzeln noch das Eintippen von Tasten oder das Bewegen von Fenstern funktioniert. Gehe den Berechtigungsschritt aus [Lektion 1](/de/start/1-first-macro/) unter **Systemeinstellungen ▸ Datenschutz & Sicherheit ▸ Bedienungshilfen** (in älteren macOS-Versionen unter „Sicherheit ▸ Datenschutz“) noch einmal durch, wähle dann **Help ▸ Interactive Help** (Hilfe ▸ Interaktive Hilfe) und schau, ob dort das Problem erkannt wird. Siehe [den Abschnitt „Accessibility“ auf der Troubleshooting-Seite](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
+</Q>
+<Q q="Es wurde das Fenster einer anderen App bewegt.">
+Prüfe, ob in Schritt 2 oder 4 als App **Front Application** eingestellt ist. Dann wird immer das Fenster der App bewegt, die beim Drücken des Tastenkürzels gerade im Vordergrund war, und das ist nicht unbedingt die gewünschte. Wähle stattdessen die jeweilige App direkt aus.
+</Q>
+<Q q="Beim ersten Mal klappt es, aber wenn eine App noch nicht offen ist, wird nur ein Fenster platziert.">
+Die App, die noch nicht lief, hat ihr Fenster nicht schnell genug geöffnet. Füge wie oben im Abschnitt „Wenn eine App gerade erst geöffnet wurde“ beschrieben eine Aktion **Pause Until** ein.
+</Q>
+<Q q="Die selbst berechnete Position liegt weit daneben.">
+Wahrscheinlich hast du mit den tatsächlichen Pixeln des Bildschirms statt mit Punkten gerechnet. Laut der offiziellen Seite arbeitet diese Aktion mit Punkten, und ein Retina-Display hat ungefähr halb so viele Punkte wie Pixel. Nutze die Funktion `SCREENVISIBLE`, dann musst du nichts umrechnen.
+</Q>
+
+Ein Tastenkürzel, und beide Fenster sind dort, wo sie hingehören. Wenn du noch einen Schritt weitergehen und mit demselben Tastenkürzel gleich den heutigen Entwurf öffnen möchtest, füge zusätzlich die Aktion **Open a File, Folder or Application** (Datei, Ordner oder App öffnen) hinzu.

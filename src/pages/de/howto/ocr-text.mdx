@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ocr-text
+step: 3
+time: 10 Minuten
+for: Der Text steckt in einem Bild, einem Video oder einem Screenshot, lässt sich nicht markieren und du musst ihn abtippen
+tldr: Nimm den Bereich mit dem Text auf, drücke ein Tastenkürzel, und Keyboard Maestro liest ihn per OCR aus und legt ihn zum Einfügen in die Zwischenablage.
+description: "Text aus Screenshots, Bildern und vom Bildschirm mit der Aktion OCR Image von Keyboard Maestro auslesen: zuerst die eingebaute OCR im Zwischenablage-Verlauf ausprobieren, dann ein Tastenkürzel-Makro bauen, Sprache und Erkennungs-Engine wählen, das Ergebnis in der Zwischenablage speichern und erfahren, was du tust, wenn OCR etwas Falsches oder gar nichts erkennt."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Deine Lehrkraft hat die Aufgabenstellung auf eine Folie gepackt, und das aufgezeichnete Video pausiert genau an dieser Stelle. Der Text ist gestochen scharf, aber du kannst ihn nicht markieren. Jemand aus deinem Kurs schickt einen Screenshot mit der Aufgabenverteilung und der Abgabefrist in den Gruppenchat, und um das in Notizen zu bekommen, müsstest du alles Buchstabe für Buchstabe abtippen. Wenn du mit dieser Seite durch bist, ziehst du einfach einen Rahmen um die Stelle mit dem Text, drückst ⌃⌥⌘O (Control-Taste, Wahltaste und Befehlstaste gedrückt halten, dann O), und die Wörter liegen in deiner Zwischenablage, bereit zum Einfügen an jeder beliebigen Stelle.
+
+Text aus einem Bild auszulesen nennt man OCR, kurz für optische Zeichenerkennung. Die Aktion **OCR Image** (Text im Bild erkennen) von Keyboard Maestro zieht den Text aus einem Bild heraus (siehe [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)). <mark>Du gibst ihr einfach ein Bild mit Text, und sie legt die Wörter in die Zwischenablage, als hättest du sie selbst kopiert.</mark>
+
+## Erst mal ausprobieren, ohne etwas zu bauen
+
+Sobald Keyboard Maestro installiert ist, bringt das Fenster für den <Term k="剪贴板历史" text="Zwischenablage-Verlauf" /> schon ein kleines OCR-Werkzeug mit. Drücke ⌘⌃⇧4 (Befehlstaste, Control-Taste, Umschalttaste und 4 zusammen) und ziehe einen Rahmen um den Text. Der Screenshot landet direkt in der Zwischenablage. Öffne dann den **Clipboard History Switcher** (Auswahl für den Zwischenablage-Verlauf). Sein Tastenkürzel findest du im passenden Makro in der eingebauten Makrogruppe **Switcher Group** (Auswahl-Gruppe). Wähle dort das Bild aus und klicke im Zahnradmenü ⚙ des Fensters auf den Eintrag für OCR (siehe [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)).
+
+Für den gelegentlichen Screenshot reicht das völlig aus. Wenn du aber mehrmals pro Woche Text von Folien abschreibst, lohnt es sich, das auf ein einziges Tastenkürzel zu legen.
+
+## Auf ein Tastenkürzel legen
+
+Erstelle ein neues <Term k="宏" text="Makro" />, füge den Auslöser **Hot Key** (Tastenkürzel) hinzu, drücke ⌃⌥⌘O und füge die Aktion **OCR Image** hinzu. Die Aktion fragt dich nach drei Dingen.
+
+Erstens: woher das Bild kommt. Sie kann ein direkt in die Aktion eingefügtes Bild lesen, ein Bild aus einer Zwischenablage, eine Datei oder direkt den Bildschirm: alle Bildschirme, einen einzelnen Bildschirm, ein Fenster oder einen Bereich auf dem Bildschirm. Wähle hier **System Clipboard** (Systemzwischenablage), weil du den gewünschten Ausschnitt vorher mit ⌘⌃⇧4 aufnimmst und jedes Mal spontan entscheidest, was mit drauf soll.
+
+Zweitens: in welcher Sprache der Text steht. Wähle in der Aktion die Sprache oder Schrift aus. Jede Sprache erfordert beim ersten Mal einen Download, meist zwischen 1 und 10 MB. Es gibt zwei Erkennungs-Engines: **Apple Text Recognition** (Apples eigene Texterkennung, ab Keyboard Maestro 11 und macOS 10.15) und eine Open-Source-Bibliothek namens Tesseract. Ab macOS 10.15 verwenden neue Aktionen standardmäßig die von Apple. In den [Versionshinweisen](https://wiki.keyboardmaestro.com/manual/Whats_New) zu Version 11.1 steht, dass **Apple Text Recognition** um Chinesisch, Kantonesisch, mehrere europäische Sprachen und automatische Erkennung erweitert wurde.
+
+Drittens: wohin der Text geht. Im Ergebnis-Menü unten in der Aktion findest du **save results to clipboard** (Ergebnis in die Zwischenablage speichern). Wenn du den Text lieber für spätere Aktionen behalten willst, kannst du ihn stattdessen in eine <Term k="变量" text="Variable" /> speichern.
+
+In der Praxis sind das nur zwei Handgriffe: Mit ⌘⌃⇧4 den Text auf der Folie einrahmen, dann ⌃⌥⌘O drücken, und danach in Notizen mit ⌘V einfügen.
+
+<Callout type="ok">
+Was du einfügst, ist bearbeitbarer Text, kein Bild.
+</Callout>
+
+Wirf nach dem Einfügen noch einen kurzen Blick aufs Original. Das Wiki sagt es ganz direkt: Wie bei jeder OCR kann der Text Fehler enthalten, geh also nicht davon aus, dass er zu 100 % stimmt. Vor allem Zahlen, Daten und Namen solltest du prüfen, weil eine falsche Ziffer in einer Abgabefrist dich mehr kostet, als dich das Abtippen gekostet hätte.
+
+## Ein Makro auf bestimmte Wörter auf dem Bildschirm warten lassen
+
+OCR hat noch einen zweiten Nutzen. Statt den Text herauszuziehen, kann sie prüfen, ob bestimmte Wörter auf dem Bildschirm erscheinen. Die Bedingung **OCR** (Texterkennung) liest den Text in einem Bildschirmbereich aus und prüft, ob er deine vorgegebenen Wörter enthält oder genau mit ihnen übereinstimmt (siehe [OCR Condition](https://wiki.keyboardmaestro.com/condition/OCR)). Angenommen, ein Export dauert mehrere Minuten und ein Fenster zeigt das Wort „Fertig“, sobald er abgeschlossen ist. Mit **Pause Until** (Warten, bis …) und dieser Bedingung kann das Makro genau auf dieses Wort warten, bevor es weitermacht. Da OCR Fehler macht, halte die Prüfung lieber locker: **contains** (enthält) ist zuverlässiger als **is** (ist).
+
+## Wenn etwas nicht klappt
+
+<Q q="Es kommt nur Zeichensalat heraus oder gar nichts.">
+Prüfe zuerst, ob die in der Aktion gewählte Sprache zum Text im Bild passt. Schau dir danach die Engine an. Laut Wiki bevorzugt Tesseract schwarzen Text auf weißem Hintergrund; mit weißem Text auf schwarzem Grund kommt es zwar oft klar, scheitert dort aber häufiger. Außerdem heißt es im Wiki, dass **Apple Text Recognition** in den meisten Fällen besser funktioniert, also wechsle dorthin und probiere es noch einmal.
+</Q>
+<Q q="Mein chinesischer Text wird nicht erkannt.">
+Prüfe, ob du mindestens Keyboard Maestro 11.1 verwendest, denn laut den Versionshinweisen zu 11.1 hat **Apple Text Recognition** erst mit dieser Version Unterstützung für Chinesisch bekommen. In den offiziellen [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) steht allerdings noch, dass nur Englisch unterstützt wird, was nicht zu den Versionshinweisen passt. Diese Seite richtet sich nach den Versionshinweisen, aktualisiere also auf die neueste Version und probiere es noch einmal.
+</Q>
+<Q q="Das Makro bricht ab, sobald es beim OCR-Schritt ankommt.">
+In den FAQ steht, dass die Tesseract-Bibliothek unter macOS Sequoia häufig wegen eines Speicherfehlers fehlschlägt, vermutlich auch unter Tahoe, und dass das wahrscheinlich nicht behoben wird. Öffne die Aktion und stelle die Engine auf **Apple Text Recognition** um.
+</Q>
+<Q q="Beim Einfügen erscheint immer noch das Bild.">
+Wahrscheinlich hast du das Tastenkürzel gedrückt, bevor du den Screenshot gemacht hast, sodass das neue Bild noch gar nicht in der Zwischenablage war. Mache zuerst den Screenshot und drücke dann ⌃⌥⌘O. Schau außerdem nach, ob das Ergebnis-Menü unten in der Aktion so eingestellt ist, dass das Ergebnis in der Zwischenablage gespeichert wird.
+</Q>
+
+Mach das einmal, und du fragst dich, warum Text vom Bildschirm abtippen jemals Menschenarbeit war. Wenn Keyboard Maestro für dich auch noch auf einen Button auf dem Bildschirm klicken soll, schau dir [Einen Button auf dem Bildschirm finden und anklicken](/de/howto/click-image/) an.

@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: fill-form
+step: 3
+time: Fünfzehn Minuten, zuerst gehst du das Formular einmal selbst durch
+for: Das Formular derselben Website fragt dich jedes Mal aufs Neue nach Name, E-Mail und Telefonnummer
+tldr: Klicke ins erste Feld, drücke ⌃⌥⌘F, und Name, E-Mail, Telefonnummer und Portfolio-Link werden auf einmal ausgefüllt. Vor dem Absenden schaust du noch einmal drüber.
+description: Nutze Insert Text by Typing zusammen mit dem Token %Tab%, um ein Formular von oben nach unten auszufüllen. Geh das Formular zuerst mit der Tab-Taste durch, um die Reihenfolge kennenzulernen, füge jedes Feld ein, das eine Tastatur nicht tippen kann, drossele das Tempo, falls ein Webformular Zeichen verschluckt, und überlass den Absenden-Button dir selbst.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Callout from "../../../components/Callout.astro";
+
+Freiberufler, die über eine Projektplattform Aufträge suchen, bewerben sich dort oft mehrmals am Tag auf neue Jobs, und jedes Bewerbungsformular fragt wieder von vorn dieselben Felder ab: Name, E-Mail, Telefonnummer, Portfolio-Link. Wenn du diese vier Felder zwanzigmal eintippst, vertippst du dich schnell bei einer Ziffer deiner Telefonnummer, und schon kann dich der Kunde nicht erreichen. Mit diesem Makro klickst du ins erste Feld und drückst ⌃⌥⌘F (⌃ ist die Control-Taste, ⌥ die Wahltaste, ⌘ die Befehlstaste), und alle vier Felder füllen sich auf einen Schlag. Der Cursor bleibt im letzten Feld stehen, du schaust alles noch einmal durch und klickst selbst auf Absenden.
+
+<mark>In einem Formular bringt dich die Tab-Taste von einem Feld ins nächste, und ein Makro macht genau dasselbe: ein Feld tippen, Tab drücken, das nächste tippen.</mark>
+
+## Zuerst selbst durchgehen
+
+Bevor du überhaupt etwas baust, öffne das Formular, klicke ins erste Feld und drücke einfach immer wieder die Tab-Taste, Druck für Druck, während du beobachtest, wohin der Cursor springt. Die meisten Formulare laufen von oben nach unten durch, aber manche Websites schieben dazwischen ein Auswahlmenü oder ein „Ich stimme zu“-Kontrollkästchen ein, und die schlucken ebenfalls einmal Tab. Schreib dir die Reihenfolge auf. Die ganze Aufgabe des Makros besteht darin, sie genauso wieder abzuspielen.
+
+Das zeigt dir auch gleich eins: Ein Makro passt zu genau einem Formular. Auf einer anderen Website sind die Felder wahrscheinlich anders angeordnet, also legst du dafür ein weiteres Makro an.
+
+## Das Makro bauen
+
+Lege zuerst eine Makrogruppe namens „Formulare“ an, wähle in ihren Einstellungen **Available in these applications:** (Verfügbar in diesen Apps) aus und füge Safari hinzu, oder welchen Browser du sonst nutzt. So funktioniert ⌃⌥⌘F nur in deinem Browser und bleibt überall sonst frei.
+
+Lege in dieser Gruppe ein neues Makro an. Als Auslöser wählst du **Hot Key** (Tastenkürzel) und drückst ⌃⌥⌘F. Es gibt zwei Aktionen.
+
+Die erste ist **Insert Text by Pasting** (Text durch Einfügen) mit deinem Namen darin. Warum bekommt der Name eine eigene Aktion? Weil die andere Aktion, **Insert Text by Typing** (Text durch Tippen), die Tasten einzeln für dich drückt, und laut der offiziellen Seite kann sie nur Zeichen tippen, die du auf der Tastatur mit ein oder zwei Tastenanschlägen eingeben kannst (siehe [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)). Viele Namen enthalten Zeichen außerhalb dieses Bereichs, chinesische Schriftzeichen zum Beispiel, und beim Einfügen klappt das mit jedem Zeichen.
+
+<Copy id="ff-name" title="Erste Aktion: dein Name" code="Lena Müller" />
+
+Die zweite Aktion ist **Insert Text by Typing**, in der die übrigen Felder zusammenstehen, getrennt durch jeweils ein `%Tab%`. `%Tab%` ist ein <Term k="令牌" text="Token" /> (Platzhalter): Wenn das Makro läuft, wird daraus ein echter Druck auf die Tab-Taste, der ins nächste Feld springt. Genau das empfiehlt auch die offizielle Seite: Wenn du mit Tab oder dem Zeilenschalter zwischen Feldern wechseln willst, wähle das Tippen. Das `%Tab%` am Anfang bewegt den Cursor zuerst aus dem Namensfeld heraus:
+
+<Copy id="ff-rest" title="Zweite Aktion: die übrigen Felder" code="%Tab%lena.mueller@example.com%Tab%000 1234 5678%Tab%https://example.com/lena" />
+
+Ersetze die Beispiele durch deine eigene E-Mail-Adresse, Telefonnummer und deinen Link. Die zweite Aktion tippt nur und lässt die Zwischenablage in Ruhe, deshalb gibt es auch kein Problem mit falsch eingefügtem Text, wenn sie direkt auf das Einfügen folgt.
+
+<Callout type="warn">Setze ans Ende keinen Zeilenschalter und lass das Makro nicht auf Absenden klicken. Lass das ausgefüllte Formular erst einmal so stehen, damit du noch einmal drüberlesen kannst, solange noch Zeit ist, etwas zu korrigieren. Halte auch Passwörter aus dem Makro fern. Die offizielle Seite [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String) nennt das Eintippen in Passwortfelder auf diese Weise ein ernstes Sicherheitsrisiko.</Callout>
+
+## Prüfen, ob es klappt
+
+Öffne das Bewerbungsformular der Website, klicke ins Namensfeld und drücke ⌃⌥⌘F. Zuerst sollte dein Name erscheinen, dann springt der Cursor Feld für Feld nach unten, während E-Mail, Telefonnummer und Link eingetragen werden, und bleibt schließlich im Link-Feld stehen. Lies jedes Feld einmal durch. Falls etwas an der falschen Stelle gelandet ist, geh das Formular noch einmal selbst mit der Tab-Taste durch und schau nach, wo die Tab-Reihenfolge anders ist als gedacht.
+
+## Wenn etwas nicht klappt
+
+<Q q="Der Text wurde eingetragen, aber es fehlen Buchstaben oder ihre Reihenfolge stimmt nicht.">
+Eingabefelder auf Websites prüfen deine Eingaben oft schon während des Tippens, und wenn Keyboard Maestro zu schnell tippt, gehen Zeichen verloren oder geraten durcheinander. Die offizielle Lösung besteht darin, am Anfang dieses Makros die Aktion **Set Action Delay** (Aktionsverzögerung festlegen) hinzuzufügen, damit es langsamer tippt. Nutze sie nur für dieses Makro und nicht als globale Einstellung. Siehe [den Troubleshooting-Abschnitt zu fehlenden oder vertauschten Zeichen](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order).
+</Q>
+<Q q="Im Namensfeld ist das gelandet, was ich zuletzt kopiert habe.">
+In der Zwischenablage liegt zu diesem Zeitpunkt tatsächlich schon dein Name. Es ist die App selbst, die eine eigene Kopie der alten Zwischenablage behalten und die Änderung nicht bemerkt hat. Im offiziellen Abschnitt [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) heißt es, dass das vor allem bei plattformübergreifenden Apps vorkommt. Wenn dir das passiert, ist der einfachste Ausweg, deinen Namen selbst einzutippen und das Makro erst beim zweiten Feld starten zu lassen: Lösche die erste Aktion und das `%Tab%` am Anfang der zweiten.
+</Q>
+<Q q="Mittendrin verschiebt sich alles um ein Feld.">
+Wahrscheinlich hast du vor diesem Feld ein Auswahlmenü, ein Kontrollkästchen oder einen Button übersehen, und genau dort ging einmal Tab drauf. Füge an dieser Stelle ein `%Tab%` hinzu oder entferne eins.
+</Q>
+<Q q="Im E-Mail-Feld landen statt Buchstaben Vorschläge meiner Eingabemethode.">
+**Insert Text by Typing** drückt eine Taste nach der anderen, und laut der offiziellen Seite ist das genau so, als würdest du selbst tippen. Wenn also eine chinesische oder ähnliche Eingabemethode eingeschaltet ist, fängt sie die Buchstaben deiner E-Mail-Adresse als eigene Eingabe ab. Wechsle auf ein normales Tastaturlayout, bevor du ⌃⌥⌘F drückst. Der Name wird eingefügt, deshalb fasst die Eingabemethode ihn nicht an.
+</Q>
+<Q q="Ich habe ⌃⌥⌘F gedrückt und nichts ist passiert.">
+Schau zuerst, ob dein Browser im Vordergrund ist. Die Makrogruppe ist so eingestellt, dass sie nur dort aktiv ist, deshalb passiert beim Drücken in jeder anderen App nichts. Falls der Browser im Vordergrund ist und sich trotzdem nichts tut, schau im Editor nach, ob bei „Formulare“ und dem Makro noch das Häkchen gesetzt ist und ob die Engine läuft. Wenn das Makro immer noch nicht ausgelöst wird, hilft [Schritt 6 der ausführlichen Anleitung](/de/guide/6-debug/).
+</Q>
+
+Richte dir einmal so ein Makro ein, und bei jeder weiteren Bewerbung hast du gut zwanzig Zeichen weniger zu tippen und eine Gelegenheit weniger für einen Tippfehler. Bei dem Feld, das du jedes Mal neu ausfüllst, zum Beispiel auf welches Projekt du dich bewirbst, kann das Makro zuerst nachfragen und es dann eintragen. Siehe [Zuerst eine Frage stellen, bevor es an die Arbeit geht](/de/howto/ask-input/).

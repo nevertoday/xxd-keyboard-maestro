@@ -1,0 +1,101 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 1
+need: Keyboard Maestro installiert und Einsteiger-Lektion 1 abgeschlossen
+tldr: Eine Makrogruppe ist ein Ordner, der gleichzeitig den Schalter hält. Ihre Makros können immer aktiv sein, nur in bestimmten Apps, erst nach einem Tastenkürzel oder als Reihe von Buttons zum Anklicken. Eine intelligente Gruppe ist nur eine gespeicherte Suche und schaltet nichts um.
+description: "Makrogruppen: Ob ein Makro auslösen kann, hängt zuerst davon ab, ob seine Makrogruppe aktiviert und aktiv ist; nur in bestimmten Apps aktiv oder überall außer in einigen; die beiden Wege, eine Gruppe per Tastenkürzel aktiv zu schalten (für eine Aktion oder als Ein- und Ausschalter); eine Gruppe als Palette oder in der Menüleiste anzeigen; intelligente Gruppen als gespeicherte Suchen; und die typischen Stolperstellen."
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Stell dir vor, du willst Fenster mit den Pfeiltasten verschieben: ← rückt das Fenster nach links, → nach rechts. Die Makros sind schnell gebaut, vier Stück, jedes mit einer Pfeiltaste als Tastenkürzel. Doch kaum sind sie fertig, fällt dir das Problem auf. Du schreibst gerade etwas, willst den Cursor ein Zeichen zurücksetzen, drückst ←, und stattdessen bewegt sich das Fenster. Deine Makros haben die Pfeiltasten in Beschlag genommen, sodass du sie für nichts anderes mehr benutzen kannst.
+
+Die Lösung steckt nicht in den Makros selbst, sondern in dem Ordner, in dem sie liegen.
+
+<mark><strong>Eine Makrogruppe ist nicht nur ein Ordner für Makros. Sie bestimmt auch, wann sie wach sind: immer, nur in bestimmten Apps, erst nachdem du ihr Tastenkürzel gedrückt hast, oder als Reihe von Buttons, die auf deinen Klick warten.</strong></mark>
+
+## Ob ein Makro auslösen kann, hängt zuerst von seiner Makrogruppe ab
+
+In [Schritt 0](/de/guide/0-what/) hast du gesehen, dass jedes <Term k="宏" text="Makro" /> in einer <Term k="宏组" text="Makrogruppe" /> lebt. Das Wiki teilt die Frage „Kann dieses Makro auslösen?“ in zwei getrennte Dinge auf, und wenn du die beiden auseinanderhältst, lassen sich viele „Warum klappt mein Makro nicht?“-Fälle viel leichter klären. Siehe die offizielle Seite [Macro Activation](https://wiki.keyboardmaestro.com/Macro_Activation).
+
+Die erste Frage ist: aktiviert oder deaktiviert. Sowohl Makros als auch Makrogruppen haben ein Häkchen, und mit der Schaltfläche **✓** im Editor aktivierst oder deaktivierst du sie. Was du deaktivierst, bleibt deaktiviert, bis du es wieder aktivierst. Die zweite Frage ist: in diesem Moment aktiv oder inaktiv. Dafür klickst du nichts an, sondern die <Term k="引擎" text="Engine" /> berechnet das laufend anhand der Einstellungen der Makrogruppe. Dieser Zustand ändert sich also ständig, wenn du zwischen Apps wechselst oder das Tastenkürzel der Gruppe drückst. Damit ein Makro auslöst, müssen alle drei Bedingungen erfüllt sein: Das Makro ist aktiviert, seine Makrogruppe ist aktiviert, und seine Makrogruppe ist genau jetzt aktiv. Ist die Gruppe deaktiviert oder inaktiv, passiert auch bei keinem der Makros darin etwas.
+
+Nach einer frischen Installation gibt es bereits eine **Global Macro Group** (Globale Makrogruppe), die in jeder App aktiv ist. Dein erstes Makro landet normalerweise genau dort. Du kannst sie weder löschen noch umbenennen oder deaktivieren. Wenn einzelne Makros darin unter anderen Bedingungen aktiv werden sollen, empfiehlt das Wiki, eine neue Makrogruppe anzulegen und sie dort hineinzuziehen.
+
+Um eine neue Makrogruppe anzulegen, klicke unten in der Spalte ganz links auf **+** und gib ihr einen Namen. Möchtest du ihre Einstellungen ändern, wähle sie aus und klicke auf **Edit** (Bearbeiten) oder doppelklicke einfach darauf. Die Einstellungen erscheinen in der rechten Spalte: in welchen Apps sie funktioniert, wie sie aktiv wird, ob sie als Palette erscheint und ob sie in der Menüleiste angezeigt wird. Siehe die offizielle Seite [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups).
+
+## Nur in bestimmten Apps
+
+Für welche Apps eine Makrogruppe gilt, steht am Anfang auf **Available in all applications** (in allen Apps verfügbar), sodass ihre Makros überall auslösen können. Makros, die du überall brauchst (etwa eine Nachrichtenseite öffnen, deine Mail-App starten oder deinen Namen samt E-Mail-Adresse eintippen), gehören genau in so eine Gruppe.
+
+Manche Makros ergeben aber nur in einer einzigen App Sinn. Die Antworten, die du in Mail immer wieder verschickst, nützen dir woanders nichts und könnten sogar mit den Tastenkürzeln einer anderen App zusammenstoßen. Lege dafür eine neue Makrogruppe an, wähle **Available in these applications** (Verfügbar in diesen Apps) und füge Mail hinzu. Ab jetzt sind diese Makros nur dann aktiv, wenn Mail im Vordergrund ist. Das geht auch umgekehrt, mit **Available except in these applications** (Verfügbar außer in diesen Apps). Das Wiki nennt als Beispiele, Makros in Spielen nicht auslösen zu lassen oder eine App auszuschließen, die selbst eine ganze Reihe Funktionstasten braucht, damit du diese Tasten überall sonst weiter für Makros nutzen kannst.
+
+Nach Apps zu trennen hat noch einen Vorteil: Dasselbe Tastenkürzel kann in verschiedenen Apps unterschiedliche Dinge tun. Teilen sich zwei Makros ein Tastenkürzel, liegen aber in Makrogruppen, die jeweils nur in ihrer eigenen App aktiv sind, ist in jedem Moment nur eines von beiden aktiv, sodass sie sich nie in die Quere kommen. Wenn dagegen zwei gleichzeitig aktive Makros dasselbe Tastenkürzel haben, blendet Keyboard Maestro eine **Conflict Palette** (Konflikt-Palette) ein und lässt dich aussuchen, welches du ausführen willst.
+
+Neben Apps kann eine Makrogruppe auch vom Fenster abhängen, etwa nur bei Fenstern, in deren Titel bestimmte Wörter vorkommen, oder davon, ob bestimmte Apps gerade laufen. Diese Optionen findest du an derselben Stelle; schau sie dir an, wenn du sie brauchst.
+
+<u>Eine Falle solltest du vorab kennen: Wenn der Auslöser eines Makros „diese App wurde gestartet“ ist, lege es nicht in eine Makrogruppe, die nur in genau dieser App aktiv ist.</u> In dem Moment, in dem die App startet, ist die Gruppe noch gar nicht aktiv, und sobald sie es ist, ist der Moment schon vorbei, sodass das Makro nie zum Zug kommt. Das Wiki rät deshalb, solche Makros in einer Gruppe abzulegen, die immer aktiv ist. Siehe die offizielle Seite [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application); um Auslöser geht es in [Schritt 2](/de/guide/2-triggers/).
+
+## Erst nach einem Tastendruck: für eine Aktion oder zum Ein- und Ausschalten
+
+Wie eine Makrogruppe aktiv wird, steht am Anfang auf **Always activated** (immer aktiv). Genau hier löst sich das Pfeiltasten-Problem.
+
+Wähle **Activated/deactivated when** (aktiv/inaktiv schalten, wenn) und gib der Makrogruppe ein Tastenkürzel, zum Beispiel ⌃⌥⌘W (⌃ ist die Control-Taste, ⌥ die Wahltaste, ⌘ die Befehlstaste). Normalerweise ist die Gruppe inaktiv und die Pfeiltasten tun genau das, was sie immer tun. Drückst du ⌃⌥⌘W, wacht die Gruppe auf, und die Pfeiltasten verschieben das Fenster. Sobald das Fenster dort sitzt, wo du es haben willst, drückst du noch einmal ⌃⌥⌘W, und die Pfeiltasten arbeiten wieder ganz normal. Genau das Fensterverschieben ist auch das Beispiel im Wiki.
+
+<Fig id="1-groups-toggle" />
+
+Es gibt auch eine kürzere Variante: **Activated for one action when** (Für eine Aktion aktiv, wenn). Nachdem du das Tastenkürzel der Makrogruppe gedrückt hast, sind ihre Makros wach, aber nur kurz: Löst du eines davon aus oder drückst irgendeine andere Taste, legt sich die Gruppe sofort wieder schlafen. Das Wiki zeigt das an einer Gruppe zum Starten von Apps. Du drückst das Tastenkürzel der Gruppe und dann einen einzelnen Buchstaben: M für Mail, S für Safari, F für Finder. So musst du dir nur ein einziges Tastenkürzel merken, und für die Buchstaben danach nimmst du einfach das, was dir leicht im Kopf bleibt.
+
+Weil diese Makros erst aktiv sind, nachdem du die Gruppe aufgeweckt hast, reicht für ihre Tastenkürzel schon ein einziger Buchstabe, ohne beim normalen Tippen zu stören. Das Tastenkürzel der Gruppe ist übrigens nicht der einzige Weg, sie aufzuwecken: Laut Wiki kannst du sie auch über das <Term k="状态菜单" text="Statusmenü" /> wählen oder auf der globalen Palette anklicken. Willst du eine Makrogruppe aus einem anderen Makro heraus aufwecken oder wieder schlafen schicken, nutze die Aktion **Activate Macro Group** (Makrogruppe aktiv schalten). Sie ändert nur, ob die Gruppe gerade aktiv ist; das Häkchen im Editor bleibt davon unberührt.
+
+## Als Palette: per Klick ausführen
+
+Manche Makros brauchst du nur selten, sodass du dir ihre Tastenkürzel ohnehin nicht merkst und sie lieber vor Augen hast. Eine Makrogruppe lässt sich als schwebende <Term k="面板" text="Palette" /> auf dem Bildschirm anzeigen: ein Button pro Makro, wie eine selbst gebaute Werkzeugleiste. Siehe die offizielle Seite [Palettes](https://wiki.keyboardmaestro.com/manual/Palettes).
+
+Unter den Optionen dafür, wie die Makrogruppe aktiv wird, haben drei mit einer Palette zu tun:
+
+- **Shows a palette for one action when** (zeigt eine Palette für eine Aktion, wenn): Du drückst das Tastenkürzel, die Palette erscheint, du klickst einen Button an, und sie verschwindet wieder. Praktisch für gelegentliche Einzelaktionen, etwa eine Reihe von App-Buttons.
+- **Shows/hides a palette when** (zeigt/verbirgt eine Palette, wenn): Einmal drücken zeigt sie, noch einmal drücken blendet sie wieder aus. Gut, wenn du gleich mehrere Makros hintereinander anklicken willst.
+- **Shows a palette until** (zeigt eine Palette, bis): Sie bleibt eingeblendet, bis du sie mit dem Tastenkürzel wieder wegschickst. Ideal für Dinge, die dauerhaft im Blick bleiben sollen. In Kombination mit **Available in these applications** erscheint die Palette nur, solange diese App im Vordergrund ist, fast so, als hättest du der App eine eigene Button-Leiste spendiert.
+
+Bei diesen drei Varianten sind die Makros nur aktiv, solange die Palette sichtbar ist. Drei weitere Optionen beginnen mit **Always activated and** (immer aktiv und), zum Beispiel **Always activated and shows/hides a palette when** (immer aktiv und zeigt/verbirgt eine Palette, wenn). Der Unterschied ist, dass die Makros immer aktiv bleiben und die Palette nur zeitweise erscheint, sodass ihre Tastenkürzel auch sonst wie gewohnt funktionieren.
+
+Das Aussehen einer Palette kannst du anpassen: Design, Deckkraft, Anzahl der Spalten, ob die Einträge Symbole und Auslöser zeigen und ob die Palette schrumpft, wenn der Mauszeiger nicht darüber liegt. Wenn du die Buttons in deiner eigenen Reihenfolge anordnen willst, stelle jedem Makronamen zwei Zeichen und eine schließende Klammer voran, zum Beispiel `01)`. Die Palette sortiert nach diesen Zeichen und blendet sie bei der Anzeige des Namens aus. Die Schritt-für-Schritt-Anleitung findest du im How-to [Eine Reihe von Buttons erstellen, die Makros ausführen](/de/howto/palette/).
+
+Eine Makrogruppe kann auch in der Menüleiste erscheinen, mit einem Symbol und einem Titel, der sich laufend aktualisieren lässt. Als Beispiele nennt das Wiki die Uhrzeit, Wortzahlen und Erinnerungen. Das Menü kann entweder alle Makros der Gruppe auflisten oder nur diejenigen mit einem **Group Status Menu Trigger** (Auslöser über das Gruppen-Statusmenü).
+
+## Intelligente Gruppen: eine gespeicherte Suche
+
+Sobald du viele Makros hast, kostet das Suchen Zeit. Genau dabei hilft eine <Term k="智能组" text="intelligente Gruppe" />. Sie ist eine gespeicherte Suche, die automatisch alle passenden Makros auflistet. Klicke unten in der Spalte ganz links auf **⊕**, um eine anzulegen, und gib einen oder mehrere Suchbegriffe ein; jedes Makro, das zu mindestens einem davon passt, erscheint in der Liste. Siehe die offizielle Seite [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups).
+
+Ein Suchbegriff kann ein ganz normales Wort sein oder eines der Präfixe nutzen, die das Wiki festlegt. `mod:1w` findet Makros, die in der letzten Woche geändert wurden, `app:Finder` findet Makros speziell für den Finder (oder solche, die ihn ausschließen), `h:` findet jedes Makro mit einem Tastenkürzel, und `t:=sig=` findet das Makro mit dem Auslöser `=sig=`. Die vollständige Liste steht auf der offiziellen Seite [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings). Der Eintrag **All Macros** (Alle Makros) ganz oben funktioniert genauso und listet alle deine Makros auf.
+
+Wichtig zu merken: Eine intelligente Gruppe zeigt deine Makros nur anders an. Jedes Makro lebt weiterhin in seiner eigentlichen Makrogruppe, und nur diese entscheidet nach wie vor, wo und wann es aktiv ist.
+
+## So bleiben deine Gruppen übersichtlich
+
+Zerbrich dir am Anfang nicht zu sehr den Kopf darüber. Das Wiki rät, einfach anzufangen und die Sammlung langsam wachsen zu lassen. Lass ruhig erst einmal alles in der **Global Macro Group**, bis ein Makro nur noch in einer einzigen App funktionieren soll oder mehrere Makros gemeinsam auf einen Tastendruck aufwachen sollen, und gib ihnen erst dann eine eigene Makrogruppe. Eine Gruppe zum Öffnen von Apps, eine zum Tippen, jeweils eine für Apps mit eigenen Makros: Wenn du Monate später wieder hineinschaust, findest du dich sofort zurecht.
+
+Das ist schon die ganze Idee dieses Schritts: Wo und wann ein Makro gilt, entscheidet seine Makrogruppe. Als Nächstes kommen die Auslöser dran, also das, was ein Makro in Gang setzt, sobald es wach ist.
+
+## Wenn etwas nicht klappt
+
+<Q q="Plötzlich funktioniert keines der Makros in einer Makrogruppe mehr.">
+<p>Wähle die Makrogruppe aus und prüfe, ob das Häkchen rechts oben noch gesetzt ist; eine deaktivierte Gruppe schaltet alle ihre Makros mit ab. Schau dann nach, in welchen Apps sie verfügbar ist: Ist sie nur für bestimmte Apps eingestellt, passiert beim Drücken der Taste überall sonst natürlich nichts. Wenn du die Ursache immer noch nicht siehst, wähle <strong>Help ▸ Interactive Help</strong> (Hilfe ▸ Interaktive Hilfe): Damit prüft Keyboard Maestro, warum ein Makro nicht auslöst. Die vollständige Checkliste findest du in <a href="/de/guide/6-debug/">Schritt 6</a>.</p>
+</Q>
+<Q q="Ich drücke das Tastenkürzel der Makrogruppe, dann den Buchstaben, und nichts passiert.">
+<p>Eine Makrogruppe mit <strong>Activated for one action when</strong> ist nur kurz wach: Drückst du zwischendurch eine andere Taste, schläft sie sofort wieder ein. Drücke also erst das Tastenkürzel der Gruppe und direkt danach den Buchstaben. Wenn du mehrere Makros hintereinander nutzen willst, stelle auf <strong>Activated/deactivated when</strong> um und drücke das Tastenkürzel der Gruppe noch einmal, sobald du fertig bist.</p>
+</Q>
+<Q q="Wenn ich ein Tastenkürzel drücke, klappt eine Liste zur Auswahl auf.">
+<p>Das ist die <strong>Conflict Palette</strong>: Zwei oder mehr gleichzeitig aktive Makros teilen sich dasselbe Tastenkürzel. Gib einem davon eine andere Taste oder verschiebe sie in Makrogruppen, die jeweils nur in ihrer eigenen App aktiv sind. Du kannst das auch absichtlich nutzen: Gib mehreren verwandten Makros dasselbe Tastenkürzel und wähle dann per Zahl oder Anfangsbuchstaben das richtige aus. Siehe die offizielle Seite <a href="https://wiki.keyboardmaestro.com/Conflict_Palette">Conflict Palette</a>.</p>
+</Q>
+<Q q="Meine Palette ist verschwunden.">
+<p>Eine Palette mit <strong>Shows a palette until</strong> verschwindet, sobald du das Tastenkürzel der Makrogruppe drückst, und taucht beim nächsten Drücken wieder auf. Ist die Gruppe nur in bestimmten Apps verfügbar, erscheint die Palette auch nur dann, wenn eine dieser Apps im Vordergrund ist.</p>
+</Q>
+<Q q="Ich möchte die Global Macro Group umbenennen oder deaktivieren.">
+<p>Diese Makrogruppe lässt sich weder umbenennen noch löschen oder deaktivieren. Wenn du einzelne Makros darin anders steuern möchtest, lege eine neue Makrogruppe an, ziehe sie dort hinein und stelle ein, wie die neue Gruppe aktiv wird.</p>
+</Q>
+
+<Checkpoint id="s1" items={["Ich kann unterscheiden, ob eine Makrogruppe aktiviert ist oder gerade aktiv ist", "Ich weiß, wie ich eine Makrogruppe nur in bestimmten Apps aktiv mache", "Ich kenne die beiden Wege, eine Gruppe per Taste aufzuwecken: für eine Aktion oder zum Ein- und Ausschalten", "Ich weiß, dass eine intelligente Gruppe nur eine gespeicherte Suche ist und nicht bestimmt, wo Makros funktionieren"]} />

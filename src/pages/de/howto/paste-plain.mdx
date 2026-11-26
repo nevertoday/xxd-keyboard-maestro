@@ -1,0 +1,52 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: paste-plain
+step: 5
+time: Fünf Minuten
+for: Du kopierst Text von einer Webseite und in deinem Dokument landen fremde Schriftarten, Farben und Links
+tldr: Drücke ⌃⌥⌘V zum Einfügen, und es kommt nur der reine Text an, ohne Schriftarten, Farben oder Links der Webseite.
+description: Verwende Remove Styles in der Aktion Filter, um die Zwischenablage in reinen Text umzuwandeln, und lass Type a Keystroke danach ⌘V drücken. Warum die Zwischenablage eigentlich mehrere Versionen enthält, warum das Entfernen der Formatierung den Text manchmal verändert und warum das Tastenkürzel nicht einfach ⌘V sein kann.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Kopierst du ein Zitat von einer Webseite in deine Hausarbeit, landen dort Schriftart und Schriftgröße der Webseite, manchmal grauer Text, manchmal sogar samt Link. Fügst du fünf oder sechs Zitate ein, sieht die Arbeit aus wie ein Flickenteppich, sodass du am Ende jedes einzelne markierst und von Hand wieder zurückstellst. Die meisten Schüler und Studierenden haben das schon erlebt. Sobald du das Makro unten erstellt hast, fügst du mit ⌃⌥⌘V (⌃ ist die Control-Taste, ⌥ ist die Wahltaste, ⌘ ist die Befehlstaste) ein, und in deinem Dokument landet nur der reine Text.
+
+<mark>Erst die Formatierung aus der Zwischenablage entfernen, dann einfügen: So kommt nur der reine Text an.</mark>
+
+## Die Zwischenablage enthält mehr als eine Version
+
+Wenn du Text kopierst, steckt in der Zwischenablage mehr als nur eine Sache. Im Abschnitt „Removing Styles Changes The Text“ auf der offiziellen Seite [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) ist das genau erklärt: Ein einzelner Kopiervorgang kann eine unformatierte Textversion, eine formatierte Version und sogar ein Bild enthalten. Diese Varianten heißen „flavors“. Beim Einfügen wählt die App die Version aus, die sie am besten nutzen kann. Ein Textverarbeitungsprogramm greift natürlich zur formatierten Version, und so kommen die Schriftarten der Webseite gleich mit.
+
+Die Aktion **Filter** (Filtern) in Keyboard Maestro bietet einen Filter namens **Remove Styles** (Stile entfernen), der die Zwischenablage in reinen Text umwandelt (siehe [Filters](https://wiki.keyboardmaestro.com/manual/Filters)). Sobald die formatierten Versionen weg sind, bleibt der App gar nichts anderes übrig, als den reinen Text zu nehmen.
+
+## Das Makro erstellen
+
+Dieses Makro brauchst du in jeder App. Lege es deshalb in einer Makrogruppe ab, die überall verfügbar ist, und nenne es „Reinen Text einfügen“. Als Auslöser wählst du **Hot Key** (Tastenkürzel) und drückst ⌃⌥⌘V. Danach fügst du zwei Aktionen hinzu:
+
+1. **Filter**: Wähle als Quelle **System Clipboard** (Systemzwischenablage) und als Filter **Remove Styles**, und lege das Ergebnis wieder in der Systemzwischenablage ab.
+2. **Type a Keystroke** (Taste drücken): Klicke in das Feld und drücke ⌘V.
+
+Der zweite Schritt drückt dein ganz normales Tastenkürzel zum Einfügen. Laut der offiziellen Empfehlung solltest du für Tastenkombinationen mit der Befehlstaste **Type a Keystroke** verwenden (siehe [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+
+## Prüfen, ob es klappt
+
+Suche dir in Safari eine Textstelle mit Fettschrift oder einem Link und kopiere sie. Öffne TextEdit, lege ein neues Dokument an, tippe eine eigene Zeile, drücke den Zeilenschalter und dann ⌃⌥⌘V. Jetzt sollte der Text ohne Fettschrift und ohne Link erscheinen, in genau derselben Schriftart wie deine eigene Zeile.
+
+Eine Sache solltest du wissen: Das Makro hat die Zwischenablage selbst in reinen Text umgewandelt. Wenn du danach ⌘V drückst, bekommst du also ebenfalls nur reinen Text, bis du das nächste Mal etwas kopierst. Möchtest du das formatierte Original zurückholen, schau in deinem <Term k="剪贴板历史" text="Zwischenablage-Verlauf" /> nach. Wie er funktioniert, erklärt [Schritt 5 der ausführlichen Anleitung](/de/guide/5-clipboard/).
+
+**Filter** hat noch weitere Filter an Bord. **Trim Whitespace** (Leerzeichen am Rand entfernen) entfernt zum Beispiel überflüssige Leerzeichen am Anfang und am Ende. Hängst du nach dem ersten **Filter** einfach noch einen zweiten dran, werden auch die vereinzelten Leerzeichen, die bei Zitaten oft mitkommen, gleich mit aufgeräumt.
+
+## Wenn etwas nicht klappt
+
+<Q q="Nach dem Entfernen der Formatierung ist der Text nicht mehr ganz derselbe. Ein Aufzählungspunkt vor einem Listenpunkt ist verschwunden oder plötzlich aufgetaucht.">
+Manche Apps legen in der unformatierten Version etwas anderen Text ab als in der formatierten, und **Remove Styles** liest die unformatierte Version. Die offizielle Lösung lautet: Füge vor dem **Filter** die Aktion **Set Clipboard to Text** (Zwischenablage auf Text setzen) hinzu, stelle sie auf „styled text“ (formatierten Text) ein und trage `%SystemClipboard%` ein. Dadurch baut Keyboard Maestro eine saubere Zwischenablage neu auf, in der beide Versionen übereinstimmen, und erst danach entfernst du die Formatierung. Das steht im selben Abschnitt „Removing Styles Changes The Text“, der oben schon erwähnt wurde.
+</Q>
+<Q q="Kann ich dafür sorgen, dass ⌘V selbst nur reinen Text einfügt, indem ich das Tastenkürzel auf ⌘V setze?">
+Mach das besser nicht. Der zweite Schritt des Makros drückt selbst ⌘V, und die offizielle Seite sagt ganz klar, dass es zu unvorhersehbaren Ergebnissen führt, wenn du eine Tastenkombination simulierst, die gleichzeitig das Tastenkürzel eines aktiven Makros ist: Mal wird tatsächlich die Taste gedrückt, mal wird das Makro ausgelöst. Nimm eine andere Kombination. ⌃⌥⌘V kannst du dir leicht merken.
+</Q>
+<Q q="Es wurde trotzdem mit Formatierung eingefügt, oder es kam etwas, das ich schon früher kopiert hatte.">
+Manche Apps, vor allem plattformübergreifende, speichern die Zwischenablage selbst zwischen und bekommen nicht mit, dass Keyboard Maestro sie gerade geändert hat. Der offizielle Tipp lautet, die App vor dem Einfügen kurz „aufzuwecken“, indem du zum Beispiel kurz zu einer anderen App und wieder zurück wechselst. Siehe [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted).
+</Q>
+
+Ein Tastenkürzel und zwei Aktionen, und Zitate machen aus deiner Arbeit keinen Flickenteppich mehr. Die Zwischenablage kann noch viel mehr, zum Beispiel ein paar Dinge für dich aufbewahren, die du oft einfügst. Das alles steht in [Schritt 5 der ausführlichen Anleitung](/de/guide/5-clipboard/).
