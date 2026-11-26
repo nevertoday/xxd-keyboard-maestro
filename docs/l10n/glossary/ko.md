@@ -80,3 +80,11 @@ Use Apple's official Korean macOS localization so readers match what they see on
 3. **Particles (`조사`) after English labels, code, and symbols:** Attach Korean particles directly after the closing bold marker, inline code, or parentheses with **no space**, matching the spoken Korean pronunciation of the preceding word (`**Hot Key Trigger**(단축키 트리거)를`, `**Insert Text by Pasting**을`, `` `=reply=`를 ``, `⌘C를`, `⌃⌥⌘N을`, `Finder에서`, `Dock에`). Never put Korean particles inside the bold English label (`**Macro Library**를`, not `**Macro Library를**`).
 4. **Spacing and punctuation with English, parentheses, and `⌃ ⌥ ⇧ ⌘`:** Put one space between Korean words and English words or key combinations when no particle attaches (`macOS 설정`, `⌃⌥⌘N 키`, `Keyboard Maestro에서`), and keep modifier key combos tight with no spaces (`⌃⌥⌘N`, `⌘C`). Use standard half-width parentheses `(...)` attached directly after the English label (`**File ▸ New Macro**(파일 ▸ 새 매크로)`), and use typographic quotes `“...”` / `‘...’` whenever quotes appear inside prose or JSX/MDX attributes.
 5. **Natural Korean phrasing and MDX safety:** Reorder clauses into idiomatic Korean (conditions and reasons before the main verb) rather than following English word order, and translate example macro bodies (replies, snippets) into natural everyday Korean while preserving tokens (`%LongDate%`) and typed strings (`=reply=`). Keep `<mark>`, `<u>`, and `**bold**` on the matching meaning, and never end a bold span with punctuation directly followed by text (`**…할 때**입니다` or `**…할 때**. 다음으로`, never `**…할 때.**다음으로`).
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | 사용(켬) | its tick is on |
+| active (macro or group) | 활성 | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

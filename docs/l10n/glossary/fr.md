@@ -80,3 +80,11 @@ Apple's official French (`fr`) macOS localizations:
 3. **French punctuation and quotes**: Put a space before double punctuation marks (`:`, `;`, `?`, `!`, e.g. `Leçon 1 : …`, `Déjà utilisateur ?`) and use French guillemets with inner spaces (`« … »`) for quoted text. Inside MDX/JSX double-quoted attributes (`title="…"`, `q="…"`), use `« … »` so attribute quotes never break, and use the French typographic apostrophe (`’`) consistently in prose.
 4. **English UI labels and first-mention glosses**: Keep every Keyboard Maestro UI label verbatim in bold English (`**Launch Engine at Login**`, `**File ▸ New Macro**`). Add a short French gloss in parentheses on its first occurrence per page — regular space before `(`, none inside, e.g. `**Insert Text by Pasting** (insérer du texte en le collant)` — then use the bold English label alone afterward. Keep trailing punctuation outside `**…**`.
 5. **Shortcuts, code, and sentence case**: Keep modifier symbols together without spaces (`⌃⌥⌘N`), separated by a normal space from French prose (`appuyez sur ⌃⌥⌘N pour…`). Never add French plural `-s` to inline code, tokens (`%LongDate%`), or untranslated English labels, and write all French headings in sentence case (`## Si quelque chose cloche`, not Title Case).
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | activé (case cochée) | its tick is on |
+| active (macro or group) | actif | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

@@ -20,6 +20,12 @@ Mac users who have never automated anything, reading in their own language. The 
 - MDX/JSX structure: every component tag, attribute name and the values of `id`, `k` (Term keys are Chinese words: keep them exactly), `type`, `layout`, `lesson`, `step`, `slug`, `c`, `cmds`. `import` lines untouched. Frontmatter keys stay; translate only the values of `title`, `tldr`, `description`, `minutes`.
 - In `src/l10n/<lang>/*.json`: every key, array length and `{placeholder}` stays exactly; translate only the string values. Keys that are Chinese words (wiki `groups`, nav `glossary`) are keys: keep them.
 
+## Keep consistent across the whole site
+- **Enabled vs active are two different words.** A macro or group is *enabled* when its tick is on; it is *active* when it can fire right now (its group's availability conditions are met). Guide step 1 is built on this difference. Pick one word for each (the term list has them) and never use the "enabled" word for "active / activated", in pages, wiki, nav tips or figures.
+- **Link text = the target page's title** in your language (`src/l10n/<lang>/nav.json`: lessons, steps, howto). Don't paraphrase it.
+- **One gloss per Keyboard Maestro label** on every page (e.g. **Insert Text by Typing**, **Activate a Specific Application**, **Cancel**): reuse the wording from the term list or from earlier pages.
+- Keyboard Maestro's own Settings window has one name throughout. The debugger's **Step Over** runs the current action and pauses after it; it does not skip it.
+
 ## Do translate
 - All prose, headings, list items, table cells, `title="…"`, `q="…"`, Checkpoint `items`, `text="…"` on Term, Callout titles, Reply bodies (titled in your language's word for "Illustration"), figure captions.
 - Text the reader copies into their own macro (the body of a snippet, a reply): translate it so a reader of your language would naturally write it, keeping tokens and typed strings as they are.

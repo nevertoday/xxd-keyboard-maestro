@@ -80,3 +80,11 @@ Use Apple's official Spanish (`es`) macOS labels consistently. Where Apple's Lat
 3. **Keep Keyboard Maestro UI labels in bold English with clean Spanish glosses.** Copy every Keyboard Maestro menu, trigger, action, button, and preference verbatim in bold (`**Insert Text by Pasting**`, `**Launch Engine at Login**`). On its first occurrence on a page, add a short lowercase Spanish gloss in standard ASCII parentheses preceded by a normal space—e.g. `**Insert Text by Pasting** (insertar texto pegando)`—never full-width CJK parentheses `（）`. After that first gloss, use the bold English label alone.
 4. **Follow Spanish punctuation and clean spacing with English words and `⌘` symbols.** Always use opening `¿` and `¡`, sentence-case headings (capitalize only the first word and proper nouns), and Spanish angular quotes `«…»` for quoted words or inside MDX/JSX double-quoted attributes (`title="…"`, `q="…"`). Leave normal single spaces around English labels, inline code, and key shortcuts (`pulsa ⌃⌥⌘N para…`), keep modifier chords tight with no internal spaces (`⌃⌥⌘N`, not `⌃ ⌥ ⌘ N`), put spaces around `▸` in menu paths (`**File ▸ New Macro**`), and never close a bold span with punctuation directly followed by text (`**…cuando termines**. Así`, not `**…cuando termines.**Así`).
 5. **Keep grammar natural with English terms and localize example macro content.** Pair untranslated product and UI names smoothly with consistent Spanish articles and gender (*la macro*, *el Engine*, *el Dock*, *el Finder*, *en Keyboard Maestro*). Translate any text the reader copies into their own macro (such as sample replies or expanded text snippets) into natural everyday Spanish a native speaker would actually send, while leaving typed strings (`=reply=`, `=addr=`) and tokens (`%LongDate%`) completely untouched.
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | habilitado | its tick is on |
+| active (macro or group) | activo | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

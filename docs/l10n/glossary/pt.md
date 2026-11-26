@@ -80,3 +80,11 @@ Always use Apple's official Brazilian Portuguese (`pt-BR`) names below — never
 3. **Keep Keyboard Maestro UI labels in bold English and gloss them once per page.** Never translate KM menu items, triggers, actions, buttons, or preferences. On the first appearance on a page, add a brief lowercase Portuguese gloss in standard ASCII parentheses with a normal space before `(` — e.g., `**Insert Text by Pasting** (inserir texto colando)` — and never use full-width parentheses. After that, write the bold English label alone.
 4. **Follow Brazilian Portuguese punctuation, casing, and MDX-safe quoting.** Use sentence case for headings and list titles (capitalizing only proper nouns, Apple's localized setting/app names like **Ajustes do Sistema**, and English KM UI labels). Inside MDX attribute strings that need quotes, use typographic double quotes (`“…”`). Put spaces around `▸` in menu paths (`**File ▸ New Macro**`, **Ajustes do Sistema ▸ Privacidade e Segurança ▸ Acessibilidade**), put no space before `:`, `;`, `?`, or `!`, and never leave punctuation inside a bold closing marker immediately before text (`**quando isso acontece**, a macro…`, not `**quando isso acontece,**a macro…`).
 5. **Keep key symbols, inline code, and English loanwords clean and consistent.** Write key combinations without internal spaces (`⌃⌥⌘N`, `⌘V`) and with normal spaces separating them from Portuguese words (*aperte ⌃⌥⌘N*, *use ⌘C e ⌘V*). Keep typed strings (`=reply=`), tokens (`%LongDate%`), and file names in inline code. Give recurring English words a consistent Portuguese article and gender throughout (*o Engine*, *o Dock*, *o Finder*, *a macro*, *um token*, *o log*), without inventing awkward Portuguese spellings.
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | habilitado | its tick is on |
+| active (macro or group) | ativo | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

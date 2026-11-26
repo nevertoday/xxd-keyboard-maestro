@@ -1,0 +1,95 @@
+{
+  "before": {
+    "title": "インストールする前に",
+    "items": [
+      [
+        "Keyboard Maestro は安全ですか？ なぜこんなに多くの権限が必要なのですか？",
+        "代わりにキーを押したり、文字を入力したり、メニューを選んだり、画面を読み取ったりするため、多くの権限が必要になります。気をつけたいのは、どのマクロを動かすかという点です。公式の説明でも、Keyboard Maestro はユーザーに代わって操作を行うため、実質的に本人と同じように振る舞うことになり、幅広いシステム権限が必要になるとされています。設定の **Security**（セキュリティ）画面に主な権限がまとまっており、それぞれオンになっているかを確認できます。各権限の役割については[権限](/ja/wiki/permissions/)のページで解説しています。また公式 Wiki によると、バージョン9からは強化されたランタイムに対応し、Apple による公証も受けています。一方で、うっかりした操作でも意図的な場合でも、使い方を誤ればマクロが思わぬ被害を起こすことがあるとも注意喚起しています。特にほかの人が作ったマクロは、実行する前に中身の処理を一通り確認しておきましょう。ダウンロードは必ず[公式サイト](https://www.keyboardmaestro.com/)から行ってください。詳しくは、公式 Wiki の[設定](https://wiki.keyboardmaestro.com/manual/Preferences)と[管理・基本情報](https://wiki.keyboardmaestro.com/manual/Administrative_Details)を参照してください。"
+      ],
+      [
+        "Mac App Store で買えますか？",
+        "いいえ、買えません。公式 Wiki によると、Mac App Store ではアプリをサンドボックス化することが求められるため、Keyboard Maestro のような自動化ツールは仕組み上対応できず、販売されていないとのことです。かなり昔に Mac App Store でバージョン5が扱われていたこともありますが、公式では古いバージョンなので買わないよう案内しています。バージョン6以降は直販のみとなっています。ダウンロードは [keyboardmaestro.com](https://www.keyboardmaestro.com/) から行ってください。詳しくは、公式 Wiki の[よくある使い方](https://wiki.keyboardmaestro.com/manual/How_do_I)と公式 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) を参照してください。"
+      ],
+      [
+        "手元の Mac で動きますか？ 新しいチップや新しい macOS にも対応していますか？",
+        "macOS 10.13 以降であれば Keyboard Maestro 11 をインストールでき、公式 FAQ でも Sequoia や Tahoe に完全対応していると明記されています。チップごとの詳しい記載は公式 Wiki にないため、このサイトでは断定を避けています。不安な場合はまず試用版で動作を確かめるか、[公式サイト](https://www.keyboardmaestro.com/)の案内を基準にしてください。もう1つ覚えておきたいこととして、大きなシステムアップデートの直後にマクロが動かなくなったら、まずは Mac をもう1回再起動するのが公式のおすすめです。アップデート直後はシステムが落ち着いていないことが多いため、再起動したうえで **Security** 設定の各項目がまだオンになっているか確認してみてください。詳しくは、公式 Wiki の[管理・基本情報](https://wiki.keyboardmaestro.com/manual/Administrative_Details)、公式 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)、[トラブルシューティング](https://wiki.keyboardmaestro.com/Troubleshooting)を参照してください。"
+      ],
+      [
+        "Mac に最初から入っている「ショートカット」アプリとは何が違いますか？",
+        "2つは別々のツールですが、連携して使うこともできます。公式 Wiki では次のように対比しています。Keyboard Maestro ではマクログループの中にマクロが入り、トリガーをきっかけにアクションが動き、実行は Keyboard Maestro Engine、編集は Keyboard Maestro のエディタが担います。一方「ショートカット」アプリではフォルダの中にショートカットが入り、実行はシステム、編集は「ショートカット」アプリで行います。v10.1 以降の Keyboard Maestro では、**Execute Shortcut**（ショートカットを実行）アクションを使って手元のショートカットを呼び出せます（macOS 12 以降）。また、「ショートカット」アプリ側にも、マクロを実行したり変数を取得・設定したりするアクション一式が追加されます。「ショートカット」アプリ自体で何ができるかは Apple の案内する範囲なので、このサイトでは扱いません。詳しくは、公式 Wiki の[ショートカット関連アクション](https://wiki.keyboardmaestro.com/Shortcut_Actions)を参照してください。"
+      ]
+    ]
+  },
+  "buy": {
+    "title": "購入とライセンス",
+    "items": [
+      [
+        "いくらですか？ サブスクリプション制ですか？",
+        "公式の購入ページでは US$36（2026-11-24 確認）となっていますが、最新価格は[そちらのページ](https://wiki.keyboardmaestro.com/manual/Purchase)を基準にしてください。サブスクリプションではありません。公式の案内によると、ライセンスの対象はその時点のメジャーバージョンと、通常はそのマイナーアップデートです。おおよそ12〜36か月ごとに有料のメジャーアップグレードが出ますが、アップグレードしなくても、購入したバージョンはそのまま使い続けられます。以前のバージョンを持っている場合は、アップグレード割引も受けられます。ライセンスの適用範囲については、公式 Wiki の[管理・基本情報](https://wiki.keyboardmaestro.com/manual/Administrative_Details)に載っています。"
+      ],
+      [
+        "1つのライセンスで何台の Mac に使えますか？",
+        "1人につき最大5台までです。公式 Wiki によると、ライセンスはユーザー単位で、1人が最大5台の Mac で Keyboard Maestro を使えます。そのため、家庭内で2人とも使いたい場合は、それぞれ自分のライセンスが必要です。10人以上のチームであれば、Stairways にボリュームライセンスの見積もりを依頼できます。詳しくは、公式 Wiki の[購入ページ](https://wiki.keyboardmaestro.com/manual/Purchase)と[管理・基本情報](https://wiki.keyboardmaestro.com/manual/Administrative_Details)を参照してください。"
+      ],
+      [
+        "まず試してみることはできますか？ 合わなければ返金してもらえますか？",
+        "どちらもできます。[公式サイト](https://www.keyboardmaestro.com/)からすべての機能が使える試用版をダウンロードできます。試用期間の日数は公式 Wiki に書かれていないため、このサイトでも明記していません。また、購入から30日以内に、公式ドキュメントに書かれている通りに動かないとわかった場合は返金を求めることができ、代金が戻ると同時にライセンスは取り消されます。詳しくは、公式 Wiki の[購入ページ](https://wiki.keyboardmaestro.com/manual/Purchase)と[管理・基本情報](https://wiki.keyboardmaestro.com/manual/Administrative_Details)を参照してください。"
+      ]
+    ]
+  },
+  "using": {
+    "title": "使っているとき",
+    "items": [
+      [
+        "マクロのキーを押しても何も起きません。まず何を確認すればいいですか？",
+        "エディタで **Help ▸ Interactive Help**（ヘルプ ▸ 対話型ヘルプ）を開き、起きるはずのことが起きないときの項目を選びます。==よくある原因を1つずつ順番に確認してくれます==。具体的には、エンジンが起動しているか、エディタとエンジンが通信できているか、必要な権限がオンになっているか、システムがセキュア入力モード（Secure Input Mode）のまま固まっていないかを調べたあと、選んだマクロについて、所属するグループが有効かつアクティブか、マクロ自体が有効か、トリガーと有効なアクションがあるかまで点検します。そこに問題がなければ、もう一度マクロを実行してみると、実際に反応したかどうかを教えてくれます。反応はしたのに想定と違う動きをするときは、アクションの中身を見直してみてください。**Pause**（一時停止）が抜けているのがよくある原因です。詳しくは、公式 Wiki の[トラブルシューティング](https://wiki.keyboardmaestro.com/Troubleshooting)と、このサイトの[マクロがうまく動かないとき](/ja/guide/6-debug/)を参照してください。"
+      ],
+      [
+        "パスワード入力欄で短縮入力が反応しません。代わりに文字を入力させることはできますか？",
+        "短縮入力はできませんが、キー入力のアクションなら入力できます。ただ、公式 Wiki ではセキュリティ上大きなリスクがあるとしています。システム側がパスワード欄に入力した文字を Keyboard Maestro に見せないため、ほとんどのパスワード欄では入力文字列トリガーが反応しません。**Insert Text by Typing**（テキストをキー入力で挿入）ならパスワード欄にも入力できますが、確実とは限りません。たとえば、マクロを起動したホットキーと入力する文字に同じキーが含まれていると、その文字が抜けてしまうことがあり、画面上は黒丸が1つ足りないだけでパスワード違いのエラーになってしまいます。またこれとは別に、システムがセキュア入力モードのまま固まって「ずっとパスワード欄にいる」と思い込んでしまい、普段の短縮入力まで一切動かなくなることがあります。この場合はパスワードを求めていたアプリを終了するか、Mac を再起動すれば直りますし、Keyboard Maestro がこの状態を検知するとステータスメニューで知らせてくれます。詳しくは、公式 Wiki の[入力文字列トリガー](https://wiki.keyboardmaestro.com/trigger/Typed_String)と、トラブルシューティング内の[パスワード欄で文字が抜ける場合](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_in_Password_Fields_Drops_Characters)・[セキュア入力モード](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)の各項目を参照してください。"
+      ],
+      [
+        "マクロが止まらなくなりました。どうやって止めればいいですか？",
+        "メニューバーにある Keyboard Maestro のアイコンをクリックし、**Cancel**（キャンセル）サブメニューから該当のマクロを選ぶと止められます。⌃⌥⇧（Control、Option、Shift。⌘ Command を加えてもかまいません）を押しながらアイコンをクリックすれば、動いているマクロをすべて一括で止められます。もしログイン時に自動実行されるマクロが暴走してどうしても止められない場合、公式 Wiki にはもう1つ対処法が載っています。⌃⌥⇧⌘（Command も加えた4つ）を押しながらエディタを開く方法です。こうするとエンジンを終了した状態でエディタだけが開くので、問題のマクロのトリガーを外したり、マクロ自体を無効にしたりできます。詳しくは、公式 Wiki の[よくある使い方](https://wiki.keyboardmaestro.com/manual/How_do_I)と[トラブルシューティング](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)、そしてこのサイトの[マクロが止まらなくなったとき](/ja/howto/stop-macro/)を参照してください。"
+      ]
+    ]
+  },
+  "data": {
+    "title": "マクロの保存場所と移行",
+    "items": [
+      [
+        "マクロはどこに保存されていますか？",
+        "自分の Mac の中に保存されています。公式 Wiki によると、保存先は Application Support フォルダ内の `~/Library/Application Support/Keyboard Maestro` です。エディタで **Help ▸ Open Preferences Folder**（ヘルプ ▸ 設定フォルダを開く）を実行して開くフォルダの中にある `Keyboard Maestro Macros.plist` がマクロ本体になります。設定ファイルは `~/Library/Preferences/` の中にある `com.stairways.keyboardmaestro.` で始まるファイル群、ログは `~/Library/Logs/Keyboard Maestro` に置かれています。「ライブラリ」フォルダは初期状態では非表示になっていますが、Finder で ⌥（Option）を押しながら「移動」メニューを開くと表示されます。詳しくは、公式 Wiki の[よくある使い方](https://wiki.keyboardmaestro.com/manual/How_do_I)と[トラブルシューティング](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Being_Saved)を参照してください。"
+      ],
+      [
+        "マクロはどうやってバックアップすればいいですか？",
+        "一番簡単なのは、Mac 全体をきちんとバックアップしておくことです。公式 Wiki にもある通りマクロは自分の Mac に保存されているので、Mac 全体のバックアップがあれば安全に守れます。ほかにも役立つ仕組みが2つあります。Keyboard Maestro 自身がいくつかの過去バージョンを独自にバックアップしており、**File ▸ Revert Macros**（ファイル ▸ マクロを元に戻す）から戻せます。また、いくつかのマクロだけ別で控えを残したいときは、対象を選んで **File ▸ Export ▸ Export Macros**（ファイル ▸ 書き出し ▸ マクロを書き出す）でファイルに保存できます。詳しくは、公式 Wiki の[よくある使い方](https://wiki.keyboardmaestro.com/manual/How_do_I)、[マクロの同期](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)、[メニュー](https://wiki.keyboardmaestro.com/manual/Menus#Export_Macros)を参照してください。"
+      ],
+      [
+        "新しい Mac に買い替えました。マクロはどうやって移行すればいいですか？",
+        "方法は2つあります。マクロだけを移したい場合は、古い Mac で **File ▸ Start Syncing Macros**（ファイル ▸ マクロの同期を開始）からマクロの同期をオンにして、同期ファイルを適当な場所に保存し、新しい Mac へコピーします。新しい Mac に通常通り Keyboard Maestro をインストールして同期をオンにし、そのファイルを選んで新しい Mac 側のマクロを置き換えたら、同期をオフにします。この方法で移るのはマクロだけで、設定や変数、クリップボードは移りません。すべてまとめて移したい場合は、両方の Mac で Keyboard Maestro とエンジンを終了し、`~/Library/Application Support/Keyboard Maestro` フォルダを丸ごとコピーします。必要に応じて設定ファイル（ライセンス情報も含まれます）も一緒にコピーし、コピー後のファイルの所有者とアクセス権が正しいことを確認します。++古い Mac も引き続き使う場合は、設定ファイルはコピーしないでください++。コピーしてしまうと2台が同じ Mac として扱われ、同期やリモートトリガーで不具合が起きます。すでにコピーしてしまった場合のリセット方法は公式 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) に載っています。詳しくは、公式 Wiki の[よくある使い方](https://wiki.keyboardmaestro.com/manual/How_do_I)を参照してください。"
+      ],
+      [
+        "自宅の Mac と職場の Mac で同じマクロを共有できますか？",
+        "はい、マクロの同期機能で共有できますし、1つのライセンスでそのまま5台の Mac まで使えます。同期ファイルは、Dropbox のような同期サービスや常時利用できる共有ファイルサーバーなど、両方の Mac から見える場所に置きます。なお公式 Wiki では、iCloud Drive は同期が遅く、変更が失われることがあると注意喚起しています。手順としては、マクロが入っている方の Mac で **File ▸ Start Syncing Macros** を選び、**Create New**（新規作成）をクリックして同期ファイルを作ります。ファイルがもう1台にも同期されたら、そちらの Mac でも同じメニューを開き、**Open Existing**（既存のファイルを開く）をクリックしてそのファイルを選びます。++2台目の Mac にすでにあるマクロはすべて置き換わります++。残したいマクロがある場合は、先に書き出しておいてください。また、両方の Mac で同じバージョンの Keyboard Maestro を使う必要があり、同期されるのはマクロのみで、設定・クリップボード・変数は同期されません。詳しくは、公式 Wiki の[マクロの同期](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)と、このサイトの[2台の Mac で同じマクロを使う](/ja/howto/sync-macs/)を参照してください。"
+      ]
+    ]
+  },
+  "site": {
+    "title": "このサイトについて",
+    "items": [
+      [
+        "ここは Keyboard Maestro の公式サイトですか？",
+        "いいえ、違います。Stairways Software とは関係のない、オープンソースの非公式学習サイトです。Keyboard Maestro は Stairways Software Pty Ltd の商標です。機能や価格、詳しい仕様については、[公式 Wiki](https://wiki.keyboardmaestro.com/) や[公式サイト](https://www.keyboardmaestro.com/)を基準にしてください。"
+      ],
+      [
+        "ここに書かれている内容は何をもとにしていますか？",
+        "事実関係はすべて Keyboard Maestro の公式 Wiki をもとにしています。文章はこのサイト独自の言葉で書き直し、できる限り公式ページへのリンクを添えており、ボタン名やメニュー名はアプリに表示されるままの英語で記載しています。公式 Wiki に書かれていないことは、このサイトでも書きません。フォーラムでほかの人が共有している体験談は、リンクを付けたうえで「こういう試し方をした人がいる」という例として紹介するにとどめ、機能や手順の根拠にはしていません。また、ライセンスキーやクラック版、ダウンロードのミラーは一切掲載せず、ダウンロードリンクは公式サイトにだけ張っています。"
+      ],
+      [
+        "間違いを見つけたり、手順通りに動かなかったりしたら、どこに連絡すればいいですか？",
+        "このサイトの [GitHub](https://github.com/nevertoday/xxd-keyboard-maestro/issues) で Issue を立ててお知らせください。各ページの一番下に、見ていたページ名を自動で入力してくれるリンクがあります。報告するときは、macOS のバージョン、Keyboard Maestro のバージョン、マクロでやりたいこと、実際に起きたこと、すでに試したことを一緒に書いてください。また、スクリーンショットや書き出したマクロを添付する前に、ライセンス情報やパスワード、個人的な文章は必ず消しておいてください。特定のマクロの作り方を相談したい場合は、開発者や多くのユーザーが集まっている[公式フォーラム](https://forum.keyboardmaestro.com/)が一番おすすめだと公式 Wiki に書かれています（詳しくは[サポート](https://wiki.keyboardmaestro.com/manual/Support)を参照してください）。Keyboard Maestro 自体の明らかな不具合を見つけたときは、公式 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) の案内に沿って Stairways へ報告してください。"
+      ]
+    ]
+  }
+}

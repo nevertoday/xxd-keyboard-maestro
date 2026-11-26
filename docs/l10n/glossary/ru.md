@@ -78,3 +78,11 @@ Keep all Keyboard Maestro interface labels (menus, triggers, actions, buttons, p
 3. **Keep English UI labels untouched and uninflected.** Leave every Keyboard Maestro UI label in exact bold English with a short lowercase Russian gloss in round parentheses on first mention on a page (`**Hot Key Trigger** (триггер по горячей клавише)`), then bold English alone. Never attach Russian case endings to English labels or names — put a Russian generic noun before them when needed (`действие **Pause**`, `в меню **Activate:**`, `в окне **Keyboard Maestro**`, `в Finder`).
 4. **Follow Russian typography and MDX safety.** Use guillemets `«…»` for quotation marks in prose and inside JSX/MDX attributes (so `"` never breaks attributes), an em dash with spaces (` — `) rather than a hyphen, and `ё` consistently (`всё`, `ещё`, `введёте`, `найдёт`). Space menu arrows as ` ▸ ` (`**Системные настройки ▸ Конфиденциальность и безопасность ▸ Универсальный доступ**`). Never close a `**bold**` span with punctuation directly followed by text (`**…когда нужно**. Дальше`, not `**…когда нужно.**Дальше`).
 5. **Space Cyrillic cleanly around Latin words, code, and key symbols.** Separate Russian words from Latin names, inline code, and shortcuts with normal spaces (`нажмите ⌃⌥⌘N`, `введите \`=reply=\``, `откройте Safari`). Keep key chords tight with no internal spaces (`⌃⌥⌘N`, `⌃⌥⌘M`, `⌘Q`, `⌘V`, `⌃⌥⇧`), and keep tokens (`%LongDate%`) and typed strings (`=reply=`) verbatim inside inline code.
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | включён | its tick is on |
+| active (macro or group) | активен | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

@@ -82,3 +82,11 @@ Use Apple's official Arabic macOS labels below. For multi-step macOS paths in Ar
 3. **English UI labels vs. product names:** Keep Keyboard Maestro UI labels verbatim in bold English (`**Insert Text by Pasting**`, `**Launch Engine at Login**`, `**File ▸ New Macro**`), with a brief Arabic gloss in parentheses on first appearance per page (`**Hot Key Trigger** (مشغّل مفتاح الاختصار)`). Never bold ordinary English app or product names (`Keyboard Maestro`, `macOS`, `TextEdit`) in prose, as bold English spans are checked against Keyboard Maestro's UI label list.
 4. **Arabic punctuation, quotes, and menu arrows:** Use Arabic comma (`،`) and Arabic question mark (`؟`) in Arabic prose, along with standard periods (`.`), colons (`:`), and guillemets (`«…»`) for quoted phrases or in-attribute quotes (never breaking JSX double quotes). Keep `▸` verbatim inside English Keyboard Maestro menu paths (`**File ▸ New Macro**`), use `◂` for localized Arabic macOS paths (`إعدادات النظام ◂ الخصوصية والأمن ◂ تسهيلات الاستخدام`), avoid bare `<`, `{`, `}` in prose, and never end a bold span with punctuation directly followed by text.
 5. **Spacing and directionality with English, code, keys, and `⌘` symbols:** Always leave a regular space before and after English words, bold UI labels, inline code (`` `=addr=` ``, `` `%LongDate%` ``), and key combos (`⌃⌥⌘N`). Never attach Arabic proclitics (`و`, `بـ`, `لـ`, `الـ`) directly onto `**…**` or `` `…` `` (which breaks Markdown emphasis and readability)—insert a natural Arabic head noun instead (e.g. `وخيار **Launch Engine at Login**`, `بكتابة ` + `` `=reply=` ``, `في نافذة **Macro Debugger**`). Use Western Arabic numerals (`0–9`), keep `⌃ ⌥ ⇧ ⌘` symbols untouched, and let the page's RTL layout handle bidirectional flow without manual Unicode control characters.
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | مُفعَّل | its tick is on |
+| active (macro or group) | نشِط | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

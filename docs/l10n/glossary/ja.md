@@ -80,3 +80,11 @@ Other Apple names that appear in the lessons follow Apple's Japanese UI too: Mai
 3. **English UI labels with first-mention glosses**: Leave every Keyboard Maestro UI label in exact **bold English**. On its first appearance on a page, follow it immediately with a concise Japanese gloss in full-width parentheses — `**Hot Key Trigger**（ホットキートリガー）` — and use the bold English alone on later mentions. Use Apple's localized Japanese for macOS settings and Apple apps.
 4. **Japanese punctuation and MDX safety**: Use standard Japanese punctuation (`。`, `、`, `「」`, `（）`, `：`, `・`) and keep `▸` with surrounding spaces for menu paths (`**Help ▸ Interactive Help**`). Never end a bold span with punctuation directly followed by Japanese text (`**〜したとき**。次の手順`, not `**〜したとき。**次の手順`). Inside JSX attribute values (`title="…"`, `q="…"`), use `「」` instead of straight double quotes.
 5. **Spacing around English words, inline code, numbers, and ⌘ symbols**: Put a single half-width space between Japanese text and Latin words, bold English labels, inline code, or key symbols (`Keyboard Maestro を起動します`, `⌃⌥⌘N を押します`, `` `=reply=` と入力します ``, `**Keyboard Maestro ▸ Settings…** を開きます`, `**Activate:** メニュー`) — this also prevents CommonMark from misparsing bold spans ending in `…` or `:`. Do **not** add spaces next to Japanese punctuation (`「Safari」`, `**Insert Text by Pasting**（テキストを貼り付けて挿入）`), inside key combinations (`⌃⌥⌘N`, `⌘V`, `⌃⌥⇧`), or between digits and Japanese counters (`15分`, `1秒`, `3つ`, `レッスン1`, `ステップ6`).
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | 有効（オン） | its tick is on |
+| active (macro or group) | アクティブ | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.

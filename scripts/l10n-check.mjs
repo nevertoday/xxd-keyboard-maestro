@@ -46,7 +46,7 @@ const zhCorpus = () => (ZH ??= [
 ].join("\n"));
 
 /** 日语里本来就这么写的汉字词（和中文同形），审过的才加进来 */
-const JA_OK = new Set(["基本概念"]);
+const JA_OK = new Set(["基本概念", "数字以外"]);
 function hanProblems(text, en, lang) {
   if (lang === "zh") return [];
   const bad = [];

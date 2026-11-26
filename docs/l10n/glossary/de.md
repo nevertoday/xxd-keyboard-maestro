@@ -78,3 +78,11 @@ Follow these terms and conventions across every German page (`src/l10n/de/*.json
 3. **English UI labels and German grammar**: Leave every Keyboard Maestro interface label verbatim in bold English, adding a concise German gloss in parentheses the first time it appears on a page (e.g., `**Insert Text by Pasting** (Text durch Einfügen)`). Hyphenate German compounds containing English terms (*Engine-Protokoll*, *Plug-in-Aktion*), keep articles consistent (*die Engine*, *das Makro*, *das Token*), and never let punctuation inside a bold span touch following text (`**…klickst**. Danach`, not `**…klickst.**Danach`).
 4. **German punctuation and menu paths**: Use German typographic quotes (`„…“`, nested `‚…‘`) in prose and inside JSX attributes whenever quotes are needed. Use spaced en-dashes (` – `) for asides instead of unspaced em-dashes (`—`), and keep the `▸` path separator with a space on each side (`Systemeinstellungen ▸ Datenschutz & Sicherheit ▸ Bedienungshilfen`, `**File ▸ New Macro**`).
 5. **Spacing with `⌘` symbols and inline code**: Keep modifier combinations tight with no internal spaces (`⌃⌥⌘N`, `⌘C`, `⌘V`), adding spaces only when listing individual keys (`⌃ ⌥ ⇧ ⌘`) as in the English source. Always put normal spaces around key chords, inline code (`` `=addr=` ``, `` `%LongDate%` ``), and bold English labels, and never attach German inflectional endings directly to code or UI labels (write *das Token `%LongDate%`*, *drücke `⌃⌥⌘N`*).
+
+## Enabled vs active (two different words, everywhere)
+| English | Use | Meaning |
+|---|---|---|
+| enabled (macro or group) | aktiviert (Häkchen gesetzt) | its tick is on |
+| active (macro or group) | aktiv | it can fire right now: the group's availability conditions are met |
+
+Never write the *enabled* word for *active / activated*. Guide step 1 builds its trap on this difference.
