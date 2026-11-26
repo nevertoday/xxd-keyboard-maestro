@@ -24,6 +24,9 @@ Mac users who have never automated anything, reading in their own language. The 
 - **Enabled vs active are two different words.** A macro or group is *enabled* when its tick is on; it is *active* when it can fire right now (its group's availability conditions are met). Guide step 1 is built on this difference. Pick one word for each (the term list has them) and never use the "enabled" word for "active / activated", in pages, wiki, nav tips or figures.
 - **Link text = the target page's title** in your language (`src/l10n/<lang>/nav.json`: lessons, steps, howto). Don't paraphrase it.
 - **One gloss per Keyboard Maestro label** on every page (e.g. **Insert Text by Typing**, **Activate a Specific Application**, **Cancel**): reuse the wording from the term list or from earlier pages.
+- **A trigger fires; a group is active.** Use one verb for a trigger firing a macro (es disparar, fr se déclencher, de auslösen, pt disparar, ru срабатывать, ar ينطلق) and keep the verb for *activate* only for a group becoming active.
+- **The `## Stuck?` heading** (on every guide and how-to page) is the same words on every page, as your language's lessons and term list have it.
+- Keys keep the names Apple prints for your language (es Opción, Mayúsculas, Comando, Retorno; de Wahltaste, Umschalttaste, Befehlstaste, Zeilenschalter; fr Option, Maj, Commande, Retour) beside the symbol; use them the same way on every page.
 - Option values inside an action or condition are interface labels too (a condition's **is** / **contains**, a palette's **until application switch**, a dialog's **live dangerously**): keep them English like any other label, with a gloss the first time.
 - Keyboard Maestro's own Settings window has one name throughout. The debugger's **Step Over** runs the current action and pauses after it; it does not skip it.
 
