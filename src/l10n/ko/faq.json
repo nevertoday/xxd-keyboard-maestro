@@ -1,0 +1,95 @@
+{
+  "before": {
+    "title": "설치하기 전에",
+    "items": [
+      [
+        "Keyboard Maestro는 안전한가요? 왜 권한을 이렇게 많이 요구하나요?",
+        "대신 키를 누르고, 글자를 입력하고, 메뉴를 고르고, 화면을 살펴봐야 하기 때문에 권한이 많이 필요해요. 진짜 조심해야 할 건 어떤 매크로를 실행하느냐예요. 공식 설명에 따르면 Keyboard Maestro는 사용자를 대신해 사실상 사용자처럼 움직이기 때문에 여러 시스템 권한이 필요해요. **Security**(보안) 설정에 중요한 권한들이 한데 모여 있어서 각각 켜져 있는지 바로 확인할 수 있고, 각 권한이 어떤 역할을 하는지는 [권한](/ko/wiki/permissions/)에서 설명하고 있어요. 공식 위키에는 버전 9부터 강화된 런타임이 적용되었고 Apple의 공증도 받았다고 나와 있어요. 동시에 실수든 의도적이든 매크로를 잘못 쓰면 피해가 생길 수 있다고도 경고해요. 특히 다른 사람에게 받은 매크로는 실행하기 전에 각 단계가 무슨 일을 하는지 꼭 확인해 보세요. 앱은 반드시 [공식 사이트](https://www.keyboardmaestro.com/)에서만 다운로드하세요. 자세한 내용은 공식 위키의 [설정](https://wiki.keyboardmaestro.com/manual/Preferences)과 [관리 세부 사항](https://wiki.keyboardmaestro.com/manual/Administrative_Details)을 참고하세요."
+      ],
+      [
+        "Mac App Store에서도 살 수 있나요?",
+        "아니요. 공식 위키에 따르면 Mac App Store는 앱이 샌드박스 안에서 동작하도록 요구하는데, Keyboard Maestro 같은 워크플로 앱은 그렇게 만들 수 없어서 입점해 있지 않아요. 아주 예전에 Mac App Store에 버전 5가 올라와 있긴 했는데, 공식 안내에서는 오래된 버전이니 사지 말라고 해요. 버전 6부터는 직접 구매만 가능해요. [keyboardmaestro.com](https://www.keyboardmaestro.com/)에서 다운로드하세요. 자세한 내용은 [사용 방법](https://wiki.keyboardmaestro.com/manual/How_do_I)과 공식 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)를 참고하세요."
+      ],
+      [
+        "제 Mac에서도 돌아갈까요? 최신 칩이나 새 macOS 버전은 어떤가요?",
+        "macOS 10.13 이상이라면 Keyboard Maestro 11을 설치할 수 있고, 공식 FAQ에는 Sequoia와 Tahoe에서도 완전히 호환된다고 나와 있어요. 공식 위키에 칩에 관한 구체적인 설명은 없어서 이 사이트에서도 단정해서 답하지 않아요. 확신이 서지 않는다면 체험판을 먼저 써 보거나 [공식 사이트](https://www.keyboardmaestro.com/) 안내를 기준으로 확인해 보세요. 한 가지 더, 큰 시스템 업데이트 뒤에 매크로가 갑자기 안 되면 공식 안내대로 먼저 한 번 더 재시동해 보세요. 업데이트 직후에는 시스템이 아직 완전히 자리 잡지 않은 경우가 많거든요. 그런 다음 **Security** 설정에서 모든 항목이 여전히 켜져 있는지 확인하면 돼요. 자세한 내용은 [관리 세부 사항](https://wiki.keyboardmaestro.com/manual/Administrative_Details), 공식 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions), [문제 해결](https://wiki.keyboardmaestro.com/Troubleshooting)을 참고하세요."
+      ],
+      [
+        "Mac에 기본으로 들어 있는 단축어 앱과는 뭐가 다른가요?",
+        "둘은 서로 다른 앱이지만 함께 연동해서 쓸 수 있어요. 공식 위키는 둘을 이렇게 나란히 비교해요. Keyboard Maestro에서는 매크로 그룹 안에 매크로가 들어 있고, 매크로는 트리거로 시작해 동작을 수행하며, Keyboard Maestro Engine이 실행하고 Keyboard Maestro 편집기에서 편집해요. 반면 단축어 앱에서는 폴더 안에 단축어가 들어 있고, 시스템이 실행하며 단축어 앱에서 편집해요. v10.1부터는 macOS 12 이상에서 Keyboard Maestro가 **Execute Shortcut**(단축어 실행) 동작으로 단축어를 실행할 수 있고, 반대로 단축어 앱에도 매크로를 실행하거나 변수를 가져오고 설정하는 등 여러 동작을 추가해 줘요. 단축어 앱 자체로 무엇을 할 수 있는지는 이 사이트가 아니라 Apple에서 설명할 영역이에요. 자세한 내용은 [단축어 동작](https://wiki.keyboardmaestro.com/Shortcut_Actions)을 참고하세요."
+      ]
+    ]
+  },
+  "buy": {
+    "title": "구매와 라이선스",
+    "items": [
+      [
+        "가격은 얼마인가요? 구독제인가요?",
+        "공식 구매 페이지 기준으로 US$36예요(2026-11-24 확인). 가격은 [해당 페이지](https://wiki.keyboardmaestro.com/manual/Purchase)를 기준으로 확인하세요. 구독제는 아니에요. 공식 안내에 따르면 라이선스 하나로 현재 메이저 버전과 보통 그 버전의 마이너 업데이트까지 쓸 수 있어요. 대략 12~36개월마다 유료 메이저 업그레이드가 나오는데, 업그레이드하지 않아도 이미 산 버전은 계속 쓸 수 있어요. 이전 버전을 가지고 있다면 업그레이드할 때 할인을 받을 수 있어요. 라이선스 적용 범위는 [관리 세부 사항](https://wiki.keyboardmaestro.com/manual/Administrative_Details)에 나와 있어요."
+      ],
+      [
+        "라이선스 하나로 Mac 몇 대까지 쓸 수 있나요?",
+        "한 사람이 최대 5대까지 쓸 수 있어요. 공식 위키에 따르면 라이선스는 사용자 단위라서 한 사람이 최대 5대의 Mac에 Keyboard Maestro를 설치해 쓸 수 있지만, 집에서 두 사람이 함께 쓰려면 각자 라이선스를 사야 해요. 10명 이상인 팀이라면 Stairways에 대량 구매 견적을 문의할 수 있어요. 자세한 내용은 [구매 안내](https://wiki.keyboardmaestro.com/manual/Purchase)와 [관리 세부 사항](https://wiki.keyboardmaestro.com/manual/Administrative_Details)을 참고하세요."
+      ],
+      [
+        "먼저 써 볼 수 있나요? 안 맞으면 환불도 되나요?",
+        "둘 다 가능해요. 모든 기능이 그대로 들어 있는 체험판을 [공식 사이트](https://www.keyboardmaestro.com/)에서 내려받을 수 있어요. 다만 공식 위키에 체험 기간이 며칠인지 적혀 있지 않아서 이 사이트에서도 기간을 따로 쓰지 않아요. 구매한 지 30일 안에 공식 문서에 설명된 대로 동작하지 않는다고 느끼면 환불을 요청할 수 있어요. 결제 금액은 돌려받고 라이선스는 취소돼요. 자세한 내용은 [구매 안내](https://wiki.keyboardmaestro.com/manual/Purchase)와 [관리 세부 사항](https://wiki.keyboardmaestro.com/manual/Administrative_Details)을 참고하세요."
+      ]
+    ]
+  },
+  "using": {
+    "title": "사용할 때",
+    "items": [
+      [
+        "매크로 단축키를 눌렀는데 아무 일도 안 일어나요. 뭐부터 확인해야 하나요?",
+        "편집기에서 **Help ▸ Interactive Help**(도움말 ▸ 대화형 도움말)을 열고, 예상한 일이 일어나지 않는다는 항목을 선택해 보세요. ==가장 흔한 원인들을 하나씩 차례대로 점검해 줘요==. 먼저 엔진이 실행 중인지, 편집기가 엔진과 통신할 수 있는지, 권한이 켜져 있는지, 시스템이 보안 입력 모드(Secure Input Mode)에 걸려 있지 않은지를 확인해요. 그다음 선택한 매크로의 그룹이 사용(켬) 상태이고 지금 활성 상태인지, 매크로 자체는 사용(켬) 상태인지, 트리거와 켜진 동작이 들어 있는지도 살펴봐요. 여기까지 모두 괜찮다면 매크로를 한 번 더 실행해 보세요. 실제로 트리거가 작동했는지 알려 줘요. 실행은 됐는데 엉뚱하게 움직였다면 동작 목록을 확인해 보세요. 중간에 **Pause**(일시 정지)가 빠져 있는 경우가 흔해요. 자세한 내용은 공식 [문제 해결](https://wiki.keyboardmaestro.com/Troubleshooting)과 이 사이트의 [매크로가 작동하지 않을 때](/ko/guide/6-debug/)를 참고하세요."
+      ],
+      [
+        "비밀번호 입력란에서는 약어가 안 먹혀요. 비밀번호를 대신 입력하게 할 수 있나요?",
+        "약어로는 안 되지만 타이핑 동작으로는 입력할 수 있어요. 다만 공식 위키에서는 보안상 매우 우려되는 방식이라고 경고해요. 시스템이 비밀번호 입력란에서 무엇을 치는지 Keyboard Maestro가 보지 못하게 막기 때문에, 대부분의 비밀번호 입력란에서는 문자열 입력 트리거가 작동하지 않아요. **Insert Text by Typing**(타이핑으로 텍스트 삽입)을 쓰면 비밀번호 입력란에도 입력할 수는 있지만, 늘 정확하게 들어가는 건 아니에요. 매크로를 실행한 단축키와 입력할 텍스트에 겹치는 키가 있으면 그 글자가 빠질 수 있거든요. 그러면 화면에는 점 하나가 모자라게 찍히고 결국 비밀번호 오류만 뜨게 돼요. 이와 별개로 시스템이 보안 입력 모드에 걸려서 계속 비밀번호 입력란에 있다고 착각할 때도 있는데, 이러면 평소 잘 되던 일반 약어까지 멈춰요. 이럴 때는 비밀번호를 요구했던 앱을 종료하거나 재시동하면 풀리고, Keyboard Maestro가 이 상태를 감지하면 상태 메뉴에 알려 줘요. 자세한 내용은 [문자열 입력 트리거](https://wiki.keyboardmaestro.com/trigger/Typed_String)와 문제 해결 문서의 [비밀번호 입력란에서 글자가 누락되는 문제](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_in_Password_Fields_Drops_Characters), [보안 입력 모드](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode) 항목을 참고하세요."
+      ],
+      [
+        "매크로가 멈추지 않아요. 어떻게 멈추나요?",
+        "메뉴 막대에서 Keyboard Maestro 아이콘을 클릭한 뒤 **Cancel**(취소) 하위 메뉴에서 해당 매크로를 선택하면 취소할 수 있어요. ⌃⌥⇧(Control, Option, Shift)를 누른 채 아이콘을 클릭하면 실행 중인 모든 매크로가 한꺼번에 취소돼요. 이때 ⌘(Command)는 함께 눌러도 되고 안 눌러도 돼요. 만약 로그인할 때마다 실행되는 매크로가 도무지 멈추지 않는다면 공식 위키에 나온 방법이 하나 더 있어요. Command를 더한 ⌃⌥⇧⌘을 누른 채 편집기를 여는 거예요. 그러면 엔진이 종료되고 엔진을 켜지 않은 상태로 편집기가 열려서, 그 매크로의 트리거를 지우거나 매크로를 사용 안 함(끔)으로 바꿀 수 있어요. 자세한 내용은 [사용 방법](https://wiki.keyboardmaestro.com/manual/How_do_I), [문제 해결](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros), 그리고 이 사이트의 [매크로가 멈추지 않을 때](/ko/howto/stop-macro/)를 참고하세요."
+      ]
+    ]
+  },
+  "data": {
+    "title": "매크로 저장 위치와 옮기기",
+    "items": [
+      [
+        "내 매크로는 어디에 저장되나요?",
+        "사용 중인 Mac 안에 저장돼요. 공식 위키에 따르면 Application Support 폴더 안의 `~/Library/Application Support/Keyboard Maestro`에 들어 있어요. 편집기에서 **Help ▸ Open Preferences Folder**(도움말 ▸ 환경설정 폴더 열기)를 누르면 열리는 폴더 안의 `Keyboard Maestro Macros.plist` 파일이 바로 매크로 파일이에요. 환경설정은 `~/Library/Preferences/` 안에서 이름이 `com.stairways.keyboardmaestro.`로 시작하는 파일들이고, 로그는 `~/Library/Logs/Keyboard Maestro`에 있어요. 라이브러리 폴더는 기본적으로 숨겨져 있는데, Finder에서 ⌥(Option) 키를 누른 채 이동 메뉴를 열면 보여요. 자세한 내용은 [사용 방법](https://wiki.keyboardmaestro.com/manual/How_do_I)과 [문제 해결](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Being_Saved)을 참고하세요."
+      ],
+      [
+        "매크로는 어떻게 백업하나요?",
+        "가장 쉬운 방법은 Mac 전체를 꼼꼼히 백업해 두는 거예요. 공식 위키에도 매크로가 Mac 안에 저장되기 때문에 전체 백업을 잘해 두면 안전하다고 나와 있어요. 여기에 두 가지 방법이 더 있어요. Keyboard Maestro 자체적으로 몇 단계의 백업 버전을 보관하고 있어서 **File ▸ Revert Macros**(파일 ▸ 매크로 되돌리기)에서 되돌릴 수 있고, 특정 매크로 몇 개만 따로 보관하고 싶다면 선택한 뒤 **File ▸ Export ▸ Export Macros**(파일 ▸ 내보내기 ▸ 매크로 내보내기)를 눌러 파일로 저장해 두면 돼요. 자세한 내용은 [사용 방법](https://wiki.keyboardmaestro.com/manual/How_do_I), [매크로 동기화](https://wiki.keyboardmaestro.com/manual/Macro_Syncing), [메뉴](https://wiki.keyboardmaestro.com/manual/Menus#Export_Macros)를 참고하세요."
+      ],
+      [
+        "새 Mac을 샀어요. 매크로를 어떻게 옮기나요?",
+        "두 가지 방법이 있어요. 매크로만 옮기려면 예전 Mac에서 **File ▸ Start Syncing Macros**(파일 ▸ 매크로 동기화 시작)으로 매크로 동기화를 켜고, 동기화 파일을 아무 곳에나 저장해 새 Mac으로 복사해요. 새 Mac에 Keyboard Maestro를 평소처럼 설치하고 동기화를 켠 뒤, 그 파일을 골라 새 Mac의 매크로를 덮어쓰고 동기화를 끄면 돼요. 이 방법으로는 매크로만 옮겨지고 설정, 변수, 클립보드는 옮겨지지 않아요. 전부 옮기려면 두 Mac 모두에서 Keyboard Maestro와 엔진을 종료한 뒤 `~/Library/Application Support/Keyboard Maestro` 폴더 전체를 복사하고, 원한다면 라이선스 정보가 들어 있는 환경설정 파일도 함께 복사하세요. 그런 다음 복사한 파일의 소유권과 권한이 올바른지 확인하면 돼요. ++예전 Mac을 계속 쓸 예정이라면 환경설정 파일은 복사하지 마세요++. 함께 복사하면 두 대가 같은 Mac으로 인식되어 동기화나 원격 트리거에 문제가 생기거든요. 이미 복사해 버렸다면 공식 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)에 초기화하는 방법이 나와 있어요. 자세한 내용은 [사용 방법](https://wiki.keyboardmaestro.com/manual/How_do_I)을 참고하세요."
+      ],
+      [
+        "집에 있는 Mac과 회사 Mac에서 같은 매크로를 공유할 수 있나요?",
+        "네, 매크로 동기화 기능을 쓰면 되고 라이선스 하나로 이미 Mac 5대까지 쓸 수 있어요. Dropbox 같은 동기화 서비스나 항상 접근할 수 있는 공유 파일 서버처럼 두 Mac에서 모두 볼 수 있는 곳에 동기화 파일을 두세요. 공식 위키에서는 iCloud Drive의 경우 동기화가 느려서 변경 내용이 유실될 수 있다고 경고해요. 매크로가 들어 있는 Mac에서 **File ▸ Start Syncing Macros**를 선택하고 **Create New**(새로 만들기)를 눌러 동기화 파일을 만드세요. 파일이 다른 Mac까지 동기화되고 나면, 그쪽 Mac에서도 같은 메뉴를 열고 **Open Existing**(기존 파일 열기)를 눌러 해당 파일을 고르면 돼요. ++두 번째 Mac에 이미 있던 매크로는 전부 덮어쓰이므로++, 남기고 싶은 매크로가 있다면 먼저 내보내 두세요. 두 Mac의 Keyboard Maestro 버전이 같아야 하고, 환경설정이나 클립보드, 변수는 빼고 매크로만 동기화돼요. 자세한 내용은 [매크로 동기화](https://wiki.keyboardmaestro.com/manual/Macro_Syncing)와 이 사이트의 [Mac 두 대에서 같은 매크로 쓰기](/ko/howto/sync-macs/)를 참고하세요."
+      ]
+    ]
+  },
+  "site": {
+    "title": "이 사이트에 대해",
+    "items": [
+      [
+        "여기가 Keyboard Maestro 공식 사이트인가요?",
+        "아니요. Stairways Software와는 아무 관련이 없는 오픈소스 비공식 학습 사이트예요. Keyboard Maestro는 Stairways Software Pty Ltd의 상표예요. 기능과 가격, 동작 방식은 [공식 위키](https://wiki.keyboardmaestro.com/)와 [공식 사이트](https://www.keyboardmaestro.com/)를 기준으로 확인하세요."
+      ],
+      [
+        "여기에 실린 내용은 다 어디서 가져온 건가요?",
+        "모든 사실 정보는 공식 Keyboard Maestro 위키를 바탕으로 해요. 이해하기 쉽게 직접 다시 쓰고 가능한 한 공식 페이지 링크를 달아 두었으며, 버튼과 메뉴 이름은 앱에 표시되는 그대로 영어로 적었어요. 공식 위키에 없는 내용은 이 사이트에서도 쓰지 않아요. 포럼에 올라온 사용자 경험은 누군가 시도해 본 사례로만 링크와 함께 인용할 뿐, 기능이나 절차를 설명하는 근거로 삼지는 않아요. 이 사이트에는 라이선스 키나 크랙 버전, 다운로드 미러를 절대 올리지 않으며, 다운로드 링크는 오직 공식 사이트로만 연결돼요."
+      ],
+      [
+        "틀린 내용을 찾았거나 설명대로 했는데 잘 안 돼요. 어디에 알리면 되나요?",
+        "이 사이트의 [GitHub](https://github.com/nevertoday/xxd-keyboard-maestro/issues)에 이슈를 열어 알려 주세요. 모든 페이지 맨 아래에 보고 있던 페이지 주소가 자동으로 채워지는 링크가 있어요. 글에는 macOS 버전, Keyboard Maestro 버전, 매크로가 원래 해야 하는 일, 실제로 일어난 일, 그리고 시도해 본 내용을 함께 적어 주세요. 스크린샷이나 내보낸 매크로를 첨부하기 전에는 라이선스 정보, 비밀번호, 개인적인 내용은 꼭 지워 주세요. 특정 매크로를 만드는 데 도움이 필요하다면 공식 위키에서 안내하듯 [공식 포럼](https://forum.keyboardmaestro.com/)이 가장 좋아요. 개발자와 많은 사용자가 모여 있거든요([지원](https://wiki.keyboardmaestro.com/manual/Support) 참고). Keyboard Maestro 자체의 버그라면 공식 [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) 안내에 따라 Stairways에 제보해 주세요."
+      ]
+    ]
+  }
+}

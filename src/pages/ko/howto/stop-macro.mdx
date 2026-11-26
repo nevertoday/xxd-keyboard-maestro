@@ -1,0 +1,70 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: stop-macro
+step: 6
+time: 읽는 데 5분, 필요할 땐 2초
+for: 매크로가 멈추지 않고 계속 입력하거나 클릭해서 키보드를 되찾을 수 없을 때
+tldr: ⌃⌥⇧를 누른 채 메뉴 막대의 Keyboard Maestro 아이콘을 클릭하면 실행 중인 모든 매크로가 멈춰요. 하나만 멈추려면 상태 메뉴의 Cancel에서 고르면 돼요. 그래도 안 멈추면 엔진을 종료하거나 엔진 없이 편집기를 여는 방법도 있어요.
+description: "Keyboard Maestro 매크로가 멈추지 않을 때 대처법: Control, Option, Shift를 누른 채 상태 메뉴 아이콘을 클릭해 모든 매크로 취소하기, Status Menu ▸ Cancel에서 하나만 멈추기, 디버거로 보면서 멈추기, 엔진 종료와 엔진 없이 편집기 열기, 로그인 시 실행되는 매크로 복구하기, Cancel All Macros 같은 동작으로 비상 탈출구 만들기와 예방법."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Fig from "../../../components/Fig.astro";
+
+회사에서 스프레드시트를 정리하는 사람들은 흔히 이런 매크로를 만들어요. 한 칸 아래로 내려가고, 글자를 입력하고, 다시 한 칸 내려가는 과정을 **Repeat**(반복)으로 100번 돌리는 식이에요. 그러다 어느 날 손이 미끄러져 100을 1000으로 적거나, 커서가 아예 스프레드시트 안에 없는 상태에서 실행해 버리면, 어떤 키를 눌러도 아랑곳하지 않고 엉뚱한 창에 한 줄씩 계속 글자가 쏟아져요. 이 페이지대로 따라 하면 몇 초 만에 멈출 수 있어요. 마지막 절까지 읽고 나면 매크로에 미리 탈출구를 만들어 두는 방법도 알게 돼요.
+
+가장 중요한 방법 하나만 먼저 기억하고 나머지는 나중에 봐도 괜찮아요. <mark>⌃⌥⇧를 누른 채 메뉴 막대의 Keyboard Maestro 아이콘을 클릭하면 실행 중인 모든 매크로가 멈춰요.</mark>
+
+## 가장 빠른 방법: 전부 멈추기
+
+메뉴 막대 오른쪽에 있는 Keyboard Maestro 아이콘이 바로 <Term k="状态菜单" text="상태 메뉴" />예요. ⌃⌥⇧(Control, Option, Shift 세 키)를 누른 채 이 아이콘을 클릭하면 실행 중인 모든 매크로가 취소돼요([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). 공식 문서마다 안내하는 키가 조금씩 다른데요. 매뉴얼의 Menus 페이지에서는 ⌘ Command까지 보조 키 네 개를 모두 누르라고 되어 있고, How do I 페이지에서는 ⌃⌥⇧를 누르되 Command는 선택 사항이라고 하며, Troubleshooting 페이지에서는 ⌃⌥⇧만 적혀 있어요. 그래서 세 키만 눌러도 충분하고, 당황해서 ⌘까지 함께 누르더라도 상관없어요.
+
+<Callout type="ok">
+화면에 글자가 더 이상 쏟아지지 않고, 마우스도 다시 내 손으로 돌아와요.
+</Callout>
+
+매크로를 멈춘다고 해서 이미 실행한 작업까지 되돌려지지는 않아요. 방금 입력된 글자는 그 창에 그대로 남아 있으니, 해당 앱의 실행 취소 기능으로 정리하면 돼요.
+
+## 하나만 멈추기
+
+여러 매크로가 동시에 실행 중인데 문제가 생긴 것 하나만 멈추고 싶다면, 평소처럼 상태 메뉴를 열어 **Cancel**(취소)로 들어가세요. 지금 실행 중인 매크로가 모두 나열되는데, 그중 하나를 선택하면 바로 멈춰요([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). 현재 어떤 매크로들이 실행 중인지 확인하는 용도로도 쓸 수 있어요. 이미 끝났다고 생각한 매크로가 사실은 뒤에서 아직 대기 중인 경우도 종종 있거든요.
+
+## 한 단계씩 보면서 멈추기
+
+상태 메뉴에서 **Start Debugging**(디버깅 시작)을 선택하면 <Term k="调试器" text="디버거" /> 창이 열려요. 여기에는 실행 중인 모든 매크로와 각 매크로가 지금 어느 동작을 처리하고 있는지가 표시되고, 오른쪽 버튼으로 원하는 매크로를 **Cancel**할 수 있어요([Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)). 디버거에서 **Pause New Macros**(새 매크로 일시 정지)에 체크해 두면, 그 뒤에 트리거되는 매크로는 첫 단계에서 멈춰 기다려요. 덕분에 동작을 하나씩 클릭해 넘기면서 멈추지 않던 매크로가 어디서 잘못됐는지 정확히 찾아낼 수 있어요. 다만 디버거 창을 닫으면 일시 정지되어 있던 매크로들이 평소처럼 다시 이어서 실행되니, 멈추고 싶다면 먼저 취소한 뒤에 창을 닫으세요.
+
+<Fig id="stop-macro-ladder" />
+
+## 그래도 멈추지 않을 때
+
+위 방법들이 모두 통하지 않을 때를 위해 공식 위키에는 더 강력한 해결책도 나와 있어요([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+첫 번째는 상태 메뉴에서 **Quit Keyboard Maestro Engine**(Keyboard Maestro 엔진 종료)를 선택하는 방법이에요. <Term k="引擎" text="엔진" />이 종료되면 어떤 매크로도 실행되지 않아요. 다만 다음에 Keyboard Maestro를 열면 엔진이 다시 함께 켜지기 때문에, 엔진이 켜지자마자 그 매크로가 또 실행된다면 아래 방법대로 엔진 없이 편집기만 열어서 고쳐야 해요.
+
+가장 까다로운 경우는 로그인할 때 자동으로 실행되는 매크로예요. Mac을 켤 때마다 곧바로 튀어나와, 수정할 틈도 없이 다시 실행되어 버리죠. 공식 위키의 문제 해결 페이지에서 이런 상황을 따로 다루고 있는데([Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)), 다음 순서대로 진행해 보세요.
+
+1. 먼저 ⌃⌥⇧를 누른 채 상태 메뉴 아이콘을 클릭해서 실행 중인 매크로를 모두 취소하세요.
+2. ⌃⌥⇧⌘ 네 키를 모두 누른 채 Dock에서 Keyboard Maestro를 클릭하거나, 응용 프로그램 폴더에서 Keyboard Maestro를 더블 클릭하세요. 이렇게 하면 엔진을 종료한 뒤 엔진을 실행하지 않고 편집기만 열어요.
+3. 편집기에서 문제의 매크로를 찾아 트리거를 삭제하거나 사용을 끄세요.
+4. 위 방법이 모두 안 통하면 Mac을 안전 모드로 재시동하세요. 그러면 엔진을 포함한 로그인 항목이 실행되지 않아요. 그다음 똑같이 ⌃⌥⇧⌘를 누른 채 Keyboard Maestro를 열어 매크로를 고치면 돼요.
+
+## 매크로에 미리 탈출구 만들어 두기
+
+이제 멈추는 법을 알았으니 다음부터는 미리 대비해 둘 수 있어요. Keyboard Maestro에는 매크로를 취소하기 위한 전용 <Term k="动作" text="동작" />이 몇 가지 있어요. **Cancel All Macros**(모든 매크로 취소), **Cancel All Other Macros**(다른 모든 매크로 취소), **Cancel This Macro**(이 매크로 취소), **Cancel Just This Macro**(이 매크로만 취소)예요([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). 가장 간단한 활용법은 비상 정지 매크로를 하나 만들어 두는 거예요. 새 매크로를 만들고 **Hot Key**(단축키) 트리거를 예를 들어 ⌃⌥⌘.(Control, Option, Command와 마침표 키)로 지정한 뒤, 동작은 **Cancel All Macros** 하나만 넣으세요. 메뉴 막대를 찾아 헤맬 필요 없이 아이콘을 클릭하는 것과 똑같이 작동해요.
+
+평소 몇 가지 습관을 들여 두면 골치 아픈 일을 줄일 수 있어요. 새로 만든 반복 작업은 먼저 3번처럼 아주 적은 횟수로 시험해 보고, 의도대로 잘 작동하면 그때 100번으로 늘리세요. 잘 될지 확신이 서지 않는 매크로는 먼저 디버거를 열어 **Pause New Macros**에 체크한 뒤 한 단계씩 확인하며 실행해 보세요. 만약 매크로가 중간에 실패하거나 몇 단계를 건너뛰는 것처럼 보인다면, 대개 앱이 반응하는 속도보다 매크로가 더 빨리 움직여서 생기는 일로, 이건 다른 문제예요. 이럴 때 잠깐 기다리게 하는 방법은 공식 위키의 [Timing Between Actions](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)(동작 사이의 대기 시간) 항목에 자세히 나와 있어요.
+
+## 막혔나요?
+
+<Q q="메뉴 막대에서 Keyboard Maestro 아이콘을 못 찾겠어요.">
+Keyboard Maestro 설정의 **General**(일반) 탭에서 상태 메뉴 표시 여부와 방식을 정할 수 있으니, 혹시 꺼져 있지 않은지 확인해 보세요([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). 엔진 자체가 실행 중이 아니라면 실행 중인 매크로도 없어요. 공식 [Frequently Asked Questions](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) 페이지에 따르면 macOS Tahoe에는 상태 메뉴 아이콘 배치 버그가 있어서, 아이콘 위치가 옮겨졌거나 다른 아이콘 사이에 빈칸이 생겼을 수도 있으니 주변을 찬찬히 살펴보세요.
+</Q>
+<Q q="키를 누른 채 아이콘을 클릭했는데 메뉴만 평소처럼 열리고 매크로가 계속 실행돼요.">
+세 키를 먼저 누르고 계속 누른 상태를 유지한 채 클릭해야 해요. 메뉴가 열려 버렸어도 괜찮아요. 키에서 손을 떼고 메뉴를 닫은 다음 다시 시도해 보세요. 그래도 안 되면 **Cancel** 메뉴에서 해당 매크로를 골라 멈추거나 엔진을 종료하세요.
+</Q>
+<Q q="멈추긴 했는데 조금 있다가 혼자서 다시 실행돼요.">
+방금 실행된 것만 멈춘 거고 트리거는 그대로 남아 있어요. 정해진 시각이나 일정 간격으로, 또는 로그인할 때 실행되도록 설정된 매크로라면 때가 되면 다시 돌아와요. 먼저 매크로 사용을 끄고 고친 다음 다시 켜세요.
+</Q>
+
+⌃⌥⇧를 누르고 아이콘을 클릭하는 그 한 가지만 기억해 두면, 이제 매크로에 좀 더 긴 작업도 안심하고 맡길 수 있어요. 매크로가 왜 의도대로 움직이지 않는지, 어디에서 막혔는지 찾아내는 방법은 [매크로가 작동하지 않을 때](/ko/guide/6-debug/)를 참고하세요.

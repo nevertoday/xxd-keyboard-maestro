@@ -1,0 +1,82 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: window-layout
+step: 3
+time: 10분
+for: 작업을 시작할 때마다 창을 끌고 모서리를 늘려 두 앱을 나란히 배치해야 할 때
+tldr: ⌃⌥⌘2를 누르면 Safari는 화면 왼쪽 절반, 텍스트 편집기는 오른쪽 절반에 한 번에 자리를 잡아요. 매번 정확히 똑같이 배치돼요.
+description: Manipulate a Window 동작의 Move and Resize와 Left Column, Right Column 같은 기본 위치로 두 앱을 나란히 배치하는 방법이에요. 방금 연 앱의 창은 Pause Until로 기다리고, 다른 비율이 필요할 때는 SCREENVISIBLE 함수로 직접 계산할 수 있어요.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+한쪽에는 자료, 다른 쪽에는 초안을 띄워 두고 작업하는 분이 많아요. 왼쪽 Safari에는 찾아 둔 글을 열어 두고, 오른쪽 텍스트 편집기에 글을 쓰는 식이죠. 매일 작업을 시작할 때마다 두 창을 끌어다 놓고 모서리를 잡아 늘려 겨우 맞춰 놓으면, 팝업 창 하나가 불쑥 뜨면서 배치를 또 흐트러뜨리곤 해요. 이 페이지의 매크로를 만들어 두면 ⌃⌥⌘2(⌃는 Control, ⌥는 Option, ⌘는 Command)를 누르기만 해도 Safari는 화면 왼쪽 절반에, 텍스트 편집기는 오른쪽 절반에 자리 잡아 바로 글을 쓰기 시작할 수 있어요.
+
+<mark>창을 어디에 얼마나 크게 둘지 동작에 맡겨 두면 매번 정확히 똑같은 자리에 배치돼요.</mark>
+
+## 하나의 동작, 세 가지 선택
+
+창을 옮길 때는 **Manipulate a Window**(창 조작) 동작을 써요. 공식 문서에서는 이 동작에서 고를 항목을 세 가지로 나누어 설명해요([Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window) 참고).
+
+- 무엇을 할지: 이동, 크기 조절, 가운데로 옮기기, 최소화 등이 있어요. 이 페이지에서는 **Move and Resize**(이동 및 크기 조절)을 쓸 거예요. 여기에는 **Left Column**(왼쪽 절반), **Right Column**(오른쪽 절반), **Top Half**(위쪽 절반), **Full Screen**(전체 화면) 같은 기본 위치가 미리 준비되어 있고, 숫자를 직접 입력하는 Custom(사용자 지정)도 고를 수 있어요.
+- 어떤 창을 다룰지: 보통은 **the front window**(맨 앞 창)을 고르지만, 창 제목으로 특정 창을 고를 수도 있어요.
+- 어느 앱의 창인지: 목록에서 특정 앱을 고르거나 **Front Application**(맨 앞 앱)을 선택해요.
+
+이 페이지에서 핵심은 세 번째 항목이에요. 특정 앱을 지정해 두면 단축키를 누른 순간 마침 맨 앞에 있던 아무 앱이 아니라, 정확히 Safari의 창을 움직여야 한다는 걸 매크로가 알 수 있거든요.
+
+## 매크로 만들기
+
+“글쓰기 레이아웃”이라는 이름으로 새 매크로를 만드세요. 트리거는 **Hot Key**(단축키)를 고른 뒤 ⌃⌥⌘2를 누르세요. 숫자 2는 두 칸으로 나눈다는 뜻이에요. 그런 다음 아래 순서대로 동작 네 개를 추가해요.
+
+1. **Activate a Specific Application**(특정 앱 활성화): Safari. 앱이 켜져 있지 않다면 먼저 실행해요.
+2. **Manipulate a Window**: **Move and Resize**는 **Left Column**, 창은 **the front window**, 앱은 Safari로 설정해요.
+3. **Activate a Specific Application**: 텍스트 편집기.
+4. **Manipulate a Window**: **Move and Resize**는 **Right Column**, 창은 **the front window**, 앱은 텍스트 편집기로 설정해요.
+
+창을 옮기기 전에 앱을 먼저 앞으로 불러오는 건, 앱이 실제로 실행 중이고 창도 화면에 나와 있는 상태를 확실히 해 두기 위해서예요. 매크로가 끝나면 텍스트 편집기가 맨 앞에 오고 커서도 초안에 놓여 있어서, 곧바로 글을 쓰기 시작할 수 있어요.
+
+[입문 레슨 3](/ko/start/3-one-key-routine/)에서는 앱을 열고 창을 정리하는 과정을 하루 시작 루틴 전체로 묶어 보았어요. 이 페이지에서는 그중 창 배치 단계만 따로 떼어 더 자세히 살펴보고 있어요.
+
+## 앱을 방금 열었을 때
+
+단축키를 누를 때 텍스트 편집기가 아직 실행되어 있지 않으면, 3단계에서 앱을 열더라도 창이 뜨는 데 잠깐 시간이 걸려요. 그러면 4단계가 실행될 시점에 옮길 창을 찾지 못하게 되죠. 공식 문서에서 권하는 해법은 매크로가 잠깐 기다리게 하는 거예요([Troubleshooting의 Timing Between Actions 항목](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions) 참고). 3단계와 4단계 사이에 **Pause Until**(조건 충족까지 일시 정지) 동작을 넣고, 조건으로 **Front Window**(맨 앞 창)을 골라 텍스트 편집기의 맨 앞 창이 존재할 때까지 기다리도록 설정하세요. 창이 뜨는 순간 매크로가 곧바로 이어서 실행돼요. Safari 쪽에도 똑같이 추가해 둘 수 있어요.
+
+정해진 시간만큼 멈추게 하는 것보다 조건을 기다리는 쪽이 훨씬 안정적이에요. 빠른 Mac에서는 불필요하게 기다리지 않고, 느린 Mac에서도 너무 일찍 포기하지 않거든요.
+
+## 다른 비율로 배치하기
+
+반반으로 나누는 것만 가능한 건 아니에요. 예를 들어 초안 창을 더 넓게 써서 화면의 3분의 2를 차지하게 하고 싶다면, 기본 위치 대신 직접 계산하면 돼요. Keyboard Maestro에서 숫자를 입력하는 칸에는 어디든 <Term k="计算" text="계산식" />을 넣을 수 있고, `SCREENVISIBLE` 함수를 쓰면 메뉴 막대와 Dock을 뺀 실제 화면 크기를 구할 수 있어요([SCREEN 함수](https://wiki.keyboardmaestro.com/function/SCREEN) 참고).
+
+4단계를 **Manipulate a Window** 동작 두 개로 바꾸고, 둘 다 앱을 텍스트 편집기로 설정하세요. 첫 번째 동작에서는 **Move to**(지정 위치로 이동)을 고른 뒤, 세로 위치에는 `SCREENVISIBLE(Main,Top)`을 적고, 가로 위치에는 화면 오른쪽 끝에서 너비의 3분의 2만큼 왼쪽으로 물러난 위치를 구하는 아래 식을 적어요.
+
+<Copy id="wl-left" title="가로 위치: 오른쪽 끝에서 3분의 2만큼 왼쪽" code="SCREENVISIBLE(Main,Right)-SCREENVISIBLE(Main,Width)*2/3" />
+
+두 번째 동작에서는 **Resize to**(지정 크기로 조절)을 고른 뒤, 높이에는 `SCREENVISIBLE(Main,Height)`를 적고, 너비에는 아래 식을 적어요.
+
+<Copy id="wl-width" title="너비: 보이는 영역의 3분의 2" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+먼저 창의 왼쪽 위 모서리를 제자리에 놓은 다음 이 너비만큼 늘리면, 오른쪽 끝이 화면 가장자리에 딱 맞게 닿아요. Safari도 같은 방식으로 3분의 1 너비로 맞추면 돼요. 위치는 `SCREENVISIBLE(Main,Left)`와 `SCREENVISIBLE(Main,Top)`으로 옮기고, 너비는 `SCREENVISIBLE(Main,Width)/3`, 높이는 텍스트 편집기와 같게 설정하세요.
+
+`Main`은 메뉴 막대가 있는 화면을 가리켜요. 외장 모니터를 연결했다면 `Second`나 `External` 같은 이름으로 다른 화면을 지정할 수도 있어요. 여기서 쓰는 숫자는 모두 화면의 실제 픽셀이 아니라 포인트 단위예요. Retina 화면에서는 포인트 수가 픽셀 수의 약 절반이에요.
+
+## 잘 작동하는지 확인하기
+
+Safari와 텍스트 편집기 창을 아무렇게나 흩어 놓은 뒤 ⌃⌥⌘2를 눌러 보세요. Safari는 왼쪽 절반으로, 텍스트 편집기는 오른쪽 절반으로 이동해 나란히 자리 잡는 걸 볼 수 있어요. 그런 다음 텍스트 편집기를 완전히 종료하고 단축키를 한 번 더 눌러, 앱이 새로 열리면서 오른쪽에 제대로 배치되는지도 확인해 보세요.
+
+## 막혔나요?
+
+<Q q="단축키를 눌렀는데 창이 전혀 움직이지 않아요.">
+창을 옮기려면 <Term k="辅助功能权限" text="손쉬운 사용 권한" />이 필요해요. 공식 Troubleshooting 페이지에서도 이 권한에 문제가 생기면 단축키 지정, 키 입력, 창 이동이 모두 작동하지 않는다고 설명하고 있어요. [입문 레슨 1](/ko/start/1-first-macro/)의 권한 설정 단계를 다시 보면서 **시스템 설정 ▸ 개인정보 보호 및 보안 ▸ 손쉬운 사용**(이전 버전 macOS에서는 ‘시스템 환경설정’)을 확인한 뒤, **Help ▸ Interactive Help**(도움말 ▸ 대화형 도움말)을 선택해 문제를 찾아내는지 확인해 보세요. 자세한 내용은 [Troubleshooting의 Accessibility 항목](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility)을 참고하세요.
+</Q>
+<Q q="다른 앱의 창이 움직였어요.">
+2단계나 4단계의 앱 설정이 **Front Application**으로 되어 있는지 확인해 보세요. 그렇게 되어 있으면 단축키를 누른 순간 마침 맨 앞에 있던 앱의 창을 옮기기 때문에 원하는 앱이 아닐 수 있어요. 대신 특정 앱을 직접 지정해 주세요.
+</Q>
+<Q q="처음에는 잘 배치됐는데, 앱이 아직 열려 있지 않을 때는 창 하나만 배치돼요.">
+열려 있지 않던 앱의 창이 미처 제때 뜨지 못한 거예요. 위의 “앱을 방금 열었을 때”에서 설명한 대로 **Pause Until** 동작을 추가하세요.
+</Q>
+<Q q="직접 계산한 위치가 크게 어긋나요.">
+포인트 대신 화면의 실제 픽셀 값을 넣었을 가능성이 커요. 공식 문서에 따르면 이 동작은 포인트 단위로 작동하며, Retina 화면에서는 포인트 수가 픽셀 수의 약 절반이에요. `SCREENVISIBLE` 함수를 쓰면 직접 환산할 필요가 없어요.
+</Q>
+
+단축키 한 번으로 두 창이 각자 제자리에 놓여요. 여기서 한 걸음 더 나아가 같은 단축키로 오늘 쓸 초안 파일까지 함께 열고 싶다면, **Open a File, Folder or Application**(파일, 폴더 또는 앱 열기) 동작을 추가해 보세요.
