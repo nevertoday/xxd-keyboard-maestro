@@ -67,7 +67,8 @@ for (const file of walk(join(ROOT, "src/pages")).filter((f) => f.endsWith(".mdx"
     .replace(/^---\n[\s\S]*?\n---\n/, "")
     .replace(/```[\s\S]*?```/g, "")
     .replace(/<Copy\b[\s\S]*?\/>/g, "")
-    .split("\n").filter((l) => !/^\s*(import|export)\s/.test(l)).join("\n");
+    // 小标题（## Stuck? 这类）按规定每页都一样，不算套话
+    .split("\n").filter((l) => !/^\s*(import|export)\s/.test(l) && !/^#{1,6}\s/.test(l)).join("\n");
   for (const x of new Set(body.split(/\n\s*\n/).flatMap(split))) add(prose, x, page);
 }
 for (const [x, where] of copies) {
