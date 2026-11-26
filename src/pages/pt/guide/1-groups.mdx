@@ -10,7 +10,7 @@ import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 import Fig from "../../../components/Fig.astro";
 
-Imagine que você queira mover janelas usando as setas do teclado: ← empurra a janela para a esquerda, → empurra para a direita. Fazer as macros é fácil — são quatro, cada uma usando uma seta como tecla de atalho. Mas, assim que você termina, logo percebe o problema. Você está escrevendo alguma coisa, quer voltar o cursor um caractere, aperta ←, e quem se mexe é a janela. Suas macros tomaram conta das setas, e você não consegue mais usá-las para mais nada.
+Imagine que você queira mover janelas usando as setas do teclado: ← empurra a janela para a esquerda, → empurra para a direita. Fazer as macros é fácil: são quatro, cada uma usando uma seta como tecla de atalho. Mas, assim que você termina, logo percebe o problema. Você está escrevendo alguma coisa, quer voltar o cursor um caractere, aperta ←, e quem se mexe é a janela. Suas macros tomaram conta das setas, e você não consegue mais usá-las para mais nada.
 
 A solução não está nas macros. Está na pasta onde elas ficam.
 
@@ -28,13 +28,13 @@ Para criar um grupo, clique no **+** na parte de baixo da coluna mais à esquerd
 
 ## Só em determinados apps
 
-Por padrão, a opção que define em quais apps um grupo funciona começa em **Available in all applications** (disponível em todos os aplicativos), então as macros dele podem disparar em qualquer lugar. Macros que você quer usar em todo canto — como abrir um site de notícias, abrir seu app de e-mail ou digitar seu nome e endereço de e-mail — combinam direitinho com um grupo assim.
+Por padrão, a opção que define em quais apps um grupo funciona começa em **Available in all applications** (disponível em todos os aplicativos), então as macros dele podem disparar em qualquer lugar. Macros que você quer usar em todo canto (como abrir um site de notícias, abrir seu app de e-mail ou digitar seu nome e endereço de e-mail) combinam direitinho com um grupo assim.
 
 Já outras macros só fazem sentido em um app. Aquelas respostas prontas que você manda o tempo todo no Mail não servem para nada fora dali e ainda podem entrar em conflito com os atalhos de outro programa. Nesse caso, crie um grupo novo, escolha **Available in these applications** (disponível nestes apps) e adicione o Mail. A partir daí, essas macros só ficam ativas enquanto o Mail estiver em primeiro plano. Também dá para fazer o contrário, com **Available except in these applications** (disponível exceto nestes apps). Os exemplos da wiki são impedir que macros disparem enquanto você joga, ou excluir um app que já usa uma fileira inteira de teclas de função, para que você continue podendo usar essas teclas em macros no resto do Mac.
 
 Separar por app traz mais uma vantagem: a mesma tecla de atalho pode fazer coisas diferentes em apps diferentes. Se duas macros compartilham uma tecla de atalho, mas cada uma está em um grupo ativo só no seu próprio app, apenas uma delas estará ativa em qualquer momento, então elas nunca brigam entre si. Quando duas macros ativas ao mesmo tempo usam a mesma tecla de atalho, o Keyboard Maestro abre uma paleta de conflitos e deixa você escolher qual rodar.
 
-Além dos apps, um grupo também pode depender da janela — por exemplo, só janelas cujo título contenha certas palavras — ou do fato de determinados apps estarem abertos. Essas opções ficam no mesmo lugar; dê uma olhada nelas quando precisar.
+Além dos apps, um grupo também pode depender da janela (por exemplo, só janelas cujo título contenha certas palavras) ou do fato de determinados apps estarem abertos. Essas opções ficam no mesmo lugar; dê uma olhada nelas quando precisar.
 
 <u>Uma pegadinha que vale conhecer logo de cara: se o gatilho de uma macro for “tal app foi aberto”, não coloque essa macro em um grupo que só fica ativo naquele app.</u> No instante em que o app abre, o grupo ainda não está ativo; quando ele finalmente fica ativo, o momento já passou, e a macro nunca tem chance de disparar. O conselho da wiki é deixar macros assim em um grupo que fique sempre ativo. Veja a página oficial [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application); os gatilhos ficam no [passo 2](/pt/guide/2-triggers/).
 
@@ -76,9 +76,9 @@ O importante é lembrar que um grupo inteligente só mostra as macros de um jeit
 
 ## Como organizar seus grupos sem complicar
 
-No começo, não complique demais. A dica da wiki é começar simples e deixar suas macros crescerem aos poucos. Deixe tudo no **Global Macro Group** até aparecer uma macro que só faça sentido em um app, ou algumas macros que devam acordar juntas com uma única tecla — aí sim, crie um grupo só para elas. Um grupo para abrir apps, um para digitação, um para cada app que tenha suas próprias macros: meses depois, quando você voltar ali, ainda vai encontrar tudo com facilidade.
+No começo, não complique demais. A dica da wiki é começar simples e deixar suas macros crescerem aos poucos. Deixe tudo no **Global Macro Group** até aparecer uma macro que só faça sentido em um app, ou algumas macros que devam acordar juntas com uma única tecla. Aí sim, crie um grupo só para elas. Um grupo para abrir apps, um para digitação, um para cada app que tenha suas próprias macros: meses depois, quando você voltar ali, ainda vai encontrar tudo com facilidade.
 
-A ideia deste passo se resume a isso: onde e quando uma macro vale é decisão do grupo de macros dela. A seguir vêm os gatilhos — aquilo que faz a macro começar a rodar depois que ela já está acordada.
+A ideia deste passo se resume a isso: onde e quando uma macro vale é decisão do grupo de macros dela. A seguir vêm os gatilhos: aquilo que faz a macro começar a rodar depois que ela já está acordada.
 
 ## Se algo não der certo
 

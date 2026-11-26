@@ -10,7 +10,7 @@ Keyboard Maestro is automation for the Mac: you write macros in the editor, and 
 
 **[Start with lesson 1 →](https://keyboardmaestro.xiaoxiaodong.ai/en/start/1-first-macro/)**　·　**[Already using it? The full guide →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
 
-<sub>Unofficial · free · open source · 10 languages (the full site in Chinese and English; home and the three lessons in 8 more)</sub>
+<sub>Unofficial · free · open source · the whole site in 10 languages</sub>
 
 </div>
 

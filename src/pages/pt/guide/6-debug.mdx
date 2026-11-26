@@ -9,11 +9,11 @@ import Fig from "../../../components/Fig.astro";
 import Term from "../../../components/Term.astro";
 import Q from "../../../components/Q.astro";
 
-Você aperta a tecla de atalho e nada acontece. Ou a macro vai até a metade e digita na janela errada. A reação natural é achar que a macro está errada e revisá-la ação por ação — e, depois de meia hora, ela continua sem funcionar. Muitas vezes não há nada de errado com a macro: ela nem sequer foi disparada, ou o macOS não deixou que ela agisse.
+Você aperta a tecla de atalho e nada acontece. Ou a macro vai até a metade e digita na janela errada. A reação natural é achar que a macro está errada e revisá-la ação por ação. E, depois de meia hora, ela continua sem funcionar. Muitas vezes não há nada de errado com a macro: ela nem sequer foi disparada, ou o macOS não deixou que ela agisse.
 
 <mark><strong>Quando uma macro não funciona, não tenha pressa para mudá-la. Verifique de fora para dentro: permissões, o Engine, se o grupo e a macro estão ativos e se o gatilho está em conflito com outro. Só depois de confirmar tudo isso é que vale examinar as ações lá dentro passo a passo.</strong></mark>
 
-Essa ordem não foi escolhida por acaso. Quando uma das camadas mais externas falha, todas as macros param de funcionar ao mesmo tempo, e é rápido de verificar. Quanto mais para dentro você vai, mais o problema diz respeito só a essa macro específica — e mais tempo leva para encontrar.
+Essa ordem não foi escolhida por acaso. Quando uma das camadas mais externas falha, todas as macros param de funcionar ao mesmo tempo, e é rápido de verificar. Quanto mais para dentro você vai, mais o problema diz respeito só a essa macro específica, e mais tempo leva para encontrar.
 
 <Fig id="6-debug-order" />
 
@@ -55,7 +55,7 @@ Conflitos também podem acontecer fora do Keyboard Maestro. Quando você aperta 
 
 ## Quinta camada: ela dispara, mas faz a coisa errada
 
-Aqui a macro está mesmo rodando, só não está fazendo certo. A causa mais comum não é uma ação errada, e sim a velocidade: a macro vai para o passo seguinte antes de o app estar pronto, então parece que ela pulou etapas ou parou pela metade. A solução recomendada pela wiki é fazê-la esperar. Adicione uma ação **Pause** (pausar) — segundo a wiki, 0,3 segundo costuma bastar — ou, melhor ainda, uma ação **Pause Until** (pausar até), que espera uma condição ser atendida, como no [passo 4](/pt/guide/4-variables/) ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
+Aqui a macro está mesmo rodando, só não está fazendo certo. A causa mais comum não é uma ação errada, e sim a velocidade: a macro vai para o passo seguinte antes de o app estar pronto, então parece que ela pulou etapas ou parou pela metade. A solução recomendada pela wiki é fazê-la esperar. Adicione uma ação **Pause** (pausar) (segundo a wiki, 0,3 segundo costuma bastar) ou, melhor ainda, uma ação **Pause Until** (pausar até), que espera uma condição ser atendida, como no [passo 4](/pt/guide/4-variables/) ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
 
 Se você não conseguir perceber qual passo está dando errado, faça a macro percorrer as etapas junto com você.
 
@@ -70,7 +70,7 @@ O <Term k="调试器" text="depurador" /> é uma janela que desacelera a macro e
 
 Entre os botões da esquerda, **Continue** (continuar) deixa a macro rodar até o fim, **Step Over** (executar sem entrar) executa a ação atual (e tudo o que estiver dentro dela) de uma vez só e para em seguida, **Step In To** (entrar na ação) entra nela e **Step Out Of** (sair deste nível) termina o nível atual. À direita, **Edit** (editar) abre a ação atual no editor e **Cancel** (cancelar) cancela a macro. O botão no canto superior direito mostra as dez variáveis alteradas mais recentemente nessa execução, para você ver de relance se os valores estão certos.
 
-Duas coisas importantes para saber. Primeiro: assim que uma macro começa, o Engine roda uma cópia dela, então alterações feitas no editor não afetam a execução que já está em andamento. Segundo: <u>se ela funciona quando você avança passo a passo, mas falha quando roda normalmente, é quase certo que está rápida demais</u> — enquanto você clica passo a passo, o app tem tempo de sobra para acompanhar. Adicione uma ação **Pause** antes do passo que falha. Quando você fecha a janela do depurador, qualquer macro pausada continua normalmente.
+Duas coisas importantes para saber. Primeiro: assim que uma macro começa, o Engine roda uma cópia dela, então alterações feitas no editor não afetam a execução que já está em andamento. Segundo: <u>se ela funciona quando você avança passo a passo, mas falha quando roda normalmente, é quase certo que está rápida demais</u>. Enquanto você clica passo a passo, o app tem tempo de sobra para acompanhar. Adicione uma ação **Pause** antes do passo que falha. Quando você fecha a janela do depurador, qualquer macro pausada continua normalmente.
 
 ### A ação Log e o log do Engine
 
@@ -89,13 +89,13 @@ Se uma macro ficar rodando em círculos ou não parar de digitar, não entre em 
 - <strong>Pelo depurador</strong>: a janela **Start Debugging** lista todas as macros em execução. Clique em **Cancel**.
 - <strong>Criar um botão de emergência</strong>: ações como **Cancel All Macros** (cancelar todas as macros) e **Cancel This Macro** (cancelar esta macro) também podem ir dentro de uma macro. Dê uma tecla de atalho a uma delas e você terá o seu próprio botão de parada.
 
-Se nada disso funcionar, encerre o Keyboard Maestro Engine pelo menu de status. Se uma macro que roda ao fazer login não deixar nem você chegar ao menu, a wiki traz um caminho mais completo, como segurar ⌃⌥⇧⌘ enquanto abre o editor — isso encerra o Engine e não o inicia de novo, para você consertar a macro com calma. Veja o guia prático [Quando uma macro não para](/pt/howto/stop-macro/).
+Se nada disso funcionar, encerre o Keyboard Maestro Engine pelo menu de status. Se uma macro que roda ao fazer login não deixar nem você chegar ao menu, a wiki traz um caminho mais completo, como segurar ⌃⌥⇧⌘ enquanto abre o editor. Isso encerra o Engine e não o inicia de novo, para você consertar a macro com calma. Veja o guia prático [Quando uma macro não para](/pt/howto/stop-macro/).
 
 ## Ainda não resolveu? Onde perguntar
 
 O conselho da wiki é que dúvidas sobre uma macro específica têm resposta mais rápida no [fórum oficial](https://forum.keyboardmaestro.com/), onde muita gente ajuda. Informe quais versões do macOS e do Keyboard Maestro você usa, o que a macro deveria fazer e o que realmente acontece, e anexe a macro exportada se puder ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Situation_3_--_After_Update_to_New_Version_of_Keyboard_Maestro)). Antes de publicar, remova dados de licença, senhas e qualquer texto pessoal.
 
-Agora você já sabe por onde começar quando uma macro dá problema. O último passo é opcional: ele mostra algumas portas para ir mais fundo no Keyboard Maestro — scripts, sub-rotinas, sincronização e compartilhamento.
+Agora você já sabe por onde começar quando uma macro dá problema. O último passo é opcional: ele mostra algumas portas para ir mais fundo no Keyboard Maestro (scripts, sub-rotinas, sincronização e compartilhamento).
 
 ## Se algo não der certo
 

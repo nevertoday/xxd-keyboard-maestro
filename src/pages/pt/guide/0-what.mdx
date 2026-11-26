@@ -32,7 +32,7 @@ A janela do editor tem três colunas, da esquerda para a direita, que correspond
 
 Uma <Term k="宏" text="macro" /> é uma pequena tarefa, feita de duas partes. Alguns <Term k="触发器" text="gatilhos" /> decidem quando ela começa, e uma lista de <Term k="动作" text="ações" /> decide o que ela faz depois disso, executando cada item de cima para baixo, um por vez. Veja o exemplo “digitar `=addr=` para preencher o seu endereço”: o gatilho é um **Typed String Trigger** (gatilho de texto digitado) esperando esses caracteres, e a única ação é **Insert Text by Pasting** (inserir texto colando), que cola o endereço inteiro. Ou então “apertar ⌃⌥⌘M para abrir o Mail” (⌃ é Control, ⌥ é Option, ⌘ é Command): o gatilho é um **Hot Key Trigger** (gatilho de tecla de atalho) e a ação é **Activate a Specific Application** (ativar um aplicativo específico).
 
-Toda macro mora em um <Term k="宏组" text="grupo de macros" />. Um grupo de macros parece uma pasta, mas não serve só para organizar. Ele também decide se as macros dele valem naquele momento — por exemplo, só no Mail, ou só depois que você aperta uma determinada tecla. A regra, nas palavras da wiki, é que uma macro só pode ser disparada se estiver habilitada e se o grupo de macros dela também estiver habilitado e ativo no momento. Configurar grupos é o assunto do [passo 1](/pt/guide/1-groups/).
+Toda macro mora em um <Term k="宏组" text="grupo de macros" />. Um grupo de macros parece uma pasta, mas não serve só para organizar. Ele também decide se as macros dele valem naquele momento: por exemplo, só no Mail, ou só depois que você aperta uma determinada tecla. A regra, nas palavras da wiki, é que uma macro só pode ser disparada se estiver habilitada e se o grupo de macros dela também estiver habilitado e ativo no momento. Configurar grupos é o assunto do [passo 1](/pt/guide/1-groups/).
 
 <Fig id="0-what-chain" />
 
@@ -75,7 +75,7 @@ Essa é toda a ideia desta página: uma macro junta um “quando” e um “o qu
 ## Se algo não der certo
 
 <Q q="Se eu encerrar o Keyboard Maestro, minhas macros continuam funcionando?">
-<p>Sim. Você encerrou apenas o editor. O Engine continua rodando em segundo plano, então suas macros seguem funcionando normalmente. Se o Engine também tiver parado — por exemplo, se você escolheu <strong>Quit Engine</strong> (encerrar o Engine) no menu <strong>File</strong> (arquivo) —, abra o Keyboard Maestro de novo que o Engine inicia junto, ou escolha <strong>Launch Engine</strong> (iniciar o Engine) no menu <strong>File</strong>. Para não precisar mais se preocupar com isso, marque <strong>Launch Engine at Login</strong> na aba <strong>General</strong> dos ajustes.</p>
+<p>Sim. Você encerrou apenas o editor. O Engine continua rodando em segundo plano, então suas macros seguem funcionando normalmente. Se o Engine também tiver parado, por exemplo, se você escolheu <strong>Quit Engine</strong> (encerrar o Engine) no menu <strong>File</strong> (arquivo), abra o Keyboard Maestro de novo que o Engine inicia junto, ou escolha <strong>Launch Engine</strong> (iniciar o Engine) no menu <strong>File</strong>. Para não precisar mais se preocupar com isso, marque <strong>Launch Engine at Login</strong> na aba <strong>General</strong> dos ajustes.</p>
 </Q>
 <Q q="Onde eu clico para salvar depois de alterar uma macro?">
 <p>Em lugar nenhum. O Keyboard Maestro não tem etapa de salvamento. Alguns segundos depois de uma alteração ela já fica salva, e o Engine passa a usar a versão nova na hora.</p>

@@ -42,7 +42,7 @@ O jeito mais direto de guardar algo é a ação **Set Variable to Text** (defini
 
 ### Variáveis só guardam texto
 
-A wiki vai direto ao ponto: uma variável guarda apenas texto puro, sem fonte nem cor, e não comporta imagens. Até um número fica guardado como texto. `3` é só o caractere “3” até você colocá-lo em um campo que espera um número — aí sim o Keyboard Maestro passa a tratá-lo como número. Para guardar texto formatado ou uma imagem para usar depois, você usa uma <Term k="命名剪贴板" text="área de transferência nomeada" />, que é o assunto do próximo passo.
+A wiki vai direto ao ponto: uma variável guarda apenas texto puro, sem fonte nem cor, e não comporta imagens. Até um número fica guardado como texto. `3` é só o caractere “3” até você colocá-lo em um campo que espera um número. Aí sim o Keyboard Maestro passa a tratá-lo como número. Para guardar texto formatado ou uma imagem para usar depois, você usa uma <Term k="命名剪贴板" text="área de transferência nomeada" />, que é o assunto do próximo passo.
 
 ### Global, Local e Instance: quanto tempo dura e quem consegue ver
 
@@ -52,11 +52,11 @@ O começo do nome de uma variável define quanto tempo ela dura e quais macros c
 
 - Variáveis Global não têm nenhum prefixo especial. Todas as macros podem lê-las e alterá-las, scripts também conseguem lê-las, e elas ficam salvas no seu Mac, então sobrevivem a uma reinicialização. Você pode vê-las e editá-las na aba **Variables** (variáveis) dos ajustes do Keyboard Maestro.
 - Variáveis Instance começam com `Instance`. Pertencem a uma única execução: a macro e quaisquer submacros que ela chamar durante aquela execução conseguem vê-las, e elas somem quando a macro termina. Se a mesma macro rodar duas vezes ao mesmo tempo, cada execução fica com a sua própria cópia.
-- Variáveis Local começam com `Local`. Também pertencem a uma única execução, mas só a própria macro consegue vê-las — as submacros que ela chamar não veem.
+- Variáveis Local começam com `Local`. Também pertencem a uma única execução, mas só a própria macro consegue vê-las: as submacros que ela chamar não veem.
 
 Também existem variáveis de senha, cujos nomes começam ou terminam com `PW` ou `Password`. Elas ficam só na memória e nunca são gravadas no disco. Quando precisar de uma, confira os detalhes na página da wiki.
 
-E qual usar no dia a dia? A recomendação da wiki é <u>dar preferência a Local ou Instance para tudo o que você só precisa durante uma execução</u>. A mesma macro pode rodar várias vezes ao mesmo tempo, e execuções que compartilham uma variável Global acabam sobrescrevendo o valor uma da outra. Além disso, variáveis Global continuam guardadas depois que a macro termina, então os ajustes vão se enchendo de valores antigos — inclusive alguma senha ou página inteira de texto que você salvou um dia. É por isso que o exemplo usa `Local Name`: esse nome só importa para esta resposta e deve sumir logo depois. Use uma variável Global quando você realmente quiser que a macro lembre de algo até a próxima vez, como a última pasta que você escolheu.
+E qual usar no dia a dia? A recomendação da wiki é <u>dar preferência a Local ou Instance para tudo o que você só precisa durante uma execução</u>. A mesma macro pode rodar várias vezes ao mesmo tempo, e execuções que compartilham uma variável Global acabam sobrescrevendo o valor uma da outra. Além disso, variáveis Global continuam guardadas depois que a macro termina, então os ajustes vão se enchendo de valores antigos, inclusive alguma senha ou página inteira de texto que você salvou um dia. É por isso que o exemplo usa `Local Name`: esse nome só importa para esta resposta e deve sumir logo depois. Use uma variável Global quando você realmente quiser que a macro lembre de algo até a próxima vez, como a última pasta que você escolheu.
 
 ## Tokens e cálculos: variáveis em textos, fórmulas em números
 
@@ -89,7 +89,7 @@ Quando há mais de uma condição, a linha no topo define como elas se combinam 
 
 Uma pegadinha: <u>sem nenhuma condição adicionada, If Then Else não executa nenhuma das duas metades</u>. Quando uma macro parecer pular uma seção inteira, verifique se você não esqueceu de adicionar uma condição.
 
-Quando há mais de dois casos, colocar If Then Else dentro de If Then Else fica difícil de ler bem rápido. É nessa hora que você muda para **Switch/Case** (escolher pelo valor). Primeiro escolha o que será analisado (a área de transferência, uma variável, um texto ou um cálculo) e depois adicione uma seção para cada valor ([wiki](https://wiki.keyboardmaestro.com/action/Switch_or_Case)). Digamos que você mude o menu da macro de resposta para `Livre|Agenda cheia|De férias`: um Switch baseado em `Local Week` ganha três seções, com uma frase em cada uma. O Switch executa apenas a primeira seção que corresponder e nunca avança para a próxima. A última seção pode ser **otherwise** (caso contrário), que roda quando nada acima correspondeu — por isso o lugar dela é no final.
+Quando há mais de dois casos, colocar If Then Else dentro de If Then Else fica difícil de ler bem rápido. É nessa hora que você muda para **Switch/Case** (escolher pelo valor). Primeiro escolha o que será analisado (a área de transferência, uma variável, um texto ou um cálculo) e depois adicione uma seção para cada valor ([wiki](https://wiki.keyboardmaestro.com/action/Switch_or_Case)). Digamos que você mude o menu da macro de resposta para `Livre|Agenda cheia|De férias`: um Switch baseado em `Local Week` ganha três seções, com uma frase em cada uma. O Switch executa apenas a primeira seção que corresponder e nunca avança para a próxima. A última seção pode ser **otherwise** (caso contrário), que roda quando nada acima correspondeu. Por isso o lugar dela é no final.
 
 ## Pause Until: esperar algo acontecer
 
@@ -101,11 +101,11 @@ Ela usa as mesmas condições e as mesmas opções de combinação (qualquer uma
 
 Para executar as mesmas ações várias vezes, não saia colando várias cópias delas. Envolva tudo em um loop:
 
-- **Repeat** (repetir) executa as ações um número fixo de vezes. A contagem é um campo de cálculo, então pode ser uma variável — como um número que a macro acabou de perguntar para você ([wiki](https://wiki.keyboardmaestro.com/action/Repeat)).
-- **For Each** (para cada) percorre um conjunto de itens, um por um. Você informa o nome de uma variável e uma coleção — como as linhas de um texto, os arquivos selecionados no Finder ou um intervalo de números. A cada volta, ele coloca um item na variável e executa as ações lá dentro ([wiki](https://wiki.keyboardmaestro.com/action/For_Each)). Quando você tiver uma lista para processar, comece por aqui.
+- **Repeat** (repetir) executa as ações um número fixo de vezes. A contagem é um campo de cálculo, então pode ser uma variável, como um número que a macro acabou de perguntar para você ([wiki](https://wiki.keyboardmaestro.com/action/Repeat)).
+- **For Each** (para cada) percorre um conjunto de itens, um por um. Você informa o nome de uma variável e uma coleção, como as linhas de um texto, os arquivos selecionados no Finder ou um intervalo de números. A cada volta, ele coloca um item na variável e executa as ações lá dentro ([wiki](https://wiki.keyboardmaestro.com/action/For_Each)). Quando você tiver uma lista para processar, comece por aqui.
 - **While Conditions Are Met** (enquanto as condições forem atendidas) verifica as condições logo no início e só entra no loop se elas forem verdadeiras. Assim que deixarem de ser, ele para ([wiki](https://wiki.keyboardmaestro.com/action/While)).
 
-Em qualquer um deles, **Break From Loop** (sair do loop) encerra o loop antes da hora. Repeat e For Each também podem mostrar o progresso, opção que você liga no menu da engrenagem — bem útil para loops longos.
+Em qualquer um deles, **Break From Loop** (sair do loop) encerra o loop antes da hora. Repeat e For Each também podem mostrar o progresso, opção que você liga no menu da engrenagem (bem útil para loops longos).
 
 <Callout type="warn">
 Um While cuja condição nunca deixa de ser verdadeira, ou um Pause Until que nunca encontra o que espera, mantém a macro rodando sem parar. Aprenda primeiro como interrompê-la: clique no ícone do Keyboard Maestro na barra de menus e escolha a macro em **Cancel**. O [passo 6](/pt/guide/6-debug/) mostra mais formas de fazer isso.
@@ -128,7 +128,7 @@ Agora suas macros já sabem lembrar, perguntar, decidir, esperar e repetir. Em s
 <p>É assim mesmo que funciona: Cancel não guarda nada e cancela a macro. Se quiser um botão que apenas leve para outro caminho, adicione um botão novo e verifique <code>%PromptButton%</code> em seguida.</p>
 </Q>
 <Q q="Cliquei em OK, mas a resposta não apareceu na janela em que eu estava.">
-<p>Quando a janelinha fecha, o foco do teclado precisa voltar para o aplicativo em que você estava — se a macro colar antes disso acontecer, o texto não vai para lugar nenhum. A wiki explica que uma ação que abre ou fecha uma janela, ou muda o foco, costuma precisar de uma pequena espera logo depois: coloque uma ação <strong>Pause</strong> entre <strong>Prompt for User Input</strong> e <strong>If Then Else</strong>. Em torno de 0,3 segundo costuma bastar (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_do_I_need_a_Pause">wiki</a>).</p>
+<p>Quando a janelinha fecha, o foco do teclado precisa voltar para o aplicativo em que você estava. Se a macro colar antes disso acontecer, o texto não vai para lugar nenhum. A wiki explica que uma ação que abre ou fecha uma janela, ou muda o foco, costuma precisar de uma pequena espera logo depois: coloque uma ação <strong>Pause</strong> entre <strong>Prompt for User Input</strong> e <strong>If Then Else</strong>. Em torno de 0,3 segundo costuma bastar (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_do_I_need_a_Pause">wiki</a>).</p>
 </Q>
 <Q q="Pause Until fica esperando sem parar e a macro nunca continua.">
 <p>A condição que ele está esperando nunca ficou verdadeira. Interrompa a macro em Cancel no menu de status e depois revise a condição: o aplicativo escolhido está certo, e você queria “em primeiro plano” ou apenas “aberto”?</p>

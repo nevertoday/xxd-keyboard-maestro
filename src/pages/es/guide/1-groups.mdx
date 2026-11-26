@@ -34,7 +34,7 @@ Algunas macros solo tienen sentido en una app. Las respuestas que envías una y 
 
 Separar por apps tiene otra ventaja: un mismo atajo de teclado puede hacer cosas distintas en distintas apps. Si dos macros comparten atajo de teclado pero están en grupos que solo están activos en su propia app, en cada momento solo una de ellas está activa, así que nunca chocan. Cuando dos macros activas al mismo tiempo sí comparten atajo de teclado, Keyboard Maestro muestra una paleta de conflictos y te deja elegir cuál ejecutar.
 
-Además de las apps, un grupo también puede depender de la ventana —por ejemplo, solo ventanas cuyo título contenga ciertas palabras— o de si determinadas apps están abiertas. Esas opciones están en el mismo sitio; consúltalas cuando las necesites.
+Además de las apps, un grupo también puede depender de la ventana (por ejemplo, solo ventanas cuyo título contenga ciertas palabras) o de si determinadas apps están abiertas. Esas opciones están en el mismo sitio; consúltalas cuando las necesites.
 
 <u>Hay una trampa que conviene conocer de antemano: si el activador de una macro es «esta app se abrió», no la pongas en un grupo que solo esté activo en esa app.</u> En el instante en que la app se abre, el grupo todavía no está activo, y para cuando lo está, ese instante ya ha pasado, así que la macro nunca llega a ejecutarse. La wiki aconseja dejar este tipo de macros en un grupo que esté siempre activo. Consulta la documentación oficial: [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application); los activadores los vemos en el [paso 2](/es/guide/2-triggers/).
 

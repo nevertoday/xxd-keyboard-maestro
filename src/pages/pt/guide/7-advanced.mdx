@@ -52,7 +52,7 @@ A partir do Keyboard Maestro 11, os scripts JXA usam a opção “Modern Syntax�
 return "Olá, " + kmvar.Local_Name;
 ```
 
-<strong>Quando você realmente vai precisar disso</strong>: quando o Keyboard Maestro não tem nenhuma ação para o que você quer, mas um comando do Terminal ou o suporte a AppleScript de algum app resolve — ou quando você já escreve pequenos scripts e quer colocá-los em uma tecla de atalho. Se você não escreve scripts, pode deixar isso de lado para sempre, sem nenhum problema.
+<strong>Quando você realmente vai precisar disso</strong>: quando o Keyboard Maestro não tem nenhuma ação para o que você quer, mas um comando do Terminal ou o suporte a AppleScript de algum app resolve, ou quando você já escreve pequenos scripts e quer colocá-los em uma tecla de atalho. Se você não escreve scripts, pode deixar isso de lado para sempre, sem nenhum problema.
 
 ## Sub-rotinas: escreva os passos repetidos uma vez só
 
@@ -65,7 +65,7 @@ Você precisa configurar as duas pontas:
 
 Uma armadilha: <u>os parâmetros são passados por posição, não por nome</u>. Se depois você adicionar, remover ou mudar o sentido de um parâmetro no gatilho Subroutine, todas as macros que a chamam precisam ser atualizadas também. O menu **Callers** (quem chama) do próprio gatilho leva você direto até elas.
 
-Se você não precisa de parâmetros nem de resultado e só quer rodar aquela outra macro, a ação **Execute a Macro** (executar uma macro) é mais simples e dá conta do recado. Ela consegue passar um único valor, que a macro chamada lê com o token `%TriggerValue%`. A macro chamada também enxerga as variáveis Instance desta execução — é aqui que entra a diferença entre Instance e Local do passo 4.
+Se você não precisa de parâmetros nem de resultado e só quer rodar aquela outra macro, a ação **Execute a Macro** (executar uma macro) é mais simples e dá conta do recado. Ela consegue passar um único valor, que a macro chamada lê com o token `%TriggerValue%`. A macro chamada também enxerga as variáveis Instance desta execução. É aqui que entra a diferença entre Instance e Local do passo 4.
 
 <strong>Quando você realmente vai precisar disso</strong>: quando os mesmos passos já aparecem em três ou quatro macros e você percebeu que uma única mudança exige editar vários lugares. Enquanto você tiver poucas macros, não tenha pressa de sair dividindo tudo.
 
@@ -86,7 +86,7 @@ Depois disso, valem algumas regras. Os dois Macs precisam rodar a mesma versão 
 
 ## Biblioteca de Macros e compartilhamento
 
-A <Term k="宏库" text="Biblioteca de Macros" /> é um conjunto de macros prontas que já vem com o Keyboard Maestro. Você abre essa janela em **Window ▸ Macro Library** (Biblioteca de Macros). Cada macro tem uma descrição curta; quando alguma parecer útil, insira-a nas suas macros e use do jeito que está, ou troque a tecla de atalho e as ações ([wiki oficial](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Todas as macros que o Keyboard Maestro instala por padrão também ficam ali — então, se você apagou alguma do Switcher Group e quiser colocá-la de volta, é lá que vai encontrá-la.
+A <Term k="宏库" text="Biblioteca de Macros" /> é um conjunto de macros prontas que já vem com o Keyboard Maestro. Você abre essa janela em **Window ▸ Macro Library** (Biblioteca de Macros). Cada macro tem uma descrição curta; quando alguma parecer útil, insira-a nas suas macros e use do jeito que está, ou troque a tecla de atalho e as ações ([wiki oficial](https://wiki.keyboardmaestro.com/manual/Macro_Library)). Todas as macros que o Keyboard Maestro instala por padrão também ficam ali. Então, se você apagou alguma do Switcher Group e quiser colocá-la de volta, é lá que vai encontrá-la.
 
 No sentido contrário, quando você criar uma macro que valha a pena compartilhar, pode exportá-la para um arquivo e enviar, ou usar o botão **Share** (compartilhar) no topo da janela do editor ou o menu **File ▸ Share**. O guia prático [Exporte, importe e compartilhe macros](/pt/howto/share-macros/) mostra os detalhes.
 
@@ -100,7 +100,7 @@ A wiki oficial alerta que uma macro pode fazer praticamente qualquer coisa no se
 
 Uma <Term k="插件动作" text="ação de plug-in" /> é uma ação escrita por outra pessoa que você instala no Keyboard Maestro e passa a usar como se fosse uma ação integrada ([wiki oficial](https://wiki.keyboardmaestro.com/manual/Plug_In_Actions)). A wiki oficial indica o site do Keyboard Maestro e o fórum oficial como lugares onde encontrar esse tipo de ação. Para instalar, <u>não descompacte o arquivo</u>: arraste o `.zip` baixado direto para cima do ícone do Keyboard Maestro no Dock. Se a ação não aparecer depois disso, encerre o Engine e, em seguida, feche e abra o editor de novo. Ela vai aparecer na categoria **Third Party Plug Ins** (plug-ins de terceiros) da lista de ações.
 
-Uma ação de plug-in é código rodando no seu Mac, exatamente como uma macro que alguém passou para você — portanto, só instale as que vierem de fontes em que você confia.
+Uma ação de plug-in é código rodando no seu Mac, exatamente como uma macro que alguém passou para você. Portanto, só instale as que vierem de fontes em que você confia.
 
 <strong>Quando você realmente vai precisar disso</strong>: quando alguém já escreveu uma ação sob medida para exatamente o que você precisa, poupando o trabalho de montar uma sequência enorme de ações por conta própria. A maioria das pessoas nunca chega a precisar.
 
@@ -108,7 +108,7 @@ Uma ação de plug-in é código rodando no seu Mac, exatamente como uma macro q
 
 Os dois últimos recursos deixam uma macro rodar mesmo quando você não está na frente deste Mac:
 
-- **Web Server** (servidor web): ligue-o na aba **Web Server** dos ajustes para conseguir acessar o Keyboard Maestro deste Mac pelo navegador, por padrão no endereço `http://localhost:4490`. Com usuário e senha definidos, fazer login permite rodar qualquer macro ativa. Já uma macro com o gatilho **Public Web** (web pública) pode ser rodada sem senha por qualquer pessoa que consiga se conectar ao seu Mac. A wiki oficial explica que, na maioria das redes domésticas, só os computadores da mesma rede local conseguem se conectar, mas isso depende de como a sua rede está configurada — e, potencialmente, qualquer pessoa na internet poderia acessar ([wiki oficial](https://wiki.keyboardmaestro.com/trigger/Web_Server)).
+- **Web Server** (servidor web): ligue-o na aba **Web Server** dos ajustes para conseguir acessar o Keyboard Maestro deste Mac pelo navegador, por padrão no endereço `http://localhost:4490`. Com usuário e senha definidos, fazer login permite rodar qualquer macro ativa. Já uma macro com o gatilho **Public Web** (web pública) pode ser rodada sem senha por qualquer pessoa que consiga se conectar ao seu Mac. A wiki oficial explica que, na maioria das redes domésticas, só os computadores da mesma rede local conseguem se conectar, mas isso depende de como a sua rede está configurada. E, potencialmente, qualquer pessoa na internet poderia acessar ([wiki oficial](https://wiki.keyboardmaestro.com/trigger/Web_Server)).
 - O gatilho **Remote** (remoto) cria para a macro uma URL que passa por um servidor web da Stairways Software, de modo que abrir essa URL de qualquer lugar da internet dispara a macro, sem precisar de login. A wiki oficial é bem direta: qualquer pessoa que souber a URL pode disparar a macro, então use esse recurso apenas em macros totalmente inofensivas. Além disso, não há garantia de que o recurso continue no ar para sempre nem de que funcione todas as vezes, por isso não dependa dele para nada importante ([wiki oficial](https://wiki.keyboardmaestro.com/trigger/Remote)).
 
 <strong>Quando você realmente vai precisar disso</strong>: quando você quer tocar em algo no celular ou em outro computador para que este Mac faça uma tarefa pequena e sem risco. Antes de ligar qualquer um dos dois, pense bem em quem vai conseguir acessá-lo.
