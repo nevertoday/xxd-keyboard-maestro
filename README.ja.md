@@ -8,9 +8,9 @@
 
 Keyboard Maestro は Mac の自動化ツールです。エディタでマクロを作り、バックグラウンドのエンジンが代わりに実行してくれます。<br>このガイドは Keyboard Maestro 公式 Wiki に沿って内容を3つの短いレッスンにまとめたものなので、自動化が初めてでもそのまま手を動かしながら進められます。
 
-**[レッスン1から始める →](https://keyboardmaestro.xiaoxiaodong.ai/ja/start/1-first-macro/)**　·　**[すでに使っているなら完全ガイド（英語）へ →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
+**[レッスン1から始める →](https://keyboardmaestro.xiaoxiaodong.ai/ja/start/1-first-macro/)**　·　**[すでに使っているなら完全ガイドへ →](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/0-what/)**
 
-<sub>非公式 · 無料 · オープンソース · 10言語対応（サイト全体は中国語と英語、トップページと3つのレッスンはほかの8言語でも）</sub>
+<sub>非公式 · 無料 · オープンソース · サイト全体が10言語対応</sub>
 
 </div>
 
@@ -48,32 +48,32 @@ Keyboard Maestro なら、そうした作業をすべてマクロに任せられ
 2. **[数文字打つだけで、まとまった文章を出す](https://keyboardmaestro.xiaoxiaodong.ai/ja/start/2-type-less/)**（10分）：毎日打っている住所や自己紹介、定型返信を入力文字列トリガーに登録します。数文字打つだけで、文章がまるごと出てきます。
 3. **[キー1つで、一連の作業をまとめてこなす](https://keyboardmaestro.xiaoxiaodong.ai/ja/start/3-one-key-routine/)**（15分）：毎朝くり返しているクリック操作を1つのマクロにまとめます。いくつかのアプリとウェブページを開いてウィンドウを所定の位置に並べ、さらにマクロを途中で止める方法や、うまく動かないときに確認する場所も覚えます。
 
-## 完全ガイド（英語）
+## 完全ガイド
 
 3つのレッスンを終えて、状況に合わせて動くマクロや履歴を覚えてくれるクリップボード、動かないときの原因の調べ方まで知りたくなったら、こちらを順番に読み進めてみてください。
 
 | ステップ | テーマ | ひと言でいうと |
 | --- | --- | --- |
-| 0 | [Keyboard Maestro とは](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/) | Mac の自動化ツールです。エディタでマクロを作り、バックグラウンドのエンジンが実行します。どのマクロも「いつ」と「何をするか」の組み合わせです |
-| 1 | [マクログループ：マクロが動く場所](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/1-groups/) | マクログループはフォルダであり、中のマクロがいつ有効になるかも決めます。特定のアプリの中だけ、自分で有効にしたあとだけ、あるいはパレットとして表示する、といった具合です |
-| 2 | [トリガー：マクロが動き出すタイミング](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | ホットキー、入力文字列、決まった時刻、アプリの起動、Wi-Fi ネットワーク、フォルダへの新しいファイル追加など、いちばん自然なタイミングを選べます |
-| 3 | [アクション：マクロがすること](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | 文字入力、キー操作、メニュー選択、アプリ、ウィンドウ、クリック、ファイル操作など。よく使う十数個をまず押さえて、残りは必要なときに調べれば十分です |
-| 4 | [変数・条件・ループ：状況に合わせて動くマクロ](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | 文字を覚えておく、実行前に質問する、画面の状態によって動きを変える、何かが起きるまで待つ。マクロが、決まったキー操作をなぞるだけのものではなくなります |
-| 5 | [クリップボード：コピーしたものはまだ残っている](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | クリップボード履歴から以前コピーしたものを貼り付け直したり、名前付きクリップボードに定番の項目をずっと残しておいたり、貼り付ける前にフィルタで文字を加工したりできます |
-| 6 | [マクロが動かないときは](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | まず権限とエンジンを確認し、次にマクログループが有効かを見ます。それでも解決しなければ、デバッガで1ステップずつ追うか、エンジンログを読みます |
-| 7 | [さらに先へ：スクリプト、サブルーチン、同期と共有](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/7-advanced/) | シェルスクリプトや AppleScript、JavaScript を組み込み、よく使う手順をサブルーチンにまとめ、2台の Mac で同期したり、ほかの人とマクロを共有したりできます |
+| 0 | [Keyboard Maestro とは](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/0-what/) | Mac の自動化ツールです。エディタでマクロを作り、バックグラウンドのエンジンが実行します。どのマクロも「いつ」と「何をするか」の組み合わせです |
+| 1 | [マクログループ：マクロが効く範囲](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/1-groups/) | マクログループはフォルダであり、中のマクロがいつ有効になるかも決めます。特定のアプリの中だけ、自分で有効にしたあとだけ、あるいはパレットとして表示する、といった具合です |
+| 2 | [トリガー：マクロが動き出すタイミング](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/2-triggers/) | ホットキー、入力文字列、決まった時刻、アプリの起動、Wi-Fi ネットワーク、フォルダへの新しいファイル追加など、いちばん自然なタイミングを選べます |
+| 3 | [アクション：マクロがやること](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/3-actions/) | 文字入力、キー操作、メニュー選択、アプリ、ウィンドウ、クリック、ファイル操作など。よく使う十数個をまず押さえて、残りは必要なときに調べれば十分です |
+| 4 | [変数・条件・ループ：状況に合わせて動くマクロ](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/4-variables/) | 文字を覚えておく、実行前に質問する、画面の状態によって動きを変える、何かが起きるまで待つ。マクロが、決まったキー操作をなぞるだけのものではなくなります |
+| 5 | [クリップボード：コピーしたものは全部残っている](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/5-clipboard/) | クリップボード履歴から以前コピーしたものを貼り付け直したり、名前付きクリップボードに定番の項目をずっと残しておいたり、貼り付ける前にフィルタで文字を加工したりできます |
+| 6 | [マクロがうまく動かないとき](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/6-debug/) | まず権限とエンジンを確認し、次にマクログループが有効かを見ます。それでも解決しなければ、デバッガで1ステップずつ追うか、エンジンログを読みます |
+| 7 | [さらに先へ：スクリプト、サブルーチン、同期と共有](https://keyboardmaestro.xiaoxiaodong.ai/ja/guide/7-advanced/) | シェルスクリプトや AppleScript、JavaScript を組み込み、よく使う手順をサブルーチンにまとめ、2台の Mac で同期したり、ほかの人とマクロを共有したりできます |
 
-## ハウツー：具体的なやり方（英語）
+## ハウツー：具体的なやり方
 
-- **文字入力とテキスト**：[よく打つ言葉を短縮入力にする](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [今日の日付をキー1つで挿入する](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [書式なしで貼り付ける](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [いつものフォームをキー1つで入力する](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **アプリとウィンドウ**：[キー1つでアプリを切り替える](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [ウィンドウを決まった位置に並べる](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [ショートカットのないメニュー項目にショートカットを割り当てる](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
-- **ファイル**：[複数のファイル名をまとめて変える](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [フォルダに入ったファイルを自動で振り分ける](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
-- **画面とマウス**：[画面上のボタンを見つけてクリックする](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [画面の文字を読み取る](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
-- **決まったタイミング**：[毎日決まった時刻に実行する](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [特定の Wi-Fi に接続したときや機器をつないだときに動かす](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
-- **実行前に尋ねる**：[動く前に質問を1つ挟む](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ask-input/) · [クリックでマクロを実行するボタン一覧を作る](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/palette/)
-- **保管と共有**：[2台の Mac で同じマクロを使う](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/sync-macs/) · [マクロを書き出し・読み込み・共有する](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/share-macros/) · [マクロが止まらないときは](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/stop-macro/)
+- **文字入力とテキスト**：[よく打つ文章を短縮入力にする](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/text-snippets/) · [キー1つで今日の日付を入力する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/insert-date/) · [書式なしで貼り付ける](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/paste-plain/) · [同じフォームをキー1つで入力する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/fill-form/)
+- **アプリとウィンドウ**：[キー1つでアプリに切り替える](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/app-hotkeys/) · [ウィンドウを思い通りの位置に配置する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/window-layout/) · [ショートカットのないメニュー項目にショートカットを付ける](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/menu-shortcut/)
+- **ファイル**：[複数のファイル名をまとめて変える](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/rename-files/) · [フォルダにファイルが入ったら自動で仕分ける](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/watch-folder/)
+- **画面とマウス**：[画面上のボタンを見つけてクリックする](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/click-image/) · [画面に映った文字を読み取る](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/ocr-text/)
+- **決まったタイミング**：[毎日同じ時刻に自動で実行する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/daily-schedule/) · [Wi-Fi につないだときや、機器を差し込んだときに実行する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/wifi-usb/)
+- **実行前に尋ねる**：[作業の前に質問する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/ask-input/) · [マクロを動かすボタンを並べて表示する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/palette/)
+- **保管と共有**：[2台の Mac で同じマクロを使う](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/sync-macs/) · [マクロを書き出す・読み込む・共有する](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/share-macros/) · [マクロが止まらなくなったとき](https://keyboardmaestro.xiaoxiaodong.ai/ja/howto/stop-macro/)
 
-わからない言葉や気になることがあれば、**[Wiki（英語）](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)** や **[FAQ（英語）](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)** で調べられます。
+わからない言葉や気になることがあれば、**[Wiki](https://keyboardmaestro.xiaoxiaodong.ai/ja/wiki/)** や **[FAQ](https://keyboardmaestro.xiaoxiaodong.ai/ja/faq/)** で調べられます。
 
 ## このガイドの情報源
 
