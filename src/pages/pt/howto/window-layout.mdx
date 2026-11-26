@@ -1,0 +1,82 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: window-layout
+step: 3
+time: Dez minutos
+for: Toda vez que você começa a trabalhar, precisa arrastar janelas e puxar cantos para deixar dois apps lado a lado
+tldr: Aperte ⌃⌥⌘2 e o Safari ocupa a metade esquerda da tela enquanto o Editor de Texto fica na metade direita, tudo no lugar de uma vez e sempre igual.
+description: Use Move and Resize na ação Manipulate a Window com posições prontas como Left Column e Right Column para colocar dois apps lado a lado. Espere a janela de um app recém-aberto com Pause Until e calcule outras proporções com a função SCREENVISIBLE.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Pesquisa de um lado, rascunho do outro: muita gente que escreve trabalha assim, com o Safari à esquerda mostrando os artigos que encontrou e o Editor de Texto à direita com o texto em andamento. Todo dia você começa arrastando as duas janelas e puxando os cantos e, bem quando ficam quase no jeito, um pop-up aparece e tira as duas do lugar. Monte a macro desta página e ⌃⌥⌘2 (⌃ é Control, ⌥ é Option, ⌘ é Command) coloca o Safari na metade esquerda da tela e o Editor de Texto na direita, prontos para você começar a escrever.
+
+<mark>Deixe uma ação definir onde a janela fica e o tamanho dela, e ela vai parar exatamente no mesmo lugar todas as vezes.</mark>
+
+## Uma ação, três escolhas
+
+Para mover janelas, você usa **Manipulate a Window** (manipular uma janela). A página oficial divide essa ação em três escolhas (veja [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window)):
+
+- O que fazer: mover, redimensionar, centralizar, minimizar e por aí vai. Esta página usa **Move and Resize** (mover e redimensionar), que já traz várias posições prontas: **Left Column** (coluna esquerda), **Right Column** (coluna direita), **Top Half** (metade superior), **Full Screen** (tela cheia) e outras. Também existe a opção Custom (personalizado), em que você mesmo preenche os números.
+- Qual janela: geralmente **the front window** (a janela da frente), embora você também possa escolher uma pelo título.
+- A janela de qual app: um app específico da lista ou **Front Application** (aplicativo da frente).
+
+A terceira escolha é o ponto-chave desta página. Quando você escolhe um app específico, a macro sabe que deve mover a janela do Safari, e não o app que por acaso estava na frente na hora em que você apertou a tecla de atalho.
+
+## Monte a macro
+
+Crie uma nova macro chamada “Layout de escrita”. No gatilho, escolha **Hot Key** (tecla de atalho) e aperte ⌃⌥⌘2, pensando no 2 como duas colunas. Depois, adicione quatro ações nesta ordem:
+
+1. **Activate a Specific Application** (ativar um aplicativo específico): Safari. Se ele não estiver rodando, essa ação abre o app.
+2. **Manipulate a Window**: **Move and Resize** em **Left Column**, janela em **the front window** e app em Safari.
+3. **Activate a Specific Application**: Editor de Texto.
+4. **Manipulate a Window**: **Move and Resize** em **Right Column**, janela em **the front window** e app em Editor de Texto.
+
+Trazer cada app para a frente antes de mover a janela garante que ele esteja rodando e com a janela visível. Quando a macro termina, o Editor de Texto fica na frente com o cursor já no rascunho, então você pode começar a digitar na hora.
+
+A [lição 3 para iniciantes](/pt/start/3-one-key-routine/) reúne abrir apps e organizar janelas em uma rotina completa de início do dia. Esta página cobre apenas a etapa das janelas, com mais detalhes.
+
+## Quando um app acabou de abrir
+
+Se o Editor de Texto não estiver rodando quando você apertar a tecla de atalho, o passo 3 abre o app, mas a janela dele demora um instante para aparecer, e o passo 4 não encontra nenhuma janela para mover. A resposta oficial é fazer a macro esperar (veja a [seção Timing Between Actions da página Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)). Entre os passos 3 e 4, adicione uma ação **Pause Until** (pausar até) com uma condição **Front Window** (janela da frente) configurada para esperar que a janela da frente do Editor de Texto exista. Assim que a janela aparece, a macro segue em frente. Você pode fazer o mesmo para o Safari.
+
+Esperar por uma condição é mais confiável do que pausar por um segundo fixo. Em um Mac rápido, a macro não fica parada à toa; em um Mac lento, ela não desiste cedo demais.
+
+## Outras proporções
+
+Metade para cada lado não é o único layout possível. Digamos que você queira o rascunho mais largo, ocupando dois terços da tela. Em vez de usar uma posição pronta, calcule você mesmo. Em qualquer lugar onde o Keyboard Maestro pede um número, você pode escrever um <Term k="计算" text="cálculo" />, e a função `SCREENVISIBLE` devolve o tamanho da tela descontando a barra de menus e o Dock (veja a [função SCREEN](https://wiki.keyboardmaestro.com/function/SCREEN)).
+
+Troque o passo 4 por duas ações **Manipulate a Window**, as duas apontando para o Editor de Texto. Na primeira, escolha **Move to** (mover para), escreva `SCREENVISIBLE(Main,Top)` na posição vertical e, na posição horizontal, escreva esta linha, que recua dois terços da largura a partir da borda direita da tela:
+
+<Copy id="wl-left" title="Posição horizontal: dois terços recuando da direita" code="SCREENVISIBLE(Main,Right)-SCREENVISIBLE(Main,Width)*2/3" />
+
+Na segunda, escolha **Resize to** (redimensionar para), escreva `SCREENVISIBLE(Main,Height)` na altura e isto na largura:
+
+<Copy id="wl-width" title="Largura: dois terços da área visível" code="SCREENVISIBLE(Main,Width)*2/3" />
+
+Com o canto superior esquerdo já no lugar, esticar a janela até essa largura encosta a borda direita bem na beirada da tela. Faça o mesmo para o Safari ficar com um terço: mova para `SCREENVISIBLE(Main,Left)` e `SCREENVISIBLE(Main,Top)`, com largura `SCREENVISIBLE(Main,Width)/3` e a mesma altura do Editor de Texto.
+
+`Main` é a tela que tem a barra de menus. Se você usa um monitor externo, também pode escrever nomes como `Second` ou `External` para indicar outra tela. Todos esses números estão em pontos, não nos pixels reais da tela. Em uma tela Retina, o número de pontos é cerca de metade do número de pixels.
+
+## Confira se funcionou
+
+Arraste as janelas do Safari e do Editor de Texto de qualquer jeito para bagunçar a tela e aperte ⌃⌥⌘2. Você deve ver o Safari pular para a metade esquerda e o Editor de Texto para a metade direita, lado a lado. Depois, encerre o Editor de Texto e aperte o atalho de novo para conferir se ele abre e também vai para a direita.
+
+## Se algo não der certo
+
+<Q q="Apertei a tecla de atalho e as janelas não se mexeram.">
+Mover janelas precisa da <Term k="辅助功能权限" text="permissão de Acessibilidade" />. A página oficial de Troubleshooting avisa que, quando há algum problema com essa permissão, definir teclas de atalho, digitar teclas e mover janelas deixam de funcionar. Revise o passo das permissões na [lição 1 para iniciantes](/pt/start/1-first-macro/) em **Ajustes do Sistema ▸ Privacidade e Segurança ▸ Acessibilidade** (em versões mais antigas do macOS, chamava-se Preferências do Sistema); depois escolha **Help ▸ Interactive Help** (ajuda interativa) e veja se ele encontra o problema. Veja a [seção Accessibility da página Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility).
+</Q>
+<Q q="A macro moveu a janela de outro app.">
+Veja se o app escolhido no passo 2 ou 4 está como **Front Application**. Isso move o app que estiver na frente na hora em que você apertar a tecla de atalho, que nem sempre é o que você queria. Escolha o app específico em vez disso.
+</Q>
+<Q q="Funciona na primeira vez, mas quando um app ainda não está aberto, só uma janela vai para o lugar.">
+O app que estava fechado não abriu a janela a tempo. Adicione um **Pause Until** como explicado em “Quando um app acabou de abrir” acima.
+</Q>
+<Q q="A posição que eu calculei ficou bem fora do lugar.">
+Provavelmente você usou os pixels reais da tela em vez de pontos. A página oficial explica que essa ação trabalha em pontos, e, em uma tela Retina, o número de pontos é cerca de metade do número de pixels. Use a função `SCREENVISIBLE` para não precisar converter nada.
+</Q>
+
+Uma tecla de atalho e as duas janelas vão para o lugar certo. Se quiser dar um passo além e já abrir o rascunho do dia com a mesma tecla, adicione uma ação **Open a File, Folder or Application** (abrir um arquivo, pasta ou aplicativo).

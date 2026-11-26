@@ -1,0 +1,95 @@
+{
+  "before": {
+    "title": "Antes de instalar",
+    "items": [
+      [
+        "O Keyboard Maestro é seguro? Por que ele precisa de tantas permissões?",
+        "Ele precisa de muitas permissões porque aperta teclas, digita, escolhe menus e olha a tela no seu lugar; o cuidado real está em quais macros você deixa rodar. Oficialmente, o Keyboard Maestro age em seu nome, praticamente como se fosse você, por isso precisa de várias permissões do sistema. A aba **Security** (segurança) dos ajustes do Keyboard Maestro reúne as principais e mostra se cada uma está ligada; [Permissões](/pt/wiki/permissions/) explica o que cada uma faz. A wiki oficial também diz que, desde a versão 9, ele conta com runtime reforçado e é notarizado pela Apple. Ao mesmo tempo, ela alerta que macros podem causar danos se forem mal usadas, por acidente ou de propósito, principalmente macros vindas de outras pessoas — então confira o que cada passo faz antes de rodar uma. Baixe apenas pelo [site oficial](https://www.keyboardmaestro.com/). Veja [Preferências](https://wiki.keyboardmaestro.com/manual/Preferences) e [Detalhes administrativos](https://wiki.keyboardmaestro.com/manual/Administrative_Details)."
+      ],
+      [
+        "Posso comprar na Mac App Store?",
+        "Não. A wiki oficial explica que a Mac App Store exige que os apps fiquem restritos em sandbox, e apps de fluxo de trabalho como o Keyboard Maestro não conseguem funcionar assim, por isso ele não é vendido lá. Há muito tempo, a Mac App Store teve a versão 5; a orientação oficial é que se trata de uma versão antiga e você não deve comprá-la. Da versão 6 em diante, só dá para comprar diretamente. Baixe em [keyboardmaestro.com](https://www.keyboardmaestro.com/). Veja [Como fazer](https://wiki.keyboardmaestro.com/manual/How_do_I) e o [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) oficial."
+      ],
+      [
+        "Ele roda no meu Mac? E nos chips mais novos e versões novas do macOS?",
+        "Se você tiver o macOS 10.13 ou posterior, o Keyboard Maestro 11 pode ser instalado, e o FAQ oficial diz que ele é totalmente compatível com o Sequoia e o Tahoe. A wiki oficial não fala nada específico sobre chips, então este site não responde por isso; na dúvida, teste primeiro a versão de avaliação ou siga o que diz o [site oficial](https://www.keyboardmaestro.com/). Mais uma coisa: se suas macros pararem de funcionar depois de uma grande atualização do sistema, a orientação oficial é reiniciar o Mac mais uma vez primeiro, porque o sistema muitas vezes ainda não se acomodou por completo logo após atualizar, e depois conferir se continua tudo ligado na aba **Security** dos ajustes do Keyboard Maestro. Veja [Detalhes administrativos](https://wiki.keyboardmaestro.com/manual/Administrative_Details), o [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) oficial e [Solução de problemas](https://wiki.keyboardmaestro.com/Troubleshooting)."
+      ],
+      [
+        "Qual é a diferença para o app Atalhos que já vem no Mac?",
+        "São duas ferramentas separadas, e elas trabalham bem juntas. A wiki oficial compara assim: no Keyboard Maestro, grupos de macros guardam macros, que começam a partir de gatilhos e executam ações, executadas pelo Keyboard Maestro Engine (a parte que roda em segundo plano) e editadas no editor do Keyboard Maestro; no app Atalhos, pastas guardam atalhos, que são executados pelo sistema e editados no próprio app Atalhos. Desde a v10.1, o Keyboard Maestro consegue rodar seus atalhos com a ação **Execute Shortcut** (executar atalho), no macOS 12 ou posterior, e também adiciona um conjunto inteiro de ações ao app Atalhos, como rodar uma macro ou ler e definir uma variável. O que o Atalhos em si consegue fazer cabe à Apple explicar, não a este site. Veja [Ações de Atalhos](https://wiki.keyboardmaestro.com/Shortcut_Actions)."
+      ]
+    ]
+  },
+  "buy": {
+    "title": "Compra e licenças",
+    "items": [
+      [
+        "Quanto custa? É assinatura?",
+        "A página oficial de compra informa US$ 36 (verificado em 2026-11-24); considere sempre o que está [nessa página](https://wiki.keyboardmaestro.com/manual/Purchase). Não é assinatura. Oficialmente, uma licença cobre a versão principal atual e, em geral, suas atualizações menores; a cada 12 a 36 meses, mais ou menos, sai um upgrade principal pago, e se você não fizer o upgrade, a versão que comprou continua sendo sua para seguir usando. Quem já tem uma versão anterior ganha desconto no upgrade. O que a licença cobre está em [Detalhes administrativos](https://wiki.keyboardmaestro.com/manual/Administrative_Details)."
+      ],
+      [
+        "Em quantos Macs posso usar uma licença?",
+        "Em até cinco, para uma mesma pessoa. A wiki oficial diz que as licenças são por usuário e que uma pessoa pode usar o Keyboard Maestro em até cinco Macs; então, se duas pessoas em casa quiserem usar, cada uma precisa da própria licença. Equipes com dez ou mais pessoas podem pedir à Stairways um orçamento por volume. Veja [Compra](https://wiki.keyboardmaestro.com/manual/Purchase) e [Detalhes administrativos](https://wiki.keyboardmaestro.com/manual/Administrative_Details)."
+      ],
+      [
+        "Posso testar antes? Consigo reembolso se não for para mim?",
+        "Sim para as duas perguntas. Existe uma versão de avaliação totalmente funcional que você pode baixar no [site oficial](https://www.keyboardmaestro.com/); a wiki oficial não informa a duração do teste em dias, então este site também não informa. Se, em até 30 dias após a compra, você perceber que ele não faz o que a documentação oficial descreve, pode pedir reembolso: o dinheiro volta para você e a licença é cancelada. Veja [Compra](https://wiki.keyboardmaestro.com/manual/Purchase) e [Detalhes administrativos](https://wiki.keyboardmaestro.com/manual/Administrative_Details)."
+      ]
+    ]
+  },
+  "using": {
+    "title": "Durante o uso",
+    "items": [
+      [
+        "Aperto a tecla da minha macro e nada acontece. O que devo verificar primeiro?",
+        "Abra **Help ▸ Interactive Help** (ajuda interativa) no editor e escolha a opção para quando algo esperado não acontece. ==Esse assistente percorre as causas mais comuns para você, uma por uma==: se o Engine está rodando, se o editor consegue falar com ele, se as permissões estão ligadas e se o sistema ficou preso no modo de entrada segura (Secure Input Mode); depois, para a macro que você escolher, se o grupo dela está habilitado e ativo, se a própria macro está habilitada e se ela tem um gatilho e algumas ações habilitadas. Se estiver tudo certo, dispare a macro de novo e ele diz se ela realmente disparou. Se disparou, mas fez a coisa errada, olhe as ações; a falta de uma ação **Pause** (pausar) é um motivo bem comum. Veja [Solução de problemas](https://wiki.keyboardmaestro.com/Troubleshooting) na wiki oficial e [Quando uma macro não funciona](/pt/guide/6-debug/) aqui no site."
+      ],
+      [
+        "Minhas abreviações não funcionam em campos de senha. Dá para fazer o app digitar lá?",
+        "Abreviações não funcionam; uma ação de digitação até consegue, mas a wiki oficial chama isso de um problema sério de segurança. O sistema não deixa o Keyboard Maestro ver o que você digita em um campo de senha, então os gatilhos de texto digitado não vão disparar na maioria deles. A ação **Insert Text by Typing** (inserir texto digitando) consegue digitar em um campo de senha, mas nem sempre acerta: se a tecla de atalho que iniciou a macro compartilhar alguma tecla com o texto que está sendo digitado, esse caractere pode se perder, e tudo o que você vê é uma bolinha a menos seguida de um erro de senha incorreta. À parte disso, às vezes o sistema fica preso no modo de entrada segura, achando que você está o tempo todo em um campo de senha, e aí até abreviações comuns param de funcionar; encerrar o app que pediu a senha, ou reiniciar o Mac, resolve o problema, e o Keyboard Maestro avisa no menu de status quando percebe isso. Veja [Gatilho de texto digitado](https://wiki.keyboardmaestro.com/trigger/Typed_String), além das seções de Solução de problemas sobre [caracteres perdidos em campos de senha](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_in_Password_Fields_Drops_Characters) e [modo de entrada segura](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode)."
+      ],
+      [
+        "Uma macro não para. Como faço para interromper?",
+        "Clique no ícone do Keyboard Maestro na barra de menus e escolha a macro no submenu **Cancel** (cancelar) para cancelá-la. Segure ⌃⌥⇧ (Control, Option, Shift; adicionar ⌘ Command é opcional) e clique no ícone para cancelar todas as macros em execução de uma vez. Se uma macro rodar ao iniciar a sessão e nada conseguir pará-la, a wiki oficial tem mais um truque: segure ⌃⌥⇧⌘ (adicionando Command) enquanto abre o editor. Isso encerra o Engine e abre o editor sem iniciar o Engine, para que você possa remover o gatilho dessa macro ou desabilitá-la. Veja [Como fazer](https://wiki.keyboardmaestro.com/manual/How_do_I), [Solução de problemas](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros) e [Quando uma macro não para](/pt/howto/stop-macro/) aqui no site."
+      ]
+    ]
+  },
+  "data": {
+    "title": "Onde ficam as macros e como movê-las",
+    "items": [
+      [
+        "Onde minhas macros ficam guardadas?",
+        "No seu próprio Mac. A wiki oficial diz que elas ficam na pasta Application Support, em `~/Library/Application Support/Keyboard Maestro`; dentro da pasta que **Help ▸ Open Preferences Folder** (abrir pasta de preferências) abre pelo editor, o arquivo `Keyboard Maestro Macros.plist` guarda as suas macros. As preferências são os arquivos em `~/Library/Preferences/` cujos nomes começam com `com.stairways.keyboardmaestro.`, e os logs (registros de atividade) ficam em `~/Library/Logs/Keyboard Maestro`. A pasta Biblioteca fica oculta por padrão; no Finder, segure ⌥ (Option) e abra o menu Ir para vê-la. Veja [Como fazer](https://wiki.keyboardmaestro.com/manual/How_do_I) e [Solução de problemas](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Being_Saved)."
+      ],
+      [
+        "Como faço backup das minhas macros?",
+        "O jeito mais fácil é manter um bom backup do Mac inteiro. A wiki oficial lembra que suas macros vivem no próprio Mac, então um bom backup completo já as mantém protegidas. Mais duas coisas ajudam: o Keyboard Maestro guarda algumas revisões próprias de backup em **File ▸ Revert Macros** (reverter macros), e para salvar uma cópia separada de algumas macros, basta selecioná-las e salvar em um arquivo com **File ▸ Export ▸ Export Macros** (exportar macros). Veja [Como fazer](https://wiki.keyboardmaestro.com/manual/How_do_I), [Sincronização de macros](https://wiki.keyboardmaestro.com/manual/Macro_Syncing) e [Menus](https://wiki.keyboardmaestro.com/manual/Menus#Export_Macros)."
+      ],
+      [
+        "Comprei um Mac novo. Como passo minhas macros para ele?",
+        "Existem dois jeitos. Para levar só as macros: no Mac antigo, ligue a sincronização de macros em **File ▸ Start Syncing Macros** (iniciar sincronização de macros), salve o arquivo de sincronização em qualquer lugar e copie-o para o Mac novo; instale o Keyboard Maestro lá normalmente, ligue a sincronização, escolha esse arquivo para substituir as macros do Mac novo e depois desligue a sincronização. Isso move só as macros, sem ajustes, variáveis nem áreas de transferência. Para levar tudo: encerre o Keyboard Maestro e o Engine nos dois Macs, copie toda a pasta `~/Library/Application Support/Keyboard Maestro` para o outro Mac, opcionalmente junto com os arquivos de preferências (que incluem os dados da sua licença), e verifique se os arquivos copiados ficaram com o proprietário e as permissões corretos. ++Se você vai continuar usando o Mac antigo, não copie os arquivos de preferências++, senão os dois vão ser tratados como o mesmo Mac, o que dá problema com sincronização e gatilhos remotos; se você já copiou, o [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) oficial explica como redefinir isso. Veja [Como fazer](https://wiki.keyboardmaestro.com/manual/How_do_I)."
+      ],
+      [
+        "Meu Mac de casa e o do trabalho podem compartilhar as mesmas macros?",
+        "Sim, usando a sincronização de macros — e uma única licença já cobre cinco Macs. Coloque o arquivo de sincronização em um lugar acessível aos dois Macs, como um serviço de sincronização do tipo Dropbox ou um servidor de arquivos compartilhado que fique sempre disponível; a wiki oficial alerta que o iCloud Drive pode demorar para sincronizar, o que pode fazer você perder alterações. No Mac que já tem suas macros, escolha **File ▸ Start Syncing Macros** e clique em **Create New** (criar novo) para criar o arquivo de sincronização. Assim que ele terminar de sincronizar, faça o mesmo no outro Mac e clique em **Open Existing** (abrir existente) para escolher o arquivo. ++Todas as macros que já estiverem no segundo Mac são substituídas++, então exporte antes qualquer uma que você queira guardar. Os dois Macs precisam estar na mesma versão do Keyboard Maestro, e só as macros sincronizam, não os ajustes, as áreas de transferência nem as variáveis. Veja [Sincronização de macros](https://wiki.keyboardmaestro.com/manual/Macro_Syncing) e [Use as mesmas macros em dois Macs](/pt/howto/sync-macs/) aqui no site."
+      ]
+    ]
+  },
+  "site": {
+    "title": "Sobre este site",
+    "items": [
+      [
+        "Este é um site oficial do Keyboard Maestro?",
+        "Não. É um site de aprendizado de código aberto e não oficial, sem vínculo com a Stairways Software; Keyboard Maestro é uma marca comercial da Stairways Software Pty Ltd. Para recursos, preços e funcionamento, siga a [wiki oficial](https://wiki.keyboardmaestro.com/) e o [site oficial](https://www.keyboardmaestro.com/)."
+      ],
+      [
+        "De onde vem todo esse conteúdo?",
+        "Os fatos vêm da wiki oficial do Keyboard Maestro. Nós reescrevemos tudo com nossas próprias palavras e colocamos o link para a página oficial sempre que possível, e os nomes de botões e menus ficam em inglês exatamente como o app mostra. Se a wiki oficial não diz algo, este site também não diz. Relatos que as pessoas compartilham no fórum só entram como algo que alguém testou, com o link, nunca como fonte de um recurso ou de um passo. Este site nunca publica chaves de licença, cópias piratas nem espelhos de download, e os links para baixar sempre apontam apenas para o site oficial."
+      ],
+      [
+        "Encontrei um erro ou os passos não funcionaram para mim. Onde eu aviso?",
+        "Abra uma issue no [GitHub](https://github.com/nevertoday/xxd-keyboard-maestro/issues) deste site; no rodapé de toda página há um link que já preenche em qual página você estava. Informe sua versão do macOS, sua versão do Keyboard Maestro, o que a macro deveria fazer, o que aconteceu de fato e o que você já tentou — e, antes de anexar capturas de tela ou macros exportadas, remova dados de licença, senhas e textos pessoais. Para ajuda na hora de montar uma macro específica, a wiki oficial diz que o [fórum oficial](https://forum.keyboardmaestro.com/) é o melhor lugar, já que os desenvolvedores e muitos usuários estão lá (veja [Suporte](https://wiki.keyboardmaestro.com/manual/Support)); se for um bug de verdade no Keyboard Maestro, relate à Stairways como descreve o [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) oficial."
+      ]
+    ]
+  }
+}

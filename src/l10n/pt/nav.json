@@ -15,5 +15,174 @@
       "minutes": "15 minutos",
       "sum": "Transforme os cliques que você faz toda manhã em uma única macro: abra alguns apps e uma página na web, coloque as janelas no lugar e aprenda a interromper a execução e onde olhar quando algo não der certo"
     }
+  },
+  "steps": {
+    "0-what": {
+      "title": "O que é o Keyboard Maestro",
+      "minutes": "5 minutos de leitura",
+      "sum": "Automação para o Mac: você cria macros no editor e o Engine roda tudo em segundo plano. Toda macro combina um quando e um o quê"
+    },
+    "1-groups": {
+      "title": "Grupos de macros: onde as macros funcionam",
+      "minutes": "10 minutos",
+      "sum": "Um grupo de macros é uma pasta que também decide quando suas macros ficam ativas: só em certos apps, só depois que você ativa o grupo ou exibidas como uma paleta"
+    },
+    "2-triggers": {
+      "title": "Gatilhos: quando uma macro começa",
+      "minutes": "15 minutos",
+      "sum": "Uma tecla de atalho, um texto digitado, um horário do dia, um app abrindo, uma rede Wi-Fi, um arquivo novo em uma pasta: escolha o momento que parecer mais natural"
+    },
+    "3-actions": {
+      "title": "Ações: o que uma macro faz",
+      "minutes": "15 minutos",
+      "sum": "Digitação, teclas, menus, apps, janelas, cliques e arquivos: conheça a dúzia de ações que você mais vai usar e pesquise o resto quando precisar"
+    },
+    "4-variables": {
+      "title": "Variáveis, condições e repetições: macros que se adaptam",
+      "minutes": "20 minutos",
+      "sum": "Guardar um texto, fazer uma pergunta para você, seguir um caminho diferente dependendo do que está na tela, esperar algo acontecer: a macro deixa de ser uma sequência fixa de teclas"
+    },
+    "5-clipboard": {
+      "title": "A área de transferência: tudo o que você copiou continua lá",
+      "minutes": "10 minutos",
+      "sum": "O histórico da área de transferência deixa você colar o que copiou antes, as áreas de transferência nomeadas guardam algumas coisas para sempre e os filtros alteram o texto antes de você colar"
+    },
+    "6-debug": {
+      "title": "Quando uma macro não funciona",
+      "minutes": "15 minutos",
+      "sum": "Confira primeiro as permissões e o Engine, depois se o grupo está ativo. Ainda não resolveu? Avance passo a passo com o depurador ou leia o log do Engine"
+    },
+    "7-advanced": {
+      "title": "Indo além: scripts, sub-rotinas, sincronização e compartilhamento",
+      "minutes": "10 minutos de leitura",
+      "sum": "Integre scripts de shell, AppleScript e JavaScript, transforme passos repetidos em sub-rotinas, sincronize entre dois Macs e compartilhe macros com outras pessoas"
+    }
+  },
+  "howtoGroups": {
+    "text": "Digitação e texto",
+    "apps": "Apps e janelas",
+    "files": "Arquivos",
+    "screen": "Tela e mouse",
+    "schedule": "Com hora marcada",
+    "ask": "Perguntar a você antes",
+    "keep": "Guardar e compartilhar"
+  },
+  "howto": {
+    "text-snippets": "Transforme o que você digita sempre em abreviações",
+    "insert-date": "Insira a data de hoje com uma tecla",
+    "paste-plain": "Cole sem formatação",
+    "fill-form": "Preencha o mesmo formulário com uma tecla",
+    "app-hotkeys": "Vá direto para um app com uma tecla",
+    "window-layout": "Coloque suas janelas onde você quiser",
+    "menu-shortcut": "Dê um atalho a um comando de menu que não tem",
+    "rename-files": "Renomeie vários arquivos de uma vez",
+    "watch-folder": "Organize os arquivos assim que eles chegarem a uma pasta",
+    "click-image": "Encontre um botão na tela e clique nele",
+    "ocr-text": "Leia o texto direto da sua tela",
+    "daily-schedule": "Execute algo no mesmo horário todo dia",
+    "wifi-usb": "Faça algo ao entrar em uma rede Wi-Fi ou conectar um dispositivo",
+    "ask-input": "Faça uma pergunta antes de executar a tarefa",
+    "palette": "Crie uma fileira de botões que executam macros",
+    "sync-macs": "Use as mesmas macros em dois Macs",
+    "share-macros": "Exporte, importe e compartilhe macros",
+    "stop-macro": "Quando uma macro não para"
+  },
+  "glossary": {
+    "宏": {
+      "label": "macro",
+      "tip": "Uma pequena tarefa no Keyboard Maestro: os gatilhos decidem quando ela começa e uma lista de ações diz o que ela faz."
+    },
+    "宏组": {
+      "label": "grupo de macros",
+      "tip": "Uma pasta de macros que também decide em quais apps, e quando, suas macros ficam ativas."
+    },
+    "触发器": {
+      "label": "gatilho",
+      "tip": "O que inicia uma macro: apertar uma tecla de atalho, digitar um texto, um horário do dia, um app abrindo…"
+    },
+    "动作": {
+      "label": "ação",
+      "tip": "Um passo que a macro executa, como digitar um texto, escolher um item de menu ou abrir um arquivo."
+    },
+    "编辑器": {
+      "label": "editor",
+      "tip": "A janela do Keyboard Maestro onde você cria e edita macros. Você pode encerrar o editor quando terminar e suas macros continuam funcionando."
+    },
+    "引擎": {
+      "label": "Engine",
+      "tip": "O Keyboard Maestro Engine, a parte que roda em segundo plano e executa suas macros de verdade. Se ele não estiver rodando, nada dispara."
+    },
+    "热键": {
+      "label": "tecla de atalho",
+      "tip": "Uma combinação de teclas que dispara uma macro, como ⌃⌥⌘T. Escolha uma que nenhum outro app já use."
+    },
+    "输入字符串触发器": {
+      "label": "gatilho de texto digitado",
+      "tip": "Dispara quando você digita uma sequência, como =addr=, onde você estiver escrevendo, e geralmente apaga o que você digitou antes de a macro rodar."
+    },
+    "面板": {
+      "label": "paleta",
+      "tip": "Um painel flutuante de botões na tela, um para cada macro, que executa a macro quando você clica nele."
+    },
+    "状态菜单": {
+      "label": "menu de status",
+      "tip": "O ícone do Keyboard Maestro na barra de menus. Abra esse menu para executar macros ou cancelar as que estão rodando."
+    },
+    "变量": {
+      "label": "variável",
+      "tip": "Um trecho de texto com nome que a macro guarda para que ações seguintes possam usá-lo pelo nome."
+    },
+    "令牌": {
+      "label": "token",
+      "tip": "Um marcador no texto, como %LongDate%, que é substituído na hora em que a macro roda: a data de hoje, o app em primeiro plano, a área de transferência."
+    },
+    "计算": {
+      "label": "cálculo",
+      "tip": "Em quase qualquer campo que pede um número, você pode digitar uma fórmula, inclusive com funções, como metade da largura da tela."
+    },
+    "条件": {
+      "label": "condição",
+      "tip": "Algo que a macro verifica: se um app está aberto, se uma imagem aparece na tela, se uma variável tem um valor."
+    },
+    "剪贴板历史": {
+      "label": "histórico da área de transferência",
+      "tip": "O Keyboard Maestro lembra o que você copiou, então você pode escolher um item anterior e colar de novo."
+    },
+    "命名剪贴板": {
+      "label": "área de transferência nomeada",
+      "tip": "Uma área de transferência separada com nome, que a sua próxima cópia não vai sobrescrever."
+    },
+    "找图": {
+      "label": "imagem encontrada",
+      "tip": "Encontrar um ponto na tela que corresponda a uma imagem que você fornecer, para que a macro possa clicar ali ou esperar por ela."
+    },
+    "辅助功能权限": {
+      "label": "permissão de Acessibilidade",
+      "tip": "Um ajuste em Privacidade e Segurança do macOS. O Keyboard Maestro precisa dele para detectar suas teclas de atalho e para digitar, escolher menus e mover janelas por você."
+    },
+    "智能组": {
+      "label": "grupo inteligente",
+      "tip": "Uma busca salva que lista todas as macros que combinam com ela, como as que você alterou recentemente."
+    },
+    "子程序": {
+      "label": "sub-rotina",
+      "tip": "Uma macro que outras macros podem chamar, com parâmetros. Coloque nela os passos que você repete e chame essa sub-rotina sempre que precisar."
+    },
+    "宏库": {
+      "label": "Biblioteca de Macros",
+      "tip": "Um conjunto de macros prontas que já vem com o Keyboard Maestro. Importe uma e adapte do seu jeito."
+    },
+    "插件动作": {
+      "label": "ação de plug-in",
+      "tip": "Uma ação que você mesmo cria ou baixa de outra pessoa, instala no Keyboard Maestro e usa como se já viesse nele."
+    },
+    "调试器": {
+      "label": "depurador",
+      "tip": "Uma ferramenta que executa a macro um passo de cada vez, para você ver onde algo dá errado."
+    },
+    "引擎日志": {
+      "label": "log do Engine",
+      "tip": "O registro de atividade do Engine. Quando uma macro falha, olhe aqui os erros que ele registrou."
+    }
   }
 }

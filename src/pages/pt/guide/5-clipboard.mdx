@@ -1,0 +1,113 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 5
+tldr: "O Keyboard Maestro lembra o que você copiou recentemente (até 200 itens por padrão). Aperte ⌃⇧⌘V para abrir o histórico da área de transferência e colar qualquer um deles de novo. Assinaturas e imagens que você usa sempre vão para áreas de transferência nomeadas, que continuam lá depois de reiniciar. A ação Filter pode remover formatação, mudar maiúsculas e minúsculas ou ordenar linhas antes de colar."
+description: "Como abrir o histórico da área de transferência, colar algo que você copiou antes e colar como texto simples; o que ele não registra (coisas que parecem senhas, apps excluídos) e se continua lá depois de reiniciar; a diferença entre áreas de transferência nomeadas e variáveis, e como criar e usar uma; a ação Filter e a filtragem dentro do histórico; Paste by Name; onde as pessoas costumam travar."
+---
+import Callout from "../../../components/Callout.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Você está preenchendo uma candidatura de emprego online. Copia o telefone do currículo e cola lá, volta para pegar o e-mail, depois copia aquele parágrafo de apresentação que já reescreveu uma dúzia de vezes. De volta ao formulário, percebe que pulou o link do portfólio, e aquela cópia já sumiu há tempos porque cada cópia nova substituiu a anterior. A área de transferência do Mac só guarda uma coisa por vez, e cada cópia nova empurra a anterior para fora.
+
+<mark><strong>Com o Keyboard Maestro instalado, o que você copiou continua lá: ele guarda suas últimas duzentas cópias, e aquelas poucas que você usa o tempo todo podem ganhar um nome e ficar lá de vez.</strong></mark>
+
+Este passo mostra três recursos: o <Term k="剪贴板历史" text="histórico da área de transferência" /> para voltar atrás, as <Term k="命名剪贴板" text="áreas de transferência nomeadas" /> para guardar coisas que você usa sempre e os filtros para ajustar o texto antes de colar. Nenhum deles exige que você crie uma macro; eles já funcionam assim que você instala o Keyboard Maestro. E cada um também tem ações próprias, para quando você quiser usá-los dentro das suas macros.
+
+## Histórico da área de transferência: uma tecla para voltar atrás
+
+Toda vez que você copia algo em qualquer app, o <Term k="引擎" text="Engine" /> salva uma cópia da área de transferência. Por padrão, ele guarda até 200 itens, e você pode mudar esse número nos ajustes ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)). Para navegar por eles, abra o **Clipboard History Switcher** (seletor do histórico da área de transferência). É uma macro que já vem com o Keyboard Maestro, fica no grupo de macros **Switcher Group** (grupo dos seletores) e usa a tecla de atalho ⌃⇧⌘V (Control-Shift-Command-V) por padrão.
+
+<Callout type="ok">
+Aperte ⌃⇧⌘V e uma lista aparece na tela. O primeiro item no topo é o que você acabou de copiar, e as cópias mais antigas ficam abaixo.
+</Callout>
+
+Encontre o item que você quer e dê um clique duplo, aperte Return ou arraste-o para o seu documento, e ele será colado exatamente onde você estava digitando. Algumas variações práticas:
+
+- Segure ⇧ Shift enquanto aperta Return ou dá um clique duplo para colar como texto simples, sem as fontes nem as cores originais.
+- Segure ⌥ Option para só colocar o item de volta na área de transferência do sistema, sem colar ainda.
+- ⌘ mais um número cola diretamente o item correspondente.
+- O campo de busca no topo encontra um item por algumas palavras que você lembrar, e você pode mostrar só imagens ou só favoritos.
+- Marque como favorito um item que você usa muito para que ele nunca seja empurrado para fora.
+- Selecione vários itens e cole todos juntos como um só. Escolha o que vai entre eles no menu da engrenagem.
+
+Assim, quem estava se candidatando à vaga no começo da página pode copiar o telefone, o e-mail, o link e a apresentação de uma vez só, voltar ao formulário e apertar ⌃⇧⌘V para colar um por um.
+
+Você nem precisa abrir a janela. Clique no <Term k="状态菜单" text="menu de status" /> do Keyboard Maestro na barra de menus: o menu **Paste** (colar) lista os 30 itens de texto mais recentes, e basta escolher um para colar ([wiki](https://wiki.keyboardmaestro.com/Status_Menu)).
+
+## O que ele não guarda e por quanto tempo
+
+O histórico da área de transferência registra tudo, então vale saber de alguns detalhes logo de cara ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)):
+
+- <strong>Coisas que parecem senhas</strong> ficam ocultas na lista, são apagadas assim que chegam à décima posição e nunca são gravadas no disco. Para ver uma delas, clique nela segurando ⌥ Option. Quem controla isso é a opção **Detect (and Conceal) Possible Passwords** (detectar e ocultar possíveis senhas), na aba **General** (geral) dos ajustes.
+- <strong>Se o histórico continua lá depois de reiniciar</strong> depende da opção **Save Clipboard History Between Launches** (salvar o histórico da área de transferência entre inicializações), em **General**. Com ela desligada, o histórico é limpo toda vez que o Engine encerra, e reiniciar o Mac encerra o Engine ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)).
+- <strong>Apps que você não quer que sejam registrados</strong>, como aquele que guarda dados de outras pessoas, entram na lista de exclusão do histórico da área de transferência, na aba **Excluded** (excluídos) dos ajustes. Enquanto um app excluído estiver em primeiro plano, o Keyboard Maestro não registra a área de transferência automaticamente ([wiki](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)).
+
+Os ajustes ficam em **Keyboard Maestro ▸ Settings** (ajustes) na barra de menus (em versões mais antigas do macOS, aparece como Preferences).
+
+Mais um detalhe que afeta suas próprias macros. Muitas ações fazem o trabalho passando pela área de transferência do sistema, como **Insert Text by Pasting** (inserir texto colando) e **Copy to Named Clipboard** (copiar para área de transferência nomeada), e <u>todas elas substituem o que estava na área de transferência do sistema</u> ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)). Se você apertar ⌘V depois de uma dessas macros, pode acabar colando o texto que a macro acabou de colar. A boa notícia é que a sua cópia anterior continua no histórico, uma ou duas posições para trás.
+
+## Áreas de transferência nomeadas: dê um nome e deixe guardado
+
+O histórico da área de transferência é uma fila que está sempre andando: entram itens novos e os antigos vão descendo. Mas há coisas que você quer que fiquem sempre no mesmo lugar, como uma assinatura de e-mail com o logotipo e o telefone da sua loja, uma imagem que você cola o tempo todo ou a descrição formatada de um curso. É para isso que servem as áreas de transferência nomeadas.
+
+Uma área de transferência nomeada não é bem uma área de transferência. Ela parece mais um pequeno arquivo que guarda conteúdos de área de transferência: o que você coloca lá continua lá, mesmo depois de reiniciar, até você alterar ou apagar. A grande diferença em relação a uma <Term k="变量" text="variável" /> é que ela aceita texto formatado e imagens, enquanto uma variável só guarda texto simples ([wiki](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)).
+
+Criar uma é simples. Abra a aba **Clipboards** (áreas de transferência) dos ajustes, clique no botão +, digite um nome no campo de uma linha no canto superior direito e cole o conteúdo na caixa grande logo abaixo: texto simples, texto formatado ou uma imagem.
+
+Há duas formas de usar:
+
+- O **Named Clipboard Switcher** (seletor de áreas de transferência nomeadas) é uma janela que lista todas as suas áreas de transferência nomeadas. O Keyboard Maestro já traz três macros para ele no **Switcher Group**, com as teclas de atalho padrão ⇧⌘X, ⇧⌘C e ⇧⌘V: recortar para uma área de transferência, copiar para ela e colar a partir dela ([wiki](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)). Quando você aperta uma tecla de atalho, o Keyboard Maestro intercepta o comando; por isso, se ⇧⌘V já faz algo que você usa bastante em algum app, troque a tecla de atalho dessa macro.
+- Dentro de uma macro, **Copy to Named Clipboard** copia a seleção atual para uma área de transferência nomeada, e **Paste from Named Clipboard** (colar da área de transferência nomeada) cola esse conteúdo de volta. Essas ações sempre passam pela área de transferência do sistema, então, depois que rodam, a área de transferência do sistema fica com o mesmo conteúdo ([wiki](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)). Em um campo de texto, o token `%NamedClipboard%name%` insere o texto de uma área de transferência nomeada no meio de uma frase.
+
+<Callout type="warn">
+A sua lista de áreas de transferência nomeadas já vem com uma chamada **Default Clipboard** (área de transferência padrão). A wiki faz questão de frisar que ela é uma área de transferência nomeada comum, e “Default” significa apenas que já veio com o app. <u>Ela não é a área de transferência do sistema do Mac.</u>
+</Callout>
+
+## Ajuste antes de colar
+
+Copie um parágrafo de uma página da web e cole em um e-mail, e ele traz junto as fontes e as cores da página. Copie uma coluna de nomes de uma planilha e eles vêm com espaços sobrando, fora de ordem. Dá para resolver tudo isso antes de colar.
+
+O jeito mais rápido é direto no histórico da área de transferência. Selecione um item, clique no botão de engrenagem dele ou clique com o botão direito, e o menu mostra várias operações prontas, como converter para texto simples. Cada uma delas cria um item novo, que você cola em seguida ([wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)).
+
+Para fazer isso automaticamente em uma macro, use a ação **Filter** (filtrar). Primeiro escolha o que ela vai processar: a área de transferência do sistema, uma área de transferência nomeada, uma variável, um trecho de texto ou um arquivo. Depois, escolha um filtro no menu **with** (com). Por fim, decida se o resultado volta para o lugar de origem ou vai para outra área de transferência, variável ou arquivo ([wiki](https://wiki.keyboardmaestro.com/action/Filter)). Alguns dos que você mais vai usar:
+
+- **Remove Styles** (remover estilos) transforma texto formatado em texto simples (só para áreas de transferência).
+- **Trim Whitespace** (aparar espaços) remove os espaços do começo e do fim.
+- **Uppercase** (maiúsculas), **Lowercase** (minúsculas), **Title Case** (iniciais maiúsculas) e **Sentence Case** (maiúscula no início da frase) alteram o uso de maiúsculas e minúsculas.
+- **Sort Lines** (ordenar linhas) coloca as linhas em ordem.
+- Contar caracteres, palavras ou linhas.
+
+A lista completa está na página [Filters](https://wiki.keyboardmaestro.com/manual/Filters) da wiki. Imagine um professor copiando uma coluna de nomes de alunos de uma planilha: uma ação **Filter** apara os espaços, outra **Filter** ordena as linhas e uma ação de colar joga tudo no documento. Três ações. Se tudo o que você quer é colar sem formatação, existe um guia prático só para isso: [Cole sem formatação](/pt/howto/paste-plain/).
+
+As suas próprias macros também podem aparecer naquele menu da engrenagem. Basta dar à macro um gatilho **Clipboard Filter** (filtro da área de transferência) e ela passa a aparecer ali, pronta para atuar sobre o item que você selecionar na lista ([wiki](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)).
+
+## Você lembra as palavras, não a posição: Paste by Name
+
+Rolar até o quadragésimo item do histórico cansa rápido. Em vez disso, a ação **Paste by Name** (colar por nome) abre um campo de busca: você digita algumas palavras, ela encontra os textos correspondentes no histórico da área de transferência e você escolhe qual colar ([wiki](https://wiki.keyboardmaestro.com/action/Paste_by_Name)). Coloque essa ação em uma macro com uma tecla de atalho e você ganha uma tecla de “buscar e colar”.
+
+Agora você consegue recuperar qualquer coisa que copiou, e os trechos que usa o tempo todo têm um lugar fixo. Mas basta criar algumas macros para que, cedo ou tarde, uma delas resolva dar problema — por isso, o próximo passo mostra o que conferir, na ordem certa, quando uma macro não funciona.
+
+## Se algo não der certo
+
+<Q q="Eu aperto ⌃⇧⌘V e nada aparece.">
+<p>Primeiro, confira se o ícone do Keyboard Maestro está na barra de menus; se não estiver, o Engine não está rodando. Depois, abra o editor e veja se tanto o grupo Switcher Group quanto a macro Clipboard History Switcher dentro dele estão habilitados. Ainda nada? Siga o <a href="/pt/guide/6-debug/">passo 6</a> na ordem.</p>
+</Q>
+<Q q="Depois de reiniciar, meu histórico da área de transferência está vazio.">
+<p>A opção Save Clipboard History Between Launches, na aba General dos ajustes, está desligada. Ligue essa opção e o histórico passa a ser mantido quando o Engine encerra e abre de novo.</p>
+</Q>
+<Q q="O que eu copio em um certo app nunca aparece no histórico.">
+<p>Confira a aba Excluded dos ajustes: esse app pode estar na lista de exclusão do histórico da área de transferência. Enquanto um app excluído estiver em primeiro plano, o Keyboard Maestro não registra a área de transferência automaticamente.</p>
+</Q>
+<Q q="Algo que acabei de copiar aparece oculto e depois some.">
+<p>Aquilo pareceu uma senha, então o Keyboard Maestro ocultou o item, apagou quando ele chegou à décima posição e nunca o gravou no disco. Para vê-lo, clique nele segurando ⌥ Option.</p>
+</Q>
+<Q q="Minha macro cola dois trechos de texto e o segundo sai duas vezes.">
+<p>A wiki explica que alterar a área de transferência acontece na hora, mas o ⌘V fica na fila esperando o app responder. Se o app estiver lento, as duas trocas da área de transferência acontecem antes da primeira colagem, e aí o segundo texto sai duas vezes. Junte os dois trechos em uma única ação Insert Text by Pasting, ou coloque uma ação Pause (pausa) entre as duas ações (<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">wiki</a>).</p>
+</Q>
+<Q q="Coloquei algo em Default Clipboard, mas o ⌘V não cola.">
+<p>Default Clipboard é uma área de transferência nomeada comum, não a área de transferência do sistema. Para colar o que está lá, use o Named Clipboard Switcher ou a ação Paste from Named Clipboard.</p>
+</Q>
+
+<Checkpoint id="s5" items={["⌃⇧⌘V abre meu histórico da área de transferência e Shift-Return cola como texto simples", "Sei que Save Clipboard History Between Launches define se o histórico continua lá depois de reiniciar", "Criei uma área de transferência nomeada e coloquei nela algo que uso sempre", "Sei que a ação Filter pode remover formatação e aparar espaços antes de colar"]} />

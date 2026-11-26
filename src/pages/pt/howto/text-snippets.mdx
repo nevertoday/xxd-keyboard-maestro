@@ -1,0 +1,75 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: text-snippets
+step: 2
+time: Cinco minutos por abreviação e ela fica pronta para sempre
+for: Você digita a mesma resposta ou a mesma assinatura várias vezes por dia
+tldr: Digite algumas letras como =ship= em qualquer lugar onde dê para escrever, e elas desaparecem para virar sua resposta inteira. Faça o mesmo com sua assinatura e seu aviso de troca e devolução.
+description: Use um gatilho de texto digitado e Insert Text by Pasting para transformar respostas prontas e sua assinatura em abreviações como =ship= e =sig=. Um sinal de igual em cada ponta evita que elas disparem enquanto você digita normalmente, e colar faz assinaturas de várias linhas saírem exatamente como foram escritas.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quem tem uma lojinha online envia as mesmas poucas respostas o dia inteiro: agradecemos pelo pedido, enviamos em até dois dias úteis, você vai receber o código de rastreamento por e-mail. Vinte e-mails por dia significam digitar tudo isso vinte vezes, e na pressa acaba faltando metade da frase. Quando você terminar esta página, digitar `=ship=` no Mail ou em qualquer outro lugar onde dê para escrever vai apagar esses seis caracteres e colocar a resposta inteira no lugar. Sua assinatura e o aviso de troca e devolução também ganham abreviações próprias.
+
+Se você ainda não criou nenhuma abreviação, comece pela [lição 2 para iniciantes](/pt/start/2-type-less/), que mostra o caminho desde a hora de abrir o editor. Esta página continua de onde ela parou: como dar nomes às abreviações quando você já tem várias, por que textos longos devem ser colados e onde elas simplesmente não funcionam.
+
+## Por que usar sinais de igual
+
+Um <Term k="输入字符串触发器" text="gatilho de texto digitado" /> acompanha tudo o que você digita e, assim que os últimos caracteres coincidem com o texto configurado, a macro roda. Por isso, se a sua abreviação for uma palavra comum, ela vai disparar quando você não queria. O exemplo oficial é usar `em` para o seu endereço de e-mail, o que faz a macro disparar toda vez que você digita a palavra inglesa “them”. A recomendação deles é dar às abreviações um prefixo ou sufixo fixo, como `=em=`, algo que você nunca digitaria por acidente (veja [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark>Coloque um sinal de igual em cada ponta e a abreviação só aparece quando você chama.</mark> Todos os exemplos deste site usam esse padrão: `=ship=`, `=sig=`, `=ret=`. Seguir sempre o mesmo padrão também facilita lembrar deles. Assim que você digita um sinal de igual, já sabe que está chamando uma abreviação.
+
+## Comece pela resposta de envio
+
+Primeiro, dê uma casa para as suas abreviações. Clique no + na parte inferior da lista de grupos de macros, à esquerda do editor, e crie um novo <Term k="宏组" text="grupo de macros" /> chamado “Abreviações”. Novos grupos de macros ficam disponíveis em todos os apps, o que é perfeito aqui, já que em um momento você responde no Mail e no outro em um formulário na web.
+
+Nesse grupo, crie uma nova macro e dê a ela o nome “=ship= resposta de envio”, para conseguir achá-la facilmente na lista depois. Adicione um gatilho, escolha **Typed String** (texto digitado) e digite `=ship=` depois de **This string is typed:** (este texto é digitado). Confira se a opção **Simulate 6 deletes before executing** (simular 6 toques em Delete antes de executar; o número acompanha o tamanho da sua abreviação), logo abaixo, está marcada, para que `=ship=` desapareça antes de a resposta aparecer. Depois, adicione a ação **Insert Text by Pasting** (inserir texto colando) e escreva a resposta dentro dela:
+
+<Copy id="ts-ship" title="No que =ship= se transforma" code="Agradeço pelo seu pedido! Ele será enviado em até dois dias úteis, e eu mando o código de rastreamento por e-mail assim que for postado. Se surgir qualquer coisa, é só responder a este e-mail." />
+
+Não existe botão de salvar no Keyboard Maestro. Suas alterações ficam salvas alguns segundos depois que você as faz.
+
+## Por que colar em vez de digitar
+
+Há duas ações comuns para inserir texto. **Insert Text by Typing** (inserir texto digitando) digita tecla por tecla, exatamente como você faria. Ela serve bem para textos curtos feitos de caracteres que você consegue digitar com um ou dois toques, até uns 30 ou 40 caracteres. Qualquer coisa maior fica lenta, e ela não consegue digitar emojis. Já **Insert Text by Pasting** coloca o texto na área de transferência e aperta ⌘V (⌘ é a tecla Command) para você, então textos de qualquer tamanho saem de uma vez, com qualquer caractere, e as quebras de linha continuam sendo quebras de linha em vez de agirem como Return e acionarem algum botão em uma página da web. O porém é que ela substitui o que estava antes na sua área de transferência. A página oficial [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text) compara as duas.
+
+Respostas e assinaturas costumam ser longas e ter várias linhas, então, para abreviações, vale sempre escolher **Insert Text by Pasting**. Perder o conteúdo da área de transferência também não é um grande problema: o <Term k="剪贴板历史" text="histórico da área de transferência" /> do Keyboard Maestro guarda o que você copiou antes, então dá para recuperar. Veja o [passo 5 do guia completo](/pt/guide/5-clipboard/).
+
+## Mais duas: sua assinatura e devoluções
+
+Crie mais duas macros no mesmo grupo, do mesmo jeito. A assinatura tem três linhas, o que mostra bem a vantagem de colar. Todas as quebras de linha saem certinhas:
+
+<Copy id="ts-sig" title="No que =sig= se transforma" code={`Um abraço,
+Mia
+Loja Canto Verde, atendimento de segunda a sexta, das 9:00 às 18:00`} />
+
+O aviso de troca e devolução é a segunda resposta mais comum, então use `=ret=` para ele:
+
+<Copy id="ts-ret" title="No que =ret= se transforma" code="Se alguma coisa chegou danificada, responda com uma foto que eu envio outro produto ou faço o reembolso. O frete de ida e volta fica por minha conta." />
+
+Nas abreviações em si, use apenas letras sem acento e símbolos. A página oficial avisa que, se um gatilho incluir caracteres não ASCII, você deve conferir se a exclusão funciona direito, e letras sem acento nunca têm esse problema.
+
+## Confira se funciona
+
+Abra o Mail, comece uma nova mensagem e digite `=ship=` no corpo do e-mail. Você vai ver os seis caracteres sumirem e a resposta inteira aparecer. Digite `=sig=` logo abaixo, e as três linhas da sua assinatura saem exatamente como foram escritas.
+
+Se algum dia você precisar digitar `=ship=` de verdade, por exemplo para mostrar esse truque a um amigo, a página oficial dá uma dica: no meio do caminho, aperte ⇧Espaço (⇧ é a tecla Shift) e apague o espaço. Por exemplo, digite `=sh`, aperte ⇧Espaço, apague e depois digite `ip=`. ⇧Espaço interrompe a sequência, então a abreviação não dispara.
+
+## Se algo não der certo
+
+<Q q="Digitei a abreviação e não aconteceu nada.">
+Primeiro: você digitou tudo de uma vez? Parar por alguns segundos, clicar com o mouse, apertar uma combinação com ⌘ ou ⌃ (Control) ou trocar de app faz o Keyboard Maestro descartar a sequência e começar a contar de novo. Se você digitou tudo direto e mesmo assim não funcionou, o mais provável é questão de permissão. Gatilhos de texto digitado, assim como teclas de atalho, precisam da <Term k="辅助功能权限" text="permissão de Acessibilidade" /> para enxergar o que você digita. Escolha **Help ▸ Interactive Help** (ajuda interativa), clique em Something unexpected is happening (algo inesperado está acontecendo) e ele avisa se houver algum problema evidente. As orientações oficiais estão na página [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key).
+</Q>
+<Q q="As abreviações não funcionam em campos de senha nem nas próprias janelas do Keyboard Maestro.">
+Isso é de propósito. O macOS não deixa nenhum app ver o que você digita em um campo de senha, então as abreviações nunca funcionam lá. Nas janelas pop-up do próprio Keyboard Maestro, o Engine (a parte que roda em segundo plano) também não consegue ver o que você digita, e no editor elas não funcionam bem, por isso a recomendação oficial é usar outro gatilho nesses lugares. Se de repente elas pararem de funcionar em todo lugar, o sistema pode estar achando que você ainda está em um campo de senha (Secure Input). Encerrar o último app que pediu uma senha, ou reiniciar, costuma resolver. Veja [a seção Secure Input Mode da página Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode).
+</Q>
+<Q q="Digitei uma abreviação em uma planilha ou lista de arquivos e ela apagou outra coisa.">
+**Simulate 6 deletes before executing** significa exatamente isso: o Keyboard Maestro aperta Delete algumas vezes para você. Fora de um campo de texto, esses toques podem apagar o que estiver selecionado, e a página oficial alerta justamente sobre isso. Use abreviações só onde você estiver escrevendo texto, ou desmarque essa opção na macro.
+</Q>
+<Q q="Ele colou a última coisa que eu tinha copiado.">
+Alguns apps demoram para processar o comando de colar. A área de transferência já mudou, mas o ⌘V ainda não chegou, e acaba entrando o texto errado. Isso costuma acontecer quando você dispara duas abreviações uma logo depois da outra. A solução oficial em [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) é juntar na mesma ação o texto que deve sair junto, para colar tudo de uma vez, ou adicionar uma ação **Pause** (pausar) entre duas ações de colar.
+</Q>
+
+Agora, os textos que você mais escreve têm cada um seu próprio nome, começando e terminando com um sinal de igual. Para colocar a data de hoje no seu texto, siga para [Insira a data de hoje com uma tecla](/pt/howto/insert-date/).

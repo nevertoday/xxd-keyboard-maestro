@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: daily-schedule
+step: 2
+time: 10 minutos
+for: Em um certo horário todo dia ou toda semana, tem algo que você sempre precisa lembrar de fazer por conta própria
+tldr: Um gatilho Time of Day define um horário e os dias da semana, e a macro começa sozinha quando chega a hora. Use Cron para datas mais específicas e Periodic para intervalos regulares. O Mac precisa estar acordado nesse momento.
+description: "Rode uma macro do Keyboard Maestro em um horário fixo todo dia ou em certos dias da semana: Time of Day para um horário diário, Cron para datas como a última sexta-feira do mês e Periodic para intervalos regulares; o que acontece quando o Mac está em repouso ou a tela está bloqueada, e o que conferir se ela não rodou."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quase todo mundo que escreve conhece essa manhã. Você prometeu a si mesmo começar às 8:30, mas aí respondeu alguns e-mails, abriu umas páginas na internet e, quando se deu conta do rascunho, já eram dez horas. Quando terminar esta página, todo dia útil às 8:30 o seu Mac vai abrir sozinho o rascunho em que você está trabalhando e mostrar uma notificação com a meta do dia. Você não aperta nada. Quando chega a hora, ele simplesmente começa.
+
+O que faz uma macro começar é um <Term k="触发器" text="gatilho" />. As lições para iniciantes usaram uma tecla de atalho e abreviações digitadas; aqui, quem entra em cena é o relógio. <mark>Deixe tudo o que acontece na hora marcada por conta de um gatilho de tempo, mas ele só dispara se o Mac estiver acordado nesse momento.</mark> A segunda metade dessa frase importa mais do que a primeira.
+
+## Abra o rascunho às 8:30 todo dia útil
+
+Crie uma nova <Term k="宏" text="macro" /> e dê a ela um nome como “Começar a escrever: abrir rascunho”. Como gatilho, escolha **Time of Day** (hora do dia), que roda uma macro em um determinado horário nos dias da semana que você marcar (veja [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)). Coloque o horário em 8:30. A fileira de quadradinhos logo abaixo representa os dias da semana: os azuis estão ativos, e os claros com um risco na diagonal não. Clique em um quadrado para alternar e deixe de segunda a sexta em azul. Se o horário aparece no formato de 24 horas ou com AM e PM, isso segue os ajustes do seu macOS.
+
+Adicione duas ações. A primeira é **Open a File, Folder or Application** (abrir um arquivo, pasta ou aplicativo). Clique no botão à direita dela para escolher o seu rascunho e, no menu “with” (com), selecione o Editor de Texto ou o app em que você costuma escrever. A segunda é **Notification** (notificação). Coloque o título “Hora de escrever” e, na mensagem, escreva um lembrete para você mesmo, como “Primeiro 500 palavras, e-mail só depois das dez” (veja [Notification Action](https://wiki.keyboardmaestro.com/action/Notification)).
+
+<Callout type="tip">
+Não espere até amanhã de manhã para descobrir se funcionou. Coloque o horário para daqui a dois minutos, veja a macro rodar uma vez e depois mude de volta para 8:30.
+</Callout>
+
+## Se o Mac estiver em repouso, a macro não compensa depois
+
+Essa é a parte em que muita gente se confunde. A wiki deixa bem claro: o Mac precisa estar acordado para o gatilho acontecer e, se estiver em repouso, a macro não dispara depois. Então, se o seu notebook estiver com a tampa fechada às 8:30, o rascunho não abre naquela manhã, e quando você abrir a tampa às 9:00, a macro não vai se lembrar de abrir.
+
+Com a tela, a história é outra. Se o monitor estiver em repouso, a tela estiver bloqueada ou o protetor de tela estiver rodando, a macro ainda roda, mas muitas ações que interagem com a interface (digitar, abrir menus, clicar) não vão funcionar. Algumas ações conseguem despertar o monitor ou interromper o protetor de tela, o que resolve parte do problema, mas não conseguem desbloquear a tela (também em [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)).
+
+Por isso, escolha um horário em que você costuma já estar na frente do computador. E se o que você quer de verdade é “fazer isso assim que eu abrir o Mac”, deixe o relógio de lado. O gatilho **Wake** (despertar) dispara toda vez que o Mac sai do repouso, não apenas na primeira vez do dia (veja [Wake Trigger](https://wiki.keyboardmaestro.com/trigger/Wake)), e o gatilho **Login** (início de sessão) dispara quando você faz login e o <Term k="引擎" text="Engine" /> (a parte que roda em segundo plano) é iniciado junto.
+
+## Última sexta-feira do mês: use Cron
+
+Não dá para marcar certas datas em uma fileira de dias da semana. Muita gente que trabalha como freelancer envia as faturas do mês na tarde da última sexta-feira, e esquecer uma única vez significa receber com um mês de atraso. Esse tipo de data é trabalho para o gatilho **Cron**, que descreve o horário em uma linha de cinco campos: minuto, hora, dia do mês, mês e dia da semana (veja [Cron Trigger](https://wiki.keyboardmaestro.com/trigger/Cron)). A página oficial mostra como especificar a última sexta-feira do mês: `-1-7` no dia do mês e `+Fri` no dia da semana. Às quatro da tarde, fica assim:
+
+<Copy id="ds-cron" title="Última sexta-feira de todo mês às 16:00" code="0 16 -1-7 * +Fri" />
+
+A ação é uma **Notification** de novo, com “Enviar as faturas do mês”, e você pode acrescentar uma **Open a File, Folder or Application** para abrir direto a pasta onde ficam as suas faturas. O Cron também precisa que o Mac esteja acordado nesse momento.
+
+## De tempos em tempos: use Periodic
+
+Existe ainda o “de vez em quando”. Um estudante revisando a matéria em casa passa a tarde inteira sentado, e o pescoço é o primeiro a reclamar. O gatilho **Periodic** (periódico) dispara a cada tantos segundos, minutos ou horas, e pode ficar restrito a uma parte do dia ou a certos dias da semana (veja [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)). Configure para rodar a cada 50 minutos entre 9:00 e 18:00, com uma **Notification**: “Levante, beba um pouco de água e olhe pela janela.”
+
+Não deixe o intervalo curto demais. A wiki recomenda especificamente evitar intervalos em segundos, a menos que não haja outro jeito: em parte porque isso pode consumir bastante CPU, e em parte porque qualquer macro que dispara cancela escolhas que estavam esperando por você, como a paleta de conflitos (Conflict Palette), então macros agendadas com muita frequência fazem essas opções sumirem do nada. Mais um detalhe: um período que atravessa a meia-noite termina à meia-noite; por isso, use dois gatilhos se quiser cobrir antes e depois.
+
+## Se algo não der certo
+
+<Q q="Chegou a hora e nada aconteceu.">
+Primeiro, o Mac estava em repouso naquele momento? O que deveria rodar enquanto ele estava em repouso não roda depois. Em seguida, confira se o <Term k="宏组" text="grupo de macros" /> em que ela está e a própria macro estão habilitados. O recurso **Help ▸ Interactive Help** (ajuda interativa) do Keyboard Maestro pode checar cada um desses itens para você (veja [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Por fim, veja se o Engine está rodando. Se ele tiver sido encerrado, nenhum gatilho dispara.
+</Q>
+<Q q="A macro rodou, mas o rascunho não veio para a frente ou a ação de digitar não digitou nada.">
+Muito provavelmente a tela estava bloqueada ou o monitor estava em repouso. A macro até roda, mas as ações que interagem com a interface não funcionam e não conseguem desbloquear a tela. Mude o horário para um momento em que você costuma já estar usando o computador.
+</Q>
+<Q q="Nenhuma notificação apareceu.">
+**Notification** usa a Central de Notificações do macOS. Confira nos Ajustes do Sistema se as notificações do Keyboard Maestro Engine estão desligadas. A página oficial de [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting) também orienta garantir que o Engine possa exibir notificações quando você estiver investigando um problema, senão você nem vê quando ele avisa que uma ação falhou.
+</Q>
+<Q q="Não tenho certeza se a minha linha do Cron está certa.">
+A página oficial tem uma tabela com linhas prontas, desde “um minuto após a meia-noite todos os dias” até “8:30 da manhã no primeiro sábado de cada mês”. Adaptar uma delas é o caminho mais seguro. Você também pode colocar o minuto e a hora alguns minutos à frente, preencher os campos de dia com `*`, ver o gatilho disparar uma vez e depois mudar de volta.
+</Q>
+
+Um gatilho de tempo lembra o horário por você. Tudo o que você precisa lembrar é que o Mac tem que estar acordado. Além do relógio, uma macro também pode começar quando você entra em uma rede Wi-Fi ou conecta um dispositivo. Veja [Faça algo ao entrar em uma rede Wi-Fi ou conectar um dispositivo](/pt/howto/wifi-usb/).

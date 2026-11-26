@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: app-hotkeys
+step: 2
+time: Dois minutos por app
+for: Você alterna entre os mesmos apps dezenas de vezes por dia e precisa procurá-los toda vez
+tldr: ⌃⌥⌘M é sempre o Mail e ⌃⌥⌘C é sempre o Calendário. Se o app estiver aberto, você vai para ele; se não estiver, ele abre. Aperte de novo com ele na frente e você volta para onde estava.
+description: "Use um gatilho Hot Key e Activate a Specific Application para dar a cada app que você usa uma tecla fixa. Configure If already at the front para voltar ao app anterior, e uma única tecla leva você para lá e de volta. Quando as teclas acabarem, use um grupo de macros que fica ativo para uma ação: aperte uma combinação e depois uma letra."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Em um trabalho de escritório, é fácil pular entre Mail, Calendário e Notas dezenas de vezes por dia. Com ⌘Tab, você muitas vezes passa do ponto e precisa dar outra volta, e procurar o ícone no Dock tira seus olhos do trabalho. Aqui vai outro jeito: deixe ⌃⌥⌘M sempre para o Mail, ⌃⌥⌘C sempre para o Calendário e ⌃⌥⌘N sempre para o Notas (⌃ é Control, ⌥ é Option, ⌘ é Command). Se o app estiver aberto, você alterna direto para ele. Se não estiver, ele abre primeiro. E, se já estiver na frente, apertar a tecla de novo leva você de volta para o que estava usando.
+
+<mark>Dê uma tecla fixa para cada app e, assim que seus dedos decorarem, seus olhos não precisam mais procurar.</mark>
+
+## Uma tecla, um app
+
+O que você quer é uma macro em que uma <Term k="热键" text="tecla de atalho" /> traz um app específico para a frente. A ação para isso é **Activate a Specific Application** (ativar um aplicativo específico). A página oficial diz que ela alterna para o app, abrindo-o se precisar, do mesmo jeito que trocar com ⌘Tab ou abrir de qualquer outra forma (veja [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+Essa ação tem um ajuste **If already at the front:** (se já estiver na frente) que decide o que acontece quando você aperta a tecla com o app já na frente. Você pode deixá-lo ali, voltar para o app anterior, ocultá-lo e fazer mais algumas coisas. Escolha a opção que alterna para o aplicativo anterior, e a tecla funciona como um vai e volta: aperte uma vez para ir, e de novo para voltar.
+
+Na [lição 1 para iniciantes](/pt/start/1-first-macro/), montamos uma macro assim, abrindo o Notas com ⌃⌥⌘N. Esta página transforma isso em um conjunto completo.
+
+## Monte o conjunto
+
+Crie um grupo de macros chamado “Trocar de app”. Um grupo de macros fica disponível em todos os apps a menos que você mude isso, então deixe como está. Depois, crie uma macro para cada app dentro dele. As três são montadas do mesmo jeito, mudando apenas a tecla e o app:
+
+- “Mail”: um gatilho **Hot Key** (tecla de atalho) em ⌃⌥⌘M e uma ação **Activate a Specific Application** configurada para o Mail.
+- “Calendário”: ⌃⌥⌘C, configurada para o Calendário.
+- “Notas”: ⌃⌥⌘N, configurada para o Notas.
+
+Nas três, configure **If already at the front:** para alternar para o aplicativo anterior. Você não precisa refazer a do Notas: arraste a macro da lição 1 do **Global Macro Group** (grupo global de macros) para dentro deste grupo e mude esse ajuste. Se em vez disso você criar uma segunda macro com ⌃⌥⌘N, as duas disputam a mesma tecla e o Keyboard Maestro abre uma pequena paleta (um painel flutuante de botões) perguntando qual delas executar (o nome oficial é Conflict Palette).
+
+Para escolher as teclas, a recomendação oficial é manter um padrão (por exemplo, usar o mesmo conjunto de teclas modificadoras para significar “abrir um app”), assim você não precisa decorar cada atalho separadamente (veja [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)). Aqui usamos sempre ⌃⌥⌘ mais a primeira letra do nome do app: M para Mail, C para Calendário e N para Notas. No seu conjunto, escolha letras que você associe ao app sem precisar pensar.
+
+## Acabaram as teclas? Aperte uma combinação e depois uma letra
+
+Com muitos apps, até ⌃⌥⌘ mais uma letra começa a não dar conta. O manual oficial descreve um jeito de contornar isso: coloque essas macros em um grupo de macros que fica ativo para apenas uma ação. Configure o grupo como **Activated for one action when:** (ativado para uma ação quando) e dê uma tecla de atalho para ele, digamos ⌃⌥⌘A. As macros lá dentro usam letras únicas como tecla de atalho: M para Mail, S para Safari e F para Finder. No resto do tempo, essas letras digitam normalmente. Só depois que você aperta ⌃⌥⌘A é que o grupo acorda; assim que você aperta uma letra e essa macro roda, ele volta a dormir (veja [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Um grupo assim dá conta de uma dúzia de apps ocupando apenas uma combinação no teclado inteiro.
+
+## Confira se funciona
+
+Encerre o Mail e aperte ⌃⌥⌘M a partir de qualquer app. O Mail deve abrir e vir para a frente. Aperte ⌃⌥⌘M de novo enquanto estiver no Mail, e você deve voltar para o app que estava usando. Faça o mesmo teste com o Calendário e o Notas.
+
+## Se algo não der certo
+
+<Q q="Apertei a tecla de atalho e nada aconteceu.">
+Se a caixa da macro ou do grupo “Trocar de app” estiver desmarcada, ou se o Engine (a parte que roda em segundo plano) não estiver rodando, a tecla de atalho não vai responder, então olhe aí primeiro. Depois, pense se outro app também usa essa combinação. A página oficial diz que, quando outro app registra a mesma tecla de atalho, a sua macro e a ação daquele app acontecem juntas. Tente outra letra. Se ainda não disparar, escolha **Help ▸ Interactive Help** (ajuda interativa) e siga o passo a passo até encontrar a causa.
+</Q>
+<Q q="Depois que configurei a tecla de atalho, um atalho em um dos meus apps parou de funcionar.">
+É assim que as teclas de atalho se comportam. A página oficial diz que o sistema engole a tecla e a entrega para a sua macro, então um atalho de menu em um app que usa as mesmas teclas nunca chega a recebê-la. Se um dos seus apps por acaso usar ⌃⌥⌘ mais a mesma letra, a sua macro vence. Escolha uma letra que esse app não use.
+</Q>
+<Q q="Adicionei mais ações depois desta, e o app abre devagar demais para elas.">
+A página oficial menciona que, com muitos apps abertos e pouca memória livre, pode ser preciso esperar vários segundos depois de **Activate a Specific Application** até que as próximas ações funcionem. Adicione uma ação **Pause** (pausar) no meio, ou use **Pause Until** (pausar até) para esperar a janela do app aparecer. Veja [a seção Timing Between Actions de Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions).
+</Q>
+
+Em poucos dias, seus dedos vão encontrar o app antes dos seus olhos. Para abrir vários apps com uma única tecla e ainda deixar as janelas no lugar certo, continue em [Coloque suas janelas onde você quiser](/pt/howto/window-layout/).

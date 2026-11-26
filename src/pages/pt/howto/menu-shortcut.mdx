@@ -1,0 +1,56 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: menu-shortcut
+step: 1
+time: Dez minutos
+for: Você usa um comando de menu todo dia, ele não tem atalho e você precisa pegar o mouse toda vez
+tldr: Aperte ⌃⌥⌘E no Safari e a janela de salvar de Exportar como PDF aparece direto. A tecla só funciona no Safari, então nenhum outro app é afetado.
+description: Use a ação Select or Show a Menu Item para escolher o menu por você, pegando o item no menu pop-up Menu da ação para nunca digitar o nome errado. Configure o grupo de macros para funcionar só nesse app, e a tecla de atalho não atrapalha em nenhum outro lugar.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Pais de crianças em idade escolar muitas vezes precisam guardar avisos do site da escola: o que levar para o passeio de primavera, o horário do próximo semestre, a lista de material. A página muda em poucas semanas, então salvar em PDF é a opção mais segura. No Safari, isso significa abrir o menu Arquivo e descer até Exportar como PDF, mas esse item não tem atalho, então você precisa usar o mouse toda vez. Ao terminar esta página, você vai apertar ⌃⌥⌘E no Safari (⌃ é Control, ⌥ é Option, ⌘ é Command), a janela de salvar vai abrir direto, e tudo o que você precisa fazer é dar um nome ao arquivo. Essa tecla só funciona no Safari. Em todos os outros apps, nada muda.
+
+<mark>Todo comando de menu em que você consegue clicar pode ter uma tecla: a macro clica no menu por você.</mark>
+
+## Primeiro, um grupo de macros só para o Safari
+
+Essa tecla só faz sentido no Safari, então comece com um <Term k="宏组" text="grupo de macros" /> que só fique ativo no Safari. Clique no + na parte inferior da lista de grupos de macros, à esquerda do editor, crie um novo grupo chamado “Safari” e, nos ajustes dele, escolha **Available in these applications:** (disponível nestes apps) e adicione o Safari. O manual oficial diz que as macros de um grupo configurado assim só ficam ativas nesses apps (veja [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Ainda tem uma vantagem extra: ⌃⌥⌘E continua livre em todos os outros apps, então depois você pode dar a mesma tecla para a Pré-Visualização ou para o Editor de Texto sem nenhum conflito.
+
+## Monte a macro
+
+No grupo “Safari”, crie uma nova macro chamada “Exportar como PDF”. Como gatilho, escolha **Hot Key** (tecla de atalho) e aperte ⌃⌥⌘E. Como ação, escolha **Select or Show a Menu Item** (selecionar ou mostrar um item de menu), que seleciona um item da barra de menus por você (veja [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)).
+
+Não digite os nomes dos menus por conta própria. Em vez disso, escolha direto no menu pop-up **Menu** da ação. A página oficial explica que esse menu pop-up existe justamente para garantir que você acerte o menu: ele lista todos os apps abertos e os menus de cada um, então o que você escolhe bate exatamente com o menu. Abra o Safari primeiro, depois encontre o Safari no menu pop-up, escolha Arquivo e depois Exportar como PDF. Se o seu Mac estiver configurado em outro idioma, os nomes dos menus vão aparecer nesse idioma, e escolher pelo menu pop-up já resolve isso.
+
+A ação também pergunta em qual app o menu está. **the Front Application** (o aplicativo em primeiro plano) serve perfeitamente, porque o grupo de macros já garante que essa tecla só funcione enquanto o Safari estiver em primeiro plano.
+
+## O que mais essa ação consegue fazer
+
+- Alguns itens de menu mudam de nome, como Mostrar Barra Lateral, que vira Ocultar Barra Lateral depois que você clica nele. A página oficial diz que você pode juntar os dois nomes com uma barra vertical, `Mostrar Barra Lateral|Ocultar Barra Lateral`, e ela escolhe o que estiver ali, então uma única tecla passa a alternar entre os dois.
+- Ela trata três pontos seguidos e o caractere de reticências (…) nos nomes de menu como a mesma coisa, então qualquer um dos dois funciona.
+- O menu Apple, no canto superior esquerdo da tela, é escrito como Apple na ação.
+
+## Confira se está funcionando
+
+Abra qualquer página no Safari e aperte ⌃⌥⌘E. Você deve ver a janela de salvar de Exportar como PDF aparecer, exatamente como se tivesse clicado no menu. Depois, mude para o app Notas e aperte ⌃⌥⌘E. Nada deve acontecer, o que mostra que o grupo só fica ativo no Safari.
+
+## Se algo não der certo
+
+<Q q="Apertei a tecla de atalho e nenhuma janela de salvar apareceu.">
+Existem duas causas comuns. Uma é o nome do menu não bater. Basta um espaço diferente para a ação não encontrar o item, então volte ao menu pop-up **Menu** e escolha de novo. A outra é o item de menu estar esmaecido no momento, por exemplo porque nenhuma página está aberta no Safari. A página oficial diz que, quando essa ação não encontra o menu ou quando ele está desabilitado, ela interrompe toda a macro por padrão. Para menus que não fazem tanta diferença, você pode configurar a ação para deixar a macro continuar.
+</Q>
+<Q q="Eu aperto no Safari e nada acontece, como se a macro nunca tivesse disparado.">
+Confira se o Safari está em primeiro plano, se o grupo e a macro estão marcados e se o Engine (a parte que roda em segundo plano) está em execução. Depois, verifique se o app adicionado em **Available in these applications:** no grupo “Safari” é mesmo o Safari. Se ainda assim ela não disparar, veja o [passo 6 do guia completo](/pt/guide/6-debug/).
+</Q>
+<Q q="Em alguns apps o menu está claramente lá, mas a ação não consegue selecionar o item.">
+A página oficial de resolução de problemas explica que alguns apps multiplataforma não montam seus menus direito até você clicar na barra de menus com o mouse. A solução é trocar para outro app e voltar, ou fazer a macro simular primeiro um clique na barra de menus com **Move or Click Mouse** (mover ou clicar o mouse), já que a página oficial diz que clicar logo à direita do menu Ajuda costuma bastar, e só depois selecionar o menu. Veja esta seção em [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+</Q>
+<Q q="Por que não simplesmente apertar uma tecla com Type a Keystroke?">
+Porque esse item de menu não tem nenhuma tecla para apertar. E, mesmo quando um item tem, a recomendação oficial é escolher o menu em vez de simular o atalho dele, principalmente quando esse atalho também é a tecla de atalho de alguma macro, já que simular esse atalho gera resultados imprevisíveis (veja [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+</Q>
+
+Agora o comando de menu que você usa todo dia tem uma tecla só para ele. Você pode fazer o mesmo com qualquer item de menu em que consiga clicar, em qualquer app, criando um grupo de macros para cada app para que eles nunca se atrapalhem.

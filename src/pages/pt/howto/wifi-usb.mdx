@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: wifi-usb
+step: 2
+time: 10 minutos
+for: Toda vez que você chega a um lugar ou conecta um dispositivo, faz sempre as mesmas coisas primeiro
+tldr: O gatilho Wireless Network dispara uma macro quando você entra ou sai de uma rede Wi-Fi, e o gatilho USB Device dispara uma quando você conecta ou desconecta um dispositivo USB. O Keyboard Maestro pode preencher qualquer um dos dois nomes para você.
+description: "Faça tarefas automaticamente ao entrar em uma rede Wi-Fi ou conectar um dispositivo, com os gatilhos Wireless Network e USB Device do Keyboard Maestro: o Mac de um professor fica mudo e encerra o Mail na rede da escola, ligar um scanner abre o app de digitalização; a permissão de Localização que o macOS Sonoma pede e por que essas macros precisam rodar mais de uma vez sem problema."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Se você dá aula, provavelmente isso já aconteceu pelo menos uma vez. Você conecta o notebook ao projetor, abre a tampa, e a música de ontem à noite ecoa pela sala inteira enquanto os avisos de e-mail aparecem um atrás do outro no telão. São só duas coisas que você precisa fazer ao entrar na sala, desligar o som e encerrar o Mail, mas em um dia corrido você acaba esquecendo. Quando você terminar esta página, seu MacBook vai ficar mudo e encerrar o Mail sozinho assim que se conectar ao Wi-Fi da escola, sem você apertar nada.
+
+Os gatilhos de horário cuidam de “que horas são”. Os dois <Term k="触发器" text="gatilhos" /> desta página cuidam de “onde você está e o que está conectado”. <mark>Para as coisas que você sempre faz quando chega a algum lugar ou conecta algo, deixe essa rede ou esse dispositivo apertar o botão de iniciar.</mark>
+
+## Entre no Wi-Fi da escola, e o Mac fica mudo e encerra o Mail
+
+Crie uma nova <Term k="宏" text="macro" /> chamada “Entrar na sala”. Como gatilho, escolha **Wireless Network** (rede sem fio), que dispara quando uma rede Wi-Fi é conectada ou desconectada ([gatilho Wireless Network](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). Você pode deixá-lo reagir a qualquer rede ou apenas a um nome específico, e a wiki oficial prefere o BSSID, um identificador mais único, já que muita gente tem redes chamadas “Casa” ou “Trabalho”.
+
+Você não precisa digitar o nome. Coloque o cursor no campo de nome do gatilho, depois desconecte e conecte novamente ao Wi-Fi da escola pela barra de menus, e o Keyboard Maestro preenche o nome da rede (ou o BSSID) para você. Configure para disparar ao conectar.
+
+Adicione duas ações. **Mute Audio Device** (silenciar dispositivo de áudio) consegue silenciar, tirar do mudo ou alternar o mudo do dispositivo de áudio padrão (a partir do Keyboard Maestro 11, [Mute Audio Device](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)), então escolha silenciar. Depois adicione **Quit a Specific Application** (encerrar um app específico), escolha o Mail e deixe a opção em **Quit** (encerrar). Se quiser que tudo volte ao normal depois da aula, crie uma segunda macro, “Sair da sala”, disparada quando a mesma rede desconectar, com uma ação que tira do mudo.
+
+A partir do macOS Sonoma, existe um passo que você não pode pular: ler informações do Wi-Fi exige a permissão de Localização. A wiki recomenda confirmar se o Keyboard Maestro Engine (a parte que roda em segundo plano) tem essa permissão, que fica em **Ajustes do Sistema ▸ Privacidade e Segurança**, em Serviços de Localização. Sem ela, o Engine não consegue ler as informações do Wi-Fi.
+
+<Callout type="ok">
+Na sala de aula, desligue o Wi-Fi e ligue novamente. Assim que ele se reconectar à rede da escola, o ícone de som mostra o áudio no mudo e o Mail é encerrado.
+</Callout>
+
+## Ela vai rodar mais de uma vez, então deixe tudo seguro para isso
+
+A wiki faz questão de destacar isso. Seu Mac desconecta e reconecta o Wi-Fi toda vez que entra em repouso e desperta, e o macOS às vezes também se reconecta discretamente em segundo plano, então essas macros precisam poder rodar várias vezes sem problema. Silenciar o áudio e encerrar o Mail são ações tranquilas. Silenciar o que já está mudo, ou encerrar um app que já está fechado, não estraga nada. Mas se você colocar “criar as anotações da aula de hoje” lá dentro, vai ganhar um arquivo extra toda vez que fechar a tampa. Escolha ações que cheguem ao mesmo resultado, não importa quantas vezes rodem.
+
+## Ligue o scanner, e o app de digitalização abre
+
+Agora, outro leitor. Se você tem filhos na escola, provavelmente digitaliza alguns formulários à noite de vez em quando, e toda vez é a mesma coisa: ligar o scanner, procurar o app de digitalização e esquecer de fechar depois. O gatilho **USB Device** (dispositivo USB) dispara uma macro quando um dispositivo USB é conectado ou desconectado, e o exemplo da própria wiki é exatamente esse: abrir o software do scanner quando você liga o aparelho e encerrá-lo quando você desliga ([gatilho USB Device](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
+
+Os nomes dos dispositivos USB muitas vezes não são o que você espera, então deixe o Keyboard Maestro preencher esse também. Coloque o cursor no campo de nome do gatilho, conecte (ou ligue) o scanner, e o nome aparece. Duas macros deixam tudo claro. Uma dispara quando o dispositivo é conectado, com **Activate a Specific Application** (ativar um aplicativo específico) configurada para o seu app de digitalização, o que já o abre se ele não estiver rodando. A outra dispara quando o dispositivo é desconectado, com **Quit a Specific Application** para o mesmo app. Enquanto a macro roda, o <Term k="令牌" text="token" /> `%TriggerValue%` (um marcador dinâmico que é substituído na hora) guarda o nome do dispositivo, o que é útil se você quiser que uma notificação diga qual era o dispositivo.
+
+Se o que você espera não é um dispositivo, mas um disco, como um disco externo ou um cartão de memória em um leitor de cartões, o gatilho certo é **Mounted Volume** (volume montado). Ele dispara quando um volume é montado ou desmontado, seja um volume específico ou qualquer um ([gatilho Mounted Volume](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
+
+## Apenas verificando por dentro de outra macro
+
+Às vezes você não precisa que uma macro dispare ao conectar. Você só quer que outra macro se adapte, por exemplo um lembrete matinal que aparece em casa, mas não na escola. As condições fazem isso: com **If Then Else** (se… então… senão), a condição **Wireless Network** verifica se uma rede está conectada e a condição **USB Device** verifica se um dispositivo está presente ([condição Wireless Network](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [condição USB Device](https://wiki.keyboardmaestro.com/condition/USB_Device)). Para saber o que são condições e como elas funcionam, veja o [passo 4 do guia completo](/pt/guide/4-variables/).
+
+## Se algo não der certo
+
+<Q q="Entrei na rede e a macro não rodou.">
+No macOS Sonoma e em versões mais recentes, confira primeiro se o Keyboard Maestro Engine tem a permissão de Localização. Depois verifique se o nome no gatilho bate exatamente com o da rede. O jeito mais garantido é apagar o campo, colocar o cursor lá dentro, desconectar e reconectar para que ele mesmo preencha o nome. Confira também se a macro e o <Term k="宏组" text="grupo de macros" /> dela estão ambos habilitados.
+</Q>
+<Q q="A macro rodou várias vezes no mesmo dia.">
+Isso é esperado. Entrar em repouso, despertar e as reconexões do próprio sistema fazem a macro disparar de novo. Troque por ações que possam se repetir sem problema e deixe fora desse tipo de macro qualquer coisa que crie arquivos ou envie mensagens.
+</Q>
+<Q q="O nome do scanner não é o que eu achava, e digitar o nome não funciona.">
+Não digite o nome. Deixe o Keyboard Maestro preenchê-lo quando você conectar o dispositivo. A wiki diz que conectar o cabo ou ligar o aparelho funcionam, então, para um scanner com botão de liga/desliga, coloque o cursor no lugar primeiro e depois ligue o aparelho.
+</Q>
+<Q q="Conectei um disco externo e o gatilho USB Device não fez nada.">
+Para aguardar um disco, o gatilho **Mounted Volume** faz mais sentido, já que ele se baseia no nome do volume.
+</Q>
+
+Uma rede ou um dispositivo já basta para apertar o botão de iniciar por você. Para fazer uma macro começar na hora marcada também, veja [Execute algo no mesmo horário todo dia](/pt/howto/daily-schedule/).

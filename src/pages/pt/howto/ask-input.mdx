@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ask-input
+step: 4
+time: 15 minutos
+for: O texto é quase o mesmo toda vez, mudando só alguns trechos como a empresa, o cargo ou o nome de alguém
+tldr: A ação Prompt for User Input abre um pequeno formulário primeiro, guarda suas respostas em variáveis e as ações seguintes preenchem o texto com elas. Se quiser só escolher entre algumas opções, use Prompt With List.
+description: "Faça uma pergunta antes de agir com Prompt for User Input do Keyboard Maestro: uma tecla de atalho para quem procura emprego escreve a abertura de uma carta de apresentação preenchendo na hora a empresa, o cargo e onde viu a vaga; como nomear variáveis e usá-las no texto, como criar um menu suspenso e o que faz Cancel; depois, Prompt With List para escolher uma entre várias respostas prontas."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quando você está procurando emprego, manda várias candidaturas por dia, e as primeiras linhas de cada e-mail são praticamente iguais. Só mudam a empresa, o cargo e onde você soube da vaga. Copiar o último e-mail e ir editando funciona até o dia em que você deixa passar um detalhe e manda o nome de uma empresa para outra. Ao terminar esta página, você vai apertar ⌃⌥⌘L (Control, Option, Command e L) em um e-mail novo, um pequeno formulário vai perguntar essas três coisas e, depois de preencher tudo e apertar Return, uma abertura educada com todos os nomes certos aparece onde está o cursor.
+
+As macros até aqui rodam direto do começo ao fim. <mark>Pergunte primeiro, use a resposta na sequência, e a macro passa a dar conta de tarefas que são quase iguais toda vez.</mark>
+
+## Pergunte primeiro com um pequeno formulário
+
+Crie uma nova <Term k="宏" text="macro" /> chamada “Abertura de carta de apresentação”, adicione um gatilho **Hot Key** (tecla de atalho) e aperte ⌃⌥⌘L. A primeira ação é **Prompt for User Input** (pedir entrada do usuário), que mostra um formulário montado por você e guarda o que você digita em <Term k="变量" text="variáveis" /> ([ação Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+No topo do formulário fica o título: “Abertura de carta de apresentação”. Logo abaixo, o texto de orientação é uma frase para você ler, como “Para quem é este e-mail?”. Embaixo vêm as variáveis, uma por linha, com o nome à esquerda e um valor padrão à direita. Adicione três linhas:
+
+- `Local Company`, com o valor padrão em branco;
+- `Local Role`, com o valor padrão em branco;
+- `Local Source`, com o valor padrão `por um site de vagas|por um amigo|pelo site de vocês`.
+
+O `Local` na frente não está ali de enfeite. Variáveis que começam com Local são variáveis locais: elas só existem dentro desta macro e somem quando ela termina, então não ficam se acumulando no seu Mac. O formulário também tira o “Local” dos rótulos, de modo que você vê apenas “Company”, “Role” e “Source” ([Variables](https://wiki.keyboardmaestro.com/manual/Variables), [ação Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)). O terceiro valor padrão tem barras verticais `|`, por isso o Keyboard Maestro transforma o campo em um menu suspenso. As barras separam as opções, e a primeira já vem selecionada por padrão.
+
+Os dois botões que já vêm no formulário são tudo o que você precisa. **OK** responde à tecla Return, fecha o formulário e segue em frente. **Cancel** (cancelar) responde a Esc ou ⌘., fecha o formulário sem gravar as variáveis e cancela a macro.
+
+## Preencha o texto com as respostas
+
+A segunda ação é **Insert Text by Pasting** (inserir texto colando), e no texto dela `%Variable%nome%` puxa cada resposta. Adapte o texto abaixo para o seu jeito de escrever:
+
+<Copy id="ai-letter" title="Texto para Insert Text by Pasting" code={`Olá,
+
+Soube %Variable%Local Source% que a empresa %Variable%Local Company% está buscando alguém para a vaga de %Variable%Local Role%. Lendo a descrição da vaga, achei que combina muito com o trabalho que venho fazendo nos últimos anos, por isso escrevo com meu currículo em anexo na esperança de podermos conversar.`} />
+
+Para usar, coloque o cursor no começo do corpo do e-mail e aperte ⌃⌥⌘L.
+
+<Callout type="ok">
+Aparece uma janelinha com o título “Abertura de carta de apresentação”, trazendo dois campos de texto e um menu suspenso. Preencha tudo e aperte Return: a janela se fecha, e a abertura surge no seu e-mail com os três trechos substituídos pelo que você acabou de digitar.
+</Callout>
+
+Dê uma lida antes de enviar. O formulário lembra quais trechos precisam mudar, mas conferir se é a empresa certa e se o tom está adequado continua sendo com você.
+
+## Escolher uma frase entre várias: Prompt With List
+
+Existe outro jeito de perguntar antes em que você não precisa digitar nada: é só escolher. Se você tem uma pequena loja virtual, as respostas aos clientes acabam sendo sempre as mesmas poucas frases: já foi enviado, quando chega, como funcionam trocas e devoluções. A ação **Prompt With List** (escolher de uma lista) abre uma janela parecida com o Spotlight mostrando uma lista de opções. Basta digitar algumas letras para filtrar, selecionar uma e apertar Return ([ação Prompt With List](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+
+As opções ficam uma por linha, dentro da própria ação. O que a janela mostra e o que você recebe de volta podem ser coisas diferentes: escreva a linha no formato “o que você quer receber, dois sublinhados, o que deve aparecer”, e a janela exibe só o rótulo curto, mas ao escolher você recebe a frase inteira que vem na frente. Por exemplo:
+
+<Copy id="ai-list" title="Opções para Prompt With List" code={`Seu pedido saiu hoje. O código de rastreio está nos detalhes do pedido, e a entrega costuma levar de três a cinco dias.__Enviado
+Seu pacote está a caminho. O rastreio atualiza mais ou menos uma vez por dia, e aviso você na hora se houver alguma novidade.__A caminho
+Se não estiver como esperado quando chegar, sem problema. É só entrar em contato que envio o passo a passo para troca ou devolução.__Troca e devolução`} />
+
+Coloque essa ação em uma macro nova só para ela, com sua própria tecla de atalho, salve o resultado em uma variável (por exemplo, `Local Reply`) e adicione depois uma ação **Insert Text by Pasting** com o texto `%Variable%Local Reply%`. Se você apertar Esc, a ação falha e nada é salvo; por padrão, a macro inteira também é cancelada com uma notificação de falha, então Esc continua sendo o jeito de desistir.
+
+## Se algo não der certo
+
+<Q q="Cliquei em Cancel e nada foi colado.">
+É assim mesmo que funciona: **Cancel** não grava as variáveis e cancela a macro inteira. Se você quiser um terceiro botão que faça outra coisa, como “salvar sem colar”, adicione mais botões ao formulário. O <Term k="令牌" text="token" /> `%PromptButton%` guarda o nome do botão que foi clicado, e uma ação **If Then Else** (se… então… senão) pode seguir caminhos diferentes a partir disso.
+</Q>
+<Q q="O que aparece colado é literalmente %Variable%Local Company%.">
+Confira se o nome da variável no formulário e o nome usado no texto são exatamente iguais, incluindo o espaço depois de `Local`. O jeito mais seguro é inserir a variável pelo menu **Edit ▸ Insert Variable** (inserir variável) em vez de digitar na mão ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)).
+</Q>
+<Q q="Eu queria um menu suspenso, mas apareceu um campo de texto.">
+Quando o tipo do campo está em **Automatic** (automático), ele tenta adivinhar pelo valor padrão, e só cria um menu quando há barras verticais. Se não houver barras, ou se você preferir deixar explícito, escolha **Menu** (menu suspenso) no seletor à direita do valor padrão.
+</Q>
+<Q q="O formulário abriu, mas minhas abreviações não expandem dentro dele.">
+A wiki oficial explica que o sistema não deixa o Keyboard Maestro Engine ver teclas digitadas nas próprias janelas dele, então gatilhos de texto digitado não funcionam nesses formulários. Digite direto no formulário ou copie o texto de outro lugar antes e cole ali.
+</Q>
+
+Um formulário e algumas variáveis deixam por sua conta só as partes que mudam a cada vez, e a macro faz o resto. Variáveis e condições podem fazer muito mais. Veja o [passo 4 do guia completo](/pt/guide/4-variables/).

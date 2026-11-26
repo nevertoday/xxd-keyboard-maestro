@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: click-image
+step: 3
+time: 10 minutos
+for: Tem um botão em que você clica todo dia, e ele não tem comando de menu nem atalho
+tldr: Dê ao Keyboard Maestro uma pequena captura de tela do botão. Toda vez, ele encontra essa imagem na tela e clica bem no meio dela, mesmo que a janela tenha mudado de lugar.
+description: "Encontre um botão na tela e clique nele com a imagem encontrada do Keyboard Maestro: confira primeiro se existe um comando de menu, faça uma captura de tela, clique no centro da imagem encontrada com Move or Click Mouse, ajuste a tolerância e a exigência de imagem única, espere o botão aparecer e veja o que conferir quando a imagem não for encontrada."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Existe um sistema web que você usa no trabalho em que, antes de exportar cada relatório, você precisa clicar em um pequeno ícone de atualizar no canto superior direito. Ele não aparece em nenhum menu, não tem atalho e, toda vez que você alarga a janela ou recolhe a barra lateral, ele muda de lugar. Crie a macro desta página e você só vai precisar apertar ⌃⌥⌘J (Control, Option, Command e J): o Keyboard Maestro vai encontrar esse ícone na tela e clicar bem no meio dele.
+
+Uma macro que memoriza coordenadas da tela erra o alvo assim que a janela sai do lugar. <mark>Diga a ela qual é a aparência do botão, e não onde ele está, e ela o encontra toda vez.</mark> O Keyboard Maestro chama isso de <Term k="找图" text="imagem encontrada" />: você entrega uma pequena captura de tela e ele procura um trecho igual na tela.
+
+## Primeiro, veja se existe um caminho mais estável
+
+A wiki oficial não é muito fã de cliques de mouse. A página [Found Image](https://wiki.keyboardmaestro.com/Found_Image) já começa dizendo que, em geral, é melhor usar ações de nível mais alto, como **Press a Button** (pressionar um botão), em vez de procurar uma imagem na tela, e a página [How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I) do manual avisa que ações de clique são frágeis e param de funcionar facilmente com pequenas mudanças no sistema ou nos apps. Por isso, antes de montar qualquer coisa, dê uma olhada nos menus do app. Se existir um comando que faça a mesma coisa, [dar um atalho a um comando de menu](/pt/howto/menu-shortcut/) vai ser bem mais confiável. Se clicar naquele ícone for realmente o único jeito, siga em frente.
+
+## Faça uma pequena captura de tela e monte a macro
+
+Comece capturando o ícone. Aperte ⌘⌃⇧4 (Command, Control, Shift e 4) e arraste apenas ao redor do ícone: assim a captura vai para a área de transferência, em vez de salvar um arquivo. Faça um recorte bem justo. Deixe de fora qualquer texto ou número por perto que possa mudar, senão o reconhecimento falha na próxima vez que eles mudarem.
+
+Depois, crie uma nova <Term k="宏" text="macro" /> com um gatilho **Hot Key** (tecla de atalho) e aperte ⌃⌥⌘J. Ela precisa de apenas uma ação, **Move or Click Mouse** (mover ou clicar o mouse), que consegue clicar tomando uma imagem encontrada como referência (veja [Move or Click Mouse](https://wiki.keyboardmaestro.com/action/Move_or_Click_Mouse)). Defina a operação como **Click** (clicar), mantendo o botão esquerdo padrão, escolha **found image’s center** (centro da imagem encontrada) no menu “relative to” (relativo a) e coloque 0 tanto em X quanto em Y. Um quadro de imagem aparece na ação. Clique nele e aperte ⌘V para colar a captura de tela.
+
+Duas configurações ao lado desse quadro merecem atenção. A primeira é a tolerância. Por causa de transparência e suavização de bordas, quase toda correspondência na tela tem alguma imprecisão, e a wiki sugere começar por volta de 20%. A segunda é o menu **Unique** (única). Por padrão, a imagem precisa aparecer uma única vez na tela; caso contrário, o Keyboard Maestro não sabe onde clicar e a ação falha. Se o seu ícone aparecer repetido várias vezes de forma idêntica, mude para **Best** (mais parecida) ou para a que estiver mais acima, mais à esquerda, mais abaixo ou mais à direita.
+
+## Teste uma vez e veja o que ele encontrou
+
+Um detalhe antes de testar: a imagem dentro da ação também está na tela. A wiki orienta ocultar a ação, ou o <Term k="编辑器" text="editor" /> inteiro, enquanto você testa, senão ele pode acabar encontrando a cópia dentro do editor. Então passe a janela do Keyboard Maestro para trás, volte para a página web e aperte ⌃⌥⌘J.
+
+Na primeira vez, se quiser ver exatamente o que ele reconheceu, marque **Display** (exibir) na ação por um momento. Isso destaca todas as correspondências na tela e também mostra quando a imagem aparece em mais de um lugar. Desmarque assim que tudo funcionar. E, se os deslocamentos do clique forem números fixos, selecionar o quadro de imagem e apertar a barra de espaço mostra o ponto exato do clique desenhado sobre a imagem (a partir da versão 11.0).
+
+<Callout type="ok">
+O ponteiro vai direto para o ícone, clica nele e a página atualiza. Alargue ou mova a janela, aperte a tecla de atalho de novo, e ele continua acertando.
+</Callout>
+
+## Quando o botão demora um pouco para aparecer
+
+Às vezes o botão ainda não está lá. Você clica em exportar, e o botão de download só aparece alguns segundos depois. A solução mais simples está no menu da engrenagem ⚙ da ação, que tem uma opção para esperar até a imagem aparecer (a partir da versão 11.0). Ou então coloque uma ação **Pause Until** (pausar até) antes do clique, com a condição **Found Image** (imagem encontrada) contendo a mesma captura de tela, para a macro esperar até ele realmente estar lá (veja [Found Image Condition](https://wiki.keyboardmaestro.com/condition/Found_Image)).
+
+Se você preferir encontrar a imagem primeiro e usar a posição dela para outra coisa, use **Find Image on Screen** (encontrar imagem na tela). Ela guarda a localização em uma <Term k="变量" text="variável" /> com o nome que você escolher, por exemplo `ImageLocation`, e as ações seguintes usam `ImageLocation.MidX` e `ImageLocation.MidY` para pegar o centro dela. Se não encontrar nada, a variável fica vazia (veja [Find Image on Screen](https://wiki.keyboardmaestro.com/action/Find_Image_on_Screen)).
+
+## Se algo não der certo
+
+<Q q="Apertei a tecla de atalho, o ponteiro não se mexeu e apareceu um aviso de que a imagem não foi encontrada.">
+Aumente um pouco a tolerância e marque **Display** para ver o que ele está enxergando. Se a interface mudou depois que você fez a captura de tela (por exemplo, se você mudou para o Modo Escuro ou o ícone ficou diferente em uma janela mais estreita), faça uma nova captura. Pequenos ícones cinza e textos em cinza são os mais difíceis de reconhecer, porque a tela é cheia de pequenas áreas cinza. A solução da wiki é reduzir a área de busca para menos de um quarto da área de trabalho: procure apenas dentro de uma janela (que precisa pertencer ao app em primeiro plano) ou em uma região específica da tela.
+</Q>
+<Q q="Ele clicou em outro lugar ou disse que a imagem não é única.">
+Mais de um ponto na tela é parecido com ela. Mude o menu **Unique** para **Best** ou para uma das direções, ou faça uma nova captura de tela mais fácil de diferenciar. Confira também se o editor não continua na frente, porque ele pode ter encontrado a imagem dentro da própria ação.
+</Q>
+<Q q="Não importa qual imagem eu use, ele nunca encontra nada.">
+Encontrar imagens exige ler o que está na tela, e isso precisa de uma permissão do macOS. Nos ajustes do Keyboard Maestro, o painel **Security** (segurança) reúne as permissões de que ele precisa e permite solicitar cada uma delas ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). A página oficial [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting) lista a Gravação de Tela entre os problemas de permissão mais comuns. No macOS 15 e versões posteriores, ela se chama **Gravação do Áudio do Sistema e da Tela**, em **Ajustes do Sistema ▸ Privacidade e Segurança**. O [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) também avisa que o macOS Sequoia e o Tahoe voltam a pedir permissões de tela de tempos em tempos; então, se antes funcionava e parou de repente, confira ali primeiro.
+</Q>
+<Q q="Ele clica no lugar certo, mas o ponteiro fica parado sobre o botão.">
+No menu da engrenagem ⚙ da ação, você pode escolher se o mouse deve voltar para onde estava depois do clique.
+</Q>
+
+A ideia toda é esta: se existir um comando de menu ou uma ação de botão, deixe o mouse de lado; quando precisar mesmo clicar, faça o Keyboard Maestro reconhecer a imagem em vez de memorizar coordenadas. Quer que ele também leia o texto que aparece na tela? Veja [Leia o texto direto da sua tela](/pt/howto/ocr-text/).

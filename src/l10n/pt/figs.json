@@ -2,5 +2,158 @@
   "ui": {
     "label": "Diagrama",
     "replay": "Ver de novo"
+  },
+  "0-what-chain": {
+    "steps": [
+      {
+        "t": "Editor",
+        "d": "escreva a macro e depois encerre"
+      },
+      {
+        "t": "Engine",
+        "d": "sempre rodando em segundo plano"
+      },
+      {
+        "t": "Grupo de macros",
+        "d": "está ativo agora?"
+      },
+      {
+        "t": "Gatilho",
+        "d": "chega o momento"
+      },
+      {
+        "t": "Ações",
+        "d": "rodam de cima para baixo"
+      }
+    ],
+    "cap": "Da escrita à execução: o Engine está ligado, o grupo está ativo, o gatilho dispara e as ações rodam em ordem"
+  },
+  "1-groups-toggle": {
+    "a": {
+      "who": "Setas como teclas de atalho comuns",
+      "steps": [
+        "As setas movem a janela",
+        "Você quer mover o cursor",
+        "Você aperta uma e a janela pula"
+      ],
+      "end": "As setas ficam inúteis no resto do tempo"
+    },
+    "b": {
+      "who": "Em um grupo que você ativa",
+      "steps": [
+        "Aperte ⌃⌥⌘W para ativar o grupo",
+        "As setas movem a janela",
+        "Aperte ⌃⌥⌘W de novo para desativar"
+      ],
+      "end": "As setas voltam ao normal"
+    },
+    "cap": "As mesmas quatro teclas de seta pertencem às suas macros só enquanto o grupo está ativo"
+  },
+  "3-actions-log": {
+    "steps": [
+      {
+        "t": "Activate a Specific Application",
+        "d": "mudar para o Editor de Texto"
+      },
+      {
+        "t": "Select or Show a Menu Item",
+        "d": "escolher o item de menu Novo"
+      },
+      {
+        "t": "Insert Text by Typing",
+        "d": "digitar a data de hoje"
+      },
+      {
+        "t": "Notification",
+        "d": "avisar que terminou"
+      }
+    ],
+    "cap": "Uma macro é uma lista de ações, feitas uma depois da outra, de cima para baixo"
+  },
+  "4-variables-scope": {
+    "layers": [
+      {
+        "t": "Global",
+        "d": "Sem prefixo especial. Toda macro pode lê-la e alterá-la, e ela continua guardada no seu Mac mesmo depois de reiniciar"
+      },
+      {
+        "t": "Instance",
+        "d": "Começa com Instance. Só nesta execução e nas submacros que ela chama"
+      },
+      {
+        "t": "Local",
+        "d": "Começa com Local. Só esta macro, nesta execução"
+      }
+    ],
+    "cap": "Quanto mais para baixo, menos macros conseguem ver a variável e menos tempo ela dura. Se você só precisa dela nesta execução, use Local."
+  },
+  "6-debug-order": {
+    "steps": [
+      {
+        "t": "Permissões",
+        "d": "Tudo ligado na aba Security dos ajustes do Keyboard Maestro"
+      },
+      {
+        "t": "Engine",
+        "d": "O ícone dele está na barra de menus"
+      },
+      {
+        "t": "Grupo e macro",
+        "d": "Ambos habilitados, grupo ativo agora"
+      },
+      {
+        "t": "Gatilho",
+        "d": "Nenhuma outra macro usa a mesma tecla de atalho"
+      },
+      {
+        "t": "Ações",
+        "d": "Avance passo a passo no depurador e leia o Engine.log"
+      }
+    ],
+    "cap": "Um problema nos dois primeiros faz todas as macros pararem de uma vez. Quanto mais para frente, mais o problema é só desta macro."
+  },
+  "watch-folder-flow": {
+    "steps": [
+      {
+        "t": "Um arquivo chega",
+        "d": "Folder Trigger: adds an item (adiciona um item)"
+      },
+      {
+        "t": "Esperar o download",
+        "d": "ignorar arquivos incompletos ou ainda mudando"
+      },
+      {
+        "t": "É um PDF?",
+        "d": "%TriggerValue% termina com .pdf"
+      },
+      {
+        "t": "Mover o arquivo",
+        "d": "File Actions: Move (mover)"
+      }
+    ],
+    "cap": "Estes quatro passos rodam uma vez para cada arquivo que chega. Tudo que não for PDF para no terceiro passo."
+  },
+  "stop-macro-ladder": {
+    "cap": "Formas de parar uma macro: tente primeiro a de cima, vá descendo se não funcionar e deixe a última para quando nada mais der certo.",
+    "high": "Tente primeiro",
+    "low": "Último recurso",
+    "rungs": [
+      {
+        "t": "Segure ⌃⌥⇧ e clique no ícone",
+        "d": "Parar todas as macros em execução"
+      },
+      {
+        "t": "Menu de status ▸ Cancel",
+        "d": "Parar uma macro em execução"
+      },
+      {
+        "t": "Quit Keyboard Maestro Engine",
+        "d": "O Engine é encerrado e nada roda"
+      },
+      {
+        "t": "Segure ⌃⌥⇧⌘ e abra o editor",
+        "d": "Sem o Engine, para você consertar a macro"
+      }
+    ]
   }
 }

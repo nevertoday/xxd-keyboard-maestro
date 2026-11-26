@@ -1,0 +1,68 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: watch-folder
+step: 2
+time: Quinze minutos
+for: Tudo se acumula na pasta Downloads e você tem que revirar tudo sempre que precisa de algo
+tldr: Todo PDF vai sozinho para uma pasta “Caixa de entrada de PDF” em Documentos assim que termina de baixar. Todo o resto fica no lugar, sem você mexer um dedo.
+description: Use um gatilho de pasta para monitorar sua pasta Downloads. Quando um novo arquivo chega, espere o download terminar, verifique com If Then Else se o nome termina em .pdf e, se terminar, mova o arquivo com a opção Move de File Actions. Veja por que ele só enxerga arquivos diretamente na pasta, por que leva alguns segundos de propósito e o que acontece quando há nomes iguais.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Fig from "../../../components/Fig.astro";
+
+A pasta Downloads de quem trabalha como freelancer costuma parecer uma porta de entrada que ninguém arruma: contratos e notas fiscais em PDF de clientes, imagens salvas da internet, instaladores, tudo num monte só. No fim do mês, na hora de fechar as contas, você fica garimpando os PDFs do mês um por um. A macro desta página cuida dessa porta para você. Cada PDF vai se mover sozinho para uma pasta chamada “Caixa de entrada de PDF” em Documentos assim que terminar de baixar. Todo o resto fica onde está até você ter tempo de organizar.
+
+<mark>Um gatilho de pasta fica de guarda na porta: toda vez que um arquivo chega, a macro roda uma vez, trazendo o caminho desse arquivo.</mark>
+
+## O que um gatilho de pasta faz
+
+Nas páginas anteriores, as macros rodavam quando você apertava uma tecla ou digitava alguns caracteres. Esta aqui roda sem você precisar fazer nada. O <Term k="触发器" text="gatilho" /> dela é **Folder** (pasta): você escolhe uma pasta, e a macro roda toda vez que algo é adicionado a ela, removido dela ou quando qualquer uma das duas coisas acontece (veja [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). Quando a macro roda, o <Term k="令牌" text="token" /> `%TriggerValue%` guarda o caminho completo do arquivo que acabou de chegar, e as ações seguintes usam esse caminho para decidir o que fazer e para onde movê-lo.
+
+Uma opção faz toda a diferença: **ignore partial or changing files** (ignorar arquivos parciais ou em alteração). Downloads levam tempo e, quando um arquivo aparece pela primeira vez, ainda não terminou de baixar. Com essa opção marcada, o gatilho espera o arquivo parar de mudar antes de rodar a macro e ignora os arquivos temporários com extensões que indicam que o download ainda está em andamento.
+
+<Fig id="watch-folder-flow" />
+
+## Monte a macro
+
+Primeiro, prepare o destino no Finder: na sua pasta Documentos, crie uma nova pasta chamada “Caixa de entrada de PDF”. A página oficial diz que **Move** (mover) precisa de uma pasta de destino que já exista, então não pule este passo.
+
+Depois, crie uma nova macro chamada “Arquivar PDFs automaticamente” em um grupo de macros que esteja sempre ativo.
+
+**O gatilho.** Adicione um gatilho **Folder**, escolha sua pasta Downloads, defina para **adds an item** (adiciona um item) e marque **ignore partial or changing files**.
+
+**É um PDF?** Adicione uma ação **If Then Else** (se… então… senão) com uma condição **Text** (texto). No campo do texto a verificar, coloque `%TriggerValue%`. Na comparação, escolha **ends with** (termina com) e digite `.pdf`. A página oficial diz que essa comparação não diferencia maiúsculas de minúsculas, então nomes terminados em `.PDF` também entram (veja [Text condition](https://wiki.keyboardmaestro.com/condition/Text)).
+
+**Mova o arquivo.** Na parte “então” do If Then Else, adicione **File Actions** (ações de arquivo), escolha **Move**, use `%TriggerValue%` para o arquivo e, como destino, coloque:
+
+<Copy id="wf-dest" title="Destino" code="~/Documents/Caixa de entrada de PDF" />
+
+`~` é a sua pasta pessoal (no Finder a pasta aparece como Documentos, mas no caminho o nome é Documents). Deixe a parte “senão” vazia, assim os arquivos que não forem PDF continuam intocados.
+
+Para separar imagens também, adicione outro **If Then Else** configurado para **any of the following are true:** (qualquer uma das condições a seguir for verdadeira) com três condições **Text** dentro, para nomes terminados em `.png`, `.jpg` e `.jpeg`, e mova esses arquivos para uma pasta que você tenha criado em Imagens.
+
+## Confira se funcionou
+
+Salve um PDF do Safari em Downloads, ou salve lá um anexo de e-mail. Assim que o download terminar, espere alguns segundos. Você deve ver o arquivo sumir de Downloads e aparecer em “Caixa de entrada de PDF”. Salve uma imagem lá também para comparar. A imagem deve continuar em Downloads.
+
+Vale lembrar que a macro só cuida dos arquivos que chegarem daqui para frente. O gatilho não mexe nos PDFs que já estavam parados em Downloads antes de você criar a macro. Mova esses manualmente uma vez, ou use a abordagem com For Each de [Renomeie vários arquivos de uma vez](/pt/howto/rename-files/) para cuidar de todos juntos.
+
+## Se algo não der certo
+
+<Q q="O download terminou, mas o arquivo não se moveu.">
+Primeiro, verifique se a macro e o grupo dela estão marcados, se o Engine está rodando e se o gatilho aponta mesmo para Downloads. Depois, veja se o arquivo não caiu dentro de uma subpasta de Downloads, como algo que foi descompactado. A página oficial diz que o gatilho só percebe itens diretamente na pasta, não alterações dentro de subpastas.
+</Q>
+<Q q="Demora vários segundos para mover o arquivo.">
+Isso é normal. A página oficial diz que esperar o arquivo parar de mudar acrescenta uma espera necessária, porque o Keyboard Maestro não tem como saber com antecedência que o arquivo já parou. Esses poucos segundos são o que impede que arquivos baixados pela metade sejam movidos.
+</Q>
+<Q q="A macro mostrou um erro e o arquivo continua em Downloads.">
+O mais provável é que “Caixa de entrada de PDF” já tenha um arquivo com o mesmo nome. A página oficial diz que mover um arquivo falha quando o destino já tem outro com esse nome. Renomeie ou mova o antigo e depois mova este para lá manualmente.
+</Q>
+<Q q="Depois que o arquivo foi movido, a macro pareceu rodar de novo.">
+Veja se o gatilho não está configurado para disparar quando itens são adicionados ou removidos. Mover um arquivo para fora conta como um item removido de Downloads, então ele dispara de novo. Escolha apenas **adds an item**.
+</Q>
+
+<u>Não coloque exclusão de arquivos em uma macro como esta.</u> Ela roda para cada arquivo novo enquanto você não está olhando. Um arquivo movido para o lugar errado pode voltar para o lugar; um arquivo apagado não tem volta. A página oficial também avisa especificamente que as opções de exclusão em **File Actions** não mostram aviso nenhum e não passam pelo Lixo, então tenha muito cuidado com elas.
+
+Com alguém de guarda na porta, a pasta Downloads para de acumular arquivos. Para macros que rodam sozinhas em outros momentos, como em um horário fixo todo dia ou ao se conectar a uma rede Wi-Fi específica, veja [Execute algo no mesmo horário todo dia](/pt/howto/daily-schedule/) e o [passo 2 do guia completo](/pt/guide/2-triggers/).

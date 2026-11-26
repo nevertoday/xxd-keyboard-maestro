@@ -1,0 +1,107 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 3
+need: Uma macro que você já criou (a da lição 1 para iniciantes serve)
+tldr: Ações são as coisas que você faria manualmente. Digitar um texto, apertar uma tecla, escolher um menu, abrir um app, posicionar uma janela, pressionar um botão, mover um arquivo. A macro executa tudo isso em sequência, de cima para baixo. Conheça as pouco mais de dez que você mais vai usar e, quando precisar de outra, pesquise uma palavra na lista de ações.
+description: Ações. Uma macro é uma lista de ações; como adicioná-las e encontrar a que você precisa (pesquisar na lista de ações, Insert Action by Name, Option para ver a ajuda, favoritos, Try e Record); as pouco mais de dez que você mais vai usar, agrupadas em digitação, teclas e menus, apps e páginas da web, janelas, mouse e botões, arquivos, e esperar e avisar você; e consultar o resto quando precisar.
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Pense no que suas mãos fazem quando você escreve uma linha de registro de trabalho no fim de cada dia. Você muda para o Editor de Texto, escolhe Novo para abrir um documento em branco, digita a data de hoje e escreve uma linha sobre o que fez. São quatro movimentos e pronto, mas você faz isso todo santo dia.
+
+Passar esses movimentos para o Keyboard Maestro funciona quase um para um. Mudar para um app é uma ação, escolher um item de menu é outra, digitar é outra, e mais uma no final mostra uma notificação avisando que está tudo pronto.
+
+<Fig id="3-actions-log" />
+
+<mark><strong>Ações são as coisas que você faria manualmente, e a macro executa uma depois da outra, de cima para baixo. Conheça as pouco mais de dez que você mais vai usar; quando precisar de outra, pesquise uma palavra na lista de ações.</strong></mark>
+
+## Uma macro é uma lista de ações
+
+Assim que uma macro é disparada, ela percorre a lista de ações da primeira até a última. Segundo a wiki oficial, a maioria das ações espera terminar antes de começar a seguinte, mas algumas apenas dão a partida e passam a bola. A ação **Type a Keystroke** (pressionar uma tecla), por exemplo, envia a tecla para o sistema, e daí em diante o sistema e o app cuidam do resto. Por isso, às vezes a etapa seguinte começa antes de a anterior realmente terminar — e é por esse motivo que muitas macros precisam de uma pausa curta, como você vai ver logo abaixo. Veja [Fundamental Concepts](https://wiki.keyboardmaestro.com/Fundamental_Concepts) na wiki oficial.
+
+## Como adicionar ações e encontrar a que você precisa
+
+Existem bem mais de cem <Term k="动作" text="ações" />, e ninguém decora todas, então aprenda primeiro a encontrá-las. Enquanto estiver editando uma macro, clique no botão **New Action** (nova ação), ou no **+** na parte de baixo da coluna de detalhes, para abrir a lista de ações. As categorias ficam à esquerda; escolha **All Actions** (todas as ações) para ver tudo, digite uma palavra em inglês e a lista vai se reduzindo às ações que combinam com ela. Para abrir um app, pesquise Activate; para escolher um menu, pesquise Menu; para mexer com arquivos, pesquise File. Quando encontrar a ação, dê um clique duplo nela ou arraste-a para dentro da macro. Veja [Macro Actions](https://wiki.keyboardmaestro.com/manual/Macro_Actions) na wiki oficial.
+
+Ainda mais rápido é usar **Edit ▸ Insert Action by Name** (inserir ação por nome). Aparece uma caixinha; digite algumas letras e aperte Return para inserir a ação. Segure Shift ao apertar Return para inseri-la acima da ação selecionada.
+
+Mais três recursos úteis. Segure a tecla Option (⌥) ao apertar Return nessa caixinha, ou ao escolher pelo menu **Edit ▸ Insert Action** (editar ▸ inserir ação), e em vez de inserir a ação o Keyboard Maestro abre a página dela na wiki oficial; para uma ação que já está na sua macro, escolha **Help** (ajuda) no menu da engrenagem **⚙** no canto superior direito dela. Clique com o botão direito em uma ação que você usa muito e adicione-a a **Favorites** (favoritos), com as configurações já preenchidas, para pegá-la dessa categoria da próxima vez. Para conferir se algumas ações fazem o que você espera, selecione-as e clique em **Try** (testar) na parte de baixo, sem precisar rodar a macro inteira. A wiki oficial lembra que a ação testada roda sem as etapas anteriores, então, se ela precisar de um app específico em primeiro plano, adicione temporariamente acima dela uma ação que mude para esse app e selecione as duas antes de testar.
+
+E, se você preferir nem escolher nada, clique em **Record** (gravar), faça a tarefa você mesmo e deixe o Keyboard Maestro anotar tudo. Depois, apague as etapas que não precisar.
+
+Abaixo estão as pouco mais de dez que você mais vai usar, agrupadas pelo tipo de coisa que você faz manualmente. Para cada uma, você vai ver para que serve e quando usar; para conferir as opções detalhadas, abra o link da página dela na wiki oficial.
+
+## Digitação
+
+**Insert Text by Pasting** (inserir texto colando) coloca o texto na área de transferência e depois aperta ⌘V (⌘ é a tecla Command) por você. É rápido até para um trecho longo, aceita emojis e qualquer outro caractere, e pode levar formatação como negrito e itálico. O porém é que substitui o que estava antes na sua área de transferência. Veja [Insert Text by Pasting](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Pasting) na wiki oficial.
+
+**Insert Text by Typing** (inserir texto digitando) digita o texto uma tecla de cada vez, como se fosse você no teclado. Ele usa a formatação que já está no lugar onde você está digitando, e um Tab ou Return no meio do texto realmente pula para o próximo campo ou começa uma nova linha. O ponto fraco é a velocidade: a wiki oficial sugere usá-lo para até trinta ou quarenta caracteres, e ele só consegue digitar caracteres que existem no teclado, então nada de emojis. Veja [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing) na wiki oficial.
+
+Resumindo: um texto longo, ou com formatação, vai melhor colado; um texto curto, ou um formulário preenchido campo por campo, vai melhor digitado. Nos dois casos, você pode incluir um <Term k="令牌" text="token" /> (um marcador dinâmico), como `%LongDate%`, que é substituído na hora pela data de hoje quando a macro roda. Veja o guia prático [Insira a data de hoje com uma tecla](/pt/howto/insert-date/).
+
+## Teclas e menus
+
+**Type a Keystroke** pressiona uma tecla por você, incluindo teclas modificadoras, como ⌘S ou ⌃Tab (⌃ é a tecla Control). Use essa ação para uma única tecla, especialmente acompanhada de Command ou Control. Uma regra para guardar: não a use para pressionar uma combinação que já seja um gatilho de tecla de atalho ativo, porque ela pode apenas enviar a tecla ou pode disparar aquela macro, e não dá para saber qual das duas coisas vai acontecer. Veja [Type a Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke) na wiki oficial.
+
+**Select or Show a Menu Item** (selecionar ou mostrar um item de menu) escolhe um item na barra de menus, seja no app em primeiro plano ou em um app específico. O menu suspenso dessa ação lista os apps abertos e os menus de cada um, então você pode clicar e escolher em vez de digitar o nome e correr o risco de errar. Se o item de menu não for encontrado ou estiver acinzentado, por padrão a macro inteira para. Na página de **Type a Keystroke**, a wiki oficial também recomenda escolher um menu com esta ação em vez de simular o atalho do menu. Para dar um atalho a um comando de menu que não tem, veja o guia prático [Dê um atalho a um comando de menu que não tem](/pt/howto/menu-shortcut/).
+
+## Apps e páginas da web
+
+**Activate a Specific Application** (ativar um aplicativo específico) muda para um app — abrindo-o antes se ele não estiver rodando — exatamente como se você mesmo tivesse trocado para ele ou aberto o app. É esta a ação certa para abrir apps. Veja [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application) na wiki oficial.
+
+**Open a File, Folder or Application** (abrir um arquivo, pasta ou app) abre um arquivo ou uma pasta, e permite dizer com qual app abrir — por exemplo, sempre abrir um certo PDF no Pré-Visualização. A wiki oficial observa que quase nunca é o jeito certo de abrir um app; para isso, use a ação acima.
+
+**Open a URL** (abrir um endereço) abre um endereço da web no navegador que você escolher. O endereço precisa estar completo, sem espaços.
+
+**Quit a Specific Application** (encerrar um app específico) encerra um app, ou encerra e abre de novo, ou força o encerramento.
+
+## Janelas
+
+**Manipulate a Window** (manipular uma janela) faz todo tipo de coisa com uma janela: mover para algum lugar, mudar o tamanho, redimensionar proporcionalmente, trazer para a frente e muito mais. O posicionamento de janelas na lição 3 para iniciantes também usa essa ação. Veja [Manipulate a Window](https://wiki.keyboardmaestro.com/action/Manipulate_a_Window) na wiki oficial, a [lição 3 para iniciantes](/pt/start/3-one-key-routine/) e o guia prático [Coloque suas janelas onde você quiser](/pt/howto/window-layout/).
+
+## Mouse e botões
+
+**Press a Button** (pressionar um botão) pressiona um botão pelo nome na janela em primeiro plano. Desde o Keyboard Maestro 11, essa ação também consegue escanear a janela e listar todos os botões que há nela para você escolher. Veja [Press a Button](https://wiki.keyboardmaestro.com/action/Press_a_Button) na wiki oficial.
+
+**Move or Click Mouse** (mover ou clicar o mouse) move o mouse para algum ponto, clica ou arrasta, com a posição medida a partir de um canto da janela, da tela, de onde o mouse está agora ou de uma <Term k="找图" text="imagem encontrada" /> na tela. Mas o conselho da wiki oficial é evitar essa ação sempre que der. Clicar por coordenadas é frágil: basta uma pequena mudança na interface do app ou a janela estar em outro lugar para o clique acertar o vazio, e muitas vezes ainda é preciso colocar uma pausa antes para esperar a tela ficar pronta. Por isso, escolha um menu se puder, pressione um botão se puder, e clique com o mouse só quando não houver outro jeito. Veja [How do I…?](https://wiki.keyboardmaestro.com/manual/How_do_I) na wiki oficial e o guia prático [Encontre um botão na tela e clique nele](/pt/howto/click-image/).
+
+## Arquivos
+
+**File Actions** (ações de arquivo) é uma ação multiuso em que você escolhe o que fazer: mostrar no Finder, mover, renomear, copiar, duplicar, mover para o Lixo ou apagar permanentemente. <u>Apagar permanentemente pula o Lixo, então não tem como recuperar o arquivo; na dúvida, mova para o Lixo.</u> Veja [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions) na wiki oficial, além dos guias práticos [Renomeie vários arquivos de uma vez](/pt/howto/rename-files/) e [Organize os arquivos assim que eles chegarem a uma pasta](/pt/howto/watch-folder/).
+
+## Esperar e avisar você
+
+**Pause** (pausa) espera alguns segundos (ou centésimos de segundo, ou minutos) antes de continuar, dando um tempo para o app reagir. A wiki oficial não recomenda pausas longas: nesse meio-tempo, o Mac pode entrar em repouso ou o que está na tela pode ter mudado.
+
+**Pause Until** (pausar até) não espera um tempo fixo; espera até que alguma coisa seja verdadeira, como um app estar em primeiro plano ou uma imagem aparecer na tela. Aquilo que ela espera é uma <Term k="条件" text="condição" />, assunto do [passo 4](/pt/guide/4-variables/). Onde der para usar essa ação, ela é bem mais confiável do que tentar adivinhar quantos segundos esperar.
+
+**Display Text** (exibir texto) mostra um texto em uma janelinha, e **Notification** (notificação) exibe uma mensagem na Central de Notificações, no canto superior direito da tela, com título, subtítulo e som se você quiser, sem interromper o que você está fazendo. Use as duas para saber quando uma macro terminou ou até que ponto ela chegou.
+
+## O resto, quando você precisar
+
+Essas pouco mais de dez já bastam para montar a maioria das macros do dia a dia. As mais de cem restantes lidam com área de transferência, imagens, scripts, caminhos diferentes conforme a situação e muito mais — e você não precisa aprender nenhuma delas agora. Quando quiser fazer algo novo, pense em que tipo de tarefa é, pesquise uma palavra na lista de ações ou dê uma olhada na lista oficial [Actions](https://wiki.keyboardmaestro.com/Actions). Variáveis, condições e loops estão no [passo 4](/pt/guide/4-variables/), a área de transferência está no [passo 5](/pt/guide/5-clipboard/) e scripts ficam no [passo 7](/pt/guide/7-advanced/).
+
+Agora você já conhece grupos de macros, gatilhos e ações, o que já é suficiente para montar uma macro completa por conta própria. A seguir vêm variáveis, condições e loops, para que as macros consigam se adaptar ao que estiver acontecendo.
+
+## Se algo não der certo
+
+<Q q="A lista de ações é enorme e não consigo achar o que preciso.">
+<p>Escolha <strong>All Actions</strong> e digite uma palavra em inglês para o que você quer fazer, como Window, Menu ou Clipboard. Ainda não achou? Pesquise pelo nome com <strong>Edit ▸ Insert Action by Name</strong> ou dê uma olhada na lista oficial <a href="https://wiki.keyboardmaestro.com/Actions">Actions</a>.</p>
+</Q>
+<Q q="Cada ação funciona no Try, mas a macro inteira dá errado.">
+<p>Provavelmente está indo rápido demais: a etapa seguinte começa antes de a anterior terminar, como digitar antes de o app vir para a frente. Coloque uma ação <strong>Pause</strong> entre elas ou, melhor ainda, uma <strong>Pause Until</strong> que espere até esse app estar mesmo em primeiro plano.</p>
+</Q>
+<Q q="Depois de inserir o texto, o que estava na minha área de transferência sumiu.">
+<p>É assim que <strong>Insert Text by Pasting</strong> funciona: a ação pega a área de transferência emprestada para colar. Se o texto for curto e não precisar de formatação, troque para <strong>Insert Text by Typing</strong>. O histórico da área de transferência está no <a href="/pt/guide/5-clipboard/">passo 5</a>.</p>
+</Q>
+<Q q="Assim que a ação de menu roda, a macro inteira para.">
+<p>O nome do menu não bate, ou o item estava acinzentado naquele momento. Escolha o item de novo pelo menu suspenso de apps abertos da própria ação, em vez de digitar o nome. Se o item puder realmente estar acinzentado, configure a ação no menu da engrenagem <strong>⚙</strong> para deixar a macro continuar mesmo quando a ação falhar.</p>
+</Q>
+<Q q="O clique do mouse acerta o lugar errado.">
+<p>A janela mudou de lugar ou a interface mudou. Troque por uma escolha de menu ou por pressionar um botão, se puder. Se precisar mesmo clicar, meça a posição a partir de um canto da janela, ou encontre primeiro a imagem na tela e clique nela; veja o guia prático <a href="/pt/howto/click-image/">Encontre um botão na tela e clique nele</a>.</p>
+</Q>
+
+<Checkpoint id="s3" items={["Sei encontrar uma ação pesquisando na lista de ações e usando Insert Action by Name", "Sei quando inserir texto colando e quando inserir digitando", "Sei escolher menus com a ação de menu e que clicar com o mouse é o último recurso", "Sei que Pause Until pode esperar quando duas etapas rodam juntas demais"]} />

@@ -1,0 +1,70 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: stop-macro
+step: 6
+time: 5 minutos de leitura, 2 segundos quando precisar
+for: Uma macro não para, continua digitando ou clicando e você não consegue recuperar o controle do teclado
+tldr: Segure ⌃⌥⇧ e clique no ícone do Keyboard Maestro na barra de menus para parar todas as macros que estão rodando. Para parar só uma, escolha a macro em Cancel no menu de status. Se nada parar a macro, você pode encerrar o Engine ou abrir o editor sem ele.
+description: "Quando uma macro do Keyboard Maestro não para: segure Control, Option e Shift e clique no ícone do menu de status para cancelar todas as macros, pare só uma em Status Menu ▸ Cancel ou acompanhe no depurador para pará-la; como encerrar o Engine, abrir o editor sem ele e resgatar uma macro que roda ao iniciar a sessão; como deixar uma saída com ações como Cancel All Macros e hábitos para evitar o problema."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Fig from "../../../components/Fig.astro";
+
+Muita gente que organiza planilhas no trabalho monta uma macro assim: descer uma célula, digitar alguma coisa, descer de novo e usar **Repeat** (repetir) cem vezes. Aí um dia o dedo escorrega e cem vira mil, ou o cursor nem estava na planilha, e a macro começa a digitar linha após linha na janela errada, não importa que tecla você aperte. Esta página mostra como parar tudo em segundos e, na última seção, você vai aprender a já deixar uma saída pronta na macro antes que o problema aconteça.
+
+Guarde primeiro o que mais importa e deixe o resto para depois. <mark>Segure ⌃⌥⇧ e clique no ícone do Keyboard Maestro na barra de menus para parar todas as macros que estão rodando.</mark>
+
+## O jeito mais rápido: parar todas de uma vez
+
+O ícone do Keyboard Maestro à direita na barra de menus é o <Term k="状态菜单" text="menu de status" /> dele. Segure ⌃⌥⇧ (Control, Option e Shift) e clique nesse ícone para cancelar todas as macros que estão rodando ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). As páginas oficiais não concordam totalmente sobre as teclas. A página Menus do manual diz para segurar as quatro teclas modificadoras, incluindo ⌘ Command; a página How do I diz ⌃⌥⇧ com Command opcional; já a página Troubleshooting diz ⌃⌥⇧. Então segurar só as três já basta, mas apertar ⌘ junto na hora do susto não atrapalha em nada.
+
+<Callout type="ok">
+O texto para de jorrar na tela, e o mouse volta para as suas mãos.
+</Callout>
+
+Parar a macro não desfaz o que ela já fez. Tudo o que ela digitou continua naquela janela, então é só arrumar com o Desfazer do próprio app.
+
+## Parar só uma macro
+
+Se várias macros estiverem rodando e você quiser parar só a que deu problema, abra o menu de status normalmente e vá em **Cancel** (cancelar). Ele lista todas as macros que estão rodando agora, e basta escolher uma para pará-la ([Menus](https://wiki.keyboardmaestro.com/manual/Menus)). Esse menu também mostra quais macros ainda estão rodando. Às vezes, a que você achou que já tinha parado continua esperando em segundo plano.
+
+## Ver a macro parar passo a passo
+
+Escolha **Start Debugging** (iniciar depuração) no menu de status para abrir a janela do <Term k="调试器" text="depurador" />. Ela mostra todas as macros que estão rodando e em qual ação cada uma está no momento, e um botão à direita permite usar **Cancel** em uma macro ([Macro Debugger](https://wiki.keyboardmaestro.com/manual/Macro_Debugger)). Marque **Pause New Macros** (pausar novas macros) no depurador, e as macros disparadas depois disso ficam esperando no primeiro passo, então você pode clicar para avançar uma ação de cada vez, que é exatamente o jeito de descobrir onde a macro descontrolada está dando errado. Se você fechar a janela do depurador, as macros pausadas continuam rodando normalmente. Então, se quiser parar uma delas, cancele primeiro e só depois feche a janela.
+
+<Fig id="stop-macro-ladder" />
+
+## Quando nada faz a macro parar
+
+Se nada disso funcionar, a wiki traz opções mais pesadas ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)).
+
+A primeira é escolher **Quit Keyboard Maestro Engine** (encerrar o Keyboard Maestro Engine) no menu de status. Com o <Term k="引擎" text="Engine" /> (a parte que roda em segundo plano) encerrado, nenhuma macro é executada. Só que o Engine inicia de novo na próxima vez que você abrir o Keyboard Maestro. Então, se a macro disparar outra vez assim que ele iniciar, use o próximo truque e abra o editor sem o Engine para corrigi-la.
+
+O caso mais difícil é uma macro que roda ao iniciar a sessão. Ela já sai rodando toda vez que você liga o Mac e começa de novo antes de dar tempo de mexer nela. A página Troubleshooting da wiki trata exatamente desse caso ([Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Run-Away_Login_Macros)), com estes passos:
+
+1. Segure ⌃⌥⇧ e clique no ícone do menu de status para cancelar tudo o que estiver rodando.
+2. Segure as quatro teclas, ⌃⌥⇧⌘, e clique no Keyboard Maestro no Dock ou dê um clique duplo nele na pasta Aplicativos. Isso encerra o Engine e abre o editor sem iniciar o Engine.
+3. No editor, encontre a macro e remova o gatilho dela, ou desabilite a macro.
+4. Se nada disso funcionar, reinicie o Mac no modo de segurança, para que os itens de início, incluindo o Engine, não sejam abertos. Depois segure ⌃⌥⇧⌘ de novo ao abrir o Keyboard Maestro e corrija a macro.
+
+## Deixar uma saída pronta na macro
+
+Agora que você já sabe parar uma macro, dá para se prevenir da próxima vez. O Keyboard Maestro tem várias <Term k="动作" text="ações" /> feitas para cancelar macros: **Cancel All Macros** (cancelar todas as macros), **Cancel All Other Macros** (cancelar todas as outras macros), **Cancel This Macro** (cancelar esta macro) e **Cancel Just This Macro** (cancelar apenas esta macro) ([How do I ...?](https://wiki.keyboardmaestro.com/manual/How_do_I)). O uso mais simples é criar uma macro de parada de emergência. Crie uma macro nova com um gatilho **Hot Key** (tecla de atalho), por exemplo ⌃⌥⌘. (Control, Option, Command e a tecla de ponto), e uma única ação **Cancel All Macros**. Ela faz a mesma coisa que clicar no ícone, sem você precisar procurar a barra de menus.
+
+Alguns hábitos também evitam dor de cabeça. Teste uma repetição nova com um número bem pequeno primeiro, como três, e só aumente para cem quando ela funcionar direito. Se não tiver certeza sobre uma macro, abra o depurador, marque **Pause New Macros** e avance passo a passo. Se uma macro falhar no meio ou parecer pular passos, normalmente é porque ela está indo rápido demais para o app acompanhar, o que é outro problema. A seção [Timing Between Actions](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions) (tempo entre ações) da wiki explica como fazer a macro esperar.
+
+## Se algo não der certo
+
+<Q q="Não encontro o ícone do Keyboard Maestro na barra de menus.">
+A aba **General** (geral) dos ajustes controla se e como o menu de status aparece, então confira se essa opção não foi desligada ([Preferences](https://wiki.keyboardmaestro.com/manual/Preferences)). Se o Engine nem estiver rodando, também não há nenhuma macro rodando. A página oficial [Frequently Asked Questions](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) também menciona que o macOS Tahoe tem um bug na hora de posicionar menus de status, então o ícone pode ter mudado de lugar ou ficado com um espaço vazio ao lado. Dê uma olhada pela barra.
+</Q>
+<Q q="Segurei as teclas e cliquei no ícone, mas o menu abriu normalmente e a macro continuou rodando.">
+Aperte e segure as três teclas primeiro, continue segurando e só então clique. Se o menu abriu mesmo assim, não tem problema. Solte as teclas, feche o menu e tente de novo. Se ainda assim não der certo, escolha a macro no menu **Cancel** ou encerre o Engine.
+</Q>
+<Q q="A macro parou, mas depois de um tempo começou de novo sozinha.">
+Você parou aquela execução, mas o gatilho continua lá. Se ela dispara em um horário marcado, de tempos em tempos ou ao iniciar a sessão, ela volta quando chegar a hora. Desabilite a macro, corrija o problema e depois habilite-a de novo.
+</Q>
+
+Guarde esse truque, segurar ⌃⌥⇧ e clicar no ícone, e você já pode deixar suas macros cuidando de tarefas mais longas sem preocupação. Para descobrir por que uma macro não se comporta como deveria e onde ela trava, veja [Quando uma macro não funciona](/pt/guide/6-debug/).

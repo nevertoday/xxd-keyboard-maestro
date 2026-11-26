@@ -1,0 +1,52 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: paste-plain
+step: 5
+time: Cinco minutos
+for: Você copia um texto de uma página da web e ele entra no seu documento com as fontes, cores e links de outra pessoa
+tldr: Aperte ⌃⌥⌘V para colar e entra só o texto, sem as fontes, cores nem links da página da web.
+description: Use o filtro Remove Styles da ação Filter para transformar a área de transferência em texto simples e depois use Type a Keystroke para apertar ⌘V. Por que a área de transferência guarda várias versões, por que remover estilos às vezes muda o texto e por que a tecla de atalho não pode ser simplesmente ⌘V.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Você copia uma citação de uma página da web para o relatório que está escrevendo para a aula, e o que entra lá é a fonte e o tamanho da página, às vezes em letra cinza, às vezes com um link junto. Cole cinco ou seis citações e o relatório fica parecendo uma colcha de retalhos, até que você acaba selecionando uma por uma para ajeitar tudo na mão. Quase todo estudante já passou por isso. Depois que montar a macro abaixo, você vai colar com ⌃⌥⌘V (⌃ é Control, ⌥ é Option, ⌘ é Command) e vai entrar só o texto.
+
+<mark>Tire primeiro a formatação da área de transferência, depois cole, e só o texto passa.</mark>
+
+## A área de transferência guarda mais de uma versão
+
+Quando você copia um texto, a área de transferência guarda mais de uma coisa. A seção Removing Styles Changes The Text da página oficial [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) deixa isso bem claro: uma única cópia pode conter uma versão em texto simples, uma versão formatada e até uma imagem, e essas versões são chamadas de “flavors”. Quando você cola, o app escolhe a que consegue aproveitar melhor. Um processador de texto escolhe naturalmente a versão formatada, e as fontes da página da web vêm junto.
+
+A ação **Filter** (filtrar) do Keyboard Maestro tem um filtro chamado **Remove Styles** (remover estilos) que transforma a área de transferência em texto simples (veja [Filters](https://wiki.keyboardmaestro.com/manual/Filters)). Assim que as versões formatadas desaparecem, tudo o que o app pode escolher é o texto simples.
+
+## Monte a macro
+
+Você vai querer usar essa macro em todos os apps, então coloque-a em um grupo de macros disponível em todo lugar e dê a ela o nome de “Colar texto simples”. Como gatilho, escolha **Hot Key** (tecla de atalho) e aperte ⌃⌥⌘V. Depois adicione duas ações:
+
+1. **Filter**: como origem, escolha **System Clipboard** (área de transferência do sistema). Como filtro, escolha **Remove Styles** e coloque o resultado de volta na área de transferência do sistema.
+2. **Type a Keystroke** (pressionar uma tecla): clique no campo e aperte ⌘V.
+
+O segundo passo aperta o seu atalho normal de colar. A recomendação oficial é usar **Type a Keystroke** para combinações de teclas que incluem Command (veja [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+
+## Confira se funcionou
+
+No Safari, encontre um trecho com negrito ou um link e copie. Abra o Editor de Texto, crie um novo documento, digite uma linha sua, aperte Return e depois aperte ⌃⌥⌘V. Você deve ver o texto entrar sem o negrito, sem o link e na mesma fonte da linha que você digitou.
+
+Uma coisa importante de saber: a macro transformou a própria área de transferência em texto simples, então, se você apertar ⌘V depois, vai colar texto simples também, até a próxima vez que você copiar algo. Para recuperar o original formatado, procure no seu <Term k="剪贴板历史" text="histórico da área de transferência" />, que o [passo 5 do guia completo](/pt/guide/5-clipboard/) explica.
+
+**Filter** também tem outros filtros. **Trim Whitespace** (aparar espaços), por exemplo, tira os espaços extras do começo e do fim. Adicione um segundo **Filter** depois do primeiro, e aqueles espaços soltos que costumam vir nas citações também somem.
+
+## Se algo não der certo
+
+<Q q="Depois de remover os estilos, o texto não ficou bem igual. O marcador na frente de um item de lista sumiu, ou apareceu um novo.">
+Alguns apps colocam um texto ligeiramente diferente na versão simples e na versão formatada, e **Remove Styles** lê a versão simples. A solução oficial é adicionar uma ação **Set Clipboard to Text** (definir a área de transferência como texto) antes do **Filter**, configurá-la para **styled text** (texto formatado) e preencher com `%SystemClipboard%`. Isso faz o Keyboard Maestro remontar uma área de transferência limpa em que as duas versões batem, e só depois você remove os estilos. Essa dica está na mesma seção Removing Styles Changes The Text citada acima.
+</Q>
+<Q q="Posso fazer o próprio ⌘V colar texto simples definindo a tecla de atalho como ⌘V?">
+Não faça isso. O segundo passo da macro aperta o próprio ⌘V, e a página oficial deixa claro que simular uma tecla que também é a tecla de atalho de uma macro ativa gera resultados imprevisíveis: às vezes envia a tecla, às vezes dispara a macro. Escolha outra combinação. ⌃⌥⌘V é fácil de lembrar.
+</Q>
+<Q q="Continuou colando com formatação, ou colou algo que eu copiei antes.">
+Alguns apps, especialmente os multiplataforma, fazem cache da área de transferência e não percebem a mudança que o Keyboard Maestro acabou de fazer. A sugestão oficial é “acordar” o app antes de colar, por exemplo saindo dele e voltando em seguida. Veja [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted).
+</Q>
+
+Uma tecla de atalho e duas ações, e as citações não transformam mais o seu relatório em uma colcha de retalhos. A área de transferência consegue fazer muito mais, como guardar alguns trechos que você cola com frequência. Está tudo no [passo 5 do guia completo](/pt/guide/5-clipboard/).
