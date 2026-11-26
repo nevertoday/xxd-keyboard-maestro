@@ -8,9 +8,9 @@
 
 Keyboard Maestro — это автоматизация для Mac: вы создаёте макросы в редакторе, а движок запускает их в фоне.<br>Это руководство опирается на официальную вики Keyboard Maestro и раскладывает её на три коротких урока, чтобы спокойно пройти их смог даже тот, кто раньше ничего не автоматизировал.
 
-**[Начать с урока 1 →](https://keyboardmaestro.xiaoxiaodong.ai/ru/start/1-first-macro/)**　·　**[Уже пользуетесь? Полное руководство (на английском) →](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
+**[Начать с урока 1 →](https://keyboardmaestro.xiaoxiaodong.ai/ru/start/1-first-macro/)**　·　**[Уже пользуетесь? Полное руководство →](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/0-what/)**
 
-<sub>Неофициальное · бесплатное · с открытым исходным кодом · 10 языков (весь сайт — на китайском и английском, главная и три урока — ещё на 8 языках)</sub>
+<sub>Неофициальное · бесплатное · с открытым исходным кодом · весь сайт на 10 языках</sub>
 
 </div>
 
@@ -48,32 +48,32 @@ Keyboard Maestro отдаёт всё это макросам. Макрос за�
 2. **[Введите несколько букв — получите целый абзац](https://keyboardmaestro.xiaoxiaodong.ai/ru/start/2-type-less/)** (10 минут): адрес, короткое представление о себе или ответ, которые вы набираете каждый день, отправляются в триггер по вводу строки — вводите несколько букв, и сразу появляется весь текст целиком.
 3. **[Одна клавиша — целая цепочка дел](https://keyboardmaestro.xiaoxiaodong.ai/ru/start/3-one-key-routine/)** (15 минут): превратите привычные утренние клики в один макрос — он откроет несколько приложений и веб-страницу и расставит окна по местам, а ещё вы узнаете, как его остановить и куда смотреть, если что-то пойдёт не так.
 
-## Полное руководство (на английском)
+## Полное руководство
 
 Прошли три урока и хочется большего — чтобы макросы подстраивались под ситуацию, буфер обмена всё запоминал, а вы знали, как выяснить, почему что-то не сработало? Проходите эти шаги по порядку:
 
 | Шаг | Тема | В одной строке |
 | --- | --- | --- |
-| 0 | [Что такое Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/) | Автоматизация для Mac: вы создаёте макросы в редакторе, а движок запускает их в фоне. Любой макрос — это «когда» плюс «что сделать» |
-| 1 | [Группы макросов: где работают макросы](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/1-groups/) | Группа макросов — это папка, которая заодно решает, когда её макросы активны: только в выбранных приложениях, только после включения вручную или в виде палитры |
-| 2 | [Триггеры: когда макрос запускается](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | Горячая клавиша, ввод строки, время суток, запуск приложения, сеть Wi-Fi, новый файл в папке — выбирайте момент, который кажется естественным |
-| 3 | [Действия: что делает макрос](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | Ввод текста, нажатия клавиш, пункты меню, приложения, окна, клики и файлы: познакомьтесь с дюжиной самых ходовых действий, а остальные найдёте, когда понадобятся |
-| 4 | [Переменные, условия и циклы: макросы, которые подстраиваются](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | Запомнить текст, задать вам вопрос, пойти разным путём в зависимости от того, что на экране, подождать нужного события — макрос перестаёт быть жёсткой цепочкой нажатий |
-| 5 | [Буфер обмена: всё, что вы копировали, никуда не делось](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | История буфера обмена позволяет вставлять скопированное раньше, именованные буферы обмена хранят нужные вещи постоянно, а фильтры меняют текст перед вставкой |
-| 6 | [Если макрос не работает](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | Сначала проверьте разрешения и запущен ли движок, потом — активна ли группа. Всё равно не срабатывает? Пройдите макрос по шагам в отладчике или загляните в журнал движка |
-| 7 | [Двигаемся дальше: скрипты, подпрограммы, синхронизация и обмен](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/7-advanced/) | Подключайте shell-скрипты, AppleScript и JavaScript, выносите повторяющиеся шаги в подпрограммы, синхронизируйте макросы между двумя Mac и делитесь ими с другими |
+| 0 | [Что такое Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/0-what/) | Автоматизация для Mac: вы создаёте макросы в редакторе, а движок запускает их в фоне. Любой макрос — это «когда» плюс «что сделать» |
+| 1 | [Группы макросов: где работают макросы](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/1-groups/) | Группа макросов — это папка, которая заодно решает, когда её макросы активны: только в выбранных приложениях, только после включения вручную или в виде палитры |
+| 2 | [Триггеры: когда запускается макрос](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/2-triggers/) | Горячая клавиша, ввод строки, время суток, запуск приложения, сеть Wi-Fi, новый файл в папке — выбирайте момент, который кажется естественным |
+| 3 | [Действия: что делает макрос](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/3-actions/) | Ввод текста, нажатия клавиш, пункты меню, приложения, окна, клики и файлы: познакомьтесь с дюжиной самых ходовых действий, а остальные найдёте, когда понадобятся |
+| 4 | [Переменные, условия и циклы: макросы, которые подстраиваются под ситуацию](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/4-variables/) | Запомнить текст, задать вам вопрос, пойти разным путём в зависимости от того, что на экране, подождать нужного события — макрос перестаёт быть жёсткой цепочкой нажатий |
+| 5 | [Буфер обмена: всё, что вы копировали, на месте](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/5-clipboard/) | История буфера обмена позволяет вставлять скопированное раньше, именованные буферы обмена хранят нужные вещи постоянно, а фильтры меняют текст перед вставкой |
+| 6 | [Когда макрос не работает](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/6-debug/) | Сначала проверьте разрешения и запущен ли движок, потом — активна ли группа. Всё равно не срабатывает? Пройдите макрос по шагам в отладчике или загляните в журнал движка |
+| 7 | [Идём дальше: скрипты, подпрограммы, синхронизация и обмен макросами](https://keyboardmaestro.xiaoxiaodong.ai/ru/guide/7-advanced/) | Подключайте shell-скрипты, AppleScript и JavaScript, выносите повторяющиеся шаги в подпрограммы, синхронизируйте макросы между двумя Mac и делитесь ими с другими |
 
-## Инструкции: конкретные задачи (на английском)
+## Инструкции: конкретные задачи
 
-- **Ввод и текст**: [Превратить то, что вы часто набираете, в сокращения](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [Вставить сегодняшнюю дату одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [Вставить текст без форматирования](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [Заполнить одну и ту же форму одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **Приложения и окна**: [Переключиться на приложение одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [Расставить окна так, как вам удобно](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [Назначить команде меню сочетание клавиш, которого у неё нет](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
-- **Файлы**: [Переименовать сразу пачку файлов](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [Сразу раскладывать файлы по местам, как только они попадают в папку](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
-- **Экран и мышь**: [Найти кнопку на экране и кликнуть по ней](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [Считать текст с экрана](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
-- **По расписанию**: [Запускать задачу каждый день в одно и то же время](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [Запустить действие, когда вы подключаетесь к Wi-Fi или подсоединяете устройство](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
-- **Сначала спросить вас**: [Задать вопрос, прежде чем выполнить задачу](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ask-input/) · [Сделать ряд кнопок для запуска макросов](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/palette/)
-- **Хранение и обмен**: [Пользоваться одними и теми же макросами на двух Mac](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/sync-macs/) · [Экспортировать и импортировать макросы, делиться ими](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/share-macros/) · [Если макрос не останавливается](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/stop-macro/)
+- **Ввод и текст**: [Превратить то, что вы часто набираете, в сокращения](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/text-snippets/) · [Вставить сегодняшнюю дату одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/insert-date/) · [Вставить текст без форматирования](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/paste-plain/) · [Заполнить одну и ту же форму одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/fill-form/)
+- **Приложения и окна**: [Переключиться на приложение одной клавишей](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/app-hotkeys/) · [Расставить окна так, как вам удобно](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/window-layout/) · [Назначить сочетание клавиш команде меню, у которой его нет](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/menu-shortcut/)
+- **Файлы**: [Переименовать сразу несколько файлов](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/rename-files/) · [Раскладывать файлы по местам, как только они попадают в папку](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/watch-folder/)
+- **Экран и мышь**: [Найти кнопку на экране и кликнуть по ней](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/click-image/) · [Считать текст с экрана](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/ocr-text/)
+- **По расписанию**: [Запускать задачу каждый день в одно и то же время](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/daily-schedule/) · [Сделать что-то, когда вы подключаетесь к сети Wi-Fi или подсоединяете устройство](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/wifi-usb/)
+- **Сначала спросить вас**: [Задать вопрос, прежде чем выполнить задачу](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/ask-input/) · [Сделать ряд кнопок для запуска макросов](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/palette/)
+- **Хранение и обмен**: [Использовать одни и те же макросы на двух Mac](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/sync-macs/) · [Экспортировать и импортировать макросы и делиться ими](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/share-macros/) · [Когда макрос не останавливается](https://keyboardmaestro.xiaoxiaodong.ai/ru/howto/stop-macro/)
 
-Споткнулись о незнакомое слово или в чём-то не уверены? Загляните в **[Вики](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)** и **[Частые вопросы](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)** (на английском).
+Споткнулись о незнакомое слово или в чём-то не уверены? Загляните в **[Вики](https://keyboardmaestro.xiaoxiaodong.ai/ru/wiki/)** и **[Частые вопросы](https://keyboardmaestro.xiaoxiaodong.ai/ru/faq/)**.
 
 ## Откуда взяты материалы
 
