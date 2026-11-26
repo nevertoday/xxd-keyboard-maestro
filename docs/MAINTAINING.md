@@ -13,7 +13,9 @@
   - 数据：`nav.js` 各条目的 `en: {}`；`wiki.en.js`、`faq.en.js`（按 slug 叠加，结构和条数要和中文一致）；`figs.js` 各图的 `en`；界面文字在 `src/data/ui.js` 的 zh / en 两份。
   - 改完数据或界面文字，跑 `node scripts/l10n.mjs export`，更新给另外 8 种语言翻译用的英文模板（见下一条）。
   - 强调：每页最多一处 `<mark>`（这页最要紧的一句），`<u>` 只给照做会失败的坑；英文页放在对应的那句上。
-- **另外 8 种语言（日、韩、西、葡、法、德、俄、阿）**：现在只打开了首页和新手入门三课，其余页面链到英文版。全站要的东西都已经能翻：界面文字、导航、Wiki、常见问题、图示、完整教程和 How-to。翻好一种，打开它（`full: true`），它就是全站。
+- **另外 8 种语言（日、韩、西、葡、法、德、俄、阿）**：2026-11-26 起都是全站：界面文字、导航、Wiki、常见问题、图示、完整教程和 How-to 都有本语言版。
+  - 怎么翻的：Gemini 4 Neon XHigh（`agy -p … --model gemini-4-neon-xhigh`）按 `docs/TRANSLATE.md` 和 `docs/l10n/glossary/<语言>.md` 从英文翻；每种语言三位 Claude 审读者（数据、完整教程、How-to）对照英文通读，按「当前原文 → 改成」的清单改，改完逐条查过。审下来各语言反复出现的毛病已写进 `TRANSLATE.md` 的「Keep consistent across the whole site」：enabled 和 active 用两个词、触发器「触发」和分组「激活」用两个动词、链接文字用目标页标题、同一个按钮名一个括注、Keyboard Maestro 自己的设置窗口一个名字、不用长破折号（俄语语法要的破折号除外）。
+  - 英文改了以后：`node scripts/l10n.mjs export`，按 `git diff src/l10n/en` 和改过的 `src/pages/en/` 重翻对应的那几处，8 种一起改，再请审读者看一遍改动。
   - 语言清单在 `nav.js` 的 `LANGS`。`full: true` 是全站语言：导航、搜索、上一步 / 下一步、Wiki 和术语链接都指向 `/<语言>/…`。没有 `full` 的，构建后 `scripts/l10n-dist.mjs` 把 `dist/<语言>/` 里首页和新手入门以外的页面删掉，所以翻好的页面可以先提交，线上不变。
   - 想先看看一种语言打开后的样子，不用改 `LANGS`：`L10N_FULL=ja npm run build`（几种用逗号隔开）。
   - 一种语言的全部翻译，都和英文的同一个文件一一对应：

@@ -46,7 +46,7 @@ Bei Local- oder Instance-Variablen musst du außerdem angeben, welchen Durchlauf
 
 ### JavaScript for Automation
 
-Seit Keyboard Maestro 11 nutzen JXA-Skripte standardmäßig **Modern Syntax** (moderne Syntax). Das gesamte Skript steckt in einer Funktion, deshalb gibst du das Ergebnis mit `return` zurück. Variablen holst du dir aus `kmvar`, wieder mit Unterstrichen statt Leerzeichen ([Wiki](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)). Local- und Instance-Variablen sind verfügbar, Passwort-Variablen nicht.
+Seit Keyboard Maestro 11 nutzen JXA-Skripte standardmäßig Modern Syntax (moderne Syntax). Das gesamte Skript steckt in einer Funktion, deshalb gibst du das Ergebnis mit `return` zurück. Variablen holst du dir aus `kmvar`, wieder mit Unterstrichen statt Leerzeichen ([Wiki](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)). Local- und Instance-Variablen sind verfügbar, Passwort-Variablen nicht.
 
 ```javascript
 return "Hallo, " + kmvar.Local_Name;

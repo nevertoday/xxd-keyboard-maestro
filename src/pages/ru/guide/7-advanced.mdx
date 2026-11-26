@@ -46,7 +46,7 @@ end tell
 
 ### JavaScript for Automation
 
-Начиная с Keyboard Maestro 11, скрипты JXA по умолчанию используют режим **Modern Syntax** (современный синтаксис). Весь скрипт обёрнут в функцию, поэтому результат возвращается через `return`. Переменные берутся из `kmvar`, и пробелы в их именах здесь тоже заменяются на нижние подчёркивания ([официальная вики](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)). Переменные Local и Instance доступны, а переменные с паролями недоступны.
+Начиная с Keyboard Maestro 11, скрипты JXA по умолчанию используют режим Modern Syntax (современный синтаксис). Весь скрипт обёрнут в функцию, поэтому результат возвращается через `return`. Переменные берутся из `kmvar`, и пробелы в их именах здесь тоже заменяются на нижние подчёркивания ([официальная вики](https://wiki.keyboardmaestro.com/action/Execute_a_JavaScript_For_Automation#Using_Keyboard_Maestro_Variables)). Переменные Local и Instance доступны, а переменные с паролями недоступны.
 
 ```javascript
 return "Привет, " + kmvar.Local_Name;

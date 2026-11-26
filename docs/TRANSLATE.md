@@ -1,6 +1,6 @@
 # Translation brief: 8 more languages
 
-The site is Chinese (root) and English (`/en/`) in full. Eight more languages (Japanese, Korean, Spanish, Brazilian Portuguese, French, German, Russian, Arabic) are live with the home page, the three beginner lessons and their own README; deeper pages (full guide, how-to, wiki, FAQ) link to the English version until a language is switched on. Every page and every piece of site text can now be translated: the data files under `src/l10n/<lang>/` and the guide and how-to pages under `src/pages/<lang>/` (see "What to translate" below). A language goes live as a full site once all of it is in and checked.
+The site is Chinese (root) and English (`/en/`) originals, and since 2026-11-26 the whole site is also in Japanese, Korean, Spanish, Brazilian Portuguese, French, German, Russian and Arabic: the data files under `src/l10n/<lang>/` and the guide and how-to pages under `src/pages/<lang>/` (see "What to translate" below). When the English changes, the same change is translated into all 8.
 
 Translation is done by Gemini (`agy -p … --model gemini-4-neon-xhigh`), one file per call, from the English originals. Claude reviews each language and Gemini applies the findings. This file is the brief Gemini receives with every file; `docs/l10n/glossary/<lang>.md` is the per-language term list it receives with it.
 

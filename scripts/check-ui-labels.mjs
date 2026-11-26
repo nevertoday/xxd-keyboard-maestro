@@ -48,6 +48,10 @@ const ALLOW = [
   ["Preferências do Sistema", "pt-BR：System Preferences"],
   ["Privacidade e Segurança", "pt-BR：Privacy & Security"],
   ["Acessibilidade", "pt-BR：Accessibility"],
+  ["Sicherheit & Datenschutz", "de：macOS 12 和更早的 Security & Privacy 面板"],
+  ["Datenschutz", "de：Security & Privacy 面板里的 Privacy 标签"],
+  ["Bildschirm- & Systemaudioaufnahme", "de：Screen & System Audio Recording"],
+  ["Automatisation", "fr：Automation"],
   // Keyboard Maestro 菜单里由 macOS 生成的几项（App 的文件里没有这几个字）
   ["Settings", "macOS 13 起，App 菜单里的 Preferences… 显示成 Settings…（Wiki 和 App 文件里还叫 Preferences）"],
   ["Quit Keyboard Maestro", "App 菜单的退出项，macOS 按 App 名生成；官方 Wiki 的菜单路径写作 Keyboard Maestro ➤ Quit Keyboard Maestro"],
@@ -85,6 +89,7 @@ const bad = [];
 let checked = 0;
 for (const file of files) {
   const en = isEnglish(file);
+  const latin = /[\\/](es|pt|fr|de)[\\/]/.test(relative(ROOT, file));
   const text = strip(readFileSync(file, "utf8"));
   for (const m of text.matchAll(/\*\*([^*\n]+?)\*\*/g)) {
     const bold = m[1].replace(/[\u2066\u2069]/g, "").trim();
@@ -93,7 +98,8 @@ for (const file of files) {
     for (const part of parts) {
       if (!/^[A-Z]/.test(part)) continue;
       if (!en && !ENGLISH.test(part)) continue;
-      if (en && !menu && (/[.!?]$/.test(part) || part.split(" ").length > 8)) continue;
+      // 西、葡、法、德也用拉丁字母：本语言的加粗句子（以 . ! ? 结尾、超过 8 个词、或带逗号的）不是界面名字
+      if (!menu && (en || latin) && (/[.!?]$/.test(part) || part.split(" ").length > 8 || (latin && /, /.test(part)))) continue;
       checked++;
       const label = norm(part);
       if (isKnown(label)) continue;

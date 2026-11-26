@@ -8,9 +8,9 @@
 
 برنامج Keyboard Maestro هو أداة أتمتة لجهاز Mac: تكتب وحدات الماكرو في المحرّر، ويتولّى المحرك تشغيلها في الخلفية.<br>يستند هذا الدليل إلى الويكي الرسمي لبرنامج Keyboard Maestro ويحوّله إلى ثلاثة دروس قصيرة، حتى يتمكّن أي شخص لم يجرّب الأتمتة من قبل من المتابعة بسهولة.
 
-**[ابدأ بالدرس 1 ←](https://keyboardmaestro.xiaoxiaodong.ai/ar/start/1-first-macro/)**　·　**[تستخدمه بالفعل؟ الدليل الكامل (بالإنجليزية) ←](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/)**
+**[ابدأ بالدرس 1 ←](https://keyboardmaestro.xiaoxiaodong.ai/ar/start/1-first-macro/)**　·　**[تستخدمه بالفعل؟ الدليل الكامل ←](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/0-what/)**
 
-<sub>غير رسمي · مجاني · مفتوح المصدر · 10 لغات (الموقع كامل بالصينية والإنجليزية، والصفحة الرئيسية والدروس الثلاثة متاحة بثماني لغات أخرى)</sub>
+<sub>غير رسمي · مجاني · مفتوح المصدر · الموقع كاملًا بـ 10 لغات</sub>
 
 </div>
 
@@ -54,26 +54,26 @@
 
 | الخطوة | الموضوع | في سطر واحد |
 | --- | --- | --- |
-| 0 | [ما هو Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/0-what/) | أداة أتمتة لجهاز Mac: تكتب وحدات الماكرو في المحرّر ويشغّلها المحرك في الخلفية. كل ماكرو يتكوّن من «متى» و«ماذا» |
-| 1 | [مجموعات الماكرو: أين تعمل وحدات الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/1-groups/) | مجموعة الماكرو مجلد يحدّد أيضًا متى تكون وحدات الماكرو بداخله فعّالة: في تطبيقات معيّنة فقط، أو بعد تفعيلها يدويًا، أو معروضة على شكل لوحة أزرار |
-| 2 | [المشغّلات: متى يبدأ الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/2-triggers/) | مفتاح اختصار، أو نص مكتوب، أو وقت محدد من اليوم، أو تشغيل تطبيق، أو الاتصال بشبكة Wi-Fi، أو وصول ملف جديد إلى مجلد: اختر اللحظة التي تبدو طبيعية لك |
-| 3 | [الإجراءات: ماذا يفعل الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/3-actions/) | الكتابة، وضغطات المفاتيح، والقوائم، والتطبيقات، والنوافذ، والنقرات، والملفات: تعرّف على نحو اثني عشر إجراءً ستستخدمها أكثر من غيرها، وابحث عن الباقي وقت الحاجة |
-| 4 | [المتغيّرات والشروط والحلقات: وحدات ماكرو تتكيّف](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/4-variables/) | يحفظ نصًا ما، ويسألك سؤالًا، ويسلك مسارًا مختلفًا بحسب ما يظهر على الشاشة، وينتظر حدوث شيء ما: هنا لا يعود الماكرو مجرد سلسلة ثابتة من ضغطات المفاتيح |
-| 5 | [الحافظة: كل ما نسخته لا يزال موجودًا](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/5-clipboard/) | يتيح لك سجل الحافظة لصق ما نسخته سابقًا، وتحفظ الحافظات المُسمّاة بضعة أشياء بشكل دائم، وتعدّل الفلاتر النص قبل لصقه |
-| 6 | [عندما لا يعمل الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/6-debug/) | تحقّق أولًا من الأذونات ومن عمل المحرك، ثم تأكّد إن كانت المجموعة نشطة. ما زالت المشكلة قائمة؟ تتبّع الخطوات عبر مصحّح الأخطاء أو اقرأ سجل المحرك |
-| 7 | [الانتقال إلى مستوى أعمق: السكربتات والبرامج الفرعية والمزامنة والمشاركة](https://keyboardmaestro.xiaoxiaodong.ai/en/guide/7-advanced/) | اربط سكربتات shell و AppleScript و JavaScript، وحوّل الخطوات المتكررة إلى برامج فرعية، وزامن بين جهازَي Mac، وشارك وحدات الماكرو مع الآخرين |
+| 0 | [ما هو Keyboard Maestro](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/0-what/) | أداة أتمتة لجهاز Mac: تكتب وحدات الماكرو في المحرّر ويشغّلها المحرك في الخلفية. كل ماكرو يتكوّن من «متى» و«ماذا» |
+| 1 | [مجموعات الماكرو: أين تعمل وحدات الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/1-groups/) | مجموعة الماكرو مجلد يحدّد أيضًا متى تكون وحدات الماكرو بداخله فعّالة: في تطبيقات معيّنة فقط، أو بعد تفعيلها يدويًا، أو معروضة على شكل لوحة أزرار |
+| 2 | [المشغّلات: متى يبدأ الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/2-triggers/) | مفتاح اختصار، أو نص مكتوب، أو وقت محدد من اليوم، أو تشغيل تطبيق، أو الاتصال بشبكة Wi-Fi، أو وصول ملف جديد إلى مجلد: اختر اللحظة التي تبدو طبيعية لك |
+| 3 | [الإجراءات: ماذا يفعل الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/3-actions/) | الكتابة، وضغطات المفاتيح، والقوائم، والتطبيقات، والنوافذ، والنقرات، والملفات: تعرّف على نحو اثني عشر إجراءً ستستخدمها أكثر من غيرها، وابحث عن الباقي وقت الحاجة |
+| 4 | [المتغيّرات والشروط وحلقات التكرار: وحدات ماكرو قادرة على التكيّف](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/4-variables/) | يحفظ نصًا ما، ويسألك سؤالًا، ويسلك مسارًا مختلفًا بحسب ما يظهر على الشاشة، وينتظر حدوث شيء ما: هنا لا يعود الماكرو مجرد سلسلة ثابتة من ضغطات المفاتيح |
+| 5 | [الحافظة: كل ما نسخته ما زال موجودًا](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/5-clipboard/) | يتيح لك سجل الحافظة لصق ما نسخته سابقًا، وتحفظ الحافظات المُسمّاة بضعة أشياء بشكل دائم، وتعدّل الفلاتر النص قبل لصقه |
+| 6 | [عندما لا يعمل الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/6-debug/) | تحقّق أولًا من الأذونات ومن عمل المحرك، ثم تأكّد إن كانت المجموعة نشطة. ما زالت المشكلة قائمة؟ تتبّع الخطوات عبر مصحّح الأخطاء أو اقرأ سجل المحرك |
+| 7 | [التعمّق أكثر: النصوص البرمجية والبرامج الفرعية والمزامنة والمشاركة](https://keyboardmaestro.xiaoxiaodong.ai/ar/guide/7-advanced/) | اربط سكربتات shell و AppleScript و JavaScript، وحوّل الخطوات المتكررة إلى برامج فرعية، وزامن بين جهازَي Mac، وشارك وحدات الماكرو مع الآخرين |
 
 ## شروحات عملية: مهام محددة
 
-- **الكتابة والنصوص**: [حوّل ما تكتبه كثيرًا إلى اختصارات نصية](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/text-snippets/) · [أدرج تاريخ اليوم بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/insert-date/) · [ألصق النص بلا تنسيق](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/paste-plain/) · [املأ النموذج نفسه بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/fill-form/)
-- **التطبيقات والنوافذ**: [انتقل إلى أي تطبيق بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/app-hotkeys/) · [رتّب نوافذك في الأماكن التي تريدها](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/window-layout/) · [أضف اختصارًا لأمر قائمة لا يملك اختصارًا](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/menu-shortcut/)
-- **الملفات**: [أعد تسمية مجموعة من الملفات دفعة واحدة](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/rename-files/) · [صنّف الملفات فور وصولها إلى مجلد](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/watch-folder/)
-- **الشاشة والفأرة**: [اعثر على زر على الشاشة وانقر عليه](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/click-image/) · [اقرأ النص الظاهر على شاشتك](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ocr-text/)
-- **وفق جدول زمني**: [شغّل مهمة في الوقت نفسه كل يوم](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/daily-schedule/) · [نفّذ إجراءً عند الاتصال بشبكة Wi-Fi أو توصيل جهاز](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/wifi-usb/)
-- **سؤالك أولًا**: [اطرح سؤالًا قبل تنفيذ العمل](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/ask-input/) · [أنشئ صفًا من الأزرار لتشغيل وحدات الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/palette/)
-- **الحفظ والمشاركة**: [استخدم وحدات الماكرو نفسها على جهازَي Mac](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/sync-macs/) · [صدّر وحدات الماكرو واستوردها وشاركها](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/share-macros/) · [عندما لا يتوقف الماكرو عن العمل](https://keyboardmaestro.xiaoxiaodong.ai/en/howto/stop-macro/)
+- **الكتابة والنصوص**: [حوّل ما تكتبه كثيرًا إلى اختصارات نصية](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/text-snippets/) · [أدرج تاريخ اليوم بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/insert-date/) · [ألصق من دون تنسيق](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/paste-plain/) · [املأ النموذج نفسه بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/fill-form/)
+- **التطبيقات والنوافذ**: [انتقل إلى أي تطبيق بمفتاح واحد](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/app-hotkeys/) · [ضع نوافذك حيث تريد](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/window-layout/) · [أضِف اختصارًا لأمر في القائمة ليس له اختصار](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/menu-shortcut/)
+- **الملفات**: [أعِد تسمية مجموعة ملفات دفعة واحدة](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/rename-files/) · [رتّب الملفات فور وصولها إلى مجلد](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/watch-folder/)
+- **الشاشة والفأرة**: [اعثر على زر في الشاشة وانقر عليه](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/click-image/) · [اقرأ النص الظاهر على شاشتك](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/ocr-text/)
+- **وفق جدول زمني**: [شغّل مهمة في الوقت نفسه كل يوم](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/daily-schedule/) · [نفّذ مهمة عند الاتصال بشبكة Wi-Fi أو توصيل جهاز](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/wifi-usb/)
+- **سؤالك أولًا**: [اطرح سؤالًا قبل بدء العمل](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/ask-input/) · [أنشئ صفًا من الأزرار لتشغيل وحدات الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/palette/)
+- **الحفظ والمشاركة**: [استخدم وحدات الماكرو نفسها على جهازَي Mac](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/sync-macs/) · [صدّر وحدات الماكرو واستوردها وشاركها](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/share-macros/) · [عندما لا يتوقّف الماكرو](https://keyboardmaestro.xiaoxiaodong.ai/ar/howto/stop-macro/)
 
-توقّفت عند مصطلح غير مألوف أو لم تكن متأكدًا من أمر ما؟ ابحث عنه في **[الويكي](https://keyboardmaestro.xiaoxiaodong.ai/en/wiki/)** وفي **[الأسئلة الشائعة](https://keyboardmaestro.xiaoxiaodong.ai/en/faq/)**.
+توقّفت عند مصطلح غير مألوف أو لم تكن متأكدًا من أمر ما؟ ابحث عنه في **[الويكي](https://keyboardmaestro.xiaoxiaodong.ai/ar/wiki/)** وفي **[الأسئلة الشائعة](https://keyboardmaestro.xiaoxiaodong.ai/ar/faq/)**.
 
 ## من أين تأتي هذه المعلومات
 
