@@ -1,0 +1,113 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 5
+tldr: "Keyboard Maestro garde en mémoire ce que vous avez copié récemment (jusqu’à 200 éléments par défaut). Appuyez sur ⌃⇧⌘V pour ouvrir l’historique du presse-papiers et recoller n’importe lequel. Vos signatures et images fréquentes trouvent leur place dans des presse-papiers nommés, qui résistent aux redémarrages. L’action Filter permet de retirer la mise en forme, de changer la casse ou de trier des lignes avant de coller."
+description: "Comment ouvrir l’historique du presse-papiers, recoller un élément copié plus tôt et coller en texte brut ; ce qu’il n’enregistre pas (éléments ressemblant à des mots de passe, apps exclues) et s’il survit à un redémarrage ; la différence entre presse-papiers nommés et variables, comment en créer et les utiliser ; l’action Filter et le filtrage dans l’historique ; Paste by Name ; les blocages courants."
+---
+import Callout from "../../../components/Callout.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Vous êtes en train de remplir une candidature en ligne. Vous copiez votre numéro de téléphone depuis votre CV et vous le collez, puis vous retournez chercher votre adresse e-mail, puis le paragraphe de présentation que vous avez réécrit une douzaine de fois. De retour sur le formulaire, vous vous rendez compte que vous avez oublié le lien vers votre portfolio, mais ce que vous aviez copié est parti depuis longtemps, car chaque nouvelle copie remplace la précédente. Le presse-papiers du Mac ne contient qu’un seul élément à la fois, et chaque copie chasse celle d’avant.
+
+<mark><strong>Une fois Keyboard Maestro installé, tout ce que vous avez copié reste à portée de main : il conserve vos quelque deux cents dernières copies, et les quelques éléments dont vous vous servez tout le temps peuvent recevoir un nom et rester enregistrés pour de bon.</strong></mark>
+
+Cette étape couvre trois outils : l’<Term k="剪贴板历史" text="historique du presse-papiers" /> pour revenir en arrière, les <Term k="命名剪贴板" text="presse-papiers nommés" /> pour garder des éléments sous la main, et les filtres pour modifier du texte avant de le coller. Aucun ne vous demande de créer une macro ; ils fonctionnent dès que Keyboard Maestro est installé. Chacun dispose aussi d’actions dédiées, pour les intégrer dans vos propres macros quand vous le souhaitez.
+
+## Historique du presse-papiers : un raccourci pour revenir en arrière
+
+À chaque fois que vous copiez quelque chose dans n’importe quelle app, le <Term k="引擎" text="moteur" /> enregistre une copie du presse-papiers. Par défaut, il conserve jusqu’à 200 éléments, et vous pouvez modifier ce nombre dans les réglages ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher)). Pour les parcourir, ouvrez **Clipboard History Switcher** (sélecteur d’historique du presse-papiers). C’est une macro fournie avec Keyboard Maestro, rangée dans le groupe de macros **Switcher Group** (groupe de sélecteurs), qui utilise par défaut le raccourci clavier ⌃⇧⌘V (Contrôle + Maj + Commande + V).
+
+<Callout type="ok">
+Appuyez sur ⌃⇧⌘V et une liste s’affiche. L’élément tout en haut est ce que vous venez de copier, et les copies plus anciennes se trouvent en dessous.
+</Callout>
+
+Repérez l’élément voulu puis double-cliquez dessus, appuyez sur Retour ou glissez-le dans votre document : il se colle là où vous étiez en train de taper. Quelques variantes bien pratiques :
+
+- Maintenez ⇧ Maj enfoncée en appuyant sur Retour ou en double-cliquant pour le coller en texte brut, sans les polices ni les couleurs d’origine.
+- Maintenez plutôt ⌥ Option enfoncée pour le replacer dans le presse-papiers du système sans le coller tout de suite.
+- ⌘ Commande plus un chiffre colle directement l’élément correspondant.
+- Le champ de recherche en haut retrouve un élément à partir de quelques mots dont vous vous souvenez, et vous pouvez choisir de n’afficher que les images ou que les favoris.
+- Ajoutez un élément dont vous vous servez souvent aux favoris pour qu’il ne soit jamais poussé hors de la liste.
+- Sélectionnez plusieurs éléments pour les coller ensemble en un seul bloc. Vous pouvez choisir ce qui les sépare dans le menu engrenage.
+
+Ainsi, la personne qui postule au début de cette page peut copier d’un seul coup son numéro de téléphone, son e-mail, son lien et sa présentation, puis revenir sur le formulaire et appuyer sur ⌃⇧⌘V pour les coller un par un.
+
+Vous n’avez même pas besoin d’ouvrir cette fenêtre. Cliquez sur le <Term k="状态菜单" text="menu d’état" /> de Keyboard Maestro dans la barre des menus : son menu **Paste** (Coller) liste les 30 éléments texte les plus récents, et il suffit d’en choisir un pour le coller ([wiki officiel](https://wiki.keyboardmaestro.com/Status_Menu)).
+
+## Ce qu’il ne garde pas, et pendant combien de temps
+
+L’historique du presse-papiers enregistre tout, donc quelques points méritent d’être connus dès le départ ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)) :
+
+- <strong>Les éléments qui ressemblent à des mots de passe</strong> sont masqués dans la liste, supprimés dès qu’ils arrivent en dixième position, et ne sont jamais enregistrés sur le disque. Cliquez sur un élément en maintenant ⌥ Option enfoncée pour le voir. C’est l’option **Detect (and Conceal) Possible Passwords** (détecter et masquer les mots de passe éventuels), dans l’onglet **General** (Général) des réglages, qui gère ce comportement.
+- <strong>Sa conservation après un redémarrage</strong> dépend de **Save Clipboard History Between Launches** (conserver l’historique du presse-papiers entre deux lancements) dans **General**. Si cette option n’est pas cochée, l’historique est effacé chaque fois que le moteur s’arrête, et redémarrer votre Mac quitte le moteur ([wiki officiel](https://wiki.keyboardmaestro.com/Clipboards#Options)).
+- <strong>Les apps que vous ne voulez pas enregistrer</strong>, comme celle qui contient les coordonnées d’autres personnes, ont leur place dans la liste d’exclusion de l’historique du presse-papiers, sous l’onglet **Excluded** (Exclus) des réglages. Tant qu’une app exclue est au premier plan, Keyboard Maestro n’enregistre pas automatiquement le presse-papiers ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)).
+
+Les réglages se trouvent dans la barre des menus, sous **Keyboard Maestro ▸ Settings** (Réglages ; les versions plus anciennes de macOS l’appellent Preferences).
+
+Un dernier point concerne vos propres macros. Beaucoup d’actions passent par le presse-papiers du système pour fonctionner, comme **Insert Text by Pasting** (insérer du texte en le collant) et **Copy to Named Clipboard** (copier dans un presse-papiers nommé), et <u>toutes remplacent ce qui se trouvait dans le presse-papiers du système</u> ([wiki officiel](https://wiki.keyboardmaestro.com/Clipboards#Actions_That_Use_The_Clipboard)). Si vous appuyez sur ⌘V après l’une de ces macros, vous risquez de coller le texte que la macro vient de coller. La bonne nouvelle, c’est que votre propre copie est toujours dans l’historique, un ou deux crans plus bas.
+
+## Presse-papiers nommés : donner un nom et garder pour de bon
+
+L’historique du presse-papiers est un flux qui ne s’arrête jamais : les nouveaux éléments arrivent et les anciens glissent vers le bas. Certains contenus gagnent plutôt à rester bien en place, comme une signature d’e-mail avec le logo et le téléphone de votre boutique, une image que vous collez tout le temps ou une présentation de cours déjà mise en forme. C’est à cela que servent les presse-papiers nommés.
+
+Un presse-papiers nommé n’est pas vraiment un presse-papiers. Il ressemble plutôt à un petit fichier qui stocke un contenu de presse-papiers : ce que vous y placez y reste, même après un redémarrage, jusqu’à ce que vous le modifiiez ou le supprimiez. La grande différence avec une <Term k="变量" text="variable" />, c’est qu’il peut contenir du texte mis en forme et des images, alors qu’une variable ne contient que du texte brut ([wiki officiel](https://wiki.keyboardmaestro.com/Clipboards#Named_Clipboards)).
+
+En créer un est très simple. Ouvrez l’onglet **Clipboards** (Presse-papiers) des réglages, cliquez sur le bouton +, saisissez un nom dans le champ d’une ligne en haut à droite, puis collez le contenu dans le grand champ juste en dessous : du texte, du texte mis en forme ou une image.
+
+Il existe deux façons de l’utiliser :
+
+- **Named Clipboard Switcher** (sélecteur de presse-papiers nommés) est une fenêtre qui liste tous vos presse-papiers nommés. Keyboard Maestro place trois macros pour l’ouvrir dans **Switcher Group**, avec les raccourcis clavier par défaut ⇧⌘X, ⇧⌘C et ⇧⌘V : couper vers un presse-papiers nommé, copier dedans et coller depuis celui-ci ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)). Keyboard Maestro intercepte la combinaison lorsque vous utilisez un raccourci clavier ; si ⇧⌘V sert déjà à quelque chose d’utile dans l’une de vos apps, attribuez un autre raccourci à cette macro.
+- Dans une macro, **Copy to Named Clipboard** copie la sélection actuelle dans un presse-papiers nommé et **Paste from Named Clipboard** (coller depuis un presse-papiers nommé) en recolle le contenu. Ces actions passent toujours par le presse-papiers du système, qui se retrouve donc ensuite avec le même contenu ([wiki officiel](https://wiki.keyboardmaestro.com/action/Copy_to_Named_Clipboard)). Dans un champ de texte, le jeton `%NamedClipboard%name%` insère le texte d’un presse-papiers nommé dans une phrase.
+
+<Callout type="warn">
+Votre liste de presse-papiers nommés en comprend un qui s’appelle **Default Clipboard** (presse-papiers par défaut). Le wiki officiel insiste bien sur ce point : c’est un presse-papiers nommé ordinaire, et « Default » signifie simplement qu’il est fourni avec l’app. <u>Ce n’est pas le presse-papiers du système sur Mac.</u>
+</Callout>
+
+## Modifier le contenu avant de le coller
+
+Si vous copiez un paragraphe depuis une page web et que vous le collez dans un e-mail, il emporte avec lui les polices et les couleurs de la page. Si vous copiez une colonne de noms depuis un tableur, ils arrivent avec des espaces en trop et dans le désordre. Vous pouvez corriger tout cela avant de coller.
+
+Le plus rapide consiste à le faire directement dans l’historique du presse-papiers. Sélectionnez un élément, cliquez sur son bouton engrenage ou faites un clic droit dessus : le menu propose toute une série d’opérations prêtes à l’emploi, comme la conversion en texte brut. Chacune crée un nouvel élément, que vous n’avez plus qu’à coller ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)).
+
+Pour automatiser cela dans une macro, utilisez l’action **Filter** (filtrer). Choisissez d’abord sur quoi travailler : le presse-papiers du système, un presse-papiers nommé, une variable, du texte ou un fichier. Sélectionnez ensuite un filtre dans le menu **with** (avec). Enfin, indiquez si le résultat doit revenir à son point de départ ou être envoyé vers un autre presse-papiers, une variable ou un fichier ([wiki officiel](https://wiki.keyboardmaestro.com/action/Filter)). Voici quelques filtres utiles :
+
+- **Remove Styles** (supprimer les styles) transforme du texte mis en forme en texte brut (uniquement pour les presse-papiers).
+- **Trim Whitespace** (supprimer les espaces superflus) retire les espaces au début et à la fin.
+- **Uppercase** (majuscules), **Lowercase** (minuscules), **Title Case** (majuscule à chaque mot) et **Sentence Case** (majuscule en début de phrase) modifient la casse.
+- **Sort Lines** (trier les lignes) range les lignes dans l’ordre.
+- Compter les caractères, les mots ou les lignes.
+
+La liste complète se trouve sur la page [Filters](https://wiki.keyboardmaestro.com/manual/Filters) du wiki officiel. Imaginez qu’un enseignant copie une colonne de noms d’élèves depuis un tableur : une première action **Filter** supprime les espaces superflus, une deuxième action **Filter** trie les lignes, et un collage les place dans le document. Trois actions en tout. Si vous voulez simplement coller sans la mise en forme, une fiche pratique y est entièrement consacrée : [Coller sans la mise en forme](/fr/howto/paste-plain/).
+
+Vos propres macros peuvent aussi apparaître dans ce menu engrenage. Ajoutez un déclencheur **Clipboard Filter** (filtre de presse-papiers) à une macro et elle y figure, prête à traiter l’élément que vous avez sélectionné dans la liste ([wiki officiel](https://wiki.keyboardmaestro.com/trigger/Clipboard_Filter)).
+
+## Vous vous souvenez des mots, pas de la position : Paste by Name
+
+Faire défiler l’historique jusqu’au quarantième élément devient vite pénible. L’action **Paste by Name** (coller par nom) ouvre à la place un champ de recherche : tapez quelques mots, elle retrouve les textes correspondants dans l’historique du presse-papiers et vous choisissez celui que vous voulez coller ([wiki officiel](https://wiki.keyboardmaestro.com/action/Paste_by_Name)). Placez-la dans une macro dotée d’un raccourci clavier et vous obtenez un raccourci « chercher, puis coller ».
+
+Vous pouvez maintenant retrouver tout ce que vous avez copié, et les éléments dont vous vous servez tout le temps ont un endroit fixe où rester. À force d’écrire des macros, il y en a forcément une qui finit par faire des siennes : l’étape suivante explique quoi vérifier, et dans quel ordre, lorsqu’une macro ne fonctionne pas.
+
+## Si quelque chose cloche
+
+<Q q="J’appuie sur ⌃⇧⌘V et rien ne s’affiche.">
+<p>Vérifiez d’abord que l’icône de Keyboard Maestro apparaît bien dans la barre des menus ; sinon, c’est que le moteur ne tourne pas. Ouvrez ensuite l’éditeur et assurez-vous que le groupe de macros Switcher Group et la macro Clipboard History Switcher qu’il contient sont tous deux activés. Toujours rien ? Suivez <a href="/fr/guide/6-debug/">l’étape 6</a> dans l’ordre.</p>
+</Q>
+<Q q="Après un redémarrage, mon historique du presse-papiers est vide.">
+<p>L’option Save Clipboard History Between Launches dans l’onglet General des réglages n’est pas cochée. Cochez-la pour que l’historique soit conservé lorsque le moteur s’arrête puis redémarre.</p>
+</Q>
+<Q q="Ce que je copie dans une certaine app n’apparaît jamais dans l’historique.">
+<p>Vérifiez l’onglet Excluded des réglages : cette app figure peut-être dans la liste d’exclusion de l’historique du presse-papiers. Tant qu’une app exclue est au premier plan, Keyboard Maestro n’enregistre pas automatiquement le presse-papiers.</p>
+</Q>
+<Q q="Un élément que je viens de copier est masqué, puis disparaît un peu plus tard.">
+<p>Il ressemblait à un mot de passe : Keyboard Maestro l’a donc masqué, supprimé dès son arrivée en dixième position et ne l’a jamais enregistré sur le disque. Cliquez dessus en maintenant ⌥ Option enfoncée pour le voir.</p>
+</Q>
+<Q q="Ma macro colle deux morceaux de texte et c’est le second qui sort deux fois.">
+<p>Le wiki officiel explique que la mise à jour du presse-papiers est instantanée, alors que ⌘V doit faire la queue pour être traité par l’app. Si l’app est lente, les deux changements de presse-papiers ont lieu avant le premier collage, si bien que le second texte est collé deux fois. Réunissez les deux morceaux dans une seule action Insert Text by Pasting, ou ajoutez une action Pause entre les deux actions (<a href="https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted">wiki officiel</a>).</p>
+</Q>
+<Q q="J’ai mis quelque chose dans Default Clipboard, mais ⌘V ne le colle pas.">
+<p>Default Clipboard est un presse-papiers nommé ordinaire, pas le presse-papiers du système. Pour coller son contenu, utilisez Named Clipboard Switcher ou l’action Paste from Named Clipboard.</p>
+</Q>
+
+<Checkpoint id="s5" items={["⌃⇧⌘V ouvre mon historique du presse-papiers, et Maj + Retour colle en texte brut", "Je sais que Save Clipboard History Between Launches détermine si l’historique survit à un redémarrage", "J’ai créé un presse-papiers nommé et j’y ai placé un élément dont je me sers souvent", "Je sais que l’action Filter peut retirer la mise en forme et supprimer les espaces superflus avant de coller"]} />

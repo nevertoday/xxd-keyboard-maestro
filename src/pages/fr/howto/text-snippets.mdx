@@ -1,0 +1,75 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: text-snippets
+step: 2
+time: Cinq minutes par abréviation, puis vous en profitez pour toujours
+for: Vous tapez plusieurs fois par jour la même réponse ou la même signature
+tldr: Tapez quelques lettres comme =ship= partout où vous pouvez écrire, et elles disparaissent pour laisser place à toute votre réponse. Faites de même pour votre signature et votre message sur les retours.
+description: Utilisez un déclencheur par texte saisi et Insert Text by Pasting pour transformer vos réponses types et votre signature en abréviations comme =ship= et =sig=. Un signe égal à chaque bout les empêche de se déclencher quand vous tapez normalement, et le collage restitue vos signatures sur plusieurs lignes exactement telles qu’elles sont écrites.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Une petite boutique en ligne envoie les mêmes réponses toute la journée : merci pour votre commande, votre colis part sous deux jours ouvrés, vous recevrez le numéro de suivi par e-mail. Vingt e-mails par jour, cela veut dire taper ce texte vingt fois, et quand on est pressé, il manque facilement la moitié d’une phrase. Une fois cette page terminée, il vous suffira de taper `=ship=` dans Mail ou partout où vous pouvez écrire : ces six caractères disparaîtront pour laisser place à toute la réponse. Votre signature et votre message sur les retours auront aussi chacun leur propre abréviation.
+
+Si vous n’avez encore jamais créé d’abréviation, commencez par [la leçon 2 pour débutants](/fr/start/2-type-less/), qui vous guide depuis l’ouverture de l’éditeur. Cette page prend le relais : comment nommer vos abréviations quand vous en avez plusieurs, pourquoi les textes longs doivent être collés, et dans quels endroits elles ne fonctionneront tout simplement pas.
+
+## Pourquoi des signes égal
+
+Un <Term k="输入字符串触发器" text="déclencheur par texte saisi" /> surveille tout ce que vous tapez et, dès que les derniers caractères correspondent à la séquence prévue, la macro s’exécute. Si votre abréviation est un mot ordinaire, elle se déclenchera donc sans que vous l’ayez voulu. L’exemple officiel consiste à choisir `em` pour votre adresse e-mail : la macro se déclenche alors chaque fois que vous tapez le mot anglais « them ». La recommandation officielle est de donner à vos abréviations un préfixe ou un suffixe constant, comme `=em=`, une combinaison que vous ne taperez jamais par hasard (voir [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String)).
+
+<mark>Mettez un signe égal à chaque bout, et une abréviation n’apparaît que lorsque vous l’appelez.</mark> Tous les exemples de ce site utilisent cette convention : `=ship=`, `=sig=`, `=ret=`. S’en tenir à une seule règle les rend aussi plus faciles à retenir. Dès que vous tapez un signe égal, vous savez que vous appelez une abréviation.
+
+## Commencer par la réponse d’expédition
+
+Tout d’abord, créez un espace où ranger vos abréviations. Cliquez sur le + en bas de la liste des groupes de macros, à gauche de l’éditeur, et créez un nouveau <Term k="宏组" text="groupe de macros" /> nommé « Abréviations ». Les nouveaux groupes de macros sont disponibles dans toutes les apps, ce qui convient parfaitement ici, puisque vous pouvez écrire une réponse dans Mail à un moment et dans un formulaire web l’instant d’après.
+
+Dans ce groupe, créez une nouvelle macro et nommez-la « =ship= réponse d’expédition » pour la repérer facilement dans la liste plus tard. Ajoutez un déclencheur, choisissez **Typed String** (texte saisi), puis tapez `=ship=` après **This string is typed:** (quand ce texte est saisi). Vérifiez que l’option **Simulate 6 deletes before executing** (simuler 6 suppressions avant l’exécution) juste en dessous est bien cochée (le chiffre suit la longueur de votre abréviation), afin que `=ship=` disparaisse avant l’apparition de la réponse. Ajoutez ensuite une action **Insert Text by Pasting** (insérer du texte en le collant) et écrivez-y la réponse :
+
+<Copy id="ts-ship" title="Ce que donne =ship=" code="Merci pour votre commande ! Votre colis partira sous deux jours ouvrés, et je vous enverrai le numéro de suivi par e-mail dès son expédition. Si vous avez la moindre question, répondez simplement à cet e-mail." />
+
+Il n’y a pas de bouton Enregistrer dans Keyboard Maestro. Vos modifications s’enregistrent automatiquement quelques secondes après que vous les avez faites.
+
+## Pourquoi coller plutôt que taper
+
+Il existe deux actions courantes pour insérer du texte. **Insert Text by Typing** (insérer du texte en le tapant) saisit le texte touche par touche, exactement comme vous le feriez. Elle convient bien aux textes courts composés de caractères accessibles en une ou deux frappes, jusqu’à environ 30 ou 40 caractères. Au-delà, cela devient lent, et elle ne peut pas taper d’émojis. **Insert Text by Pasting** place le texte dans le presse-papiers puis appuie sur ⌘V (⌘ est la touche Commande) à votre place : quelle que soit la longueur, tout apparaît d’un coup, avec n’importe quels caractères, et les retours à la ligne restent des retours à la ligne au lieu d’agir comme la touche Retour et d’appuyer sur un bouton d’une page web. Le revers de la médaille, c’est qu’elle remplace ce qui se trouvait dans votre presse-papiers. La page officielle [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text) compare les deux.
+
+Les réponses et les signatures sont souvent longues et comptent plusieurs lignes ; pour vos abréviations, c’est donc **Insert Text by Pasting** qu’il faut choisir. Perdre le contenu de votre presse-papiers n’est pas bien grave non plus : l’<Term k="剪贴板历史" text="historique du presse-papiers" /> de Keyboard Maestro conserve ce que vous aviez copié avant, vous pouvez donc le récupérer. Voir [l’étape 5 du guide complet](/fr/guide/5-clipboard/).
+
+## Deux autres exemples : votre signature et les retours
+
+Créez deux autres macros dans le même groupe, de la même manière. La signature tient sur trois lignes, ce qui montre bien l’intérêt du collage. Chaque retour à la ligne est conservé intact :
+
+<Copy id="ts-sig" title="Ce que donne =sig=" code={`Bien à vous,
+Mia
+Boutique Coin Vert, réponses du lundi au vendredi, de 9 h 00 à 18 h 00`} />
+
+Le message sur les retours est la deuxième réponse la plus fréquente ; donnez-lui `=ret=` :
+
+<Copy id="ts-ret" title="Ce que donne =ret=" code="Si un article est arrivé abîmé, répondez avec une photo et je vous enverrai un remplacement ou un remboursement. Je prends en charge les frais de port aller-retour." />
+
+Pour les abréviations elles-mêmes, contentez-vous de lettres sans accent et de symboles simples. La page officielle prévient que si un déclencheur contient des caractères non-ASCII, il faut vérifier que les suppressions fonctionnent correctement, alors que les lettres sans accent ne posent jamais ce problème.
+
+## Vérifier que tout fonctionne
+
+Ouvrez Mail, commencez un nouveau message et tapez `=ship=` dans le corps du texte. Vous verrez les six caractères disparaître et toute la réponse apparaître. Tapez `=sig=` en dessous, et les trois lignes de votre signature s’affichent exactement telles qu’elles sont écrites.
+
+Si vous avez un jour besoin de taper `=ship=` tel quel, par exemple pour montrer cette astuce à un ami, la page officielle donne un truc simple : à mi-chemin, appuyez sur ⇧Espace (⇧ est la touche Maj) et supprimez cet espace. Par exemple, tapez `=sh`, appuyez sur ⇧Espace, supprimez, puis tapez `ip=`. ⇧Espace interrompt la séquence, donc l’abréviation ne se déclenche pas.
+
+## Si quelque chose cloche
+
+<Q q="J’ai tapé l’abréviation et rien ne s’est passé.">
+Tout d’abord, l’avez-vous tapée d’une seule traite ? Faire une pause de quelques secondes, cliquer avec la souris, appuyer sur une combinaison avec ⌘ ou ⌃ (Contrôle) ou changer d’app amène Keyboard Maestro à oublier la séquence et à recommencer à compter. Si vous l’avez bien tapée sans interruption, le problème vient probablement des autorisations. Comme les raccourcis clavier, les déclencheurs par texte saisi ont besoin de l’<Term k="辅助功能权限" text="autorisation d’accessibilité" /> pour voir ce que vous tapez. Choisissez **Help ▸ Interactive Help** (aide interactive), cliquez sur **Something unexpected is happening** (quelque chose d’inattendu se produit), et il vous signalera tout problème évident. Les explications officielles figurent sur la page [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Not_Being_Able_To_Enter_a_Hot_Key).
+</Q>
+<Q q="Les abréviations ne fonctionnent pas dans les champs de mot de passe ni dans les fenêtres de Keyboard Maestro.">
+C’est voulu. macOS n’autorise aucune app à voir ce que vous tapez dans un champ de mot de passe, donc les abréviations n’y fonctionnent jamais. Dans les fenêtres contextuelles de Keyboard Maestro, le moteur ne voit pas non plus votre saisie, et dans l’éditeur elles fonctionnent mal ; la recommandation officielle est donc d’utiliser un autre déclencheur à ces endroits. Si elles cessent soudainement de fonctionner partout, le système pense peut-être que vous êtes encore dans un champ de mot de passe (saisie sécurisée, dite « Secure Input »). Quitter la dernière app qui vous a demandé un mot de passe, ou redémarrer, règle généralement le problème. Voir [la section Secure Input Mode de la page Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Secure_Input_Mode).
+</Q>
+<Q q="J’ai tapé une abréviation dans un tableur ou une liste de fichiers et cela a supprimé autre chose.">
+**Simulate 6 deletes before executing** veut dire exactement cela : Keyboard Maestro appuie plusieurs fois sur la touche Supprimer à votre place. En dehors d’un champ de texte, ces appuis peuvent supprimer ce qui est sélectionné, et la page officielle met précisément en garde contre cela. N’utilisez vos abréviations que là où vous écrivez du texte, ou décochez cette option dans la macro.
+</Q>
+<Q q="C’est ce que j’avais copié la dernière fois qui s’est collé.">
+Certaines apps sont lentes à traiter un collage. Le presse-papiers a déjà changé, mais le ⌘V n’est pas encore passé, donc c’est le mauvais contenu qui s’insère. C’est surtout le cas lorsque vous déclenchez deux abréviations coup sur coup. La solution officielle indiquée dans [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) consiste à réunir dans une seule action les textes qui vont ensemble pour qu’ils soient collés d’un coup, ou à ajouter une action **Pause** (mettre en pause) entre deux actions de collage.
+</Q>
+
+Désormais, les textes que vous écrivez le plus souvent ont chacun un nom qui commence et finit par un signe égal. Pour insérer la date du jour dans votre texte, continuez avec [Insérer la date du jour d’une seule touche](/fr/howto/insert-date/).

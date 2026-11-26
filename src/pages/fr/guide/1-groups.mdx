@@ -1,0 +1,101 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 1
+need: Keyboard Maestro installé et la leçon 1 pour débutants terminée
+tldr: Un groupe de macros est un dossier qui sert aussi d’interrupteur. Ses macros peuvent être actives en permanence, uniquement dans certaines apps, uniquement après l’appui sur son raccourci clavier, ou disposées en une rangée de boutons à cliquer. Un groupe intelligent n’est qu’une recherche enregistrée et ne commande aucun interrupteur.
+description: Groupes de macros. Savoir si une macro peut se déclencher commence par vérifier si son groupe est activé et actif ; actif uniquement dans certaines apps ou partout sauf dans quelques-unes ; les deux façons de rendre un groupe actif avec une touche (pour une seule action, ou en marche/arrêt) ; afficher un groupe en palette ou dans la barre des menus ; les groupes intelligents comme recherches enregistrées ; et les blocages les plus fréquents.
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Fig from "../../../components/Fig.astro";
+
+Imaginez que vous vouliez déplacer vos fenêtres avec les touches fléchées : ← pousse la fenêtre vers la gauche, → vers la droite. Les macros sont faciles à créer, quatre au total, chacune avec une touche fléchée comme raccourci clavier. Mais à peine avez-vous fini que le problème saute aux yeux. Vous êtes en train d’écrire, vous voulez reculer le curseur d’un caractère, vous appuyez sur ←, et c’est la fenêtre qui bouge à la place. Vos macros ont accaparé les touches fléchées, et vous ne pouvez plus vous en servir pour autre chose.
+
+La solution ne se trouve pas dans les macros. Elle est dans le dossier qui les contient.
+
+<mark><strong>Un groupe de macros n’est pas seulement un dossier pour ranger des macros. Il décide aussi à quel moment elles sont éveillées : en permanence, seulement dans certaines apps, seulement après l’appui sur son raccourci clavier, ou disposées en une rangée de boutons prêts à être cliqués.</strong></mark>
+
+## Pour qu’une macro puisse se déclencher, tout commence par son groupe
+
+L’[étape 0](/fr/guide/0-what/) expliquait que chaque <Term k="宏" text="macro" /> vit dans un <Term k="宏组" text="groupe de macros" />. Le wiki officiel divise la question « cette macro peut-elle se déclencher ? » en deux points bien distincts, et les séparer rend bien plus facile la réponse à beaucoup de « pourquoi ma macro ne marche-t-elle pas ? ». Voir la page officielle [Macro Activation](https://wiki.keyboardmaestro.com/Macro_Activation).
+
+Le premier point, c’est l’état activé ou désactivé (case cochée ou non). Les macros et les groupes ont chacun une coche, et le bouton **✓** dans l’éditeur permet de les désactiver ou de les activer. Ce que vous désactivez reste désactivé jusqu’à ce que vous l’activiez à nouveau. Le second point, c’est l’état actif ou inactif, à cet instant précis. Vous n’avez rien à cliquer pour cela ; le <Term k="引擎" text="moteur" /> le calcule en continu d’après les réglages du groupe, si bien que cet état change quand vous passez d’une app à l’autre ou que vous appuyez sur le raccourci clavier du groupe. Pour qu’une macro se déclenche, les trois conditions doivent être vraies en même temps : la macro est activée, son groupe est activé, et son groupe est actif à cet instant. Si le groupe est désactivé ou inactif, toutes les macros qu’il contient sont elles aussi hors jeu.
+
+Une installation neuve comporte un **Global Macro Group** (groupe de macros global), qui est actif dans toutes les apps. C’est généralement là que va votre première macro. Vous ne pouvez ni le supprimer, ni le renommer, ni le désactiver. Si vous voulez que certaines de ses macros deviennent actives autrement, le wiki officiel conseille de créer un nouveau groupe et de les y glisser.
+
+Pour créer un groupe, cliquez sur **+** en bas de la colonne tout à gauche et donnez-lui un nom. Pour modifier les réglages d’un groupe, sélectionnez-le et cliquez sur **Edit** (Modifier), ou faites simplement un double-clic dessus. Les réglages s’affichent dans la colonne de droite : dans quelles apps il fonctionne, comment il devient actif, s’il s’affiche en palette et s’il apparaît dans la barre des menus. Voir la page officielle [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups).
+
+## Uniquement dans certaines apps
+
+Par défaut, le choix des apps où le groupe fonctionne est réglé sur **Available in all applications** (disponible dans toutes les applications), si bien que ses macros peuvent se déclencher partout. Les macros dont vous voulez profiter partout, comme ouvrir un site d’actualités, lancer votre app de messagerie ou taper votre nom et votre adresse e-mail, ont toute leur place dans un tel groupe.
+
+Certaines macros n’ont de sens que dans une seule app. Les réponses que vous envoyez sans cesse dans Mail ne servent à rien ailleurs et risquent même d’entrer en conflit avec les raccourcis d’une autre app. Créez donc un nouveau groupe, choisissez **Available in these applications** (disponible dans ces applications) et ajoutez Mail. Désormais, ces macros ne sont actives que lorsque Mail est au premier plan. L’inverse fonctionne aussi, avec **Available except in these applications** (disponible partout sauf dans ces applications). Le wiki officiel cite deux exemples : empêcher vos macros de se déclencher dans un jeu, ou exclure une app qui utilise toute une rangée de touches de fonction, afin de pouvoir continuer à utiliser ces touches pour vos macros partout ailleurs.
+
+Séparer vos macros par app présente un autre avantage : un même raccourci clavier peut faire des choses différentes selon l’app. Si deux macros partagent un raccourci mais se trouvent dans des groupes actifs chacun dans sa propre app, une seule des deux est active à la fois, donc elles ne se gênent jamais. Lorsque deux macros actives en même temps partagent effectivement un raccourci, Keyboard Maestro affiche une palette de conflits (Conflict Palette) et vous laisse choisir celle que vous voulez lancer.
+
+Outre les apps, un groupe peut aussi dépendre de la fenêtre, par exemple uniquement des fenêtres dont le titre contient certains mots, ou encore du fait que certaines apps soient en cours d’exécution. Ces options se trouvent au même endroit ; vous pourrez les consulter au besoin.
+
+<u>Un piège à connaître tout de suite : si le déclencheur d’une macro est « cette app vient de se lancer », ne la mettez pas dans un groupe qui n’est actif que dans cette app.</u> Au moment où l’app se lance, le groupe n’est pas encore actif, et le temps qu’il le devienne, cet instant est déjà passé : la macro n’a donc jamais sa chance. Le wiki officiel conseille de garder ce genre de macros dans un groupe toujours actif. Voir la page officielle [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application) ; nous verrons les déclencheurs à l’[étape 2](/fr/guide/2-triggers/).
+
+## Seulement après l’appui sur une touche : pour une seule action, ou en marche/arrêt
+
+Par défaut, la façon dont un groupe devient actif est réglée sur **Always activated** (toujours actif). C’est ici que se règle le problème des touches fléchées.
+
+Choisissez **Activated/deactivated when** (devient actif ou inactif quand) et donnez un raccourci clavier au groupe, par exemple ⌃⌥⌘W (⌃ pour Contrôle, ⌥ pour Option, ⌘ pour Commande). En temps normal, le groupe est inactif et les touches fléchées font ce qu’elles font d’habitude. Appuyez sur ⌃⌥⌘W et le groupe se réveille, de sorte que les flèches déplacent la fenêtre. Une fois la fenêtre à la bonne place, appuyez de nouveau sur ⌃⌥⌘W et les flèches retrouvent leur rôle normal. Déplacer des fenêtres est justement l’exemple donné par le wiki officiel.
+
+<Fig id="1-groups-toggle" />
+
+Il existe aussi une version plus courte, **Activated for one action when** (actif pour une seule action quand). Une fois que vous avez appuyé sur le raccourci clavier du groupe, ses macros sont éveillées, mais seulement un instant : déclenchez l’une d’elles ou appuyez sur n’importe quelle autre touche, et le groupe se rendort aussitôt. L’exemple du wiki officiel est un groupe de macros qui lancent des apps. Appuyez sur le raccourci du groupe, puis sur une seule lettre : M pour Mail, S pour Safari, F pour le Finder. Vous n’avez qu’un seul raccourci à retenir, et les lettres qui suivent peuvent être celles qui vous viennent le plus naturellement.
+
+Comme ces macros ne sont actives qu’une fois le groupe réveillé, leur raccourci clavier peut se résumer à une simple lettre sans jamais vous gêner quand vous tapez normalement. Le raccourci du groupe n’est d’ailleurs pas le seul moyen de le réveiller ; le wiki officiel précise que vous pouvez aussi le choisir dans le <Term k="状态菜单" text="menu d’état" /> ou cliquer dessus dans la palette globale. Pour réveiller ou rendormir un groupe depuis une autre macro, utilisez l’action **Activate Macro Group** (rendre un groupe de macros actif). Elle modifie uniquement le fait que le groupe soit actif à cet instant ; la coche dans l’éditeur, elle, ne bouge pas.
+
+## En palette : cliquer pour lancer
+
+Il y a des macros que vous utilisez rarement : vous ne retiendrez jamais leur raccourci clavier, et vous préférez les avoir sous les yeux. Un groupe peut s’afficher comme une <Term k="面板" text="palette" /> flottante à l’écran, avec un bouton par macro, comme une barre d’outils faite maison. Voir la page officielle [Palettes](https://wiki.keyboardmaestro.com/manual/Palettes).
+
+Parmi les options qui règlent comment le groupe devient actif, trois font appel à une palette :
+
+- **Shows a palette for one action when** (affiche une palette pour une seule action quand) : vous appuyez sur le raccourci clavier, la palette apparaît, vous cliquez sur un bouton et elle disparaît. Pratique pour un besoin ponctuel, comme une rangée de boutons pour lancer des apps.
+- **Shows/hides a palette when** (affiche ou masque une palette quand) : un appui l’affiche, un second la masque. Pratique quand vous comptez cliquer sur plusieurs boutons à la suite.
+- **Shows a palette until** (affiche une palette jusqu’à ce que) : elle reste affichée tant que vous n’appuyez pas sur le raccourci pour la ranger. Pratique pour une palette qui reste en place. Combiné avec **Available in these applications**, ce réglage fait apparaître la palette uniquement lorsque cette app est au premier plan, comme si vous lui ajoutiez sa propre rangée de boutons.
+
+Avec ces trois options, les macros ne sont actives que tant que la palette est affichée. Trois autres options ont un nom qui commence par « Always activated and », comme **Always activated and shows/hides a palette when** (toujours actif, et affiche ou masque une palette quand). La différence, c’est que les macros restent actives en permanence et que la palette ne se montre que par moments, donc leurs raccourcis clavier continuent de fonctionner comme d’habitude.
+
+Vous pouvez personnaliser l’apparence d’une palette : thème, opacité, nombre de colonnes, affichage des icônes et des déclencheurs, et réduction automatique quand la souris n’est plus dessus. Pour trier les boutons dans l’ordre que vous voulez, commencez le nom de chaque macro par deux caractères suivis d’une parenthèse fermante, comme `01)`. La palette s’appuie sur ces caractères pour le tri, puis les masque à l’affichage. Pour suivre la méthode pas à pas, consultez la fiche pratique [Créer une rangée de boutons qui lancent des macros](/fr/howto/palette/).
+
+Un groupe peut aussi apparaître dans la barre des menus, avec une icône et un titre capable de se mettre à jour tout seul ; le wiki officiel donne comme exemples l’heure, un compteur de mots ou des rappels. Ce menu peut lister toutes les macros du groupe, ou uniquement celles qui ont un **Group Status Menu Trigger** (déclencheur de menu d’état du groupe).
+
+## Groupes intelligents : une recherche enregistrée
+
+Dès que vous accumulez beaucoup de macros, les retrouver demande un effort. C’est à cela que sert un <Term k="智能组" text="groupe intelligent" />. C’est une recherche enregistrée qui rassemble toutes les macros qui y correspondent. Cliquez sur **⊕** en bas de la colonne tout à gauche pour en créer un, puis saisissez un ou plusieurs critères de recherche ; toute macro qui correspond à l’un d’eux apparaît dans la liste. Voir la page officielle [Smart Groups](https://wiki.keyboardmaestro.com/manual/Smart_Groups).
+
+Un critère de recherche peut être un simple mot, ou utiliser l’un des préfixes définis dans le wiki officiel. `mod:1w` trouve les macros modifiées au cours de la semaine écoulée, `app:Finder` trouve les macros propres au Finder (ou qui l’excluent), `h:` trouve toutes les macros dotées d’un raccourci clavier, et `t:=sig=` trouve la macro dont le déclencheur est `=sig=`. La liste complète figure sur la page officielle [Search Strings](https://wiki.keyboardmaestro.com/manual/Search_Strings). L’entrée **All Macros** (Toutes les macros) tout en haut fonctionne de la même manière : elle liste l’ensemble de vos macros.
+
+Ce qu’il faut retenir, c’est qu’un groupe intelligent se contente d’afficher vos macros autrement. Chaque macro continue de vivre dans son groupe de macros d’origine, et c’est toujours ce groupe qui décide où et quand elle est active.
+
+## Organiser ses groupes sans se compliquer la vie
+
+Ne vous prenez pas la tête au début. Le wiki officiel conseille de commencer simple et de laisser vos macros s’étoffer petit à petit. Gardez tout dans le **Global Macro Group** jusqu’au jour où une macro ne devra fonctionner que dans une seule app, ou bien où quelques macros devront se réveiller ensemble grâce à un raccourci, et créez-leur alors leur propre groupe. Un groupe pour ouvrir des apps, un pour la saisie de texte, un pour chaque app qui a ses propres macros : plusieurs mois plus tard, vous vous y retrouverez encore sans peine.
+
+Toute l’idée de cette étape tient en une phrase : savoir où et quand une macro compte dépend de son groupe de macros. Viennent ensuite les déclencheurs, autrement dit ce qui lance une macro une fois qu’elle est éveillée.
+
+## Si quelque chose cloche
+
+<Q q="D’un coup, plus aucune macro d’un groupe ne fonctionne.">
+<p>Sélectionnez le groupe et vérifiez que la case en haut à droite est toujours cochée ; un groupe désactivé entraîne toutes ses macros avec lui. Vérifiez ensuite dans quelles apps il est disponible : s’il est limité à certaines apps seulement, appuyer sur la touche ailleurs ne fait rien. Si vous ne voyez toujours pas d’où cela vient, choisissez <strong>Help ▸ Interactive Help</strong> (Aide ▸ Aide interactive), qui vérifie pourquoi une macro ne se déclenche pas. La liste complète des vérifications se trouve à l’<a href="/fr/guide/6-debug/">étape 6</a>.</p>
+</Q>
+<Q q="J’appuie sur le raccourci clavier du groupe, puis sur la lettre, et il ne se passe rien.">
+<p>Un groupe réglé sur <strong>Activated for one action when</strong> ne reste éveillé qu’un instant : si vous appuyez sur une autre touche entre-temps, il se rendort. Appuyez sur le raccourci du groupe, puis aussitôt sur la lettre. Si vous voulez enchaîner plusieurs macros, passez-le sur <strong>Activated/deactivated when</strong>, puis appuyez de nouveau sur le raccourci du groupe une fois terminé.</p>
+</Q>
+<Q q="Quand j’appuie sur un raccourci clavier, une liste s’affiche pour me demander de choisir.">
+<p>C’est la palette de conflits : deux macros actives en même temps, ou plus, partagent ce raccourci. Attribuez une autre touche à l’une d’elles, ou placez-les dans des groupes actifs chacun dans sa propre app. Vous pouvez aussi vous en servir exprès : donnez le même raccourci à quelques macros proches, puis choisissez-en une avec un chiffre ou sa première lettre. Voir la page officielle <a href="https://wiki.keyboardmaestro.com/Conflict_Palette">Conflict Palette</a>.</p>
+</Q>
+<Q q="Ma palette a disparu.">
+<p>Une palette réglée sur <strong>Shows a palette until</strong> disparaît lorsque vous appuyez sur le raccourci clavier du groupe, et revient quand vous appuyez dessus une nouvelle fois. Si le groupe n’est disponible que dans certaines apps, la palette n’apparaît que lorsque l’une d’elles est au premier plan.</p>
+</Q>
+<Q q="Je veux renommer ou désactiver le Global Macro Group.">
+<p>Vous ne pouvez ni renommer, ni supprimer, ni désactiver ce groupe. Pour encadrer certaines de ses macros, créez un nouveau groupe, glissez-les dedans et réglez la façon dont ce nouveau groupe devient actif.</p>
+</Q>
+
+<Checkpoint id="s1" items={["Je sais faire la différence entre un groupe activé et un groupe actif à l’instant présent", "Je sais rendre un groupe actif uniquement dans certaines apps", "Je connais les deux façons de réveiller un groupe avec une touche : pour une seule action, ou en marche/arrêt", "Je sais qu’un groupe intelligent est une recherche enregistrée qui ne décide pas où fonctionnent les macros"]} />

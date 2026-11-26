@@ -1,0 +1,68 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: watch-folder
+step: 2
+time: Quinze minutes
+for: Tout s’empile dans votre dossier Téléchargements et vous devez y fouiller dès que vous cherchez quelque chose
+tldr: Chaque PDF se déplace tout seul dans un dossier « Boîte de réception PDF » dans Documents dès la fin du téléchargement. Les autres fichiers restent en place, sans que vous ayez à lever le petit doigt.
+description: Utilisez un déclencheur de dossier pour surveiller votre dossier Téléchargements. Quand un nouveau fichier arrive, attendez qu’il finisse de se télécharger, vérifiez avec If Then Else si son nom se termine par .pdf, puis déplacez-le avec l’option Move de File Actions. Le déclencheur ne voit que les fichiers placés directement dans le dossier, prend volontairement quelques secondes, et voici ce qui se passe en cas de conflit de noms.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Fig from "../../../components/Fig.astro";
+
+Le dossier Téléchargements d’un indépendant ressemble souvent à une entrée que personne ne range : contrats et factures PDF envoyés par les clients, images enregistrées depuis le web, programmes d’installation, tout s’y entasse en vrac. À la fin du mois, au moment de faire vos comptes, vous devez repêcher les PDF du mois un par un. La macro de cette page garde cette entrée pour vous. Chaque PDF se déplacera tout seul dans un dossier appelé « Boîte de réception PDF » dans Documents dès qu’il aura fini de se télécharger. Les autres fichiers restent sur place jusqu’à ce que vous ayez le temps de faire le tri.
+
+<mark>Un déclencheur de dossier monte la garde à la porte : chaque fois qu’un fichier arrive, la macro se lance une fois, avec le chemin de ce fichier en main.</mark>
+
+## Ce que fait un déclencheur de dossier
+
+Sur les pages précédentes, les macros se déclenchaient quand vous appuyiez sur une touche ou tapiez quelques caractères. Celle-ci tourne sans vous. Son <Term k="触发器" text="déclencheur" /> est **Folder** (dossier) : vous choisissez un dossier, et la macro se lance chaque fois qu’un élément y est ajouté, supprimé, ou l’un ou l’autre (voir [Folder trigger](https://wiki.keyboardmaestro.com/trigger/Folder)). Quand elle se lance, le <Term k="令牌" text="jeton" /> `%TriggerValue%` contient le chemin complet du fichier qui vient d’arriver, et les actions qui suivent s’en servent pour décider quoi faire et où le déplacer.
+
+Une option compte beaucoup : **ignore partial or changing files** (ignorer les fichiers incomplets ou en cours de modification). Un téléchargement prend du temps, et quand un fichier apparaît pour la première fois, il n’est pas encore terminé. Quand cette case est cochée, le déclencheur attend que le fichier cesse de changer avant de lancer la macro, et il ignore les fichiers temporaires dont l’extension indique que le téléchargement est encore en cours.
+
+<Fig id="watch-folder-flow" />
+
+## Construire la macro
+
+Commencez par préparer la destination dans le Finder : dans votre dossier Documents, créez un nouveau dossier appelé « Boîte de réception PDF ». La page officielle précise que **Move** (déplacer) exige un dossier de destination qui existe déjà, donc ne sautez pas cette étape.
+
+Créez ensuite une nouvelle macro appelée « Classer les PDF automatiquement » dans un groupe de macros toujours actif.
+
+**Le déclencheur.** Ajoutez un déclencheur **Folder**, choisissez votre dossier Téléchargements, réglez-le sur **adds an item** (ajoute un élément) et cochez **ignore partial or changing files**.
+
+**Est-ce un PDF ?** Ajoutez une action **If Then Else** (Si Alors Sinon) avec une condition **Text** (texte). Pour le texte à vérifier, indiquez `%TriggerValue%`. Pour la comparaison, choisissez **ends with** (se termine par) et tapez `.pdf`. La page officielle précise que cette comparaison ne fait pas de différence entre majuscules et minuscules, donc les noms qui se terminent par `.PDF` comptent aussi (voir [Text condition](https://wiki.keyboardmaestro.com/condition/Text)).
+
+**Déplacer le fichier.** Dans la partie « alors » de l’action If Then Else, ajoutez **File Actions** (actions sur les fichiers), choisissez **Move**, mettez `%TriggerValue%` pour le fichier, et pour la destination :
+
+<Copy id="wf-dest" title="Destination" code="~/Documents/Boîte de réception PDF" />
+
+`~` correspond à votre dossier personnel. Laissez la partie « sinon » vide, pour ne pas toucher aux fichiers qui ne sont pas des PDF.
+
+Pour trier aussi vos images, ajoutez une autre action **If Then Else** réglée sur **any of the following are true:** (l’une des conditions suivantes est vraie), avec trois conditions **Text** à l’intérieur pour les noms qui se terminent par `.png`, `.jpg` et `.jpeg`, puis déplacez-les vers un dossier que vous aurez créé dans Images.
+
+## Vérifier que tout fonctionne
+
+Enregistrez un PDF depuis Safari dans Téléchargements, ou enregistrez-y une pièce jointe reçue par e-mail. Une fois le téléchargement terminé, laissez-lui quelques secondes. Vous devriez le voir disparaître de Téléchargements et apparaître dans « Boîte de réception PDF ». Enregistrez-y aussi une image pour comparer. Elle devrait rester dans Téléchargements.
+
+Gardez en tête que la macro ne s’occupe que des fichiers qui arrivent à partir de maintenant. Les PDF qui se trouvaient déjà dans Téléchargements avant la création de la macro ne seront pas touchés par le déclencheur. Déplacez-les une fois à la main, ou utilisez l’approche For Each de [Renommer un lot de fichiers](/fr/howto/rename-files/) pour les traiter ensemble.
+
+## Si quelque chose cloche
+
+<Q q="Le téléchargement est terminé, mais le fichier n’a pas bougé.">
+Vérifiez d’abord que les cases de la macro et de son groupe sont bien cochées, que le moteur tourne et que le déclencheur pointe bien vers Téléchargements. Regardez ensuite si le fichier a atterri dans un sous-dossier de Téléchargements, par exemple après une décompression. La page officielle précise que le déclencheur ne repère que les éléments placés directement dans le dossier, pas les changements dans les sous-dossiers.
+</Q>
+<Q q="Le fichier met plusieurs secondes à se déplacer.">
+C’est normal. La page officielle précise qu’attendre qu’un fichier cesse de changer ajoute forcément un petit délai, parce que Keyboard Maestro ne peut pas savoir à l’avance que le fichier a fini de changer. Ce sont ces quelques secondes qui évitent de déplacer des fichiers à moitié téléchargés.
+</Q>
+<Q q="La macro a affiché une erreur et le fichier est toujours dans Téléchargements.">
+Il y a de fortes chances que « Boîte de réception PDF » contienne déjà un fichier du même nom. La page officielle précise que le déplacement échoue quand la destination contient déjà un fichier portant ce nom. Renommez ou déplacez l’ancien fichier, puis déplacez celui-ci à la main.
+</Q>
+<Q q="Une fois le fichier déplacé, la macro a semblé se lancer une seconde fois.">
+Vérifiez si le déclencheur est réglé sur l’option qui réagit aussi bien aux éléments ajoutés qu’aux éléments supprimés. Sortir un fichier de Téléchargements compte comme un élément supprimé, donc la macro se déclenche à nouveau. Choisissez uniquement **adds an item**.
+</Q>
+
+<u>Ne mettez pas de suppression dans une macro de ce genre.</u> Elle se lance pour chaque nouveau fichier pendant que vous ne regardez pas. Un fichier déplacé au mauvais endroit peut être remis à sa place ; un fichier supprimé est perdu. La page officielle prévient aussi explicitement que les options de suppression dans **File Actions** n’affichent aucun avertissement et ne passent pas par la Corbeille : soyez donc très prudent avec elles.
+
+Avec quelqu’un qui monte la garde à la porte, les fichiers cessent de s’empiler dans Téléchargements. Pour des macros qui se lancent toutes seules à d’autres moments, par exemple à une heure précise chaque jour ou quand vous rejoignez un certain réseau Wi-Fi, consultez [Lancer quelque chose à la même heure tous les jours](/fr/howto/daily-schedule/) et [l’étape 2 du guide complet](/fr/guide/2-triggers/).

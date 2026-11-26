@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: fill-form
+step: 3
+time: Quinze minutes, en commençant par parcourir le formulaire vous-même
+for: Le formulaire d’un même site vous demande votre nom, votre e-mail et votre téléphone à chaque fois
+tldr: Cliquez dans le premier champ, appuyez sur ⌃⌥⌘F, et votre nom, votre e-mail, votre téléphone et le lien vers votre portfolio se remplissent d’un seul coup. Vous relisez avant d’envoyer.
+description: Utilisez Insert Text by Typing avec le jeton %Tab% pour remplir un formulaire de haut en bas. Parcourez d’abord le formulaire avec Tab pour en repérer l’ordre, collez tout champ qu’un clavier ne peut pas taper, ralentissez la frappe si un formulaire web perd des caractères, et cliquez vous-même pour envoyer.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+import Callout from "../../../components/Callout.astro";
+
+Les indépendants qui trouvent leurs missions sur une même plateforme y répondent souvent à plusieurs offres par jour, et chaque formulaire de candidature redemande les mêmes champs depuis zéro : nom, e-mail, téléphone, lien vers le portfolio. Quatre champs tapés vingt fois, et vous avez vite fait de vous tromper sur un chiffre de votre numéro de téléphone, ce qui empêche le client de vous joindre. Avec cette macro, vous cliquez dans le premier champ, vous appuyez sur ⌃⌥⌘F (⌃ est Contrôle, ⌥ est Option, ⌘ est Commande), et les quatre champs se remplissent d’un seul coup. Le curseur s’arrête dans le dernier champ, vous vérifiez le tout, et vous cliquez vous-même pour envoyer.
+
+<mark>Dans un formulaire, c’est la touche Tab qui vous fait passer d’un champ au suivant, et une macro fait la même chose : taper un champ, appuyer sur Tab, taper le suivant.</mark>
+
+## Parcourir d’abord le formulaire vous-même
+
+Avant de construire quoi que ce soit, ouvrez le formulaire, cliquez dans le premier champ, puis appuyez simplement sur Tab, une pression à la fois, en regardant où va le curseur. La plupart des formulaires descendent de haut en bas, mais certains sites glissent un menu déroulant ou une case à cocher « J’accepte » au milieu, et ces éléments consomment aussi une pression sur Tab. Notez l’ordre. Tout le rôle de la macro est de le rejouer.
+
+Cela vous apprend aussi une chose : une macro correspond à un formulaire. Un autre site rangera probablement ses champs dans un ordre différent : créez donc une autre macro pour celui-là.
+
+## Créer la macro
+
+Créez d’abord un groupe de macros appelé « Formulaires ». Dans ses réglages, choisissez **Available in these applications:** (disponible dans ces applications) et ajoutez Safari, ou le navigateur que vous utilisez habituellement. Ainsi, ⌃⌥⌘F ne fonctionne que dans votre navigateur et reste libre partout ailleurs.
+
+Dans ce groupe, créez une nouvelle macro. Comme déclencheur, choisissez **Hot Key** (raccourci clavier) et appuyez sur ⌃⌥⌘F. Il y a deux actions.
+
+La première est **Insert Text by Pasting** (insérer du texte en le collant), avec votre nom. Pourquoi réserver une action à part pour le nom ? Parce que l’autre action, **Insert Text by Typing** (insérer du texte en le tapant), appuie sur les touches une par une à votre place, et la page officielle précise qu’elle ne peut taper que des caractères accessibles au clavier en une ou deux frappes (voir [Insert Text by Typing](https://wiki.keyboardmaestro.com/action/Insert_Text_by_Typing)). Or beaucoup de noms comportent d’autres caractères, des caractères chinois par exemple, et le collage les gère tous.
+
+<Copy id="ff-name" title="Première action : votre nom" code="Chloé Martin" />
+
+La deuxième action est **Insert Text by Typing**, avec les autres champs réunis et un `%Tab%` entre chacun. `%Tab%` est un <Term k="令牌" text="jeton" /> : quand la macro s’exécute, il devient une vraie pression sur Tab, ce qui fait passer au champ suivant. C’est exactement ce que recommande la page officielle : quand vous voulez que Tab ou Retour vous fasse passer d’un champ à l’autre, utilisez la frappe. Le `%Tab%` au début fait d’abord sortir le curseur du champ du nom :
+
+<Copy id="ff-rest" title="Deuxième action : les autres champs" code="%Tab%chloe.martin@example.com%Tab%000 1234 5678%Tab%https://example.com/chloe" />
+
+Remplacez les exemples par votre propre e-mail, votre téléphone et votre lien. Comme la deuxième action se contente de taper sans toucher au presse-papiers, la placer juste après le collage ne provoque pas le problème du mauvais contenu collé.
+
+<Callout type="warn">Ne mettez pas de touche Retour à la fin et ne demandez pas à la macro de cliquer pour envoyer. Laissez le formulaire rempli tel quel pour pouvoir le relire tant qu’il est encore temps de corriger une erreur. Ne mettez pas non plus de mots de passe dans la macro. La page officielle [Typed String trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String) qualifie le fait de taper ainsi dans un champ de mot de passe de problème de sécurité sérieux.</Callout>
+
+## Vérifier que tout fonctionne
+
+Ouvrez le formulaire de candidature du site, cliquez dans le champ du nom et appuyez sur ⌃⌥⌘F. Vous devriez voir votre nom apparaître, puis le curseur descendre de champ en champ à mesure que l’e-mail, le téléphone et le lien se remplissent, avant de s’arrêter dans le champ du lien. Relisez chaque champ. Si une information atterrit au mauvais endroit, revenez à l’étape « Parcourir d’abord le formulaire vous-même » et regardez où l’ordre de Tab diffère de ce que vous attendiez.
+
+## Si quelque chose cloche
+
+<Q q="Le texte s’est bien rempli, mais certaines lettres manquent ou sont dans le désordre.">
+Les champs des formulaires web vérifient souvent ce que vous tapez en temps réel, et quand Keyboard Maestro tape trop vite, des caractères sautent ou se mélangent. La solution officielle consiste à ajouter une action **Set Action Delay** (régler le délai entre les actions) au début de cette macro pour ralentir sa frappe. Utilisez-la uniquement pour cette macro, pas comme réglage global. Consultez [la section de dépannage sur les caractères manquants ou mélangés](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_Typing_results_in_Characters_Missing_or_out_of_Order).
+</Q>
+<Q q="Le champ du nom a reçu la dernière chose que j’avais copiée.">
+À ce stade, le presse-papiers contient pourtant bien votre nom. C’est l’application qui a gardé sa propre copie de l’ancien presse-papiers et n’a pas remarqué le changement. La section officielle [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted) indique que cela arrive surtout dans les applications multiplateformes. Si cela vous arrive, le plus simple est de taper votre nom vous-même et de laisser la macro commencer au deuxième champ : supprimez la première action, ainsi que le `%Tab%` au début de la deuxième.
+</Q>
+<Q q="Tout se décale d’un champ en cours de route.">
+Il y a probablement un menu déroulant, une case à cocher ou un bouton que vous n’aviez pas remarqué avant ce champ, et qui a consommé une pression sur Tab. Ajoutez ou retirez un `%Tab%` à cet endroit.
+</Q>
+<Q q="Le champ de l’e-mail s’est rempli de suggestions de méthode de saisie au lieu de lettres.">
+**Insert Text by Typing** appuie sur une touche à la fois, et la page officielle précise que c’est exactement comme si vous tapiez vous-même. Si une méthode de saisie chinoise ou similaire est sélectionnée, elle intercepte donc les lettres de votre e-mail comme sa propre saisie. Passez sur un clavier classique avant d’appuyer sur ⌃⌥⌘F. Le nom, lui, est collé, donc la méthode de saisie n’y touche pas.
+</Q>
+<Q q="J’ai appuyé sur ⌃⌥⌘F et rien ne s’est passé.">
+Vérifiez que votre navigateur est bien au premier plan. Le groupe de macros est réglé pour ne fonctionner que là, donc appuyer sur ce raccourci dans une autre application ne fait rien. Si le navigateur est bien au premier plan et que rien ne bouge, regardez dans l’éditeur si « Formulaires » et la macro sont toujours cochés, et si le moteur est bien lancé. Si la macro ne se déclenche toujours pas, consultez [l’étape 6 du guide complet](/fr/guide/6-debug/).
+</Q>
+
+Créez une première macro, et chaque candidature suivante, c’est une bonne vingtaine de caractères en moins à taper et une occasion en moins de faire une faute de frappe. Pour le champ qui change à chaque fois, comme le projet auquel vous répondez, la macro peut d’abord vous poser la question puis le remplir. Consultez [Poser une question avant de faire le travail](/fr/howto/ask-input/).

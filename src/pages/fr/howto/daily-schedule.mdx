@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: daily-schedule
+step: 2
+time: 10 minutes
+for: Chaque jour ou chaque semaine à une certaine heure, il y a quelque chose que vous devez penser à faire vous-même
+tldr: Un déclencheur Time of Day fixe une heure et les jours de la semaine, et la macro se lance toute seule le moment venu. Utilisez Cron pour les dates plus particulières et Periodic pour répéter à intervalle régulier. Le Mac doit être réveillé à ce moment-là.
+description: "Lancer une macro Keyboard Maestro à heure fixe chaque jour ou certains jours de la semaine : Time of Day pour une heure précise, Cron pour des dates comme le dernier vendredi du mois, Periodic pour un intervalle régulier ; ce qui se passe quand le Mac est en veille ou l’écran verrouillé, et quoi vérifier si elle ne s’est pas lancée."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+La plupart des personnes qui écrivent connaissent ce genre de matinée. Vous vous êtes promis de commencer à 8 h 30, puis vous avez répondu à quelques e-mails, lu quelques pages en ligne, et il est dix heures avant que vous ne repensiez à votre brouillon. Une fois cette page terminée, du lundi au vendredi à 8 h 30, votre Mac ouvrira le brouillon sur lequel vous travaillez et affichera une notification avec votre objectif du jour. Vous n’appuyez sur rien. Quand l’heure arrive, tout démarre tout seul.
+
+Ce qui fait démarrer une macro est un <Term k="触发器" text="déclencheur" />. Les leçons pour débutants utilisaient un raccourci clavier et des abréviations tapées au clavier ; cette page s’appuie plutôt sur l’horloge. <mark>Confiez tout ce qui arrive à heure fixe à un déclencheur horaire, mais il ne se déclenche que si le Mac est réveillé à ce moment-là.</mark> La seconde moitié de cette phrase compte plus que la première.
+
+## Ouvrir le brouillon à 8 h 30 du lundi au vendredi
+
+Créez une nouvelle <Term k="宏" text="macro" /> et donnez-lui un nom comme « Commencer à écrire : ouvrir le brouillon ». Comme déclencheur, choisissez **Time of Day** (heure de la journée), qui lance une macro à une heure précise les jours de la semaine que vous sélectionnez (voir [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)). Réglez l’heure sur 8 h 30. La rangée de petits carrés juste en dessous correspond aux jours de la semaine : les bleus sont actifs, et les carrés pâles barrés d’une diagonale ne le sont pas. Cliquez sur un carré pour changer son état, et mettez les jours du lundi au vendredi en bleu. L’affichage de l’heure sur 24 heures ou avec AM et PM suit les réglages de macOS.
+
+Ajoutez deux actions. La première est **Open a File, Folder or Application** (ouvrir un fichier, un dossier ou une app). Cliquez sur le bouton à sa droite pour choisir votre brouillon, puis, dans le menu **with** (avec), sélectionnez TextEdit ou l’app dans laquelle vous écrivez habituellement. La seconde est **Notification** (afficher une notification). Mettez « C’est l’heure d’écrire » comme titre et une phrase pour vous-même comme message, par exemple « 500 mots d’abord, les e-mails après dix heures » (voir [Notification Action](https://wiki.keyboardmaestro.com/action/Notification)).
+
+<Callout type="tip">
+N’attendez pas demain matin pour savoir si cela fonctionne. Réglez l’heure pour dans deux minutes, regardez la macro se lancer une fois, puis remettez l’heure sur 8 h 30.
+</Callout>
+
+## Si le Mac est en veille, il n’y a pas de rattrapage
+
+C’est le point qui induit le plus souvent en erreur. Le wiki officiel est clair : le Mac doit être réveillé pour que le déclencheur se lance, et s’il est en veille, la macro ne se déclenchera pas plus tard. Donc si votre Mac portable est fermé à 8 h 30, le brouillon ne s’ouvre pas ce matin-là, et quand vous le rouvrez à 9 h, il n’y pense pas pour autant.
+
+Pour l’écran, c’est une autre histoire. Si le moniteur est en veille, si l’écran est verrouillé ou si l’économiseur d’écran tourne, la macro se lance quand même, mais beaucoup d’actions qui passent par l’interface (taper du texte, ouvrir des menus, cliquer) ne fonctionneront pas. Certaines actions peuvent réveiller le moniteur ou arrêter l’économiseur d’écran, ce qui règle une partie du problème, mais elles ne peuvent pas déverrouiller l’écran (toujours sur [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day)).
+
+Choisissez donc une heure où vous êtes en général déjà devant l’ordinateur. Et si ce que vous voulez vraiment, c’est « faire cela dès que j’ouvre mon Mac », laissez tomber l’horloge. Le déclencheur **Wake** (sortie de veille) se lance chaque fois que le Mac sort de veille, pas seulement la première fois de la journée (voir [Wake Trigger](https://wiki.keyboardmaestro.com/trigger/Wake)), et le déclencheur **Login** (ouverture de session) se lance quand vous ouvrez votre session et que le <Term k="引擎" text="moteur" /> démarre avec elle.
+
+## Le dernier vendredi du mois : utilisez Cron
+
+Certaines dates ne se sélectionnent pas sur une simple rangée de jours de la semaine. Beaucoup d’indépendants envoient leurs factures du mois le dernier vendredi après-midi, et un seul oubli signifie être payé avec un mois de retard. Ce genre de date revient au déclencheur **Cron**, qui décrit l’horaire sur une ligne de cinq champs : minute, heure, jour du mois, mois et jour de la semaine (voir [Cron Trigger](https://wiki.keyboardmaestro.com/trigger/Cron)). La page officielle montre comment viser le dernier vendredi du mois : `-1-7` pour le jour du mois et `+Fri` pour le jour de la semaine. À 16 h, cela donne :
+
+<Copy id="ds-cron" title="Dernier vendredi de chaque mois à 16 h 00" code="0 16 -1-7 * +Fri" />
+
+Comme action, utilisez à nouveau **Notification**, avec « Envoyer les factures du mois », et vous pouvez ajouter une action **Open a File, Folder or Application** qui ouvre le dossier où vous rangez vos factures. Cron demande lui aussi que le Mac soit réveillé à ce moment-là.
+
+## À intervalle régulier : utilisez Periodic
+
+Il y a aussi le cas du « de temps en temps ». Un étudiant qui révise chez lui peut rester assis tout un après-midi, et c’est sa nuque qui lâche en premier. Le déclencheur **Periodic** (périodique) se lance à l’intervalle choisi, en secondes, minutes ou heures, et peut se limiter à une tranche horaire ou à certains jours de la semaine (voir [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic)). Réglez-le sur toutes les 50 minutes entre 9 h et 18 h, avec une action **Notification** : « Levez-vous, buvez un peu d’eau, regardez par la fenêtre. »
+
+Ne choisissez pas un intervalle trop court. Le wiki officiel déconseille expressément les intervalles en secondes sauf impossibilité de faire autrement, d’une part parce que cela peut solliciter fortement le processeur, et d’autre part parce que chaque fois qu’une macro se déclenche, cela annule les choix qui attendent votre réponse, comme la palette de conflits (Conflict Palette) : des macros programmées trop fréquemment les font donc disparaître sans prévenir. Une dernière chose : une plage horaire qui chevauche minuit s’arrête à minuit, donc utilisez deux déclencheurs si vous voulez couvrir avant et après.
+
+## Si quelque chose cloche
+
+<Q q="L’heure est passée et rien ne s’est produit.">
+D’abord, le Mac était-il en veille à ce moment-là ? Tout ce qui est manqué pendant la veille ne se lance pas plus tard. Vérifiez ensuite que le <Term k="宏组" text="groupe de macros" /> de la macro et la macro elle-même sont bien activés. Le menu **Help ▸ Interactive Help** (aide interactive) de Keyboard Maestro peut passer ces points en revue un par un pour vous (voir [Troubleshooting](https://wiki.keyboardmaestro.com/manual/Troubleshooting)). Enfin, assurez-vous que le moteur tourne bien. S’il a été quitté, plus aucun déclencheur ne se déclenche.
+</Q>
+<Q q="La macro s’est lancée, mais le brouillon n’est pas passé au premier plan, ou l’action de saisie n’a rien tapé.">
+L’écran était probablement verrouillé ou le moniteur en veille. La macro s’exécute bien, mais les actions qui passent par l’interface ne fonctionnent pas, et elles ne peuvent pas déverrouiller l’écran. Déplacez l’heure à un moment où vous utilisez habituellement l’ordinateur.
+</Q>
+<Q q="Aucune notification ne s’est affichée.">
+**Notification** passe par le Centre de notifications de macOS. Vérifiez dans Réglages Système si les notifications de Keyboard Maestro Engine ne sont pas désactivées. La page officielle [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting) recommande aussi de vous assurer que le moteur peut afficher des notifications quand vous cherchez l’origine d’un problème, sinon vous ne le verrez pas vous prévenir qu’une action a échoué.
+</Q>
+<Q q="Je ne suis pas sûr que ma ligne Cron soit correcte.">
+La page officielle propose un tableau de lignes prêtes à l’emploi, de « chaque jour à minuit une » jusqu’à « le premier samedi de chaque mois à 8 h 30 ». Le plus sûr est d’en adapter une. Vous pouvez aussi régler la minute et l’heure pour dans quelques minutes en mettant `*` dans les champs des jours, regarder la macro se déclencher une fois, puis tout remettre comme prévu.
+</Q>
+
+Un déclencheur horaire retient l’heure à votre place. La seule chose à retenir de votre côté, c’est que le Mac doit être réveillé. En dehors de l’horloge, une macro peut aussi démarrer quand vous rejoignez un réseau Wi-Fi ou branchez un appareil. Voir [Faire quelque chose quand vous rejoignez un réseau Wi-Fi ou branchez un appareil](/fr/howto/wifi-usb/).

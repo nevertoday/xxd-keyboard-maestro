@@ -2,5 +2,158 @@
   "ui": {
     "label": "Schéma",
     "replay": "Revoir"
+  },
+  "0-what-chain": {
+    "steps": [
+      {
+        "t": "Éditeur",
+        "d": "écrire la macro, puis quitter"
+      },
+      {
+        "t": "Moteur",
+        "d": "tourne toujours en arrière-plan"
+      },
+      {
+        "t": "Groupe de macros",
+        "d": "est-il actif en ce moment ?"
+      },
+      {
+        "t": "Déclencheur",
+        "d": "le moment arrive"
+      },
+      {
+        "t": "Actions",
+        "d": "s’exécutent de haut en bas"
+      }
+    ],
+    "cap": "De l’écriture à l’exécution : le moteur tourne, le groupe est actif, le déclencheur se déclenche, les actions s’exécutent dans l’ordre"
+  },
+  "1-groups-toggle": {
+    "a": {
+      "who": "Les touches fléchées en simples raccourcis clavier",
+      "steps": [
+        "Les flèches déplacent la fenêtre",
+        "Vous voulez déplacer le curseur",
+        "Vous appuyez sur une flèche, la fenêtre saute"
+      ],
+      "end": "Les flèches sont inutilisables le reste du temps"
+    },
+    "b": {
+      "who": "Dans un groupe que vous rendez actif",
+      "steps": [
+        "Appuyez sur ⌃⌥⌘W pour rendre le groupe actif",
+        "Les flèches déplacent la fenêtre",
+        "Appuyez à nouveau sur ⌃⌥⌘W pour le rendre inactif"
+      ],
+      "end": "Les flèches redeviennent normales"
+    },
+    "cap": "Les quatre mêmes touches fléchées n’appartiennent à vos macros que tant que le groupe est actif"
+  },
+  "3-actions-log": {
+    "steps": [
+      {
+        "t": "Activate a Specific Application",
+        "d": "passer à TextEdit"
+      },
+      {
+        "t": "Select or Show a Menu Item",
+        "d": "choisir Nouveau dans le menu"
+      },
+      {
+        "t": "Insert Text by Typing",
+        "d": "taper la date du jour"
+      },
+      {
+        "t": "Notification",
+        "d": "annoncer que c’est fait"
+      }
+    ],
+    "cap": "Une macro est une liste d’actions, exécutées l’une après l’autre en partant du haut"
+  },
+  "4-variables-scope": {
+    "layers": [
+      {
+        "t": "Globale",
+        "d": "Aucun préfixe particulier. Toutes les macros peuvent la lire et la modifier, et elle reste sur votre Mac même après un redémarrage"
+      },
+      {
+        "t": "Instance",
+        "d": "Commence par Instance. Valable pour cette seule exécution, plus les sous-macros qu’elle appelle"
+      },
+      {
+        "t": "Locale",
+        "d": "Commence par Local. Uniquement cette macro, pour cette seule exécution"
+      }
+    ],
+    "cap": "En descendant, de moins en moins de macros la voient et elle dure moins longtemps. Si vous n’en avez besoin que pour cette exécution, utilisez Local."
+  },
+  "6-debug-order": {
+    "steps": [
+      {
+        "t": "Autorisations",
+        "d": "Tout est autorisé dans Confidentialité et sécurité"
+      },
+      {
+        "t": "Moteur",
+        "d": "Son icône est dans la barre des menus"
+      },
+      {
+        "t": "Groupe et macro",
+        "d": "Les deux activés (cases cochées), groupe actif en ce moment"
+      },
+      {
+        "t": "Déclencheur",
+        "d": "Aucune autre macro n’utilise le même raccourci clavier"
+      },
+      {
+        "t": "Actions",
+        "d": "Avancer pas à pas dans le débogueur, lire Engine.log"
+      }
+    ],
+    "cap": "Un problème dans les deux premières étapes bloque toutes les macros d’un coup. Plus vous avancez, plus cela ne concerne que cette seule macro."
+  },
+  "watch-folder-flow": {
+    "steps": [
+      {
+        "t": "Un fichier arrive",
+        "d": "Folder Trigger : adds an item (ajout d’un élément)"
+      },
+      {
+        "t": "Attendre la fin du téléchargement",
+        "d": "ignorer les fichiers incomplets ou en cours de modification"
+      },
+      {
+        "t": "Est-ce un PDF ?",
+        "d": "%TriggerValue% ends with (se termine par) .pdf"
+      },
+      {
+        "t": "Le déplacer",
+        "d": "File Actions : Move (déplacer)"
+      }
+    ],
+    "cap": "Ces quatre étapes s’exécutent une fois pour chaque fichier qui arrive. Tout ce qui n’est pas un PDF s’arrête à la troisième étape."
+  },
+  "stop-macro-ladder": {
+    "cap": "Les façons d’arrêter une macro : essayez d’abord celle du haut, descendez si ça ne fonctionne pas, et gardez celle du bas quand rien d’autre ne marche.",
+    "high": "À essayer d’abord",
+    "low": "Dernier recours",
+    "rungs": [
+      {
+        "t": "Maintenir ⌃⌥⇧, cliquer sur l’icône",
+        "d": "Arrêter toutes les macros en cours"
+      },
+      {
+        "t": "Status Menu ▸ Cancel",
+        "d": "Arrêter une seule macro en cours"
+      },
+      {
+        "t": "Quit Keyboard Maestro Engine",
+        "d": "Le moteur s’arrête, plus rien ne tourne"
+      },
+      {
+        "t": "Maintenir ⌃⌥⇧⌘, ouvrir l’éditeur",
+        "d": "Sans le moteur, vous pouvez corriger la macro"
+      }
+    ]
   }
 }

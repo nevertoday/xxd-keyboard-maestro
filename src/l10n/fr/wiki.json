@@ -1,0 +1,329 @@
+{
+  "groups": {
+    "基本概念": "Les bases",
+    "让宏开始跑": "Façons de lancer une macro",
+    "让宏看情况办事": "Des macros qui s’adaptent",
+    "剪贴板": "Le presse-papiers",
+    "整理和排错": "Organisation et dépannage",
+    "再往深走": "Aller plus loin"
+  },
+  "entries": {
+    "macro": {
+      "title": "Macro",
+      "one": "Une macro est une petite tâche que vous confiez à Keyboard Maestro : ses déclencheurs disent quand commencer, et une liste d’actions dit quoi faire.",
+      "like": "Pensez au petit mot que vous laissez à quelqu’un chez vous avant de sortir : « Quand le colis arrive (quand), signer le reçu, vérifier qu’il n’est pas abîmé et le poser sur mon bureau (quoi). » Vous l’écrivez une seule fois, et la personne le suit étape par étape sans que vous ayez à tout réexpliquer. Une macro, c’est ce petit mot, sauf que c’est votre Mac qui le lit, et il le suivra volontiers cent fois par jour.",
+      "here": [
+        "Dans la documentation officielle, une macro vit dans un [groupe de macros](/fr/wiki/macro-group/) et se compose d’un ensemble de [déclencheurs](/fr/wiki/trigger/) et d’une liste d’[actions](/fr/wiki/action/). Les déclencheurs décident quand elle se lance ; les actions décident ce qu’elle fait. Pour en créer une, cliquez sur le bouton **+** sous la liste **Macros**, ou cliquez sur **⊕**, qui vous guide pour choisir un nom, un groupe de macros ainsi qu’un déclencheur et une action courants, et vous pourrez tout modifier par la suite. Une nouvelle macro fonctionne aussitôt : pas besoin d’arrêter l’édition ni de quitter l’éditeur. Consultez [Démarrage rapide](https://wiki.keyboardmaestro.com/manual/Quick_Start) et [Macros](https://wiki.keyboardmaestro.com/manual/Macros).",
+        "Mais la construire ne suffit pas tout à fait. Pour qu’une macro se déclenche, trois conditions doivent être réunies : la macro est activée (case cochée), son groupe de macros est activé (case cochée), et le groupe est actif sur le moment. Si le groupe ne fonctionne que dans Mail et que vous êtes dans Safari, la macro attend. Le bouton **✓** sous les listes de macros et de groupes sert d’interrupteur. Le wiki officiel consacre toute une page à ce sujet : [Activation des macros](https://wiki.keyboardmaestro.com/Macro_Activation)."
+      ],
+      "myths": [
+        "« Je dois penser à enregistrer ma macro. » Il n’y a aucune étape d’enregistrement dans Keyboard Maestro. Tout ce que vous modifiez est sauvegardé tout seul au bout de quelques secondes ([Démarrage rapide](https://wiki.keyboardmaestro.com/manual/Quick_Start)).",
+        "« Une macro ne peut avoir qu’un seul raccourci clavier. » Une macro peut avoir plusieurs déclencheurs, et n’importe lequel suffit à la lancer. L’inverse est vrai aussi : plusieurs macros peuvent partager un même raccourci clavier et, quand vous appuyez dessus, Keyboard Maestro affiche une petite palette pour vous demander laquelle vous vouliez lancer ([Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I))."
+      ]
+    },
+    "editor-engine": {
+      "title": "Éditeur et moteur",
+      "one": "Keyboard Maestro est en réalité composé de deux programmes. L’éditeur est la fenêtre où vous créez et modifiez vos macros ; le moteur (Keyboard Maestro Engine) tourne en arrière-plan et les exécute vraiment. Vous pouvez quitter l’éditeur, mais le moteur doit toujours être lancé.",
+      "like": "Imaginez la salle et la cuisine d’un restaurant. Vous passez commande et vous modifiez le menu en salle, puis vous pouvez partir ; la cuisine, elle, reste toujours occupée et se met aux fourneaux dès qu’une commande arrive. Fermer la salle n’arrête pas la cuisine, mais s’il n’y a personne en cuisine, même le meilleur menu du monde ne sera jamais préparé.",
+      "here": [
+        "L’application Keyboard Maestro que vous ouvrez depuis le dossier Applications est l’éditeur. Vous vous en servez pour créer et modifier vos macros et ajuster vos réglages, et le wiki officiel rappelle que vous n’en avez besoin que le temps de faire vos modifications, après quoi vous pouvez le quitter. Ouvrir l’éditeur lance aussi **Keyboard Maestro Engine**. Le moteur n’a pas de fenêtre et travaille en arrière-plan : il réagit à vos raccourcis clavier, surveille l’heure, suit les applications ouvertes, conserve l’historique du presse-papiers, affiche les palettes et, bien sûr, exécute vos macros. Il continue de tourner une fois l’éditeur fermé, jusqu’à ce que vous fermiez votre session. Consultez [Démarrage rapide](https://wiki.keyboardmaestro.com/manual/Quick_Start).",
+        "Comme le moteur doit toujours être en marche, le conseil officiel est de cocher **Launch Engine at Login** (lancer le moteur à l’ouverture de session) dans l’onglet **General** (Général) des réglages, pour que le moteur démarre tout seul à chaque ouverture de session. Pour quitter ou lancer le moteur manuellement, passez par le menu **File** (Fichier) de l’éditeur, par exemple **File ▸ Quit Engine** (Fichier ▸ Quitter le moteur). Consultez [Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I)."
+      ],
+      "myths": [
+        "« Si je ferme la fenêtre de Keyboard Maestro, mes macros ne marchent plus. » Pas du tout. ==C’est le moteur qui exécute vos macros : même l’éditeur fermé, elles continuent de fonctionner tant que le moteur tourne.== À l’inverse, si le moteur est arrêté, rien ne se déclenche. Si aucune de vos macros ne répond après un redémarrage, vérifiez que le moteur s’est bien lancé et cochez **Launch Engine at Login** pour ne plus jamais avoir à y penser ([Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#Macros_Not_Firing_After_You_Login)).",
+        "« Donner l’autorisation à Keyboard Maestro suffit. » C’est le moteur qui appuie sur les touches et tape à votre place : l’entrée Keyboard Maestro Engine dans les listes d’autorisations doit donc être cochée elle aussi. Consultez [Autorisations](/fr/wiki/permissions/)."
+      ]
+    },
+    "macro-group": {
+      "title": "Groupe de macros",
+      "one": "Un groupe de macros est un dossier de macros qui décide aussi quand elles sont actives : dans toutes les applications, seulement dans quelques-unes, ou uniquement après que vous avez rendu le groupe actif.",
+      "like": "Pensez aux règles propres à chaque salle d’une école. On peut jouer du tambour dans la salle de musique, mais pas à la bibliothèque : un même geste est permis dans une pièce et interdit dans une autre. Un groupe de macros trace cette frontière pour un ensemble de macros. Un groupe d’extraits de réponses qui ne fonctionne que dans Mail n’existe tout simplement pas en dehors de Mail : appuyer sur les mêmes touches ailleurs ne déclenchera rien.",
+      "here": [
+        "Officiellement, les groupes de macros ressemblent à des dossiers, et chaque groupe contrôle quand les macros qu’il contient sont actives. La façon la plus courante de les répartir est par application. Par défaut, un groupe est disponible dans toutes les applications ; passez-le sur **Available in these applications:** (disponible dans ces applications) pour que ses macros ne fonctionnent que dans les applications indiquées, ou sur **Available except in these applications:** (disponible partout sauf dans ces applications) pour les exclure, par exemple, de vos jeux. Vous pouvez affiner encore selon le titre de la fenêtre. Pour créer un groupe, cliquez sur **+** sous la liste **Groups** (groupes). Keyboard Maestro inclut un **Global Macro Group** (groupe de macros global), que vous ne pouvez ni supprimer, ni renommer, ni désactiver (décocher sa case). Consultez [Groupes de macros](https://wiki.keyboardmaestro.com/manual/Macro_Groups).",
+        "Un groupe peut aussi attendre que vous le rendiez actif. Réglez-le sur **Activated for one action when:** (actif pour une seule action quand) et attribuez-lui un raccourci clavier, par exemple ⌃⌘L (Contrôle, Commande et L). Appuyez dessus et les macros du groupe deviennent actives ; une simple lettre suffit alors, M pour Mail, S pour Safari, et dès que vous appuyez sur une touche, le groupe se met de nouveau en veille. Les macros à l’intérieur peuvent ainsi utiliser de simples lettres sans jamais gêner votre frappe habituelle. Un groupe peut aussi s’afficher sous forme de [palette](/fr/wiki/palette/) flottante ou dans la barre des menus."
+      ],
+      "myths": [
+        "« Un groupe de macros n’est qu’un dossier pour ranger. » C’est aussi un interrupteur. Si un groupe est désactivé (case décochée), ou s’il n’est pas actif sur le moment, aucune de ses macros ne peut se déclencher, même celles qui sont activées (case cochée) ([Groupes de macros](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).",
+        "« Pour que quelques macros du **Global Macro Group** ne fonctionnent que dans une seule application, je dois modifier le **Global Macro Group**. » N’y touchez pas. La méthode officielle consiste à créer un nouveau groupe, à le régler pour qu’il ne soit disponible que dans cette application, puis à y glisser ces macros ([Groupes de macros](https://wiki.keyboardmaestro.com/manual/Macro_Groups))."
+      ]
+    },
+    "trigger": {
+      "title": "Déclencheur",
+      "one": "Un déclencheur est ce qui lance une macro : appuyer sur un raccourci clavier, taper un texte, une heure de la journée, l’ouverture d’une application, le branchement d’un appareil USB…",
+      "like": "C’est une sonnette. Quand un visiteur sonne, vous allez ouvrir ; quand personne ne sonne, vous continuez votre journée. Une macro peut avoir plusieurs sonnettes, une devant et une derrière, et quelle que soit celle qui sonne, vous répondez.",
+      "here": [
+        "Le wiki officiel le résume simplement : une macro se déclenche dès que l’un de ses déclencheurs entre en jeu. Le plus courant est le [raccourci clavier](/fr/wiki/hot-key/). Presque aussi courant, le [déclencheur par texte saisi](/fr/wiki/typed-string/) lance la macro quand vous tapez quelque chose comme une abréviation. Vous pouvez aussi placer une macro dans une [palette](/fr/wiki/palette/) ou dans le [menu d’état](/fr/wiki/status-menu/) et cliquer dessus. Au-delà, l’ouverture de session, la mise en veille et le réveil, une période d’inactivité, une heure de la journée, l’ouverture ou la fermeture d’une application, le montage d’un disque, la connexion d’un écran ou d’un périphérique USB, ou encore la connexion à un réseau Wi-Fi peuvent tous servir de déclencheurs. Consultez [Démarrage rapide](https://wiki.keyboardmaestro.com/manual/Quick_Start) et [Déclencheurs de macros](https://wiki.keyboardmaestro.com/manual/Macro_Triggers).",
+        "Pour ajouter un déclencheur, cliquez sur le bouton vert **+** en haut de la macro. Maintenez ⌥ (Option) en choisissant une entrée dans le menu de nouveau déclencheur pour ouvrir plutôt l’aide officielle correspondante. La liste complète se trouve sur la page officielle [Déclencheurs](https://wiki.keyboardmaestro.com/Triggers) ; inutile de tout lire, il vous suffira de la consulter au besoin."
+      ],
+      "myths": [
+        "« Dès qu’une macro a un déclencheur, elle répond partout. » Son groupe de macros a son mot à dire. Le wiki officiel est clair : un déclencheur ne lance la macro que si celle-ci est activée (case cochée) et si son groupe est activé (case cochée) et actif sur le moment ([Démarrage rapide](https://wiki.keyboardmaestro.com/manual/Quick_Start)).",
+        "« Avec deux déclencheurs, il faut que les deux événements se produisent pour qu’elle se lance. » Non, un seul déclencheur suffit. Si vous voulez qu’une action n’ait lieu que lorsque deux éléments sont vrais en même temps, vérifiez-le à l’intérieur de la macro avec une [condition](/fr/wiki/condition/)."
+      ]
+    },
+    "action": {
+      "title": "Action",
+      "one": "Une action est une étape exécutée par une macro : taper du texte, appuyer sur une touche, choisir une commande de menu, ouvrir une application, déplacer une fenêtre… Une macro enchaîne plusieurs actions et les exécute dans l’ordre.",
+      "like": "Comme les étapes d’une recette : émincer l’oignon, chauffer la poêle, casser l’œuf, le retourner. Tout se fait dans l’ordre. Si vous cassez l’œuf avant que la poêle soit chaude, le petit-déjeuner est raté, et c’est bien pour ça que les recettes disent « attendre que l’huile soit chaude ». Les macros ont, elles aussi, leur façon de patienter.",
+      "here": [
+        "Quand une macro se déclenche, Keyboard Maestro exécute ses actions dans l’ordre. Certaines ne vous demandent aucun réglage, comme **Restart Computer** (redémarrer l’ordinateur) ; d’autres ont besoin de précisions, comme **Select or Show a Menu Item** (sélectionner ou afficher un élément de menu), qui doit connaître l’application et le menu visés. Ajoutez une action avec le bouton **+** sous la macro, ou cherchez-la par son nom avec **Edit ▸ Insert Action by Name** (Édition ▸ Insérer une action par nom). Le menu ⚙ en haut à droite de chaque action donne accès à son aide, ainsi qu’à son délai maximal et au comportement à adopter en cas d’échec. Consultez [Actions de macros](https://wiki.keyboardmaestro.com/manual/Macro_Actions).",
+        "Les champs que vous remplissez existent en deux types : les champs texte acceptent des [jetons](/fr/wiki/token/) et les champs numériques acceptent des [calculs](/fr/wiki/calculation/), et pendant la saisie, un petit T ou C dans le coin vous indique auquel vous avez affaire. Le wiki officiel revient souvent sur un point précis : pour certaines actions, Keyboard Maestro ne peut pas savoir quand elles sont vraiment terminées, donc il passe aussitôt à la suite, et l’étape suivante risque d’arriver avant que l’application soit prête. C’est là que vous ajoutez une action **Pause** (mettre en pause), ou **Pause Until** (mettre en pause jusqu’à) qui attend qu’une condition soit remplie avant de continuer. Consultez [Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)."
+      ],
+      "myths": [
+        "« Ça a marché quand j’ai cliqué sur **Try** (essayer) dans l’éditeur, donc la macro est bonne. » Pas forcément. Le wiki officiel souligne que tester une action l’exécute isolément, sans les étapes qui la précèdent : une action prévue pour une application ou une fenêtre précise ne fonctionnera probablement pas si vous la testez depuis l’éditeur. Ajoutez provisoirement une action **Activate a Specific Application** (activer une application précise) juste au-dessus, sélectionnez les deux et essayez-les ensemble.",
+        "« Cliquer à la souris, c’est le plus direct, alors je vais tout faire au clic. » Le conseil officiel est de l’éviter autant que possible. Les clics de souris cassent facilement dès que le système ou une application change un peu, et ils exigent que l’écran soit exactement comme prévu. Si choisir une commande de menu ou appuyer sur un bouton peut faire l’affaire, préférez cette solution plutôt que de cliquer à des coordonnées précises ([Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I))."
+      ]
+    },
+    "hot-key": {
+      "title": "Raccourci clavier",
+      "one": "Un raccourci clavier déclenche une macro lorsque vous appuyez sur une combinaison de touches, comme ⌃⌥⌘T. Le système intercepte cette frappe, qui n’atteint donc jamais l’application au premier plan.",
+      "like": "C’est un interrupteur : chaque bouton au mur commande une lampe, et une pression l’allume. Les bons interrupteurs se trouvent là où on les repère les yeux fermés. Les raccourcis clavier marchent pareil : une logique facile à retenir vaut bien mieux qu’un tas de combinaisons sans lien entre elles.",
+      "here": [
+        "Un raccourci clavier peut utiliser une lettre, un chiffre, un symbole ou une touche de fonction, généralement avec une ou plusieurs touches de modification : ⌃ (Contrôle), ⌥ (Option), ⇧ (Maj) et ⌘ (Commande). Les touches du pavé numérique sont distinctes des chiffres du clavier principal. En plus de se déclencher à l’appui, un raccourci peut se déclencher au relâchement, sur un appui long, de façon répétée tant qu’on le maintient enfoncé, ou après deux ou trois pressions rapides. Une touche de modification seule ne peut pas servir de raccourci clavier, et Fn n’est pas une touche de modification. Consultez [Déclencheur par raccourci clavier](https://wiki.keyboardmaestro.com/trigger/Hot_Key).",
+        "Quel que soit votre choix, la touche est interceptée et ne peut plus remplir son rôle habituel. Le conseil officiel est donc de rester cohérent, par exemple Contrôle plus une lettre pour insérer du texte et Contrôle-Option plus une lettre pour ouvrir une application, tout en évitant les raccourcis courants avec Commande et ceux du système. Si plusieurs macros finissent par partager le même raccourci clavier, ce n’est pas un problème : appuyer dessus ouvre la **Conflict Palette** (palette de conflits), et vous choisissez celle que vous voulez avec un chiffre ou sa première lettre. Consultez [Déclencheur par raccourci clavier](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity) et [Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I)."
+      ],
+      "myths": [
+        "« Je peux utiliser ⌘C comme raccourci clavier tout en continuant à copier. » Non. Les raccourcis clavier prennent le pas sur les raccourcis des menus d’une application, et un ⌘C intercepté ne copiera rien du tout. De plus, si une autre application utilise le même raccourci clavier, les deux se produisent en même temps quand vous appuyez dessus, donc ==choisissez une combinaison peu courante, comme ⌃⌥⌘ plus une lettre==.",
+        "« Puis-je créer un raccourci clavier en deux temps, comme ⌥F puis R ? » Le wiki officiel indique que ce n’est pas pris en charge directement, parce qu’il n’existe aucun moyen fiable de savoir si vous allez appuyer sur une seconde touche. À la place, utilisez un premier raccourci clavier pour rendre un groupe de macros actif pour une seule action, et donnez de simples lettres aux macros de ce groupe. Consultez [Groupe de macros](/fr/wiki/macro-group/)."
+      ]
+    },
+    "typed-string": {
+      "title": "Déclencheur par texte saisi",
+      "one": "Ce déclencheur lance une macro lorsque vous tapez un texte précis. L’usage classique est l’abréviation : tapez =addr=, et Keyboard Maestro efface ces caractères pour mettre votre adresse complète à la place.",
+      "like": "C’est comme un mot de code convenu avec un collègue. Dites « comme d’habitude » sur la messagerie d’équipe, et il sait qu’il doit envoyer le rapport hebdomadaire. Le mot de code doit être quelque chose que vous ne diriez jamais par hasard, sinon une conversation ordinaire le déclencherait.",
+      "here": [
+        "Ce que vous tapez arrive d’abord normalement dans l’application en cours ; ce déclencheur simule donc en général quelques pressions sur la touche Supprimer pour effacer le texte saisi avant de lancer la macro. Le conseil officiel est de donner à vos séquences un préfixe et/ou un suffixe cohérent. Pour votre adresse e-mail, n’utilisez pas `em`, qui se déclencherait aussi quand vous tapez « temps » ; choisissez plutôt quelque chose comme `=em=`, que vous ne taperez jamais par mégarde. Les exemples de ce site suivent tous le même format, avec un signe égal de chaque côté : `=addr=`, `=sig=`. Consultez [Déclencheur par texte saisi](https://wiki.keyboardmaestro.com/trigger/Typed_String).",
+        "Si vous corrigez une faute de frappe avec la touche Supprimer, la séquence compte quand même. Pour taper le texte sans déclencher la macro, appuyez sur Maj + Espace au milieu, puis effacez l’espace. Cliquer à la souris, changer d’application ou faire une pause de plus de quelques secondes remet le compteur à zéro. Vous pouvez aussi lui demander d’ignorer les majuscules et minuscules, ou de ne réagir qu’en début de mot."
+      ],
+      "myths": [
+        "« Les déclencheurs par texte saisi sont pratiques aussi pour ouvrir des applications et des pages web. » Le wiki officiel le déconseille. Ce déclencheur fonctionne en effaçant ce que vous venez de taper : si vous n’êtes pas dans un endroit où l’on peut écrire, par exemple dans le Finder, vos lettres sélectionnent un fichier et la suppression simulée risque de l’envoyer à la Corbeille. Donc ++ne l’utilisez que là où vous êtes déjà en train de taper du texte++, et confiez les tâches comme l’ouverture d’une application, dont vous pouvez avoir besoin de n’importe où, à un [raccourci clavier](/fr/wiki/hot-key/), au [menu d’état](/fr/wiki/status-menu/) ou à une [palette](/fr/wiki/palette/) ([FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)).",
+        "« Mes abréviations fonctionnent aussi dans les champs de mot de passe. » Non. Le système n’autorise pas Keyboard Maestro à lire ce que vous tapez dans un champ de mot de passe, donc les déclencheurs par texte saisi ne se déclenchent pas dans la plupart d’entre eux. Ils fonctionnent aussi assez mal dans les fenêtres contextuelles de Keyboard Maestro et dans l’éditeur lui-même : utilisez un autre déclencheur dans ces cas-là."
+      ]
+    },
+    "palette": {
+      "title": "Palette",
+      "one": "Une palette est un petit panneau flottant de boutons à l’écran, un par macro : cliquez sur un bouton et sa macro se lance. C’est la place idéale pour les macros dont vous vous servez rarement et dont vous oublieriez le raccourci clavier.",
+      "like": "Comme les petits mots collés sur la porte du frigo : « courses », « payer l’électricité », « appeler maman ». Vous les voyez dès que vous levez les yeux, donc vous n’avez pas besoin de les retenir. Une palette place vos macros sous vos yeux de la même manière, et vous cliquez sur celle qu’il vous faut.",
+      "here": [
+        "Le wiki officiel en distingue quatre sortes. La **Global Macro Palette** (palette globale de macros) affiche toutes les macros actives dotées du déclencheur **Global Macro Palette**, et apparaît dès qu’au moins une de ces macros est active. N’importe quel groupe de macros peut aussi s’afficher sous la forme de sa propre palette, par exemple uniquement lorsqu’une certaine application est au premier plan. Les deux autres sont **Applications Palette** (palette d’applications), qui liste vos applications ouvertes, et **Conflict Palette** (palette de conflits), qui s’ouvre pour vous laisser choisir quand un raccourci clavier correspond à plusieurs macros. Consultez [Palettes](https://wiki.keyboardmaestro.com/manual/Palettes).",
+        "La manière dont la palette d’un groupe de macros apparaît se règle dans le groupe : affichée quand vous appuyez sur le raccourci clavier du groupe puis refermée après une macro, affichée et masquée en appuyant sur le raccourci clavier, ou affichée d’emblée jusqu’à ce que vous appuyiez sur le raccourci clavier. Pour trier les boutons dans l’ordre voulu, faites commencer le nom de chaque macro par deux caractères suivis d’une parenthèse fermante, comme `01)` ; ce préfixe est masqué à l’affichage. Vous pouvez aussi modifier le style, l’opacité, le nombre de colonnes et l’affichage ou non des icônes."
+      ],
+      "myths": [
+        "« J’ai fermé la **Global Macro Palette**, et maintenant elle a disparu pour de bon. » Une fois fermée, elle reste masquée jusqu’au prochain lancement du moteur ou jusqu’à ce que vous la réaffichiez avec une action comme **Toggle Global Macro Palette** (afficher ou masquer la palette globale de macros) ([Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#The_Global_Floating_Palette_has_disappeared)).",
+        "« Les macros d’une palette peuvent toujours être déclenchées par leur raccourci clavier. » Cela dépend du groupe. Avec les options de palette, les macros ne sont actives que lorsque la palette est affichée : une fois celle-ci masquée, leurs raccourcis clavier ne fonctionnent plus non plus. Si vous voulez les deux, choisissez l’une des options qui commencent par **Always activated** (toujours actif) ([Groupes de macros](https://wiki.keyboardmaestro.com/manual/Macro_Groups))."
+      ]
+    },
+    "status-menu": {
+      "title": "Menu d’état",
+      "one": "Le menu d’état est l’icône de Keyboard Maestro à droite de la barre des menus. Ouvrez-le pour lancer les macros que vous y avez placées, ainsi que pour voir et annuler celles qui sont en cours d’exécution.",
+      "like": "C’est le tableau électrique. En temps normal on n’y touche pas, mais quand quelque chose refuse de s’éteindre, on sait tout de suite où aller. Quand une macro se bloque ou ne s’arrête plus, l’icône de la barre des menus est le premier endroit à ouvrir.",
+      "here": [
+        "Ajoutez le déclencheur **Status Menu** (menu d’état) à une macro et elle apparaît dans ce menu, prête à être lancée en un clic. Comme pour les palettes, seules les macros actives sur le moment y figurent : une macro qui ne fonctionne que dans une application ne s’y montre que lorsque cette application est au premier plan. Selon le wiki officiel, le menu d’état convient bien aux macros que vous utilisez rarement et dont vous oublieriez le raccourci clavier, ou aux tâches qui ressemblent de toute façon à des commandes de menu, comme traiter des fichiers ou ranger des fenêtres. Vous y trouverez aussi un sous-menu **Paste** (Coller) contenant vos 30 extraits de texte les plus récents ; maintenez ⇧ (Maj) pour coller en texte brut. Consultez [Déclencheur du menu d’état](https://wiki.keyboardmaestro.com/trigger/Status_Menu) et [Menu d’état](https://wiki.keyboardmaestro.com/Status_Menu).",
+        "Quand une macro refuse de s’arrêter, cette icône est votre alliée. Choisissez une macro en cours dans le sous-menu **Cancel** (Annuler) pour l’interrompre, ce qui vous permet aussi de voir ce qui tourne à cet instant. Maintenez ⌃⌥⇧ (Contrôle, Option, Maj) et cliquez sur l’icône pour annuler d’un coup toutes les macros en cours. **Start Debugging** (démarrer le débogage), qui ouvre le [débogueur](/fr/wiki/debugger/), se trouve aussi ici. Consultez [Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I)."
+      ],
+      "myths": [
+        "« Toutes les macros affichées dans le menu d’état tournent en arrière-plan. » Non. Le wiki officiel insiste sur ce point : les macros listées ici sont disponibles pour être lancées maintenant, elles ne sont pas en train de tourner.",
+        "« Ma macro a disparu du menu d’état. A-t-elle été supprimée ? » Vérifiez d’abord si elle n’est pas tout simplement inactive sur le moment. Si son groupe ne fonctionne que dans une seule application, passez dans cette application et elle réapparaîtra."
+      ]
+    },
+    "variable": {
+      "title": "Variable",
+      "one": "Une variable est un morceau de texte doté d’un nom, mis de côté pour que les actions suivantes puissent le réutiliser sous ce nom. Elle ne contient que du texte brut.",
+      "like": "Comme des pots à épices étiquetés dans une cuisine : « sel », « sucre ». Pas besoin de vous rappeler sur quelle étagère ils sont rangés ; vous lisez l’étiquette. Une variable est aussi un pot étiqueté, mais elle ne contient que du texte brut. Les images et le texte mis en forme vont ailleurs.",
+      "here": [
+        "Vous n’avez pas à déclarer les variables. La première action qui donne une valeur à une variable la crée automatiquement. Les plus directes sont **Set Variable to Text** (définir une variable sur un texte) et **Set Variable to Calculation** (définir une variable sur un calcul), et **Prompt for User Input** (demander une saisie à l’utilisateur), qui vous pose une question et range la réponse dans une variable, est très appréciée. Le nom commence par une lettre et peut contenir des lettres, des chiffres, des espaces et des tirets bas, sans tenir compte des majuscules ou minuscules. Pour réutiliser une variable, écrivez `%Variable%Name%` dans un champ texte, ou simplement son nom dans un champ numérique. Consultez [Variables](https://wiki.keyboardmaestro.com/manual/Variables).",
+        "Il existe plusieurs catégories, et c’est le début du nom qui les distingue. Les variables ordinaires sont globales : elles sont enregistrées sur votre Mac, survivent à un redémarrage et d’autres macros peuvent les lire. Les noms qui commencent par « local » ne fonctionnent qu’à l’intérieur de cette macro, et ceux qui commencent par « instance » ne valent que pour cette exécution précise. Les noms qui commencent ou se terminent par « PW » ou « password » sont des variables de mot de passe, gardées en mémoire et jamais écrites sur le disque. Le conseil officiel est de privilégier « local » et « instance », parce qu’une même macro peut tourner plusieurs fois en parallèle, et des variables séparées évitent que les exécutions ne se marchent sur les pieds. Vous pouvez voir, modifier et supprimer les variables globales dans l’onglet **Variables** des réglages."
+      ],
+      "myths": [
+        "« Quand la macro se termine, ses variables se vident toutes seules. » Ce n’est pas le cas des variables globales. Elles restent en place tant que vous ne les videz pas. Quand vous avez fini de vous servir d’une variable, surtout si elle contient un mot de passe ou beaucoup de texte, le conseil officiel est de lui affecter un texte vide.",
+        "« Je peux ranger une image dans une variable. » Les variables ne contiennent que du texte brut. Les images et le texte mis en forme vont dans un [presse-papiers nommé](/fr/wiki/named-clipboard/)."
+      ]
+    },
+    "token": {
+      "title": "Jeton",
+      "one": "Un jeton est un emplacement réservé dans un texte, entouré de signes pour cent, comme %LongDate%. Quand la macro arrive à cette étape, il est remplacé par la valeur du moment : la date du jour, le nom de l’application au premier plan, le texte du presse-papiers.",
+      "like": "Comme le « Bonjour [Prénom] » dans un modèle de lettre. Vous rédigez le modèle une seule fois et vous mettez le vrai prénom au moment de l’envoi. Les jetons sont les crochets que Keyboard Maestro comprend, sauf que ce qui va dedans n’est connu qu’au moment où la macro s’exécute.",
+      "here": [
+        "Presque tous les champs texte d’une action comprennent les jetons, par exemple dans **Insert Text by Typing** (insérer du texte en le tapant), **Display Text** (afficher du texte) et **Set Variable to Text** (définir une variable sur un texte). Un jeton sans paramètre prend la forme `%TokenName%`, et un jeton avec paramètre `%TokenName%Parameter%` ; `%Variable%Name%` récupère la valeur d’une variable. Vous n’avez pas besoin de les apprendre par cœur. Placez le curseur dans un champ texte et choisissez dans le menu **Edit ▸ Insert Token** (Édition ▸ Insérer un jeton), ou appuyez sur ⌃⌘T (Contrôle, Commande et T) pour chercher par nom. Les champs qui acceptent des jetons affichent un petit T dans le coin supérieur droit pendant la saisie. Consultez [Jetons](https://wiki.keyboardmaestro.com/manual/Tokens) et la [liste complète des jetons](https://wiki.keyboardmaestro.com/Tokens).",
+        "Quelques jetons dont vous vous servirez souvent : `%LongDate%` donne la date du jour, `%SystemClipboard%` le texte contenu dans le presse-papiers (appelé `%CurrentClipboard%` avant la v8), et `%CurrentApplication%` le nom de l’application au premier plan. L’exemple officiel associe `%FrontBrowserTitle%` et `%FrontBrowserURL%` pour fabriquer un lien avec le titre et l’adresse de la page web ouverte."
+      ],
+      "myths": [
+        "« Dans un champ numérique, je vais écrire `%Variable%Count%` aussi. » Inutile. Les champs numériques acceptent des calculs, où l’on écrit directement les noms de variables et les fonctions ; les jetons sont réservés aux champs texte. Si vous avez vraiment besoin de mélanger les deux, utilisez `%Calculate%1+2%` pour faire un calcul dans un champ texte, et la fonction `CALCULATE` pour utiliser un jeton dans un champ numérique ([FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions)).",
+        "« Je veux juste taper les caractères %LongDate%, mais ils se transforment sans arrêt en date. » Le menu ⚙ du champ texte permet de désactiver le traitement des jetons, et les caractères restent tels quels ([Jetons](https://wiki.keyboardmaestro.com/manual/Tokens))."
+      ]
+    },
+    "calculation": {
+      "title": "Calcul",
+      "one": "Dans presque n’importe quel champ qui attend un nombre, vous pouvez saisir une formule à la place, fonctions comprises, par exemple « la moitié de la largeur de la fenêtre au premier plan ». Le résultat est calculé au moment où la macro arrive à cette étape.",
+      "like": "C’est comme dire à un vendeur « deux packs d’eau de 24 bouteilles » au lieu de calculer 48 vous-même. Vous donnez la méthode à Keyboard Maestro et il fait le calcul au moment où il en a besoin, donc si vous changez d’écran ou déplacez la fenêtre, le résultat suit.",
+      "here": [
+        "Le wiki officiel indique que les calculs fonctionnent dans presque tous les champs numériques : une pause, par exemple, peut être `60*Minutes`, où Minutes est une variable. Les champs numériques commencent petits avec de petites flèches haut et bas, et s’élargissent dès que vous tapez autre chose qu’un nombre ; pendant que vous en modifiez un, un petit C apparaît dans le champ, ce qui vous indique qu’il accepte un calcul. Les formules prennent en charge les parenthèses, la priorité des opérations et l’hexadécimal, ainsi qu’une longue liste de [fonctions](https://wiki.keyboardmaestro.com/Functions) intégrées : `SCREEN()` pour la position et la taille d’un écran, `WINDOW()` pour celles d’une fenêtre, `NOW()` pour l’heure actuelle. Choisissez-en une dans le menu **Edit ▸ Insert Function** (Édition ▸ Insérer une fonction) ; maintenez ⌥ (Option) enfoncée en la choisissant pour ouvrir son aide. Voir [Calculs](https://wiki.keyboardmaestro.com/manual/Calculations) et [Champs de texte](https://wiki.keyboardmaestro.com/Text_Fields).",
+        "Les virgules ont un rôle particulier dans les calculs : une liste de nombres séparés par des virgules fonctionne comme un tableau. C’est ainsi que la position et la taille d’une fenêtre (gauche, haut, largeur, hauteur) sont stockées, et `Frame[3]` récupère le troisième nombre, la largeur. Les comparaisons renvoient 0 ou 1, donc un calcul peut aussi servir de [condition](/fr/wiki/condition/)."
+      ],
+      "myths": [
+        "« Je vais mettre une virgule pour les décimales, et une virgule pour les milliers afin que ce soit plus lisible. » Impossible. Le wiki officiel précise que, quelle que soit votre langue, les décimales utilisent toujours un point, les milliers n’ont aucun séparateur, et les virgules servent uniquement à séparer les éléments d’un tableau.",
+        "« Les noms de fonctions peuvent s’écrire en minuscules ou en majuscules. » Les opérateurs et les fonctions doivent être en majuscules, comme `MOD` et `SCREEN()`, afin de ne pas être confondus avec vos noms de variables. Pour la même raison, un nom de variable ne doit pas contenir un opérateur entouré d’espaces : `A MOD B` n’est pas un nom de variable valide ([Variables](https://wiki.keyboardmaestro.com/manual/Variables))."
+      ]
+    },
+    "condition": {
+      "title": "Condition",
+      "one": "Une condition est quelque chose qu’une macro vérifie : si une app est lancée, si une image apparaît à l’écran, si une variable a une certaine valeur, quelles touches de modification sont enfoncées. Après cette vérification, la macro peut emprunter un chemin différent selon la réponse.",
+      "like": "Comme jeter un coup d’œil par la fenêtre avant de sortir : s’il pleut, vous prenez un parapluie, sinon non. La condition, c’est ce coup d’œil, et **If Then Else** (Si Alors Sinon), c’est la décision du parapluie.",
+      "here": [
+        "Les conditions ne font rien par elles-mêmes. Elles se placent toujours dans une action de contrôle de flux, comme **If Then Else**, **Pause Until** (mettre en pause jusqu’à), **Until** (jusqu’à ce que) ou **While** (tant que). Chacune commence par vous demander comment combiner ses conditions : au moins une vraie, toutes vraies, aucune vraie, ou pas toutes vraies. Ensuite, vous ajoutez les conditions précises en dessous. Voir [Conditions](https://wiki.keyboardmaestro.com/manual/Conditions).",
+        "Vous pouvez vérifier beaucoup de choses : les apps, les fenêtres, les éléments de menu, les touches et touches de modification, le presse-papiers, les variables, du texte, des calculs, des fichiers et chemins d’accès, les disques montés, les périphériques USB, les réseaux sans fil, si une [image est trouvée](/fr/wiki/found-image/) à l’écran, du texte lu par OCR, la couleur d’un pixel et le résultat d’un script. La liste complète figure sur la page officielle [Conditions](https://wiki.keyboardmaestro.com/Conditions)."
+      ],
+      "myths": [
+        "« Si je n’ajoute aucune condition, ce sera considéré comme vrai. » C’est l’inverse. Le wiki officiel insiste sur le fait que ++sans aucune condition, l’action n’exécute rien++ : aucune des deux branches de **If Then Else** ne s’exécute. La seule exception est **Until**, qui exécute ses actions une fois.",
+        "« Pour attendre une fenêtre, je vais ajouter une action **Pause** (mettre en pause) de quelques secondes. » Parmi les solutions proposées par le wiki officiel figurent une **Pause** fixe et **Pause Until**, qui attend qu’une condition devienne vraie. Quand vous pouvez décrire ce que vous attendez sous forme de condition, la seconde option vous évite de deviner combien de secondes suffisent ([Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions))."
+      ]
+    },
+    "found-image": {
+      "title": "Recherche d’image",
+      "one": "La recherche d’image permet à Keyboard Maestro de chercher à l’écran un endroit qui correspond à une image que vous lui fournissez. Une fois trouvée, une macro peut cliquer dessus, y déplacer la souris ou l’utiliser comme condition pour vérifier si elle est affichée.",
+      "like": "Comme repérer votre enfant sur une photo de classe. Vous savez à quoi il ressemble, donc un coup d’œil suffit pour le montrer du doigt. Mais si deux enfants sont habillés exactement pareil, vous ne savez plus lequel désigner. Keyboard Maestro a le même problème : par défaut, il exige que la correspondance soit unique à l’écran.",
+      "here": [
+        "Plusieurs éléments utilisent la recherche d’image : **Move or Click Mouse** (déplacer ou cliquer avec la souris) peut cliquer dessus, **Find Image on Screen** (trouver une image à l’écran) enregistre son emplacement, et la condition **Found Image** (image trouvée) vérifie si elle est présente. Vous pouvez coller une capture d’écran dans l’action comme image à chercher, ou la récupérer depuis le presse-papiers, un presse-papiers nommé ou un fichier. Vous réglez aussi une tolérance : à cause de la transparence et du lissage des contours, presque rien à l’écran ne correspond au pixel près, et le wiki officiel conseille de commencer autour de 20 %. Depuis la v11, le menu ⚙ de l’action propose une option pour attendre que l’image apparaisse. Voir [Recherche d’image](https://wiki.keyboardmaestro.com/Found_Image).",
+        "La recommandation officielle est d’utiliser une action de plus haut niveau quand c’est possible, comme **Press a Button** (appuyer sur un bouton) pour cliquer sur un bouton. La recherche d’image demande que l’écran ait exactement l’aspect attendu, et les éléments les plus difficiles à repérer sont les petites icônes grises et les textes en petit corps. Limiter la recherche à moins d’un quart de l’écran la rend plus précise."
+      ],
+      "myths": [
+        "« L’image est juste là quand je teste, mais il trouve le mauvais endroit. » Déplacez ou masquez d’abord l’éditeur : l’image placée dans l’action est elle aussi à l’écran, et Keyboard Maestro est peut-être en train de trouver celle-là. Cochez ensuite **Display** (afficher), qui met en évidence chaque correspondance à l’écran, afin de voir ce qui se passe pendant que vous ajustez la tolérance ([Recherche d’image](https://wiki.keyboardmaestro.com/Found_Image#Testing)).",
+        "« S’il y a deux boutons identiques à l’écran, il cliquera sur le premier. » Pas par défaut. Si l’image n’est pas unique, l’action échoue, afin de ne jamais cliquer au mauvais endroit. Pour cliquer sur l’un d’eux, changez l’option pour choisir la meilleure correspondance, ou bien celle la plus en haut, la plus à gauche, la plus en bas ou la plus à droite."
+      ]
+    },
+    "clipboard-history": {
+      "title": "Historique du presse-papiers",
+      "one": "Le presse-papiers du système ne retient que le dernier élément copié. Keyboard Maestro conserve les précédents, jusqu’à 200 éléments par défaut, afin que vous puissiez en choisir un plus ancien et le coller à nouveau.",
+      "like": "Comme la pile de souches de reçus sous le comptoir d’une boutique. Quand un client demande « vous pouvez revérifier la vente précédente ? », vous ne refaites pas le calcul : vous feuilletez les souches. Copier un nouvel élément ne jette pas l’ancien ; il descend simplement d’un cran dans la pile.",
+      "here": [
+        "Chaque fois que vous copiez dans n’importe quelle app, Keyboard Maestro Engine en garde une copie. Pour coller un élément plus ancien, ouvrez le sélecteur d’historique du presse-papiers (Clipboard History Switcher) avec son raccourci clavier par défaut, ⌃⇧⌘V (Contrôle, Maj, Commande et V). Cette macro se trouve dans le groupe de macros **Switcher Group** (groupe de sélecteurs) fourni avec Keyboard Maestro, et vous pouvez modifier son raccourci clavier. Dans le sélecteur, double-cliquez sur un élément ou sélectionnez-le puis appuyez sur Retour pour le coller ; maintenez ⇧ (Maj) enfoncée pour coller en texte brut, ou ⌥ (Option) pour le placer simplement dans le presse-papiers sans le coller. ⌘ suivi d’un chiffre colle directement l’entrée correspondante. Voir [Sélecteur d’historique du presse-papiers](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher).",
+        "Le sélecteur permet aussi de faire une recherche, de n’afficher que les images ou les favoris, et de fusionner plusieurs entrées pour les coller ensemble. Vous pouvez aussi modifier le nombre d’éléments conservés, mais il s’agit d’un réglage caché : il ne figure pas dans la fenêtre des réglages, et vous le modifiez avec une commande Terminal d’une ligne indiquée sur la page officielle [Réglages](https://wiki.keyboardmaestro.com/manual/Preferences#Clipboard). Si vous préférez ne pas conserver ce qui est copié dans une app donnée, excluez-la dans l’onglet **Excluded** (Exclus) des réglages. La page officielle [Presse-papiers](https://wiki.keyboardmaestro.com/Clipboards) regroupe au même endroit tous les presse-papiers de Keyboard Maestro."
+      ],
+      "myths": [
+        "« Mon historique du presse-papiers survit à un redémarrage. » Seulement si vous l’avez configuré ainsi. Le wiki officiel précise que l’historique ne réapparaît après la fermeture et la relance du moteur que si **Save Clipboard History Between Launches** (enregistrer l’historique du presse-papiers entre les lancements) est coché dans l’onglet **General** (Général) des réglages ; sinon, il repart de zéro chaque fois que le moteur se ferme.",
+        "« Les mots de passe que j’ai copiés restent dans l’historique pour toujours. » Les entrées que Keyboard Maestro identifie comme des mots de passe sont masquées, supprimées dès qu’elles descendent en dixième position et jamais enregistrées sur le disque ; cliquez sur l’une d’elles en maintenant ⌥ (Option) pour la révéler. Vous pouvez aussi désactiver cette détection dans l’onglet **General** des réglages."
+      ]
+    },
+    "named-clipboard": {
+      "title": "Presse-papiers nommé",
+      "one": "Un presse-papiers nommé est un contenu conservé durablement sous un nom : du texte, du texte mis en forme ou une image. Votre prochaine copie ne l’écrasera pas, et il sera toujours là après un redémarrage.",
+      "like": "Comme des chemises étiquetées dans un tiroir de bureau : « logo de l’entreprise », « signature », « réponses types ». Ce qui traîne sur le bureau (le presse-papiers du système) change tout le temps, mais pas le tiroir. Quand vous avez besoin d’un élément, vous le sortez pour le poser sur le bureau.",
+      "here": [
+        "Le wiki officiel prend soin de préciser qu’un presse-papiers nommé n’est pas un vrai presse-papiers. C’est plutôt un espace de stockage : une copie du presse-papiers du système (ou d’un autre presse-papiers nommé) qui reste en place jusqu’à ce que vous la modifiiez ou la supprimiez. Il peut contenir ce qu’une variable ne peut pas stocker, comme une signature mise en forme ou une image. Pour en créer un, cliquez sur **+** dans l’onglet **Clipboards** (Presse-papiers) des réglages, saisissez son nom dans le champ d’une ligne en haut à droite et collez le contenu dans la grande zone en bas à droite. Voir [Presse-papiers](https://wiki.keyboardmaestro.com/Clipboards).",
+        "Dans une macro, vous utilisez des actions comme **Copy to Named Clipboard** (copier dans un presse-papiers nommé) et **Paste from Named Clipboard** (coller depuis un presse-papiers nommé). À la main, ouvrez le sélecteur de presse-papiers nommé (Named Clipboard Switcher), choisissez un presse-papiers, puis coupez ou copiez votre sélection actuelle dedans, ou collez son contenu ; maintenez ⇧ (Maj) enfoncée pour coller en texte brut. Voir [Sélecteur de presse-papiers nommé](https://wiki.keyboardmaestro.com/manual/Named_Clipboard_Switcher)."
+      ],
+      "myths": [
+        "« Default Clipboard est le presse-papiers du système. » Non. C’est simplement un presse-papiers nommé que Keyboard Maestro crée pour vous ; le mot « Default » signifie seulement qu’il est fourni par défaut, et il fonctionne comme n’importe quel autre presse-papiers nommé.",
+        "« Utiliser des presse-papiers nommés laisse le presse-papiers du système intact. » Pas du tout. Le wiki officiel prévient que toute action qui fait entrer ou sortir du contenu de l’interface utilisateur passe par le presse-papiers du système : **Copy to Named Clipboard**, **Paste from Named Clipboard** et **Insert Text by Pasting** (insérer du texte en le collant) remplacent donc toutes ce qui se trouvait dans le presse-papiers du système."
+      ]
+    },
+    "permissions": {
+      "title": "Autorisations",
+      "one": "Pour appuyer sur des touches, taper du texte, choisir des menus et observer l’écran à votre place, Keyboard Maestro a besoin de votre accord dans macOS, une autorisation à la fois. La plus importante est Accessibilité : sans elle, les raccourcis clavier et les abréviations ne fonctionnent pas.",
+      "like": "Comme demander à un voisin de veiller sur votre logement. La clé de la porte d’entrée lui permet d’arroser les plantes ; si vous voulez aussi qu’il relève votre courrier, il lui faut également la clé de la boîte aux lettres. macOS attribue une clé distincte pour chaque type de tâche, et Keyboard Maestro a besoin de la clé correspondant à chaque tâche qu’il effectue.",
+      "here": [
+        "Le wiki officiel indique qu’environ 80 % des e-mails d’assistance reçus concernent les autorisations de sécurité d’Apple. Les réglages de Keyboard Maestro ont un onglet **Security** (Sécurité) qui rassemble les autorisations importantes au même endroit, indique si chacune est accordée et peut les demander au système ; activer tout ce qui s’y trouve règle déjà beaucoup de problèmes. Accessibilité se trouve dans **Réglages Système ▸ Confidentialité et sécurité ▸ Accessibilité** (sur macOS 12 et versions antérieures, Préférences Système). Les solutions décrites dans la FAQ officielle visent toutes l’entrée Keyboard Maestro Engine dans cette liste. Voir [Dépannage](https://wiki.keyboardmaestro.com/manual/Troubleshooting) et [Réglages](https://wiki.keyboardmaestro.com/manual/Preferences).",
+        "Le wiki officiel reconnaît aussi franchement que le système d’autorisations d’Apple comporte des bugs depuis Mojave : des cases qui n’apparaissent pas, impossibles à cocher ou qui s’affichent cochées sans rien autoriser. Les solutions conseillées sont de redémarrer le Mac, de quitter et relancer Keyboard Maestro ou le moteur, et de vérifier que Keyboard Maestro a bien été déplacé dans le dossier Applications avec le Finder. Ce dernier point compte : si vous ne le déplacez pas avec le Finder après le téléchargement, la fonction App Translocation de macOS le lance depuis un emplacement aléatoire, si bien que **Launch Engine at Login** (lancer le moteur à l’ouverture de session) cesse de fonctionner et la mise à jour vers une nouvelle version échoue, car l’app ne peut pas se remplacer elle-même ([Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#App_Translocation_Security))."
+      ],
+      "list": [
+        [
+          "**Accessibilité**",
+          "Détecter les raccourcis clavier et les abréviations que vous tapez, puis taper du texte, choisir des menus et déplacer des fenêtres à votre place. De nombreuses actions de Keyboard Maestro en ont besoin ([Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting#Accessibility))"
+        ],
+        [
+          "**Enregistrement de l’écran et des sons du système** (Enregistrement de l’écran sur les versions plus anciennes de macOS)",
+          "Observer ce qui s’affiche à l’écran ; elle est par exemple demandée quand vous utilisez la condition **Pixel** (couleur d’un pixel). Le wiki officiel note que Sequoia et Tahoe redemandent l’autorisation de temps en temps ([Nouveautés](https://wiki.keyboardmaestro.com/manual/Whats_New), [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions))"
+        ],
+        [
+          "**Automatisation**",
+          "Piloter d’autres apps via AppleScript, par exemple lire le titre et l’adresse de la page en cours dans Safari ou Chrome. Keyboard Maestro et Keyboard Maestro Engine en ont tous les deux besoin ([Jetons de navigateur web](https://wiki.keyboardmaestro.com/token/WebBrowserTokens))"
+        ],
+        [
+          "Calendriers",
+          "Permettre à l’action **Create Calendar Event** (créer un événement de calendrier) d’ajouter des événements. Depuis Sonoma, vous devez aussi accorder l’accès complet au calendrier, sinon vous ne verrez qu’un seul calendrier ([Create Calendar Event](https://wiki.keyboardmaestro.com/action/Create_Calendar_Event))"
+        ],
+        [
+          "Service de localisation",
+          "Depuis Sonoma, savoir à quel réseau sans fil vous êtes connecté nécessite cette autorisation, dont dépendent le déclencheur et la condition **Wireless Network** (réseau sans fil). Lancez l’action **Get Location** (obtenir la position) une fois pour que le système vous la demande ([Wireless Network](https://wiki.keyboardmaestro.com/trigger/Wireless_Network), [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions))"
+        ],
+        [
+          "Contacts",
+          "Uniquement votre propre fiche, pour préremplir l’inscription par e-mail de la fenêtre **Getting Started** (prise en main) et pour les jetons `%AddressBook%` ; le wiki officiel indique qu’il ne lit pas directement le reste de vos contacts ([FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions))"
+        ]
+      ],
+      "listTitle": "À quoi sert chaque autorisation",
+      "listHead": [
+        "L’entrée dans Réglages Système",
+        "Ce qu’elle permet à Keyboard Maestro de faire"
+      ],
+      "myths": [
+        "« L’autorisation est cochée, mais mes macros ne fonctionnent toujours pas. » Le wiki officiel explique qu’il s’agit d’un bug de macOS : la case apparaît cochée sans que l’autorisation soit réellement accordée. Désactivez puis réactivez l’entrée Keyboard Maestro Engine, ou redémarrez une fois. Si cela ne suffit pas, ouvrez **Help ▸ Interactive Help** (aide interactive) dans l’éditeur. Tant que le système ne lui ment pas, cet outil peut repérer certains problèmes d’autorisations pour vous.",
+        "« Pour éviter les tracas, je vais simplement désactiver les protections de sécurité du Mac. » ++Ne le faites pas.++ Chaque autorisation dont Keyboard Maestro a besoin peut être accordée séparément dans Réglages Système. Ce site ne montre que cette méthode et n’enseigne jamais à désactiver des protections comme SIP ou Gatekeeper."
+      ]
+    },
+    "smart-group": {
+      "title": "Groupe intelligent",
+      "one": "Un groupe intelligent est une recherche enregistrée. Il ne contient aucune macro par lui-même ; il affiche simplement celles qui correspondent, par exemple celles modifiées au cours des dernières 24 heures ou celles qui ont un raccourci clavier précis.",
+      "like": "Comme le dossier Non lus de votre messagerie. Les messages restent dans votre boîte de réception ; le dossier se contente de repérer ceux qui correspondent et de vous les afficher. Dès que vous en lisez un, il quitte discrètement le dossier.",
+      "here": [
+        "Pour créer un groupe intelligent, cliquez sur le bouton **⊕** sous la colonne des groupes, et double-cliquez sur un groupe intelligent pour le modifier. Un groupe intelligent rassemble plusieurs recherches, et toute macro qui correspond à l’une d’elles apparaît dans la liste. La page [Critères de recherche](https://wiki.keyboardmaestro.com/manual/Search_Strings) montre comment les écrire : `mod:1d` signifie modifiée au cours des dernières 24 heures, `use:1w` utilisée au cours de la dernière semaine, et `h:` toute macro dotée d’un raccourci clavier. Voir [Groupes intelligents](https://wiki.keyboardmaestro.com/manual/Smart_Groups).",
+        "Keyboard Maestro est fourni avec un groupe intelligent **All Macros** (Toutes les macros) qui liste toutes vos macros. Pour retrouver celle que vous venez de modifier, sélectionnez-le et utilisez **View ▸ Sort Macros by ▸ Date Modified** (Présentation ▸ Trier les macros par ▸ Date de modification) afin de faire remonter les plus récemment modifiées en haut de la liste ([Comment faire](https://wiki.keyboardmaestro.com/manual/How_do_I))."
+      ],
+      "myths": [
+        "« Glisser une macro dans un groupe intelligent la déplace. » Un groupe intelligent n’est qu’une recherche. La macro reste dans son propre groupe de macros, et c’est toujours ce groupe qui décide quand elle est active.",
+        "« Plus j’ajoute de recherches, moins il affiche de macros. » C’est l’inverse : il suffit qu’une macro corresponde à l’une des recherches, donc en ajouter une autre ne peut que rallonger la liste."
+      ]
+    },
+    "debugger": {
+      "title": "Débogueur et journal du moteur",
+      "one": "Le débogueur permet d’exécuter une macro étape par étape et de la mettre en pause quand vous le souhaitez, afin de voir exactement où elle coince. Le journal du moteur est le carnet de bord du moteur : quand une macro échoue, ce qu’elle a signalé y est consigné.",
+      "like": "Comme regarder le ralenti d’un match image par image : à vitesse normale, impossible de voir qui a fait faute, mais en ralentissant et en mettant sur pause, tout devient évident. Le journal ressemble plutôt à une caméra embarquée, que vous relisez après coup pour voir ce qui s’est réellement passé à ce moment-là.",
+      "here": [
+        "Pour ouvrir le débogueur, choisissez **Start Debugging** (démarrer le débogage) dans le [menu d’état](/fr/wiki/status-menu/). Voici la marche à suivre officielle : vérifiez que **Pause New Macros** (mettre en pause les nouvelles macros) est coché, déclenchez votre macro, et elle apparaît dans la fenêtre du débogueur, mise en pause au début. Cliquez sur le bouton avec la flèche vers le bas pour entrer dans la première action, puis cliquez à nouveau pour chaque étape suivante. La fenêtre permet aussi de poursuivre la macro, de la mettre en pause, d’exécuter l’action en cours puis de faire une pause après elle, ou de l’annuler ; enfin, le bouton en haut à droite affiche les dix variables que cette macro a modifiées le plus récemment. Si vous fermez la fenêtre du débogueur, toutes les macros en pause reprennent normalement. Voir [Débogueur de macros](https://wiki.keyboardmaestro.com/manual/Macro_Debugger).",
+        "Le journal du moteur est un fichier nommé Engine.log, que vous pouvez ouvrir via **Help ▸ Open Logs Folder** (Aide ▸ Ouvrir le dossier des journaux) dans l’éditeur. Quand une macro se comporte mal, le conseil officiel est d’abord de vérifier que le moteur est autorisé à afficher des notifications, sinon il signale peut-être des erreurs que vous ne voyez jamais ; cherchez ensuite les erreurs dans le journal. Une entrée dans ce fichier vous confirme aussi que la macro s’est bien déclenchée. Pour en enregistrer davantage, ajoutez une action **Log** (journaliser) à votre macro afin d’écrire une ligne dans ce fichier. Voir [Dépannage](https://wiki.keyboardmaestro.com/Troubleshooting)."
+      ],
+      "myths": [
+        "« Si je modifie une macro pendant qu’elle s’exécute, elle passe à la nouvelle version. » Non. Dès qu’une macro démarre, le moteur en fait une copie, donc ce que vous modifiez sur le moment n’affecte pas l’exécution en cours.",
+        "« Elle fonctionne étape par étape dans le débogueur, mais échoue quand je la lance normalement, donc ce doit être un bug de Keyboard Maestro. » Le wiki officiel indique qu’il s’agit le plus souvent d’un problème de synchronisation : avancer pas à pas laisse à l’écran le temps de se mettre à jour, alors qu’à vitesse normale une action prend de l’avance. Essayez d’ajouter une action **Pause** (mettre en pause) avant l’étape qui échoue ([Débogueur de macros](https://wiki.keyboardmaestro.com/manual/Macro_Debugger))."
+      ]
+    },
+    "subroutine": {
+      "title": "Sous-programme",
+      "one": "Un sous-programme est une macro que d’autres macros peuvent appeler. Les étapes dont plusieurs macros ont toutes besoin sont écrites une seule fois et rangées là, puis vous les appelez partout où vous en avez besoin, en leur passant des valeurs et en récupérant un résultat.",
+      "like": "Comme la personne au bureau qui s’occupe de réserver les salles de réunion. Quiconque a besoin d’une réunion vient lui donner l’horaire et le nombre de participants, et repart avec un numéro de salle. Quand les règles de réservation changent, vous n’avez qu’une seule personne à prévenir.",
+      "here": [
+        "Depuis la v10, Keyboard Maestro dispose d’un déclencheur dédié **Subroutine** (sous-programme). Ajoutez-le à une macro et indiquez le nom des paramètres qu’elle accepte, les variables qui les reçoivent et si elle renvoie un résultat. Les autres macros l’appellent avec l’action **Execute a Subroutine** (exécuter un sous-programme) en renseignant les valeurs des paramètres ; à l’intérieur du sous-programme, une action **Return Result** (renvoyer un résultat) transmet la réponse, qui arrive dans la variable choisie par la macro appelante. Voir [Sous-programmes](https://wiki.keyboardmaestro.com/Subroutines), [Execute a Subroutine](https://wiki.keyboardmaestro.com/action/Execute_a_Subroutine) et [Return Result](https://wiki.keyboardmaestro.com/action/Return_Result).",
+        "Si vous n’avez besoin ni de paramètres ni de résultat, **Execute a Macro** (exécuter une macro) suffit pour lancer une autre macro. C’est aussi ainsi qu’on procédait avant la v10 : un seul paramètre passé via le jeton `%TriggerValue%` et les résultats récupérés dans des variables. L’exemple officiel est un sous-programme qui enregistre une page web en PDF et que plusieurs macros peuvent appeler."
+      ],
+      "myths": [
+        "« Les paramètres sont associés par leur nom, donc je peux changer leur ordre quand je veux. » Le wiki officiel précise qu’en interne les paramètres sont transmis par position. Si vous ajoutez ou supprimez ensuite des paramètres dans le déclencheur **Subroutine**, ou si vous changez le sens de l’un d’eux, il faut aussi mettre à jour chaque action **Execute a Subroutine** qui l’appelle. Le menu **Callers** (appelants) du déclencheur vous y amène directement.",
+        "« N’importe quelle macro peut être appelée avec **Execute a Subroutine**. » Uniquement les macros qui possèdent un déclencheur **Subroutine**. Pour toute autre macro, utilisez **Execute a Macro**."
+      ]
+    },
+    "macro-library": {
+      "title": "Bibliothèque de macros",
+      "one": "La bibliothèque de macros est un ensemble de macros prêtes à l’emploi fourni avec Keyboard Maestro, chacune accompagnée d’une courte description. Importez celles qui vous plaisent et utilisez-les telles quelles ou adaptez-les.",
+      "like": "Comme un livre de cuisine. Vous n’avez pas besoin d’inventer un plat de zéro : trouvez une recette proche de ce que vous voulez, suivez-la, puis ajustez le sel à votre goût.",
+      "here": [
+        "Ouvrez-la avec **Window ▸ Macro Library** (Fenêtre ▸ Bibliothèque de macros), parcourez ce qui s’y trouve, cliquez sur une macro pour voir ses détails, puis insérez celles qui vous intéressent dans vos propres macros et modifiez ensuite les raccourcis clavier et le reste. Toutes les macros par défaut fournies avec Keyboard Maestro figurent aussi dans cette bibliothèque : si vous en supprimez une par erreur, vous pouvez toujours la réinstaller depuis cet endroit. Voir [Bibliothèque de macros](https://wiki.keyboardmaestro.com/manual/Macro_Library).",
+        "Vous pouvez aussi exporter un ensemble de macros sous forme de fichier de bibliothèque de macros (`.kmlibrary`) pour le transmettre à quelqu’un, ou importer le sien dans votre bibliothèque. Pour partager, toutefois, le wiki officiel indique qu’il vaut généralement mieux les exporter en tant que macros ou utiliser le bouton **Share** (partager) en haut de la fenêtre de l’éditeur. Le wiki officiel propose aussi une page d’[exemples de macros](https://wiki.keyboardmaestro.com/Macro_Library)."
+      ],
+      "myths": [
+        "« Les macros que je télécharge peuvent être importées et lancées tout de suite. » ++Regardez ce qu’une macro fait avant de la lancer.++ Le wiki officiel prévient qu’une macro peut faire pratiquement n’importe quoi sur votre Mac, y compris beaucoup de dégâts : n’en exécutez aucune avant d’avoir vérifié d’où elle vient et, mieux encore, ce que fait chaque étape. **File ▸ Import ▸ Import Macros Safely** (importer des macros en toute sécurité) importe par défaut les macros en les laissant désactivées (case décochée), ce qui vous laisse le temps de vérifier ([Macros](https://wiki.keyboardmaestro.com/manual/Macros)).",
+        "« Si j’importe la mauvaise entrée de bibliothèque, je la supprimerai depuis la bibliothèque de macros. » Pour l’instant, c’est impossible. Le wiki officiel indique que la seule solution consiste à quitter Keyboard Maestro et le moteur, puis à supprimer les fichiers du dossier Keyboard Maestro Libraries."
+      ]
+    },
+    "plug-in-action": {
+      "title": "Action plug-in",
+      "one": "Une action plug-in est une action que vous écrivez vous-même, ou que vous téléchargez auprès de quelqu’un d’autre, puis que vous installez dans Keyboard Maestro. Une fois installée, vous l’utilisez exactement comme une action intégrée.",
+      "like": "Comme monter un nouvel embout sur une perceuse : l’embout s’achète à part, mais une fois en place, c’est toujours la même perceuse qui tourne. Derrière chaque action plug-in se cache un script, et une fois installée, il vous suffit de remplir ses champs dans votre macro.",
+      "here": [
+        "Pour les actions plug-in écrites par d’autres personnes, le wiki officiel indique deux endroits : la page des actions tierces sur le site de Keyboard Maestro et la rubrique des plug-ins du forum officiel. Pour en installer une, glissez le fichier `.zip` téléchargé directement sur l’icône de Keyboard Maestro dans le Dock. ++Ne le décompressez pas avant.++ Il se place tout seul dans `~/Library/Application Support/Keyboard Maestro/Keyboard Maestro Actions/`. Vous devrez peut-être quitter le moteur avec **File ▸ Quit Engine** (Fichier ▸ Quitter le moteur), puis quitter et rouvrir l’éditeur avant que la nouvelle action n’apparaisse. Voir [Actions plug-in](https://wiki.keyboardmaestro.com/manual/Plug_In_Actions).",
+        "Vous l’ajoutez à une macro comme n’importe quelle autre action : choisissez la catégorie **Third Party Plug Ins** (Plug-ins tiers) dans la liste des actions, ou cherchez son nom avec **Edit ▸ Insert Action by Name** (Édition ▸ Insérer une action par nom). Vous pouvez aussi écrire les vôtres : un dossier contenant un fichier plist qui décrit le formulaire, un script (AppleScript, JXA ou script shell) et une icône facultative, le tout compressé en zip."
+      ],
+      "myths": [
+        "« Pour mettre à jour un plug-in, il me suffit de glisser le nouveau fichier zip par-dessus. » La marche à suivre officielle consiste d’abord à supprimer le dossier de l’ancien plug-in ou à le déplacer hors du dossier Keyboard Maestro Actions, puis à glisser le nouveau zip.",
+        "« Les actions plug-in sont toutes vérifiées par Stairways. » Le wiki officiel ne dit jamais cela. Son avertissement est au contraire très direct : les macros peuvent être dangereuses, surtout celles de tiers, et vous êtes responsable de tout ce qu’une macro fait, quelle que soit sa provenance, même le site officiel, le wiki ou le forum ([Détails administratifs](https://wiki.keyboardmaestro.com/manual/Administrative_Details)). Un plug-in exécute lui aussi un script écrit par quelqu’un d’autre, donc vérifiez d’abord d’où il vient et ce qu’il fait."
+      ]
+    }
+  }
+}

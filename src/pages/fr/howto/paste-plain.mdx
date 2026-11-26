@@ -1,0 +1,52 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: paste-plain
+step: 5
+time: Cinq minutes
+for: Vous copiez du texte sur une page web et il arrive dans votre document avec les polices, les couleurs et les liens de quelqu’un d’autre
+tldr: "Appuyez sur ⌃⌥⌘V pour coller : seuls les mots apparaissent, sans les polices, les couleurs ni les liens de la page web."
+description: Utilisez Remove Styles dans l’action Filter pour transformer le presse-papiers en texte brut, puis faites appuyer sur ⌘V avec Type a Keystroke. Pourquoi le presse-papiers contient en réalité plusieurs versions, pourquoi supprimer les styles modifie parfois le texte, et pourquoi le raccourci clavier ne peut pas simplement être ⌘V.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Vous copiez une citation sur une page web pour la coller dans le rapport que vous rédigez pour un cours, et c’est la police et la taille de la page web qui arrivent avec, parfois en texte gris, parfois accompagnées d’un lien. Collez cinq ou six citations, et votre rapport ressemble vite à un patchwork : vous finissez par sélectionner chaque passage pour tout remettre en forme à la main. La plupart des étudiants sont déjà passés par là. Une fois la macro ci-dessous créée, vous collerez avec ⌃⌥⌘V (⌃ est Contrôle, ⌥ est Option, ⌘ est Commande), et seuls les mots apparaîtront.
+
+<mark>Retirez d’abord la mise en forme du presse-papiers, puis collez : seuls les mots passent.</mark>
+
+## Le presse-papiers contient plusieurs versions
+
+Quand vous copiez du texte, le presse-papiers contient plus d’une chose. La section Removing Styles Changes The Text de la page officielle [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Removing_Styles_Changes_The_Text) l’explique clairement : une seule copie peut renfermer une version en texte brut, une version mise en forme et même une image, appelées des « flavors ». Au moment de coller, l’application choisit la version qu’elle peut le mieux utiliser. Un logiciel de traitement de texte choisit naturellement la version mise en forme, et les polices de la page web arrivent avec.
+
+L’action **Filter** (filtrer) de Keyboard Maestro propose un filtre appelé **Remove Styles** (supprimer les styles), qui transforme le presse-papiers en texte brut (voir [Filters](https://wiki.keyboardmaestro.com/manual/Filters)). Une fois les versions mises en forme supprimées, l’application n’a plus d’autre choix que le texte brut.
+
+## Créer la macro
+
+Vous aurez besoin de cette macro dans toutes vos applications : placez-la donc dans un groupe de macros disponible partout et nommez-la « Coller en texte brut ». Comme déclencheur, choisissez **Hot Key** (raccourci clavier) et appuyez sur ⌃⌥⌘V. Ajoutez ensuite deux actions :
+
+1. **Filter** : pour la source, choisissez **System Clipboard** (presse-papiers du système). Pour le filtre, choisissez **Remove Styles**, et renvoyez le résultat dans le presse-papiers du système.
+2. **Type a Keystroke** (appuyer sur une touche) : cliquez dans le champ et appuyez sur ⌘V.
+
+La deuxième étape appuie sur votre raccourci habituel pour coller. Le conseil officiel est d’utiliser **Type a Keystroke** pour les combinaisons de touches qui incluent Commande (voir [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+
+## Vérifier que tout fonctionne
+
+Dans Safari, trouvez un passage contenant du gras ou un lien et copiez-le. Ouvrez TextEdit, créez un nouveau document, tapez une ligne vous-même, appuyez sur Retour, puis appuyez sur ⌃⌥⌘V. Vous devriez voir le texte apparaître sans le gras, sans le lien, et avec la même police que la ligne que vous venez de taper.
+
+Une chose à savoir : la macro a converti le presse-papiers lui-même en texte brut, donc si vous appuyez sur ⌘V par la suite, vous obtiendrez aussi du texte brut jusqu’à votre prochaine copie. Pour retrouver l’original mis en forme, allez voir dans votre <Term k="剪贴板历史" text="historique du presse-papiers" />, expliqué à l’[étape 5 du guide complet](/fr/guide/5-clipboard/).
+
+**Filter** propose aussi d’autres filtres. **Trim Whitespace** (supprimer les espaces superflus), par exemple, retire les espaces en trop au début et à la fin. Ajoutez une deuxième action **Filter** après la première, et les espaces parasites qui accompagnent souvent les citations seront nettoyés du même coup.
+
+## Si quelque chose cloche
+
+<Q q="Après avoir supprimé les styles, le texte n’est plus tout à fait le même. Une puce devant un élément de liste a disparu, ou une nouvelle est apparue.">
+Certaines applications placent un texte légèrement différent dans la version brute et dans la version mise en forme, et **Remove Styles** lit la version brute. La solution officielle consiste à ajouter une action **Set Clipboard to Text** (remplacer le presse-papiers par du texte) avant **Filter**, à la régler sur **styled text** (texte mis en forme) et à y saisir `%SystemClipboard%`. Keyboard Maestro reconstruit ainsi un presse-papiers propre où les deux versions concordent, puis vous supprimez les styles. Vous retrouverez cette astuce dans la même section Removing Styles Changes The Text mentionnée plus haut.
+</Q>
+<Q q="Puis-je faire en sorte que ⌘V lui-même colle en texte brut en choisissant ⌘V comme raccourci clavier ?">
+Ne le faites pas. La deuxième étape de la macro appuie elle-même sur ⌘V, et la page officielle l’indique clairement : simuler une combinaison de touches qui sert déjà de raccourci clavier à une macro active donne des résultats imprévisibles. Parfois la touche est bien saisie, parfois la macro se déclenche. Choisissez une autre combinaison. ⌃⌥⌘V est facile à retenir.
+</Q>
+<Q q="Le collage garde quand même la mise en forme, ou colle quelque chose que j’avais copié plus tôt.">
+Certaines applications, en particulier les applications multiplateformes, mettent le presse-papiers en cache et ne remarquent pas le changement que Keyboard Maestro vient d’effectuer. La recommandation officielle est de réveiller l’application avant de coller, par exemple en basculant vers une autre application puis en revenant. Voir [Sometimes the Wrong Thing is Pasted](https://wiki.keyboardmaestro.com/Troubleshooting#Sometimes_the_Wrong_Thing_is_Pasted).
+</Q>
+
+Un raccourci clavier et deux actions, et les citations ne transforment plus votre rapport en patchwork. Le presse-papiers sait faire bien d’autres choses, comme garder sous la main quelques éléments que vous collez souvent. Tout cela se trouve à l’[étape 5 du guide complet](/fr/guide/5-clipboard/).

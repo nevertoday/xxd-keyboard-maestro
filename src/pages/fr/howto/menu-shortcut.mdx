@@ -1,0 +1,56 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: menu-shortcut
+step: 1
+time: Dix minutes
+for: Vous utilisez une commande de menu tous les jours, elle n’a pas de raccourci et vous devez prendre la souris à chaque fois
+tldr: Appuyez sur ⌃⌥⌘E dans Safari et la fenêtre d’enregistrement « Exporter au format PDF » s’ouvre directement. Ce raccourci ne fonctionne que dans Safari, donc aucune autre application n’est affectée.
+description: Utilisez l’action Select or Show a Menu Item pour choisir le menu à votre place, en le sélectionnant dans le menu déroulant Menu de l’action pour ne jamais faire de faute dans le nom. Réglez le groupe de macros pour qu’il ne soit actif que dans cette application, et le raccourci clavier laissera toutes les autres tranquilles.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Quand on a des enfants à l’école, on a souvent besoin de garder les informations publiées sur le site de l’établissement : ce qu’il faut emporter pour la sortie de printemps, l’emploi du temps du prochain trimestre, la liste de fournitures. La page change au bout de quelques semaines, donc l’enregistrer en PDF reste le plus sûr. Dans Safari, il faut ouvrir le menu Fichier et descendre jusqu’à « Exporter au format PDF », mais cet élément n’a pas de raccourci, donc c’est la souris à chaque fois. À la fin de cette page, vous appuierez sur ⌃⌥⌘E dans Safari (⌃ est Contrôle, ⌥ est Option, ⌘ est Commande), la fenêtre d’enregistrement s’ouvrira directement et il ne vous restera plus qu’à nommer le fichier. Ce raccourci n’a d’effet que dans Safari. Dans toutes les autres applications, rien ne change.
+
+<mark>Toute commande de menu sur laquelle vous pouvez cliquer peut avoir son raccourci : la macro clique sur le menu à votre place.</mark>
+
+## D’abord, un groupe de macros réservé à Safari
+
+Ce raccourci n’a de sens que dans Safari, donc commencez par un <Term k="宏组" text="groupe de macros" /> qui n’est actif que dans Safari. Cliquez sur le + en bas de la liste des groupes de macros, à gauche de l’éditeur, créez un nouveau groupe nommé « Safari », puis choisissez **Available in these applications:** (disponible dans ces applications) dans ses réglages et ajoutez Safari. Le manuel officiel précise que les macros d’un groupe configuré de cette manière ne sont actives que dans ces applications (voir [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Autre avantage : ⌃⌥⌘E reste libre dans toutes les autres applications, donc vous pourrez plus tard attribuer le même raccourci à Aperçu ou à TextEdit sans aucun conflit.
+
+## Créer la macro
+
+Dans le groupe « Safari », créez une nouvelle macro nommée « Exporter au format PDF ». Pour le déclencheur, choisissez **Hot Key** (raccourci clavier) et appuyez sur ⌃⌥⌘E. Pour l’action, choisissez **Select or Show a Menu Item** (sélectionner ou afficher un élément de menu), qui sélectionne à votre place un élément dans la barre des menus (voir [Select or Show a Menu Item](https://wiki.keyboardmaestro.com/action/Select_or_Show_a_Menu_Item)).
+
+Ne tapez pas vous-même le nom des menus. Choisissez-les plutôt dans le menu déroulant **Menu** de l’action. La page officielle explique que ce menu déroulant existe justement pour éviter toute erreur : il liste chaque application ouverte ainsi que ses menus, si bien que votre choix correspond exactement au menu réel. Ouvrez d’abord Safari, puis repérez Safari dans ce menu déroulant, choisissez « Fichier », puis « Exporter au format PDF ». Si votre Mac est configuré dans une autre langue, les noms de menus apparaissent dans cette langue, et les choisir dans le menu déroulant règle la question tout seul.
+
+L’action demande aussi dans quelle application se trouve le menu. Choisir **the Front Application** (l’application au premier plan) convient très bien, parce que le groupe de macros garantit déjà que ce raccourci ne fonctionne que lorsque Safari est au premier plan.
+
+## Ce que cette action peut aussi faire
+
+- Certains éléments de menu changent de nom, par exemple « Afficher la barre latérale » qui devient « Masquer la barre latérale » une fois que vous avez cliqué dessus. La page officielle indique que vous pouvez relier les deux noms par une barre verticale, `Afficher la barre latérale|Masquer la barre latérale`, et l’action sélectionne celui qui est présent : un seul raccourci devient ainsi un bouton bascule.
+- Dans les noms de menus, elle ne fait aucune différence entre trois points tapés à la suite et les points de suspension (« … »), donc l’un comme l’autre fonctionne.
+- Le menu Pomme, en haut à gauche de l’écran, s’écrit Apple dans l’action.
+
+## Vérifier que tout fonctionne
+
+Ouvrez n’importe quelle page dans Safari et appuyez sur ⌃⌥⌘E. Vous devriez voir apparaître la fenêtre d’enregistrement « Exporter au format PDF », exactement comme si vous aviez cliqué sur le menu. Passez ensuite dans Notes et appuyez sur ⌃⌥⌘E. Rien ne devrait se passer, ce qui montre que le groupe n’est actif que dans Safari.
+
+## Si quelque chose cloche
+
+<Q q="J’ai appuyé sur le raccourci clavier et aucune fenêtre d’enregistrement n’est apparue.">
+Il y a deux causes habituelles. La première est un nom de menu qui ne correspond pas. Un seul espace de différence suffit pour que l’action ne le trouve pas, donc retournez dans le menu déroulant **Menu** et sélectionnez-le de nouveau. La seconde, c’est que l’élément de menu est grisé en ce moment, par exemple parce qu’aucune page n’est ouverte dans Safari. La page officielle indique que lorsque cette action ne trouve pas le menu, ou que le menu est désactivé, elle arrête toute la macro par défaut. Pour les menus qui importent peu, vous pouvez régler l’action afin qu’elle laisse la macro continuer.
+</Q>
+<Q q="J’appuie sur le raccourci dans Safari et rien ne se passe, comme si la macro ne s’était jamais déclenchée.">
+Assurez-vous que Safari est bien au premier plan, que le groupe et la macro sont tous les deux cochés, et que le moteur tourne. Vérifiez ensuite que l’application ajoutée sous **Available in these applications:** dans le groupe « Safari » est bien Safari. Si la macro ne se déclenche toujours pas, consultez [l’étape 6 du guide complet](/fr/guide/6-debug/).
+</Q>
+<Q q="Dans certaines applications, le menu est pourtant bien là, mais l’action n’arrive pas à le sélectionner.">
+La page officielle de dépannage explique que certaines applications multiplateformes ne construisent pas correctement leurs menus tant que vous n’avez pas cliqué sur la barre des menus avec la souris. La solution consiste à basculer vers une autre application puis à revenir, ou à demander à la macro de simuler d’abord un clic dans la barre des menus avec **Move or Click Mouse** (déplacer ou cliquer avec la souris), puis de sélectionner le menu : la page officielle précise qu’un clic juste à droite du menu Aide suffit souvent. Consultez cette section de [Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#The_Select_Menu_Item_Action_Is_Not_Working_in_Photoshop_Finale_or_Another_Application).
+</Q>
+<Q q="Pourquoi ne pas simplement appuyer sur une touche avec Type a Keystroke (saisir une frappe clavier) ?">
+Parce que cet élément de menu n’a justement pas de touche sur laquelle appuyer. Et même lorsqu’un élément en possède une, le conseil officiel est de sélectionner le menu plutôt que de simuler son raccourci, en particulier lorsque ce raccourci sert aussi de raccourci clavier à une macro, car le simuler donne des résultats imprévisibles (voir [Type Keystroke](https://wiki.keyboardmaestro.com/action/Type_a_Keystroke)).
+</Q>
+
+Maintenant, la commande de menu que vous utilisez tous les jours a son propre raccourci. Vous pouvez faire la même chose pour n’importe quel élément de menu sur lequel vous pouvez cliquer, dans n’importe quelle application, avec un groupe de macros par application pour qu’ils ne se gênent jamais.

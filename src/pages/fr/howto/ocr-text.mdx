@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ocr-text
+step: 3
+time: 10 minutes
+for: Le texte est dans une image, une vidéo ou une capture d’écran, donc vous ne pouvez pas le sélectionner et vous finissez par tout retaper
+tldr: Capturez la zone qui contient le texte, appuyez sur un raccourci clavier, et Keyboard Maestro lit ce texte par OCR et le met dans le presse-papiers, prêt à être collé.
+description: "Lire du texte depuis des captures d’écran, des images et l’écran avec l’action OCR Image de Keyboard Maestro : essayez d’abord l’OCR intégré à l’historique du presse-papiers, créez ensuite une macro à raccourci clavier, choisissez la langue et le moteur de reconnaissance, enregistrez le résultat dans le presse-papiers, et voyez quoi faire quand l’OCR se trompe ou ne trouve rien."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Votre professeur a mis les consignes du devoir sur une diapositive, et l’enregistrement du cours est en pause juste dessus. Le texte est parfaitement net, mais impossible de le sélectionner. Un camarade envoie dans la discussion de groupe une capture d’écran qui indique qui fait quoi et pour quand, et pour mettre ça dans Notes, il faudrait tout taper lettre par lettre. Une fois cette page terminée, il vous suffira de faire glisser le curseur autour de la partie contenant le texte, d’appuyer sur ⌃⌥⌘O (Contrôle, Option et Commande maintenues enfoncées, puis O), et les mots se retrouveront dans votre presse-papiers, prêts à être collés n’importe où.
+
+Lire le texte dans une image s’appelle l’OCR, la reconnaissance optique de caractères. L’action **OCR Image** (reconnaître le texte sur image) de Keyboard Maestro extrait le texte d’une image (voir [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)). <mark>Vous lui donnez simplement une image contenant du texte, et elle met les mots dans le presse-papiers comme si vous les aviez copiés vous-même.</mark>
+
+## Essayer une fois sans rien créer
+
+Une fois Keyboard Maestro installé, la fenêtre de l’<Term k="剪贴板历史" text="historique du presse-papiers" /> intègre déjà un petit outil d’OCR. Appuyez sur ⌘⌃⇧4 (Commande, Contrôle, Maj et 4 en même temps) et faites glisser le curseur autour du texte. La capture d’écran va dans le presse-papiers. Ouvrez ensuite le **Clipboard History Switcher** (sélecteur d’historique du presse-papiers) : son raccourci clavier figure sur la macro correspondante, dans le groupe intégré **Switcher Group** (groupe de sélecteurs). Sélectionnez cette image, puis choisissez l’option OCR dans le menu engrenage ⚙ de la fenêtre (voir [OCR Screen or Image](https://wiki.keyboardmaestro.com/action/OCR_Image)).
+
+Pour une capture d’écran de temps en temps, c’est largement suffisant. Si vous recopiez des diapositives plusieurs fois par semaine, cela vaut la peine d’en faire un seul raccourci.
+
+## En faire un seul raccourci
+
+Créez une nouvelle <Term k="宏" text="macro" />, ajoutez un déclencheur **Hot Key** (raccourci clavier), appuyez sur ⌃⌥⌘O, puis ajoutez une action **OCR Image**. Cette action vous demande trois choses.
+
+D’abord, d’où vient l’image. Elle peut lire une image collée dans l’action, une image dans un presse-papiers, un fichier, ou l’écran lui-même : tous les écrans, un écran précis, une fenêtre ou une zone de l’écran. Choisissez ici **System Clipboard** (presse-papiers du système), parce que vous capturerez la zone voulue avec ⌘⌃⇧4 juste avant et que vous déciderez sur le moment ce qu’il faut inclure.
+
+Ensuite, dans quelle langue est le texte. Choisissez la langue ou le système d’écriture dans l’action. Chaque langue nécessite un téléchargement unique, généralement entre 1 et 10 Mo. Il existe deux moteurs de reconnaissance : la reconnaissance de texte propre à Apple (à partir de Keyboard Maestro 11 et de macOS 10.15) et une bibliothèque open source appelée Tesseract. Les nouvelles actions utilisent le moteur d’Apple par défaut à partir de macOS 10.15. Les [notes de version](https://wiki.keyboardmaestro.com/manual/Whats_New) de la 11.1 indiquent que la reconnaissance de texte d’Apple a ajouté la prise en charge du chinois, du cantonais, de plusieurs langues européennes et de la détection automatique.
+
+Enfin, où va le texte. Le menu des résultats au bas de l’action propose **save results to clipboard** (enregistrer les résultats dans le presse-papiers). Si vous préférez le garder pour des actions suivantes, vous pouvez plutôt l’enregistrer dans une <Term k="变量" text="variable" />.
+
+Pour l’utiliser, il suffit de deux gestes : ⌘⌃⇧4 autour du texte sur la diapositive, puis ⌃⌥⌘O, et enfin ⌘V dans Notes.
+
+<Callout type="ok">
+Ce que vous collez est du texte modifiable, pas une image.
+</Callout>
+
+Une fois le texte collé, jetez un œil à l’original. Le wiki est très franc à ce sujet : comme tout OCR, le texte peut contenir des erreurs, alors ne le considérez pas comme fiable à 100 %. Ce sont surtout les chiffres, les dates et les noms qu’il faut vérifier, parce qu’un seul chiffre faux dans une date limite vous coûtera plus cher que si vous aviez tout retapé.
+
+## Laisser une macro attendre quelques mots à l’écran
+
+L’OCR a un autre usage. Au lieu de récupérer le texte, il peut vérifier si certains mots apparaissent à l’écran. La condition **OCR** lit le texte d’une zone de l’écran et vérifie s’il contient les mots que vous lui donnez, ou s’il correspond exactement à ces mots (voir [OCR Condition](https://wiki.keyboardmaestro.com/condition/OCR)). Imaginez un export qui dure plusieurs minutes et dont la fenêtre affiche le mot « Terminé » quand c’est fini. Une action **Pause Until** (mettre en pause jusqu’à) avec cette condition peut attendre ce mot avant de passer à la suite. Comme l’OCR fait parfois des erreurs, gardez un test souple : **contains** (contient) tient mieux la route que **is** (est égal à).
+
+## Si quelque chose cloche
+
+<Q q="J’obtiens du charabia, ou rien du tout.">
+Vérifiez d’abord que la langue choisie dans l’action correspond bien au texte de l’image. Vérifiez ensuite le moteur. Le wiki précise que Tesseract préfère le texte noir sur fond blanc : même s’il s’en sort souvent avec du texte blanc sur fond noir, il échoue plus facilement dans ce cas. Il indique aussi que la reconnaissance de texte d’Apple fonctionne généralement mieux dans la plupart des cas, donc passez à ce moteur et réessayez.
+</Q>
+<Q q="Mon texte en chinois n’est pas reconnu.">
+Vérifiez que vous utilisez Keyboard Maestro 11.1 ou une version plus récente, car c’est dans les notes de la 11.1 que la reconnaissance de texte d’Apple a ajouté le chinois. La [FAQ](https://wiki.keyboardmaestro.com/Frequently_Asked_Questions) officielle indique encore qu’elle ne prend en charge que l’anglais, ce qui ne correspond pas aux notes de version. Ce site s’appuie sur les notes de version : mettez à jour vers la dernière version et réessayez.
+</Q>
+<Q q="La macro échoue dès qu’elle arrive à l’étape OCR.">
+La FAQ indique que la bibliothèque Tesseract échoue souvent à cause d’une corruption de mémoire sur macOS Sequoia, probablement sur Tahoe aussi, et qu’il est peu probable que cela soit corrigé. Ouvrez l’action et basculez le moteur vers la reconnaissance de texte d’Apple.
+</Q>
+<Q q="Ce que je colle est toujours l’image.">
+Vous avez probablement appuyé sur le raccourci clavier avant de faire la capture d’écran, donc la nouvelle image n’était pas encore dans le presse-papiers. Faites d’abord la capture, puis appuyez sur ⌃⌥⌘O. Vérifiez aussi que le menu des résultats au bas de l’action est bien réglé pour enregistrer dans le presse-papiers.
+</Q>
+
+Faites-le une fois, et vous vous demanderez pourquoi recopier du texte à l’écran a bien pu être un travail pour un humain. Si vous voulez aussi que Keyboard Maestro clique sur un bouton à l’écran à votre place, consultez [Trouver un bouton à l’écran et cliquer dessus](/fr/howto/click-image/).

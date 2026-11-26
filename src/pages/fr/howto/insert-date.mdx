@@ -1,0 +1,73 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: insert-date
+step: 4
+time: Dix minutes
+for: Vous tenez un carnet de suivi ou un journal et chaque entrée commence par la date
+tldr: Appuyez sur ⌃⌥⌘D dans Notes pour faire apparaître la date et l’heure, comme 2026-11-25 08:30, là où se trouve votre curseur, dans le format de votre choix. Plus besoin de consulter le calendrier.
+description: Utilisez le jeton de date %ICUDateTime% avec Insert Text by Typing pour insérer la date et l’heure du jour d’un seul raccourci clavier. Changez le format avec les codes officiels et calculez aussi la date dans deux semaines.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quand on s’occupe d’un parent âgé, on finit souvent par tenir un carnet de suivi : l’heure de prise des médicaments, le relevé de tension, ce qui a fait mal dans la journée. À la consultation suivante, quand le médecin demande comment s’est passée la semaine, la réponse est dans le carnet. Mais chaque entrée demande la date et l’heure, plusieurs fois par jour. Au bout d’un moment, par paresse, on se contente d’écrire « hier », et une semaine plus tard plus rien ne correspond. Une fois la macro de cette page créée, appuyer sur ⌃⌥⌘D dans Notes (⌃ est Contrôle, ⌥ est Option, ⌘ est Commande) insère `2026-11-25 08:30 ` là où se trouve votre curseur, et vous n’avez plus qu’à continuer d’écrire.
+
+<mark>Vous ne tapez pas la date. Vous écrivez un jeton et, au moment où la macro s’exécute, il se transforme en date du jour.</mark>
+
+## Les jetons : des emplacements qui se remplissent tout seuls
+
+La plupart des zones de Keyboard Maestro où vous pouvez saisir du texte comprennent les <Term k="令牌" text="jetons" />. Un jeton est un nom entouré de signes pour cent, comme `%LongDate%`. Pendant que vous modifiez la macro, ce ne sont que ces quelques caractères. Quand la macro s’exécute, il est remplacé par la vraie valeur (voir [Text Fields](https://wiki.keyboardmaestro.com/Text_Fields)). Il existe plusieurs jetons de date. `%ShortDate%`, `%LongDate%` et `%NumberDate%` donnent la date du jour dans les formats court, long et numérique définis par les réglages régionaux de votre Mac. Un autre, `%ICUDateTime%`, vous laisse écrire le format vous-même.
+
+Un carnet de suivi fonctionne mieux quand toutes les entrées ont le même format et restent faciles à lire, c’est pourquoi cette page utilise `%ICUDateTime%`. Vous faites suivre le jeton de votre format et vous le refermez avec un dernier signe pour cent :
+
+<Copy id="id-token" title="Date et heure" code="%ICUDateTime%yyyy-MM-dd HH:mm% " />
+
+Chaque lettre du format a un sens précis. Voici les plus courantes, tirées de la page officielle [Dates and Times](https://wiki.keyboardmaestro.com/Dates_and_Times) : `yyyy` est l’année sur quatre chiffres, `MM` le mois sur deux chiffres, `dd` le jour sur deux chiffres, `HH` l’heure au format 24 heures, `mm` les minutes et `EEEE` le nom complet du jour de la semaine. `MM` en majuscules est le mois et `mm` en minuscules les minutes : passer d’une majuscule à une minuscule fait une grosse différence. L’espace à la fin est là pour que vous puissiez continuer à taper directement.
+
+## Créer la macro
+
+Créez une nouvelle macro nommée « Insérer la date et l’heure » dans un groupe de macros disponible dans toutes les apps. Comme déclencheur, choisissez **Hot Key** (raccourci clavier) et appuyez sur ⌃⌥⌘D. Les autres apps utilisent rarement trois touches de modification avec une lettre. Comme action, choisissez **Insert Text by Typing** (insérer du texte en le tapant) et collez-y la ligne ci-dessus.
+
+Ici, taper vaut mieux que coller, parce que la date est courte et composée uniquement de caractères présents sur votre clavier. De plus, la page officielle précise que cette action fonctionne exactement comme si vous tapiez vous-même, en conservant le style du texte là où se trouve votre curseur. Elle ne remplace pas non plus votre presse-papiers comme le ferait un collage (voir [Insert Text](https://wiki.keyboardmaestro.com/action/Insert_Text)).
+
+Vous n’avez pas besoin de retenir les lettres de format. Placez votre curseur dans la zone de texte de l’action et choisissez **Edit ▸ Insert ICU Date Field** (Édition ▸ Insérer un champ de date ICU) pour choisir le champ voulu. **Edit ▸ Insert Token** (Édition ▸ Insérer un jeton) répertorie tous les jetons, vous n’avez donc rien à apprendre par cœur.
+
+## Choisir le format qui vous convient
+
+Chacun écrit les dates à sa façon : il suffit de remplacer la partie consacrée au format. Voici quelques exemples tirés du tableau officiel, avec entre parenthèses le résultat obtenu le 25 novembre 2026 :
+
+- `%ICUDateTime%yyyy-MM-dd%` (2026-11-25) : du plus grand au plus petit, de sorte que les fichiers nommés ainsi se classent par date.
+- `%ICUDateTime%dd/MM/yyyy%` (25/11/2026) : le jour en premier, comme on l’écrit dans de nombreux pays.
+- `%ICUDateTime%EEE, MMM d, yyyy%` (Wed, Nov 25, 2026) : avec les noms abrégés du jour de la semaine et du mois.
+
+Quand un format inclut le nom du jour ou du mois, la langue utilisée dépend de votre système et de votre version de macOS. La section Localization de la page officielle [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime) détaille ce point. Si vous voulez obtenir le même résultat sur tous les Mac, contentez-vous des chiffres.
+
+## Voir plus loin : le rendez-vous de suivi dans deux semaines
+
+Les médecins disent souvent « revenez dans deux semaines ». `%ICUDateTimePlus%` ajoute une durée à la date du jour. Au milieu, vous indiquez combien et dans quelle unité :
+
+<Copy id="id-plus" title="Dans deux semaines" code="Prochain rendez-vous : %ICUDateTimePlus%14%Days%yyyy-MM-dd%" />
+
+L’unité peut être Days (jours), Weeks (semaines), Months (mois) et ainsi de suite, et pour compter à rebours, vous utilisez `%ICUDateTimeMinus%` de la même manière (voir [ICUDateTime](https://wiki.keyboardmaestro.com/token/ICUDateTime)). Vous pouvez faire de cette ligne une macro distincte sur ⌃⌥⇧⌘D, le raccourci de la date avec ⇧ (Maj) en plus. Si vous écrivez l’intitulé avec des caractères que votre clavier ne peut pas taper directement, du chinois par exemple, **Insert Text by Typing** ne peut pas les taper ; utilisez donc plutôt une action **Insert Text by Pasting** (insérer du texte en le collant) pour cette macro. Ou transformez-la en abréviation comme `=next=` avec un déclencheur par texte saisi, comme dans [Transformer ce que vous tapez souvent en abréviations](/fr/howto/text-snippets/).
+
+## Vérifier que tout fonctionne
+
+Ouvrez Notes, créez une nouvelle note et appuyez sur ⌃⌥⌘D. Vous devriez voir la date du jour et l’heure actuelle apparaître là où se trouve votre curseur, suivies d’un espace. Jetez un œil à l’horloge dans la barre des menus. Si tout correspond, vous avez terminé.
+
+## Si quelque chose cloche
+
+<Q q="La macro a tapé %ICUDateTime%yyyy-MM-dd HH:mm% tel quel.">
+Le jeton n’a pas été remplacé, très probablement parce que le traitement du texte de l’action a été modifié. Cliquez sur le menu engrenage ⚙ en haut à droite de l’action et vérifiez si l’option est réglée sur **Process Nothing** (ne rien traiter). Remettez-la sur **Process Text Normally** (traiter le texte normalement). Comparez ensuite votre ligne avec celle ci-dessus, en vérifiant le nom du jeton et les trois signes pour cent.
+</Q>
+<Q q="Autour du Nouvel An, l’année est décalée d’un an.">
+Vous avez probablement écrit `YYYY` en majuscules. La page officielle prévient expressément que le Y majuscule correspond à l’année basée sur la « semaine de l’année » et donne des résultats étranges au début et à la fin de chaque année. Utilisez `yyyy` en minuscules pour l’année.
+</Q>
+<Q q="L’heure affiche le mois à la place des minutes.">
+Vous avez écrit les minutes avec `MM` en majuscules. Le mois s’écrit `MM` en majuscules et les minutes `mm` en minuscules.
+</Q>
+<Q q="J’ai appuyé sur ⌃⌥⌘D et rien ne s’est passé.">
+La macro et le groupe de macros qui la contient doivent tous les deux être activés (case cochée), et le moteur doit être en marche. Si tout est bon de ce côté, une autre app utilise peut-être déjà ⌃⌥⌘D : essayez une autre lettre. Si elle ne se déclenche toujours pas, passez en revue [l’étape 6 du guide complet](/fr/guide/6-debug/) point par point.
+</Q>
+
+Un jeton et un raccourci clavier, et désormais chaque entrée porte la date et l’heure exactes. Les jetons fonctionnent aussi dans d’autres actions, par exemple pour ajouter la date du jour quand vous renommez des fichiers. Voir [Renommer un lot de fichiers](/fr/howto/rename-files/).

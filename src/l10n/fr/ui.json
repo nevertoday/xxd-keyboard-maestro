@@ -5,7 +5,7 @@
     "skip": "Aller au contenu",
     "menu": "Ouvrir le menu",
     "search": "Rechercher dans le guide",
-    "searchPh": "Rechercher des leçons, étapes, fiches pratiques, termes…",
+    "searchPh": "Rechercher des leçons, étapes, fiches pratiques, termes, questions…",
     "searchEmpty": "Aucun résultat. Essayez un autre mot",
     "look": "Apparence",
     "lang": "Langue",
@@ -30,12 +30,17 @@
     "start": "Commencer",
     "home": "Accueil",
     "lessons": "Parcours débutant : trois leçons",
+    "main": "Guide complet : pour aller plus loin",
+    "pending": "En cours",
+    "ref": "Référence",
     "howto": "Fiches pratiques : comment faire",
     "wiki": "Wiki : ce que c’est",
     "faq": "FAQ",
     "toc": "Sur cette page",
     "tocLabel": "Sur cette page",
+    "hintMain": "Guide complet",
     "hintLesson": "Parcours débutant",
+    "hintFaq": "FAQ",
     "section": "Section",
     "docsLink": "wiki officiel",
     "foot": "Guide non officiel de Keyboard Maestro, sans lien avec Stairways Software. Keyboard Maestro est une marque de Stairways Software Pty Ltd. Pour savoir ce que fait chaque fonction et comment, c’est le {docs} qui fait foi. Le code source et les retours sur ce guide sont sur {github}.",
@@ -59,6 +64,7 @@
       ", sans lien avec Stairways Software. Pour savoir ce que fait chaque fonction et comment, c’est le wiki officiel qui fait foi."
     ],
     "cta": "Vous débutez ? Commencez par la leçon 1",
+    "ctaHowto": "Vous l’utilisez déjà ? Les fiches pratiques",
     "ctaNote": "La leçon 1 configure une touche qui ouvre une app, la leçon 2 transforme quelques lettres en tout un paragraphe, et la leçon 3 lance toute votre routine du matin d’une seule touche. Pas besoin de coder.",
     "painH": "Ça vous parle ?",
     "PAIN": [
@@ -85,7 +91,7 @@
       ],
       [
         "Quand ça coince, et pour aller plus loin",
-        "Quand une macro ne fonctionne pas, vérifiez d’abord les autorisations et le moteur, puis avancez étape par étape pour voir où elle bloque. Plus tard, faites appel à des scripts, utilisez les mêmes macros sur deux Mac et partagez-les avec d’autres."
+        "Quand une macro ne fonctionne pas, vérifiez d’abord les autorisations et le moteur, puis avancez pas à pas pour voir où elle bloque. Plus tard, faites appel à des scripts, utilisez les mêmes macros sur deux Mac et partagez-les avec d’autres."
       ]
     ],
     "tracksLabel": "Étapes correspondantes dans le guide complet",
@@ -115,11 +121,75 @@
     "title": "Leçon {n} : {title}",
     "tldr": "En une phrase"
   },
+  "guide": {
+    "head": "Étape {n} : {title}",
+    "eyebrow": "Guide complet · étape {n} sur {last}",
+    "prog": "Progression : étape {n} sur {last}",
+    "need": "Il vous faut : ",
+    "nav": "Étape précédente et suivante",
+    "prev": "Précédente",
+    "next": "Suivante",
+    "pending": "Suivante (en cours)",
+    "tldr": "En une phrase"
+  },
+  "howto": {
+    "tldr": "En une phrase",
+    "for": "Pour : ",
+    "step": "Étape {n} du guide complet : ",
+    "related": "Articles liés",
+    "more": "Autres fiches dans « {group} »"
+  },
+  "howtoIndex": {
+    "h": "Fiches pratiques : comment faire",
+    "p": "Une tâche par fiche : trouvez celle qui correspond à votre situation et suivez-la."
+  },
+  "faq": {
+    "h": "FAQ",
+    "p": [
+      "Les questions qui reviennent le plus souvent quand on découvre Keyboard Maestro. Vous ne trouvez pas la vôtre ? Posez-la sur ",
+      ", ou appuyez sur ",
+      " pour rechercher sur tout le site."
+    ]
+  },
+  "notFound": {
+    "h": "Page introuvable",
+    "p": [
+      "Le lien est peut-être incorrect, ou la page a été déplacée. Appuyez sur ",
+      " pour rechercher, ou repartez d’ici :"
+    ],
+    "home": "Accueil",
+    "step0": "Parcours débutant : leçon 1",
+    "howto": "Fiches pratiques",
+    "faq": "FAQ"
+  },
+  "wikiIndex": {
+    "h": "Wiki : ce que c’est",
+    "p1": "Tous les termes du guide, expliqués simplement. Chacun commence par une seule phrase ; lisez la suite seulement si vous voulez en savoir plus.",
+    "p2": "Pas envie de lire tout l’article ? Survolez n’importe quel mot souligné en pointillés dans le guide pour voir une explication en une ligne ; cliquez dessus pour venir ici."
+  },
+  "wikiEntry": {
+    "like": "Une analogie",
+    "here": "Dans Keyboard Maestro",
+    "list": "Liste",
+    "head": [
+      "Nom",
+      "En clair"
+    ],
+    "myths": "Idées reçues",
+    "try": "Essayez : ",
+    "step": "Étape {n} du guide complet : ",
+    "see": "Voir aussi : ",
+    "sep": ", "
+  },
   "callout": {
     "ok": "Vous devriez voir",
     "warn": "Attention",
     "no": "Ne faites pas ça",
     "tip": "Astuce"
+  },
+  "checkpoint": {
+    "title": "Avant de continuer, vérifiez",
+    "done": "Tout est coché, passez à l’étape suivante."
   },
   "copy": {
     "title": "Copier ce texte",
@@ -131,6 +201,15 @@
   },
   "reply": {
     "title": "Illustration : à peu près ce qu’affiche Keyboard Maestro"
+  },
+  "tabs": {
+    "label": "Choisir"
+  },
+  "shot": {
+    "stamp": "Capture d’écran ({date}) ; l’interface a peut-être changé depuis."
+  },
+  "annot": {
+    "stamp": "Capture d’écran ({date}) ; la page a peut-être changé depuis."
   },
   "feedback": {
     "lead": "Un point n’est pas clair sur cette page, ou quelque chose n’a pas fonctionné comme indiqué ?",

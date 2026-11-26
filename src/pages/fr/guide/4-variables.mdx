@@ -1,0 +1,140 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 4
+tldr: "Les variables permettent à une macro de mémoriser du texte, Prompt for User Input de vous poser d’abord une question, If Then Else et Switch/Case de prendre un chemin différent selon la situation, Pause Until d’attendre qu’un événement se produise, et les boucles de répéter les mêmes actions. Une variable contient toujours du texte. Si vous n’en avez besoin que pour cette exécution, donnez-lui un nom qui commence par Local."
+description: "Ce qu’est une variable, la différence entre Global, Local et Instance, et pourquoi les variables ne contiennent que du texte ; les jetons dans les champs de texte et les calculs dans les champs numériques ; demander une saisie avec Prompt for User Input ; choisir un chemin avec If Then Else et Switch/Case ; attendre avec Pause Until ; les trois boucles (Repeat, For Each, While) ; les blocages les plus fréquents."
+---
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Fig from "../../../components/Fig.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Vous avez peut-être déjà une macro de ce genre : vous appuyez sur une touche et elle tape votre réponse habituelle à un client, ce qui vous évite beaucoup de frappe. Mais vous corrigez quand même le « Bonjour Untel » à la main à chaque fois, et les semaines chargées, vous changez aussi la deuxième phrase. La macro fait uniquement ce que vous avez écrit, si bien que vous finissez toujours par repasser derrière elle.
+
+<mark><strong>Cette étape apprend à une macro à s’informer avant d’agir : mémoriser du texte, vous poser une question, prendre un chemin différent selon la réponse et attendre qu’un événement se produise avant de continuer.</strong></mark>
+
+Jusqu’ici, vos macros étaient un « quand » suivi d’une liste fixe d’actions ([étape 0](/fr/guide/0-what/), [étape 3](/fr/guide/3-actions/)). Cette étape ajoute quelques éléments à cette liste : les <Term k="变量" text="variables" />, les <Term k="令牌" text="jetons" />, les <Term k="计算" text="calculs" /> et les <Term k="条件" text="conditions" />. Cela fait penser à de la programmation, mais chaque élément n’est qu’une action à glisser dans la macro et à remplir.
+
+## Une macro de réponse qui vous pose d’abord la question
+
+Voici ce que vous allez obtenir. Vous appuyez sur le raccourci clavier et une petite fenêtre vous demande deux choses : le nom de la personne, et si vous êtes disponible cette semaine. Vous tapez le nom, choisissez « Busy » (occupé) dans le menu, appuyez sur Retour, et la macro tape :
+
+> Bonjour Alex, merci pour votre message. Mon emploi du temps est complet cette semaine, je reviendrai donc vers vous lundi avec les détails.
+
+Si vous choisissez « Free » (libre), la seconde moitié devient « Je reviendrai vers vous d’ici vendredi. » Toute la macro tient en deux actions :
+
+1. **Prompt for User Input** (demander une saisie à l’utilisateur) : donnez à la fenêtre le titre « Réponse » et ajoutez deux lignes de variables. La première se nomme `Local Name` avec une valeur par défaut vide. La seconde se nomme `Local Week` avec comme valeur par défaut `Free|Busy`. Une valeur par défaut séparée par des barres verticales devient un menu déroulant, dont le premier élément est sélectionné par défaut ([wiki officiel](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+2. **If Then Else** (Si Alors Sinon) : cliquez sur le signe plus vert dans la zone des conditions, choisissez **Variable Condition** (condition sur une variable) et réglez-la sur `Local Week` **is** (est) `Busy`. Placez une action **Insert Text by Pasting** (insérer du texte en le collant) dans la moitié supérieure avec le premier texte ci-dessous, puis une autre dans la moitié inférieure avec le second.
+
+<Copy id="s4-busy" title="Moitié supérieure : semaine chargée" code="Bonjour %Variable%Local Name%, merci pour votre message. Mon emploi du temps est complet cette semaine, je reviendrai donc vers vous lundi avec les détails." />
+
+<Copy id="s4-free" title="Moitié inférieure : semaine libre" code="Bonjour %Variable%Local Name%, merci pour votre message. Je reviendrai vers vous d’ici vendredi." />
+
+En construisant cette seule macro, vous aurez déjà touché à presque tout ce que couvre cette étape. Passons maintenant chaque élément en revue.
+
+## Les variables : un nom pour un bout de texte
+
+Une variable est une boîte avec une étiquette. Une action y dépose du texte, et les actions suivantes le récupèrent grâce à son nom. Vous n’avez pas à la déclarer à l’avance : c’est la première action qui y enregistre quelque chose qui la crée. Un nom doit commencer par une lettre, puis peut contenir des lettres, des chiffres, des espaces et des traits de soulignement. Les majuscules et minuscules n’ont pas d’importance : `Local Name` et `local name` désignent la même variable ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Variables#Variable_Naming_Rules)).
+
+Le moyen le plus direct d’y enregistrer quelque chose est l’action **Set Variable to Text** (définir une variable sur un texte). L’exemple n’en a pas besoin, car **Prompt for User Input** enregistre déjà ce que vous tapez dans des variables.
+
+### Une variable ne contient que du texte
+
+Le wiki officiel est catégorique : une variable ne contient que du texte brut, sans police ni couleur, et ne peut pas contenir d’image. Même un nombre est stocké sous forme de texte. `3` n’est que le caractère « 3 » tant que vous ne le mettez pas dans un champ qui attend un nombre, et c’est seulement là que Keyboard Maestro le traite comme tel. Pour garder un texte mis en forme ou une image pour plus tard, on utilise un <Term k="命名剪贴板" text="presse-papiers nommé" />, que nous verrons à l’étape suivante.
+
+### Global, Local et Instance : combien de temps elle dure et qui peut la voir
+
+Le début du nom d’une variable détermine sa durée de vie et quelles macros peuvent la voir ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Variables#Scope)) :
+
+<Fig id="4-variables-scope" />
+
+- Les variables Global n’ont pas de préfixe particulier. Toutes les macros peuvent les lire et les modifier, les scripts peuvent les lire, et elles sont enregistrées sur votre Mac : elles survivent donc à un redémarrage. Vous pouvez les voir et les modifier dans l’onglet **Variables** des réglages de Keyboard Maestro.
+- Les variables Instance commencent par `Instance`. Elles appartiennent à une seule exécution : la macro et toutes les sous-macros qu’elle appelle pendant cette exécution peuvent les voir, et elles disparaissent dès que l’exécution se termine. Si la même macro tourne deux fois en même temps, chaque exécution a sa propre copie.
+- Les variables Local commencent par `Local`. Elles appartiennent aussi à une seule exécution, mais seule la macro elle-même peut les voir, pas les sous-macros qu’elle appelle.
+
+Il existe aussi des variables de mot de passe, dont le nom commence ou se termine par `PW` ou `Password`. Elles restent en mémoire et ne sont jamais écrites sur le disque. Consultez la page du wiki officiel le jour où vous en aurez besoin.
+
+Laquelle choisir au quotidien ? Le wiki officiel recommande de <u>privilégier Local ou Instance pour tout ce dont vous n’avez besoin que le temps d’une exécution</u>. Une même macro peut en effet tourner plusieurs fois en même temps, et deux exécutions qui partagent une variable Global risquent d’écraser leurs valeurs respectives. Les variables Global restent aussi en place indéfiniment, si bien que les réglages se remplissent d’anciennes valeurs, y compris un mot de passe ou une page de texte enregistrés un jour. C’est pourquoi l’exemple utilise `Local Name` : ce nom ne sert que pour cette réponse précise et doit disparaître ensuite. Réservez une variable Global aux cas où vous voulez vraiment que la macro se souvienne de quelque chose jusqu’à la fois suivante, comme le dernier dossier que vous avez choisi.
+
+## Jetons et calculs : des variables dans du texte, des formules dans des nombres
+
+Pour insérer la valeur d’une variable dans un texte, on utilise un <Term k="令牌" text="jeton" />. Un jeton est un nom encadré par des signes pour cent, remplacé par le vrai contenu au moment où l’action s’exécute. `%LongDate%`, par exemple, devient la date du jour ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Tokens)). Le jeton d’une variable est `%Variable%name%`, c’est pourquoi l’exemple contient `%Variable%Local Name%`. Inutile de les retenir par cœur : placez le curseur dans un champ de texte et utilisez le menu **Edit ▸ Insert Token** (Édition ▸ Insérer un jeton), ou le menu déroulant **Insert Token** en haut à droite du champ, qui propose la même liste.
+
+Les champs qui attendent un nombre fonctionnent autrement. Vous pouvez y taper directement une formule, appelée un <Term k="计算" text="calcul" />. Régler une action **Pause** sur `60*Local Minutes`, par exemple, met la macro en pause pendant le nombre de minutes multiplié par 60 secondes ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Calculations)). <u>Dans un champ de calcul, vous écrivez simplement le nom de la variable, sans signes pour cent</u> ; `%Variable%Local Minutes%` ne se calculera pas. Le texte contenu dans la variable doit être un nombre ou une formule. L’exemple du wiki officiel : si une variable contient le texte `2*3`, alors `4*` suivi de cette variable donne 24. Pour enregistrer un résultat dans une variable, utilisez **Set Variable to Calculation** (définir une variable sur un calcul).
+
+Comment savoir dans quel type de champ vous vous trouvez ? Regardez la petite lettre qui s’affiche pendant l’édition. **T** indique un champ de texte qui accepte les jetons, **C** un champ de calcul, et **V** un champ qui attend uniquement un nom de variable ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Variables#Using_Variables)).
+
+## Prompt for User Input : poser une question d’abord
+
+**Prompt for User Input** affiche un petit formulaire et enregistre chaque réponse dans une variable. La valeur par défaut de chaque ligne détermine l’aspect du champ : du texte ordinaire donne une zone de texte, des éléments séparés par `|` donnent un menu déroulant, et une variable de mot de passe donne un champ de mot de passe qui affiche des points. Le menu situé à droite de la valeur par défaut permet aussi de choisir d’autres types : case à cocher, curseur, couleur, date et heure.
+
+Le formulaire masque la partie `Local` du nom, si bien que `Local Name` s’affiche simplement comme « Name ». Il n’y a donc aucune raison de ne pas utiliser des variables Local ici.
+
+Le formulaire comporte deux boutons par défaut. **OK** répond à la touche Retour : il ferme la fenêtre et la macro continue. **Cancel** (Annuler) répond à Échap ou à ⌘. (Commande-point), et <u>appuyer sur Cancel n’enregistre rien et arrête toute la macro</u>. C’est voulu : si vous avez changé d’avis, la macro ne doit pas continuer à taper. Vous pouvez ajouter vos propres boutons, comme « Enregistrer le brouillon », puis vérifier ensuite avec le jeton `%PromptButton%` sur lequel vous avez cliqué ([wiki officiel](https://wiki.keyboardmaestro.com/token/PromptButton)).
+
+Pour un pas-à-pas plus complet, consultez la fiche pratique [Poser une question avant de faire le travail](/fr/howto/ask-input/).
+
+## If Then Else et Switch/Case : prendre un chemin différent
+
+**If Then Else** contient un ensemble de conditions. Si elles sont remplies, l’action exécute la moitié supérieure ; sinon, elle exécute la moitié inférieure. Cliquez sur le signe plus vert dans la zone des conditions pour en ajouter une et choisissez une catégorie : si une app est ouverte ou au premier plan, ce que contient une variable, si le presse-papiers contient du texte, si une image apparaît à l’écran, et bien d’autres. Le wiki officiel tient à jour une [liste de toutes les conditions](https://wiki.keyboardmaestro.com/Conditions).
+
+Lorsqu’il y a plusieurs conditions, la ligne du haut indique comment elles se combinent ([wiki officiel](https://wiki.keyboardmaestro.com/manual/Conditions)) :
+
+- **any of the following are true** : au moins une condition est vraie.
+- **all of the following are true** : toutes les conditions sont vraies.
+- **none of the following are true** : aucune condition n’est vraie.
+- **not all of the following are true** : au moins une condition n’est pas vraie.
+
+Un piège à connaître : <u>sans aucune condition, If Then Else n’exécute aucune des deux moitiés</u>. Quand une macro semble sauter tout un bloc, vérifiez si vous n’avez pas oublié d’ajouter une condition.
+
+Dès qu’il y a plus de deux cas, empiler des If Then Else les uns dans les autres devient vite illisible. C’est là que vous passez à **Switch/Case** (choisir selon la valeur). Choisissez d’abord ce que l’action examine (le presse-papiers, une variable, un texte ou un calcul), puis ajoutez une branche par valeur ([wiki officiel](https://wiki.keyboardmaestro.com/action/Switch_or_Case)). Imaginons que vous remplaciez le menu de la macro de réponse par `Free|Busy|On leave` (libre, occupé ou en congé) : un Switch sur `Local Week` aura trois branches, avec une phrase chacune. Switch n’exécute que la première branche qui correspond et ne passe jamais à la suivante. La dernière branche peut être **otherwise** (sinon), qui s’exécute quand rien au-dessus n’a correspondu : sa place est donc tout en bas.
+
+## Pause Until : attendre qu’un événement se produise
+
+Les macros vont plus vite que les apps. Demandez à une macro d’ouvrir TextEdit et de commencer aussitôt à taper : le texte atterrit ailleurs parce que la fenêtre n’est pas encore là. Une pause fixe dépanne à peu près, mais elle est trop courte quand votre Mac est occupé et vous fait perdre du temps quand il ne l’est pas. **Pause Until** (mettre en pause jusqu’à) attend une condition plutôt qu’un chronomètre. Ajoutez une **Application Condition** (condition d’application) réglée sur TextEdit **is at the front** (est au premier plan), et la macro reprend dès que TextEdit passe au premier plan ([wiki officiel](https://wiki.keyboardmaestro.com/action/Pause_Until)).
+
+Cette action utilise les mêmes conditions et les mêmes choix (au moins une / toutes) que If Then Else. Si l’attente se prolonge, elle vérifie moins souvent pour économiser le processeur : un peu moins après 10 secondes, beaucoup moins après 60 secondes. Vous pouvez désactiver cette option dans le menu engrenage de l’action. Les macros comme celle de la [leçon 3 pour débutants](/fr/start/3-one-key-routine/), qui ouvrent plusieurs apps puis disposent leurs fenêtres, sont l’endroit où Pause Until se révèle le plus utile.
+
+## Trois boucles : répéter les mêmes actions plusieurs fois
+
+Pour exécuter plusieurs fois les mêmes actions, ne les copiez pas en plusieurs exemplaires. Placez-les dans une boucle :
+
+- **Repeat** (répéter) les exécute un nombre fixe de fois. Le nombre de répétitions est un champ de calcul : il peut donc contenir une variable, par exemple un nombre qu’on vient de vous demander ([wiki officiel](https://wiki.keyboardmaestro.com/action/Repeat)).
+- **For Each** (pour chaque élément) passe en revue une série d’éléments un par un. Vous lui donnez un nom de variable et une collection, comme les lignes d’un texte, les fichiers sélectionnés dans le Finder ou une suite de nombres. À chaque tour, elle place un élément dans la variable et exécute les actions à l’intérieur ([wiki officiel](https://wiki.keyboardmaestro.com/action/For_Each)). Dès que vous avez une liste à traiter, commencez par celle-ci.
+- **While Conditions Are Met** (tant que les conditions sont remplies) vérifie ses conditions au départ et n’entre dans la boucle que si elles sont vraies. Dès qu’elles cessent de l’être, elle s’arrête ([wiki officiel](https://wiki.keyboardmaestro.com/action/While)).
+
+Dans chacune d’elles, **Break From Loop** (sortir de la boucle) met fin à la boucle plus tôt. Repeat et For Each peuvent aussi afficher leur progression, une option accessible dans le menu engrenage, pratique pour les boucles longues.
+
+<Callout type="warn">
+Une boucle While dont la condition reste toujours vraie, ou une action Pause Until qui n’obtient jamais ce qu’elle attend, fait tourner une macro sans fin. Apprenez d’abord à l’arrêter : cliquez sur l’icône de Keyboard Maestro dans la barre des menus et choisissez la macro sous **Cancel**. [L’étape 6](/fr/guide/6-debug/) propose d’autres façons de faire.
+</Callout>
+
+Vos macros savent maintenant mémoriser, questionner, choisir, attendre et répéter. Place ensuite au presse-papiers : c’est là que vont le texte mis en forme et les images, puisqu’une variable ne peut pas les contenir.
+
+## Si quelque chose cloche
+
+<Q q="Le nom reste vide dans le texte tapé.">
+<p>Vérifiez d’abord que le nom dans le jeton correspond exactement à celui sous lequel vous avez enregistré la valeur, espaces compris. Vérifiez ensuite si vous essayez de lire une variable Local depuis une autre macro ou une sous-macro : seule la macro elle-même voit une variable Local. Utilisez Instance pour la partager avec une sous-macro, et Global pour conserver une valeur jusqu’à la prochaine fois.</p>
+</Q>
+<Q q="Un champ de calcul affiche une erreur, ou le résultat vaut 0.">
+<p>Dans un champ de calcul, écrivez uniquement le nom de la variable, sans <code>%Variable%</code>. Assurez-vous ensuite que la variable contient bien un nombre : un texte comme « trois » ou « 3 éléments » ne peut pas être calculé.</p>
+</Q>
+<Q q="Aucune des deux moitiés de mon If Then Else ne s’exécute.">
+<p>Il est très probable qu’il ne contienne aucune condition. Le wiki officiel précise qu’en l’absence de condition, aucune des deux moitiés ne s’exécute.</p>
+</Q>
+<Q q="J’ai appuyé sur Cancel dans Prompt for User Input et toute la macro s’est arrêtée.">
+<p>C’est le fonctionnement prévu : Cancel n’enregistre rien et annule la macro. Si vous voulez un bouton qui prenne simplement un autre chemin, ajoutez un nouveau bouton et vérifiez ensuite <code>%PromptButton%</code>.</p>
+</Q>
+<Q q="J’ai cliqué sur OK, mais la réponse n’est pas apparue dans la fenêtre où j’étais.">
+<p>Quand la petite fenêtre se ferme, le focus du clavier doit revenir à l’app dans laquelle vous étiez ; si la macro colle avant cela, le texte part dans le vide. Le wiki officiel indique qu’après une action qui ouvre ou ferme une fenêtre, ou déplace le focus, une courte attente est souvent nécessaire : ajoutez une action <strong>Pause</strong> entre <strong>Prompt for User Input</strong> et <strong>If Then Else</strong>. Environ 0,3 seconde suffit généralement (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions#When_do_I_need_a_Pause">wiki officiel</a>).</p>
+</Q>
+<Q q="Pause Until continue d’attendre et la macro ne passe jamais à la suite.">
+<p>La condition qu’elle attend n’est jamais devenue vraie. Arrêtez la macro depuis Cancel dans le menu d’état, puis vérifiez la condition : s’agit-il de la bonne app, et voulez-vous vérifier qu’elle est « au premier plan » ou simplement « ouverte » ?</p>
+</Q>
+<Q q="L’onglet Variables des réglages est plein de variables.">
+<p>Ce sont des variables Global, qui ne disparaissent pas quand une macro se termine. Donnez un nom qui commence par Local à celles dont vous n’avez besoin que pour une seule exécution. Pour celles dont vous n’avez plus besoin, videz leur valeur et elles ne seront plus conservées.</p>
+</Q>
+
+<Checkpoint id="s4" items={["Je connais la différence entre les variables Local, Instance et Global, et j’utilise Local par défaut", "Dans les champs de texte, j’utilise <code>%Variable%name%</code> ; dans les champs de calcul, j’écris simplement le nom", "J’ai créé une macro qui me pose d’abord une question puis tape un texte différent selon la réponse", "Quand une macro ne s’arrête plus, je sais l’annuler depuis le menu d’état"]} />

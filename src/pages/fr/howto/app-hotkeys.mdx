@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: app-hotkeys
+step: 2
+time: Deux minutes par app
+for: Vous passez des dizaines de fois par jour entre les mêmes apps et vous devez les chercher à chaque fois
+tldr: ⌃⌥⌘M, c’est toujours Mail, et ⌃⌥⌘C, toujours Calendrier. Si l’app est ouverte, vous passez dessus ; sinon, elle s’ouvre. Appuyez à nouveau quand elle est déjà au premier plan pour revenir là où vous étiez.
+description: "Utilisez un déclencheur Hot Key et l’action Activate a Specific Application pour attribuer un raccourci fixe à chacune de vos apps. Réglez If already at the front sur le retour à l’app précédente, et un seul raccourci suffit pour faire l’aller-retour. Quand vous manquez de raccourcis, passez par un groupe de macros actif pour une seule action : appuyez sur une combinaison, puis sur une lettre."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Dans un travail de bureau, vous passez peut-être des dizaines de fois par jour entre Mail, Calendrier et Notes. Avec ⌘Tab, vous dépassez souvent la bonne app et devez refaire un tour, et chercher l’icône dans le Dock vous oblige à quitter votre travail des yeux. Voici une autre méthode : faites en sorte que ⌃⌥⌘M soit toujours Mail, ⌃⌥⌘C toujours Calendrier et ⌃⌥⌘N toujours Notes (⌃ pour Contrôle, ⌥ pour Option, ⌘ pour Commande). Si l’app est ouverte, vous passez directement dessus. Si elle ne l’est pas, elle s’ouvre d’abord. Et si elle est déjà au premier plan, un nouvel appui vous ramène à ce que vous utilisiez juste avant.
+
+<mark>Attribuez un raccourci fixe à chaque app : une fois que vos doigts le connaissent, vos yeux n’ont plus besoin de chercher.</mark>
+
+## Un raccourci, une app
+
+Ce qu’il vous faut, c’est une macro où un <Term k="热键" text="raccourci clavier" /> amène une app précise au premier plan. L’action prévue pour cela s’appelle **Activate a Specific Application** (activer une application précise). La page officielle indique qu’elle bascule vers l’app, en la lançant si besoin, exactement comme lorsque vous utilisez ⌘Tab ou que vous l’ouvrez par un autre moyen (voir [Activate a Specific Application](https://wiki.keyboardmaestro.com/action/Activate_a_Specific_Application)).
+
+Cette action comporte un réglage **If already at the front:** (si elle est déjà au premier plan) qui décide de ce qui se passe quand vous appuyez sur le raccourci alors que l’app est déjà au premier plan. Vous pouvez la laisser là, revenir à l’app précédente, la masquer, entre autres possibilités. Choisissez l’option qui revient à l’application précédente, et le raccourci fonctionne en aller-retour : un appui pour y aller, un autre pour revenir.
+
+Dans [la leçon 1 pour débuter](/fr/start/1-first-macro/), vous avez créé une macro de ce genre, qui ouvre Notes avec ⌃⌥⌘N. Cette page en fait un ensemble complet.
+
+## Créer l’ensemble
+
+Créez un groupe de macros appelé « Changer d’app ». Les groupes de macros sont disponibles dans toutes les apps tant que vous ne changez pas ce réglage, donc laissez-le tel quel. Créez ensuite une macro par app à l’intérieur. Les trois sont construites de la même manière, seuls le raccourci et l’app changent :
+
+- « Mail » : un déclencheur **Hot Key** (raccourci clavier) sur ⌃⌥⌘M et une action **Activate a Specific Application** réglée sur Mail.
+- « Calendrier » : ⌃⌥⌘C, réglée sur Calendrier.
+- « Notes » : ⌃⌥⌘N, réglée sur Notes.
+
+Dans les trois macros, réglez **If already at the front:** pour revenir à l’application précédente. Vous n’avez pas besoin de refaire celle de Notes : faites glisser la macro de la leçon 1 depuis **Global Macro Group** (groupe de macros global) vers ce groupe, puis modifiez ce réglage. Si vous créez plutôt une deuxième macro sur ⌃⌥⌘N, les deux se disputent le même raccourci et Keyboard Maestro affiche une petite palette vous demandant laquelle exécuter (son nom officiel est Conflict Palette).
+
+Pour choisir vos raccourcis, le conseil officiel est de rester cohérent, par exemple en réservant une même combinaison de touches de modification pour « ouvrir une app », afin de ne pas avoir à retenir chaque raccourci séparément (voir [Hot Key trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key#Complexity)). Ici, c’est toujours ⌃⌥⌘ suivi de la première lettre du nom de l’app : M pour Mail, C pour Calendrier, N pour Notes. Pour votre propre ensemble, choisissez des lettres que vous associez à chaque app sans réfléchir.
+
+## À court de raccourcis ? Appuyez sur une combinaison, puis sur une lettre
+
+Quand vous avez beaucoup d’apps, même ⌃⌥⌘ suivi d’une lettre finit par ne plus suffire. Le manuel officiel décrit une solution pour contourner le problème : placez ces macros dans un groupe de macros qui n’est actif que pour une seule action. Réglez le groupe sur **Activated for one action when:** (actif pour une seule action quand) et donnez-lui un raccourci clavier, par exemple ⌃⌥⌘A. Les macros à l’intérieur utilisent de simples lettres comme raccourcis clavier : M pour Mail, S pour Safari, F pour Finder. Le reste du temps, ces lettres se tapent normalement. Le groupe ne se réveille qu’une fois que vous avez appuyé sur ⌃⌥⌘A, et dès que vous appuyez sur une lettre et que cette macro s’exécute, il se rendort (voir [Macro Groups](https://wiki.keyboardmaestro.com/manual/Macro_Groups)).
+
+Un seul groupe de ce type peut gérer une douzaine d’apps tout en n’occupant qu’une seule combinaison sur tout votre clavier.
+
+## Vérifier que tout fonctionne
+
+Quittez Mail, puis appuyez sur ⌃⌥⌘M depuis n’importe quelle app. Mail devrait s’ouvrir et passer au premier plan. Appuyez de nouveau sur ⌃⌥⌘M pendant que vous êtes dans Mail, et vous devriez revenir dans l’app que vous utilisiez. Essayez Calendrier et Notes de la même façon.
+
+## Si quelque chose cloche
+
+<Q q="J’ai appuyé sur le raccourci clavier et rien ne s’est passé.">
+Si la case de la macro ou du groupe « Changer d’app » n’est pas cochée, ou si le moteur ne tourne pas, le raccourci clavier ne répond pas : commencez par vérifier ces deux points. Demandez-vous ensuite si une autre app utilise aussi cette combinaison. La page officielle indique que lorsqu’une autre app enregistre le même raccourci clavier, votre macro et l’action de cette app se produisent toutes les deux. Essayez une autre lettre. Si la macro ne se déclenche toujours pas, choisissez **Help ▸ Interactive Help** (aide interactive) et suivez les étapes pour trouver la cause.
+</Q>
+<Q q="Depuis que j’ai configuré le raccourci clavier, un raccourci d’une de mes apps ne fonctionne plus.">
+C’est le comportement normal des raccourcis clavier. La page officielle explique que le système intercepte la combinaison pour la transmettre à votre macro : un raccourci de menu utilisant les mêmes touches dans une app ne la reçoit donc jamais. Si l’une de vos apps utilise justement ⌃⌥⌘ avec la même lettre, c’est votre macro qui l’emporte. Choisissez une lettre que cette app n’utilise pas.
+</Q>
+<Q q="J’ai ajouté d’autres actions à la suite, mais l’app met trop de temps à s’ouvrir pour qu’elles fonctionnent.">
+La page officielle précise que lorsque beaucoup d’apps sont ouvertes et que la mémoire commence à manquer, il faut parfois attendre plusieurs secondes après **Activate a Specific Application** avant que les actions suivantes fonctionnent. Ajoutez une action **Pause** (mettre en pause) entre les deux, ou utilisez **Pause Until** (mettre en pause jusqu’à) pour attendre que la fenêtre de l’app apparaisse. Voir [la section Timing Between Actions de la page Troubleshooting](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions).
+</Q>
+
+En quelques jours, vos doigts trouveront l’app avant vos yeux. Pour ouvrir plusieurs apps avec un seul raccourci et mettre leurs fenêtres en place en même temps, poursuivez avec [Placer vos fenêtres où vous voulez](/fr/howto/window-layout/).

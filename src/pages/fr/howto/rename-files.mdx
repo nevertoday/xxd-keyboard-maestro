@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: rename-files
+step: 4
+time: Vingt minutes, en essayant d’abord sur des copies
+for: Un lot de fichiers aux noms qui ne veulent rien dire, que vous renommez un par un
+tldr: Sélectionnez un lot de fichiers dans le Finder, appuyez sur ⌃⌥⌘R, tapez un préfixe, et il s’ajoute au début de chaque nom de fichier, comme « Papa bilan novembre Scan 1.pdf ».
+description: Utilisez l’action For Each pour parcourir les fichiers sélectionnés dans le Finder. Prompt for User Input demande le préfixe, Split Path extrait le nom de fichier d’origine et l’option Rename de File Actions attribue le nouveau nom. Essayez d’abord sur des copies, et voyez comment gérer les noms en double et les dossiers présents dans la sélection.
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quand vous gérez les papiers médicaux d’un parent, chaque résultat d’analyse, chaque ordonnance et chaque compte rendu d’hospitalisation passe au scanner, qui les nomme Scan 1.pdf, Scan 2.pdf, Scan 3.pdf… En quelques passages à l’hôpital, il y en a déjà des dizaines, et six mois plus tard, pour retrouver la dernière prise de sang, il faut tous les ouvrir les uns après les autres. Si vous les renommez un par un, vous avez mal à la main dès le dixième. Avec une macro, vous sélectionnez tout le lot dans le Finder et vous appuyez sur ⌃⌥⌘R (maintenez Contrôle, Option et Commande, puis appuyez sur R). Elle vous demande quoi mettre devant, vous tapez « Papa bilan novembre », et tout le lot se retrouve avec des noms comme « Papa bilan novembre Scan 1.pdf ».
+
+<mark>Renommer un lot de fichiers, c’est finalement faire la même chose à chacun des fichiers sélectionnés.</mark>
+
+<u>Essayez d’abord sur des copies.</u> Le renommage modifie les vrais fichiers sur votre disque : si la macro comporte une erreur, tout le lot subit la même erreur. Dupliquez le dossier dans le Finder, essayez la macro sur la copie jusqu’à ce que le résultat vous convienne, et ne l’utilisez sur le vrai lot qu’ensuite.
+
+## For Each : le faire une fois pour chaque élément
+
+« Le faire une fois pour chaque élément » s’appelle **For Each** (pour chaque élément) dans Keyboard Maestro. Vous lui donnez une liste d’éléments : l’action les prend un par un, place chacun dans une <Term k="变量" text="variable" /> et exécute les actions placées à l’intérieur (voir [For Each](https://wiki.keyboardmaestro.com/action/For_Each)).
+
+D’où vient cette liste ? Dans **For Each**, choisissez **The Finder’s selection** (la sélection du Finder), c’est-à-dire tout ce que vous avez sélectionné dans le Finder. La page officielle précise que la variable reçoit le chemin complet de chaque fichier, cette longue adresse qui va du début du disque jusqu’au nom du fichier (voir [Working with the Finder Selection](https://wiki.keyboardmaestro.com/collection/Finders_Selection)). Renommer des fichiers sélectionnés de façon uniforme fait partie des usages cités sur la page officielle.
+
+Une fois que vous avez ce chemin, il reste deux étapes : en extraire le nom de fichier d’origine, puis renommer le fichier avec le nouveau nom.
+
+## Créer la macro
+
+Créez une nouvelle macro intitulée « Ajouter un préfixe aux noms de fichiers ». Si vous voulez qu’elle ne fonctionne que dans le Finder, placez-la dans un groupe de macros réglé sur **Available in these applications:** (disponible dans ces applications) pour Finder. Donnez-lui un déclencheur **Hot Key** (raccourci clavier) et réglez-le sur ⌃⌥⌘R. Ajoutez ensuite les actions :
+
+**Première étape : demander le préfixe**. Ajoutez **Prompt for User Input** (demander une saisie à l’utilisateur) avec le titre « Ajouter un préfixe aux noms de fichiers », puis ajoutez-y une variable nommée `Prefix`, avec une valeur par défaut que vous utilisez souvent, comme « Papa bilan novembre ». Quand la macro arrive à cette étape, une petite fenêtre s’ouvre. Modifiez le préfixe si besoin et cliquez sur **OK**. Si vous cliquez sur **Cancel** (Annuler), toute la macro s’arrête sans toucher à un seul fichier (voir [Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+**Deuxième étape : les parcourir un par un**. Ajoutez **For Each**, tapez `FilePath` pour la variable, puis cliquez sur + à côté de la collection pour choisir **The Finder’s selection**. Les deux actions suivantes vont toutes les deux à l’intérieur de **For Each**.
+
+**Troisième étape : récupérer le nom d’origine**. À l’intérieur de **For Each**, ajoutez **Split Path** (découper le chemin) et, pour le chemin à découper, indiquez :
+
+<Copy id="rf-path" title="Le chemin à découper" code="%Variable%FilePath%" />
+
+Cette action découpe un chemin en plusieurs parties : le dossier dans lequel il se trouve, le nom du fichier, le nom sans son extension et l’extension, et chaque partie peut aller dans sa propre variable (voir [Split Path](https://wiki.keyboardmaestro.com/action/Split_Path)). Ici, vous n’avez besoin que de **File Name** (nom du fichier). Placez-le dans une variable appelée `FileName`. Ce sera quelque chose comme `Scan 1.pdf`, extension comprise.
+
+**Quatrième étape : renommer**. Ajoutez ensuite **File Actions** (actions sur les fichiers) et choisissez **Rename** (renommer). Pour le fichier, indiquez `%Variable%FilePath%`, et pour le nouveau nom :
+
+<Copy id="rf-new" title="Le nouveau nom" code="%Variable%Prefix% %Variable%FileName%" />
+
+`%Variable%Prefix%` est un <Term k="令牌" text="jeton" /> : quand la macro s’exécute, il est remplacé par le contenu de cette variable. La page officielle précise que le nouveau nom pour **Rename** doit être uniquement un nom de fichier, sans barre oblique (/), afin que le fichier reste dans son dossier et que seul son nom change (voir [File Actions](https://wiki.keyboardmaestro.com/action/File_Actions)).
+
+## Vérifier que tout fonctionne
+
+Dans le dossier copié, sélectionnez trois fichiers et appuyez sur ⌃⌥⌘R. Vous devriez voir apparaître la petite fenêtre qui demande un préfixe. Remplissez-la et cliquez sur **OK** : dans le Finder, ces trois fichiers commencent maintenant par ce que vous avez tapé, tout en gardant leur nom d’origine et leur extension. Les fichiers que vous n’avez pas sélectionnés conservent leur nom.
+
+Le champ du nouveau nom accepte aussi d’autres jetons. Pour ajouter la date du jour tout au début, écrivez `%ICUDateTime%yyyy-MM-dd% %Variable%Prefix% %Variable%FileName%`. Pour modifier le format de la date, consultez [Insérer la date du jour d’une seule touche](/fr/howto/insert-date/).
+
+## Si quelque chose cloche
+
+<Q q="J’ai appuyé sur ⌃⌥⌘R et la fenêtre s’est ouverte, mais aucun nom n’a changé.">
+**For Each** récupère tout ce qui est sélectionné dans le Finder à cet instant précis. Vérifiez d’abord que vous avez bien sélectionné des fichiers dans le Finder. Si votre groupe de macros est réglé pour ne fonctionner que dans le Finder, le Finder doit aussi être au premier plan quand vous appuyez sur le raccourci clavier. Vérifiez ensuite que les troisième et quatrième étapes sont bien placées à l’intérieur de **For Each**, et non à la suite.
+</Q>
+<Q q="Ça s’est arrêté en cours de route. Certains fichiers ont été renommés et d’autres non.">
+Il y a probablement eu un conflit de noms. La page officielle indique que si un fichier portant ce nouveau nom existe déjà dans le dossier, l’étape échoue et la macro s’arrête là. Regardez sur quel fichier elle s’est arrêtée, réglez le problème de nom en double, puis sélectionnez les fichiers restants et relancez la macro.
+</Q>
+<Q q="Un dossier de ma sélection a aussi été renommé.">
+**The Finder’s selection** transmet tout ce qui est sélectionné, et **Rename** fonctionne aussi bien sur les dossiers que sur les fichiers. Ne sélectionnez que les fichiers que vous souhaitez renommer.
+</Q>
+<Q q="Les fichiers se sont retrouvés dans un autre dossier.">
+Vous avez probablement choisi **Move or Rename** (déplacer ou renommer) et le nouveau nom contenait une barre oblique, ce qui a déplacé les fichiers là-bas. Utilisez **Rename** et n’écrivez qu’un nom de fichier.
+</Q>
+
+Une fois que vous maîtrisez **For Each**, toutes les tâches du type « faire ceci pour chaque élément » fonctionnent de la même manière : ajouter des tags à un lot de fichiers ou les déplacer tous au même endroit, en changeant simplement les actions à l’intérieur. Pour que des fichiers soient traités dès qu’ils arrivent dans un dossier, poursuivez avec [Ranger des fichiers dès qu’ils arrivent dans un dossier](/fr/howto/watch-folder/).

@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: ask-input
+step: 4
+time: 15 minutes
+for: Le texte est presque toujours le même, à quelques détails près comme une entreprise, un poste ou le nom d’une personne
+tldr: Prompt for User Input affiche d’abord un petit formulaire, enregistre vos réponses dans des variables, puis les actions suivantes les insèrent dans le texte. Pour choisir plutôt parmi quelques options, utilisez Prompt With List.
+description: "Poser une question avant d’agir grâce à Prompt for User Input dans Keyboard Maestro : en recherche d’emploi, un raccourci clavier rédige le début d’une lettre de motivation avec l’entreprise, le poste et la source remplis sur le moment ; comment nommer des variables et les utiliser dans du texte, créer un menu déroulant et ce que fait Cancel ; puis Prompt With List pour choisir parmi une série de réponses toutes prêtes."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+import Copy from "../../../components/Copy.astro";
+
+Quand vous cherchez un emploi, vous envoyez plusieurs candidatures par jour, et les premières lignes de chaque e-mail sont en fait toujours les mêmes. Seuls changent l’entreprise, le poste et l’endroit où vous avez vu l’offre. Copier le message précédent pour le modifier fonctionne bien, jusqu’au jour où vous oubliez un passage et envoyez le nom d’une entreprise à une autre. Une fois cette page terminée, vous appuierez sur ⌃⌥⌘L (Contrôle, Option, Commande et L) dans un nouvel e-mail. Un petit formulaire vous demandera ces trois informations ; une fois que vous les aurez saisies et validées avec Retour, une introduction soignée, avec tous les noms exacts, apparaîtra à l’endroit de votre curseur.
+
+Jusqu’ici, les macros se déroulaient d’une traite. <mark>Posez d’abord une question, puis réutilisez la réponse, et une macro saura gérer les tâches qui sont presque identiques à chaque fois.</mark>
+
+## Demander d’abord avec un petit formulaire
+
+Créez une nouvelle <Term k="宏" text="macro" /> appelée « Début de lettre de motivation », ajoutez un déclencheur **Hot Key** (raccourci clavier), puis appuyez sur ⌃⌥⌘L. La première action est **Prompt for User Input** (demander une saisie à l’utilisateur) : elle affiche un formulaire que vous concevez vous-même et enregistre ce que vous tapez dans des <Term k="变量" text="variables" /> ([action Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)).
+
+En haut du formulaire se trouve le titre, « Début de lettre de motivation ». En dessous, le texte d’invite est une courte ligne destinée à vous guider, par exemple « À qui s’adresse ce message ? ». Puis viennent les variables, une par ligne, avec leur nom à gauche et une valeur par défaut à droite. Ajoutez trois lignes :
+
+- `Local Company`, en laissant la valeur par défaut vide ;
+- `Local Role`, en laissant la valeur par défaut vide ;
+- `Local Source`, avec comme valeur par défaut `un site d’emploi|un ami|votre site web`.
+
+Le mot `Local` au début n’est pas là pour faire joli. Les variables qui commencent par Local sont des variables locales : elles n’existent qu’à l’intérieur de cette macro et disparaissent une fois qu’elle est terminée, ce qui évite de les accumuler sur votre Mac. Le formulaire retire aussi « Local » des étiquettes, donc vous voyez simplement « Company », « Role » et « Source » ([Variables](https://wiki.keyboardmaestro.com/manual/Variables), [action Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input)). La troisième valeur par défaut contient des barres verticales `|`, ce qui indique à Keyboard Maestro d’en faire un menu déroulant. Ces barres séparent les choix, et le premier est sélectionné par défaut.
+
+Les deux boutons fournis d’office suffisent largement. **OK** répond à Retour, ferme le formulaire et poursuit la macro. **Cancel** (Annuler) répond à Échap ou ⌘., ferme le formulaire sans enregistrer les variables et annule la macro.
+
+## Insérer les réponses dans le texte
+
+La deuxième action est **Insert Text by Pasting** (insérer du texte en le collant) : dans son texte, `%Variable%name%` (name étant le nom de la variable) récupère chaque réponse. Adaptez ce texte avec vos propres mots :
+
+<Copy id="ai-letter" title="Texte pour Insert Text by Pasting" code={`Bonjour,
+
+J’ai appris via %Variable%Local Source% que %Variable%Local Company% recrute pour le poste de %Variable%Local Role%. En lisant l’offre, il m’a semblé qu’elle correspondait de près à ce que je fais depuis quelques années. Je vous écris donc avec mon CV en pièce jointe, dans l’espoir que nous pourrons en discuter.`} />
+
+Pour l’utiliser, placez votre curseur au début du corps de l’e-mail, puis appuyez sur ⌃⌥⌘L.
+
+<Callout type="ok">
+Une petite fenêtre intitulée « Début de lettre de motivation » s’affiche avec deux champs de texte et un menu déroulant. Remplissez-les et appuyez sur Retour : la fenêtre se ferme, et l’introduction apparaît dans votre e-mail avec les trois emplacements remplacés par ce que vous venez de saisir.
+</Callout>
+
+Relisez le texte une fois avant d’envoyer l’e-mail. Le formulaire se souvient des emplacements à remplacer, mais c’est toujours à vous de vérifier que c’est la bonne entreprise et le bon ton.
+
+## Choisir une phrase parmi quelques-unes : Prompt With List
+
+Il existe une autre façon de demander d’abord, sans rien avoir à taper : il suffit de choisir. Si vous tenez une petite boutique en ligne, vos réponses aux clients tournent toujours autour des mêmes phrases : la commande est expédiée, quand elle arrivera, comment fonctionnent les retours. **Prompt With List** (choisir dans une liste) affiche une fenêtre qui ressemble à Spotlight avec une liste de choix. Tapez quelques lettres pour filtrer, sélectionnez-en un et appuyez sur Retour ([action Prompt With List](https://wiki.keyboardmaestro.com/action/Prompt_With_List)).
+
+Les choix se mettent un par ligne, directement dans l’action. Ce que la fenêtre affiche et ce que vous récupérez peuvent être différents : écrivez une ligne sous la forme « ce que vous voulez récupérer, deux tirets bas, ce qui doit s’afficher », et la fenêtre ne montrera que la partie courte, tandis qu’en la choisissant, vous récupérez toute la phrase qui précède. Par exemple :
+
+<Copy id="ai-list" title="Choix pour Prompt With List" code={`Votre commande a été expédiée aujourd’hui. Le numéro de suivi se trouve dans le détail de votre commande, et la livraison prend généralement entre trois et cinq jours.__Expédiée
+Votre colis est en route. Le suivi est mis à jour environ une fois par jour, et je vous préviendrai tout de suite s’il y a du nouveau.__En route
+Si l’article ne convient pas à réception, aucun souci : écrivez-moi simplement et je vous enverrai la marche à suivre pour un retour ou un échange.__Retours`} />
+
+Placez cette action dans une nouvelle macro dédiée avec son propre raccourci clavier, enregistrez le résultat dans une variable, par exemple `Local Reply`, puis ajoutez une action **Insert Text by Pasting** contenant le texte `%Variable%Local Reply%`. Si vous appuyez sur Échap, l’action échoue et rien n’est enregistré ; par défaut, toute la macro est annulée avec une notification indiquant qu’elle a échoué, donc Échap reste la façon de faire marche arrière.
+
+## Si quelque chose cloche
+
+<Q q="J’ai cliqué sur Cancel et rien n’a été collé.">
+C’est le comportement normal : **Cancel** n’enregistre pas les variables et annule toute la macro. Si vous voulez un troisième bouton qui fasse autre chose, par exemple « enregistrer sans coller », ajoutez d’autres boutons au formulaire. Le <Term k="令牌" text="jeton" /> `%PromptButton%` contient le nom du bouton sur lequel vous avez cliqué, et une action **If Then Else** (Si Alors Sinon) peut ensuite orienter la suite selon ce nom.
+</Q>
+<Q q="Ce qui se colle est littéralement %Variable%Local Company%.">
+Vérifiez que le nom de la variable dans le formulaire et celui dans le texte sont strictement identiques, y compris l’espace après `Local`. Le plus sûr est d’insérer la variable via le menu **Edit ▸ Insert Variable** (Édition ▸ Insérer une variable) plutôt que de la taper à la main ([Variables](https://wiki.keyboardmaestro.com/manual/Variables)).
+</Q>
+<Q q="Je voulais un menu déroulant et j’ai obtenu un champ de texte.">
+Quand le type d’un champ est réglé sur **Automatic** (automatique), Keyboard Maestro devine à partir de la valeur par défaut, et seules les barres verticales créent un menu déroulant. S’il n’y en a pas, ou si vous préférez l’indiquer explicitement, choisissez **Menu** (menu déroulant) dans la liste déroulante à droite de la valeur par défaut.
+</Q>
+<Q q="Le formulaire est ouvert, mais mes abréviations ne se développent pas dedans.">
+Le wiki officiel précise que le système ne laisse pas Keyboard Maestro Engine voir les touches tapées dans ses propres fenêtres : les déclencheurs par texte saisi ne fonctionnent donc pas dans ces formulaires. Tapez directement dans le formulaire, ou copiez d’abord le texte ailleurs avant de le coller dans le formulaire.
+</Q>
+
+Un formulaire et quelques variables vous laissent la main sur les passages qui changent à chaque fois, et la macro s’occupe du reste. Les variables et les conditions peuvent faire bien plus encore. Consultez [l’étape 4 du guide complet](/fr/guide/4-variables/).

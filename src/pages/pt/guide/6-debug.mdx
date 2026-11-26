@@ -55,7 +55,7 @@ Conflitos também podem acontecer fora do Keyboard Maestro. Quando você aperta 
 
 ## Quinta camada: ela dispara, mas faz a coisa errada
 
-Aqui a macro está mesmo rodando, só não está fazendo certo. A causa mais comum não é uma ação errada, e sim a velocidade: a macro vai para o passo seguinte antes de o app estar pronto, então parece que ela pulou etapas ou parou pela metade. A solução recomendada pela wiki é fazê-la esperar. Adicione uma ação **Pause** (pausa) — segundo a wiki, 0,3 segundo costuma bastar — ou, melhor ainda, uma ação **Pause Until** (pausar até), que espera uma condição ser atendida, como no [passo 4](/pt/guide/4-variables/) ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
+Aqui a macro está mesmo rodando, só não está fazendo certo. A causa mais comum não é uma ação errada, e sim a velocidade: a macro vai para o passo seguinte antes de o app estar pronto, então parece que ela pulou etapas ou parou pela metade. A solução recomendada pela wiki é fazê-la esperar. Adicione uma ação **Pause** (pausar) — segundo a wiki, 0,3 segundo costuma bastar — ou, melhor ainda, uma ação **Pause Until** (pausar até), que espera uma condição ser atendida, como no [passo 4](/pt/guide/4-variables/) ([wiki](https://wiki.keyboardmaestro.com/Troubleshooting#Timing_Between_Actions)).
 
 Se você não conseguir perceber qual passo está dando errado, faça a macro percorrer as etapas junto com você.
 

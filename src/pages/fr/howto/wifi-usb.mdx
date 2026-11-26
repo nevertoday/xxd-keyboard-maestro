@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/HowTo.astro
+slug: wifi-usb
+step: 2
+time: 10 minutes
+for: Chaque fois que vous arrivez à un endroit précis ou que vous branchez un appareil donné, vous commencez toujours par faire les mêmes choses
+tldr: Le déclencheur Wireless Network lance une macro quand vous rejoignez ou quittez un réseau Wi-Fi, et le déclencheur USB Device en lance une quand vous branchez ou débranchez un périphérique USB. Keyboard Maestro peut remplir leur nom à votre place.
+description: "Automatisez des actions dès que vous rejoignez un réseau Wi-Fi ou branchez un appareil grâce aux déclencheurs Wireless Network et USB Device de Keyboard Maestro : le Mac d’un enseignant coupe le son et quitte Mail sur le réseau de l’école, allumer un scanner ouvre le logiciel de numérisation ; l’autorisation de localisation demandée depuis macOS Sonoma, et pourquoi ces macros doivent pouvoir se lancer plusieurs fois sans risque."
+---
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+import Callout from "../../../components/Callout.astro";
+
+Si vous enseignez, cela vous est probablement déjà arrivé une fois. Vous branchez votre ordinateur portable au vidéoprojecteur, vous ouvrez l’écran, et la musique de la veille retentit dans toute la salle pendant que les notifications d’e-mails s’affichent les unes après les autres sur le grand écran. Vous n’avez pourtant que deux choses à faire en entrant en classe (couper le son et quitter Mail), mais les jours chargés, vous oubliez. Une fois cette page terminée, votre MacBook coupera le son tout seul et quittera Mail dès qu’il rejoindra le Wi-Fi de l’école, sans que vous ayez à appuyer sur quoi que ce soit.
+
+Les déclencheurs horaires s’occupent de « quelle heure est-il ». Les deux <Term k="触发器" text="déclencheurs" /> de cette page s’occupent de « où êtes-vous, et qu’est-ce qui est branché ». <mark>Pour tout ce que vous faites toujours en arrivant quelque part ou en branchant un appareil, laissez ce réseau ou cet appareil appuyer sur le bouton de démarrage.</mark>
+
+## Rejoignez le Wi-Fi de l’école : le Mac coupe le son et quitte Mail
+
+Créez une nouvelle <Term k="宏" text="macro" /> appelée « Entrée en classe ». Pour le déclencheur, choisissez **Wireless Network** (réseau sans fil), qui se déclenche quand le Mac se connecte à un réseau Wi-Fi ou s’en déconnecte ([déclencheur Wireless Network](https://wiki.keyboardmaestro.com/trigger/Wireless_Network)). Vous pouvez le faire réagir à n’importe quel réseau, ou uniquement à un nom précis, et le wiki préfère le BSSID, un identifiant vraiment unique, parce que beaucoup de gens ont des réseaux appelés « Maison » ou « Bureau ».
+
+Vous n’avez pas besoin de taper le nom. Placez votre curseur dans le champ de nom du déclencheur, puis déconnectez-vous du Wi-Fi de l’école et reconnectez-vous depuis la barre des menus : Keyboard Maestro remplit le nom du réseau (ou son BSSID) à votre place. Réglez-le pour qu’il se déclenche à la connexion.
+
+Ajoutez deux actions. **Mute Audio Device** (couper le son d’un périphérique audio) peut couper le son, le rétablir ou basculer entre les deux sur le périphérique audio par défaut (à partir de Keyboard Maestro 11, [Mute Audio Device](https://wiki.keyboardmaestro.com/action/Mute_Audio_Device)) : choisissez donc de couper le son. Ajoutez ensuite **Quit a Specific Application** (quitter une app précise), choisissez Mail, et laissez l’option sur **Quit** (quitter). Si vous voulez tout rétablir après le cours, créez une deuxième macro, « Sortie de classe », déclenchée lorsque ce même réseau se déconnecte, avec une action qui rétablit le son.
+
+À partir de macOS Sonoma, il y a une étape que vous ne pouvez pas sauter : lire les informations du Wi-Fi demande l’autorisation de localisation. Le wiki indique de vérifier que Keyboard Maestro Engine en dispose bien, ce que vous trouverez dans **Réglages Système ▸ Confidentialité et sécurité**, sous Service de localisation. Sans cela, le moteur ne peut pas lire les informations du Wi-Fi.
+
+<Callout type="ok">
+Dans la salle de classe, coupez le Wi-Fi puis rallumez-le. Dès que le Mac rejoint le réseau de l’école, l’icône de volume passe en mode silencieux et Mail s’est fermé.
+</Callout>
+
+## Elle se déclenchera plus d’une fois, faites en sorte que ce soit sans risque
+
+Le wiki insiste bien sur ce point. Votre Mac se déconnecte et se reconnecte au Wi-Fi à chaque mise en veille et à chaque réveil, et il arrive aussi que macOS se reconnecte discrètement en arrière-plan : ces macros doivent donc pouvoir se lancer plusieurs fois sans problème. Couper le son et quitter Mail ne posent aucun souci. Couper un son déjà coupé, ou quitter une application déjà fermée, ne casse rien. Mais si vous y mettez « créer les notes de cours du jour », vous vous retrouverez avec un fichier en plus chaque fois que vous refermerez l’écran. Choisissez des actions qui donnent le même résultat, peu importe combien de fois elles se lancent.
+
+## Allumez le scanner : le logiciel de numérisation s’ouvre
+
+Passons à un autre lecteur. Si vous avez des enfants scolarisés, vous scannez sans doute quelques formulaires certains soirs, et c’est toujours la même chose : allumer le scanner, partir à la recherche de l’application de numérisation, et oublier de la fermer ensuite. Le déclencheur **USB Device** (périphérique USB) lance une macro lorsqu’un périphérique USB est branché ou débranché, et l’exemple même du wiki est exactement celui-ci : lancer votre logiciel de numérisation quand vous allumez le scanner, et le quitter quand vous l’éteignez ([déclencheur USB Device](https://wiki.keyboardmaestro.com/trigger/USB_Device)).
+
+Le nom des périphériques USB ne ressemble souvent pas à ce que vous imaginez, alors laissez aussi Keyboard Maestro le remplir. Placez votre curseur dans le champ de nom du déclencheur, puis branchez (ou allumez) le scanner, et le nom apparaît. Le plus clair est de faire deux macros. La première se déclenche quand le périphérique est branché, avec l’action **Activate a Specific Application** (activer une application précise) réglée sur votre application de numérisation : l’action la lance si elle n’est pas ouverte. La seconde se déclenche quand le périphérique est débranché, avec **Quit a Specific Application** pour la même application. Pendant que la macro s’exécute, le <Term k="令牌" text="jeton" /> `%TriggerValue%` contient le nom du périphérique, ce qui est pratique si vous voulez qu’une notification précise de quel appareil il s’agit.
+
+Si vous n’attendez pas un périphérique mais un disque, comme un disque dur externe ou une carte mémoire dans un lecteur de cartes, le déclencheur qu’il vous faut est **Mounted Volume** (volume monté). Il se déclenche lorsqu’un volume est monté ou démonté, qu’il s’agisse d’un volume précis ou de n’importe lequel ([déclencheur Mounted Volume](https://wiki.keyboardmaestro.com/trigger/Mounted_Volume)).
+
+## Vérifier simplement depuis une autre macro
+
+Parfois, vous n’avez pas besoin qu’une macro se déclenche dès la connexion. Vous voulez seulement qu’une autre macro s’adapte, par exemple un rappel du matin qui s’affiche à la maison mais pas à l’école. Les conditions servent à cela : utilisées avec **If Then Else** (Si Alors Sinon), la condition **Wireless Network** vérifie si un réseau est connecté, et la condition **USB Device** vérifie si un périphérique est présent ([condition Wireless Network](https://wiki.keyboardmaestro.com/condition/Wireless_Network), [condition USB Device](https://wiki.keyboardmaestro.com/condition/USB_Device)). Pour comprendre ce que sont les conditions et comment elles fonctionnent, consultez [l’étape 4 du guide complet](/fr/guide/4-variables/).
+
+## Si quelque chose cloche
+
+<Q q="J’ai rejoint le réseau, mais la macro ne s’est pas déclenchée.">
+Sur macOS Sonoma et les versions suivantes, vérifiez d’abord que Keyboard Maestro Engine dispose bien de l’autorisation de localisation. Vérifiez ensuite que le nom dans le déclencheur correspond exactement à celui du réseau. Le plus sûr est de l’effacer, de placer le curseur dans le champ, puis de vous déconnecter et de vous reconnecter pour qu’il se remplisse tout seul. Assurez-vous aussi que la macro et son <Term k="宏组" text="groupe de macros" /> sont tous les deux activés.
+</Q>
+<Q q="La macro s’est déclenchée plusieurs fois dans la journée.">
+C’est normal. La mise en veille, le réveil et les reconnexions automatiques du système la relancent à chaque fois. Utilisez plutôt des actions qui peuvent être répétées sans souci, et évitez tout ce qui crée des fichiers ou envoie des messages dans ce genre de macro.
+</Q>
+<Q q="Le nom du scanner n’est pas celui que je pensais, et le taper à la main ne fonctionne pas.">
+Ne tapez pas le nom. Laissez Keyboard Maestro le remplir au moment où vous branchez l’appareil. Le wiki précise que cela fonctionne aussi bien en branchant qu’en allumant le périphérique : pour un scanner muni d’un bouton d’alimentation, placez donc d’abord le curseur dans le champ, puis allumez-le.
+</Q>
+<Q q="J’ai branché un disque dur externe et le déclencheur USB Device n’a rien fait.">
+Pour attendre l’apparition d’un disque, le déclencheur **Mounted Volume** est mieux adapté, car il se base sur le nom du volume.
+</Q>
+
+Un réseau ou un appareil suffit pour appuyer sur le bouton de démarrage à votre place. Pour qu’une macro se déclenche aussi à heure fixe, consultez [Lancer quelque chose à la même heure tous les jours](/fr/howto/daily-schedule/).

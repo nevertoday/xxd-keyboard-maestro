@@ -1,0 +1,101 @@
+---
+layout: ../../../layouts/Guide.astro
+step: 2
+need: Une macro que vous avez créée (celle de la leçon 1 pour débuter suffit)
+tldr: Un déclencheur décide à quel moment une macro se lance. Le choisir, c’est choisir l’instant où la tâche commence naturellement. Quand c’est vous qui intervenez, utilisez un raccourci clavier, quelques lettres tapées ou un clic. Quand c’est l’heure, utilisez l’horloge. Quand le Mac lui-même change, par exemple à l’ouverture d’une app, à la connexion à un réseau Wi-Fi ou à l’arrivée d’un nouveau fichier dans un dossier, utilisez cet événement.
+description: "Les déclencheurs : comment en ajouter un et pourquoi une macro peut en avoir plusieurs ; quatre types de moments, quand vous intervenez (raccourci clavier, texte saisi, menu d’état, palette globale), quand c’est l’heure (heure fixe, à intervalle régulier, inactivité), quand le Mac change (apps, ouverture de session et réveil, Wi-Fi, périphériques USB et disques, dossiers) et quand un autre programme l’appelle ; consulter les autres dans la liste officielle ; et les blocages les plus courants."
+---
+import Checkpoint from "../../../components/Checkpoint.astro";
+import Term from "../../../components/Term.astro";
+import Q from "../../../components/Q.astro";
+
+Vous avez créé une macro qui fait du rangement en fin de journée : tout ce qui est arrivé aujourd’hui dans votre dossier Téléchargements va dans un seul dossier. Elle fonctionne très bien, mais vous oubliez tout le temps de la lancer, parce qu’à la fin de la journée, votre esprit est déjà loin du bureau. En réalité, cette tâche n’a pas besoin que vous y pensiez. À 17 h 30, elle peut tout simplement se lancer toute seule.
+
+Un autre type de macro fonctionne à l’opposé. À quel moment vous aurez besoin de taper une longue adresse, il n’y a que vous pour le savoir ; le Mac ne peut pas le deviner, donc le signal de départ doit venir de vous. Tapez quelques lettres et il prend le relais.
+
+<mark><strong>Choisir un déclencheur, c’est choisir le moment où la tâche commence naturellement. Quand c’est vous qui intervenez, utilisez un raccourci clavier, quelques lettres tapées ou un clic. Quand c’est l’heure, utilisez l’horloge. Quand le Mac lui-même change, utilisez cet événement.</strong></mark>
+
+## Ajouter un déclencheur
+
+Les <Term k="触发器" text="déclencheurs" /> se trouvent dans la colonne de détail de la macro, sous son nom. Cliquez sur le **+** vert (**New Trigger**, nouveau déclencheur) et choisissez un type dans le menu. Certains fonctionnent dès que vous les ajoutez, comme **Status Menu Trigger** (déclencheur par le menu d’état). La plupart demandent un ou deux réglages, par exemple le raccourci clavier ou le texte à taper. Voir la page officielle [Macro Triggers](https://wiki.keyboardmaestro.com/manual/Macro_Triggers).
+
+Une macro peut avoir plusieurs déclencheurs, et n’importe lequel suffit à la lancer. Une même macro « organiser mes fenêtres » peut se lancer avec un raccourci clavier, et aussi toute seule une fois à l’ouverture de session.
+
+Une astuce bien pratique : maintenez la touche Option (⌥) enfoncée pendant que vous choisissez un élément dans le menu des déclencheurs, et Keyboard Maestro ouvre à la place la page du wiki officiel dédiée à ce déclencheur. Cette page ne présente que ceux qu’il vaut la peine de connaître en premier, et c’est le moyen le plus rapide de consulter les autres.
+
+Et gardez en tête la règle de l’[étape 1](/fr/guide/1-groups/) : un déclencheur ne compte que si la macro est activée et si son groupe est à la fois activé et actif à cet instant.
+
+## Quand vous intervenez : raccourcis clavier, texte saisi, un clic
+
+Le plus courant est **Hot Key Trigger** (déclencheur par raccourci clavier). Vous appuyez sur les touches choisies, le système intercepte cette frappe au lieu de la transmettre à l’app au premier plan, et Keyboard Maestro exécute la macro. La touche peut être une lettre, un chiffre, un symbole ou une touche de fonction, souvent combinée à une ou plusieurs touches de modification (⌃ Contrôle, ⌥ Option, ⇧ Maj, ⌘ Commande), et les chiffres du pavé numérique comptent comme des touches distinctes de ceux du clavier principal. Une touche de modification seule, comme Contrôle uniquement, ne peut pas servir de raccourci clavier. Voir la page officielle [Hot Key Trigger](https://wiki.keyboardmaestro.com/trigger/Hot_Key).
+
+En plus du déclenchement « à l’appui », vous pouvez lancer la macro au relâchement de la touche, de manière répétée tant qu’elle reste enfoncée, lors d’un appui long, ou seulement quand vous appuyez deux ou trois fois de suite. Quelle que soit l’option choisie, la touche est interceptée et perd son rôle habituel : n’utilisez donc pas une touche dont vous avez besoin pour autre chose.
+
+Le wiki donne deux conseils pour choisir vos raccourcis clavier. Gardez une logique, par exemple Contrôle plus une lettre pour taper du texte et Contrôle + Option plus une lettre pour ouvrir des apps, avec des lettres qui vous rappellent ce qu’elles font. Et évitez les raccourcis habituels avec Commande ainsi que les raccourcis propres au système. Les exemples de ce site utilisent ⌃⌥⌘ plus une lettre, une combinaison que peu d’apps réclament. Si une autre app enregistre malgré tout le même raccourci clavier, appuyer dessus fera les deux actions en même temps.
+
+L’autre déclencheur du quotidien est **Typed String Trigger** (déclencheur par texte saisi). Tapez son texte n’importe où et il se déclenche, en effaçant généralement les lettres que vous venez de taper avant de lancer la macro, ce qui le rend idéal pour les abréviations : vous tapez `=addr=`, et toute votre adresse apparaît. Voir la page officielle [Typed String Trigger](https://wiki.keyboardmaestro.com/trigger/Typed_String), ou créez-en un de zéro dans la [leçon 2 pour débuter](/fr/start/2-type-less/).
+
+Le wiki recommande tout particulièrement un préfixe et/ou un suffixe que vous ne taperiez jamais par hasard. Son exemple : n’utilisez pas `em` comme abréviation pour votre adresse e-mail, parce que la macro se déclencherait au milieu d’un mot comme « temps » (ou « them » en anglais) ; utilisez plutôt `=em=`. Tous les exemples de ce site suivent cette règle, avec un signe égal de chaque côté : `=addr=`, `=sig=`.
+
+Plusieurs gestes interrompent un texte saisi : Maj + Espace, n’importe quelle touche combinée à Contrôle ou Commande, un changement d’app, un clic de souris ou une pause de plus de quelques secondes. Pour taper `=addr=` tel quel sans qu’il se développe, tapez Maj + Espace au milieu, puis effacez cet espace. Ce déclencheur ne fonctionne jamais dans les champs de mot de passe, et pas très bien non plus dans les propres fenêtres de Keyboard Maestro.
+
+Certaines macros servent trop rarement pour que vous reteniez un raccourci clavier : placez-les alors à un endroit où vous pouvez cliquer. **Status Menu Trigger** ajoute la macro au menu situé sous l’icône de Keyboard Maestro dans la barre des menus, le <Term k="状态菜单" text="menu d’état" /> ; choisissez son nom et elle se lance. D’après le wiki, il convient bien aux macros qui s’apparentent à des commandes de menu, comme ouvrir ou traiter des fichiers ou organiser des fenêtres. **Global Macro Palette Trigger** (déclencheur de la palette globale) place la macro sur une palette flottante à l’écran ; il suffit de cliquer dessus pour la lancer. Les deux n’affichent que les macros actives à cet instant : si votre groupe n’est disponible que dans Safari, elles n’apparaissent donc que lorsque Safari est au premier plan. Cliquez sur une entrée en maintenant la touche Option enfoncée pour ouvrir directement cette macro en édition.
+
+## Quand c’est l’heure : l’horloge
+
+La macro de rangement de fin de journée vue au début de cette page utilise **Time of Day Trigger** (déclencheur à heure fixe) : choisissez une heure, puis cochez les jours de la semaine. Voir la page officielle [Time of Day Trigger](https://wiki.keyboardmaestro.com/trigger/Time_of_Day).
+
+Il a toutefois une particularité à connaître. Le Mac doit être éveillé à cette heure-là. S’il est en veille, cette exécution est tout simplement manquée et ne sera pas rattrapée au réveil. Si l’écran est verrouillé ou si l’économiseur d’écran est en marche, la macro se lance bien, mais beaucoup d’actions qui agissent sur l’interface, comme taper du texte ou choisir un menu, ne fonctionneront pas.
+
+Pour lancer une macro « à intervalle régulier » plutôt qu’« à telle heure », utilisez **Periodic Trigger** (déclencheur périodique) : elle se déclenche régulièrement selon un intervalle choisi en secondes, en minutes ou en heures, éventuellement seulement pendant une partie de la journée ou certains jours. Le wiki déconseille les intervalles très courts, comme toutes les quelques secondes, parce qu’ils sollicitent beaucoup le processeur et peuvent perturber d’autres tâches. Une plage qui dépasse minuit s’arrête à minuit ; ajoutez un second déclencheur pour prendre le relais. Voir la page officielle [Periodic Trigger](https://wiki.keyboardmaestro.com/trigger/Periodic).
+
+Deux autres options existent : **Idle Trigger** (déclencheur d’inactivité) se déclenche lorsque vous n’avez pas touché au clavier ni à la souris depuis un certain temps, par exemple vingt minutes loin de votre bureau, et si vous connaissez la syntaxe cron, il y a aussi **Cron Trigger** (déclencheur cron). Pour suivre pas à pas la création de macros planifiées, consultez la fiche pratique [Lancer quelque chose à la même heure tous les jours](/fr/howto/daily-schedule/).
+
+## Quand le Mac lui-même change
+
+Il existe aussi des tâches dont le point de départ n’est ni une touche sur laquelle vous appuyez ni une heure précise, mais un petit changement sur le Mac lui-même.
+
+**Application Trigger** (déclencheur d’application) se déclenche quand une app donnée (ou n’importe quelle app) s’ouvre, est quittée, passe au premier plan ou à l’arrière-plan, ou encore régulièrement pendant qu’elle tourne ou reste au premier plan. Par exemple, si chaque fois que vous ouvrez Aperçu vous déplacez sa fenêtre sur la moitié droite de l’écran, confiez cette tâche à ce déclencheur. N’oubliez pas le piège de l’[étape 1](/fr/guide/1-groups/) : une macro qui attend l’ouverture d’une app doit se trouver dans un groupe toujours actif. Voir la page officielle [Application Trigger](https://wiki.keyboardmaestro.com/trigger/Application).
+
+**Login Trigger** (déclencheur d’ouverture de session) se déclenche lorsque vous ouvrez votre session et que le moteur démarre en même temps, en général parce que vous avez coché **Launch Engine at Login** (lancer le moteur à l’ouverture de session). Le wiki le conseille pour préparer votre Mac comme vous l’aimez. Ses proches cousins sont **Wake Trigger** (au réveil), **Sleep Trigger** (à la mise en veille) et **Unlock Trigger** (au déverrouillage de l’écran).
+
+**Wireless Network Trigger** (déclencheur de réseau sans fil) se déclenche quand vous rejoignez ou quittez un réseau Wi-Fi. Lorsque votre portable rejoint le réseau du bureau, la macro peut ouvrir les apps dont vous avez besoin pour travailler ; quand il rejoint celui de la maison, elle passe à une autre série d’apps. Il peut reconnaître le réseau par son nom ou, comme le préfère le wiki, par son BSSID, parce que beaucoup de réseaux s’appellent « Maison » ou « Bureau ». Deux autres points à savoir : à partir de macOS 14, Keyboard Maestro Engine a besoin de l’autorisation de localisation pour pouvoir lire les informations Wi-Fi. De plus, le Mac se déconnecte puis se reconnecte au Wi-Fi à chaque mise en veille et à chaque réveil ; ces macros doivent donc pouvoir tourner plusieurs fois sans poser problème. Voir la page officielle [Wireless Network Trigger](https://wiki.keyboardmaestro.com/trigger/Wireless_Network).
+
+**USB Device Trigger** (déclencheur de périphérique USB) se déclenche quand un périphérique USB est branché ou débranché. L’exemple du wiki consiste à ouvrir votre logiciel de numérisation quand vous allumez le scanner, puis à le quitter quand vous l’éteignez. Les noms de périphériques sont difficiles à deviner : placez donc le curseur dans le champ du nom et branchez l’appareil, Keyboard Maestro remplira le nom à votre place. Pour un disque, utilisez **Mounted Volume Trigger** (déclencheur de volume monté), par exemple pour lancer une sauvegarde dès que le disque de sauvegarde est branché. Pour suivre pas à pas des macros Wi-Fi et USB, consultez la fiche pratique [Faire quelque chose quand vous rejoignez un réseau Wi-Fi ou branchez un appareil](/fr/howto/wifi-usb/).
+
+**Folder Trigger** (déclencheur de dossier) se déclenche quand un élément est ajouté à un dossier ou retiré de celui-ci, par exemple un nouveau fichier qui arrive dans Téléchargements et que vous voulez ranger à sa place. Il ne surveille que ce dossier lui-même, pas les changements dans ses sous-dossiers. Il peut aussi attendre qu’un fichier ait fini d’être téléchargé ou copié afin de ne jamais agir sur un fichier incomplet, mais cela ajoute un léger délai, parce qu’il doit attendre que le fichier cesse de changer pour en être sûr. Voir la page officielle [Folder Trigger](https://wiki.keyboardmaestro.com/trigger/Folder) et la fiche pratique [Ranger des fichiers dès qu’ils arrivent dans un dossier](/fr/howto/watch-folder/).
+
+Il en existe bien d’autres dans la même veine : un écran branché ou débranché (**Display Layout Changed Trigger**), l’adaptateur secteur branché ou débranché (**Power Status Changed Trigger**), un changement de sortie audio, par exemple quand vous branchez un casque (**Audio Output Device Changed Trigger**), une modification du presse-papiers (**Clipboard Changed Trigger**), ou encore le passage du système entre l’apparence claire et l’apparence sombre (**Appearance Changed Trigger**).
+
+## Quand un autre programme l’appelle
+
+La dernière catégorie laisse quelque chose d’autre lancer la macro : une autre macro qui l’appelle par son nom grâce à une action, un AppleScript ou une commande shell, une URL commençant par `kmtrigger://`, ou même un navigateur sur un autre appareil qui la déclenche à distance. Comme tout cela fait appel aux scripts et au réseau, nous y reviendrons à l’[étape 7](/fr/guide/7-advanced/).
+
+## Pour tout le reste, la liste officielle
+
+Keyboard Maestro propose plus d’une trentaine de types de déclencheurs. Cette page ne les passe pas tous en revue, et vous n’avez pas besoin de les retenir par cœur. Quand vous en cherchez un, maintenez la touche Option enfoncée en le choisissant dans le menu des déclencheurs, ou parcourez la liste officielle [Triggers](https://wiki.keyboardmaestro.com/Triggers), où chacun dispose de sa propre page.
+
+Toute l’idée de cette étape tient en une phrase : réfléchissez au moment où la tâche commence naturellement, puis choisissez le déclencheur qui correspond à ce moment. Viennent ensuite les actions, c’est-à-dire tout ce que la macro fait pour vous une fois lancée.
+
+## Si quelque chose cloche
+
+<Q q="J’appuie sur le raccourci clavier et rien ne se passe.">
+<p>Vérifiez que la macro et son groupe sont tous les deux activés, et que le groupe est bien actif à cet instant ; par exemple, n’appuyez-vous pas sur le raccourci dans une app que le groupe n’inclut pas ? Choisissez ensuite <strong>Help ▸ Interactive Help</strong> (aide interactive), qui vérifie un par un les autorisations, le groupe et le déclencheur, puis vous indique où ça bloque. Vous trouverez la liste complète des vérifications à l’<a href="/fr/guide/6-debug/">étape 6</a>.</p>
+</Q>
+<Q q="Je tape l’abréviation et rien ne se passe.">
+<p>Faire une pause de quelques secondes, cliquer avec la souris ou changer d’app en cours de frappe annule tout : recommencez depuis le début. Le déclencheur ne fonctionne jamais dans les champs de mot de passe, et mal dans les propres fenêtres de Keyboard Maestro. S’il ne marche nulle part, le système est peut-être bloqué en mode « Saisie sécurisée », croyant que vous êtes toujours dans un champ de mot de passe : <strong>Help ▸ Interactive Help</strong> sait le détecter. Voir la page officielle <a href="https://wiki.keyboardmaestro.com/Troubleshooting">Troubleshooting</a>.</p>
+</Q>
+<Q q="L’abréviation se développe là où je ne voulais pas.">
+<p>Le texte saisi correspond à une suite de lettres que vous tapez normalement. Comme le conseille le wiki, ajoutez un préfixe et un suffixe que vous ne taperiez jamais par hasard, par exemple <code>=sig=</code> au lieu d’un simple <code>sig</code>.</p>
+</Q>
+<Q q="Ma macro planifiée ne s’est pas lancée la nuit dernière.">
+<p>Le Mac était très probablement en veille. S’il dort à l’heure prévue, cette exécution est manquée et ne sera pas rattrapée au réveil. Lorsque l’écran est verrouillé, la macro se lance bien, mais les actions comme taper du texte ou choisir un menu ne fonctionnent pas.</p>
+</Q>
+<Q q="J’ai rejoint un réseau Wi-Fi et la macro ne s’est pas lancée.">
+<p>À partir de macOS 14, Keyboard Maestro Engine a besoin de l’autorisation de localisation pour lire les informations Wi-Fi. Dans <strong>Réglages Système ▸ Confidentialité et sécurité</strong>, regardez sous Service de localisation et vérifiez qu’il est bien autorisé. S’il n’apparaît pas du tout dans la liste, la solution conseillée par les développeurs consiste à exécuter une fois une action <strong>Get Location</strong> (obtenir la position) dans une macro pour que le système vous demande l’autorisation (<a href="https://wiki.keyboardmaestro.com/Frequently_Asked_Questions">FAQ officielle</a>).</p>
+</Q>
+<Q q="Une macro s’est lancée deux fois.">
+<p>Vérifiez si elle n’a pas deux déclencheurs qui se sont produits tous les deux, par exemple un à l’ouverture de session et un à la connexion au Wi-Fi. Le déclencheur Wi-Fi se déclenche aussi de nouveau après chaque mise en veille suivie d’un réveil ; concevez donc ces macros pour qu’elles puissent tourner plusieurs fois sans souci.</p>
+</Q>
+
+<Checkpoint id="s2" items={["Je sais comment ajouter un déclencheur et qu’une macro peut en avoir plusieurs", "J’ai donné à une macro que j’utilise souvent un raccourci clavier qui n’entre pas en conflit, ou une abréviation entourée d’un repère de chaque côté", "Je sais qu’une macro planifiée ne se lance que si le Mac est éveillé", "Je sais que maintenir la touche Option en choisissant un déclencheur ouvre sa page dans le wiki officiel"]} />
