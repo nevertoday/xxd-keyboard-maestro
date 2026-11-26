@@ -1,0 +1,19 @@
+{
+  "lessons": {
+    "1-first-macro": {
+      "title": "Installieren und deine Lieblings-App mit einer Taste öffnen",
+      "minutes": "15 Minuten",
+      "sum": "Herunterladen, Berechtigungen erteilen, die Engine laufen lassen und dann dein erstes Makro bauen: ein Tastenkürzel, das die App öffnet, die du jeden Tag nutzt"
+    },
+    "2-type-less": {
+      "title": "Ein paar Buchstaben tippen, einen ganzen Absatz bekommen",
+      "minutes": "10 Minuten",
+      "sum": "Die Adresse, Einleitung oder Antwort, die du jeden Tag tippst, kommt in einen Texteingabe-Auslöser: Du tippst ein paar Buchstaben ein und schon erscheint der ganze Text"
+    },
+    "3-one-key-routine": {
+      "title": "Eine Taste, eine ganze Routine",
+      "minutes": "15 Minuten",
+      "sum": "Mach aus deinen morgendlichen Klicks ein einziges Makro: ein paar Apps und eine Webseite öffnen, die Fenster an ihren Platz schieben – und dann lernst du, wie du es stoppst und wo du nachschaust, wenn etwas nicht klappt"
+    }
+  }
+}

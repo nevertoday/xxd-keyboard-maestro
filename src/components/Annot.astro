@@ -9,12 +9,13 @@
 // 电脑版截图点开是原图。截图永远是亮色的，所以标注用固定的红色，外面一圈白边，暗色主题下也看得清。
 // 进入视野后按顺序画出来；系统设了减少动效、或者没有脚本时直接显示完整的标注。
 import { link, langOf } from "../data/nav.js";
+import { ui } from "../data/ui.js";
+import { fmt } from "../l10n/load.js";
 interface Mark { box?: number[]; arrow?: number[]; n?: number; label?: string; bend?: number; at?: number[]; dir?: number }
 interface Shot { src: string; w: number; h: number; marks: Mark[]; alt?: string }
 interface Props extends Shot { alt: string; m?: Shot; caption?: string; date?: string }
 const { m, caption, date = "2026-11" } = Astro.props;
-const en = langOf(Astro.url.pathname) === "en";
-const stamp = en ? `Screenshot ${date}; the page may have changed since.` : `截图于 ${date}，页面以实际为准。`;
+const stamp = fmt(ui(langOf(Astro.url.pathname)).annot.stamp, { date });
 
 const r = (v: number) => Math.round(v * 10) / 10;
 const layout = ({ src, w, h, marks, alt }: Shot, kind: "d" | "m" | "") => {

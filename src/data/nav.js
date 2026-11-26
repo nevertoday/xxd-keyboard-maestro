@@ -1,10 +1,17 @@
-import { EXTRA } from "../i18n/index.js";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { load, overlay, L10N_LANGS } from "../l10n/load.js";
 // 站点结构的唯一来源：左侧导航、首页路线图、上一步 / 下一步、How-to 目录、搜索都从这里读。
 // ready: false 的页面还没写，导航里显示「编写中」，不给链接。
 // 中文在根路径，英文在 /en/ 下（同样的 slug）。英文文字放在各条目的 en: {} 里，用 t(x, key, lang) 取。
+// 另外 8 种语言的文字在 src/l10n/<语言>/nav.json，加载时叠到各条目的 <语言>: {} 上（见文件末尾）。
 
 const BASE = (import.meta.env?.BASE_URL || "/").replace(/\/$/, "");
-/** 网站的语言。full: true 是全站。v1 只有英文、中文；以后加的语言可以只有首页和新手入门三课，别的页面链到英文版（不写 full，见 docs/TRANSLATE.md）。 */
+/**
+ * 网站的语言。zh、en 是全站。另外 8 种语言 full: true 才是全站（导航、搜索、链接都指向 /<语言>/…）；
+ * 没有 full 的只有首页和新手入门三课，别的页面链到英文版，构建后 scripts/l10n-dist.mjs 把它们已有的其他页面删掉。
+ * 预览一种还没打开的语言：L10N_FULL=ja npm run build（逗号分隔几种），不用改这里。
+ */
 export const LANGS = [
   { code: "en", name: "English", html: "en", full: true },
   { code: "zh", name: "中文", html: "zh-CN", full: true },
@@ -17,23 +24,40 @@ export const LANGS = [
   { code: "ru", name: "Русский", html: "ru" },
   { code: "ar", name: "العربية", html: "ar", dir: "rtl" },
 ];
+const PREVIEW = (globalThis.process?.env?.L10N_FULL || "").split(",").map((x) => x.trim()).filter(Boolean);
+const FULL = new Set([...LANGS.filter((l) => l.full).map((l) => l.code), ...PREVIEW]);
 export const langInfo = (lang) => LANGS.find((l) => l.code === lang) ?? LANGS[0];
 const PREFIXED = LANGS.filter((l) => l.code !== "zh").map((l) => l.code);
 const PREFIX_RE = new RegExp(`^/(${PREFIXED.join("|")})(?=/|$)`);
-/** 当前页面的语言：看路径前缀（/en/……），没有前缀是中文 */
+/** 当前页面的语言：看路径前缀（/en/、/ja/……），没有前缀是中文 */
 export const langOf = (pathname = "") => pathname.slice(BASE.length).match(PREFIX_RE)?.[1] ?? "zh";
-/** 这种语言有没有全站 */
-export const isFull = (lang) => langInfo(lang).full === true;
+/** 去掉子路径和语言前缀以后的站内路径：/ja/guide/1-groups/ → /guide/1-groups/ */
+export const stripLang = (pathname = "") => (pathname.slice(BASE.length) || "/").replace(PREFIX_RE, "") || "/";
+/** 这种语言是不是全站（zh、en 是；另外 8 种看 LANGS 里的 full 和 L10N_FULL） */
+export const isFull = (lang) => FULL.has(lang);
 /** 只在全站语言里存在的页面（完整教程、How-to、Wiki、常见问题）：非全站语言链到英文版 */
 export const fullLang = (lang) => (isFull(lang) ? lang : "en");
 /** 站内链接：部署在子路径时自动加前缀；非中文加 /<语言> */
 export const link = (path, lang = "zh") => `${BASE}${lang === "zh" ? "" : "/" + lang}${path}`;
+/**
+ * 这种语言有没有这一页（path 不带语言前缀，如 /guide/1-groups/）。中文、英文全都有；首页和新手入门每种语言都有；
+ * 全站语言里，完整教程和 How-to 要 src/pages/<语言>/ 下有那篇 MDX（还没翻的那篇链到英文版），其余页面由数据生成，都有。
+ */
+export const hasPage = (lang, path) => {
+  if (lang === "zh" || lang === "en") return true;
+  if (path === "/" || path.startsWith("/start/")) return true;
+  if (!isFull(lang) || /^\/404\/?$/.test(path)) return false;
+  const m = path.match(/^\/(guide|howto)\/([^/]+)\/$/);
+  return m ? existsSync(join(process.cwd(), "src/pages", lang, m[1], `${m[2]}.mdx`)) : true;
+};
+/** 链到一页：这种语言有这一页就用它，没有就用英文版 */
+export const pageLang = (path, lang) => (hasPage(lang, path) ? lang : "en");
+export const href = (path, lang = "zh") => link(path, pageLang(path, lang));
 /** 同一页在另一种语言里的地址：那种语言没有这一页，就去它的首页 */
 export const langHref = (pathname, target) => {
-  const rel = (pathname.slice(BASE.length) || "/").replace(PREFIX_RE, "") || "/";
+  const rel = stripLang(pathname);
   if (/\/404\/?$/.test(rel)) return link("/", target);
-  if (isFull(target) || rel === "/" || rel.startsWith("/start/")) return link(rel, target);
-  return link("/", target);
+  return hasPage(target, rel) ? link(rel, target) : link("/", target);
 };
 /** 取某个对象在当前语言下的字段：先找 x[lang][key]，再找 x.en[key]（非中文的兜底），最后是中文 */
 export const t = (x, key, lang) => {
@@ -55,8 +79,6 @@ export const LESSONS = [
   { n: 2, slug: "2-type-less", title: "打几个字，出来一整段", minutes: "10 分钟", sum: "每天重复打的地址、自我介绍、回复，交给一个输入字符串触发器：打出几个字母，整段文字自己出现", en: { title: "Type a few letters, get a whole paragraph", minutes: "10 minutes", sum: "The address, intro or reply you type every day goes into a typed string trigger: type a few letters and the whole text appears" } },
   { n: 3, slug: "3-one-key-routine", title: "一个键，做完一串事", minutes: "15 分钟", sum: "把每天开工要点的那几下排成一个宏：打开几个 App、打开一个网页、把窗口摆好；再学会让它停下、不灵时去哪看", en: { title: "One key, a whole routine", minutes: "15 minutes", sum: "Turn the clicks you make every morning into one macro: open a few apps and a web page, put the windows in place, then learn to stop it and where to look when it misfires" } },
 ];
-// 以后加的语言：新手入门标题、时间、简介在 src/i18n/<语言>.js 的 lessons 里，按顺序叠到这里
-for (const [code, d] of Object.entries(EXTRA)) (d.lessons || []).forEach((l, i) => { if (LESSONS[i]) LESSONS[i][code] = l; });
 export const lessonHref = (s, lang = "zh") => link(`/start/${s.slug}/`, lang);
 
 export const STEPS = [
@@ -69,46 +91,46 @@ export const STEPS = [
   { n: 6, slug: "6-debug", title: "宏不灵的时候", minutes: "15 分钟", ready: true, sum: "先看权限和引擎，再看宏组有没有生效；还不行，用调试器一步一步走，或者翻引擎日志", en: { title: "When a macro doesn't work", minutes: "15 minutes", sum: "Check permissions and the Engine first, then whether the group is active. Still stuck? Step through with the debugger or read the Engine log" } },
   { n: 7, slug: "7-advanced", title: "再往深走：脚本、子程序、同步和分享", minutes: "读 10 分钟", ready: true, sum: "接上 Shell、AppleScript 和 JavaScript，把常用的几步做成子程序，在两台 Mac 之间同步，把宏分享给别人", en: { title: "Going further: scripts, subroutines, syncing and sharing", minutes: "10-minute read", sum: "Hook in shell scripts, AppleScript and JavaScript, turn repeated steps into subroutines, sync between two Macs, and share macros with others" } },
 ];
-export const stepHref = (s, lang = "zh") => link(`/guide/${s.slug}/`, lang);
+export const stepHref = (s, lang = "zh") => href(`/guide/${s.slug}/`, lang);
 
+// How-to 每组的 id 只用来对上另外 8 种语言的翻译（src/l10n/<语言>/nav.json 的 howtoGroups）
 export const HOWTO = [
-  { group: "打字和文字", en: { group: "Typing and text" }, items: [
+  { id: "text", group: "打字和文字", en: { group: "Typing and text" }, items: [
     { slug: "text-snippets", title: "把常打的话做成缩写", en: { title: "Turn the things you type often into abbreviations" } },
     { slug: "insert-date", title: "一键插入今天的日期", en: { title: "Insert today's date with one key" } },
     { slug: "paste-plain", title: "粘贴时去掉格式", en: { title: "Paste without the formatting" } },
     { slug: "fill-form", title: "重复的表格一键填好", en: { title: "Fill in the same form with one key" } },
   ]},
-  { group: "App 和窗口", en: { group: "Apps and windows" }, items: [
+  { id: "apps", group: "App 和窗口", en: { group: "Apps and windows" }, items: [
     { slug: "app-hotkeys", title: "一个键切到某个 App", en: { title: "Jump to an app with one key" } },
     { slug: "window-layout", title: "把窗口摆到固定的位置", en: { title: "Put your windows where you want them" } },
     { slug: "menu-shortcut", title: "给没有快捷键的菜单配一个", en: { title: "Give a menu command a shortcut it doesn't have" } },
   ]},
-  { group: "文件", en: { group: "Files" }, items: [
+  { id: "files", group: "文件", en: { group: "Files" }, items: [
     { slug: "rename-files", title: "批量给文件改名", en: { title: "Rename a batch of files" } },
     { slug: "watch-folder", title: "文件一进文件夹就自动归档", en: { title: "File things away as soon as they land in a folder" } },
   ]},
-  { group: "屏幕和鼠标", en: { group: "Screen and mouse" }, items: [
+  { id: "screen", group: "屏幕和鼠标", en: { group: "Screen and mouse" }, items: [
     { slug: "click-image", title: "找到屏幕上的按钮，点它", en: { title: "Find a button on screen and click it" } },
     { slug: "ocr-text", title: "把屏幕上的字认出来", en: { title: "Read the text off your screen" } },
   ]},
-  { group: "到点就做", en: { group: "On schedule" }, items: [
+  { id: "schedule", group: "到点就做", en: { group: "On schedule" }, items: [
     { slug: "daily-schedule", title: "每天到点自动跑", en: { title: "Run something at the same time every day" } },
     { slug: "wifi-usb", title: "连上某个 Wi-Fi、插上某个设备时自动做事", en: { title: "Do something when you join a Wi-Fi network or plug in a device" } },
   ]},
-  { group: "和你商量", en: { group: "Asking you first" }, items: [
+  { id: "ask", group: "和你商量", en: { group: "Asking you first" }, items: [
     { slug: "ask-input", title: "先问你一句，再动手", en: { title: "Ask a question before doing the work" } },
     { slug: "palette", title: "做一排点一下就跑的按钮", en: { title: "Make a row of buttons that run macros" } },
   ]},
-  { group: "保管和分享", en: { group: "Keeping and sharing" }, items: [
+  { id: "keep", group: "保管和分享", en: { group: "Keeping and sharing" }, items: [
     { slug: "sync-macs", title: "两台 Mac 用同一套宏", en: { title: "Use the same macros on two Macs" } },
     { slug: "share-macros", title: "导出、导入和分享宏", en: { title: "Export, import and share macros" } },
     { slug: "stop-macro", title: "宏停不下来怎么办", en: { title: "When a macro won't stop" } },
   ]},
 ];
-export const howtoHref = (slug, lang = "zh") => link(`/howto/${slug}/`, lang);
-export const HOWTO_FLAT = HOWTO.flatMap((g) => g.items.map((i) => ({ ...i, group: g.group, groupEn: g.en.group })));
+export const howtoHref = (slug, lang = "zh") => href(`/howto/${slug}/`, lang);
 
-export const wikiHref = (slug, lang = "zh") => link(`/wiki/${slug}/`, lang);
+export const wikiHref = (slug, lang = "zh") => href(`/wiki/${slug}/`, lang);
 
 // 正文里虚线标出的术语：悬停看一句话解释（Term 组件）。wiki: 对应的 Wiki 条目（src/data/wiki.js 的 slug）。
 // 依据 Keyboard Maestro 官方 Wiki（wiki.keyboardmaestro.com），出处跟着各自的 Wiki 条目走。tip 一句话说清楚，像朋友顺口解释。
@@ -138,4 +160,33 @@ export const GLOSSARY = {
   插件动作: { tip: "你自己写、或者从别人那里下载来装进 Keyboard Maestro 的动作，装上以后和自带的动作一样用。", wiki: "plug-in-action", en: { label: "plug-in action", tip: "An action you write yourself or download from someone else, install into Keyboard Maestro, and use like a built-in one." } },
   调试器: { tip: "让宏一步一步走、随时暂停的工具，用来看宏卡在了哪一步。", wiki: "debugger", en: { label: "debugger", tip: "A tool that runs a macro one step at a time, so you can see where it goes wrong." } },
   引擎日志: { tip: "引擎记的流水账。宏出错时，去这里看它报了什么错。", wiki: "debugger", en: { label: "Engine log", tip: "The Engine's running record. When a macro fails, look here for the errors it reported." } },
+};
+
+// 另外 8 种语言：src/l10n/<语言>/nav.json 的文字叠到各条目的 <语言>: {} 上（缺的键用英文），t(x, key, lang) 就能取到。
+// 结构见 src/l10n/en/nav.json（scripts/l10n.mjs export 从上面的 en: {} 生成）。
+for (const code of L10N_LANGS) {
+  const n = load(code, "nav");
+  if (!n) continue;
+  for (const s of LESSONS) s[code] = overlay(s.en, n.lessons?.[s.slug]);
+  for (const s of STEPS) s[code] = overlay(s.en, n.steps?.[s.slug]);
+  HOWTO.forEach((g) => {
+    g[code] = overlay(g.en, { group: n.howtoGroups?.[g.id] });
+    for (const it of g.items) it[code] = overlay(it.en, { title: n.howto?.[it.slug] });
+  });
+  for (const [k, g] of Object.entries(GLOSSARY)) g[code] = overlay(g.en, n.glossary?.[k]);
+}
+/** How-to 拉平成一列；grp 是所在的组（组名用 t(h.grp, "group", lang) 取） */
+export const HOWTO_FLAT = HOWTO.flatMap((g) => g.items.map((i) => ({ ...i, group: g.group, groupEn: g.en.group, grp: g })));
+/** 翻译模板（src/l10n/en/nav.json）：新手三课、完整教程每一步、How-to 的组名和标题、术语的名字和一句话解释 */
+export const navTemplate = () => ({
+  lessons: Object.fromEntries(LESSONS.map((s) => [s.slug, s.en])),
+  steps: Object.fromEntries(STEPS.map((s) => [s.slug, s.en])),
+  howtoGroups: Object.fromEntries(HOWTO.map((g) => [g.id, g.en.group])),
+  howto: Object.fromEntries(HOWTO_FLAT.map((h) => [h.slug, h.en.title])),
+  glossary: Object.fromEntries(Object.entries(GLOSSARY).map(([k, g]) => [k, g.en])),
+});
+/** 术语在某种语言里的名字和一句话解释（中文的名字就是键） */
+export const termOf = (k, lang) => {
+  const g = GLOSSARY[k];
+  return lang === "zh" ? { label: k, tip: g.tip } : { label: t(g, "label", lang), tip: t(g, "tip", lang) };
 };

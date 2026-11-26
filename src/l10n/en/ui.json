@@ -1,0 +1,243 @@
+{
+  "site": {
+    "brand": "Keyboard Maestro for beginners",
+    "desc": "An unofficial guide to Keyboard Maestro: hand the typing, clicking and app-opening you repeat on your Mac every day to macros. From installing it and building your first macro to variables, the clipboard and debugging, in plain words.",
+    "skip": "Skip to content",
+    "menu": "Open menu",
+    "search": "Search the guide",
+    "searchPh": "Search lessons, steps, how-tos, terms, questions…",
+    "searchEmpty": "Nothing found. Try another word",
+    "look": "Appearance",
+    "lang": "Language",
+    "repo": "This guide on GitHub",
+    "repoMore": "More: the official Keyboard Maestro wiki and website",
+    "repoDefault": "Default",
+    "repos": [
+      [
+        "This guide",
+        "Source for this guide; file issues here"
+      ],
+      [
+        "Keyboard Maestro Wiki",
+        "The source of truth for features and how they work"
+      ],
+      [
+        "Keyboard Maestro website",
+        "Download and purchase"
+      ]
+    ],
+    "navLabel": "Site navigation",
+    "start": "Start",
+    "home": "Home",
+    "lessons": "Beginner track: three lessons",
+    "main": "Full guide: to go further",
+    "pending": "In progress",
+    "ref": "Reference",
+    "howto": "How-to: how exactly",
+    "wiki": "Wiki: what is it",
+    "faq": "FAQ",
+    "toc": "On this page",
+    "tocLabel": "On this page",
+    "hintMain": "Full guide",
+    "hintLesson": "Beginner track",
+    "hintFaq": "FAQ",
+    "section": "Section",
+    "docsLink": "official wiki",
+    "foot": "An unofficial guide to Keyboard Maestro, not affiliated with Stairways Software. Keyboard Maestro is a trademark of Stairways Software Pty Ltd. For features and how they work, the {docs} is the source of truth. Source and feedback for this guide are on {github}.",
+    "appearance": {
+      "group": "Appearance",
+      "theme": "Theme",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "corners": "Rounded corners",
+      "cornersDesc": "Off keeps every corner square",
+      "accent": "Accent",
+      "accentDesc": "Used for buttons, selection and focus"
+    }
+  },
+  "home": {
+    "h1": "Hand the things you repeat on your Mac every day to Keyboard Maestro",
+    "lead": [
+      "Keyboard Maestro is a Mac automation app from Stairways Software. You tell it when and what: press this key and open that app, type these few letters and swap in a whole paragraph. Once you've told it, it does the job in the background, the same way every time. This site is for people who have never automated anything, and for people who already use it and want to go further. ",
+      "This is an unofficial guide",
+      ", not affiliated with Stairways Software. For features and how they work, the official wiki is the source of truth."
+    ],
+    "cta": "New? Start with lesson 1",
+    "ctaHowto": "Already using it? The how-tos",
+    "ctaNote": "Lesson 1 builds a key that opens an app, lesson 2 turns a few letters into a whole paragraph, and lesson 3 makes one key run your start-of-day routine. No code needed.",
+    "painH": "Sound familiar?",
+    "PAIN": [
+      "Answering parents, customers or colleagues, you type \"Got it, thanks, I'll get back to you by Friday\" letter by letter several times a day.",
+      "Every morning you open Mail, Calendar and the same web page, then drag each window back where it belongs before you can start.",
+      "There's a menu command you use every day that has no shortcut, so every time you go hunting for it with the mouse.",
+      "Every job application or quote means copying the same intro and the same contact details out of the last one.",
+      "You copy something important, then copy something else, and the first thing is gone for good.",
+      "Every evening at the same time you're meant to open the same spreadsheet and log your parents' blood pressure, and on busy days you forget."
+    ],
+    "lessonsH": "Beginners need just three lessons",
+    "lessonsP": "Read them in order. Each takes ten or fifteen minutes and you build as you go. After these three you can make your own macros, and everything else on the site is there to look up when you need it.",
+    "lessonsLabel": "Beginner track: 3 lessons",
+    "tracksH": "Once you're comfortable",
+    "tracksP": "After a few macros you'll want it to do more. The full guide runs in 8 steps, roughly along three tracks. Start with whichever one you need right now.",
+    "TRACKS": [
+      [
+        "How a macro runs",
+        "Macro groups decide where a macro works, triggers decide when it starts, and actions say what it does. Understand those three and you can build most macros yourself."
+      ],
+      [
+        "Macros that adapt",
+        "Remember some text, ask you a question, take a different path depending on what's happening, wait for something before carrying on. And get back anything you've copied."
+      ],
+      [
+        "When it misfires, and going further",
+        "When a macro doesn't work, check permissions and the Engine first, then step through to see where it gets stuck. Later, hook in scripts, use the same macros on two Macs, and share macros with others."
+      ]
+    ],
+    "tracksLabel": "Matching steps in the full guide",
+    "stepLink": "Step {n}: {title}",
+    "pending": "In progress",
+    "fitH": "Is it for you?",
+    "yesH": "Yes, if",
+    "noH": "Not yet, if",
+    "YES": [
+      "There's something you do on your Mac several times a day and you'd like to hand it off",
+      "You don't write code. The three beginner lessons don't need a single line",
+      "You're willing to spend a few minutes granting it system permissions like Accessibility, since it presses keys, chooses menus and moves windows for you",
+      "You want to try before you decide. It's paid software, and the official site has a fully working trial"
+    ],
+    "NO": [
+      "You're not on a Mac. It's Mac only and needs macOS 10.13 or later",
+      "You don't want to give any app system permissions. Without them, many macros can't run",
+      "It's a one-off job. Doing it once by hand is quicker"
+    ]
+  },
+  "lesson": {
+    "eyebrow": "Beginner track · lesson {n} of {total}",
+    "prog": "Progress: lesson {n} of {total}",
+    "nav": "Previous and next lesson",
+    "prev": "Previous",
+    "next": "Next",
+    "title": "Lesson {n}: {title}",
+    "tldr": "In one line"
+  },
+  "guide": {
+    "head": "Step {n}: {title}",
+    "eyebrow": "Full guide · step {n} of {last}",
+    "prog": "Progress: step {n} of {last}",
+    "need": "You need: ",
+    "nav": "Previous and next step",
+    "prev": "Previous",
+    "next": "Next",
+    "pending": "Next (in progress)",
+    "tldr": "In one line"
+  },
+  "howto": {
+    "tldr": "In one line",
+    "for": "For: ",
+    "step": "Full guide step {n}: ",
+    "related": "Related articles",
+    "more": "More in “{group}”"
+  },
+  "howtoIndex": {
+    "h": "How-to: how exactly",
+    "p": "One task per article: find the one that matches your situation and follow it."
+  },
+  "faq": {
+    "h": "FAQ",
+    "p": [
+      "The questions that come up most when people first use Keyboard Maestro. Didn't find yours? Open one on ",
+      ", or press ",
+      " to search the whole site."
+    ]
+  },
+  "notFound": {
+    "h": "Page not found",
+    "p": [
+      "The link may be wrong, or the page has moved. Press ",
+      " to search, or start again from here:"
+    ],
+    "home": "Home",
+    "step0": "Beginner track: lesson 1",
+    "howto": "How-to",
+    "faq": "FAQ"
+  },
+  "wikiIndex": {
+    "h": "Wiki: what is it",
+    "p1": "Every term in the guide, explained in plain words. Each one starts with a single sentence; read on only if you want more.",
+    "p2": "Don't want the full article? Hover over any word with a dotted underline in the guide for a one-line explanation; click it to come here."
+  },
+  "wikiEntry": {
+    "like": "An analogy",
+    "here": "In Keyboard Maestro",
+    "list": "List",
+    "head": [
+      "Name",
+      "In plain words"
+    ],
+    "myths": "Common misconceptions",
+    "try": "Try it: ",
+    "step": "Full guide step {n}: ",
+    "see": "Related: ",
+    "sep": ", "
+  },
+  "callout": {
+    "ok": "You should see",
+    "warn": "Heads up",
+    "no": "Don't do this",
+    "tip": "Tip"
+  },
+  "checkpoint": {
+    "title": "Before moving on, check",
+    "done": "All ticked — on to the next step."
+  },
+  "copy": {
+    "title": "Copy this",
+    "copy": "Copy"
+  },
+  "cmd": {
+    "done": "Command copied",
+    "label": "Copy command: {c}"
+  },
+  "reply": {
+    "title": "Illustration: roughly what Keyboard Maestro shows"
+  },
+  "tabs": {
+    "label": "Choose"
+  },
+  "shot": {
+    "stamp": "Screenshot {date}; the interface may have changed since."
+  },
+  "annot": {
+    "stamp": "Screenshot {date}; the page may have changed since."
+  },
+  "feedback": {
+    "lead": "Something on this page unclear, or didn't work as written?",
+    "gh": "Bring it up on GitHub",
+    "faq": [
+      ". Or check the ",
+      "FAQ",
+      " first."
+    ]
+  },
+  "contact": {
+    "h": "Questions and discussion",
+    "p": "Stuck on a step, found something unclear, or built a macro worth sharing? Bring it to GitHub. The questions that come up most get worked into the guide. Writing in your own language is fine.",
+    "faq": [
+      "Before asking, check the ",
+      "FAQ",
+      ": many answers are already there."
+    ],
+    "btn": "Ask or discuss on GitHub",
+    "x": "The author is on X",
+    "privacy": "Before sending screenshots or exported macros, remove your license details, passwords, and any personal text stored in variables or clipboards."
+  },
+  "partial": {
+    "more": "More (in English)",
+    "main": "Full guide: 8 steps",
+    "hintMain": "Full guide (English)",
+    "hintFaq": "FAQ (English)",
+    "ctaHowto": "Already using it? The how-tos (English)",
+    "devNote": "The full guide is in English (and Chinese) for now. The three beginner lessons are in your language."
+  }
+}

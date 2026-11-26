@@ -1,0 +1,19 @@
+{
+  "lessons": {
+    "1-first-macro": {
+      "title": "L’installer et ouvrir votre app préférée d’une seule touche",
+      "minutes": "15 minutes",
+      "sum": "Téléchargez-le, accordez les autorisations, laissez le moteur tourner, puis créez votre première macro : un raccourci clavier qui ouvre l’app que vous utilisez tous les jours"
+    },
+    "2-type-less": {
+      "title": "Taper quelques lettres pour obtenir tout un paragraphe",
+      "minutes": "10 minutes",
+      "sum": "L’adresse, la présentation ou la réponse que vous tapez tous les jours passe dans un déclencheur par texte saisi : tapez quelques lettres et tout le texte apparaît"
+    },
+    "3-one-key-routine": {
+      "title": "Une seule touche, toute une routine",
+      "minutes": "15 minutes",
+      "sum": "Transformez les clics que vous faites chaque matin en une seule macro : elle ouvre quelques apps et une page web, puis met les fenêtres en place. Ensuite, vous apprendrez à l’arrêter et où regarder quand ça coince"
+    }
+  }
+}

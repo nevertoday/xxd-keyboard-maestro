@@ -1,0 +1,188 @@
+{
+  "lessons": {
+    "1-first-macro": {
+      "title": "Install it and open your favorite app with one key",
+      "minutes": "15 minutes",
+      "sum": "Download it, grant the permissions, keep the Engine running, then build your first macro: one hot key that opens the app you use every day"
+    },
+    "2-type-less": {
+      "title": "Type a few letters, get a whole paragraph",
+      "minutes": "10 minutes",
+      "sum": "The address, intro or reply you type every day goes into a typed string trigger: type a few letters and the whole text appears"
+    },
+    "3-one-key-routine": {
+      "title": "One key, a whole routine",
+      "minutes": "15 minutes",
+      "sum": "Turn the clicks you make every morning into one macro: open a few apps and a web page, put the windows in place, then learn to stop it and where to look when it misfires"
+    }
+  },
+  "steps": {
+    "0-what": {
+      "title": "What Keyboard Maestro is",
+      "minutes": "5-minute read",
+      "sum": "Automation for the Mac: you write macros in the editor and the Engine runs them in the background. Every macro is a when plus a what"
+    },
+    "1-groups": {
+      "title": "Macro groups: where macros work",
+      "minutes": "10 minutes",
+      "sum": "A macro group is a folder that also decides when its macros are live: only in certain apps, only after you activate it, or shown as a palette"
+    },
+    "2-triggers": {
+      "title": "Triggers: when a macro starts",
+      "minutes": "15 minutes",
+      "sum": "A hot key, a typed string, a time of day, an app launching, a Wi-Fi network, a new file in a folder: pick the moment that feels natural"
+    },
+    "3-actions": {
+      "title": "Actions: what a macro does",
+      "minutes": "15 minutes",
+      "sum": "Typing, keystrokes, menus, apps, windows, clicks and files: meet the dozen actions you'll use most and search for the rest when you need them"
+    },
+    "4-variables": {
+      "title": "Variables, conditions and loops: macros that adapt",
+      "minutes": "20 minutes",
+      "sum": "Remember some text, ask you a question, take a different path depending on what's on screen, wait for something to happen: a macro stops being a fixed string of keystrokes"
+    },
+    "5-clipboard": {
+      "title": "The clipboard: everything you copied is still there",
+      "minutes": "10 minutes",
+      "sum": "Clipboard history lets you paste what you copied earlier, named clipboards keep a few things for good, and filters change text before you paste"
+    },
+    "6-debug": {
+      "title": "When a macro doesn't work",
+      "minutes": "15 minutes",
+      "sum": "Check permissions and the Engine first, then whether the group is active. Still stuck? Step through with the debugger or read the Engine log"
+    },
+    "7-advanced": {
+      "title": "Going further: scripts, subroutines, syncing and sharing",
+      "minutes": "10-minute read",
+      "sum": "Hook in shell scripts, AppleScript and JavaScript, turn repeated steps into subroutines, sync between two Macs, and share macros with others"
+    }
+  },
+  "howtoGroups": {
+    "text": "Typing and text",
+    "apps": "Apps and windows",
+    "files": "Files",
+    "screen": "Screen and mouse",
+    "schedule": "On schedule",
+    "ask": "Asking you first",
+    "keep": "Keeping and sharing"
+  },
+  "howto": {
+    "text-snippets": "Turn the things you type often into abbreviations",
+    "insert-date": "Insert today's date with one key",
+    "paste-plain": "Paste without the formatting",
+    "fill-form": "Fill in the same form with one key",
+    "app-hotkeys": "Jump to an app with one key",
+    "window-layout": "Put your windows where you want them",
+    "menu-shortcut": "Give a menu command a shortcut it doesn't have",
+    "rename-files": "Rename a batch of files",
+    "watch-folder": "File things away as soon as they land in a folder",
+    "click-image": "Find a button on screen and click it",
+    "ocr-text": "Read the text off your screen",
+    "daily-schedule": "Run something at the same time every day",
+    "wifi-usb": "Do something when you join a Wi-Fi network or plug in a device",
+    "ask-input": "Ask a question before doing the work",
+    "palette": "Make a row of buttons that run macros",
+    "sync-macs": "Use the same macros on two Macs",
+    "share-macros": "Export, import and share macros",
+    "stop-macro": "When a macro won't stop"
+  },
+  "glossary": {
+    "宏": {
+      "label": "macro",
+      "tip": "One small job in Keyboard Maestro: triggers decide when it starts and a list of actions says what it does."
+    },
+    "宏组": {
+      "label": "macro group",
+      "tip": "A folder of macros that also decides in which apps, and when, its macros are active."
+    },
+    "触发器": {
+      "label": "trigger",
+      "tip": "What starts a macro: pressing a hot key, typing a string, a time of day, an app launching…"
+    },
+    "动作": {
+      "label": "action",
+      "tip": "One step a macro takes, like typing some text, choosing a menu item or opening a file."
+    },
+    "编辑器": {
+      "label": "editor",
+      "tip": "The Keyboard Maestro window where you write and change macros. You can quit it when you're done and your macros keep working."
+    },
+    "引擎": {
+      "label": "Engine",
+      "tip": "Keyboard Maestro Engine, the half that runs in the background and actually performs your macros. If it isn't running, nothing fires."
+    },
+    "热键": {
+      "label": "hot key",
+      "tip": "A key combination that fires a macro, like ⌃⌥⌘T. Pick one no other app already uses."
+    },
+    "输入字符串触发器": {
+      "label": "typed string trigger",
+      "tip": "Fires when you type a string, like =addr=, where you're typing text, and usually deletes what you typed before the macro runs."
+    },
+    "面板": {
+      "label": "palette",
+      "tip": "A floating panel of buttons on screen, one per macro, that runs the macro when clicked."
+    },
+    "状态菜单": {
+      "label": "status menu",
+      "tip": "Keyboard Maestro's icon in the menu bar. Open it to run macros or cancel the ones that are running."
+    },
+    "变量": {
+      "label": "variable",
+      "tip": "A named piece of text a macro stores so later actions can use it by name."
+    },
+    "令牌": {
+      "label": "token",
+      "tip": "A placeholder in text, like %LongDate%, that's replaced when the macro runs: today's date, the front app, the clipboard."
+    },
+    "计算": {
+      "label": "calculation",
+      "tip": "In almost any box that wants a number you can type a formula, functions included, like half the screen width."
+    },
+    "条件": {
+      "label": "condition",
+      "tip": "Something a macro checks: whether an app is running, whether an image is on screen, whether a variable has a value."
+    },
+    "剪贴板历史": {
+      "label": "clipboard history",
+      "tip": "Keyboard Maestro remembers what you've copied, so you can pick an earlier item and paste it again."
+    },
+    "命名剪贴板": {
+      "label": "named clipboard",
+      "tip": "A separate clipboard with a name, which your next copy won't overwrite."
+    },
+    "找图": {
+      "label": "found image",
+      "tip": "Finding a spot on screen that matches an image you give it, so a macro can click it or wait for it."
+    },
+    "辅助功能权限": {
+      "label": "Accessibility permission",
+      "tip": "A setting in macOS Privacy & Security. Keyboard Maestro needs it to see your hot keys, and to type, choose menus and move windows for you."
+    },
+    "智能组": {
+      "label": "smart group",
+      "tip": "A saved search that lists every macro matching it, such as the ones you changed recently."
+    },
+    "子程序": {
+      "label": "subroutine",
+      "tip": "A macro other macros can call, with parameters. Put steps you repeat in one and call it wherever you need them."
+    },
+    "宏库": {
+      "label": "Macro Library",
+      "tip": "A set of ready-made macros that comes with Keyboard Maestro. Import one and adapt it."
+    },
+    "插件动作": {
+      "label": "plug-in action",
+      "tip": "An action you write yourself or download from someone else, install into Keyboard Maestro, and use like a built-in one."
+    },
+    "调试器": {
+      "label": "debugger",
+      "tip": "A tool that runs a macro one step at a time, so you can see where it goes wrong."
+    },
+    "引擎日志": {
+      "label": "Engine log",
+      "tip": "The Engine's running record. When a macro fails, look here for the errors it reported."
+    }
+  }
+}

@@ -2,7 +2,8 @@
 //   type：画法（compare 两条路对比、term 终端、folder 文件夹、anatomy 一句话拆成几块、stack 分层、
 //         flow 几步流程、night 一夜、ladder 由强到弱、fan 几个模型挑刺、tree 一个带几个）
 //   base：和语言无关的部分（图标、命令、哪一步要你开口……；term 的窗口标题写在 base.app）
-//   zh / en：文字。以后加了别的语言，新手三课的图（LESSON_FIGS）要在 src/i18n/<语言>.js 的 figs 里补文字，结构和这里的 en 一样（check-i18n 会查）。
+//   zh / en：文字。另外 8 种语言在 src/l10n/<语言>/figs.json，结构和这里的 en 一样（模板由 node scripts/l10n.mjs export 生成）；
+//   新手三课用到的图（LESSON_FIGS）还不是全站的语言也要有（l10n.mjs check 会查）。
 // 每种画法要哪些字段，看 Fig.astro 里对应的那一段。
 // 写图里的字：短，一格一件事；不重复正文的整句，也不重复「卖点」（见 docs/MAINTAINING.md）。
 export const FIG_UI = {

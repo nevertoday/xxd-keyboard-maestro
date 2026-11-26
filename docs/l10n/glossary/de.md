@@ -1,6 +1,6 @@
 # German (de) glossary
 
-Follow these terms and conventions across every German page (`src/i18n/de.js`, lessons, and `README.de.md`). Keep all Keyboard Maestro interface labels (actions, triggers, menus, buttons, preferences) verbatim in bold English; add a brief German gloss in parentheses on first appearance per page, then use the bold English label alone.
+Follow these terms and conventions across every German page (`src/l10n/de/*.json`, lessons, guide and how-to pages, and `README.de.md`). Keep all Keyboard Maestro interface labels (actions, triggers, menus, buttons, preferences) verbatim in bold English; add a brief German gloss in parentheses on first appearance per page, then use the bold English label alone.
 
 ## 1. Site terms
 

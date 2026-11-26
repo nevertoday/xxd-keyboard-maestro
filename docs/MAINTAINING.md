@@ -10,14 +10,30 @@
 - 界面用 xxd-ui-kit（`public/xxd/` 里自带一份，不走 CDN）。
 - 中英双语：中文在根路径，英文在 `/en/` 下，slug 相同，顶栏按钮切到对应页。改了一篇中文，**同一次提交里把英文版也改了**：
   - 正文：`src/pages/en/start/`、`src/pages/en/guide/`、`src/pages/en/howto/`（MDX，路径多一层 `../`；站内链接加 `/en`；`<Term k="中文键" />` 照原样，英文名在 `nav.js` 的 `GLOSSARY[k].en`）。
-  - 数据：`nav.js` 各条目的 `en: {}`；`wiki.en.js`、`faq.en.js`（按 slug 叠加，结构和条数要和中文一致）；界面文字在各组件和 `views/` 里的 zh / en 两份。
+  - 数据：`nav.js` 各条目的 `en: {}`；`wiki.en.js`、`faq.en.js`（按 slug 叠加，结构和条数要和中文一致）；`figs.js` 各图的 `en`；界面文字在 `src/data/ui.js` 的 zh / en 两份。
+  - 改完数据或界面文字，跑 `node scripts/l10n.mjs export`，更新给另外 8 种语言翻译用的英文模板（见下一条）。
   - 强调：每页最多一处 `<mark>`（这页最要紧的一句），`<u>` 只给照做会失败的坑；英文页放在对应的那句上。
-- **以后的 8 种语言（日、韩、西、葡、法、德、俄、阿）**：v1 只有中文和英文，机器已经留好，走和 Grok Bot 站一样的路。那些语言只有首页和新手入门三课，其余页面链到英文版。
-  - 语言清单在 `nav.js` 的 `LANGS`；界面文字、首页、三课的标题在 `src/i18n/<语言>.js`，结构照 `src/i18n/base.js`（英文底稿，也是缺键时的兜底），写好后在 `src/i18n/index.js` 的 `EXTRA` 里加上。
-  - 三课正文在 `src/pages/<语言>/start/`，照英文版翻、对照中文版的意思；三课之间的链接指向本语言，其他站内链接指向 `/en/`。
-  - Keyboard Maestro 只有英文界面，所以每种语言的页面里，按钮名都照英文写、加粗，第一次出现时括号里给那种语言的意思，和中文页一样。
-  - 改了中文 / 英文的新手入门或首页，同一次提交里把这些语言也改了；改完跑 `node scripts/check-i18n.mjs`（查键、占位、编译、复制块 id、链接）。
-  - 阿拉伯语从右往左：样式里的左右用逻辑属性，代码、命令和英文按钮名保持从左往右。
+- **另外 8 种语言（日、韩、西、葡、法、德、俄、阿）**：现在只打开了首页和新手入门三课，其余页面链到英文版。全站要的东西都已经能翻：界面文字、导航、Wiki、常见问题、图示、完整教程和 How-to。翻好一种，打开它（`full: true`），它就是全站。
+  - 语言清单在 `nav.js` 的 `LANGS`。`full: true` 是全站语言：导航、搜索、上一步 / 下一步、Wiki 和术语链接都指向 `/<语言>/…`。没有 `full` 的，构建后 `scripts/l10n-dist.mjs` 把 `dist/<语言>/` 里首页和新手入门以外的页面删掉，所以翻好的页面可以先提交，线上不变。
+  - 想先看看一种语言打开后的样子，不用改 `LANGS`：`L10N_FULL=ja npm run build`（几种用逗号隔开）。
+  - 一种语言的全部翻译，都和英文的同一个文件一一对应：
+    - 数据：`src/l10n/<语言>/` 下和 `src/l10n/en/` 同名的 JSON，结构一样。`ui.json` 界面文字（顶栏、侧栏、首页、各页面框架和组件里固定的字），`nav.json` 三课、八步、How-to 的组名和标题、术语的名字和一句话解释，`wiki.json` Wiki 条目（分组名以中文分组名为键，条目按 slug），`faq.json` 常见问题（按组 id），`figs.json` 图里的字。
+    - 页面：`src/pages/<语言>/start/`、`guide/`、`howto/` 下和 `src/pages/en/` 同名的 MDX，frontmatter 的键一样（`layout` 多一层 `../`，和英文版一样）。
+    - Wiki、常见问题、How-to 目录、404 这几页没有文字，外壳已经给 8 种语言都生成好了（`node scripts/l10n.mjs pages`）。
+  - `src/l10n/en/` 是交给翻译的英文模板，不手改：它由 `node scripts/l10n.mjs export` 从中文 / 英文的源数据（`ui.js`、`nav.js`、`wiki.en.js`、`faq.en.js`、`figs.js`）生成。英文改了，export 一下，`git diff src/l10n/en` 就是要重新翻的地方。
+  - 翻译要守的规矩见 `docs/TRANSLATE.md`：`{名字}` 占位原样留着；站内链接 `/en/…` 改成 `/<语言>/…`，外链不动；Keyboard Maestro 的界面名字照英文写、加粗；每个 `<Term>` 都写 `text="…"`；MDX 正文里不能有裸的 `<`、`{`、`}`。
+  - 缺什么都能构建：缺的文件、缺的键显示英文，还没翻的完整教程和 How-to 链到英文版。
+  - `ui.json` 里的 `partial` 是还没打开全站时用的几句（「更多（英文）」「How-to（英文）」这类）；打开以后用的是 `site`、`home` 里对应的那几句（`site.main`、`site.hintMain`、`site.hintFaq`、`home.ctaHowto`），打开之前要翻好。
+  - `node scripts/l10n.mjs status` 看每种语言翻了多少；`node scripts/l10n.mjs check ja` 查一种（不写就查 8 种，`npm run check` 里跑的就是它），出错的地方写成「文件:行」或「文件 键路径」。它查：
+    - 数据：键、数组长度、占位和英文一样；英文有字的地方不能空；链接对得上；命令、令牌、文件名这类行内代码没丢。
+    - 页面：frontmatter、import、标题层级、组件的顺序和 id（`Copy`、`Checkpoint`、`Fig`、`Tabs`，`Callout` 的类型，`Term` 的键）和英文一样；每个 `Term` 写了 `text`；命令原样；能编译；`<mark>` 不比英文多。
+    - 没翻干净：和英文一字不差的句子和段落（中文版也没翻的，比如界面名字，不算）；非中日语言里出现汉字，日语里出现中文源文件里的整串汉字。
+    - 链接里的锚点（`#…`）要先 `npm run build`（这种语言打开或用 `L10N_FULL`），它才能对着页面查。
+    - 英文模板忘了 export，它也会说。
+  - 还没打开的语言，缺的文件、页面、键只计数，不算错（首页和新手入门用到的除外）；`full: true` 以后缺了就算错。打开之前先让 check 全过，再 `npm run build` 看一眼，新手入门里原来指向 `/en/` 的链接也要改成 `/<语言>/…`（check 会列出来）。
+  - Keyboard Maestro 只有英文界面，所以每种语言的页面里，按钮名都照英文写、加粗，第一次出现时括号里给那种语言的意思，和中文页一样。`check-ui-labels` 也查 `src/l10n/<语言>/*.json`。
+  - 改了中文 / 英文的新手入门或首页，同一次提交里把这些语言也改了。
+  - 阿拉伯语从右往左：样式里的左右用逻辑属性，代码、命令和英文按钮名保持从左往右。`node scripts/rtl-isolate.mjs` 改写的是 `src/l10n/ar/*.json`、`src/pages/ar/` 下的三类 MDX 和 `README.ar.md`。
 - README 有中文 `README.md` 和英文 `README.en.md`，配图在 `assets/` 和 `assets/en/`（见下面「README 插画和分享大图」）。改了 `nav.js` 的课名、步骤或 How-to，两份 README 里的清单一起改。以后加语言，照 Grok Bot 站的做法每种语言一份 `README.<语言>.md`，语言栏里加上它，`tools/build_hero.py` 和 `tools/build_readme_svgs.py` 的 `TEXT` 各加一份。
 
 ```bash
@@ -33,7 +49,7 @@ v1 的内容写完了：新手入门三课、完整教程 0–7 步（8 步）�
 
 - 另外 8 种语言（日、韩、西、葡、法、德、俄、阿）2026-11-25 上线：首页、新手三课和各自的 README。Gemini 4 Neon XHigh 照 `docs/TRANSLATE.md` 和 `docs/l10n/glossary/<语言>.md` 从英文翻，Claude 每两种语言一位审读，审读意见再交给 Gemini 改，改完逐条核对过。改了中文 / 英文的三课、首页或 README，这 8 种语言要跟着改（同样的流程）。
 - 阿拉伯语里的快捷键（⌃⌥⌘N）和加粗的英文按钮名会被从右往左的排版排反，`node scripts/rtl-isolate.mjs` 给它们套上看不见的从左往右隔离符（代码和复制块不动）；`npm run check` 里有 `--check`，漏套了会报。
-- `npm run release` 在部署前查 `src/pages`、`src/views`、`src/i18n` 里还有没有 `待写` 或 `TBD:`，有就停下并列出文件；`check-site` 查的是构建出来的页面，看不见 MDX 注释，所以这一道要留着。
+- `npm run release` 在部署前查 `src/pages`、`src/views`、`src/l10n` 里还有没有 `待写` 或 `TBD:`，有就停下并列出文件；`check-site` 查的是构建出来的页面，看不见 MDX 注释，所以这一道要留着。
 
 ## 怎么改
 
@@ -45,6 +61,8 @@ v1 的内容写完了：新手入门三课、完整教程 0–7 步（8 步）�
 - 每个 Wiki 条目在 X 上分享时用自己的大图（条目名 + 一句话），是生成的：加了条目，或者改了条目名、一句话、分组，跑 `npm run og`，把 `public/og/` 和 `tools/og-manifest.json` 一起提交。
 - **教程组件**（在 MDX 里 import）：`Callout`（`ok` / `warn` / `no` / `tip`）、`Term`（术语，`k` 对应 `GLOSSARY`）、`Checkpoint`（可打勾的检查点）、`Q`（「卡住了？」里的一条）、`Tabs`（按 macOS 版本或做法切换同一处内容）、`Copy`（带复制按钮的一段文字或命令）、`Cmd`（正文里一点就复制的命令）、`Reply`（示意 Keyboard Maestro 弹出来的提示、通知或报错）、`Shot`（配图）、`Annot`（带红色箭头和编号的截图，坐标就是图片像素，见组件开头的注释）、`Fig`（图示）。
 - **搜索**（⌘K）自动收录新手入门每一课、主线每一步、每篇 How-to、每个 Wiki 条目和每条常见问题，正文按小节做全文搜索。
+- **界面文字**（顶栏、侧栏、首页、页面框架和组件里固定的字）只改 `src/data/ui.js`：中文、英文各一份，另外 8 种语言照 `en` 的结构翻在 `src/l10n/<语言>/ui.json`。改完 `node scripts/l10n.mjs export`。
+- How-to 新加一组，要给它一个 `id`（只用来对上另外 8 种语言的 `nav.json`）。
 - **UI Kit 升级**：在 xxd-ui-kit 里 `pnpm xxd sync <本目录>`，不要手改 `public/xxd/`。改完界面跑 `pnpm xxd doctor <本目录>`。
 
 ## 资料来源

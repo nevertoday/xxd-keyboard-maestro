@@ -7,7 +7,8 @@
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EXTRA } from "../src/i18n/index.js";
+import { LANGS } from "../src/data/nav.js";
+import { ui } from "../src/data/ui.js";
 import { ROOT, MANIFEST, ogCards } from "./og-cards.mjs";
 
 const DIST = join(dirname(fileURLToPath(import.meta.url)), "../dist");
@@ -21,8 +22,8 @@ const walk = (dir) => readdirSync(dir).flatMap((f) => {
 });
 
 const pages = walk(DIST);
-// 示意回复的标题开头：中文「示意」、英文 Illustration，其他语言取各自 i18n 文件里 comp.reply 冒号前那个词
-const DEMO = ["示意", "Illustration", ...Object.values(EXTRA).map((d) => d.comp?.reply?.split(/[:：]/)[0].trim()).filter(Boolean)];
+// 示意回复的标题开头：每种语言界面文字里 reply.title 冒号前那个词（中文「示意」、英文 Illustration）
+const DEMO = LANGS.map((l) => ui(l.code).reply.title.split(/[:：]/)[0].trim()).filter(Boolean);
 const cache = new Map();
 const read = (f) => cache.get(f) ?? cache.set(f, readFileSync(f, "utf8")).get(f);
 const problems = [];

@@ -1,6 +1,6 @@
 // 核对页面里写的 Keyboard Maestro 界面名字（动作、触发器、条件、菜单、按钮、偏好设置……）。Keyboard Maestro 只有英文界面，名字一律照 App 写、加粗。
 //
-//   node scripts/check-ui-labels.mjs              查 src/pages/**/*.mdx 和 src/data/ 的 wiki、faq（npm run check 里跑）
+//   node scripts/check-ui-labels.mjs              查 src/pages/**/*.mdx、src/data/ 的 wiki、faq 和另外 8 种语言的翻译数据 src/l10n/<语言>/*.json（npm run check 里跑）
 //   node scripts/check-ui-labels.mjs <文件>…      只查这几个文件（路径里有 /en/ 或文件名是 *.en.js 的按英文页查）
 //
 // 只读 tools/km-labels.json（scripts/km-labels.mjs 从 App 和官方 Wiki 整理的名字），不用装 App。
@@ -60,6 +60,11 @@ const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const formats = KM.formats.map((f) => new RegExp(`^${esc(norm(f)).replace(/%(\d+\\\$)?(@|l{0,2}[dui])/g, (m, pos, kind) => (kind === "@" ? "(.{1,40}?)" : "(\\d+)"))}$`));
 const isKnown = (label) => known.has(label) || formats.some((re) => re.test(label));
 
+// src/l10n/en/ 是从 wiki.en.js、faq.en.js 这些源数据生成的英文模板，源数据已经查过，不重复查
+function l10nFiles() {
+  const dir = join(ROOT, "src/l10n");
+  return readdirSync(dir).filter((l) => l !== "en" && statSync(join(dir, l)).isDirectory()).flatMap((l) => readdirSync(join(dir, l)).filter((f) => f.endsWith(".json")).map((f) => join(dir, l, f)));
+}
 const walk = (dir) => readdirSync(dir).flatMap((f) => {
   const p = join(dir, f);
   return statSync(p).isDirectory() ? walk(p) : p.endsWith(".mdx") ? [p] : [];
@@ -67,7 +72,7 @@ const walk = (dir) => readdirSync(dir).flatMap((f) => {
 const args = process.argv.slice(2);
 const files = args.length
   ? args.map((f) => join(process.cwd(), f))
-  : [...walk(join(ROOT, "src/pages")), ...["wiki.js", "wiki.en.js", "faq.js", "faq.en.js"].map((f) => join(ROOT, "src/data", f))];
+  : [...walk(join(ROOT, "src/pages")), ...["wiki.js", "wiki.en.js", "faq.js", "faq.en.js"].map((f) => join(ROOT, "src/data", f)), ...l10nFiles()];
 const isEnglish = (file) => /[\\/]en[\\/]/.test(relative(ROOT, file)) || /\.en\.js$/.test(basename(file));
 
 // 代码和注释换成同样长度的空白（换行留着），行号不变

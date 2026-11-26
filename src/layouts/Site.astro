@@ -1,13 +1,12 @@
 ---
 // 外壳：顶栏（搜索、主题、语言、GitHub）、左侧导航（主线 8 步 + 栏目）、正文、右侧目录。界面全部用 xxd-ui-kit：
 // 顶栏 xxd-topbar、标志 xxd-logo、左侧 xxd-sidebar（How-to 分组是子菜单）、目录 xxd-toc（跟着滚动高亮）。
-// 中文在根路径，英文在 /en/ 下；语言看路径（langOf），界面文字在下面的 UI 里。
-import { LESSONS, lessonHref, STEPS, stepHref, HOWTO, HOWTO_FLAT, howtoHref, wikiHref, link, REPO, DOCS, SITE, LANGS, langInfo, langOf, fullLang, isFull, langHref, t } from "../data/nav.js";
-import { X as dict, fmt } from "../i18n/index.js";
-import { WIKI } from "../data/wiki.js";
-import { WIKI_EN } from "../data/wiki.en.js";
-import { FAQ } from "../data/faq.js";
-import { FAQ_EN } from "../data/faq.en.js";
+// 中文在根路径，其他语言在 /<语言>/ 下；语言看路径（langOf），界面文字在 src/data/ui.js。
+import { LESSONS, lessonHref, STEPS, stepHref, HOWTO, HOWTO_FLAT, howtoHref, wikiHref, link, REPO, DOCS, SITE, LANGS, langInfo, langOf, fullLang, isFull, hasPage, stripLang, langHref, t } from "../data/nav.js";
+import { ui } from "../data/ui.js";
+import { fmt } from "../l10n/load.js";
+import { wikiFor } from "../data/wiki.i18n.js";
+import { faqFor } from "../data/faq.i18n.js";
 import { OG_SIZE, SITE_OG } from "../data/og.js";
 import { plain } from "../lib/md.js";
 import { existsSync, readFileSync } from "node:fs";
@@ -21,41 +20,28 @@ interface Props {
   /** 这一页自己的分享大图（public/ 下的路径，如 /og/wiki/macro.png）；不传就用全站那张 */
   og?: string;
 }
-const UI = {
-  zh: { html: "zh-CN", brand: "Keyboard Maestro 新手教程", desc: "Keyboard Maestro 的非官方学习站：把你在 Mac 上每天重复的打字、点击和开 App 交给宏。从装好它、做出第一个宏，到变量、剪贴板和调试，说人话。", skip: "跳到正文", menu: "打开目录", search: "搜索教程",
-  searchPh: "搜课程、步骤、How-to、名词、问题……", searchEmpty: "没找到，换个词试试", look: "外观", repo: "本教程的 GitHub 仓库", repoMore: "更多：Keyboard Maestro 官方 Wiki 和官网", repoDefault: "默认",
-  repos: [[REPO, "本教程", "nevertoday/xxd-keyboard-maestro", "教程的源码，有问题在这里提"], [DOCS, "Keyboard Maestro 官方 Wiki", "wiki.keyboardmaestro.com", "功能和用法以这里为准"], [SITE, "Keyboard Maestro 官网", "keyboardmaestro.com", "下载和购买"]],
-  navLabel: "网站目录", start: "开始", home: "首页", lessons: "新手入门：三课", main: "完整教程：想用得更深的人看", pending: "编写中", ref: "查资料", howto: "How-to：具体怎么做",
-  wiki: "Wiki：这是什么", faq: "常见问题", toc: "本页", tocLabel: "本页目录", hintMain: "完整教程", hintLesson: "新手入门", hintFaq: "常见问题", switchTo: "English", switchLabel: "Switch to English",
-  foot: `本站是 Keyboard Maestro 的非官方学习站，和 Stairways Software 没有关系。Keyboard Maestro 是 Stairways Software Pty Ltd 的商标。功能和用法以 <a href="${DOCS}">官方 Wiki</a> 为准。教程源码和问题反馈在 <a href="${REPO}">GitHub</a>。` },
-  en: { html: "en", brand: "Keyboard Maestro for beginners", desc: "An unofficial guide to Keyboard Maestro: hand the typing, clicking and app-opening you repeat on your Mac every day to macros. From installing it and building your first macro to variables, the clipboard and debugging, in plain words.", skip: "Skip to content", menu: "Open menu", search: "Search the guide",
-    searchPh: "Search lessons, steps, how-tos, terms, questions…", searchEmpty: "Nothing found. Try another word", look: "Appearance", repo: "This guide on GitHub", repoMore: "More: the official Keyboard Maestro wiki and website", repoDefault: "Default",
-    repos: [[REPO, "This guide", "nevertoday/xxd-keyboard-maestro", "Source for this guide; file issues here"], [DOCS, "Keyboard Maestro Wiki", "wiki.keyboardmaestro.com", "The source of truth for features and how they work"], [SITE, "Keyboard Maestro website", "keyboardmaestro.com", "Download and purchase"]],
-    navLabel: "Site navigation", start: "Start", home: "Home", lessons: "Beginner track: three lessons", main: "Full guide: to go further", pending: "In progress", ref: "Reference", howto: "How-to: how exactly",
-    wiki: "Wiki: what is it", faq: "FAQ", toc: "On this page", tocLabel: "On this page", hintMain: "Full guide", hintLesson: "Beginner track", hintFaq: "FAQ", switchTo: "中文", switchLabel: "切换到中文",
-    foot: `An unofficial guide to Keyboard Maestro, not affiliated with Stairways Software. Keyboard Maestro is a trademark of Stairways Software Pty Ltd. For features and how they work, the <a href="${DOCS}">official wiki</a> is the source of truth. Source and feedback for this guide are on <a href="${REPO}">GitHub</a>.` },
-};
+// 三个链接：地址和路径不翻译，名字和说明在界面文字的 site.repos 里（顺序一样）
+const REPOS = [[REPO, "nevertoday/xxd-keyboard-maestro"], [DOCS, "wiki.keyboardmaestro.com"], [SITE, "keyboardmaestro.com"]];
 const lang = langOf(Astro.url.pathname);
 const info = langInfo(lang);
-// 非全站语言（以后加的）只有首页和新手入门；其余页面和数据都用英文版（fl = "en"）
-const x = dict(lang);
+// 界面文字（src/data/ui.js；另外 8 种语言叠 src/l10n/<语言>/ui.json）
+const S = ui(lang);
+// 还不是全站的语言（只有首页和新手入门）：导航里其余页面放进「更多（英文）」，数据和链接都用英文版（fl = "en"）
+const partial = !isFull(lang);
 const fl = fullLang(lang);
-const en = fl === "en";
-const L = x
-  ? { ...UI.en, ...x.ui, html: info.html,
-      repos: UI.en.repos.map((r, i) => [r[0], x.ui.repos?.[i]?.[0] ?? r[1], r[2], x.ui.repos?.[i]?.[1] ?? r[3]]),
-      foot: fmt(x.ui.foot, { docs: `<a href="${DOCS}">${x.ui.docsLink}</a>`, github: `<a href="${REPO}">GitHub</a>` }) }
-  : UI[lang];
+const L = { ...S.site, html: info.html,
+  repos: REPOS.map(([href, path], i) => [href, S.site.repos[i][0], path, S.site.repos[i][1]]),
+  foot: fmt(S.site.foot, { docs: `<a href="${DOCS}">${S.site.docsLink}</a>`, github: `<a href="${REPO}">GitHub</a>` }) };
 // 语言菜单：每种语言里的同一页；那种语言没有这一页就去它的首页
 const langLinks = LANGS.map((l) => ({ ...l, href: langHref(Astro.url.pathname, l.code) }));
-const rel = (Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ""), "") || "/");
-const alternates = langLinks.filter((l) => l.code !== lang && (isFull(l.code) || /^\/([a-z]{2}\/)?(start\/|$)/.test(rel)));
+const rel = stripLang(Astro.url.pathname);
+const alternates = langLinks.filter((l) => l.code !== lang && hasPage(l.code, rel));
 // 外观面板的文字：中文、英文用 UI Kit 自带的，其他语言传进去
 // 顶栏的三个下拉都从触发按钮的末端垂下来。UI Kit 的定位按物理方向算，从右往左的语言里「末端」是左边
 const menuAt = info.dir === "rtl" ? "bottom-start" : "bottom-end";
-const lookOpts = JSON.stringify(x ? { locale: "en", labels: x.ui.appearance } : { locale: lang === "zh" ? "zh-CN" : "en", labels: { cornersDesc: lang === "zh" ? "关掉就是直角" : "Off keeps every corner square" } });
-const wikiItems = WIKI.map((w) => (en ? { ...w, ...WIKI_EN[w.slug] } : w));
-const faqGroups = en ? FAQ_EN : FAQ;
+const lookOpts = JSON.stringify(lang === "zh" || lang === "en" ? { locale: lang === "zh" ? "zh-CN" : "en", labels: { cornersDesc: S.site.appearance.cornersDesc } } : { locale: "en", labels: S.site.appearance });
+const wikiItems = wikiFor(fl).items;
+const faqGroups = faqFor(fl);
 const { title, description = L.desc, headings = [], og: ogPath } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const cur = (href) => (href.replace(/\/$/, "") || "/") === path;
@@ -64,7 +50,7 @@ const toc = headings.filter((h) => h.depth === 2); // 只列二级标题：标�
 const searchIndex = JSON.stringify([
   ...LESSONS.map((x) => ({ label: `${x.n}. ${t(x, "title", lang)}`, hint: L.hintLesson, keywords: t(x, "sum", lang), href: lessonHref(x, lang) })),
   ...STEPS.map((x) => ({ label: `${x.n}. ${t(x, "title", fl)}`, hint: L.hintMain, keywords: t(x, "sum", fl), href: stepHref(x, fl) })),
-  ...HOWTO_FLAT.map((x) => ({ label: t(x, "title", fl), hint: `How-to · ${en ? x.groupEn : x.group}`, keywords: en ? x.groupEn : x.group, href: howtoHref(x.slug, fl) })),
+  ...HOWTO_FLAT.map((x) => ({ label: t(x, "title", fl), hint: `How-to · ${t(x.grp, "group", fl)}`, keywords: t(x.grp, "group", fl), href: howtoHref(x.slug, fl) })),
   ...wikiItems.map((x) => ({ label: x.title, hint: "Wiki", keywords: plain(x.one), href: wikiHref(x.slug, fl) })),
   ...faqGroups.flatMap((g) => g.items.map(([q, a], i) => ({ label: q, hint: `${L.hintFaq} · ${g.title}`, keywords: plain(a), href: link(`/faq/#${g.id}-${i + 1}`, fl) }))),
 ]);
@@ -121,7 +107,7 @@ const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="curre
         </button>
         <div class="xxd-popover xxd-appearance-pop" id="site-look-pop" popover data-placement={menuAt} data-opts={lookOpts}></div>
         <!-- 语言：菜单里列出全部语言，当前的那个打勾；中文、英文是全站，其他语言有首页和新手入门 -->
-        <button class="xxd-btn site-lang" data-size="sm" data-variant="ghost" type="button" data-xxd-menu="site-lang-menu" aria-label={L.lang ?? (lang === "zh" ? "语言" : "Language")} data-tooltip={L.lang ?? (lang === "zh" ? "语言" : "Language")} data-tooltip-placement="bottom"><i data-xxd-icon="Languages" data-size="16"></i><span class="site-lang__name">{info.name}</span></button>
+        <button class="xxd-btn site-lang" data-size="sm" data-variant="ghost" type="button" data-xxd-menu="site-lang-menu" aria-label={L.lang} data-tooltip={L.lang} data-tooltip-placement="bottom"><i data-xxd-icon="Languages" data-size="16"></i><span class="site-lang__name">{info.name}</span></button>
         <div class="xxd-menu site-lang-menu" id="site-lang-menu" role="menu" popover data-placement={menuAt}>
           {langLinks.map((l) => <a class="xxd-menu__item" role="menuitemradio" aria-checked={l.code === lang ? "true" : "false"} href={l.href} hreflang={l.html} lang={l.html}>{l.name}</a>)}
         </div>
@@ -158,7 +144,7 @@ const GITHUB_MARK = '<svg width="16" height="16" viewBox="0 0 16 16" fill="curre
               </a>
             ))}
           </section>
-          {x ? (
+          {partial ? (
             <section class="xxd-sidebar__group">
               <h2 class="xxd-sidebar__label">{L.more}</h2>
               <a class="xxd-sidebar__item" href={stepHref(STEPS[0], "en")} hreflang="en"><span>{L.main}</span></a>

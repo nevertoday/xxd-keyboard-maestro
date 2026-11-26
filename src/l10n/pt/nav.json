@@ -1,0 +1,19 @@
+{
+  "lessons": {
+    "1-first-macro": {
+      "title": "Instale e abra seu app favorito com uma tecla",
+      "minutes": "15 minutos",
+      "sum": "Baixe, libere as permissões, mantenha o Engine rodando e crie sua primeira macro: uma tecla de atalho que abre o app que você usa todo dia"
+    },
+    "2-type-less": {
+      "title": "Digite poucas letras e receba um parágrafo inteiro",
+      "minutes": "10 minutos",
+      "sum": "O endereço, a apresentação ou a resposta que você digita todo dia vai para um gatilho de texto digitado: você digita poucas letras e o texto inteiro aparece"
+    },
+    "3-one-key-routine": {
+      "title": "Uma tecla, uma rotina inteira",
+      "minutes": "15 minutos",
+      "sum": "Transforme os cliques que você faz toda manhã em uma única macro: abra alguns apps e uma página na web, coloque as janelas no lugar e aprenda a interromper a execução e onde olhar quando algo não der certo"
+    }
+  }
+}

@@ -6,13 +6,13 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 4446",
-    "build": "astro build && node scripts/search-sections.mjs && node scripts/base-links.mjs",
+    "build": "astro build && node scripts/l10n-dist.mjs && node scripts/search-sections.mjs && node scripts/base-links.mjs",
     "preview": "astro preview --port 4446",
     "og": "python3 tools/build_og.py",
     "labels": "node scripts/km-labels.mjs",
     "sync-xxd": "node scripts/sync-xxd.mjs",
-    "release": "npm run build && npm run check && ! grep -rlE '待写|TBD:' src/pages src/views src/i18n && wrangler deploy",
-    "check": "node scripts/check-i18n.mjs && node scripts/rtl-isolate.mjs --check && node scripts/check-site.mjs && node scripts/check-ui-labels.mjs && node scripts/check-examples.mjs"
+    "release": "npm run build && npm run check && ! grep -rlE '待写|TBD:' src/pages src/views src/l10n && wrangler deploy",
+    "check": "node scripts/l10n.mjs check && node scripts/rtl-isolate.mjs --check && node scripts/check-site.mjs && node scripts/check-ui-labels.mjs && node scripts/check-examples.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "7.0.3",

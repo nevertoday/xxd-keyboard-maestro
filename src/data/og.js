@@ -9,7 +9,8 @@ import { plain } from "../lib/md.js";
 /** 截图尺寸：1280×640 的海报，2 倍清晰度 */
 export const OG_SIZE = { width: 1280, height: 640, scale: 2 };
 export const SITE_OG = { zh: "/og.png", en: "/og-en.png" };
-export const wikiOg = (slug, lang) => `/og${lang === "en" ? "/en" : ""}/wiki/${slug}.png`;
+// 另外 8 种语言的 Wiki 条目用英文那张
+export const wikiOg = (slug, lang) => `/og${lang === "zh" ? "" : "/en"}/wiki/${slug}.png`;
 
 const wikiCard = (slug, lang, { title, one }, group) => ({ path: wikiOg(slug, lang), copies: [], query: { kind: "wiki", lang, title, one: plain(one), group } });
 export const OG_CARDS = [

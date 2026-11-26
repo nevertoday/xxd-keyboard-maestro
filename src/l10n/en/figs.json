@@ -1,0 +1,159 @@
+{
+  "ui": {
+    "label": "Diagram",
+    "replay": "Replay"
+  },
+  "0-what-chain": {
+    "steps": [
+      {
+        "t": "Editor",
+        "d": "write the macro, then quit"
+      },
+      {
+        "t": "Engine",
+        "d": "always running in the background"
+      },
+      {
+        "t": "Macro group",
+        "d": "is it active right now?"
+      },
+      {
+        "t": "Trigger",
+        "d": "the moment arrives"
+      },
+      {
+        "t": "Actions",
+        "d": "run top to bottom"
+      }
+    ],
+    "cap": "From written to running: the Engine is on, the group is active, the trigger fires, the actions run in order"
+  },
+  "1-groups-toggle": {
+    "a": {
+      "who": "Arrow keys as plain hot keys",
+      "steps": [
+        "Arrows move the window",
+        "You want to move the cursor",
+        "Press one, the window jumps"
+      ],
+      "end": "Arrows are useless the rest of the time"
+    },
+    "b": {
+      "who": "In a group you switch on",
+      "steps": [
+        "Press ⌃⌥⌘W to activate the group",
+        "Arrows move the window",
+        "Press ⌃⌥⌘W again to switch off"
+      ],
+      "end": "Arrows go back to normal"
+    },
+    "cap": "The same four arrow keys belong to your macros only while the group is on"
+  },
+  "3-actions-log": {
+    "steps": [
+      {
+        "t": "Activate a Specific Application",
+        "d": "switch to TextEdit"
+      },
+      {
+        "t": "Select or Show a Menu Item",
+        "d": "choose the New menu item"
+      },
+      {
+        "t": "Insert Text by Typing",
+        "d": "type today's date"
+      },
+      {
+        "t": "Notification",
+        "d": "say it's done"
+      }
+    ],
+    "cap": "A macro is a list of actions, done one after another from the top"
+  },
+  "4-variables-scope": {
+    "layers": [
+      {
+        "t": "Global",
+        "d": "No special prefix. Every macro can read and change it, and it stays on your Mac through restarts"
+      },
+      {
+        "t": "Instance",
+        "d": "Starts with Instance. This one run, plus the sub-macros it calls"
+      },
+      {
+        "t": "Local",
+        "d": "Starts with Local. Only this macro, in this one run"
+      }
+    ],
+    "cap": "Going down, fewer macros can see it and it lives for less time. If you only need it for this run, use Local."
+  },
+  "6-debug-order": {
+    "steps": [
+      {
+        "t": "Permissions",
+        "d": "Everything on in the Security preferences"
+      },
+      {
+        "t": "Engine",
+        "d": "Its icon is in the menu bar"
+      },
+      {
+        "t": "Group and macro",
+        "d": "Both enabled, group active right now"
+      },
+      {
+        "t": "Trigger",
+        "d": "No other macro uses the same hot key"
+      },
+      {
+        "t": "Actions",
+        "d": "Step through in the debugger, read Engine.log"
+      }
+    ],
+    "cap": "Trouble in the first two breaks every macro at once. The further along, the more it's about this one macro alone."
+  },
+  "watch-folder-flow": {
+    "steps": [
+      {
+        "t": "A file arrives",
+        "d": "Folder trigger: adds an item"
+      },
+      {
+        "t": "Wait for the download",
+        "d": "ignore partial or changing files"
+      },
+      {
+        "t": "Is it a PDF?",
+        "d": "%TriggerValue% ends with .pdf"
+      },
+      {
+        "t": "Move it",
+        "d": "File Actions: Move"
+      }
+    ],
+    "cap": "These four steps run once for every file that arrives. Anything that isn't a PDF stops at step three."
+  },
+  "stop-macro-ladder": {
+    "cap": "Ways to stop a macro: try the top one first, move down if it doesn't work, and save the bottom one for when nothing else does.",
+    "high": "Try first",
+    "low": "Last resort",
+    "rungs": [
+      {
+        "t": "Hold ⌃⌥⇧, click the icon",
+        "d": "Stop every running macro"
+      },
+      {
+        "t": "Status Menu ▸ Cancel",
+        "d": "Stop one running macro"
+      },
+      {
+        "t": "Quit Keyboard Maestro Engine",
+        "d": "The Engine quits, nothing runs"
+      },
+      {
+        "t": "Hold ⌃⌥⇧⌘, open the editor",
+        "d": "No Engine, so you can fix the macro"
+      }
+    ]
+  }
+}

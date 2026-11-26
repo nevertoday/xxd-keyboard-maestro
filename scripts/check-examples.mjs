@@ -1,15 +1,17 @@
 // 查例子（docs/EXAMPLES.md）：
 //   1. 不该出现的例子词：Mac 自带 App 和官方 Wiki 提到的以外的品牌（聊天、支付、购物、办公软件），
 //      只有某个国家才有的东西（证件、节日、考试、邮编、币种）。网站正文、数据、界面文字和 README 都查，网址不查。
-//   2. 套话：同一句话出现在 3 个以上页面里（中文页和它的 /en/ 双胞胎算一页），就是照模板复制的，读者翻几页就看出来了。
+//   2. 套话：同一句话出现在 3 个以上页面里（中文页和它在各种语言里的同名页算一页），就是照模板复制的，读者翻几页就看出来了。
 //      要读者照抄的 Copy 里更严：同一句出现在 2 个页面就算。
 //
 //   node scripts/check-examples.mjs
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LANGS } from "../src/data/nav.js";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const LANG_PREFIX = new RegExp(`^(${LANGS.filter((l) => l.code !== "zh").map((l) => l.code).join("|")})/`);
 
 // [说明, 正则]。官方 Wiki 自己提到的（Chrome、Firefox、BBEdit、Dropbox、Photoshop、Microsoft Word、Excel……）不在这里。
 const BANNED = [
@@ -25,11 +27,11 @@ const BANNED = [
 
 const walk = (dir) => readdirSync(dir).flatMap((f) => {
   const p = join(dir, f);
-  return statSync(p).isDirectory() ? walk(p) : /\.(mdx|astro|js|md)$/.test(f) ? [p] : [];
+  return statSync(p).isDirectory() ? walk(p) : /\.(mdx|astro|js|md|json)$/.test(f) ? [p] : [];
 });
 // 读者看得到的文字在这几处；src/components、src/lib 是代码（正则里的 $1 之类），不查
 const files = [
-  ...["pages", "data", "views", "i18n"].flatMap((d) => walk(join(ROOT, "src", d))),
+  ...["pages", "data", "views", "l10n"].flatMap((d) => walk(join(ROOT, "src", d))),
   ...readdirSync(ROOT).filter((f) => /^README(\.[a-z]{2})?\.md$/.test(f)).map((f) => join(ROOT, f)),
 ];
 
@@ -44,8 +46,8 @@ for (const file of files) {
   });
 }
 
-// 套话。一页 = 中文页和它的英文双胞胎（路径去掉 /en/）
-const pageOf = (file) => relative(join(ROOT, "src/pages"), file).replace(/^en\//, "");
+// 套话。一页 = 中文页和它在各种语言里的同名页（路径去掉 /en/、/ja/……）：没翻的命令、按钮名在几种语言里一样，不算套话
+const pageOf = (file) => relative(join(ROOT, "src/pages"), file).replace(LANG_PREFIX, "");
 const CJK = /[　-鿿]/;
 const split = (text) => text
   .split(/(?<=[。！？])|(?<=[.!?])\s+/)

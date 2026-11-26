@@ -1,6 +1,6 @@
 # Translation brief: 8 more languages
 
-The site is Chinese (root) and English (`/en/`) in full. Eight more languages (Japanese, Korean, Spanish, Brazilian Portuguese, French, German, Russian, Arabic) get the home page, the three beginner lessons and their own README, the same way the sister sites grokbot.xiaoxiaodong.ai and saily.xiaoxiaodong.ai did. Deeper pages (full guide, how-to, wiki, FAQ) link to the English version.
+The site is Chinese (root) and English (`/en/`) in full. Eight more languages (Japanese, Korean, Spanish, Brazilian Portuguese, French, German, Russian, Arabic) are live with the home page, the three beginner lessons and their own README; deeper pages (full guide, how-to, wiki, FAQ) link to the English version until a language is switched on. Every page and every piece of site text can now be translated: the data files under `src/l10n/<lang>/` and the guide and how-to pages under `src/pages/<lang>/` (see "What to translate" below). A language goes live as a full site once all of it is in and checked.
 
 Translation is done by Gemini (`agy -p … --model gemini-4-neon-xhigh`), one file per call, from the English originals. Claude reviews each language and Gemini applies the findings. This file is the brief Gemini receives with every file; `docs/l10n/glossary/<lang>.md` is the per-language term list it receives with it.
 
@@ -18,13 +18,27 @@ Mac users who have never automated anything, reading in their own language. The 
 - Keys and symbols (⌃ ⌥ ⇧ ⌘, ⌃⌥⌘N), typed strings (`=reply=`, `=addr=`), tokens (`%LongDate%`), code, inline code, file names, URLs of other sites, product names (Keyboard Maestro, Keyboard Maestro Engine, macOS, Finder, Safari, Notes, Calendar…).
   - Apple app names: use the name the Mac shows in your language when it differs (ja メモ for Notes, カレンダー for Calendar; de Notizen, Kalender), since that's what the reader sees.
 - MDX/JSX structure: every component tag, attribute name and the values of `id`, `k` (Term keys are Chinese words: keep them exactly), `type`, `layout`, `lesson`, `step`, `slug`, `c`, `cmds`. `import` lines untouched. Frontmatter keys stay; translate only the values of `title`, `tldr`, `description`, `minutes`.
-- In `src/i18n/<lang>.js`: every key, array length, `{placeholder}` and `[text](key)` link key stays exactly; translate only the string values.
+- In `src/l10n/<lang>/*.json`: every key, array length and `{placeholder}` stays exactly; translate only the string values. Keys that are Chinese words (wiki `groups`, nav `glossary`) are keys: keep them.
 
 ## Do translate
 - All prose, headings, list items, table cells, `title="…"`, `q="…"`, Checkpoint `items`, `text="…"` on Term, Callout titles, Reply bodies (titled in your language's word for "Illustration"), figure captions.
 - Text the reader copies into their own macro (the body of a snippet, a reply): translate it so a reader of your language would naturally write it, keeping tokens and typed strings as they are.
 - Every `<Term k="…" />` gets a `text="…"` attribute with your language's term from the term list (the English pages don't need it, yours do: without it the page shows the English term mid-sentence). `npm run check` fails on a missing one.
-- Internal links: lessons and home link to `/<lang>/…`; every other site page links to `/en/…`. External links stay identical.
+- Internal links: `/en/…` becomes `/<lang>/…` in every data file and in every guide and how-to page. In the three lessons, links to other lessons and home use `/<lang>/…`; links from a lesson to any other page stay `/en/…` until the language is switched on (the check lists them then). External links stay identical.
+
+## What to translate
+Every file has an English template of the same name. Translate the template into the same path under your language, keeping its shape. Templates are generated (`node scripts/l10n.mjs export`); never edit `src/l10n/en/`.
+
+| Your file | English template | What it holds |
+| --- | --- | --- |
+| `src/l10n/<lang>/ui.json` | `src/l10n/en/ui.json` | All fixed site text. `site`: top bar, sidebar, footer (`{docs}` and `{github}` become links), search box, appearance panel. `home`: the home page (`lead` is [before, highlighted part, after]; `TRACKS` is three [title, text] pairs; `stepLink` has `{n}` and `{title}`). `lesson`, `guide`, `howto`: page frames (`{n}`, `{total}`, `{last}`, `{group}`). `howtoIndex`, `faq`, `notFound`, `wikiIndex`, `wikiEntry`: those pages (arrays are text around a link or a ⌘K key, in order). `callout`, `checkpoint`, `copy`, `cmd`, `reply`, `tabs`, `shot`, `annot`, `feedback`, `contact`: components (`reply.title` starts with your word for "Illustration" and a colon). `partial`: the few lines shown while your language has only the home page and lessons, all saying the page is in English. |
+| `src/l10n/<lang>/nav.json` | `src/l10n/en/nav.json` | `lessons` and `steps` by slug (`title`, `minutes`, `sum`); `howtoGroups` by group id; `howto` titles by slug; `glossary` by Chinese term key (`label`: your term, matching the term list; `tip`: the one-line hover explanation). |
+| `src/l10n/<lang>/wiki.json` | `src/l10n/en/wiki.json` | `groups`: group names keyed by the Chinese name. `entries` by slug: `title`, `one`, `like`, `here` (array of paragraphs), `myths`, and for some entries `list` ([name, explanation] rows), `listTitle`, `listHead`. Inline markup as in English: `**bold**`, `==one highlight==`, `++underline++`, `` `code` ``, `[text](https://…)`, `[text](/<lang>/…)`. |
+| `src/l10n/<lang>/faq.json` | `src/l10n/en/faq.json` | By group id: `title` and `items`, each a [question, answer] pair. Same inline markup. Anchors are `group id-number`, so keep the order. |
+| `src/l10n/<lang>/figs.json` | `src/l10n/en/figs.json` | `ui` (diagram label, replay button), then the text of each diagram by id. Short labels; keep keys, symbols and arrays. |
+| `src/pages/<lang>/guide/*.mdx`, `src/pages/<lang>/howto/*.mdx` | `src/pages/en/guide/`, `src/pages/en/howto/` | The 8 full-guide steps and 18 how-tos. Same file names, same frontmatter keys (translate `tldr`, `description`, `need`, `time`, `for`; keep `layout`, `step`, `slug`). |
+
+Your home page, wiki, FAQ, how-to index and 404 page already exist as empty shells that read these files.
 
 ## MDX safety
 - No bare `<`, `{` or `}` in prose; placeholders go inside inline code as in the English.
@@ -38,4 +52,4 @@ Translate `README.en.md` in the same voice. Use the English images (`assets/en/h
 Return only the translated file, complete, from the first line to the last. No preamble, no commentary, no code fence around the whole file.
 
 ## Checks (maintainer)
-`npm run build`, `node scripts/check-i18n.mjs <lang>` (keys, placeholders, compile, copy ids, links, `<mark>`), `npm run check`. Arabic is right-to-left: the layout handles direction; keep code, keys and English labels as they are.
+`node scripts/l10n.mjs check <lang>` (keys, array lengths, placeholders, links, inline code, untranslated English or Chinese; for pages: frontmatter, imports, headings, component order and ids, Term `text`, compile, `<mark>`), `node scripts/l10n.mjs status`, `L10N_FULL=<lang> npm run build` to preview the language as a full site, then `npm run check`. Arabic is right-to-left: the layout handles direction; keep code, keys and English labels as they are, and run `node scripts/rtl-isolate.mjs` after Arabic changes.
