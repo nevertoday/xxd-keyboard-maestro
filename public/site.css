@@ -589,3 +589,6 @@
   [dir="rtl"] .xxd-toc a { border-left: 0; border-right: 1px solid var(--line); padding: var(--space-1) var(--space-3) var(--space-1) 0; }
   [dir="rtl"] .xxd-toc a[aria-current=true] { border-right-color: var(--action); box-shadow: inset -1px 0 0 var(--action); }
 }
+
+/* Diagram step titles sit in narrow boxes: in the 8 other languages a long word (de Berechtigungen) hyphenates instead of breaking mid-word. Only titles, so file names in the text below (Engine.log) never get a hyphen. zh and en unchanged. */
+html:not([lang="en"]):not([lang="zh-CN"]) .fig-flow__box > b { -webkit-hyphens: auto; hyphens: auto; }
