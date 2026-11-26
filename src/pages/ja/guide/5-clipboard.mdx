@@ -41,7 +41,7 @@ import Q from "../../../components/Q.astro";
 クリップボード履歴は何でも記録するため、あらかじめ知っておきたい点がいくつかあります（[公式 Wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Other_Operations)）。
 
 - <strong>パスワードらしい内容</strong>は一覧上で伏せられ、10番目まで押し下げられると自動で削除されます。ディスクにも一切保存されません。中身を確認したいときは、⌥ Option を押しながらクリックします。この動作は、設定の **General**（一般）にある **Detect (and Conceal) Possible Passwords**（パスワードらしい内容を検出して隠す）で管理されています。
-- <strong>再起動後も残るかどうか</strong>は、**General** の **Save Clipboard History Between Launches**（再起動後もクリップボード履歴を保持）の設定次第です。これがオフだと、エンジンが終了するたびに履歴が空になります。Mac を再起動したときもエンジンは終了します（[公式 Wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)）。
+- <strong>再起動後も残るかどうか</strong>は、**General** の **Save Clipboard History Between Launches**（終了後もクリップボード履歴を保存）の設定次第です。これがオフだと、エンジンが終了するたびに履歴が空になります。Mac を再起動したときもエンジンは終了します（[公式 Wiki](https://wiki.keyboardmaestro.com/Clipboards#Options)）。
 - <strong>記録してほしくないアプリ</strong>（たとえば他の人の個人情報を管理しているアプリなど）は、設定の **Excluded**（除外）にあるクリップボード履歴の除外リストに追加できます。除外したアプリが手前に表示されている間、Keyboard Maestro はクリップボードを自動記録しません（[公式 Wiki](https://wiki.keyboardmaestro.com/manual/Preferences#Excluded_Preferences)）。
 
 設定画面は、メニューバーの **Keyboard Maestro ▸ Settings**（設定。旧バージョンの macOS では Preferences）から開きます。
@@ -71,7 +71,7 @@ Web ページから段落をコピーしてメールに貼り付けると、ペ�
 
 一番手軽なのは、クリップボード履歴の中で処理する方法です。項目を選んで歯車ボタンをクリックするか右クリックすると、プレーンテキストへの変換など、よく使う加工メニューが並んでいます。選ぶと加工済みの新しい項目が作られるので、あとはそれを貼り付けるだけです（[公式 Wiki](https://wiki.keyboardmaestro.com/manual/Clipboard_History_Switcher#Gear_Context_Menu)）。
 
-マクロの中で自動処理したいときは、**Filter**（フィルター）アクションを使います。まず対象（システムクリップボード、名前付きクリップボード、変数、任意のテキスト、ファイル）を選び、次に **with**（処理内容）メニューからフィルターの種類を選びます。最後に、結果を元の場所に戻すか、別のクリップボード・変数・ファイルへ出力するかを指定します（[公式 Wiki](https://wiki.keyboardmaestro.com/action/Filter)）。よく使うフィルターには次のようなものがあります。
+マクロの中で自動処理したいときは、**Filter**（フィルタ）アクションを使います。まず対象（システムクリップボード、名前付きクリップボード、変数、任意のテキスト、ファイル）を選び、次に **with**（処理内容）メニューからフィルターの種類を選びます。最後に、結果を元の場所に戻すか、別のクリップボード・変数・ファイルへ出力するかを指定します（[公式 Wiki](https://wiki.keyboardmaestro.com/action/Filter)）。よく使うフィルターには次のようなものがあります。
 
 - **Remove Styles**：書式を取り除き、プレーンテキストにします（クリップボード専用）。
 - **Trim Whitespace**：先頭と末尾の空白を取り除きます。

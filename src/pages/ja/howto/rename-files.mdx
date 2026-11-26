@@ -29,7 +29,7 @@ import Copy from "../../../components/Copy.astro";
 
 「ファイル名の先頭に文字を付ける」という名前で新しいマクロを作ります。Finder だけで動くようにしたい場合は、**Available in these applications:**（指定したアプリでのみ利用可能）を Finder に設定したマクログループに入れておきます。トリガーには **Hot Key**（ホットキー）を選び、⌃⌥⌘R に設定します。続けて、次のアクションを追加していきます。
 
-**手順1：先頭に付ける文字を聞く**。**Prompt for User Input**（ユーザーに入力を求める）を追加し、タイトルに「ファイル名の先頭に文字を付ける」と入れます。ここに `Prefix` という名前の変数を1つ追加し、よく使う文字（「父 11月受診」など）を初期値として入れておきます。マクロがここまで進むと小さなウィンドウが開くので、必要に応じて文字を書き換えて **OK** をクリックします。**Cancel**（キャンセル）をクリックすれば、ファイルには1つも触れずにマクロ全体が止まります（[Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input) を参照）。
+**手順1：先頭に付ける文字を聞く**。**Prompt for User Input**（ユーザー入力を求める）を追加し、タイトルに「ファイル名の先頭に文字を付ける」と入れます。ここに `Prefix` という名前の変数を1つ追加し、よく使う文字（「父 11月受診」など）を初期値として入れておきます。マクロがここまで進むと小さなウィンドウが開くので、必要に応じて文字を書き換えて **OK** をクリックします。**Cancel**（キャンセル）をクリックすれば、ファイルには1つも触れずにマクロ全体が止まります（[Prompt for User Input](https://wiki.keyboardmaestro.com/action/Prompt_for_User_Input) を参照）。
 
 **手順2：1つずつ処理する**。**For Each** を追加して、変数に `FilePath` と入力し、コレクションの横にある「+」をクリックして **The Finder’s selection** を選びます。次の2つのアクションは、どちらもこの For Each の中に入れます。
 
